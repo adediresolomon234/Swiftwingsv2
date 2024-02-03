@@ -1,9 +1,10 @@
 import Image from "next/image";
+import NavBar from "./components/NavBar";
 
 export default function Home() {
   return (
-    <main>
-      Swift wings jet V@
+    <main className="px-5">
+      <NavBar />
     </main>
   );
 }
