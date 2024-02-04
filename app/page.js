@@ -12,6 +12,11 @@ import { MdOutlineCalendarToday } from "react-icons/md";
 import { BiUser } from "react-icons/bi";
 import Button from "./components/Button";
 import { HiArrowRight } from "react-icons/hi";
+import Services from "./components/Services";
+import servicesPlane from "../public/images/servicesLuxuryPlane.png";
+import servicesMembership from "../public/images/servicesMembership.png";
+import servicesCustomer from "../public/images/sevicesCustomer.png";
+import AboutUsCard from "./components/AboutUsCard";
 
 const space_grotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -20,7 +25,7 @@ const space_grotesk = Space_Grotesk({
 export default function Home() {
   const [bookingEngine, setBookingEngine] = useState("oneWayTrip");
   return (
-    <main className="px-5 relative">
+    <main className="px-5 relative bg-swLightBgGray">
       <NavBar />
       <section className="bg-swWine w-full p-10 pt-48 text-white relative pb-10 rounded-bl-[2.5rem] rounded-br-[2.5rem]">
         <div className="max-w-7xl mx-auto mb-40">
@@ -39,7 +44,7 @@ export default function Home() {
         {/* <div className="absolute max-w-5xl right-0 top-5 w-full h-auto p-2 -z- ">
         <Image src={privateJetImg} alt="private jet" />
         </div> */}
-        <div className="flex gap-10 mb-5 justify-end mb-20 max-w-7xl mx-auto pr-10 text-center">
+        <div className="flex gap-10 mb-5 justify-end mb-[7.5rem] max-w-7xl mx-auto pr-10 text-center">
           <div>
             <p className="font-semibold text-2xl">10k</p>
             <p className="text-xs">Flights</p>
@@ -56,7 +61,7 @@ export default function Home() {
 
         <section className="p-5 absolute max-w-7xl w-full bg-swWine bottom-0 right-1/2 transform translate-x-1/2 translate-y-1/2 rounded-[1.9rem]">
           <div className="w-full w-full bg-swWine">
-            <div className="p-5 bg-white rounded-3xl">
+            <div className="p-5 bg-swLightBgGray rounded-3xl">
               <div className="flex justify-between items-center mb-5">
                 <p className="font-semibold text-swDarkGray ml-2">Book a jet</p>
                 <div className="p-2 rounded-full shadow-md flex gap-5">
@@ -112,7 +117,7 @@ export default function Home() {
                         </p>
                       </div>
                     </div>
-                    <div className="p-1 rounded-full border text-black -ml-4 bg-white">
+                    <div className="p-1 rounded-full border text-black -ml-4 bg-swLightBgGray">
                       <GoArrowRight size={15} className={"-mb-2 ml-1"} />
                       <GoArrowLeft size={15} className="-mt-2 mr-1" />
                     </div>
@@ -161,19 +166,88 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              <div className={`${space_grotesk.className} flex justify-center text-lg`}>
+              <div
+                className={`${space_grotesk.className} flex justify-center text-lg`}
+              >
                 <Button
                   label="Book Jet"
                   bgColor={"bg-swWine"}
                   textColor={"text-white"}
-                  endIcon={<HiArrowRight size={20} />                }
+                  endIcon={<HiArrowRight size={20} />}
                 />
               </div>
             </div>
           </div>
         </section>
       </section>
-      <section className="py-20"></section>
+      <section className="mt-60 py-16 px-5 text-swDarkGray">
+        <div className="max-w-4xl w-full mx-auto text-center">
+          <Services
+            name={"Luxury travels"}
+            text="SwiftWings operates the largest and most diverse private aircraft fleet globally, providing an extensive array of personalized private aviation solutions that surpass the expectations of the world’s most discerning travelers. Our industry-leading scale and innovative aviation business model ensure dependable financial sustainability for our clients, setting us apart in the industry."
+            image={servicesPlane}
+          />
+        </div>
+        <div className="max-w-4xl w-full mx-auto text-center mt-40">
+          <Services
+            name={"Membership plan"}
+            text="SwiftWings offers flexible and investment-free solutions tailored to meet your unique flying needs. SwiftWings grants its clients access to a distinguished fleet, including over 80 SwiftWings aircraft globally, with a strong presence in the United States. As a SwiftWings customer, you'll experience unparalleled 24/7 concierge service delivered by a dedicated team of aviation experts."
+            image={servicesMembership}
+          />
+        </div>
+        <div className="max-w-4xl w-full mx-auto text-center mt-40">
+          <Services
+            name={"Dedicated customer service"}
+            text="At SwiftWings, our dedicated customer service is more than a commitment; it's a promise of excellence. Our aviation experts, based in New York and Florida, are available 24/7 to provide unparalleled support, ensuring your journey is seamless and stress-free. From personalized itinerary planning to addressing your unique needs, SwiftWings' customer service is devoted to delivering an unmatched level of care, enhancing every aspect of your private jet experience. Your satisfaction and peace of mind are at the heart of our service philosophy."
+            image={servicesCustomer}
+          />
+        </div>
+      </section>
+
+      <section className=" max-w-6xl mx-auto py-10">
+        <p className="text-swWine font-medium text-lg">About us</p>
+        <div className="flex justify-between mt-10">
+          <p className="font-semibold text-swWine text-5xl max-w-sm">
+            Get to know more about Swiftwings
+          </p>
+          <p className="text-swLightGray text-lg font-light max-w-[26rem] w-full">
+            Swift Wings is a premier provider of private jets charter flights
+            connecting global airports, offering unmatched convenience and
+            exclusivity for luxury travel.
+          </p>
+        </div>
+
+        <div className="flex flex-col items-center gap-5 mt-14">
+          <div className="flex gap-5 justify-center">
+            <AboutUsCard
+              number={"75"}
+              text={"Swiftwings users from all over the globe."}
+            />
+            <AboutUsCard
+              number={"1.5k"}
+              text={"Swiftwings access to a network of airplanes"}
+              numberColor={"text-black"}
+            />
+            <AboutUsCard
+              number={"50"}
+              text={"Swiftwings destinations in the past 3 years"}
+            />
+          </div>
+
+          <div className="bg-swButter text-swWine p-8 max-w-[44rem] rounded-2xl">
+            <p className="font-light">
+              Swift Wings understands that our clients’ travel needs often
+              stretch far beyond the borders of Nigeria.<br/> That’s why we provide
+              extensive global coverage, seamlessly connecting you to
+              destinations in Europe, North America, South America, and other
+              corners of the world, even the most remote ones. With our network
+              of trusted partners and affiliates, we ensure that you experience
+              the convenience and flexibility of air travel on a global scale.
+            </p>
+            <div className="mt-5 flex justify-end gap-3 items-center">Learn more <GoArrowRight size={20} /></div>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }
