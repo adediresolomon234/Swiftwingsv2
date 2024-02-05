@@ -18,8 +18,9 @@ import servicesMembership from "../public/images/servicesMembership.png";
 import servicesCustomer from "../public/images/sevicesCustomer.png";
 import Offer1 from "../public/images/Offer1.png";
 import AboutUsCard from "./components/AboutUsCard";
-import { mdiCarSeat, mdiSpeedometer, mdiArrowLeftRight, mdilArrowRight } from '@mdi/js';
-import './styles.css';
+import Icon from '@mdi/react';
+import { mdiCarSeat, mdiSpeedometer, mdiArrowLeftRight, mdiArrowRight } from '@mdi/js';
+import '../styles.css';
 
 const space_grotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -378,7 +379,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="hidden md:block absolute top-[300px] left-[calc(50%_+_109px)] w-[598px] h-[399px] object-cover show-image">
+          <div className="hidden md:block absolute top-[300px] left-[calc(50% + 109px)] w-[598px] h-[399px] object-cover show-image">
             <img alt="" src={Offer1} />
           </div>
           <div className="hidden md:block absolute top-[300px] left-[calc(50%_+_109px)] w-[598px] h-[399px] object-cover show-image">
@@ -393,11 +394,11 @@ export default function Home() {
           <div className="hidden md:block absolute top-[300px] left-[calc(50%_+_109px)] w-[598px] h-[399px] object-cover show-image">
             <img alt="" src={Offer1} />
           </div>
-          <div className="md:absolute top-[771px] left-1/2 md:left-[calc(50% - 606px)] rounded-boundvariablesdata2 bg-primary-500 h-9 flex flex-row items-center justify-center py-boundvariablesdata px-boundvariablesdata1 box-border gap-[8px] text-base text-white font-title-2-medium">
+          <div className="md:absolute top-[771px] left-1/2 md:left-[calc(50% - 606px)] rounded-xl bg-primary-500 h-9 flex flex-row items-center justify-center py-8 px-3 box-border gap-[8px] text-base text-white font-title-2-medium">
           <div className="flex flex-row items-center justify-center">
             <div className="relative leading-[120%] font-medium">See all</div>
           </div>
-          <Icon path={mdilArrowRight} size={1} />
+          <Icon path={mdiArrowRight} size={1} />
         </div>
         </div>
       </section>
