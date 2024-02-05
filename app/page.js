@@ -16,7 +16,10 @@ import Services from "./components/Services";
 import servicesPlane from "../public/images/servicesLuxuryPlane.png";
 import servicesMembership from "../public/images/servicesMembership.png";
 import servicesCustomer from "../public/images/sevicesCustomer.png";
+import Offer1 from "../public/images/Offer1.png";
 import AboutUsCard from "./components/AboutUsCard";
+import { mdiCarSeat, mdiSpeedometer, mdiArrowLeftRight, mdilArrowRight } from '@mdi/js';
+import './styles.css';
 
 const space_grotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -66,31 +69,28 @@ export default function Home() {
                 <p className="font-semibold text-swDarkGray ml-2">Book a jet</p>
                 <div className="p-2 rounded-full shadow-md flex gap-5">
                   <button
-                    className={`${
-                      bookingEngine === "oneWayTrip"
+                    className={`${bookingEngine === "oneWayTrip"
                         ? "text-swWine shadow"
                         : "text-swLightGray"
-                    } py-2 px-4 rounded-full`}
+                      } py-2 px-4 rounded-full`}
                     onClick={() => setBookingEngine("oneWayTrip")}
                   >
                     One Way Rrip
                   </button>
                   <button
-                    className={`${
-                      bookingEngine === "roundTrip"
+                    className={`${bookingEngine === "roundTrip"
                         ? "text-swWine shadow"
                         : "text-swLightGray"
-                    } py-2 px-4 rounded-full`}
+                      } py-2 px-4 rounded-full`}
                     onClick={() => setBookingEngine("roundTrip")}
                   >
                     Round Trip
                   </button>
                   <button
-                    className={`${
-                      bookingEngine === "roadCruise"
+                    className={`${bookingEngine === "roadCruise"
                         ? "text-swWine shadow"
                         : "text-swLightGray"
-                    } py-2 px-4 rounded-full`}
+                      } py-2 px-4 rounded-full`}
                     onClick={() => setBookingEngine("roadCruise")}
                   >
                     Road Cruise
@@ -237,7 +237,7 @@ export default function Home() {
           <div className="bg-swButter text-swWine p-8 max-w-[44rem] rounded-2xl">
             <p className="font-light">
               Swift Wings understands that our clients’ travel needs often
-              stretch far beyond the borders of Nigeria.<br/> That’s why we provide
+              stretch far beyond the borders of Nigeria.<br /> That’s why we provide
               extensive global coverage, seamlessly connecting you to
               destinations in Europe, North America, South America, and other
               corners of the world, even the most remote ones. With our network
@@ -246,6 +246,159 @@ export default function Home() {
             </p>
             <div className="mt-5 flex justify-end gap-3 items-center">Learn more <GoArrowRight size={20} /></div>
           </div>
+        </div>
+      </section>
+      <section className=" max-w-6xl mx-auto py-10">
+        <div className="w-full md:w-[1512px] bg-white text-left text-4xl md:text-29xl text-gray-800 font-body-lg-medium">
+          <div className="md:absolute top-[167px] left-1/2 md:left-[calc(50% - 606px)] tracking-[-0.02em] md:leading-[60px] font-semibold inline-block w-[454px]">
+            Our fleets.
+          </div>
+          <div className="md:absolute top-[110px] left-1/2 md:left-[calc(50% - 606px)] text-lg leading-[28px] font-medium text-primary-500 inline-block w-[454px]">
+            Fleet Showcase
+          </div>
+          <div className="md:flex md:flex-wrap md:gap-[10px] md:justify-start md:items-start">
+            <div className="w-full md:w-[580px] show-image box-border flex flex-row items-center justify-center py-8 px-3 gap-[9px] border-b-[1px] border-solid border-gray-100">
+              <div className="self-stretch flex-1 relative tracking-[-0.02em] leading-[32px] font-medium flex items-center">
+                Hawker 800XP
+              </div>
+              <div className="flex-1 flex flex-col items-start justify-center gap-[4px] text-xs text-gray-800">
+                <div className="self-stretch flex flex-row items-center justify-between">
+                  <div className="flex flex-row items-center justify-start gap-[10px]">
+                    <Icon path={mdiCarSeat} size={1} />
+                    <div className="relative leading-[18px]">8 seats</div>
+                  </div>
+                  <div className="flex flex-row items-center justify-start gap-[10px]">
+                    <Icon path={mdiSpeedometer} size={1} />
+                    <div className="relative leading-[18px]">826 km/h</div>
+                  </div>
+                  <div className="flex flex-row items-center justify-start gap-[10px]">
+                    <Icon path={mdiArrowLeftRight} size={1} />
+                    <div className="relative leading-[18px]">6 feet</div>
+                  </div>
+                </div>
+                <div className="self-stretch relative leading-[18px] text-gray-600">
+                  Midsize Business Jet
+                </div>
+              </div>
+            </div>
+            <div className="w-full md:w-[580px] show-image box-border flex flex-row items-center justify-center py-8 px-3 gap-[9px] border-b-[1px] border-solid border-gray-100">
+              <div className="self-stretch flex-1 relative tracking-[-0.02em] leading-[32px] font-medium flex items-center">
+                Bombardier Aerospace
+              </div>
+              <div className="flex-1 flex flex-col items-start justify-center gap-[4px] text-xs text-gray-800">
+                <div className="self-stretch flex flex-row items-center justify-between">
+                  <div className="flex flex-row items-center justify-start gap-[10px]">
+                    <Icon path={mdiCarSeat} size={1} />
+                    <div className="relative leading-[18px]">12 seats</div>
+                  </div>
+                  <div className="flex flex-row items-center justify-start gap-[10px]">
+                    <Icon path={mdiSpeedometer} size={1} />
+                    <div className="relative leading-[18px]">870 km/h</div>
+                  </div>
+                  <div className="flex flex-row items-center justify-start gap-[10px]">
+                    <Icon path={mdiArrowLeftRight} size={1} />
+                    <div className="relative leading-[18px]">8.17 feet</div>
+                  </div>
+                </div>
+                <div className="self-stretch relative leading-[18px] text-gray-600">
+                  Super mid-size jet
+                </div>
+              </div>
+            </div>
+            <div className="w-full md:w-[580px] show-image box-border flex flex-row items-center justify-center py-8 px-3 gap-[9px] border-b-[1px] border-solid border-gray-100">
+              <div className="self-stretch flex-1 relative tracking-[-0.02em] leading-[32px] font-medium flex items-center">
+                Embraer
+              </div>
+              <div className="flex-1 flex flex-col items-start justify-center gap-[4px] text-xs text-gray-800">
+                <div className="self-stretch flex flex-row items-center justify-between">
+                  <div className="flex flex-row items-center justify-start gap-[10px]">
+                    <Icon path={mdiCarSeat} size={1} />
+                    <div className="relative leading-[18px]">13 seats</div>
+                  </div>
+                  <div className="flex flex-row items-center justify-start gap-[10px]">
+                    <Icon path={mdiSpeedometer} size={1} />
+                    <div className="relative leading-[18px]">982 km/h</div>
+                  </div>
+                  <div className="flex flex-row items-center justify-start gap-[10px]">
+                    <Icon path={mdiArrowLeftRight} size={1} />
+                    <div className="relative leading-[18px]">6.9 feet</div>
+                  </div>
+                </div>
+                <div className="self-stretch relative leading-[18px] text-gray-600">
+                  Super mid-size business jet
+                </div>
+              </div>
+            </div>
+            <div className="w-full md:w-[580px] show-image box-border flex flex-row items-center justify-center py-8 px-3 gap-[9px] border-b-[1px] border-solid border-gray-1000">
+              <div className="self-stretch flex-1 relative tracking-[-0.02em] leading-[32px] font-medium flex items-center">
+                Gulfstream Aerospace
+              </div>
+              <div className="flex-1 flex flex-col items-start justify-center gap-[4px] text-xs text-gray-800">
+                <div className="self-stretch flex flex-row items-center justify-between">
+                  <div className="flex flex-row items-center justify-start gap-[10px]">
+                    <Icon path={mdiCarSeat} size={1} />
+                    <div className="relative leading-[18px]">16 seats</div>
+                  </div>
+                  <div className="flex flex-row items-center justify-start gap-[10px]">
+                    <Icon path={mdiSpeedometer} size={1} />
+                    <div className="relative leading-[18px]">956 km/h</div>
+                  </div>
+                  <div className="flex flex-row items-center justify-start gap-[10px]">
+                    <Icon path={mdiArrowLeftRight} size={1} />
+                    <div className="relative leading-[18px]">7.4 feet</div>
+                  </div>
+                </div>
+                <div className="self-stretch relative leading-[18px] text-gray-600">
+                  Business Jet
+                </div>
+              </div>
+            </div>
+            <div className="w-full md:w-[580px] show-image box-border flex flex-row items-center justify-center py-8 px-3 gap-[9px] border-b-[1px] border-solid border-gray-100">
+              <div className="self-stretch flex-1 relative tracking-[-0.02em] leading-[32px] font-medium flex items-center">
+                Phenom 300
+              </div>
+              <div className="flex-1 flex flex-col items-start justify-center gap-[4px] text-xs text-gray-800">
+                <div className="self-stretch flex flex-row items-center justify-between">
+                  <div className="flex flex-row items-center justify-start gap-[10px]">
+                    <Icon path={mdiCarSeat} size={1} />
+                    <div className="relative leading-[18px]">7 seats</div>
+                  </div>
+                  <div className="flex flex-row items-center justify-start gap-[10px]">
+                    <Icon path={mdiSpeedometer} size={1} />
+                    <div className="relative leading-[18px]">956 km/h</div>
+                  </div>
+                  <div className="flex flex-row items-center justify-start gap-[10px]">
+                    <Icon path={mdiSpeedometer} size={1} />
+                    <div className="relative leading-[18px]">5.08 feet</div>
+                  </div>
+                </div>
+                <div className="self-stretch relative leading-[18px] text-gray-600">
+                  Light business jet
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="hidden md:block absolute top-[300px] left-[calc(50%_+_109px)] w-[598px] h-[399px] object-cover show-image">
+            <img alt="" src={Offer1} />
+          </div>
+          <div className="hidden md:block absolute top-[300px] left-[calc(50%_+_109px)] w-[598px] h-[399px] object-cover show-image">
+            <img alt="" src={Offer1} />
+          </div>
+          <div className="hidden md:block absolute top-[300px] left-[calc(50%_+_109px)] w-[598px] h-[399px] object-cover show-image">
+            <img alt="" src={Offer1} />
+          </div>
+          <div className="hidden md:block absolute top-[300px] left-[calc(50%_+_109px)] w-[598px] h-[399px] object-cover show-image">
+            <img alt="" src={Offer1} />
+          </div>
+          <div className="hidden md:block absolute top-[300px] left-[calc(50%_+_109px)] w-[598px] h-[399px] object-cover show-image">
+            <img alt="" src={Offer1} />
+          </div>
+          <div className="md:absolute top-[771px] left-1/2 md:left-[calc(50% - 606px)] rounded-boundvariablesdata2 bg-primary-500 h-9 flex flex-row items-center justify-center py-boundvariablesdata px-boundvariablesdata1 box-border gap-[8px] text-base text-white font-title-2-medium">
+          <div className="flex flex-row items-center justify-center">
+            <div className="relative leading-[120%] font-medium">See all</div>
+          </div>
+          <Icon path={mdilArrowRight} size={1} />
+        </div>
         </div>
       </section>
     </main>
