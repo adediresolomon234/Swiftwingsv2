@@ -1,9 +1,9 @@
 "use client";
+import { useState } from "react";
 import { Space_Grotesk } from "next/font/google";
 import Image from "next/image";
 import NavBar from "./components/NavBar";
 import privateJetImg from "../public/images/Private jet, airplane icon, vector.png";
-import { useState } from "react";
 import departImg from "../public/images/Depart-white.png";
 import arriveImg from "../public/images/Arrive-white.png";
 import { GoArrowRight } from "react-icons/go";
@@ -28,6 +28,15 @@ const space_grotesk = Space_Grotesk({
 
 export default function Home() {
   const [bookingEngine, setBookingEngine] = useState("oneWayTrip");
+  const [hoveredImageIndex, setHoveredImageIndex] = useState(null);
+
+  const handleMouseEnter = (index) => {
+    setHoveredImageIndex(index);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredImageIndex(null);
+  };
   return (
     <main className="px-5 relative bg-swLightBgGray">
       <NavBar />
@@ -71,8 +80,8 @@ export default function Home() {
                 <div className="p-2 rounded-full shadow-md flex gap-5">
                   <button
                     className={`${bookingEngine === "oneWayTrip"
-                        ? "text-swWine shadow"
-                        : "text-swLightGray"
+                      ? "text-swWine shadow"
+                      : "text-swLightGray"
                       } py-2 px-4 rounded-full`}
                     onClick={() => setBookingEngine("oneWayTrip")}
                   >
@@ -80,8 +89,8 @@ export default function Home() {
                   </button>
                   <button
                     className={`${bookingEngine === "roundTrip"
-                        ? "text-swWine shadow"
-                        : "text-swLightGray"
+                      ? "text-swWine shadow"
+                      : "text-swLightGray"
                       } py-2 px-4 rounded-full`}
                     onClick={() => setBookingEngine("roundTrip")}
                   >
@@ -89,8 +98,8 @@ export default function Home() {
                   </button>
                   <button
                     className={`${bookingEngine === "roadCruise"
-                        ? "text-swWine shadow"
-                        : "text-swLightGray"
+                      ? "text-swWine shadow"
+                      : "text-swLightGray"
                       } py-2 px-4 rounded-full`}
                     onClick={() => setBookingEngine("roadCruise")}
                   >
@@ -250,156 +259,50 @@ export default function Home() {
         </div>
       </section>
       <section className=" max-w-6xl mx-auto py-10">
-        <div className="w-full md:w-[1512px] bg-white text-left text-4xl md:text-29xl text-gray-800 font-body-lg-medium">
-          <div className="md:absolute top-[167px] left-1/2 md:left-[calc(50% - 606px)] tracking-[-0.02em] md:leading-[60px] font-semibold inline-block w-[454px]">
-            Our fleets.
-          </div>
-          <div className="md:absolute top-[110px] left-1/2 md:left-[calc(50% - 606px)] text-lg leading-[28px] font-medium text-primary-500 inline-block w-[454px]">
-            Fleet Showcase
-          </div>
-          <div className="md:flex md:flex-wrap md:gap-[10px] md:justify-start md:items-start">
-            <div className="w-full md:w-[580px] show-image box-border flex flex-row items-center justify-center py-8 px-3 gap-[9px] border-b-[1px] border-solid border-gray-100">
-              <div className="self-stretch flex-1 relative tracking-[-0.02em] leading-[32px] font-medium flex items-center">
-                Hawker 800XP
-              </div>
-              <div className="flex-1 flex flex-col items-start justify-center gap-[4px] text-xs text-gray-800">
-                <div className="self-stretch flex flex-row items-center justify-between">
-                  <div className="flex flex-row items-center justify-start gap-[10px]">
-                    <Icon path={mdiCarSeat} size={1} />
-                    <div className="relative leading-[18px]">8 seats</div>
+        <div className="relative pt-40 pb-20 lg:pt-44">
+          <div className="relative xl:container m-auto px-6 md:px-12 lg:px-6">
+            <p className="sm:mx-auto sm:w-10/12 md:w-2/3 text-swWine text-center sm:text-xs md:text-xs lg:w-auto lg:text-left dark:text-white"> Fleet Showcase</p>
+            <h1 className=" mt-8 sm:mx-auto sm:w-10/12 md:w-2/3 text-gray-600 text-4xl text-center sm:text-5xl md:text-6xl lg:w-auto lg:text-left xl:text-7xl dark:text-white">Our Fleet</h1>
+            <div >
+              {[0, 1, 2].map((index) => (
+                <div
+                  key={index}
+                  className="grid grid-cols-1 gap-2 lg:grid-cols-3 lg:gap-2 mt-2 p-6 border-gray-200 dark:bg-gray-800 dark:border-gray-700 rounded duration-300 hover:border-swWine hover:shadow-lg hover:shadow-swWine-600/20 dark:hover:border-swWine-300/30"
+                  onMouseEnter={() => handleMouseEnter(index)}
+                  onMouseLeave={handleMouseLeave}
+                >
+                  <div className="flex items-center fleet-item">
+                    <a aria-label="add to slack" href="#" className="px-4 py-1 block">
+                      <p className="font-medium md:block dark:text-white">Hawker 800XP</p>
+                    </a>
                   </div>
-                  <div className="flex flex-row items-center justify-start gap-[10px]">
-                    <Icon path={mdiSpeedometer} size={1} />
-                    <div className="relative leading-[18px]">826 km/h</div>
+                  <div className={`mt-12 md:mt-0 lg:absolute -right-10 md:7/12 lg:w-1/3 flex justify-center image-container ${hoveredImageIndex !== index ? 'hidden' : ''}`}>
+                    <div className={`relative w-full ${hoveredImageIndex === index ? '' : 'hidden'}`}>
+                      <div aria-hidden="true" className="absolute scale-75 md:scale-110 inset-0 m-auto w-full h-full md:w-96 md:h-96 rounded-full rotate-45 bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl"></div>
+                      <Image src={Offer1} className="relative w-full fleet-image" alt=" illustration" loading="lazy" width={320} height={280} />
+                    </div>
                   </div>
-                  <div className="flex flex-row items-center justify-start gap-[10px]">
-                    <Icon path={mdiArrowLeftRight} size={1} />
-                    <div className="relative leading-[18px]">6 feet</div>
-                  </div>
-                </div>
-                <div className="self-stretch relative leading-[18px] text-gray-600">
-                  Midsize Business Jet
-                </div>
-              </div>
-            </div>
-            <div className="w-full md:w-[580px] show-image box-border flex flex-row items-center justify-center py-8 px-3 gap-[9px] border-b-[1px] border-solid border-gray-100">
-              <div className="self-stretch flex-1 relative tracking-[-0.02em] leading-[32px] font-medium flex items-center">
-                Bombardier Aerospace
-              </div>
-              <div className="flex-1 flex flex-col items-start justify-center gap-[4px] text-xs text-gray-800">
-                <div className="self-stretch flex flex-row items-center justify-between">
-                  <div className="flex flex-row items-center justify-start gap-[10px]">
-                    <Icon path={mdiCarSeat} size={1} />
-                    <div className="relative leading-[18px]">12 seats</div>
-                  </div>
-                  <div className="flex flex-row items-center justify-start gap-[10px]">
-                    <Icon path={mdiSpeedometer} size={1} />
-                    <div className="relative leading-[18px]">870 km/h</div>
-                  </div>
-                  <div className="flex flex-row items-center justify-start gap-[10px]">
-                    <Icon path={mdiArrowLeftRight} size={1} />
-                    <div className="relative leading-[18px]">8.17 feet</div>
+                  <div className="flex-1 flex flex-col items-start justify-center gap-[4px] text-xs text-gray-800 mt-3 px-2 py-1 lg:col-span-2">
+                    <div className="flex justify-between">
+                      <div className="flex gap-5 justify-center">
+                        <Icon path={mdiCarSeat} size={1} />
+                        <div className="relative leading-[18px]">12 seats</div>
+
+                        <Icon path={mdiSpeedometer} size={1} />
+                        <div className="relative leading-[18px]">870 km/h</div>
+
+                        <Icon path={mdiArrowLeftRight} size={1} />
+                        <div className="relative leading-[18px]">8.17 feet</div>
+                      </div>
+                    </div>
+                    <div className="self-stretch relative leading-[18px] text-gray-600 mt-2">
+                      Midsize Business Jet
+                    </div>
                   </div>
                 </div>
-                <div className="self-stretch relative leading-[18px] text-gray-600">
-                  Super mid-size jet
-                </div>
-              </div>
-            </div>
-            <div className="w-full md:w-[580px] show-image box-border flex flex-row items-center justify-center py-8 px-3 gap-[9px] border-b-[1px] border-solid border-gray-100">
-              <div className="self-stretch flex-1 relative tracking-[-0.02em] leading-[32px] font-medium flex items-center">
-                Embraer
-              </div>
-              <div className="flex-1 flex flex-col items-start justify-center gap-[4px] text-xs text-gray-800">
-                <div className="self-stretch flex flex-row items-center justify-between">
-                  <div className="flex flex-row items-center justify-start gap-[10px]">
-                    <Icon path={mdiCarSeat} size={1} />
-                    <div className="relative leading-[18px]">13 seats</div>
-                  </div>
-                  <div className="flex flex-row items-center justify-start gap-[10px]">
-                    <Icon path={mdiSpeedometer} size={1} />
-                    <div className="relative leading-[18px]">982 km/h</div>
-                  </div>
-                  <div className="flex flex-row items-center justify-start gap-[10px]">
-                    <Icon path={mdiArrowLeftRight} size={1} />
-                    <div className="relative leading-[18px]">6.9 feet</div>
-                  </div>
-                </div>
-                <div className="self-stretch relative leading-[18px] text-gray-600">
-                  Super mid-size business jet
-                </div>
-              </div>
-            </div>
-            <div className="w-full md:w-[580px] show-image box-border flex flex-row items-center justify-center py-8 px-3 gap-[9px] border-b-[1px] border-solid border-gray-1000">
-              <div className="self-stretch flex-1 relative tracking-[-0.02em] leading-[32px] font-medium flex items-center">
-                Gulfstream Aerospace
-              </div>
-              <div className="flex-1 flex flex-col items-start justify-center gap-[4px] text-xs text-gray-800">
-                <div className="self-stretch flex flex-row items-center justify-between">
-                  <div className="flex flex-row items-center justify-start gap-[10px]">
-                    <Icon path={mdiCarSeat} size={1} />
-                    <div className="relative leading-[18px]">16 seats</div>
-                  </div>
-                  <div className="flex flex-row items-center justify-start gap-[10px]">
-                    <Icon path={mdiSpeedometer} size={1} />
-                    <div className="relative leading-[18px]">956 km/h</div>
-                  </div>
-                  <div className="flex flex-row items-center justify-start gap-[10px]">
-                    <Icon path={mdiArrowLeftRight} size={1} />
-                    <div className="relative leading-[18px]">7.4 feet</div>
-                  </div>
-                </div>
-                <div className="self-stretch relative leading-[18px] text-gray-600">
-                  Business Jet
-                </div>
-              </div>
-            </div>
-            <div className="w-full md:w-[580px] show-image box-border flex flex-row items-center justify-center py-8 px-3 gap-[9px] border-b-[1px] border-solid border-gray-100">
-              <div className="self-stretch flex-1 relative tracking-[-0.02em] leading-[32px] font-medium flex items-center">
-                Phenom 300
-              </div>
-              <div className="flex-1 flex flex-col items-start justify-center gap-[4px] text-xs text-gray-800">
-                <div className="self-stretch flex flex-row items-center justify-between">
-                  <div className="flex flex-row items-center justify-start gap-[10px]">
-                    <Icon path={mdiCarSeat} size={1} />
-                    <div className="relative leading-[18px]">7 seats</div>
-                  </div>
-                  <div className="flex flex-row items-center justify-start gap-[10px]">
-                    <Icon path={mdiSpeedometer} size={1} />
-                    <div className="relative leading-[18px]">956 km/h</div>
-                  </div>
-                  <div className="flex flex-row items-center justify-start gap-[10px]">
-                    <Icon path={mdiSpeedometer} size={1} />
-                    <div className="relative leading-[18px]">5.08 feet</div>
-                  </div>
-                </div>
-                <div className="self-stretch relative leading-[18px] text-gray-600">
-                  Light business jet
-                </div>
-              </div>
+              ))}
             </div>
           </div>
-          <div className="hidden md:block absolute top-[300px] left-[calc(50% + 109px)] w-[598px] h-[399px] object-cover show-image">
-            <img alt="" src={Offer1} />
-          </div>
-          <div className="hidden md:block absolute top-[300px] left-[calc(50%_+_109px)] w-[598px] h-[399px] object-cover show-image">
-            <img alt="" src={Offer1} />
-          </div>
-          <div className="hidden md:block absolute top-[300px] left-[calc(50%_+_109px)] w-[598px] h-[399px] object-cover show-image">
-            <img alt="" src={Offer1} />
-          </div>
-          <div className="hidden md:block absolute top-[300px] left-[calc(50%_+_109px)] w-[598px] h-[399px] object-cover show-image">
-            <img alt="" src={Offer1} />
-          </div>
-          <div className="hidden md:block absolute top-[300px] left-[calc(50%_+_109px)] w-[598px] h-[399px] object-cover show-image">
-            <img alt="" src={Offer1} />
-          </div>
-          <div className="md:absolute top-[771px] left-1/2 md:left-[calc(50% - 606px)] rounded-xl bg-primary-500 h-9 flex flex-row items-center justify-center py-8 px-3 box-border gap-[8px] text-base text-white font-title-2-medium">
-          <div className="flex flex-row items-center justify-center">
-            <div className="relative leading-[120%] font-medium">See all</div>
-          </div>
-          <Icon path={mdiArrowRight} size={1} />
-        </div>
         </div>
       </section>
     </main>
