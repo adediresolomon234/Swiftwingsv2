@@ -151,7 +151,6 @@ export default function Home() {
                 </div>
                 <div />
               </div>
-
               <div className="flex justify-between mb-5">
                 <div className="flex items-center gap-9 mx-auto">
                   <div className="flex items-center">
@@ -188,7 +187,6 @@ export default function Home() {
                       </div>
                     </div>
                   </div>
-
                   <div className="flex justify-around gap-5">
                     <div className="p-5 pr-16 flex items-center gap-5 border rounded-2xl">
                       <div className="p-2 rounded-full border text-swDarkGray">
@@ -315,7 +313,7 @@ export default function Home() {
                     onMouseEnter={() => handleMouseEnter(item.id)}
                     onMouseLeave={handleMouseLeave}
                   >
-                    <div className="grid grid-cols-1 gap-2 lg:grid-cols-3 lg:gap-2 mt-2 pb-2 p-6 border-gray-200 rounded duration-300 hover:shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] rounded-lg">
+                    <div className="grid grid-cols-1 gap-2 lg:grid-cols-3 lg:gap-2 mt-2 pb- p-6 border-gray-200 rounded duration-300 hover:shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] rounded-lg">
                       <div className="flex items-center  fleet-item">
                         <a aria-label="add to slack" href="#" className="px-4 py-1 block">
                           <p className="font-medium md:block">{item.name}</p>
