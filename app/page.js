@@ -8,7 +8,7 @@ import departImg from "../public/images/Depart-white.png";
 import arriveImg from "../public/images/Arrive-white.png";
 import { GoArrowRight } from "react-icons/go";
 import { GoArrowLeft } from "react-icons/go";
-import { MdOutlineCalendarToday } from "react-icons/md";
+import { MdMms, MdOutlineCalendarToday } from "react-icons/md";
 import { BiUser } from "react-icons/bi";
 import Button from "./components/Button";
 import { HiArrowRight } from "react-icons/hi";
@@ -26,16 +26,59 @@ const space_grotesk = Space_Grotesk({
   subsets: ["latin"],
 });
 
+
+const fleet = [
+  {
+    name: "Hawker 800XP",
+    image: Offer1,
+    seat: "12",
+    kilometer: "870 k/h",
+    feet: "8.17 feet",
+    icon: mdiCarSeat,
+    icon2: mdiSpeedometer,
+    icon3: mdiArrowLeftRight,
+    size : " Super mid-size jet",
+    id: 1
+
+  },
+  {
+    name: " Bombardier Aerospace",
+    image: Offer1,
+    seat: "13",
+    kilometer: "982 km/h",
+    feet: "6.9 feet",
+    icon: mdiCarSeat,
+    icon2: mdiSpeedometer,
+    icon3: mdiArrowLeftRight,
+    size : "Super mid-size business jet",
+    id: 2
+  },
+  {
+    name: "Gulfstream Aerospace",
+    seat: "16",
+    kilometer: "956 km/h",
+    feet: "7.9 feet",
+    image: Offer1,
+    icon: mdiCarSeat,
+    icon2: mdiSpeedometer,
+    icon3: mdiArrowLeftRight,
+    size : "Business Jet",
+    id: 3
+  }
+]
+
+
 export default function Home() {
   const [bookingEngine, setBookingEngine] = useState("oneWayTrip");
-  const [hoveredImageIndex, setHoveredImageIndex] = useState(null);
+
+  const [hoveredIndex, setHoveredIndex] = useState(null);
 
   const handleMouseEnter = (index) => {
-    setHoveredImageIndex(index);
+    setHoveredIndex(index);
   };
 
   const handleMouseLeave = () => {
-    setHoveredImageIndex(null);
+    setHoveredIndex(null);
   };
   return (
     <main className="px-5 relative bg-swLightBgGray">
@@ -258,49 +301,57 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className=" max-w-6xl mx-auto py-10">
+      <section className="max-w-6xl mx-auto py-10">
         <div className="relative pt-40 pb-20 lg:pt-44">
-          <div className="relative xl:container m-auto px-6 md:px-12 lg:px-6">
-            <p className="sm:mx-auto sm:w-10/12 md:w-2/3 text-swWine text-center sm:text-xs md:text-xs lg:w-auto lg:text-left dark:text-white"> Fleet Showcase</p>
-            <h1 className=" mt-8 sm:mx-auto sm:w-10/12 md:w-2/3 text-gray-600 text-4xl text-center sm:text-5xl md:text-6xl lg:w-auto lg:text-left xl:text-7xl dark:text-white">Our Fleet</h1>
-            <div >
-              {[0, 1, 2].map((index) => (
-                <div
-                  key={index}
-                  className="grid grid-cols-1 gap-2 lg:grid-cols-3 lg:gap-2 mt-2 p-6 border-gray-200 dark:bg-gray-800 dark:border-gray-700 rounded duration-300 hover:border-swWine hover:shadow-lg hover:shadow-swWine-600/20 dark:hover:border-swWine-300/30"
-                  onMouseEnter={() => handleMouseEnter(index)}
-                  onMouseLeave={handleMouseLeave}
-                >
-                  <div className="flex items-center fleet-item">
-                    <a aria-label="add to slack" href="#" className="px-4 py-1 block">
-                      <p className="font-medium md:block dark:text-white">Hawker 800XP</p>
-                    </a>
-                  </div>
-                  <div className={`mt-12 md:mt-0 lg:absolute -right-10 md:7/12 lg:w-1/3 flex justify-center image-container ${hoveredImageIndex !== index ? 'hidden' : ''}`}>
-                    <div className={`relative w-full ${hoveredImageIndex === index ? '' : 'hidden'}`}>
-                      <div aria-hidden="true" className="absolute scale-75 md:scale-110 inset-0 m-auto w-full h-full md:w-96 md:h-96 rounded-full rotate-45 bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl"></div>
-                      <Image src={Offer1} className="relative w-full fleet-image" alt=" illustration" loading="lazy" width={320} height={280} />
-                    </div>
-                  </div>
-                  <div className="flex-1 flex flex-col items-start justify-center gap-[4px] text-xs text-gray-800 mt-3 px-2 py-1 lg:col-span-2">
-                    <div className="flex justify-between">
-                      <div className="flex gap-5 justify-center">
-                        <Icon path={mdiCarSeat} size={1} />
-                        <div className="relative leading-[18px]">12 seats</div>
-
-                        <Icon path={mdiSpeedometer} size={1} />
-                        <div className="relative leading-[18px]">870 km/h</div>
-
-                        <Icon path={mdiArrowLeftRight} size={1} />
-                        <div className="relative leading-[18px]">8.17 feet</div>
+          <div className="relative 2xl:container m-auto px-6 md:px-12 lg:px-6">
+            <p className="sm:mx-auto sm:w-10/12 md:w-2/3 text-swWine text-center sm:text-xs md:text-xs lg:w-auto lg:text-left">Fleet Showcase</p>
+            <h1 className="mt-8 sm:mx-auto sm:w-10/12 md:w-2/3 text-gray-600 text-4xl text-center sm:text-5xl md:text-6xl lg:w-auto lg:text-left xl:text-7xl">Our Fleet</h1>
+            <div className="flex gap-12 mt-12">
+              <div className="col-span-2  relative">
+                {fleet.map((item) => (
+                  <div
+                    key={item.id}
+                    className="col-span-2 relative"
+                    onMouseEnter={() => handleMouseEnter(item.id)}
+                    onMouseLeave={handleMouseLeave}
+                  >
+                    <div className="grid grid-cols-1 gap-2 lg:grid-cols-3 lg:gap-2 mt-2 pb-2 p-6 border-gray-200 rounded duration-300 hover:shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] rounded-lg">
+                      <div className="flex items-center  fleet-item">
+                        <a aria-label="add to slack" href="#" className="px-4 py-1 block">
+                          <p className="font-medium md:block">{item.name}</p>
+                        </a>
+                      </div>
+                      <div className="flex-1 flex flex-col items-start justify-center gap-[4px] text-xs text-gray-800 mt-3 px-2 py-1 lg:col-span-2">
+                        <div className="flex justify-between">
+                          <div className="flex gap-8 justify-center items-center">
+                            <div className="flex items-center">
+                              <Icon path={item.icon} size={1} />
+                              <span className="ml-2">{item.seat}</span>
+                            </div>
+                            <div className="flex items-center">
+                              <Icon path={item.icon2} size={1} />
+                              <span className="ml-2">{item.kilometer}</span>
+                            </div>
+                            <div className="flex items-center">
+                              <Icon path={item.icon3} size={1} />
+                              <span className="ml-2">{item.feet}</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="self-stretch relative leading-[18px] text-gray-600 mt-3">
+                          {item.size}
+                        </div>
                       </div>
                     </div>
-                    <div className="self-stretch relative leading-[18px] text-gray-600 mt-2">
-                      Midsize Business Jet
-                    </div>
                   </div>
+                ))}
+              </div>
+              <div className="flex justify-center items-center  image-container">
+                <div className="">
+                  <div aria-hidden="true" className={` absolute scale-75 md:scale-110 inset-0 m-auto w-full h-full md:w-96 md:h-96 rounded-full rotate-45 bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl ${hoveredIndex !== null ? 'opacity-100' : 'opacity-0'}`}></div>
+                  <Image src={Offer1} className={`rounded-xl relative fleet-image ${hoveredIndex !== null ? 'opacity-100' : 'opacity-0'} shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)]`} alt="illustration" loading="lazy" width={520} height={380} />
                 </div>
-              ))}
+              </div>
             </div>
           </div>
         </div>

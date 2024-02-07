@@ -1,0 +1,14 @@
+
+  
+  .fleet-image {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .image-container {
+    position: relative;
+  }
+  
+  .image-container .hidden {
+    display: none;
+  }
