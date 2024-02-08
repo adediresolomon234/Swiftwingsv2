@@ -18,54 +18,17 @@ import servicesMembership from "../public/images/servicesMembership.png";
 import servicesCustomer from "../public/images/sevicesCustomer.png";
 import Offer1 from "../public/images/Offer1.png";
 import AboutUsCard from "./components/AboutUsCard";
-import Icon from '@mdi/react';
-import { mdiCarSeat, mdiSpeedometer, mdiArrowLeftRight, mdiArrowRight } from '@mdi/js';
 import '../styles.css';
+import { services } from "./components/servicedata";
+import { fleet } from "./components/fleetcard";
+import Icon from '@mdi/react';
+import { textAreas } from "./components/servicesgrid";
+import Crown from "../public/images/Crown.png";
+import { CiStar } from "react-icons/ci";
 
 const space_grotesk = Space_Grotesk({
   subsets: ["latin"],
 });
-
-
-const fleet = [
-  {
-    name: "Hawker 800XP",
-    image: Offer1,
-    seat: "12",
-    kilometer: "870 k/h",
-    feet: "8.17 feet",
-    icon: mdiCarSeat,
-    icon2: mdiSpeedometer,
-    icon3: mdiArrowLeftRight,
-    size : " Super mid-size jet",
-    id: 1
-
-  },
-  {
-    name: " Bombardier Aerospace",
-    image: Offer1,
-    seat: "13",
-    kilometer: "982 km/h",
-    feet: "6.9 feet",
-    icon: mdiCarSeat,
-    icon2: mdiSpeedometer,
-    icon3: mdiArrowLeftRight,
-    size : "Super mid-size business jet",
-    id: 2
-  },
-  {
-    name: "Gulfstream Aerospace",
-    seat: "16",
-    kilometer: "956 km/h",
-    feet: "7.9 feet",
-    image: Offer1,
-    icon: mdiCarSeat,
-    icon2: mdiSpeedometer,
-    icon3: mdiArrowLeftRight,
-    size : "Business Jet",
-    id: 3
-  }
-]
 
 
 export default function Home() {
@@ -302,8 +265,8 @@ export default function Home() {
       <section className="max-w-6xl mx-auto py-10">
         <div className="relative pt-40 pb-20 lg:pt-44">
           <div className="relative 2xl:container m-auto px-6 md:px-12 lg:px-6">
-            <p className="sm:mx-auto sm:w-10/12 md:w-2/3 text-swWine text-center sm:text-xs md:text-xs lg:w-auto lg:text-left">Fleet Showcase</p>
-            <h1 className="mt-8 sm:mx-auto sm:w-10/12 md:w-2/3 text-gray-600 text-4xl text-center sm:text-5xl md:text-6xl lg:w-auto lg:text-left xl:text-7xl">Our Fleet</h1>
+            <p className="sm:mx-auto sm:w-10/12 md:w-2/3 text-swWine text-center sm:text-[18px] md:text-[18px] lg:w-auto lg:text-left">Fleet Showcase</p>
+            <h1 className="mt-8 sm:mx-auto sm:w-10/12 md:w-2/3 text-gray-600 text-4xl font-semibold text-center sm:text-5xl md:text-6xl lg:w-auto lg:text-left xl:text-7xl">Our Fleet.</h1>
             <div className="flex gap-12 mt-12">
               <div className="col-span-2  relative">
                 {fleet.map((item) => (
@@ -347,12 +310,105 @@ export default function Home() {
               <div className="flex justify-center items-center  image-container">
                 <div className="">
                   <div aria-hidden="true" className={` absolute scale-75 md:scale-110 inset-0 m-auto w-full h-full md:w-96 md:h-96 rounded-full rotate-45 bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl ${hoveredIndex !== null ? 'opacity-100' : 'opacity-0'}`}></div>
-                  <Image src={Offer1} className={`rounded-xl relative fleet-image ${hoveredIndex !== null ? 'opacity-100' : 'opacity-0'} shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)]`} alt="illustration" loading="lazy" width={520} height={380} />
+                  <Image src={Offer1} className={`rounded-xl relative fleet-image ${hoveredIndex !== null ? 'opacity-100' : 'opacity-0'} shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)]`} alt="illustration" loading="lazy" width={620} height={380} />
                 </div>
               </div>
             </div>
+            <div
+              className={`${space_grotesk.className} flex justify-right text-lg mt-12`}
+            >
+              <Button
+                label="See all"
+                bgColor={"bg-swWine"}
+                textColor={"text-white"}
+                endIcon={<HiArrowRight size={20} />}
+              />
+            </div>
           </div>
         </div>
+      </section>
+      <section className="max-w-6xl mx-auto py-10">
+        <div className="container mx-auto px-6 text-center md:px-12">
+          <div className="mb-16">
+            <h2 className="mb-4 text-center text-[18px]  text-swWine dark:text-white md:text-[18px] ">
+              Our Services
+            </h2>
+            <p className="text-gray-700 dark:text-gray-300 font-semibold lg:w-8/12 mt-8 sm:mx-auto sm:w-10/12 md:w-2/3  text-4xl text-center sm:text-5xl md:text-6xl">
+              We offer world a class exotic experience
+            </p>
+          </div>
+          <div className="grid gap-6 px-4 sm:px-0 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            {services.map((service, index) => (
+              <div key={index} className="group relative rounded-3xl space-y-8 overflow-hidden">
+                <img
+                  className="mx-auto h-[26rem] w-full object-cover object-top ransition duration-500 group-hover:scale-105 group-hover:grayscale-0"
+                  src={service.imageSrc}
+                  alt={service.title}
+                  loading="lazy"
+                  width="640"
+                  height="805"
+                />
+                <div className="absolute bottom-0 inset-x-0 h-max mt-auto px-12 py-4 bg-mix dark:bg-white translate-y-24 transition duration-300 ease-in-out group-hover:translate-y-0">
+                  <div>
+                    <h4 className="text-xl text-left font-semibold dark:text-gray-700 text-white mb-">{service.title}</h4>
+                  </div>
+                  <p className="mt-4 text-xs text-left text-gray-300 dark:text-gray-600">{service.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="flex justify-center text-lg mt-12">
+          <Button
+            label="See all"
+            bgColor={"bg-swWine"}
+            textColor={"text-white"}
+            endIcon={<HiArrowRight size={20} />}
+          />
+        </div>
+      </section>
+      <section className="max-w-6xl mx-auto py-10">
+        <div className="container mx-auto px-6 text-center md:px-12">
+          <div className="mb-16">
+            <h2 className="mb-4 text-center text-[18px]  text-swWine dark:text-white md:text-[18px] ">
+              Membership
+            </h2>
+            <p className="text-gray-700 dark:text-gray-300  mt-8 sm:mx-auto   text-xl text-center sm:text-xl md:text-xl">
+              Swift Wings Ltd offers an exclusive Jet Card Membership, providing discerning travelers with unparalleled access to private jet charter services. As a Jet Card member, you enjoy priority booking and seamless travel experiences tailored to your preferences.
+            </p>
+          </div>
+        </div>
+        <div className="mb-16">
+          <h2 className="mb-4 text-center text-[18px]  text-gray-700 dark:text-white md:text-[18px] ">
+            Features
+          </h2>
+          <div className="max-w-full grid gap-8 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 grid-rows-2 gap-y-8 justify-center items-center relative">
+            {textAreas.map((area, index) => (
+              <div
+                key={index}
+                className={`bg-white outline-none shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px] rounded-xl flex flex-col justify-center items-center py-28 px-8 font-medium text-lg text-darkgray text-center`}
+              >
+                {area.description}
+              </div>
+            ))}
+            <Image
+              className="h-[298.8px] w-[328.8px] absolute my-0 mx-[!important] top-[-153px] left-[-154px] object-contain mix-blend-darken z-[1]"
+              src={Crown}
+              alt="Crown"
+            />
+          </div>
+          <div className="flex justify-center text-lg mt-12">
+            <Button
+              label="Become a member"
+              bgColor={"bg-swWine"}
+              textColor={"text-white"}
+              endIcon={<CiStar size={20} />}
+            />
+          </div>
+        </div>
+      </section>
+      <section className="max-w-6xl mx-auto py-10">
+
       </section>
     </main>
   );
