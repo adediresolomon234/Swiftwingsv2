@@ -279,7 +279,7 @@ export default function Home() {
                     <div className="grid grid-cols-1 gap-2 lg:grid-cols-3 lg:gap-2 mt-2 pb- p-6 border-gray-200 rounded duration-300 hover:shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] rounded-lg">
       <div className="flex items-center fleet-item">
         <a aria-label="add to slack" href="#" className="px-4 py-1 block">
-          <p className="font-medium md:block">{fleet[0].name}</p>
+          <p className="font-medium md:block">{item.name}</p>
         </a>
       </div>
                       <div className="flex-1 flex flex-col items-start justify-center gap-[4px] text-xs text-gray-800 mt-3 px-2 py-1 lg:col-span-2">
@@ -408,16 +408,18 @@ export default function Home() {
         </div>
       </section>
       <section className="max-w-6xl mx-auto py-10">
-        <div className="container mx-auto px-6 text-center md:px-12">
+      <div className="container mx-auto px-6 text-center md:px-12">
           <div className="mb-16">
             <h2 className="mb-4 text-center text-[18px]  text-swWine dark:text-white md:text-[18px] ">
-              Customer Testimonials
+            Customer Testimonials
             </h2>
             <p className="text-gray-700 dark:text-gray-300  mt-8 sm:mx-auto   text-xl text-center sm:text-xl md:text-xl">
-              Swift Wings Ltd offers an exclusive Jet Card Membership, providing discerning travelers with unparalleled access to private jet charter services. As a Jet Card member, you enjoy priority booking and seamless travel experiences tailored to your preferences.
+            Swift Wings Ltd offers an exclusive Jet Card Membership, providing discerning travelers with unparalleled access to private jet charter services. As a Jet Card member, you enjoy priority booking and seamless travel experiences tailored to your preferences.
             </p>
           </div>
-          <div className="relative mt-32">
+        </div>
+        <div className="mb-16">
+        <div className="relative mt-32">
             <div className="container-snap mt-10 pb-8  w-[full] flex gap-8 snap-x overflow-x-auto self-center" style={{ scrollSnapAlign: 'start' }}>
               <div className="scroll-ml-6 snap-start">
                 <div className="relative flex-shrink-0 max-w-[95vw] overflow-hidden rounded-3xl">
@@ -465,13 +467,13 @@ export default function Home() {
               </div>
             </div>
             <div className="flex justify-center text-lg mt-12">
-            <Button
-              label="Become a member"
-              bgColor={"bg-swWine"}
-              textColor={"text-white"}
-              endIcon={<CiStar size={20} />}
-            />
-          </div>
+              <Button
+                label="Become a member"
+                bgColor={"bg-swWine"}
+                textColor={"text-white"}
+                endIcon={<CiStar size={20} />}
+              />
+            </div>
           </div>
         </div>
       </section>
