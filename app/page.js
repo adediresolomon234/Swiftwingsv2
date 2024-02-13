@@ -25,6 +25,7 @@ import Icon from '@mdi/react';
 import { textAreas } from "./components/servicesgrid";
 import Crown from "../public/images/Crown.png";
 import { CiStar } from "react-icons/ci";
+import Footer from "./components/shared/Footer";
 
 const space_grotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -477,6 +478,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      <Footer />
     </main>
   );
 }
