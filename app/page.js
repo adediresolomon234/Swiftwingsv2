@@ -18,19 +18,19 @@ import servicesMembership from "../public/images/servicesMembership.png";
 import servicesCustomer from "../public/images/sevicesCustomer.png";
 import Offer1 from "../public/images/Offer1.png";
 import AboutUsCard from "./components/AboutUsCard";
-import '../styles.css';
+import "../styles.css";
 import { services } from "./components/servicedata";
 import { fleet } from "./components/fleetcard";
-import Icon from '@mdi/react';
+import Icon from "@mdi/react";
 import { textAreas } from "./components/servicesgrid";
 import Crown from "../public/images/Crown.png";
 import { CiStar } from "react-icons/ci";
+import indexAirplane from "../public/images/indexAirplane.png";
 import Footer from "./components/shared/Footer";
 
 const space_grotesk = Space_Grotesk({
   subsets: ["latin"],
 });
-
 
 export default function Home() {
   const [bookingEngine, setBookingEngine] = useState("oneWayTrip");
@@ -48,12 +48,17 @@ export default function Home() {
     <main className="px-5 relative bg-swLightBgGray">
       <NavBar />
       <section className="bg-swWine w-full p-10 pt-48 text-white relative pb-10 rounded-bl-[2.5rem] rounded-br-[2.5rem]">
-        <div className="max-w-7xl mx-auto mb-40">
-          <div className="max-w-5xl">
-            <p className="text-7xl font-bold leading-snug">
+        <div className="max-w-7xl mx-auto mb-44 relative h-[60vh]">
+          <Image
+            src={indexAirplane}
+            alt="aiplane"
+            className="absolute ml-auto right-0 "
+          />
+          <div className="max-w-lg pt-16 z-50">
+            <p className="text-7xl font-bold leading-snug z-50">
               Experience Unmatched Luxury Travel
             </p>
-            <p className="max-w-xl mt-10">
+            <p className="max-w-xl mt-10 z-10">
               Experience the epitome of safety, luxury and convenience with{" "}
               <span className="font-bold">
                 Swiftwings private jet charter service
@@ -61,135 +66,138 @@ export default function Home() {
             </p>
           </div>
         </div>
-        {/* <div className="absolute max-w-5xl right-0 top-5 w-full h-auto p-2 -z- ">
-        <Image src={privateJetImg} alt="private jet" />
-        </div> */}
-        <div className="flex gap-10 mb-5 justify-end mb-[7.5rem] max-w-7xl mx-auto pr-10 text-center">
-          <div>
-            <p className="font-semibold text-2xl">10k</p>
-            <p className="text-xs">Flights</p>
-          </div>
-          <div>
-            <p className="font-semibold text-2xl">15k</p>
-            <p className="text-xs">Clients</p>
-          </div>
-          <div>
-            <p className="font-semibold text-2xl">100</p>
-            <p className="text-xs">Countries</p>
-          </div>
-        </div>
 
-        <section className="p-5 absolute max-w-7xl w-full bg-swWine bottom-0 right-1/2 transform translate-x-1/2 translate-y-1/2 rounded-[1.9rem]">
-          <div className="w-full w-full bg-swWine">
-            <div className="p-5 bg-swLightBgGray rounded-3xl">
-              <div className="flex justify-between items-center mb-5">
-                <p className="font-semibold text-swDarkGray ml-2">Book a jet</p>
-                <div className="p-2 rounded-full shadow-md flex gap-5">
-                  <button
-                    className={`${bookingEngine === "oneWayTrip"
-                      ? "text-swWine shadow"
-                      : "text-swLightGray"
+        <section className="absolute max-w-7xl -bottom-36 right-1/2 transform translate-x-1/2 w-full">
+          <div className="flex gap-10 justify-end max-w-7xl mx-auto pr-5 text-center">
+            <div>
+              <p className="font-semibold text-2xl">10k</p>
+              <p className="text-xs">Flights</p>
+            </div>
+            <div>
+              <p className="font-semibold text-2xl">15k</p>
+              <p className="text-xs">Clients</p>
+            </div>
+            <div>
+              <p className="font-semibold text-2xl">100</p>
+              <p className="text-xs">Countries</p>
+            </div>
+          </div>
+          <div className="p-5 bg-swWine rounded-[1.9rem]">
+            <div className="w-full bg-swWine">
+              <div className="p-5 bg-swLightBgGray rounded-3xl">
+                <div className="flex justify-between items-center mb-5">
+                  <p className="font-semibold text-swDarkGray ml-2">
+                    Book a jet
+                  </p>
+                  <div className="p-2 rounded-full shadow-md flex gap-5">
+                    <button
+                      className={`${
+                        bookingEngine === "oneWayTrip"
+                          ? "text-swWine shadow"
+                          : "text-swLightGray"
                       } py-2 px-4 rounded-full`}
-                    onClick={() => setBookingEngine("oneWayTrip")}
-                  >
-                    One Way Rrip
-                  </button>
-                  <button
-                    className={`${bookingEngine === "roundTrip"
-                      ? "text-swWine shadow"
-                      : "text-swLightGray"
+                      onClick={() => setBookingEngine("oneWayTrip")}
+                    >
+                      One Way Rrip
+                    </button>
+                    <button
+                      className={`${
+                        bookingEngine === "roundTrip"
+                          ? "text-swWine shadow"
+                          : "text-swLightGray"
                       } py-2 px-4 rounded-full`}
-                    onClick={() => setBookingEngine("roundTrip")}
-                  >
-                    Round Trip
-                  </button>
-                  <button
-                    className={`${bookingEngine === "roadCruise"
-                      ? "text-swWine shadow"
-                      : "text-swLightGray"
+                      onClick={() => setBookingEngine("roundTrip")}
+                    >
+                      Round Trip
+                    </button>
+                    <button
+                      className={`${
+                        bookingEngine === "roadCruise"
+                          ? "text-swWine shadow"
+                          : "text-swLightGray"
                       } py-2 px-4 rounded-full`}
-                    onClick={() => setBookingEngine("roadCruise")}
-                  >
-                    Road Cruise
-                  </button>
+                      onClick={() => setBookingEngine("roadCruise")}
+                    >
+                      Road Cruise
+                    </button>
+                  </div>
+                  <div className={`${space_grotesk.className} w-fit text-lg `}>
+                    <Button
+                      label="Book Jet"
+                      bgColor={"bg-swWine hover:bg-swDarkWine"}
+                      textColor={"text-white"}
+                      endIcon={<HiArrowRight size={20} />}
+                    />
+                  </div>
                 </div>
-                <div />
-              </div>
-              <div className="flex justify-between mb-5">
-                <div className="flex items-center gap-9 mx-auto">
-                  <div className="flex items-center">
-                    <div className="p-5 pr-16 flex items-center gap-5 border rounded-tl-2xl rounded-bl-2xl">
-                      <div className="bg-swWine p-1 rounded-full">
-                        <div className="h-7 w-7 relative">
-                          <Image src={departImg} alt="depart" fill />
+                <div className="flex justify-between mb-5 ">
+                  <div className="flex items-center gap-9 mx-auto flex-wrap">
+                    <div className="flex items-center mx-auto">
+                      <div className="p-5 pr-16 flex w-72 items-center gap-5 border rounded-tl-2xl rounded-bl-2xl">
+                        <div className="bg-swWine p-1 rounded-full">
+                          <div className="h-7 w-7 relative">
+                            <Image src={departImg} alt="depart" fill />
+                          </div>
+                        </div>
+                        <div>
+                          <p className="text-swLightGray text-sm">
+                            Departure city
+                          </p>
+                          <p className="text-lg text-swDarkGray font-semibold">
+                            Abuja - Nigeria
+                          </p>
                         </div>
                       </div>
-                      <div>
-                        <p className="text-swLightGray text-sm">
-                          Departure city
-                        </p>
-                        <p className="text-lg text-swDarkGray font-semibold">
-                          Abuja - Nigeria
-                        </p>
+                      <div className="p-1 rounded-full border text-black -ml-4 bg-swLightBgGray">
+                        <GoArrowRight size={15} className={"-mb-2 ml-1"} />
+                        <GoArrowLeft size={15} className="-mt-2 mr-1" />
                       </div>
-                    </div>
-                    <div className="p-1 rounded-full border text-black -ml-4 bg-swLightBgGray">
-                      <GoArrowRight size={15} className={"-mb-2 ml-1"} />
-                      <GoArrowLeft size={15} className="-mt-2 mr-1" />
-                    </div>
-                    <div className="p-5 pr-16 flex items-center gap-5 border border-l-transparent -m-4 rounded-tr-2xl rounded-br-2xl">
-                      <div className="bg-swWine p-1 rounded-full">
-                        <div className="h-7 w-7 relative">
-                          <Image src={arriveImg} alt="depart" fill />
+                      <div className="p-5 pr-16 flex w-72 items-center gap-5 border border-l-transparent -m-4 rounded-tr-2xl rounded-br-2xl">
+                        <div className="bg-swWine p-1 rounded-full">
+                          <div className="h-7 w-7 relative">
+                            <Image src={arriveImg} alt="depart" fill />
+                          </div>
+                        </div>
+                        <div>
+                          <p className="text-swLightGray text-sm">
+                            Arrival city
+                          </p>
+                          <p className="text-lg text-swDarkGray font-semibold">
+                            Lagos - Nigeria
+                          </p>
                         </div>
                       </div>
-                      <div>
-                        <p className="text-swLightGray text-sm">Arrival city</p>
-                        <p className="text-lg text-swDarkGray font-semibold">
-                          Lagos - Nigeria
-                        </p>
+                    </div>
+                    <div className="flex justify-around gap-5 mx-auto flex-wrap">
+                      <div className="p-5 pr-16 flex items-center w-72 gap-5 border rounded-2xl">
+                        <div className="p-2 rounded-full border text-swDarkGray">
+                          <MdOutlineCalendarToday size={20} />
+                        </div>
+                        <div>
+                          <p className="text-swLightGray text-sm">
+                            Departure date
+                          </p>
+                          <p className="text-lg text-swDarkGray font-semibold">
+                            20 Jan
+                          </p>
+                        </div>
+                      </div>
+                      <div className="p-5 flex items-center w-72 gap-5 border rounded-2xl">
+                        <div className="p-2 rounded-full border text-swDarkGray">
+                          <BiUser size={20} />
+                        </div>
+                        <div>
+                          <p className="text-swLightGray text-sm">
+                            Departure city
+                          </p>
+                          <p className="text-lg text-swDarkGray font-semibold">
+                            4 Adult - 2 Children
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
-                  <div className="flex justify-around gap-5">
-                    <div className="p-5 pr-16 flex items-center gap-5 border rounded-2xl">
-                      <div className="p-2 rounded-full border text-swDarkGray">
-                        <MdOutlineCalendarToday size={20} />
-                      </div>
-                      <div>
-                        <p className="text-swLightGray text-sm">
-                          Departure date
-                        </p>
-                        <p className="text-lg text-swDarkGray font-semibold">
-                          20 Jan
-                        </p>
-                      </div>
-                    </div>
-                    <div className="p-5 pr-16 flex items-center gap-5 border rounded-2xl">
-                      <div className="p-2 rounded-full border text-swDarkGray">
-                        <BiUser size={20} />
-                      </div>
-                      <div>
-                        <p className="text-swLightGray text-sm">
-                          Departure city
-                        </p>
-                        <p className="text-lg text-swDarkGray font-semibold">
-                          4 Adult - 2 Children
-                        </p>
-                      </div>
-                    </div>
-                  </div>
                 </div>
-              </div>
-              <div
-                className={`${space_grotesk.className} flex justify-center text-lg`}
-              >
-                <Button
-                  label="Book Jet"
-                  bgColor={"bg-swWine"}
-                  textColor={"text-white"}
-                  endIcon={<HiArrowRight size={20} />}
-                />
               </div>
             </div>
           </div>
@@ -252,22 +260,29 @@ export default function Home() {
           <div className="bg-swButter text-swWine p-8 max-w-[44rem] rounded-2xl">
             <p className="font-light">
               Swift Wings understands that our clients’ travel needs often
-              stretch far beyond the borders of Nigeria.<br /> That’s why we provide
-              extensive global coverage, seamlessly connecting you to
-              destinations in Europe, North America, South America, and other
-              corners of the world, even the most remote ones. With our network
-              of trusted partners and affiliates, we ensure that you experience
-              the convenience and flexibility of air travel on a global scale.
+              stretch far beyond the borders of Nigeria.
+              <br /> That’s why we provide extensive global coverage, seamlessly
+              connecting you to destinations in Europe, North America, South
+              America, and other corners of the world, even the most remote
+              ones. With our network of trusted partners and affiliates, we
+              ensure that you experience the convenience and flexibility of air
+              travel on a global scale.
             </p>
-            <div className="mt-5 flex justify-end gap-3 items-center">Learn more <GoArrowRight size={20} /></div>
+            <div className="mt-5 flex justify-end gap-3 items-center">
+              Learn more <GoArrowRight size={20} />
+            </div>
           </div>
         </div>
       </section>
       <section className="max-w-6xl mx-auto py-10">
         <div className="relative pt-40 pb-20 lg:pt-44">
           <div className="relative 2xl:container m-auto px-6 md:px-12 lg:px-6">
-            <p className="sm:mx-auto sm:w-10/12 md:w-2/3 text-swWine text-center sm:text-[18px] md:text-[18px] lg:w-auto lg:text-left">Fleet Showcase</p>
-            <h1 className="mt-8 sm:mx-auto sm:w-10/12 md:w-2/3 text-gray-600 text-4xl font-semibold text-center sm:text-5xl md:text-6xl lg:w-auto lg:text-left xl:text-7xl">Our Fleet.</h1>
+            <p className="sm:mx-auto sm:w-10/12 md:w-2/3 text-swWine text-center sm:text-[18px] md:text-[18px] lg:w-auto lg:text-left">
+              Fleet Showcase
+            </p>
+            <h1 className="mt-8 sm:mx-auto sm:w-10/12 md:w-2/3 text-gray-600 text-4xl font-semibold text-center sm:text-5xl md:text-6xl lg:w-auto lg:text-left xl:text-7xl">
+              Our Fleet.
+            </h1>
             <div className="flex gap-12 mt-12">
               <div className="col-span-2  relative">
                 {fleet.map((item) => (
@@ -278,11 +293,15 @@ export default function Home() {
                     onMouseLeave={handleMouseLeave}
                   >
                     <div className="grid grid-cols-1 gap-2 lg:grid-cols-3 lg:gap-2 mt-2 pb- p-6 border-gray-200 rounded duration-300 hover:shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] rounded-lg">
-      <div className="flex items-center fleet-item">
-        <a aria-label="add to slack" href="#" className="px-4 py-1 block">
-          <p className="font-medium md:block">{item.name}</p>
-        </a>
-      </div>
+                      <div className="flex items-center  fleet-item">
+                        <a
+                          aria-label="add to slack"
+                          href="#"
+                          className="px-4 py-1 block"
+                        >
+                          <p className="font-medium md:block">{item.name}</p>
+                        </a>
+                      </div>
                       <div className="flex-1 flex flex-col items-start justify-center gap-[4px] text-xs text-gray-800 mt-3 px-2 py-1 lg:col-span-2">
                         <div className="flex justify-between">
                           <div className="flex gap-8 justify-center items-center">
@@ -310,8 +329,22 @@ export default function Home() {
               </div>
               <div className="flex justify-center items-center  image-container">
                 <div className="">
-                  <div aria-hidden="true" className={` absolute scale-75 md:scale-110 inset-0 m-auto w-full h-full md:w-96 md:h-96 rounded-full rotate-45 bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl ${hoveredIndex !== null ? 'opacity-100' : 'opacity-0'}`}></div>
-                  <Image src={Offer1} className={`rounded-xl relative fleet-image ${hoveredIndex !== null ? 'opacity-100' : 'opacity-0'} shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)]`} alt="illustration" loading="lazy" width={620} height={380} />
+                  <div
+                    aria-hidden="true"
+                    className={` absolute scale-75 md:scale-110 inset-0 m-auto w-full h-full md:w-96 md:h-96 rounded-full rotate-45 bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl ${
+                      hoveredIndex !== null ? "opacity-100" : "opacity-0"
+                    }`}
+                  ></div>
+                  <Image
+                    src={Offer1}
+                    className={`rounded-xl relative fleet-image ${
+                      hoveredIndex !== null ? "opacity-100" : "opacity-0"
+                    } shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)]`}
+                    alt="illustration"
+                    loading="lazy"
+                    width={620}
+                    height={380}
+                  />
                 </div>
               </div>
             </div>
@@ -340,7 +373,10 @@ export default function Home() {
           </div>
           <div className="grid gap-6 px-4 sm:px-0 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             {services.map((service, index) => (
-              <div key={index} className="group relative rounded-3xl space-y-8 overflow-hidden">
+              <div
+                key={index}
+                className="group relative rounded-3xl space-y-8 overflow-hidden"
+              >
                 <img
                   className="mx-auto h-[26rem] w-full object-cover object-top ransition duration-500 group-hover:scale-105 group-hover:grayscale-0"
                   src={service.imageSrc}
@@ -351,9 +387,13 @@ export default function Home() {
                 />
                 <div className="absolute bottom-0 inset-x-0 h-max mt-auto px-12 py-4 bg-mix dark:bg-white translate-y-24 transition duration-300 ease-in-out group-hover:translate-y-0">
                   <div>
-                    <h4 className="text-xl text-left font-semibold dark:text-gray-700 text-white mb-">{service.title}</h4>
+                    <h4 className="text-xl text-left font-semibold dark:text-gray-700 text-white mb-">
+                      {service.title}
+                    </h4>
                   </div>
-                  <p className="mt-4 text-xs text-left text-gray-300 dark:text-gray-600">{service.description}</p>
+                  <p className="mt-4 text-xs text-left text-gray-300 dark:text-gray-600">
+                    {service.description}
+                  </p>
                 </div>
               </div>
             ))}
@@ -375,7 +415,10 @@ export default function Home() {
               Membership
             </h2>
             <p className="text-gray-700 dark:text-gray-300  mt-8 sm:mx-auto   text-xl text-center sm:text-xl md:text-xl">
-              Swift Wings Ltd offers an exclusive Jet Card Membership, providing discerning travelers with unparalleled access to private jet charter services. As a Jet Card member, you enjoy priority booking and seamless travel experiences tailored to your preferences.
+              Swift Wings Ltd offers an exclusive Jet Card Membership, providing
+              discerning travelers with unparalleled access to private jet
+              charter services. As a Jet Card member, you enjoy priority booking
+              and seamless travel experiences tailored to your preferences.
             </p>
           </div>
         </div>
