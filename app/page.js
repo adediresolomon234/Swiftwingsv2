@@ -266,10 +266,10 @@ export default function Home() {
       <section className="max-w-6xl mx-auto py-10">
         <div className="relative pt-40 pb-20 lg:pt-44">
           <div className="relative 2xl:container m-auto px-6 md:px-12 lg:px-6">
-            <p className="sm:mx-auto sm:w-10/12 md:w-2/3 text-swWine text-center sm:text-[18px] md:text-[18px] lg:w-auto lg:text-left">Fleet Showcase</p>
-            <h1 className="mt-8 sm:mx-auto sm:w-10/12 md:w-2/3 text-gray-600 text-4xl font-semibold text-center sm:text-5xl md:text-6xl lg:w-auto lg:text-left xl:text-7xl">Our Fleet.</h1>
-            <div className="flex gap-12 mt-12">
-              <div className="col-span-2  relative">
+            <p className="sm:mx-auto sm:w-10/12 md:w-2/3 text-swWine font-semibold text-center sm:text-[18px] md:text-[18px] lg:text-[18px] lg:w-auto lg:text-left">Fleet Showcase</p>
+            <h1 className="mt-8 sm:mx-auto sm:w-10/12 md:w-2/3 text-swDarkGray text-4xl font-semibold text-center sm:text-5xl md:text-6xl lg:w-auto lg:text-left xl:text-7xl">Our Fleet.</h1>
+            <div className="flex gap-6 mt-12">
+              <div className="col-span-2 relative">
                 {fleet.map((item) => (
                   <div
                     key={item.id}
@@ -277,52 +277,53 @@ export default function Home() {
                     onMouseEnter={() => handleMouseEnter(item.id)}
                     onMouseLeave={handleMouseLeave}
                   >
-                    <div className="grid grid-cols-1 gap-2 lg:grid-cols-3 lg:gap-2 mt-2 pb- p-6 border-gray-200 rounded duration-300 hover:shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] rounded-lg">
-      <div className="flex items-center fleet-item">
-        <a aria-label="add to slack" href="#" className="px-4 py-1 block">
-          <p className="font-medium md:block">{item.name}</p>
-        </a>
-      </div>
-                      <div className="flex-1 flex flex-col items-start justify-center gap-[4px] text-xs text-gray-800 mt-3 px-2 py-1 lg:col-span-2">
-                        <div className="flex justify-between">
-                          <div className="flex gap-8 justify-center items-center">
-                            <div className="flex items-center">
-                              <Icon path={item.icon} size={1} />
-                              <span className="ml-2">{item.seat}</span>
-                            </div>
-                            <div className="flex items-center">
-                              <Icon path={item.icon2} size={1} />
-                              <span className="ml-2">{item.kilometer}</span>
-                            </div>
-                            <div className="flex items-center">
-                              <Icon path={item.icon3} size={1} />
-                              <span className="ml-2">{item.feet}</span>
-                            </div>
+                    <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-2 mt-2 p-3 border-gray-200 rounded duration-300 hover:bg-swBgGray">
+                      <div className="flex items-center fleet-item">
+                        <a aria-label="icon" className="block">
+                          <p className="font-medium md:block text-[20px] text-swLightGray">{item.name}</p>
+                        </a>
+                      </div>
+                      <div className="flex-1 flex flex-col items-start justify-between text-xs text-gray-800 px-3 py-1 lg:col-span-2">
+                        <div className="flex justify-between flex-grow gap-[18px] mt-6 font-normal ">
+                          <div className="flex items-center ">
+                            <Icon path={item.icon} size={1} />
+                            <span className="ml-3">{item.seat}</span>
+                          </div>
+                          <div className="flex items-center">
+                            <Icon path={item.icon2} size={1} />
+                            <span className="ml-3 ">{item.kilometer}</span>
+                          </div>
+                          <div className="flex items-center">
+                            <Icon path={item.icon3} size={1} />
+                            <span className="ml-3 ">{item.feet}</span>
                           </div>
                         </div>
-                        <div className="self-stretch relative leading-[18px] text-gray-600 mt-3">
+                        <div className=" self-stretch relative leading-[18px] mt-2 mx-2 text-swLightGray">
                           {item.size}
                         </div>
                       </div>
+
                     </div>
+                    <hr className="w-full border-gray-200" />
                   </div>
                 ))}
               </div>
               <div className="flex justify-center items-center  image-container">
                 <div className="">
-                  <div aria-hidden="true" className={` absolute scale-75 md:scale-110 inset-0 m-auto w-full h-full md:w-96 md:h-96 rounded-full rotate-45 bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl ${hoveredIndex !== null ? 'opacity-100' : 'opacity-0'}`}></div>
-                  <Image src={Offer1} className={`rounded-xl relative fleet-image ${hoveredIndex !== null ? 'opacity-100' : 'opacity-0'} shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)]`} alt="illustration" loading="lazy" width={620} height={380} />
+                  <div aria-hidden="true" className={` absolute scale-75 md:scale-110 inset-0 m-auto rotate-45 bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl ${hoveredIndex !== null ? 'opacity-100' : 'opacity-0'}`}></div>
+                  <Image src={Offer1} className={` relative fleet-image ${hoveredIndex !== null ? 'opacity-100' : 'opacity-0'}`} alt="illustration" loading="lazy"  />
                 </div>
               </div>
             </div>
             <div
-              className={`${space_grotesk.className} flex justify-right text-lg mt-12`}
+              className={`${space_grotesk.className} flex justify-right text-xl mt-12 py-8 `}
             >
               <Button
                 label="See all"
                 bgColor={"bg-swWine"}
                 textColor={"text-white"}
-                endIcon={<HiArrowRight size={20} />}
+                endIcon={<HiArrowRight size={15} />}
+               
               />
             </div>
           </div>
@@ -331,10 +332,10 @@ export default function Home() {
       <section className="max-w-6xl mx-auto py-10">
         <div className="container mx-auto px-6 text-center md:px-12">
           <div className="mb-16">
-            <h2 className="mb-4 text-center text-[18px]  text-swWine dark:text-white md:text-[18px] ">
+            <h2 className="mb-4 text-center text-[18px] font-semibold  text-swWine  md:text-[18px] ">
               Our Services
             </h2>
-            <p className="text-gray-700 dark:text-gray-300 font-semibold lg:w-8/12 mt-8 sm:mx-auto sm:w-10/12 md:w-2/3  text-4xl text-center sm:text-5xl md:text-6xl">
+            <p className="text-swDarkGray  font-semibold lg:w-8/12 mt-8 sm:mx-auto sm:w-10/12 md:w-2/3  text-4xl text-center sm:text-5xl md:text-6xl">
               We offer world a class exotic experience
             </p>
           </div>
@@ -349,11 +350,11 @@ export default function Home() {
                   width="640"
                   height="805"
                 />
-                <div className="absolute bottom-0 inset-x-0 h-max mt-auto px-12 py-4 bg-mix dark:bg-white translate-y-24 transition duration-300 ease-in-out group-hover:translate-y-0">
+                <div className="absolute bottom-0 inset-x-0 h-max mt-auto px-12 py-4 bg-gradient-to-r from-neutral-400 to-stone-500/90">
                   <div>
-                    <h4 className="text-xl text-left font-semibold dark:text-gray-700 text-white mb-">{service.title}</h4>
+                    <h4 className="text-xl text-left font-semibold text-white mb-3">{service.title}</h4>
                   </div>
-                  <p className="mt-4 text-xs text-left text-gray-300 dark:text-gray-600">{service.description}</p>
+                  <p className="mt-4 text-xs text-left text-gray-300">{service.description}</p>
                 </div>
               </div>
             ))}
@@ -371,7 +372,7 @@ export default function Home() {
       <section className="max-w-6xl mx-auto py-10">
         <div className="container mx-auto px-6 text-center md:px-12">
           <div className="mb-16">
-            <h2 className="mb-4 text-center text-[18px]  text-swWine dark:text-white md:text-[18px] ">
+            <h2 className="mb-4 text-center text-[18px] font-semibold text-swWine  md:text-[18px] ">
               Membership
             </h2>
             <p className="text-gray-700 dark:text-gray-300  mt-8 sm:mx-auto   text-xl text-center sm:text-xl md:text-xl">
@@ -380,14 +381,14 @@ export default function Home() {
           </div>
         </div>
         <div className="mb-16">
-          <h2 className="mb-4 text-center text-[18px]  text-gray-700 dark:text-white md:text-[18px] ">
+          <h2 className="mb-4 text-center text-[18px]  text-gray-700 md:text-[18px] ">
             Features
           </h2>
           <div className="max-w-full grid gap-8 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 grid-rows-2 gap-y-8 justify-center items-center relative">
             {textAreas.map((area, index) => (
               <div
                 key={index}
-                className={`bg-white outline-none shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px] rounded-xl flex flex-col justify-center items-center py-28 px-8 font-medium text-lg text-darkgray text-center`}
+                className={`bg-swBgGray outline-none features-card flex flex-col justify-center items-center py-24 px-8 font-medium text-lg text-darkgray text-center`}
               >
                 {area.description}
               </div>
@@ -408,60 +409,60 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="max-w-6xl mx-auto py-10">
-      <div className="container mx-auto px-6 text-center md:px-12">
+      <section className="mx-auto py-16 px-16">
+        <div className="container mx-auto px-6 text-center md:px-12">
           <div className="mb-16">
-            <h2 className="mb-4 text-center text-[18px]  text-swWine dark:text-white md:text-[18px] ">
-            Customer Testimonials
+            <h2 className="mb-4 text-center text-[18px]  text-swWine md:text-[18px] ">
+              Customer Testimonials
             </h2>
-            <p className="text-gray-700 dark:text-gray-300  mt-8 sm:mx-auto   text-xl text-center sm:text-xl md:text-xl">
-            Swift Wings Ltd offers an exclusive Jet Card Membership, providing discerning travelers with unparalleled access to private jet charter services. As a Jet Card member, you enjoy priority booking and seamless travel experiences tailored to your preferences.
+            <p className="text-gray-700   mt-8 sm:mx-auto   text-xl text-center sm:text-xl md:text-xl">
+              Swift Wings Ltd offers an exclusive Jet Card Membership, providing discerning travelers with unparalleled access to private jet charter services. As a Jet Card member, you enjoy priority booking and seamless travel experiences tailored to your preferences.
             </p>
           </div>
         </div>
         <div className="mb-16">
-        <div className="relative mt-32">
+          <div className="relative mt-32">
             <div className="container-snap mt-10 pb-8  w-[full] flex gap-8 snap-x overflow-x-auto self-center" style={{ scrollSnapAlign: 'start' }}>
-              <div className="scroll-ml-6 snap-start">
-                <div className="relative flex-shrink-0 max-w-[95vw] overflow-hidden rounded-3xl">
-                  <div className="absolute inset-0 w-full h-full bg-gray-200 shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]"></div>
+              <div className="scroll-ml-6 snap-start ">
+                <div className="relative flex-shrink-0 max-w-[95vw] overflow-hidden Testimonial-card">
+                  <div className="absolute inset-0 w-full h-full bg-swBgGray "></div>
                   <div className="relative h-96 w-[768px] p-12 flex flex-col justify-between items-start">
-                    <div>
-                      <p className="font-medium text-gray-800 text-start">Tim Correy</p>
-                      <h2 className="text-gray-700 dark:text-gray-300 mt-8 sm:mx-auto text-xl text-start sm:text-xl md:text-xl">Swift Wings Ltd offers an exclusive Jet Card Membership, providing discerning travelers with unparalleled access to private jet charter services. As a Jet Card member, you enjoy priority booking and seamless travel experiences tailored to your preferences.</h2>
+                    <div className=" py-8 px-4">
+                      <p className="font-bold text-gray-800 text-start">Tim Correy</p>
+                      <h2 className="text-gray-700 mt-8 sm:mx-auto text-xl text-start sm:text-xl md:text-xl">Swift Wings Ltd offers an exclusive Jet Card Membership, providing discerning travelers with unparalleled access to private jet charter services. As a Jet Card member, you enjoy priority booking and seamless travel experiences tailored to your preferences.</h2>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="scroll-mr-6 snap-start">
-                <div className="relative flex-shrink-0 max-w-[50vw] overflow-hidden rounded-3xl">
-                  <div className="absolute inset-0 w-full h-full bg-gray-200 shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]"></div>
+              <div className="scroll-mr-6 snap-start ">
+                <div className="relative flex-shrink-0 max-w-[50vw] overflow-hidden Testimonial-card">
+                  <div className="absolute inset-0 w-full h-full bg-swBgGray shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]"></div>
                   <div className="relative h-96 w-[768px] p-12 flex flex-col justify-between items-start">
                     <div>
-                      <p className="font-medium text-gray-800 text-start">Tim Correy</p>
-                      <h2 className="text-gray-700 dark:text-gray-300 mt-8 sm:mx-auto text-xl text-start sm:text-xl md:text-xl">Swift Wings Ltd offers an exclusive Jet Card Membership, providing discerning travelers with unparalleled access to private jet charter services. As a Jet Card member, you enjoy priority booking and seamless travel experiences tailored to your preferences.</h2>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="snap-center">
-                <div className="relative flex-shrink-0 max-w-[95vw] overflow-hidden rounded-3xl">
-                  <div className="absolute inset-0 w-full h-full bg-gray-200 shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]"></div>
-                  <div className="relative h-96 w-[768px] p-12 flex flex-col justify-between items-start">
-                    <div>
-                      <p className="font-medium text-gray-800 text-start">Tim Correy</p>
-                      <h2 className="text-gray-700 dark:text-gray-300 mt-8 sm:mx-auto text-xl text-start sm:text-xl md:text-xl">Swift Wings Ltd offers an exclusive Jet Card Membership, providing discerning travelers with unparalleled access to private jet charter services. As a Jet Card member, you enjoy priority booking and seamless travel experiences tailored to your preferences.</h2>
+                      <p className="font-bold text-gray-800 text-start">Tim Correy</p>
+                      <h2 className="text-gray-700  mt-8 sm:mx-auto text-xl text-start sm:text-xl md:text-xl">Swift Wings Ltd offers an exclusive Jet Card Membership, providing discerning travelers with unparalleled access to private jet charter services. As a Jet Card member, you enjoy priority booking and seamless travel experiences tailored to your preferences.</h2>
                     </div>
                   </div>
                 </div>
               </div>
               <div className="snap-center">
-                <div className="relative flex-shrink-0 max-w-[95vw] overflow-hidden rounded-3xl">
-                  <div className="absolute inset-0 w-full h-full bg-gray-200 shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]"></div>
+                <div className="relative flex-shrink-0 max-w-[95vw] overflow-hidden Testimonial-card">
+                  <div className="absolute inset-0 w-full h-full bg-swBgGray shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]"></div>
                   <div className="relative h-96 w-[768px] p-12 flex flex-col justify-between items-start">
                     <div>
-                      <p className="font-medium text-gray-800 text-start">Tim Correy</p>
-                      <h2 className="text-gray-700 dark:text-gray-300 mt-8 sm:mx-auto text-xl text-start sm:text-xl md:text-xl">Swift Wings Ltd offers an exclusive Jet Card Membership, providing discerning travelers with unparalleled access to private jet charter services. As a Jet Card member, you enjoy priority booking and seamless travel experiences tailored to your preferences.</h2>
+                      <p className="font-bold text-gray-800 text-start">Tim Correy</p>
+                      <h2 className="text-gray-700  mt-8 sm:mx-auto text-xl text-start sm:text-xl md:text-xl">Swift Wings Ltd offers an exclusive Jet Card Membership, providing discerning travelers with unparalleled access to private jet charter services. As a Jet Card member, you enjoy priority booking and seamless travel experiences tailored to your preferences.</h2>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="snap-center">
+                <div className="relative flex-shrink-0  overflow-hidden Testimonial-card">
+                  <div className="absolute inset-0 w-full h-full bg-swBgGray shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]"></div>
+                  <div className="relative h-96 w-[768px] p-12 flex flex-col justify-between items-start">
+                    <div className="py-8 ">
+                      <p className="font-bold text-gray-800 text-start">Tim Correy</p>
+                      <h2 className="text-gray-700 mt-8 sm:mx-auto text-xl text-start sm:text-xl md:text-xl">Swift Wings Ltd offers an exclusive Jet Card Membership, providing discerning travelers with unparalleled access to private jet charter services. As a Jet Card member, you enjoy priority booking and seamless travel experiences tailored to your preferences.</h2>
                     </div>
                   </div>
                 </div>

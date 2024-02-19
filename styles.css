@@ -1,7 +1,7 @@
 
   
   .fleet-image {
-    width: 100%;
+    width: 798px;
     height: 100%;
   }
   
@@ -12,41 +12,23 @@
   .image-container .hidden {
     display: none;
   }
-  .bg-mix {
-    background: linear-gradient(45deg, rgb(84, 84, 84), rgba(200, 12, 12, 0.59));
+
+  ::-webkit-scrollbar {
+    display: none; 
   }
-
-
-::-webkit-scrollbar {
-  width: 2px; 
-  height: 5px;
+  .container-snap {
+    scroll-snap-type: x mandatory;
+    overflow-x: auto;
+  }
+.features-card{
+  -webkit-border-radius: 86px;
+-moz-border-radius: 86px;
+border-radius: 40px;
 }
 
-::-webkit-scrollbar-track {
-  background: #f1f1f1; 
-}
-
-::-webkit-scrollbar-thumb {
-  background: #888; 
-  border-radius: 10px; 
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #555; 
-}
-
-.container-snap {
-  scroll-snap-type: x mandatory;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-.container-snap::-webkit-scrollbar {
-  display:flex;  
-}
-
-
-.scroll-start {
-  scroll-snap-align: start center;
+.Testimonial-card{
+-webkit-border-radius: 60px;
+-moz-border-radius: 60px;
+border-radius: 70px;
 }
 
