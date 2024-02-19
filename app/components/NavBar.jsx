@@ -22,7 +22,7 @@ const NavBar = () => {
           <Link href="" className="text-lg">
             Sign In
           </Link>
-          <Button label={"Sign Up"} />
+          <Button label={"Sign Up"} textColor={"text-swDarkGray"} />
         </div>
       </div>
     </main>
