@@ -1,5 +1,7 @@
 import { mdiCarSeat, mdiSpeedometer, mdiArrowLeftRight, mdiArrowRight } from '@mdi/js';
 
+
+export const fleet = [
     {
       name: "Hawker 800XP",
       image:  "images/Offer1",
