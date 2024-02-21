@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Space_Grotesk } from "next/font/google";
 import Image from "next/image";
 import NavBar from "./components/NavBar";
@@ -27,6 +27,10 @@ import Crown from "../public/images/Crown.png";
 import { CiStar } from "react-icons/ci";
 import indexAirplane from "../public/images/indexAirplane.png";
 import Footer from "./components/shared/Footer";
+import { testimonial } from "./CustomerTestimonial";
+import Marquee from "react-fast-marquee";
+import { FaXTwitter } from "react-icons/fa6";
+
 
 const space_grotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -34,16 +38,21 @@ const space_grotesk = Space_Grotesk({
 
 export default function Home() {
   const [bookingEngine, setBookingEngine] = useState("oneWayTrip");
-
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
   const handleMouseEnter = (index) => {
-    setHoveredIndex(index);
+    if (hoveredIndex !== index) {
+      setHoveredIndex(index); 
+    } else {
+      setHoveredIndex(null); 
+    }
   };
 
   const handleMouseLeave = () => {
-    setHoveredIndex(null);
-  };
+    setHoveredIndex(null); 
+  };;
+
+
   return (
     <main className="px-5 relative bg-swLightBgGray">
       <NavBar />
@@ -91,31 +100,28 @@ export default function Home() {
                   </p>
                   <div className="p-2 rounded-full shadow-md flex gap-5">
                     <button
-                      className={`${
-                        bookingEngine === "oneWayTrip"
-                          ? "text-swWine shadow"
-                          : "text-swLightGray"
-                      } py-2 px-4 rounded-full`}
+                      className={`${bookingEngine === "oneWayTrip"
+                        ? "text-swWine shadow"
+                        : "text-swLightGray"
+                        } py-2 px-4 rounded-full`}
                       onClick={() => setBookingEngine("oneWayTrip")}
                     >
                       One Way Rrip
                     </button>
                     <button
-                      className={`${
-                        bookingEngine === "roundTrip"
-                          ? "text-swWine shadow"
-                          : "text-swLightGray"
-                      } py-2 px-4 rounded-full`}
+                      className={`${bookingEngine === "roundTrip"
+                        ? "text-swWine shadow"
+                        : "text-swLightGray"
+                        } py-2 px-4 rounded-full`}
                       onClick={() => setBookingEngine("roundTrip")}
                     >
                       Round Trip
                     </button>
                     <button
-                      className={`${
-                        bookingEngine === "roadCruise"
-                          ? "text-swWine shadow"
-                          : "text-swLightGray"
-                      } py-2 px-4 rounded-full`}
+                      className={`${bookingEngine === "roadCruise"
+                        ? "text-swWine shadow"
+                        : "text-swLightGray"
+                        } py-2 px-4 rounded-full`}
                       onClick={() => setBookingEngine("roadCruise")}
                     >
                       Road Cruise
@@ -282,11 +288,11 @@ export default function Home() {
             <div className="flex gap-6 mt-12">
               <div className="col-span-2 relative">
 
-                {fleet.map((item) => (
+                {fleet.map((item, index) => (
                   <div
                     key={item.id}
                     className="col-span-2 relative"
-                    onMouseEnter={() => handleMouseEnter(item.id)}
+                    onMouseEnter={() => handleMouseEnter(index)}
                     onMouseLeave={handleMouseLeave}
                   >
 
@@ -323,11 +329,15 @@ export default function Home() {
                 ))}
               </div>
               <div className="flex justify-center items-center  image-container">
-                <div className="">
-                  <div aria-hidden="true" className={` absolute scale-75 md:scale-110 inset-0 m-auto rotate-45 bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl ${hoveredIndex !== null ? 'opacity-100' : 'opacity-0'}`}></div>
-                  <Image src={Offer1} className={` relative fleet-image ${hoveredIndex !== null ? 'opacity-100' : 'opacity-0'}`} alt="illustration" loading="lazy"  />
+              <div className="">
+                {hoveredIndex !== null && (
+                  <>
+                    <div aria-hidden="true" className={` absolute scale-75 md:scale-110 inset-0 m-auto rotate-45 bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl opacity-100`}></div>
+                    <Image src={fleet[hoveredIndex].image} width={798} height="100%" className={`relative fleet-image opacity-100`} alt="illustration" loading="lazy" />
 
-                </div>
+                  </>
+                )}
+              </div>
               </div>
             </div>
             <div
@@ -338,7 +348,6 @@ export default function Home() {
                 bgColor={"bg-swWine"}
                 textColor={"text-white"}
                 endIcon={<HiArrowRight size={15} />}
-               
               />
             </div>
           </div>
@@ -444,61 +453,48 @@ export default function Home() {
         </div>
         <div className="mb-16">
           <div className="relative mt-32">
-            <div className="container-snap mt-10 pb-8  w-[full] flex gap-8 snap-x overflow-x-auto self-center" style={{ scrollSnapAlign: 'start' }}>
-              <div className="scroll-ml-6 snap-start ">
-                <div className="relative flex-shrink-0 max-w-[95vw] overflow-hidden Testimonial-card">
-                  <div className="absolute inset-0 w-full h-full bg-swBgGray "></div>
-                  <div className="relative h-96 w-[768px] p-12 flex flex-col justify-between items-start">
-                    <div className=" py-8 px-4">
-                      <p className="font-bold text-gray-800 text-start">Tim Correy</p>
-                      <h2 className="text-gray-700 mt-8 sm:mx-auto text-xl text-start sm:text-xl md:text-xl">Swift Wings Ltd offers an exclusive Jet Card Membership, providing discerning travelers with unparalleled access to private jet charter services. As a Jet Card member, you enjoy priority booking and seamless travel experiences tailored to your preferences.</h2>
+            <div
+             
+              className="container-snap mt-10 pb-8 flex gap-32 snap-x overflow-x-auto self-center"
+              style={{ scrollSnapAlign: "start" }}
+            >
+              <Marquee pauseOnHover ={true} speed ={60}>
+                {testimonial.map((item) => (
+                  <div
+                    key={item.id}
+                    className="scroll-ml-6 snap-start ml-16"
+                    onMouseEnter={() => handleMouseEnter(item.id)}
+                    onMouseLeave={handleMouseLeave}
+                  >
+                    <div className="relative flex-shrink-0 max-w-[95vw] overflow-hidden Testimonial-card">
+                      <div className="absolute inset-0 w-full h-full bg-swBgGray "></div>
+                      <div className="relative h-98 w-[768px] p-12 flex flex-col justify-between items-center">
+                        <div className="py-10 px-4">
+                          <p className="font-bold text-gray-800 text-center">
+                            {item.name}
+                          </p>
+                          <h2 className="text-gray-700 mt-8 sm:mx-auto text-xl text-center sm:text-xl md:text-[18px]">
+                            {item.testimonial}
+                          </h2>
+                          <div className="flex justify-center mt-8">
+                            <FaXTwitter  />
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
-              <div className="scroll-mr-6 snap-start ">
-                <div className="relative flex-shrink-0 max-w-[50vw] overflow-hidden Testimonial-card">
-                  <div className="absolute inset-0 w-full h-full bg-swBgGray shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]"></div>
-                  <div className="relative h-96 w-[768px] p-12 flex flex-col justify-between items-start">
-                    <div>
-                      <p className="font-bold text-gray-800 text-start">Tim Correy</p>
-                      <h2 className="text-gray-700  mt-8 sm:mx-auto text-xl text-start sm:text-xl md:text-xl">Swift Wings Ltd offers an exclusive Jet Card Membership, providing discerning travelers with unparalleled access to private jet charter services. As a Jet Card member, you enjoy priority booking and seamless travel experiences tailored to your preferences.</h2>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="snap-center">
-                <div className="relative flex-shrink-0 max-w-[95vw] overflow-hidden Testimonial-card">
-                  <div className="absolute inset-0 w-full h-full bg-swBgGray shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]"></div>
-                  <div className="relative h-96 w-[768px] p-12 flex flex-col justify-between items-start">
-                    <div>
-                      <p className="font-bold text-gray-800 text-start">Tim Correy</p>
-                      <h2 className="text-gray-700  mt-8 sm:mx-auto text-xl text-start sm:text-xl md:text-xl">Swift Wings Ltd offers an exclusive Jet Card Membership, providing discerning travelers with unparalleled access to private jet charter services. As a Jet Card member, you enjoy priority booking and seamless travel experiences tailored to your preferences.</h2>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="snap-center">
-                <div className="relative flex-shrink-0  overflow-hidden Testimonial-card">
-                  <div className="absolute inset-0 w-full h-full bg-swBgGray shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]"></div>
-                  <div className="relative h-96 w-[768px] p-12 flex flex-col justify-between items-start">
-                    <div className="py-8 ">
-                      <p className="font-bold text-gray-800 text-start">Tim Correy</p>
-                      <h2 className="text-gray-700 mt-8 sm:mx-auto text-xl text-start sm:text-xl md:text-xl">Swift Wings Ltd offers an exclusive Jet Card Membership, providing discerning travelers with unparalleled access to private jet charter services. As a Jet Card member, you enjoy priority booking and seamless travel experiences tailored to your preferences.</h2>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="flex justify-center text-lg mt-12">
-              <Button
-                label="Become a member"
-                bgColor={"bg-swWine"}
-                textColor={"text-white"}
-                endIcon={<CiStar size={20} />}
-              />
+                ))}
+              </Marquee>
             </div>
           </div>
+        </div>
+        <div className="flex justify-center text-lg mt-12">
+          <Button
+            label="Become a member"
+            bgColor={"bg-swWine"}
+            textColor={"text-white"}
+            endIcon={<CiStar size={20} />}
+          />
         </div>
       </section>
       <Footer />
