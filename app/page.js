@@ -38,20 +38,15 @@ const space_grotesk = Space_Grotesk({
 
 export default function Home() {
   const [bookingEngine, setBookingEngine] = useState("oneWayTrip");
-  const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [hoveredIndex, setHoveredIndex] = useState(0); // Set the initial hovered index to 0
 
   const handleMouseEnter = (index) => {
-    if (hoveredIndex !== index) {
-      setHoveredIndex(index); 
-    } else {
-      setHoveredIndex(null); 
-    }
+    setHoveredIndex(index);
   };
 
   const handleMouseLeave = () => {
-    setHoveredIndex(null); 
-  };;
-
+    setHoveredIndex(0); // Reset the hovered index to 0 when mouse leaves
+  };
 
   return (
     <main className="px-5 relative bg-swLightBgGray">
@@ -280,21 +275,20 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="max-w-6xl mx-auto py-10">
+      <section className="max-w-7xl mx-auto py-10">
         <div className="relative pt-40 pb-20 lg:pt-44">
           <div className="relative 2xl:container m-auto px-6 md:px-12 lg:px-6">
             <p className="sm:mx-auto sm:w-10/12 md:w-2/3 text-swWine font-semibold text-center sm:text-[18px] md:text-[18px] lg:text-[18px] lg:w-auto lg:text-left">Fleet Showcase</p>
             <h1 className="mt-8 sm:mx-auto sm:w-10/12 md:w-2/3 text-swDarkGray text-4xl font-semibold text-center sm:text-5xl md:text-6xl lg:w-auto lg:text-left xl:text-7xl">Our Fleet.</h1>
             <div className="flex gap-6 mt-12">
               <div className="col-span-2 relative">
-
-                {fleet.map((item, index) => (
-                  <div
-                    key={item.id}
-                    className="col-span-2 relative"
-                    onMouseEnter={() => handleMouseEnter(index)}
-                    onMouseLeave={handleMouseLeave}
-                  >
+              {fleet.map((item, index) => (
+                <div
+                  key={item.id}
+                  className="col-span-2 relative"
+                  onMouseEnter={() => handleMouseEnter(index)}
+                  onMouseLeave={handleMouseLeave}
+                >
 
                     <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-2 mt-2 p-3 border-gray-200 rounded duration-300 hover:bg-swBgGray">
                       <div className="flex items-center fleet-item">
@@ -330,13 +324,8 @@ export default function Home() {
               </div>
               <div className="flex justify-center items-center  image-container">
               <div className="">
-                {hoveredIndex !== null && (
-                  <>
-                    <div aria-hidden="true" className={` absolute scale-75 md:scale-110 inset-0 m-auto rotate-45 bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl opacity-100`}></div>
-                    <Image src={fleet[hoveredIndex].image} width={798} height="100%" className={`relative fleet-image opacity-100`} alt="illustration" loading="lazy" />
-
-                  </>
-                )}
+                <div aria-hidden="true" className={` absolute scale-75 md:scale-110 inset-0 m-auto rotate-45 bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl ${hoveredIndex === 0 ? 'opacity-100' : 'opacity-0'}`}></div>
+                <Image src={Offer1} className={` relative fleet-image ${hoveredIndex === 0 ? 'opacity-100' : 'opacity-0'}`} alt="illustration" loading="lazy" />
               </div>
               </div>
             </div>
