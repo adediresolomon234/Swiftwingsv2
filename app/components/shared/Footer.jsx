@@ -25,7 +25,7 @@ const currentYear = new Date().getFullYear();
 const Footer = () => {
     return (
 
-        <footer className="w-full relative rounded-3xl bg-swWine relative flex flex-col items-center overflow-hidden py-20 md:py-40">
+        <footer className="w-full relative rounded-3xl bg-swWine flex flex-col items-center overflow-hidden py-20 md:py-40">
             <div className="mb-16 mx-auto max-w-[990px]">
                 <h2 className="mb-4 text-center text-[38px] text-white md:text-[38px]">
                     Let’s work together
