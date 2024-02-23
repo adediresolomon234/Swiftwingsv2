@@ -1,0 +1,11 @@
+export { default as DeparturePlaneIcon } from "./departurePlaneIcon.svg";
+export { default as ArrivalPlaneIcon } from "./arrivalPlaneIcon.svg";
+export { default as SeatIcon } from "./seatIcon.svg";
+export { default as LuggageIcon } from "./luggageIcon.svg";
+export { default as MeterIcon } from "./MeterIcon.svg";
+export { default as TopBottomArrowIcon } from "./topBottomArrowIcon.svg";
+export { default as LeftRightArrowIcon } from "./leftRightArrowIcon.svg";
+export { default as ArrowRightIcon } from "./arrowRightIcon.svg";
+export { default as PlaneIcon } from "./planeIcon.svg";
+export { default as WeightIcon } from "./weightIcon.svg";
+export { default as SearchIcon } from "./searchIcon.svg";

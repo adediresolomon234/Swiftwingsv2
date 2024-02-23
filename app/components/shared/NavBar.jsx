@@ -1,11 +1,11 @@
 import Link from "next/link";
-import Button from "./Button";
-import logo from "../../public/images/Logo (1).png";
+import Button from "../Button";
+import logo from "../../../public/images/Logo (1).png";
 import Image from "next/image";
 
 const NavBar = () => {
   return (
-    <main className="w-full fixed z-10 top-0 left-0 px-5">
+    <main className="w-full fixed z-10 top-0 left-0">
       <div className="w-full flex justify-between items-center py-7 px-10 bg-swWine text-white text-lg">
         <div>
           <Image src={logo} alt="" />
