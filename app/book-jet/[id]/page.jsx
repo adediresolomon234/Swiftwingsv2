@@ -5,14 +5,14 @@ import BookingEngine from "@/app/components/BookingEnginge";
 import Button from "@/app/components/Button";
 import NavAndFooter from "@/app/components/shared/NavAndFooter";
 import {
-  ArrowRightIcon,
-  LeftRightArrowIcon,
-  LuggageIcon,
-  MeterIcon,
-  PlaneIcon,
-  SeatIcon,
-  TopBottomArrowIcon,
-  WeightIcon,
+  SwArrowRightIcon,
+  SwLeftRightArrowIcon,
+  SwLuggageIcon,
+  SwMeterIcon,
+  SwPlaneIcon,
+  SwSeatIcon,
+  SwTopBottomArrowIcon,
+  SwWeightIcon,
 } from "@/app/components/svgs";
 
 const BookJet = () => {
@@ -21,7 +21,7 @@ const BookJet = () => {
       <div className="bg-swLightBgGray py-20">
         <div className="m-5 mx-auto max-w-[90rem]">
           <BookingEngine />
-          <div className="flex gap-10 text-swDarkGray mt-10">
+          <div className="flex gap-10 text-swGray800 mt-10">
             <div className="w-2/3">
               <p className="text-xl font-medium mb-5">Select Private Jet</p>
               <div className="w-full rounded-3xl border p-5 bg-white">
@@ -29,7 +29,7 @@ const BookJet = () => {
                   .fill()
                   .map((_, index) => (
                     <div key={index} className="">
-                      <div className="transition ease-in-out delay-100 duration-1000 flex justify-between items-center hover:bg-swLighterBgGray p-5 rounded-xl cursor-pointer focus:border focus:outline-swWine">
+                      <div className="transition ease-in-out delay-100 duration-1000 flex justify-between items-center hover:bg-swLighterBgGray p-5 rounded-xl cursor-pointer focus:border focus:outline-swPrimary500">
                         <div className="flex gap-5 items-center">
                           <input type="checkbox" className="h-5 w-5" />
                           <div className="text-swLightGray">
@@ -37,34 +37,34 @@ const BookJet = () => {
                             <p className="text-sm">Midsize Business Jet</p>
                           </div>
                         </div>
-                        <div className="text-swDarkGray gap-10 flex">
+                        <div className="text-swGray800 gap-10 flex">
                           <div className="flex flex-col gap-2">
                             <div className="flex justify-between gap-5">
                               <div className="flex items-center gap-2">
-                                <SeatIcon className="text-xl" />
+                                <SwSeatIcon className="text-xl" />
                                 <p className="text-sm">8 seats</p>
                               </div>
                               <div className="flex items-center gap-2">
-                                <MeterIcon className="text-xl" />
+                                <SwMeterIcon className="text-xl" />
                                 <p className="text-sm">826 km/h speed</p>
                               </div>
                               <div className="flex items-center gap-2">
-                                <LeftRightArrowIcon className="text-xl" />
+                                <SwLeftRightArrowIcon className="text-xl" />
                                 <p className="text-sm">6 feet</p>
                               </div>
                             </div>
 
                             <div className="flex justify-between gap-5">
                               <div className="flex items-center gap-2">
-                                <LuggageIcon className="text-xl" />
+                                <SwLuggageIcon className="text-xl" />
                                 <p className="text-sm">8 seats</p>
                               </div>
                               <div className="flex items-center gap-2">
-                                <MeterIcon className="text-xl" />
+                                <SwMeterIcon className="text-xl" />
                                 <p className="text-sm">826 km/h speed</p>
                               </div>
                               <div className="flex items-center gap-2">
-                                <TopBottomArrowIcon className="text-xl" />
+                                <SwTopBottomArrowIcon className="text-xl" />
                                 <p className="text-sm">6 feet</p>
                               </div>
                             </div>
@@ -72,7 +72,7 @@ const BookJet = () => {
 
                           <div className="flex items-center gap-3 py-2 px-4 rounded-full hover:bg-white">
                             <p className="font-medium">View details</p>
-                            <ArrowRightIcon className="text-sm" />
+                            <SwArrowRightIcon className="text-sm" />
                           </div>
                         </div>
                       </div>
@@ -80,7 +80,7 @@ const BookJet = () => {
                   ))}
                 <Button
                   label={"Add to quote"}
-                  className="border mt-5 text-swDarkGray font-semibold"
+                  className="border mt-5 text-swGray800 font-semibold"
                   bgColor={"bg-white hover:bg-swLightBgGray"}
                 />
               </div>
@@ -104,13 +104,13 @@ const BookJet = () => {
                   </div>
 
                   <div className="flex items-center flex-col gap-1 h-60 py-4">
-                    <div className="p-1 bg-swIndicatorRed rounded-full" />
+                    <div className="p-1 bg-swError500 rounded-full" />
                     <div className="h-full border border-r border-dashed" />
                     <div className="w-fit h-fit">
-                      <PlaneIcon className="text-base" />
+                      <SwPlaneIcon className="text-base" />
                     </div>
                     <div className="h-full border border-r border-dashed" />
-                    <div className="p-1 bg-swIndicatorGreen rounded-full" />
+                    <div className="p-1 bg-swSuccess500 rounded-full" />
                   </div>
 
                   <div className="flex flex-col justify-between">
@@ -132,11 +132,11 @@ const BookJet = () => {
                   </p>
                   <div className="flex gap-5 mt-2">
                     <div className="flex gap-2 items-center">
-                      <LuggageIcon className="text-lg" />
+                      <SwLuggageIcon className="text-lg" />
                       <p>40 Kg</p>
                     </div>
                     <div className="flex gap-2 items-center">
-                      <WeightIcon className="text-lg" />
+                      <SwWeightIcon className="text-lg" />
                       <p>10 Kg</p>
                     </div>
                   </div>
@@ -144,7 +144,7 @@ const BookJet = () => {
 
                 <Button
                   label={"Request Quote"}
-                  bgColor={"bg-swWine hover:bg-swDarkWine"}
+                  bgColor={"bg-swPrimary500 hover:bg-swPrimary600"}
                   className="w-full text-white text-center"
                 />
               </div>
