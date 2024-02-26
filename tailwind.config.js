@@ -16,7 +16,8 @@ module.exports = {
         swLightGray: "#A4A4A4",
         swBgGray: "#F1F1F1",
         swLightBgGray: "#F6F6F6",
-        swButter: "#FAF3DD"
+        swButter: "#FAF3DD",
+        swYellow: "#FDF9EF",
       },
     },
   },

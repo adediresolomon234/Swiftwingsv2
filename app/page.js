@@ -282,13 +282,13 @@ export default function Home() {
             <h1 className="mt-8 sm:mx-auto sm:w-10/12 md:w-2/3 text-swDarkGray text-4xl font-semibold text-center sm:text-5xl md:text-6xl lg:w-auto lg:text-left xl:text-7xl">Our Fleet.</h1>
             <div className="flex gap-6 mt-12">
               <div className="col-span-2 relative">
-              {fleet.map((item, index) => (
-                <div
-                  key={item.id}
-                  className="col-span-2 relative"
-                  onMouseEnter={() => handleMouseEnter(index)}
-                  onMouseLeave={handleMouseLeave}
-                >
+                {fleet.map((item, index) => (
+                  <div
+                    key={item.id}
+                    className="col-span-2 relative"
+                    onMouseEnter={() => handleMouseEnter(index)}
+                    onMouseLeave={handleMouseLeave}
+                  >
 
                     <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-2 mt-2 p-3 border-gray-200 rounded duration-300 hover:bg-swBgGray">
                       <div className="flex items-center fleet-item">
@@ -322,11 +322,21 @@ export default function Home() {
                   </div>
                 ))}
               </div>
-              <div className="flex justify-center items-center  image-container">
-              <div className="">
-                <div aria-hidden="true" className={` absolute scale-75 md:scale-110 inset-0 m-auto rotate-45 bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl ${hoveredIndex === 0 ? 'opacity-100' : 'opacity-0'}`}></div>
-                <Image src={Offer1} className={` relative fleet-image ${hoveredIndex === 0 ? 'opacity-100' : 'opacity-0'}`} alt="illustration" loading="lazy" />
-              </div>
+              <div className="flex justify-center items-center  image-container relative">
+                <div className="">
+                <div aria-hidden="true" className={`absolute scale-75 md:scale-110 inset-0 m-auto rotate-45 bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl ${hoveredIndex >= 0 ? 'opacity-100' : 'opacity-0'}`}></div>
+                  {fleet.map((item, index) => (
+                    <div key={item.id} className={`relative fleet-image ${hoveredIndex === index ? 'opacity-100' : 'opacity-0'}`}>
+                      <div aria-hidden="true" className={`absolute scale-75 md:scale-110 inset-0 m-auto rotate-45 bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl`}></div>
+                      <Image src={`/images/${item.image}`} 
+                       alt="illustration" 
+                       loading="lazy"
+                       width={780}
+                       height= {492}
+                        />
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
             <div
@@ -443,11 +453,11 @@ export default function Home() {
         <div className="mb-16">
           <div className="relative mt-32">
             <div
-             
+
               className="container-snap mt-10 pb-8 flex gap-32 snap-x overflow-x-auto self-center"
               style={{ scrollSnapAlign: "start" }}
             >
-              <Marquee pauseOnHover ={true} speed ={60}>
+              <Marquee pauseOnHover={true} speed={60}>
                 {testimonial.map((item) => (
                   <div
                     key={item.id}
@@ -466,7 +476,7 @@ export default function Home() {
                             {item.testimonial}
                           </h2>
                           <div className="flex justify-center mt-8">
-                            <FaXTwitter  />
+                            <FaXTwitter />
                           </div>
                         </div>
                       </div>

@@ -21,7 +21,7 @@
 -webkit-border-radius: 60px;
 -moz-border-radius: 60px;
 border-radius: 70px;
-gap: 300px;
+
 }
 .container-snap {
   display: flex; 
@@ -45,4 +45,18 @@ border-radius: 40px;
   flex: 0 0 auto; 
   scroll-snap-align: start; 
   margin-right: 20px; 
+}
+/* Adjust the width of the fleet item wrapper */
+.fleet-item-wrapper {
+  width: 100%; /* Adjust as needed */
+}
+
+/* Adjust the width of the image container */
+.image-container {
+  width: 100%; /* Adjust as needed */
+}
+
+/* Adjust the width of the fleet image wrapper */
+.fleet-image-wrapper {
+  max-width: 100%; /* Adjust as needed */
 }
