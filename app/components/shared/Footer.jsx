@@ -1,31 +1,19 @@
 import Button from "../Button";
-import { Typography } from "@material-tailwind/react";
 import React from 'react';
 import logo from "../../../public/images/Logo (1).png";
 import Image from "next/image";
+import { FaXTwitter } from "react-icons/fa6";
+import { FaInstagram, FaPhoneAlt } from "react-icons/fa";
+import { CiMail } from "react-icons/ci";
 
 
-const LINKS = [
-    {
-        title: "Product",
-        items: ["Overview", "Features", "Solutions", "Tutorials"],
-    },
-    {
-        title: "Company",
-        items: ["About us", "Careers", "Press", "News"],
-    },
-    {
-        title: "Resource",
-        items: ["Blog", "Newsletter", "Events", "Help center"],
-    },
-];
 
 const currentYear = new Date().getFullYear();
 
 const Footer = () => {
     return (
 
-        <footer className="w-full relative rounded-3xl bg-swWine relative flex flex-col items-center overflow-hidden py-20 md:py-40">
+        <footer className="w-full relative rounded-3xl bg-swWine relative flex flex-col items-center overflow-hidden py-12 md:py-12">
             <div className="mb-16 mx-auto max-w-[990px]">
                 <h2 className="mb-4 text-center text-[38px] text-white md:text-[38px]">
                     Let’s work together
@@ -40,21 +28,19 @@ const Footer = () => {
                     textColor={"text-gray-700"}
                 />
             </div>
-            <div className="w-[80%] px-4 md:px-8 lg:px-16 xl:px-32 justify-center mt-8">
-                <div className="w-full relative rounded-3xl bg-white shadow-md overflow-hidden flex flex-col items-start justify-start p-8 md:p-10 lg:p-12 xl:p-16 box-border gap-4 md:gap-6 text-left text-lg lg:text-xl text-gray-800 font-header-sm-semi-bold">
+            <div className="w-[80%] px-4 md:px-8 lg:px-16 xl:px-32 justify-center mt-20">
+                <div className="newsletter w-full relative rounded-3xl bg-white  overflow-hidden flex flex-col items-start justify-start p-8 md:p-10 lg:p-12 xl:p-16 box-border gap-4 md:gap-6 text-left text-lg lg:text-xl text-gray-800 font-header-sm-semi-bold">
                     <div className="self-stretch relative tracking-tighter leading-tight font-semibold">
                         Sign Up to our Newsletter
                     </div>
                     <div className="self-stretch flex flex-col md:flex-row items-start justify-start gap-4 md:gap-6 text-sm lg:text-base text-gray-900">
-                        <div className="flex-1 flex flex-col items-start justify-start gap-2">
-                            <div className="w-full relative leading-normal">
-                                <input
-                                    type="email"
-                                    placeholder="Enter Email address"
-                                    className="w-full rounded-xl bg-white box-border h-10 md:h-12 overflow-hidden flex flex-row items-center justify-start py-2 px-4 md:px-6 gap-2 md:gap-3 text-gray-500 border border-solid border-swWine focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500"
-                                />
+                        <div class="relative mb-6">
+                            <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                                <CiMail />
                             </div>
+                            <input type="text" id="input-group-1" class="max-w-xs lg:max-w-none  border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-swDarkWine focus:border-swDarkWine  block w-full lg:w-[780px] ps-10 p-2.5" placeholder="name@flowbite.com" />
                         </div>
+
                         <div className="flex justify-center ">
                             <Button
                                 label="Subscribe"
@@ -63,62 +49,109 @@ const Footer = () => {
                             />
                         </div>
                     </div>
+
                 </div>
             </div>
-            <div className="relative w-full mt-36">
-                <div className="mx-auto w-full max-w-7xl px-8">
-                    <div className="grid grid-cols-1 justify-between gap-4 md:grid-cols-2">
-                        <div className="flex items-center">
-                            <Image src={logo} alt="" />
-                            <Typography variant="h5" className=" ml-2 text-white">
-                            SwiftWings
-                            </Typography>
-                        </div>
-                        <div className="grid grid-cols-3 justify-between gap-4 ">
-                            {LINKS.map(({ title, items }) => (
-                                <ul key={title}>
-                                    <Typography
-                                        variant="small"
-                                        color="blue-gray"
-                                        className="mb-3 font-medium text-white"
-                                    >
-                                        {title}
-                                    </Typography>
-                                    {items.map((link) => (
-                                        <li key={link}>
-                                            <Typography
-                                                as="a"
-                                                href="#"
-                                                color="gray"
-                                                className="py-1.5 font-normal text-white"
-                                            >
-                                                {link}
-                                            </Typography>
+            <div className="relative w-full ">
+                <footer class="w-full relative rounded-3xl bg-swWine relative flex flex-col items-center overflow-hidden py-20 md:py-40">
+                    <div class="mx-auto w-full max-w-screen-2xl p-4 py-6 lg:py-8">
+                        <div class="md:flex md:justify-between">
+                            <div class="mb-6 md:mb-0">
+                                <a href="https://swiftwings.com/" class="flex items-center">
+                                    <Image src={logo} alt="swiftwings Logo" />
+                                    <span class="self-center text-2xl font-semibold whitespace-nowrap text-white">Swiftwings</span>
+                                </a>
+                            </div>
+                            <div class="grid grid-cols-2 gap-3 sm:gap-2 sm:grid-cols-4">
+                                <div>
+                                    <h2 class="mb-6 text-xl font-semibold uppercase text-white">Service</h2>
+                                    <ul class="text-white dark:text-gray-400 font-medium">
+                                        <li class="mb-4">
+                                            <a href="" class="">Luxurious trips</a>
                                         </li>
-                                    ))}
-                                </ul>
-                            ))}
+                                        <li class="mb-4">
+                                            <a href="" class="">Inflight catering</a>
+                                        </li>
+                                        <li class="mb-4">
+                                            <a href="" class="">Air ambulance</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h2 class="mb-6 text-xl font-semibold  uppercase text-white">Company</h2>
+                                    <ul class="text-white font-medium">
+                                        <li class="mb-4">
+                                            <a href="" class="hover:underline">About Us</a>
+                                        </li>
+                                        <li class="mb-4">
+                                            <a href="" class="hover:underline">Contact Us</a>
+                                        </li>
+                                        <li class="mb-4">
+                                            <a href="" class="hover:underline">Career</a>
+                                        </li>
+                                        <li class="mb-4">
+                                            <a href="" class="hover:underline">Outreach</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h2 class="mb-6 text-xl font-semibold uppercase text-white">Legal</h2>
+                                    <ul class="text-white font-medium">
+                                        <li class="mb-4">
+                                            <a href="" class="hover:underline ">Privacy Policy</a>
+                                        </li>
+                                        <li class="mb-4">
+                                            <a href="" class="hover:underline ">Terms & Condition</a>
+                                        </li>
+                                        <li class="mb-4">
+                                            <a href="" class="hover:underline ">Usage rights</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h2 class="mb-6 text-xl font-semibold uppercase text-white">Company and Social</h2>
+                                    <ul class="text-white font-medium">
+                                        <li class="flex items-center mb-4">
+                                            <div className="flex justify-center mr-3">
+                                                <CiMail />
+                                            </div>
+                                            <a href="#" class="hover:underline">charter@swiftwingsjet.com</a>
+                                        </li>
+                                        <li class="flex items-center mb-4">
+                                            <div className="flex justify-center mr-3">
+                                                <FaInstagram />
+                                            </div>
+                                            <a href="#" class="hover:underline">swiftwingsjet</a>
+                                        </li>
+                                        <li class="flex items-center mb-4">
+                                            <div className="flex justify-center mr-3">
+                                                <FaXTwitter />
+                                            </div>
+                                            <a href="#" class="">swiftwingsjet</a>
+                                        </li>
+                                        <li class="flex items-center mb-4">
+                                            <div className="flex justify-center mr-3">
+                                                <FaPhoneAlt />
+                                            </div>
+                                            <a href="#" class="">09028792910</a>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="my-6 border-gray-200 sm:mx-auto  lg:my-8" />
+                        <div class="sm:flex sm:items-center sm:justify-between">
+                            <span class="text-sm text-white sm:text-center d"> 9b Ike Asogwa Cl, Maryland 100211, Lagos.
+                            </span>
+                            <div class="flex mt-4 sm:justify-center sm:mt-0">
+                                <span class="text-sm text-white sm:text-center ">{currentYear} <a href="https:swiftwings.com" class="hover:underline">SwiftWings</a>. All Rights Reserved.
+                                </span>
+
+                            </div>
                         </div>
                     </div>
-                    <div className="mt-12 flex w-full flex-col items-center justify-center border-t border-blue-gray-50 py-4 md:flex-row md:justify-between">
-                        <Typography
-                            variant="small"
-                            className="mb-4 text-center font-normal text-white md:mb-0"
-                        >
-                             9b Ike Asogwa Cl, Maryland 100211, Lagos.
-                        </Typography>
-                        <div className="flex gap-4 text-blue-gray-900 sm:justify-center">
-                        <Typography
-                            variant="small"
-                            className="mb-4 text-center font-normal text-white md:mb-0"
-                        >
-                            &copy; {currentYear} Swift wings. All rights reserved
-                        </Typography>
-
-
-                        </div>
-                    </div>
-                </div>
+                </footer>
             </div>
         </footer>
     );

@@ -48,5 +48,17 @@ export const fleet = [
         icon2: mdiSpeedometer,
         icon3: mdiArrowLeftRight,
         size: "Super mid-size jet"
+    },
+    {
+        id: 5,
+        name: "Phenom 300",
+        image: "Offer4.png",
+        seat: "13 seats",
+        kilometer: "982 km/h",
+        feet: "6.9 feet",
+        icon: mdiCarSeat,
+        icon2: mdiSpeedometer,
+        icon3: mdiArrowLeftRight,
+        size: "Super mid-size jet"
     }
 ];

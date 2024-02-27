@@ -281,7 +281,7 @@ export default function Home() {
             <p className="sm:mx-auto sm:w-10/12 md:w-2/3 text-swWine font-semibold text-center sm:text-[18px] md:text-[18px] lg:text-[18px] lg:w-auto lg:text-left">Fleet Showcase</p>
             <h1 className="mt-8 sm:mx-auto sm:w-10/12 md:w-2/3 text-swDarkGray text-4xl font-semibold text-center sm:text-5xl md:text-6xl lg:w-auto lg:text-left xl:text-7xl">Our Fleet.</h1>
             <div className="flex gap-6 mt-12">
-              <div className="col-span-2 relative">
+              <div className="col-span-4 relative">
                 {fleet.map((item, index) => (
                   <div
                     key={item.id}
@@ -290,13 +290,13 @@ export default function Home() {
                     onMouseLeave={handleMouseLeave}
                   >
 
-                    <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-2 mt-2 p-3 border-gray-200 rounded duration-300 hover:bg-swBgGray">
+                    <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-2 mt-2  border-gray-200 rounded duration-300 hover:bg-swBgGray">
                       <div className="flex items-center fleet-item">
                         <a aria-label="icon" className="block">
                           <p className="font-medium md:block text-[20px] text-swLightGray">{item.name}</p>
                         </a>
                       </div>
-                      <div className="flex-1 flex flex-col items-start justify-between text-xs text-gray-800 px-3 py-1 lg:col-span-2">
+                      <div className="flex-1 flex flex-col items-start justify-between text-xs text-gray-800 px-1 py-2 lg:col-span-2">
                         <div className="flex justify-between flex-grow gap-[18px] mt-6 font-normal ">
                           <div className="flex items-center ">
                             <Icon path={item.icon} size={1} />
@@ -322,20 +322,20 @@ export default function Home() {
                   </div>
                 ))}
               </div>
-              <div className="flex justify-center items-center  image-container relative">
+              <div className="flex justify-center items-center image-container relative">
                 <div className="">
-                <div aria-hidden="true" className={`absolute scale-75 md:scale-110 inset-0 m-auto rotate-45 bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl ${hoveredIndex >= 0 ? 'opacity-100' : 'opacity-0'}`}></div>
-                  {fleet.map((item, index) => (
-                    <div key={item.id} className={`relative fleet-image ${hoveredIndex === index ? 'opacity-100' : 'opacity-0'}`}>
+                  <div aria-hidden="true" className={`absolute scale-75 md:scale-110 inset-0 m-auto rotate-45 bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl ${hoveredIndex >= 0 ? 'opacity-100' : 'opacity-0'}`}></div>
+                  {hoveredIndex >= 0 && (
+                    <div key={fleet[hoveredIndex].id} className={`relative fleet-image show`}>
                       <div aria-hidden="true" className={`absolute scale-75 md:scale-110 inset-0 m-auto rotate-45 bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl`}></div>
-                      <Image src={`/images/${item.image}`} 
-                       alt="illustration" 
-                       loading="lazy"
-                       width={780}
-                       height= {492}
-                        />
+                      <Image src={`/images/${fleet[hoveredIndex].image}`}
+                        alt="illustration"
+                        loading="lazy"
+                        width={780}
+                        height={492}
+                      />
                     </div>
-                  ))}
+                  )}
                 </div>
               </div>
             </div>
