@@ -2,7 +2,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Space_Grotesk } from "next/font/google";
 import Image from "next/image";
-import NavBar from "./components/NavBar";
 import privateJetImg from "../public/images/Private jet, airplane icon, vector.png";
 import departImg from "../public/images/Depart-white.png";
 import arriveImg from "../public/images/Arrive-white.png";
@@ -26,11 +25,21 @@ import { textAreas } from "./components/servicesgrid";
 import Crown from "../public/images/Crown.png";
 import { CiStar } from "react-icons/ci";
 import indexAirplane from "../public/images/indexAirplane.png";
-import Footer from "./components/shared/Footer";
+import { FiMinus, FiPlus } from "react-icons/fi";
+import { IoCheckmark } from "react-icons/io5";
+import Select from "react-select";
+import NavAndFooter from "./components/shared/NavAndFooter";
 import { testimonial } from "./CustomerTestimonial";
 import Marquee from "react-fast-marquee";
 import { FaXTwitter } from "react-icons/fa6";
 
+import heroBgImg from "../public/images/heroBackgroundImage.png";
+import {
+  SwArrivalPlaneIcon,
+  SwCalendarIcon,
+  SwDeparturePlaneIcon,
+  SwUserIcon,
+} from "./components/svgs";
 
 const space_grotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -38,7 +47,19 @@ const space_grotesk = Space_Grotesk({
 
 export default function Home() {
   const [bookingEngine, setBookingEngine] = useState("oneWayTrip");
+  const [openPassangers, setOpenPassageners] = useState(false);
+  const [openDeparture, setOpenDeparture] = useState(false);
+  const [openArrival, setOpenArrival] = useState(false);
+  let [adultsNo, setAdultsNo] = useState(0);
+  let [kidsNo, setKidsNo] = useState(0);
+  let [petsNo, setPetsNo] = useState(0);
+  const [selectedOption, setSelectedOption] = useState(null);
   const [hoveredIndex, setHoveredIndex] = useState(0); // Set the initial hovered index to 0
+
+  const options = [
+    { value: "Abuja, Nigeria", label: "Abuja, Nigeria" },
+    { value: "Abu Dhabi, Dubai", label: "Abu Dhabi, Dubai" },
+  ];
 
   const handleMouseEnter = (index) => {
     setHoveredIndex(index);
@@ -49,214 +70,326 @@ export default function Home() {
   };
 
   return (
-    <main className="px-5 relative bg-swLightBgGray">
-      <NavBar />
-      <section className="bg-swWine w-full p-10 pt-48 text-white relative pb-10 rounded-bl-[2.5rem] rounded-br-[2.5rem]">
-        <div className="max-w-7xl mx-auto mb-44 relative h-[60vh]">
-          <Image
-            src={indexAirplane}
-            alt="aiplane"
-            className="absolute ml-auto right-0 "
-          />
-          <div className="max-w-lg pt-16 z-50">
-            <p className="text-7xl font-bold leading-snug z-50">
-              Experience Unmatched Luxury Travel
-            </p>
-            <p className="max-w-xl mt-10 z-10">
-              Experience the epitome of safety, luxury and convenience with{" "}
-              <span className="font-bold">
-                Swiftwings private jet charter service
-              </span>
-            </p>
+    <main className="relative bg-swLightBgGray">
+      <NavAndFooter>
+        <section className="w-full p-10 pt-48 text-white relative pb-10">
+          <div className="absolute h-full w-full top-0 left-0">
+            <Image src={heroBgImg} alt="aiplane" className="h-full w-full" />
           </div>
-        </div>
+          <div className="h-full w-full bg-swBlack absolute top-0 left-0 bg-opacity-10" />
+          <div className="max-w-7xl mx-auto mb-10 relative text-center">
+            <div className="pt-28 z-50">
+              <p className="text-8xl font-bold leading-snug z-50">
+                Experience Unmatched Luxury Travel
+              </p>
+              <p className="text-lg mt-10 z-10">
+                Experience the epitome of safety, luxury and convenience with{" "}
+                <br />
+                <span className="font-bold">
+                  Swiftwings private jet charter service
+                </span>
+              </p>
+            </div>
 
-        <section className="absolute max-w-7xl -bottom-36 right-1/2 transform translate-x-1/2 w-full">
-          <div className="flex gap-10 justify-end max-w-7xl mx-auto pr-5 text-center">
-            <div>
-              <p className="font-semibold text-2xl">10k</p>
-              <p className="text-xs">Flights</p>
-            </div>
-            <div>
-              <p className="font-semibold text-2xl">15k</p>
-              <p className="text-xs">Clients</p>
-            </div>
-            <div>
-              <p className="font-semibold text-2xl">100</p>
-              <p className="text-xs">Countries</p>
+            <div className="flex gap-10 justify-center text-center mt-10">
+              <div>
+                <p className="font-semibold text-2xl">10k</p>
+                <p className="text-xs">Flights</p>
+              </div>
+              <div>
+                <p className="font-semibold text-2xl">15k</p>
+                <p className="text-xs">Clients</p>
+              </div>
+              <div>
+                <p className="font-semibold text-2xl">100</p>
+                <p className="text-xs">Countries</p>
+              </div>
             </div>
           </div>
-          <div className="p-5 bg-swWine rounded-[1.9rem]">
-            <div className="w-full bg-swWine">
-              <div className="p-5 bg-swLightBgGray rounded-3xl">
-                <div className="flex justify-between items-center mb-5">
-                  <p className="font-semibold text-swDarkGray ml-2">
-                    Book a jet
-                  </p>
-                  <div className="p-2 rounded-full shadow-md flex gap-5">
-                    <button
-                      className={`${bookingEngine === "oneWayTrip"
-                        ? "text-swWine shadow"
-                        : "text-swLightGray"
-                        } py-2 px-4 rounded-full`}
-                      onClick={() => setBookingEngine("oneWayTrip")}
-                    >
-                      One Way Rrip
-                    </button>
-                    <button
-                      className={`${bookingEngine === "roundTrip"
-                        ? "text-swWine shadow"
-                        : "text-swLightGray"
-                        } py-2 px-4 rounded-full`}
-                      onClick={() => setBookingEngine("roundTrip")}
-                    >
-                      Round Trip
-                    </button>
-                    <button
-                      className={`${bookingEngine === "roadCruise"
-                        ? "text-swWine shadow"
-                        : "text-swLightGray"
-                        } py-2 px-4 rounded-full`}
-                      onClick={() => setBookingEngine("roadCruise")}
-                    >
-                      Road Cruise
-                    </button>
-                  </div>
-                  <div className={`${space_grotesk.className} w-fit text-lg `}>
-                    <Button
-                      label="Book Jet"
-                      bgColor={"bg-swWine hover:bg-swDarkWine"}
-                      textColor={"text-white"}
-                      endIcon={<HiArrowRight size={20} />}
-                    />
-                  </div>
+
+          <section className="max-w-7xl mx-auto w-full relative">
+            <div className="p-5 rounded-3xl backdrop-blur bg-swBlack/20 border border-swGray900">
+              <div className="flex justify-between items-center mb-5">
+                <p className="font-semibold text-white ml-2">Book a jet</p>
+                <div className="p-1 text-xl rounded-full flex gap-5 font-medium backdrop-blur bg-white/25">
+                  <button
+                    className={`${
+                      bookingEngine === "oneWayTrip"
+                        ? "text-white backdrop-blur bg-swBlack/50 font-semibold"
+                        : "text-swGray300 hover:backdrop-blur hover:bg-white/5"
+                    } py-2 px-4 rounded-full`}
+                    onClick={() => setBookingEngine("oneWayTrip")}
+                  >
+                    One Way Rrip
+                  </button>
+                  <button
+                    className={`${
+                      bookingEngine === "roundTrip"
+                        ? "text-white backdrop-blur bg-swBlack/50 font-semibold"
+                        : "text-swGray300 hover:backdrop-blur hover:bg-white/5]"
+                    } py-2 px-4 rounded-full`}
+                    onClick={() => setBookingEngine("roundTrip")}
+                  >
+                    Round Trip
+                  </button>
+                  <button
+                    className={`${
+                      bookingEngine === "multiCity"
+                        ? "text-white backdrop-blur bg-swBlack/50 font-semibold"
+                        : "text-swGray300 hover:backdrop-blur hover:bg-white/5"
+                    } py-2 px-4 rounded-full`}
+                    onClick={() => setBookingEngine("multiCity")}
+                  >
+                    Multi-city trip
+                  </button>
                 </div>
-                <div className="flex justify-between mb-5 ">
-                  <div className="flex items-center gap-9 mx-auto flex-wrap">
-                    <div className="flex items-center mx-auto">
-                      <div className="p-5 pr-16 flex w-72 items-center gap-5 border rounded-tl-2xl rounded-bl-2xl">
-                        <div className="bg-swWine p-1 rounded-full">
-                          <div className="h-7 w-7 relative">
-                            <Image src={departImg} alt="depart" fill />
-                          </div>
-                        </div>
-                        <div>
-                          <p className="text-swLightGray text-sm">
-                            Departure city
-                          </p>
-                          <p className="text-lg text-swDarkGray font-semibold">
-                            Abuja - Nigeria
-                          </p>
+                <div className={`${space_grotesk.className} w-fit text-lg `}>
+                  <Button
+                    label="Book Jet"
+                    bgColor={"bg-swPrimary500 hover:bg-swPrimary600"}
+                    textColor={"text-white"}
+                    endIcon={<HiArrowRight size={20} />}
+                  />
+                </div>
+              </div>
+              <div className="flex justify-between mb-5">
+                <div className="flex items-center gap-5 mx-auto flex-wrap">
+                  <div className="flex items-center mx-auto relative">
+                    <div
+                      className="p-5 pr-16 flex w-[18rem] items-center gap-5 border border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50 rounded-tl-2xl rounded-bl-2xl cursor-pointer"
+                      onClick={() => setOpenDeparture(!openDeparture)}
+                    >
+                      <div className="bg-swPrimary500 p-1 rounded-full">
+                        <div className="h-7 w-7 relative flex justify-center items-center">
+                          <SwDeparturePlaneIcon className="text-[1.6rem]" />
                         </div>
                       </div>
-                      <div className="p-1 rounded-full border text-black -ml-4 bg-swLightBgGray">
-                        <GoArrowRight size={15} className={"-mb-2 ml-1"} />
-                        <GoArrowLeft size={15} className="-mt-2 mr-1" />
-                      </div>
-                      <div className="p-5 pr-16 flex w-72 items-center gap-5 border border-l-transparent -m-4 rounded-tr-2xl rounded-br-2xl">
-                        <div className="bg-swWine p-1 rounded-full">
-                          <div className="h-7 w-7 relative">
-                            <Image src={arriveImg} alt="depart" fill />
-                          </div>
-                        </div>
-                        <div>
-                          <p className="text-swLightGray text-sm">
-                            Arrival city
-                          </p>
-                          <p className="text-lg text-swDarkGray font-semibold">
-                            Lagos - Nigeria
-                          </p>
-                        </div>
+                      <div>
+                        <p className="text-swGray500 text-sm">Departure city</p>
+                        <p className="text-lg text-white font-medium">
+                          Abuja - Nigeria
+                        </p>
                       </div>
                     </div>
-                    <div className="flex justify-around gap-5 mx-auto flex-wrap">
-                      <div className="p-5 pr-16 flex items-center w-72 gap-5 border rounded-2xl">
-                        <div className="p-2 rounded-full border text-swDarkGray">
-                          <MdOutlineCalendarToday size={20} />
-                        </div>
-                        <div>
-                          <p className="text-swLightGray text-sm">
-                            Departure date
-                          </p>
-                          <p className="text-lg text-swDarkGray font-semibold">
-                            20 Jan
-                          </p>
+                    <div className="p-1 rounded-full border border-swGray900 text-swBlack ml-[47.5%] bg-white absolute z-10">
+                      <GoArrowRight size={15} className={"-mb-2 ml-1"} />
+                      <GoArrowLeft size={15} className="-mt-2 mr-1" />
+                    </div>
+                    <div
+                      className="p-5 pr-16 flex w-[18rem] items-center gap-5 border border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50 border-l-transparent rounded-tr-2xl rounded-br-2xl cursor-pointer"
+                      onClick={() => setOpenArrival(!openArrival)}
+                    >
+                      <div className="bg-swPrimary500 p-1 rounded-full">
+                        <div className="h-7 w-7 relative flex justify-center items-center">
+                          <SwArrivalPlaneIcon className="text-[1.6rem]" />
                         </div>
                       </div>
-                      <div className="p-5 flex items-center w-72 gap-5 border rounded-2xl">
-                        <div className="p-2 rounded-full border text-swDarkGray">
-                          <BiUser size={20} />
+                      <div>
+                        <p className="text-swGray500 text-sm">Arrival city</p>
+                        <p className="text-lg text-white font-medium">
+                          Lagos - Nigeria
+                        </p>
+                      </div>
+                    </div>
+
+                    {openDeparture && (
+                      <div className="absolute text-swGray900 top-24 rounded-md shadow-lg p-2 bg-white w-full z-10">
+                        <Select
+                          defaultValue={selectedOption}
+                          onChange={setSelectedOption}
+                          options={options}
+                          placeholder="Select Departure City"
+                        />
+                      </div>
+                    )}
+                    {openArrival && (
+                      <div className="absolute text-swGray900 top-24 rounded-md shadow-lg p-2 bg-white w-full z-10">
+                        <Select
+                          defaultValue={selectedOption}
+                          onChange={setSelectedOption}
+                          options={options}
+                          placeholder="Select Arrival City"
+                        />
+                      </div>
+                    )}
+                  </div>
+                  <div className="flex justify-around gap-5 mx-auto flex-wrap">
+                    <div className="p-5 pr-16 flex items-center w-72 gap-5 border border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50 rounded-2xl cursor-pointer">
+                      <div className="p-2 rounded-full text-swGray900">
+                        <SwCalendarIcon className="text-xl" />
+                      </div>
+                      <div>
+                        <p className="text-swGray500 text-sm">Departure date</p>
+                        <p className="text-lg text-white font-medium">20 Jan</p>
+                      </div>
+                    </div>
+                    <div className="relative">
+                      <div
+                        className="p-5 flex items-center w-72 gap-5 border border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50 rounded-2xl cursor-pointer"
+                        onClick={() => setOpenPassageners(!openPassangers)}
+                      >
+                        <div className="p-2 rounded-full text-swGray900">
+                          <SwUserIcon className="text-xl" />
                         </div>
                         <div>
-                          <p className="text-swLightGray text-sm">
+                          <p className="text-swGray500 text-sm">
                             Departure city
                           </p>
-                          <p className="text-lg text-swDarkGray font-semibold">
+                          <p className="text-lg text-white font-medium">
                             4 Adult - 2 Children
                           </p>
                         </div>
                       </div>
+                      {openPassangers && (
+                        <div className="absolute text-swGray900 top-24 bg-white w-full shadow-md rounded-md">
+                          <div className="p-5 flex flex-col gap-5 font-medium">
+                            <p className="font-semibold text-lg">Occupants</p>
+
+                            <div className="flex flex-col gap-5">
+                              <div className="flex justify-between items-center">
+                                <p className="">Adults</p>
+                                <div className="border hover:border-swPrimary500 rounded-md overflow-hidden flex">
+                                  <p
+                                    className="p-2 cursor-pointer hover:bg-swPrimary500 hover:text-white"
+                                    onClick={() =>
+                                      setAdultsNo(adultsNo > 0 ? --adultsNo : 0)
+                                    }
+                                  >
+                                    <FiMinus size={20} />
+                                  </p>
+                                  <p className="h-10 w-14 flex justify-center items-center border-x">
+                                    {adultsNo}
+                                  </p>
+                                  <p
+                                    className="p-2 cursor-pointer hover:bg-swPrimary500 hover:text-white"
+                                    onClick={() => setAdultsNo(++adultsNo)}
+                                  >
+                                    <FiPlus size={20} />
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="flex flex-col gap-5">
+                              <div className="flex justify-between items-center">
+                                <p className="">Kids</p>
+                                <div className="border hover:border-swPrimary500 rounded-md overflow-hidden flex">
+                                  <p
+                                    className="p-2 cursor-pointer hover:bg-swPrimary500 hover:text-white"
+                                    onClick={() =>
+                                      setKidsNo(kidsNo > 0 ? --kidsNo : 0)
+                                    }
+                                  >
+                                    <FiMinus size={20} />
+                                  </p>
+                                  <p className="h-10 w-14 flex justify-center items-center border-x">
+                                    {kidsNo}
+                                  </p>
+                                  <p
+                                    className="p-2 cursor-pointer hover:bg-swPrimary500 hover:text-white"
+                                    onClick={() => setKidsNo(++kidsNo)}
+                                  >
+                                    <FiPlus size={20} />
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="flex flex-col gap-5">
+                              <div className="flex justify-between items-center">
+                                <p className="">Pets</p>
+                                <div className="border hover:border-swPrimary500 rounded-md overflow-hidden flex">
+                                  <p
+                                    className="p-2 cursor-pointer hover:bg-swPrimary500 hover:text-white"
+                                    onClick={() =>
+                                      setPetsNo(petsNo > 0 ? --petsNo : 0)
+                                    }
+                                  >
+                                    <FiMinus size={20} />
+                                  </p>
+                                  <p className="h-10 w-14 flex justify-center items-center border-x">
+                                    {petsNo}
+                                  </p>
+                                  <p
+                                    className="p-2 cursor-pointer hover:bg-swPrimary500 hover:text-white"
+                                    onClick={() => setPetsNo(++petsNo)}
+                                  >
+                                    <FiPlus size={20} />
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div className="flex items-center justify-between">
+                              <p>Done?</p>
+                              <Button
+                                bgColor={"bg-swPrimary500"}
+                                label={"Save"}
+                                textColor={"text-white"}
+                                endIcon={<IoCheckmark size={20} />}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+          </section>
+        </section>
+        <section className="mt-60 py-16 px-5 text-swGray900">
+          <div className="max-w-4xl w-full mx-auto text-center">
+            <Services
+              name={"Luxury travels"}
+              text="SwiftWings operates the largest and most diverse private aircraft fleet globally, providing an extensive array of personalized private aviation solutions that surpass the expectations of the world’s most discerning travelers. Our industry-leading scale and innovative aviation business model ensure dependable financial sustainability for our clients, setting us apart in the industry."
+              image={servicesPlane}
+            />
+          </div>
+          <div className="max-w-4xl w-full mx-auto text-center mt-40">
+            <Services
+              name={"Membership plan"}
+              text="SwiftWings offers flexible and investment-free solutions tailored to meet your unique flying needs. SwiftWings grants its clients access to a distinguished fleet, including over 80 SwiftWings aircraft globally, with a strong presence in the United States. As a SwiftWings customer, you'll experience unparalleled 24/7 concierge service delivered by a dedicated team of aviation experts."
+              image={servicesMembership}
+            />
+          </div>
+          <div className="max-w-4xl w-full mx-auto text-center mt-40">
+            <Services
+              name={"Dedicated customer service"}
+              text="At SwiftWings, our dedicated customer service is more than a commitment; it's a promise of excellence. Our aviation experts, based in New York and Florida, are available 24/7 to provide unparalleled support, ensuring your journey is seamless and stress-free. From personalized itinerary planning to addressing your unique needs, SwiftWings' customer service is devoted to delivering an unmatched level of care, enhancing every aspect of your private jet experience. Your satisfaction and peace of mind are at the heart of our service philosophy."
+              image={servicesCustomer}
+            />
           </div>
         </section>
-      </section>
-      <section className="mt-60 py-16 px-5 text-swDarkGray">
-        <div className="max-w-4xl w-full mx-auto text-center">
-          <Services
-            name={"Luxury travels"}
-            text="SwiftWings operates the largest and most diverse private aircraft fleet globally, providing an extensive array of personalized private aviation solutions that surpass the expectations of the world’s most discerning travelers. Our industry-leading scale and innovative aviation business model ensure dependable financial sustainability for our clients, setting us apart in the industry."
-            image={servicesPlane}
-          />
-        </div>
-        <div className="max-w-4xl w-full mx-auto text-center mt-40">
-          <Services
-            name={"Membership plan"}
-            text="SwiftWings offers flexible and investment-free solutions tailored to meet your unique flying needs. SwiftWings grants its clients access to a distinguished fleet, including over 80 SwiftWings aircraft globally, with a strong presence in the United States. As a SwiftWings customer, you'll experience unparalleled 24/7 concierge service delivered by a dedicated team of aviation experts."
-            image={servicesMembership}
-          />
-        </div>
-        <div className="max-w-4xl w-full mx-auto text-center mt-40">
-          <Services
-            name={"Dedicated customer service"}
-            text="At SwiftWings, our dedicated customer service is more than a commitment; it's a promise of excellence. Our aviation experts, based in New York and Florida, are available 24/7 to provide unparalleled support, ensuring your journey is seamless and stress-free. From personalized itinerary planning to addressing your unique needs, SwiftWings' customer service is devoted to delivering an unmatched level of care, enhancing every aspect of your private jet experience. Your satisfaction and peace of mind are at the heart of our service philosophy."
-            image={servicesCustomer}
-          />
-        </div>
-      </section>
 
-      <section className=" max-w-6xl mx-auto py-10">
-        <p className="text-swWine font-medium text-lg">About us</p>
-        <div className="flex justify-between mt-10">
-          <p className="font-semibold text-swWine text-5xl max-w-sm">
-            Get to know more about Swiftwings
-          </p>
-          <p className="text-swLightGray text-lg font-light max-w-[26rem] w-full">
-            Swift Wings is a premier provider of private jets charter flights
-            connecting global airports, offering unmatched convenience and
-            exclusivity for luxury travel.
-          </p>
-        </div>
-
-        <div className="flex flex-col items-center gap-5 mt-14">
-          <div className="flex gap-5 justify-center">
-            <AboutUsCard
-              number={"75"}
-              text={"Swiftwings users from all over the globe."}
-            />
-            <AboutUsCard
-              number={"1.5k"}
-              text={"Swiftwings access to a network of airplanes"}
-              numberColor={"text-black"}
-            />
-            <AboutUsCard
-              number={"50"}
-              text={"Swiftwings destinations in the past 3 years"}
-            />
+        <section className=" max-w-6xl mx-auto py-10">
+          <p className="text-swPrimary500 font-medium text-lg">About us</p>
+          <div className="flex justify-between mt-10">
+            <p className="font-semibold text-swPrimary500 text-5xl max-w-sm">
+              Get to know more about Swiftwings
+            </p>
+            <p className="text-swGray500 text-lg font-light max-w-[26rem] w-full">
+              Swift Wings is a premier provider of private jets charter flights
+              connecting global airports, offering unmatched convenience and
+              exclusivity for luxury travel.
+            </p>
           </div>
+
+          <div className="flex flex-col items-center gap-5 mt-14">
+            <div className="flex gap-5 justify-center">
+              <AboutUsCard
+                number={"75"}
+                text={"Swiftwings users from all over the globe."}
+              />
+              <AboutUsCard
+                number={"1.5k"}
+                text={"Swiftwings access to a network of airplanes"}
+                numberColor={"text-swBlack"}
+              />
+              <AboutUsCard
+                number={"50"}
+                text={"Swiftwings destinations in the past 3 years"}
+              />
+            </div>
 
           <div className="bg-swButter text-swWine p-8 max-w-[44rem] rounded-2xl">
             <p className="font-light">
