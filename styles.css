@@ -4,19 +4,19 @@
   width: 720px;
   margin-right: -200px; 
   opacity: 0;
-  transition: opacity 0.30s ease-in, transform 0.30s ease-in-out; /* Add transform for slide-up transition */
+  transition: opacity 0.30s ease-in, transform 0.30s ease-in-out; 
   position: relative;
   top: 20px;
 
 }
 .fleet-image.show {
   opacity: 1;
-  top: 30px; /* Move to final position */
+  top: 30px;
   transform: translateY(-20px);
 }
 
 .fleet-item {
-  margin-left: 4px; /* Adjust as needed */
+  margin-left: 4px; 
 }
   .image-container {
     position: relative;
@@ -65,17 +65,19 @@ border-radius: 40px;
   scroll-snap-align: start; 
   margin-right: 20px; 
 }
-/* Adjust the width of the fleet item wrapper */
+
 .fleet-item-wrapper {
-  width: 100%; /* Adjust as needed */
+  width: 100%; 
 }
 
-/* Adjust the width of the image container */
 .image-container {
-  width: 50%; /* Adjust as needed */
+  width: 50%; 
 }
 
-/* Adjust the width of the fleet image wrapper */
 .fleet-image-wrapper {
-  max-width: 100%; /* Adjust as needed */
+  max-width: 100%; 
+}
+
+.blur {
+  filter: blur(10px);
 }

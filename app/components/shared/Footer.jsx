@@ -13,7 +13,7 @@ const currentYear = new Date().getFullYear();
 const Footer = () => {
     return (
 
-        <footer className="w-full relative rounded-3xl bg-swWine relative flex flex-col items-center overflow-hidden py-12 md:py-12">
+        <footer className="w-full relative rounded-3xl bg-swPrimary700 relative flex flex-col items-center overflow-hidden py-12 md:py-12">
             <div className="mb-16 mx-auto max-w-[990px]">
                 <h2 className="mb-4 text-center text-[38px] text-white md:text-[38px]">
                     Let’s work together
@@ -36,15 +36,15 @@ const Footer = () => {
                     <div className="self-stretch flex flex-col md:flex-row items-start justify-start gap-4 md:gap-6 text-sm lg:text-base text-gray-900">
                         <div class="relative mb-6">
                             <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
-                                <CiMail />
+                            <CiMail className="w-6 h-10 font-bold" />
                             </div>
-                            <input type="text" id="input-group-1" class="max-w-xs lg:max-w-none  border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-swDarkWine focus:border-swDarkWine  block w-full lg:w-[780px] ps-10 p-2.5" placeholder="name@flowbite.com" />
+                            <input type="text" id="input-group-1" class="max-w-xs lg:max-w-none  border border-swPrimary600 text-gray-900 text-sm rounded-lg focus:ring-swPrimary600 focus:border-swPrimary600  block w-full lg:w-[780px] ps-10 p-3.5" placeholder="name@flowbite.com" />
                         </div>
 
                         <div className="flex justify-center ">
                             <Button
                                 label="Subscribe"
-                                bgColor={"bg-swWine"}
+                                bgColor={"bg-swPrimary500"}
                                 textColor={"text-white"}
                             />
                         </div>
