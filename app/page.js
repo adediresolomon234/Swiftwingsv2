@@ -44,17 +44,6 @@ const space_grotesk = Space_Grotesk({
   subsets: ["latin"],
 });
 
-function isNearViewport(id) {
-  const element = document.getElementById(id);
-  if (!element) return false;
-
-  const rect = element.getBoundingClientRect();
-  const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
-
-
-  return rect.bottom >= 0 && rect.bottom <= viewportHeight;
-}
-
 export default function Home() {
 
   const [bookingEngine, setBookingEngine] = useState("oneWayTrip");
@@ -434,7 +423,7 @@ export default function Home() {
                       onMouseLeave={handleMouseLeave}
                     >
 
-                      <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-2 mt-2  border-gray-200 rounded duration-300 hover:bg-swBgGray">
+                      <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-2 mt-2 px-6 border-gray-200 rounded duration-300 hover:bg-swBgGray">
                         <div className="flex items-center fleet-item">
                           <a aria-label="icon" className="block">
                             <p className="font-medium md:block text-[20px] text-swGray700">{item.name}</p>
@@ -468,10 +457,10 @@ export default function Home() {
                 </div>
                 <div className="flex justify-center items-center image-container relative">
                   <div className="">
-                    <div aria-hidden="true" className={`absolute scale-75 md:scale-110 inset-0 m-auto rotate-45 bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl ${hoveredIndex >= 0 ? 'opacity-100' : 'opacity-0'}`}></div>
+                    <div aria-hidden="true" className={`absolute bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl ${hoveredIndex >= 0 ? 'opacity-100' : 'opacity-0'}`}></div>
                     {hoveredIndex >= 0 && (
                       <div key={fleet[hoveredIndex].id} className={`relative fleet-image show`}>
-                        <div aria-hidden="true" className={`absolute scale-75 md:scale-110 inset-0 m-auto rotate-45 bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl`}></div>
+                        <div aria-hidden="true" className={`absolute`}></div>
                         <Image src={`/images/${fleet[hoveredIndex].image}`}
                           alt="illustration"
                           loading="lazy"
@@ -589,7 +578,6 @@ export default function Home() {
               <h2 className="mb-4 text-center text-[18px]  text-swPrimary500 md:text-[18px] ">
                 Customer Testimonials
               </h2>
-              
               <p className="text-swGray700 mt-8 sm:mx-auto text-xl text-center sm:text-xl md:text-xl">
                 Swift Wings Ltd offers an exclusive Jet Card Membership, providing discerning travelers with unparalleled access to private jet charter services. As a Jet Card member, you enjoy priority booking and seamless travel experiences tailored to your preferences.
               </p>
@@ -605,7 +593,7 @@ export default function Home() {
                   {testimonial.map((item) => (
                     <div
                       key={item.id}
-                      className={`scroll-ml-6 snap-start ml-16 ${isNearViewport(item.id) ? 'blur' : ''}`}
+                      className={`scroll-ml-6 snap-start ml-16 'blur' : ''`}
                       onMouseEnter={() => handleMouseEnter(item.id)}
                       onMouseLeave={handleMouseLeave}
                     >

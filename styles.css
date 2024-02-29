@@ -2,7 +2,7 @@
   
  .fleet-image {
   width: 720px;
-  margin-right: -200px; 
+  margin-right: -100px; 
   opacity: 0;
   transition: opacity 0.30s ease-in, transform 0.30s ease-in-out; 
   position: relative;
