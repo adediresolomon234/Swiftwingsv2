@@ -11,3 +11,8 @@ export { default as SwWeightIcon } from "./weightIcon.svg";
 export { default as SwSearchIcon } from "./searchIcon.svg";
 export { default as SwCalendarIcon } from "./calendarIcon.svg";
 export { default as SwUserIcon } from "./userIcon.svg";
+export { default as SwKeyIcon } from "./keyIcon.svg";
+export { default as SwMailIcon } from "./mailIcon.svg";
+export { default as SwOpenEyeIcon } from "./openEyeIcon.svg";
+export { default as SwGoogleColoredIcon } from "./googleColoredIcon.svg";
+export { default as SwPlusIcon } from "./plusIcon.svg";

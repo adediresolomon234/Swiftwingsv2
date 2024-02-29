@@ -39,6 +39,7 @@ import {
   SwDeparturePlaneIcon,
   SwUserIcon,
 } from "./components/svgs";
+import Link from "next/link";
 
 const space_grotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -107,90 +108,95 @@ export default function Home() {
           </div>
         </div>
 
-        <section className="max-w-7xl mx-auto w-full relative">
-          <div className="p-5 rounded-3xl backdrop-blur bg-swBlack/20 border border-swGray900">
-            <div className="flex justify-between items-center mb-5">
-              <p className="font-semibold text-white ml-2">Book a jet</p>
-              <div className="p-1 text-xl rounded-full flex gap-5 font-medium backdrop-blur bg-white/25">
-                <button
-                  className={`${
-                    bookingEngine === "oneWayTrip"
-                      ? "text-white backdrop-blur bg-swBlack/50 font-semibold"
-                      : "text-swGray300 hover:backdrop-blur hover:bg-white/5"
-                  } py-2 px-4 rounded-full`}
-                  onClick={() => setBookingEngine("oneWayTrip")}
+          <section className="max-w-7xl mx-auto w-full relative">
+            <div className="p-5 rounded-3xl backdrop-blur bg-swBlack/20 border border-swGray900">
+              <div className="flex justify-between items-center mb-5">
+                <Link
+                  href="/booking/1"
+                  className="font-semibold text-white ml-2"
                 >
-                  One Way Rrip
-                </button>
-                <button
-                  className={`${
-                    bookingEngine === "roundTrip"
-                      ? "text-white backdrop-blur bg-swBlack/50 font-semibold"
-                      : "text-swGray300 hover:backdrop-blur hover:bg-white/5]"
-                  } py-2 px-4 rounded-full`}
-                  onClick={() => setBookingEngine("roundTrip")}
-                >
-                  Round Trip
-                </button>
-                <button
-                  className={`${
-                    bookingEngine === "multiCity"
-                      ? "text-white backdrop-blur bg-swBlack/50 font-semibold"
-                      : "text-swGray300 hover:backdrop-blur hover:bg-white/5"
-                  } py-2 px-4 rounded-full`}
-                  onClick={() => setBookingEngine("multiCity")}
-                >
-                  Multi-city trip
-                </button>
-              </div>
-              <div className={`${space_grotesk.className} w-fit text-lg `}>
-                <Button
-                  label="Book Jet"
-                  bgColor={"bg-swPrimary500 hover:bg-swPrimary600"}
-                  textColor={"text-white"}
-                  endIcon={<HiArrowRight size={20} />}
-                />
-              </div>
-            </div>
-            <div className="flex justify-between mb-5">
-              <div className="flex items-center gap-5 mx-auto flex-wrap">
-                <div className="flex items-center mx-auto relative">
-                  <div
-                    className="p-5 pr-16 flex w-[18rem] items-center gap-5 border border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50 rounded-tl-2xl rounded-bl-2xl cursor-pointer"
-                    onClick={() => setOpenDeparture(!openDeparture)}
+                  Book a jet
+                </Link>
+                <div className="p-1 text-xl rounded-full flex gap-5 font-medium backdrop-blur bg-white/25">
+                  <button
+                    className={`${
+                      bookingEngine === "oneWayTrip"
+                        ? "text-white backdrop-blur bg-swBlack/50 font-semibold"
+                        : "text-swGray300 hover:backdrop-blur hover:bg-white/5"
+                    } py-2 px-4 rounded-full`}
+                    onClick={() => setBookingEngine("oneWayTrip")}
                   >
-                    <div className="bg-swPrimary500 p-1 rounded-full">
-                      <div className="h-7 w-7 relative flex justify-center items-center">
-                        <SwDeparturePlaneIcon className="text-[1.6rem]" />
+                    One Way Rrip
+                  </button>
+                  <button
+                    className={`${
+                      bookingEngine === "roundTrip"
+                        ? "text-white backdrop-blur bg-swBlack/50 font-semibold"
+                        : "text-swGray300 hover:backdrop-blur hover:bg-white/5]"
+                    } py-2 px-4 rounded-full`}
+                    onClick={() => setBookingEngine("roundTrip")}
+                  >
+                    Round Trip
+                  </button>
+                  <button
+                    className={`${
+                      bookingEngine === "multiCity"
+                        ? "text-white backdrop-blur bg-swBlack/50 font-semibold"
+                        : "text-swGray300 hover:backdrop-blur hover:bg-white/5"
+                    } py-2 px-4 rounded-full`}
+                    onClick={() => setBookingEngine("multiCity")}
+                  >
+                    Multi-city trip
+                  </button>
+                </div>
+                <div className={`${space_grotesk.className} w-fit text-lg `}>
+                  <Button
+                    label="Book Jet"
+                    bgColor={"bg-swPrimary500 hover:bg-swPrimary600"}
+                    textColor={"text-white"}
+                    endIcon={<HiArrowRight size={20} />}
+                  />
+                </div>
+              </div>
+              <div className="flex justify-between mb-5">
+                <div className="flex items-center gap-5 mx-auto flex-wrap">
+                  <div className="flex items-center mx-auto relative">
+                    <div
+                      className="p-5 pr-16 flex w-[18rem] items-center gap-5 border border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50 rounded-tl-2xl rounded-bl-2xl cursor-pointer"
+                      onClick={() => setOpenDeparture(!openDeparture)}
+                    >
+                      <div className="bg-swPrimary500 p-1 rounded-full">
+                        <div className="h-7 w-7 relative flex justify-center items-center">
+                          <SwDeparturePlaneIcon className="text-[1.6rem]" />
+                        </div>
+                      </div>
+                      <div>
+                        <p className="text-swGray500 text-sm">Departure city</p>
+                        <p className="text-lg text-white font-medium">
+                          Abuja - Nigeria
+                        </p>
                       </div>
                     </div>
-                    <div>
-                      <p className="text-swGray500 text-sm">Departure city</p>
-                      <p className="text-lg text-white font-medium">
-                        Abuja - Nigeria
-                      </p>
+                    <div className="p-1 rounded-full border border-swGray900 text-swBlack ml-[47.5%] bg-white absolute z-10">
+                      <GoArrowRight size={15} className={"-mb-2 ml-1"} />
+                      <GoArrowLeft size={15} className="-mt-2 mr-1" />
                     </div>
-                  </div>
-                  <div className="p-1 rounded-full border border-swGray900 text-swBlack ml-[47.5%] bg-white absolute z-10">
-                    <GoArrowRight size={15} className={"-mb-2 ml-1"} />
-                    <GoArrowLeft size={15} className="-mt-2 mr-1" />
-                  </div>
-                  <div
-                    className="p-5 pr-16 flex w-[18rem] items-center gap-5 border border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50 border-l-transparent rounded-tr-2xl rounded-br-2xl cursor-pointer"
-                    onClick={() => setOpenArrival(!openArrival)}
-                  >
-                    <div className="bg-swPrimary500 p-1 rounded-full">
-                      <div className="h-7 w-7 relative flex justify-center items-center">
-                        <SwArrivalPlaneIcon className="text-[1.6rem]" />
+                    <div
+                      className="p-5 pr-16 flex w-[18rem] items-center gap-5 border border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50 border-l-transparent rounded-tr-2xl rounded-br-2xl cursor-pointer"
+                      onClick={() => setOpenArrival(!openArrival)}
+                    >
+                      <div className="bg-swPrimary500 p-1 rounded-full">
+                        <div className="h-7 w-7 relative flex justify-center items-center">
+                          <SwArrivalPlaneIcon className="text-[1.6rem]" />
+                        </div>
+                      </div>
+                      <div>
+                        <p className="text-swGray500 text-sm">Arrival city</p>
+                        <p className="text-lg text-white font-medium">
+                          Lagos - Nigeria
+                        </p>
                       </div>
                     </div>
-                    <div>
-                      <p className="text-swGray500 text-sm">Arrival city</p>
-                      <p className="text-lg text-white font-medium">
-                        Lagos - Nigeria
-                      </p>
-                    </div>
-                  </div>
 
                   {openDeparture && (
                     <div className="absolute text-swGray900 top-24 rounded-md shadow-lg p-2 bg-white w-full z-10">
