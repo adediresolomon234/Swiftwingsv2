@@ -1,53 +1,64 @@
-import { mdiCarSeat, mdiSpeedometer, mdiArrowLeftRight, mdiArrowRight } from '@mdi/js';
-
+import { mdiCarSeat, mdiSpeedometer, mdiArrowLeftRight } from '@mdi/js';
 
 export const fleet = [
     {
-      name: "Hawker 800XP",
-      image:  "images/Offer1",
-      seat: "12 seats",
-      kilometer: "870 km/h",
-      feet: "8.17 feet",
-      icon: mdiCarSeat,
-      icon2: mdiSpeedometer,
-      icon3: mdiArrowLeftRight,
-      size: "Midsize Business Jet",
-      id: 1
+        id: 1,
+        name: "Hawker 800XP",
+        image: "Offer1.png",
+        seat: "12 seats",
+        kilometer: "870 km/h",
+        feet: "8.17 feet",
+        icon: mdiCarSeat,
+        icon2: mdiSpeedometer,
+        icon3: mdiArrowLeftRight,
+        size: "Midsize Business Jet"
     },
     {
-      name: " Bombardier Aerospace",
-      image:"images/Offer1",
-      seat: "13 seats",
-      kilometer: "982 km/h",
-      feet: "6.9 feet",
-      icon: mdiCarSeat,
-      icon2: mdiSpeedometer,
-      icon3: mdiArrowLeftRight,
-      size: "Super mid-size jet",
-      id: 2
+        id: 2,
+        name: "Bombardier Aerospace",
+        image: "Offer2.png",
+        seat: "13 seats",
+        kilometer: "982 km/h",
+        feet: "6.9 feet",
+        icon: mdiCarSeat,
+        icon2: mdiSpeedometer,
+        icon3: mdiArrowLeftRight,
+        size: "Super mid-size jet"
     },
     {
-      name: "Gulfstream Aerospace",
-      seat: "16 seats",
-      kilometer: "956 km/h",
-      feet: "7.9 feet",
-      image: "images/Offer1",
-      icon: mdiCarSeat,
-      icon2: mdiSpeedometer,
-      icon3: mdiArrowLeftRight,
-      size: "Business Jet",
-      id: 3
+        id: 3,
+        name: "Gulfstream Aerospace",
+        image: "Offer3.png",
+        seat: "16 seats",
+        kilometer: "956 km/h",
+        feet: "7.9 feet",
+        icon: mdiCarSeat,
+        icon2: mdiSpeedometer,
+        icon3: mdiArrowLeftRight,
+        size: "Business Jet"
     },
     {
-      name: " Embraer",
-      image:"images/Offer1",
-      seat: "13 seats",
-      kilometer: "982 km/h",
-      feet: "6.9 feet",
-      icon: mdiCarSeat,
-      icon2: mdiSpeedometer,
-      icon3: mdiArrowLeftRight,
-      size: "Super mid-size jet",
-      id: 4
+        id: 4,
+        name: "Embraer",
+        image: "Offer4.png",
+        seat: "13 seats",
+        kilometer: "982 km/h",
+        feet: "6.9 feet",
+        icon: mdiCarSeat,
+        icon2: mdiSpeedometer,
+        icon3: mdiArrowLeftRight,
+        size: "Super mid-size jet"
     },
-  ]
+    {
+        id: 5,
+        name: "Phenom 300",
+        image: "Offer4.png",
+        seat: "13 seats",
+        kilometer: "982 km/h",
+        feet: "6.9 feet",
+        icon: mdiCarSeat,
+        icon2: mdiSpeedometer,
+        icon3: mdiArrowLeftRight,
+        size: "Super mid-size jet"
+    }
+];
