@@ -38,7 +38,7 @@ const Footer = () => {
                             <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
                             <CiMail className="w-6 h-10 font-bold" />
                             </div>
-                            <input type="text" id="input-group-1" class="max-w-xs lg:max-w-none  border border-swPrimary600 text-gray-900 text-sm rounded-lg focus:ring-swPrimary600 focus:border-swPrimary600  block w-full lg:w-[780px] ps-10 p-3.5" placeholder="name@flowbite.com" />
+                            <input type="text" id="input-group-1" className="max-w-xs lg:max-w-none  border border-swPrimary600 text-gray-900 text-sm rounded-lg focus:ring-swPrimary600 focus:border-swPrimary600  block w-full lg:w-[780px] ps-10 p-3.5" placeholder="name@flowbite.com" />
                         </div>
 
                         <div className="flex justify-center ">
