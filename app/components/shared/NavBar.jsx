@@ -28,7 +28,7 @@ const NavBar = () => {
 
         <div className="flex gap-5 items-center text-sm">
           <Link
-            href=""
+            href="/sign-in"
             className="py-2 px-4 rounded-full hover:bg-white text-lg"
           >
             Sign In
