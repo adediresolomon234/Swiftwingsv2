@@ -81,3 +81,24 @@ border-radius: 40px;
 .blur {
   filter: blur(10px);
 }
+.before-after-line::before,
+.before-after-line::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 40%;
+  height: 1px;
+  background-color: #333; 
+}
+
+.before-after-line::before {
+  left: -50%;
+}
+
+.before-after-line::after {
+  right: -50%;
+}
+
+.select-container:hover select {
+  border-color: none;
+}
