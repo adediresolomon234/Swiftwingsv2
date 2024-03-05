@@ -2,7 +2,7 @@
   
  .fleet-image {
   width: 720px;
-  margin-right: -200px; 
+  margin-right: -100px; 
   opacity: 0;
   transition: opacity 0.30s ease-in, transform 0.30s ease-in-out; 
   position: relative;
@@ -59,6 +59,9 @@ border-radius: 70px;
 border-radius: 40px;
 }
 
+.custom-modal{
+  border-radius: 1.5rem !important;
+}
 
 .Testimonial-card {
   flex: 0 0 auto; 
@@ -80,4 +83,25 @@ border-radius: 40px;
 
 .blur {
   filter: blur(10px);
+}
+.before-after-line::before,
+.before-after-line::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 40%;
+  height: 1px;
+  background-color: #333; 
+}
+
+.before-after-line::before {
+  left: -50%;
+}
+
+.before-after-line::after {
+  right: -50%;
+}
+
+.select-container:hover select {
+  border-color: none;
 }

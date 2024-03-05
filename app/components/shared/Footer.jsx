@@ -38,7 +38,7 @@ const Footer = () => {
                             <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
                             <CiMail className="w-6 h-10 font-bold" />
                             </div>
-                            <input type="text" id="input-group-1" class="max-w-xs lg:max-w-none  border border-swPrimary600 text-gray-900 text-sm rounded-lg focus:ring-swPrimary600 focus:border-swPrimary600  block w-full lg:w-[780px] ps-10 p-3.5" placeholder="name@flowbite.com" />
+                            <input type="text" id="input-group-1" className="max-w-xs lg:max-w-none  border border-swPrimary600 text-gray-900 text-sm rounded-lg focus:ring-swPrimary600 focus:border-swPrimary600  block w-full lg:w-[780px] ps-10 p-3.5" placeholder="name@flowbite.com" />
                         </div>
 
                         <div className="flex justify-center ">
@@ -53,99 +53,99 @@ const Footer = () => {
                 </div>
             </div>
             <div className="relative w-full ">
-                <footer class="w-full relative rounded-3xl bg-swWine relative flex flex-col items-center overflow-hidden py-20 md:py-40">
-                    <div class="mx-auto w-full max-w-screen-2xl p-4 py-6 lg:py-8">
-                        <div class="md:flex md:justify-between">
-                            <div class="mb-6 md:mb-0">
-                                <a href="https://swiftwings.com/" class="flex items-center">
+                <footer className="w-full relative rounded-3xl bg-swWine relative flex flex-col items-center overflow-hidden py-20 md:py-40">
+                    <div className="mx-auto w-full max-w-screen-2xl p-4 py-6 lg:py-8">
+                        <div className="md:flex md:justify-between">
+                            <div className="mb-6 md:mb-0">
+                                <a href="https://swiftwings.com/" className="flex items-center">
                                     <Image src={logo} alt="swiftwings Logo" />
-                                    <span class="self-center text-2xl font-semibold whitespace-nowrap text-white">Swiftwings</span>
+                                    <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">Swiftwings</span>
                                 </a>
                             </div>
-                            <div class="grid grid-cols-2 gap-3 sm:gap-2 sm:grid-cols-4">
+                            <div className="grid grid-cols-2 gap-3 sm:gap-2 sm:grid-cols-4">
                                 <div>
-                                    <h2 class="mb-6 text-xl font-semibold uppercase text-white">Service</h2>
-                                    <ul class="text-white dark:text-gray-400 font-medium">
-                                        <li class="mb-4">
-                                            <a href="" class="">Luxurious trips</a>
+                                    <h2 className="mb-6 text-xl font-semibold uppercase text-white">Service</h2>
+                                    <ul className="text-white dark:text-gray-400 font-medium">
+                                        <li className="mb-4">
+                                            <a href="" className="">Luxurious trips</a>
                                         </li>
-                                        <li class="mb-4">
-                                            <a href="" class="">Inflight catering</a>
+                                        <li className="mb-4">
+                                            <a href="" className="">Inflight catering</a>
                                         </li>
-                                        <li class="mb-4">
-                                            <a href="" class="">Air ambulance</a>
+                                        <li className="mb-4">
+                                            <a href="" className="">Air ambulance</a>
                                         </li>
                                     </ul>
                                 </div>
                                 <div>
-                                    <h2 class="mb-6 text-xl font-semibold  uppercase text-white">Company</h2>
-                                    <ul class="text-white font-medium">
-                                        <li class="mb-4">
-                                            <a href="" class="hover:underline">About Us</a>
+                                    <h2 className="mb-6 text-xl font-semibold  uppercase text-white">Company</h2>
+                                    <ul className="text-white font-medium">
+                                        <li className="mb-4">
+                                            <a href="" className="hover:underline">About Us</a>
                                         </li>
-                                        <li class="mb-4">
-                                            <a href="" class="hover:underline">Contact Us</a>
+                                        <li className="mb-4">
+                                            <a href="" className="hover:underline">Contact Us</a>
                                         </li>
-                                        <li class="mb-4">
-                                            <a href="" class="hover:underline">Career</a>
+                                        <li className="mb-4">
+                                            <a href="" className="hover:underline">Career</a>
                                         </li>
-                                        <li class="mb-4">
-                                            <a href="" class="hover:underline">Outreach</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div>
-                                    <h2 class="mb-6 text-xl font-semibold uppercase text-white">Legal</h2>
-                                    <ul class="text-white font-medium">
-                                        <li class="mb-4">
-                                            <a href="" class="hover:underline ">Privacy Policy</a>
-                                        </li>
-                                        <li class="mb-4">
-                                            <a href="" class="hover:underline ">Terms & Condition</a>
-                                        </li>
-                                        <li class="mb-4">
-                                            <a href="" class="hover:underline ">Usage rights</a>
+                                        <li className="mb-4">
+                                            <a href="" className="hover:underline">Outreach</a>
                                         </li>
                                     </ul>
                                 </div>
                                 <div>
-                                    <h2 class="mb-6 text-xl font-semibold uppercase text-white">Company and Social</h2>
-                                    <ul class="text-white font-medium">
-                                        <li class="flex items-center mb-4">
+                                    <h2 className="mb-6 text-xl font-semibold uppercase text-white">Legal</h2>
+                                    <ul className="text-white font-medium">
+                                        <li className="mb-4">
+                                            <a href="" className="hover:underline ">Privacy Policy</a>
+                                        </li>
+                                        <li className="mb-4">
+                                            <a href="" className="hover:underline ">Terms & Condition</a>
+                                        </li>
+                                        <li className="mb-4">
+                                            <a href="" className="hover:underline ">Usage rights</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h2 className="mb-6 text-xl font-semibold uppercase text-white">Company and Social</h2>
+                                    <ul className="text-white font-medium">
+                                        <li className="flex items-center mb-4">
                                             <div className="flex justify-center mr-3">
                                                 <CiMail />
                                             </div>
-                                            <a href="#" class="hover:underline">charter@swiftwingsjet.com</a>
+                                            <a href="#" className="hover:underline">charter@swiftwingsjet.com</a>
                                         </li>
-                                        <li class="flex items-center mb-4">
+                                        <li className="flex items-center mb-4">
                                             <div className="flex justify-center mr-3">
                                                 <FaInstagram />
                                             </div>
-                                            <a href="#" class="hover:underline">swiftwingsjet</a>
+                                            <a href="#" className="hover:underline">swiftwingsjet</a>
                                         </li>
-                                        <li class="flex items-center mb-4">
+                                        <li className="flex items-center mb-4">
                                             <div className="flex justify-center mr-3">
                                                 <FaXTwitter />
                                             </div>
-                                            <a href="#" class="">swiftwingsjet</a>
+                                            <a href="#" className="">swiftwingsjet</a>
                                         </li>
-                                        <li class="flex items-center mb-4">
+                                        <li className="flex items-center mb-4">
                                             <div className="flex justify-center mr-3">
                                                 <FaPhoneAlt />
                                             </div>
-                                            <a href="#" class="">09028792910</a>
+                                            <a href="#" className="">09028792910</a>
                                         </li>
                                     </ul>
 
                                 </div>
                             </div>
                         </div>
-                        <hr class="my-6 border-gray-200 sm:mx-auto  lg:my-8" />
-                        <div class="sm:flex sm:items-center sm:justify-between">
-                            <span class="text-sm text-white sm:text-center d"> 9b Ike Asogwa Cl, Maryland 100211, Lagos.
+                        <hr className="my-6 border-gray-200 sm:mx-auto  lg:my-8" />
+                        <div className="sm:flex sm:items-center sm:justify-between">
+                            <span className="text-sm text-white sm:text-center d"> 9b Ike Asogwa Cl, Maryland 100211, Lagos.
                             </span>
-                            <div class="flex mt-4 sm:justify-center sm:mt-0">
-                                <span class="text-sm text-white sm:text-center ">{currentYear} <a href="https:swiftwings.com" class="hover:underline">SwiftWings</a>. All Rights Reserved.
+                            <div className="flex mt-4 sm:justify-center sm:mt-0">
+                                <span className="text-sm text-white sm:text-center ">{currentYear} <a href="https:swiftwings.com" class="hover:underline">SwiftWings</a>. All Rights Reserved.
                                 </span>
 
                             </div>
