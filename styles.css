@@ -59,6 +59,9 @@ border-radius: 70px;
 border-radius: 40px;
 }
 
+.custom-modal{
+  border-radius: 1.5rem !important;
+}
 
 .Testimonial-card {
   flex: 0 0 auto; 

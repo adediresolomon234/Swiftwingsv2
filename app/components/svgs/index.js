@@ -17,4 +17,5 @@ export { default as SwOpenEyeIcon } from "./openEyeIcon.svg";
 export { default as SwGoogleColoredIcon } from "./googleColoredIcon.svg";
 export { default as SwPlusIcon } from "./plusIcon.svg";
 export { default as SWArrowsChevron } from "./Arrows-chevron.svg";
+export { default as SWSuccessful } from "./success.svg";
 

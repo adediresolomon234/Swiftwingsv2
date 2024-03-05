@@ -1,7 +1,7 @@
 import { Space_Grotesk } from "next/font/google";
-import Button from "../components/Button";
 import PhoneExt from "../components/shared/phoneInputField"
 import InputField from "../components/shared/InputField";
+import  ModalPopup from "../components/shared/Modal";
 import {
     SwGoogleColoredIcon,
     SwKeyIcon,
@@ -56,10 +56,7 @@ const ProfilePage = () => {
                     <PhoneExt />
                 </div>
                 <div className="my-7 flex flex-col gap-3">
-                    <Button
-                        label={"Complete booking."}
-                        bgColor={"bg-swPrimary500 text-white w-full"}
-                    />
+                  <ModalPopup/>
                 </div>
                 <div class="w-full flex items-center">
                     <input id="link-checkbox" type="checkbox" value="" class="w-5 h-5 text-swPrimary500  bg-gray-100 border-gray-300 rounded focus:outline-none cursor-pointer" />
