@@ -397,7 +397,7 @@ export default function Home() {
               />
             </div>
 
-            <div className="bg-swButter text-swWine p-8 max-w-[44rem] rounded-2xl">
+            <div className="bg-swSecondary400 text-swWine p-8 max-w-[44rem] rounded-2xl">
               <p className="font-light">
                 Swift Wings understands that our clients’ travel needs often
                 stretch far beyond the borders of Nigeria.
@@ -465,7 +465,7 @@ export default function Home() {
                   <div className="">
                     <div aria-hidden="true" className={`absolute bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl ${hoveredIndex >= 0 ? 'opacity-100' : 'opacity-0'}`}></div>
                     {hoveredIndex >= 0 && (
-                      <div key={fleet[hoveredIndex].id} className={`relative fleet-image show`}>
+                      <div key={fleet[hoveredIndex].id} className={`relative fleet-image image-slide-up ${hoveredIndex >= 0 ? 'show' : ''}`}>
                         <div aria-hidden="true" className={`absolute`}></div>
                         <Image src={`/images/${fleet[hoveredIndex].image}`}
                           alt="illustration"

@@ -58,9 +58,9 @@ const ProfilePage = () => {
                 <div className="my-7 flex flex-col gap-3">
                   <ModalPopup/>
                 </div>
-                <div class="w-full flex items-center">
-                    <input id="link-checkbox" type="checkbox" value="" class="w-5 h-5 text-swPrimary500  bg-gray-100 border-gray-300 rounded focus:outline-none cursor-pointer" />
-                    <label for="link-checkbox" class="ms-6 text-xs font-medium text-swGray600  dark:text-gray-300">I would like to receive marketing communications from Swiftwings.</label>
+                <div className="w-full flex items-center">
+                    <input id="link-checkbox" type="checkbox" value="" className="w-5 h-5 text-swPrimary500  bg-gray-100 border-gray-300 rounded focus:outline-none cursor-pointer" />
+                    <label for="link-checkbox" className="ms-6 text-xs font-medium text-swGray600  dark:text-gray-300">I would like to receive marketing communications from Swiftwings.</label>
                 </div>
             </div>
         </main>
