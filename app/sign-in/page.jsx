@@ -16,7 +16,7 @@ const spaceGrotesk = Space_Grotesk({
 
 const SignIn = () => {
   return (
-    <main className="flex justify-center items-center min-h-[100vh]">
+    <main className="flex justify-center items-center min-h-[100vh] m-5">
       <div className="max-w-sm w-full p-2">
         <p className="text-center text-2xl font-medium">Sign In</p>
         <p className="text-center mt-5 mb-8 text-[0.95rem]">

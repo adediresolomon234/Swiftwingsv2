@@ -40,13 +40,26 @@ import {
   SwUserIcon,
 } from "./components/svgs";
 import Link from "next/link";
+import { useDispatch, useSelector } from "react-redux";
+import githubSlice, { getGithubAccount } from "@/redux/slices/githubSlice";
 
 const space_grotesk = Space_Grotesk({
   subsets: ["latin"],
 });
 
-export default function Home() {
+function isNearViewport(id) {
+  const element = document.getElementById(id);
+  if (!element) return false;
 
+  const rect = element.getBoundingClientRect();
+  const viewportHeight =
+    window.innerHeight || document.documentElement.clientHeight;
+
+  return rect.bottom >= 0 && rect.bottom <= viewportHeight;
+}
+
+export default function Home() {
+  const dispatch = useDispatch();
   const [bookingEngine, setBookingEngine] = useState("oneWayTrip");
   const [openPassangers, setOpenPassageners] = useState(false);
   const [openDeparture, setOpenDeparture] = useState(false);
@@ -56,6 +69,9 @@ export default function Home() {
   let [petsNo, setPetsNo] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
   const [hoveredIndex, setHoveredIndex] = useState(0);
+
+  const { loading, error, data } = useSelector((state) => state.github);
+  console.log({ data });
 
   const options = [
     { value: "Abuja, Nigeria", label: "Abuja, Nigeria" },
@@ -69,6 +85,10 @@ export default function Home() {
   const handleMouseLeave = () => {
     setHoveredIndex(0);
   };
+
+  useEffect(() => {
+    dispatch(getGithubAccount());
+  }, []);
 
   return (
     <main className="relative bg-swLightBgGray">
@@ -195,153 +215,153 @@ export default function Home() {
                       </div>
                     </div>
 
-                    {openDeparture && (
-                      <div className="absolute text-swGray900 top-24 rounded-md shadow-lg p-2 bg-white w-full z-10">
-                        <Select
-                          defaultValue={selectedOption}
-                          onChange={setSelectedOption}
-                          options={options}
-                          placeholder="Select Departure City"
-                        />
-                      </div>
-                    )}
-                    {openArrival && (
-                      <div className="absolute text-swGray900 top-24 rounded-md shadow-lg p-2 bg-white w-full z-10">
-                        <Select
-                          defaultValue={selectedOption}
-                          onChange={setSelectedOption}
-                          options={options}
-                          placeholder="Select Arrival City"
-                        />
-                      </div>
-                    )}
+                  {openDeparture && (
+                    <div className="absolute text-swGray900 top-24 rounded-md shadow-lg p-2 bg-white w-full z-10">
+                      <Select
+                        defaultValue={selectedOption}
+                        onChange={setSelectedOption}
+                        options={options}
+                        placeholder="Select Departure City"
+                      />
+                    </div>
+                  )}
+                  {openArrival && (
+                    <div className="absolute text-swGray900 top-24 rounded-md shadow-lg p-2 bg-white w-full z-10">
+                      <Select
+                        defaultValue={selectedOption}
+                        onChange={setSelectedOption}
+                        options={options}
+                        placeholder="Select Arrival City"
+                      />
+                    </div>
+                  )}
+                </div>
+                <div className="flex justify-around gap-5 mx-auto flex-wrap">
+                  <div className="p-5 pr-16 flex items-center w-72 gap-5 border border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50 rounded-2xl cursor-pointer">
+                    <div className="p-2 rounded-full text-swGray900">
+                      <SwCalendarIcon className="text-xl" />
+                    </div>
+                    <div>
+                      <p className="text-swGray500 text-sm">Departure date</p>
+                      <p className="text-lg text-white font-medium">20 Jan</p>
+                    </div>
                   </div>
-                  <div className="flex justify-around gap-5 mx-auto flex-wrap">
-                    <div className="p-5 pr-16 flex items-center w-72 gap-5 border border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50 rounded-2xl cursor-pointer">
+                  <div className="relative">
+                    <div
+                      className="p-5 flex items-center w-72 gap-5 border border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50 rounded-2xl cursor-pointer"
+                      onClick={() => setOpenPassageners(!openPassangers)}
+                    >
                       <div className="p-2 rounded-full text-swGray900">
-                        <SwCalendarIcon className="text-xl" />
+                        <SwUserIcon className="text-xl" />
                       </div>
                       <div>
-                        <p className="text-swGray500 text-sm">Departure date</p>
-                        <p className="text-lg text-white font-medium">20 Jan</p>
+                        <p className="text-swGray500 text-sm">
+                          Departure city
+                        </p>
+                        <p className="text-lg text-white font-medium">
+                          4 Adult - 2 Children
+                        </p>
                       </div>
                     </div>
-                    <div className="relative">
-                      <div
-                        className="p-5 flex items-center w-72 gap-5 border border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50 rounded-2xl cursor-pointer"
-                        onClick={() => setOpenPassageners(!openPassangers)}
-                      >
-                        <div className="p-2 rounded-full text-swGray900">
-                          <SwUserIcon className="text-xl" />
-                        </div>
-                        <div>
-                          <p className="text-swGray500 text-sm">
-                            Departure city
-                          </p>
-                          <p className="text-lg text-white font-medium">
-                            4 Adult - 2 Children
-                          </p>
-                        </div>
-                      </div>
-                      {openPassangers && (
-                        <div className="absolute text-swGray900 top-24 bg-white w-full shadow-md rounded-md">
-                          <div className="p-5 flex flex-col gap-5 font-medium">
-                            <p className="font-semibold text-lg">Occupants</p>
+                    {openPassangers && (
+                      <div className="absolute text-swGray900 top-24 bg-white w-full shadow-md rounded-md">
+                        <div className="p-5 flex flex-col gap-5 font-medium">
+                          <p className="font-semibold text-lg">Occupants</p>
 
-                            <div className="flex flex-col gap-5">
-                              <div className="flex justify-between items-center">
-                                <p className="">Adults</p>
-                                <div className="border hover:border-swPrimary500 rounded-md overflow-hidden flex">
-                                  <p
-                                    className="p-2 cursor-pointer hover:bg-swPrimary500 hover:text-white"
-                                    onClick={() =>
-                                      setAdultsNo(adultsNo > 0 ? --adultsNo : 0)
-                                    }
-                                  >
-                                    <FiMinus size={20} />
-                                  </p>
-                                  <p className="h-10 w-14 flex justify-center items-center border-x">
-                                    {adultsNo}
-                                  </p>
-                                  <p
-                                    className="p-2 cursor-pointer hover:bg-swPrimary500 hover:text-white"
-                                    onClick={() => setAdultsNo(++adultsNo)}
-                                  >
-                                    <FiPlus size={20} />
-                                  </p>
-                                </div>
+                          <div className="flex flex-col gap-5">
+                            <div className="flex justify-between items-center">
+                              <p className="">Adults</p>
+                              <div className="border hover:border-swPrimary500 rounded-md overflow-hidden flex">
+                                <p
+                                  className="p-2 cursor-pointer hover:bg-swPrimary500 hover:text-white"
+                                  onClick={() =>
+                                    setAdultsNo(adultsNo > 0 ? --adultsNo : 0)
+                                  }
+                                >
+                                  <FiMinus size={20} />
+                                </p>
+                                <p className="h-10 w-14 flex justify-center items-center border-x">
+                                  {adultsNo}
+                                </p>
+                                <p
+                                  className="p-2 cursor-pointer hover:bg-swPrimary500 hover:text-white"
+                                  onClick={() => setAdultsNo(++adultsNo)}
+                                >
+                                  <FiPlus size={20} />
+                                </p>
                               </div>
-                            </div>
-                            <div className="flex flex-col gap-5">
-                              <div className="flex justify-between items-center">
-                                <p className="">Kids</p>
-                                <div className="border hover:border-swPrimary500 rounded-md overflow-hidden flex">
-                                  <p
-                                    className="p-2 cursor-pointer hover:bg-swPrimary500 hover:text-white"
-                                    onClick={() =>
-                                      setKidsNo(kidsNo > 0 ? --kidsNo : 0)
-                                    }
-                                  >
-                                    <FiMinus size={20} />
-                                  </p>
-                                  <p className="h-10 w-14 flex justify-center items-center border-x">
-                                    {kidsNo}
-                                  </p>
-                                  <p
-                                    className="p-2 cursor-pointer hover:bg-swPrimary500 hover:text-white"
-                                    onClick={() => setKidsNo(++kidsNo)}
-                                  >
-                                    <FiPlus size={20} />
-                                  </p>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="flex flex-col gap-5">
-                              <div className="flex justify-between items-center">
-                                <p className="">Pets</p>
-                                <div className="border hover:border-swPrimary500 rounded-md overflow-hidden flex">
-                                  <p
-                                    className="p-2 cursor-pointer hover:bg-swPrimary500 hover:text-white"
-                                    onClick={() =>
-                                      setPetsNo(petsNo > 0 ? --petsNo : 0)
-                                    }
-                                  >
-                                    <FiMinus size={20} />
-                                  </p>
-                                  <p className="h-10 w-14 flex justify-center items-center border-x">
-                                    {petsNo}
-                                  </p>
-                                  <p
-                                    className="p-2 cursor-pointer hover:bg-swPrimary500 hover:text-white"
-                                    onClick={() => setPetsNo(++petsNo)}
-                                  >
-                                    <FiPlus size={20} />
-                                  </p>
-                                </div>
-                              </div>
-                            </div>
-
-                            <div className="flex items-center justify-between">
-                              <p>Done?</p>
-                              <Button
-                                bgColor={"bg-swPrimary500"}
-                                label={"Save"}
-                                textColor={"text-white"}
-                                endIcon={<IoCheckmark size={20} />}
-                              />
                             </div>
                           </div>
+                          <div className="flex flex-col gap-5">
+                            <div className="flex justify-between items-center">
+                              <p className="">Kids</p>
+                              <div className="border hover:border-swPrimary500 rounded-md overflow-hidden flex">
+                                <p
+                                  className="p-2 cursor-pointer hover:bg-swPrimary500 hover:text-white"
+                                  onClick={() =>
+                                    setKidsNo(kidsNo > 0 ? --kidsNo : 0)
+                                  }
+                                >
+                                  <FiMinus size={20} />
+                                </p>
+                                <p className="h-10 w-14 flex justify-center items-center border-x">
+                                  {kidsNo}
+                                </p>
+                                <p
+                                  className="p-2 cursor-pointer hover:bg-swPrimary500 hover:text-white"
+                                  onClick={() => setKidsNo(++kidsNo)}
+                                >
+                                  <FiPlus size={20} />
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="flex flex-col gap-5">
+                            <div className="flex justify-between items-center">
+                              <p className="">Pets</p>
+                              <div className="border hover:border-swPrimary500 rounded-md overflow-hidden flex">
+                                <p
+                                  className="p-2 cursor-pointer hover:bg-swPrimary500 hover:text-white"
+                                  onClick={() =>
+                                    setPetsNo(petsNo > 0 ? --petsNo : 0)
+                                  }
+                                >
+                                  <FiMinus size={20} />
+                                </p>
+                                <p className="h-10 w-14 flex justify-center items-center border-x">
+                                  {petsNo}
+                                </p>
+                                <p
+                                  className="p-2 cursor-pointer hover:bg-swPrimary500 hover:text-white"
+                                  onClick={() => setPetsNo(++petsNo)}
+                                >
+                                  <FiPlus size={20} />
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="flex items-center justify-between">
+                            <p>Done?</p>
+                            <Button
+                              bgColor={"bg-swPrimary500"}
+                              label={"Save"}
+                              textColor={"text-white"}
+                              endIcon={<IoCheckmark size={20} />}
+                            />
+                          </div>
                         </div>
-                      )}
-                    </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
             </div>
-          </section>
+          </div>
         </section>
-        <section className="mt-60 py-16 px-5 text-white">
-          <div className="max-w-4xl w-full mx-auto text-white text-center">
+      </section>
+        <section className="mt-60 py-16 px-5 text-swGray900">
+          <div className="max-w-4xl w-full mx-auto text-center">
             <Services
               name={"Luxury travels"}
               text="SwiftWings operates the largest and most diverse private aircraft fleet globally, providing an extensive array of personalized private aviation solutions that surpass the expectations of the world’s most discerning travelers. Our industry-leading scale and innovative aviation business model ensure dependable financial sustainability for our clients, setting us apart in the industry."
@@ -399,12 +419,12 @@ export default function Home() {
               <p className="font-light">
                 Swift Wings understands that our clients’ travel needs often
                 stretch far beyond the borders of Nigeria.
-                <br /> That’s why we provide extensive global coverage, seamlessly
-                connecting you to destinations in Europe, North America, South
-                America, and other corners of the world, even the most remote
-                ones. With our network of trusted partners and affiliates, we
-                ensure that you experience the convenience and flexibility of air
-                travel on a global scale.
+                <br /> That’s why we provide extensive global coverage,
+                seamlessly connecting you to destinations in Europe, North
+                America, South America, and other corners of the world, even the
+                most remote ones. With our network of trusted partners and
+                affiliates, we ensure that you experience the convenience and
+                flexibility of air travel on a global scale.
               </p>
               <div className="mt-5 flex justify-end gap-3 items-center">
                 Learn more <GoArrowRight size={20} />
@@ -415,8 +435,12 @@ export default function Home() {
         <section className="max-w-7xl mx-auto py-10">
           <div className="relative pt-40 pb-20 lg:pt-44">
             <div className="relative 2xl:container m-auto px-6 md:px-12 lg:px-4">
-              <p className="sm:mx-auto sm:w-10/12 md:w-2/3 p-1 text-swPrimary500 font-semibold text-center sm:text-[18px] md:text-[18px] lg:text-[18px] lg:w-auto lg:text-left">Fleet Showcase</p>
-              <h1 className="mt-8 sm:mx-auto sm:w-10/12 md:w-2/3 text-swGray700 text-4xl font-semibold text-center sm:text-5xl md:text-5xl lg:w-auto lg:text-left xl:text-6xl">Our Fleets.</h1>
+              <p className="sm:mx-auto sm:w-10/12 md:w-2/3 p-1 text-swPrimary500 font-semibold text-center sm:text-[18px] md:text-[18px] lg:text-[18px] lg:w-auto lg:text-left">
+                Fleet Showcase
+              </p>
+              <h1 className="mt-8 sm:mx-auto sm:w-10/12 md:w-2/3 text-swGray700 text-4xl font-semibold text-center sm:text-5xl md:text-5xl lg:w-auto lg:text-left xl:text-6xl">
+                Our Fleets.
+              </h1>
               <div className="flex gap-6 mt-12">
                 <div className="col-span-4 relative">
                   {fleet.map((item, index) => (
@@ -426,11 +450,12 @@ export default function Home() {
                       onMouseEnter={() => handleMouseEnter(index)}
                       onMouseLeave={handleMouseLeave}
                     >
-
-                      <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-2 mt-2 px-6 border-gray-200 rounded duration-300 hover:bg-swBgGray">
+                      <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-2 mt-2  border-gray-200 rounded duration-300 hover:bg-swBgGray">
                         <div className="flex items-center fleet-item">
                           <a aria-label="icon" className="block">
-                            <p className="font-medium md:block text-[20px] text-swGray700">{item.name}</p>
+                            <p className="font-medium md:block text-[20px] text-swGray700">
+                              {item.name}
+                            </p>
                           </a>
                         </div>
                         <div className="flex-1 flex flex-col items-start justify-between text-xs text-gray-800 px-1 py-2 lg:col-span-2">
@@ -446,14 +471,12 @@ export default function Home() {
                             <div className="flex items-center">
                               <Icon path={item.icon3} size={1} />
                               <span className="ml-3 ">{item.feet}</span>
-
                             </div>
                           </div>
                           <div className=" self-stretch relative leading-[18px] mt-2 mx-2 text-swLightGray">
                             {item.size}
                           </div>
                         </div>
-
                       </div>
                       <hr className="w-full border-gray-200" />
                     </div>
@@ -461,9 +484,14 @@ export default function Home() {
                 </div>
                 <div className="flex justify-center items-center image-container relative">
                   <div className="">
-                    <div aria-hidden="true" className={`absolute bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl ${hoveredIndex >= 0 ? 'opacity-100' : 'opacity-0'}`}></div>
+                    <div
+                      aria-hidden="true"
+                      className={`absolute scale-75 md:scale-110 inset-0 m-auto rotate-45 bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl ${
+                        hoveredIndex >= 0 ? "opacity-100" : "opacity-0"
+                      }`}
+                    ></div>
                     {hoveredIndex >= 0 && (
-                      <div key={fleet[hoveredIndex].id} className={`relative fleet-image image-slide-up ${hoveredIndex >= 0 ? 'show' : ''}`}>
+                      <div key={fleet[hoveredIndex].id} className={`relative fleet-image show`}>
                         <div aria-hidden="true" className={`absolute`}></div>
                         <Image src={`/images/${fleet[hoveredIndex].image}`}
                           alt="illustration"
@@ -515,9 +543,11 @@ export default function Home() {
                   />
                   <div className="absolute bottom-0 inset-x-0 h-max mt-auto px-12 py-4 bg-gradient-to-r from-neutral-400 to-stone-500/90">
                     <div>
-                      <h4 className="text-xl text-left font-semibold text-white mb-3">{service.title}</h4>
+                      <h4 className="text-xl text-left font-semibold text-white mb-3">
+                        {service.title}
+                      </h4>
                     </div>
-                    <p className="mt-4 text-xs text-left swGray300">{service.description}</p>
+                    <p className="mt-4 text-xs text-left text-gray-300">{service.description}</p>
 
                   </div>
                 </div>
@@ -539,7 +569,7 @@ export default function Home() {
               <h2 className="mb-4 text-center text-[18px] font-semibold text-swPrimary500  md:text-[18px] ">
                 Membership
               </h2>
-              <p className="text-swGray700 mt-8 sm:mx-auto w-full sm:w-1/2 md:w-4/5 text-center">
+              <p className="text-swGray700 mt-8 sm:mx-auto   text-xl text-center sm:text-xl md:text-xl">
                 Swift Wings Ltd offers an exclusive Jet Card Membership, providing
                 discerning travelers with unparalleled access to private jet
                 charter services. As a Jet Card member, you enjoy priority booking
@@ -582,7 +612,7 @@ export default function Home() {
               <h2 className="mb-4 text-center text-[18px]  text-swPrimary500 md:text-[18px] ">
                 Customer Testimonials
               </h2>
-              <p className="text-swGray700 mt-8 sm:mx-auto w-full sm:w-1/2 md:w-4/5">
+              <p className="text-swGray700 mt-8 sm:mx-auto text-xl text-center sm:text-xl md:text-xl">
                 Swift Wings Ltd offers an exclusive Jet Card Membership, providing discerning travelers with unparalleled access to private jet charter services. As a Jet Card member, you enjoy priority booking and seamless travel experiences tailored to your preferences.
               </p>
             </div>
@@ -597,7 +627,7 @@ export default function Home() {
                   {testimonial.map((item) => (
                     <div
                       key={item.id}
-                      className={`scroll-ml-6 snap-start ml-4 sm:ml-8 md:ml-16 'blur' : ''`}
+                      className={`scroll-ml-6 snap-start ml-16 'blur' : ''`}
                       onMouseEnter={() => handleMouseEnter(item.id)}
                       onMouseLeave={handleMouseLeave}
                     >
@@ -632,7 +662,7 @@ export default function Home() {
             />
           </div>
         </section>
-      </NavAndFooter>
+        </NavAndFooter>
     </main>
   );
 }
