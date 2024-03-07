@@ -13,7 +13,7 @@ const currentYear = new Date().getFullYear();
 const Footer = () => {
     return (
 
-        <footer className="w-full relative rounded-3xl bg-swPrimary700 relative flex flex-col items-center overflow-hidden py-12 md:py-12">
+        <footer className="w-full rounded-3xl bg-swPrimary700 relative flex flex-col items-center overflow-hidden py-12 md:py-12">        
             <div className="mb-16 sm:mx-auto w-full sm:w-1/2 md:w-1/2">
                 <h2 className="mb-4 text-center text-[38px] text-white md:text-[38px]">
                     Let’s work together
@@ -53,7 +53,7 @@ const Footer = () => {
             </div>
 
             <div className="relative w-full ">
-                <footer className="w-full relative rounded-3xl bg-swWine relative flex flex-col items-center overflow-hidden py-20 md:py-40">
+                <footer className="w-full rounded-3xl bg-swWine relative flex flex-col items-center overflow-hidden py-20 md:py-40">
                     <div className="mx-auto w-full max-w-screen-2xl p-4 py-6 lg:py-8">
                         <div className="md:flex md:justify-between">
                             <div className="mb-6 md:mb-0">

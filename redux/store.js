@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
-import githubReducer from "./slices/githubSlice";
+import aviPagesReducer from "./slices/aviPagesSlice";
 export const store = configureStore({
   reducer: {
-    github: githubReducer,
+    aviPages: aviPagesReducer,
   },
 });
