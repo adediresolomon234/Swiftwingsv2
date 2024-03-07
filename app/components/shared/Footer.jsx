@@ -145,7 +145,7 @@ const Footer = () => {
                             <span className="text-sm text-white sm:text-center d"> 9b Ike Asogwa Cl, Maryland 100211, Lagos.
                             </span>
                             <div className="flex mt-4 sm:justify-center sm:mt-0">
-                                <span className="text-sm text-white sm:text-center ">{currentYear} <a href="https:swiftwings.com" class="hover:underline">SwiftWings</a>. All Rights Reserved.
+                                <span className="text-sm text-white sm:text-center ">{currentYear} <a href="https:swiftwings.com" className="hover:underline">SwiftWings</a>. All Rights Reserved.
                                 </span>
 
                             </div>
