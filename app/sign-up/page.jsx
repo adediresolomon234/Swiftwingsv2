@@ -17,10 +17,10 @@ const spaceGrotesk = Space_Grotesk({
 
 const SignUp = () => {
     return (
-        <main className="flex justify-center items-center min-h-[100vh]">
+        <main className="flex justify-center items-center min-h-screen">
             <div className="max-w-sm w-full p-2 mt-20">
                 <p className="text-center text-2xl font-medium">Create a new account</p>
-                <p className="text-center mt-5 mb-8 text-[0.95rem]">
+                <p className="text-center mt-2 mb-8 text-[0.95rem]">
                     Join Swiftwings, book a jet, Enjoy premium membership offers and privileges
                 </p>
 

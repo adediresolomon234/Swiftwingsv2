@@ -33,11 +33,12 @@ const NavBar = () => {
           >
             Sign In
           </Link>
-          <Button
-            label={"Sign Up"}
-            textColor={"text-white"}
-            bgColor={"bg-swPrimary500 hover:bg-swPrimary600"}
-          />
+          <Link
+            href="/sign-up"
+            className="py-2 px-4 rounded-full hover:bg-white text-lg text-white bg-swPrimary500 hover:bg-swPrimary600 hover:text-swPrimary500"
+          >
+            Sign Up
+          </Link>
         </div>
       </div>
     </main>
