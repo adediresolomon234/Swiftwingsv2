@@ -1,7 +1,11 @@
+"use client";
+import { useState } from "react";
 import { Space_Grotesk } from "next/font/google";
 import Button from "../components/Button";
-
 import InputField from "../components/shared/InputField";
+import { useDispatch } from "react-redux";
+import { signUpUser } from "../../redux/slices/authSlice";
+import { TbEyeClosed } from "react-icons/tb";
 import {
     SwGoogleColoredIcon,
     SwKeyIcon,
@@ -16,6 +20,37 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 const SignUp = () => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [renterPassword, setRenterPassword] = useState("");
+    const [passwordError, setPasswordError] = useState("");
+    const [showPassword, setShowPassword] = useState(true);
+    const [passwordVisibility, setPasswordVisibility] = useState(true);
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+        setPasswordVisibility(!passwordVisibility);
+    };
+
+    const dispatch = useDispatch()
+
+    const registerHandle = () => {
+        console.table(email, password, renterPassword)
+        if (password !== renterPassword) {
+            setPasswordError("Passwords do not match");
+            return;
+        }
+        if (!isValidPassword(password)) {
+            setPasswordError("Password must have at least 8 characters, one uppercase letter, one lowercase letter, and one digit");
+            return;
+        }
+        dispatch(signUpUser({ email, password, renterPassword }))
+    };
+    const isValidPassword = (password) => {
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+        return passwordRegex.test(password);
+    };
+
     return (
         <main className="flex justify-center items-center min-h-screen">
             <div className="max-w-sm w-full p-2 mt-20">
@@ -29,6 +64,8 @@ const SignUp = () => {
                         label={"Email"}
                         placeholder={"Enter email address"}
                         startIcon={<SwMailIcon className="text-xl" />}
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                     />
                 </div>
                 <div className="w-full mt-5">
@@ -36,7 +73,13 @@ const SignUp = () => {
                         label={"Password"}
                         placeholder={"Enter password"}
                         startIcon={<SwKeyIcon className="text-xl" />}
-                        endIcon={<SwOpenEyeIcon className="text-xl" />}
+                        endIcon={showPassword ? <SwOpenEyeIcon className="text-xl" onClick={togglePasswordVisibility} /> : <TbEyeClosed className="text-xl" onClick={togglePasswordVisibility} />} // Toggle eye icon based on password visibility
+                        type={showPassword ? "text" : "password"}
+                        value={renterPassword}  
+                        onChange={(e) => {
+                            setRenterPassword(e.target.value);  
+                            setPasswordError("");  // Clear password error on change
+                        }}
                     />
                 </div>
                 <div className="w-full mt-5">
@@ -44,13 +87,25 @@ const SignUp = () => {
                         label={"Re-enter password"}
                         placeholder={"Re-enter password"}
                         startIcon={<SwKeyIcon className="text-xl" />}
-                        endIcon={<SwOpenEyeIcon className="text-xl" />}
+                        endIcon={showPassword ? <SwOpenEyeIcon className="text-xl" onClick={togglePasswordVisibility} /> : <TbEyeClosed className="text-xl" onClick={togglePasswordVisibility} />} // Toggle eye icon based on password visibility
+                        type={showPassword ? "text" : "password"}
+                        value={passwordVisibility ? password : "********"}
+                        onChange={(e) => {
+                            setPassword(e.target.value);
+                            setPasswordError("");
+                        }}
                     />
                 </div>
+                {passwordError && (
+                    <p className="text-red-500 text-sm mt-2">
+                        {passwordError}
+                    </p>
+                )}
                 <div className="my-7 flex flex-col gap-3">
                     <Button
-                        label={"Sign In"}
+                        label={"Sign Up"}
                         bgColor={"bg-swPrimary500 text-white w-full"}
+                        onClick={registerHandle}
                     />
                 </div>
                 <div

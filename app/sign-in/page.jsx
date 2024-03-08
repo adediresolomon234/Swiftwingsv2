@@ -1,6 +1,10 @@
+"use client";
 import { Space_Grotesk } from "next/font/google";
+import { useState } from "react";
 import Button from "../components/Button";
+import { signInUser } from "../../redux/slices/authSlice";
 import InputField from "../components/shared/InputField";
+import { useDispatch } from "react-redux";
 import {
   SwGoogleColoredIcon,
   SwKeyIcon,
@@ -15,6 +19,16 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 const SignIn = () => {
+  const [email,setEmail]=useState("");
+  const [password,setPassword]=useState("");
+
+  const dispatch = useDispatch();
+  const handleLogin =() =>{
+    console.table(email,password)
+    dispatch(signInUser({email,password}))
+};
+
+
   return (
     <main className="flex justify-center items-center min-h-[100vh] m-5">
       <div className="max-w-sm w-full p-2">
@@ -28,6 +42,8 @@ const SignIn = () => {
             label={"Email"}
             placeholder={"Enter email address"}
             startIcon={<SwMailIcon className="text-xl" />}
+            value={email}
+            onChange={(e)=>setEmail(e.target.value)}
           />
         </div>
         <div className="w-full mt-5">
@@ -36,6 +52,8 @@ const SignIn = () => {
             placeholder={"Enter password"}
             startIcon={<SwKeyIcon className="text-xl" />}
             endIcon={<SwOpenEyeIcon className="text-xl" />}
+            value={password}
+            onChange={(e)=>setPassword(e.target.value)}
           />
         </div>
 
@@ -47,11 +65,13 @@ const SignIn = () => {
           <Button
             label={"Sign In"}
             bgColor={"bg-swPrimary500 text-white w-full"}
+            onClick={handleLogin}
           />
           <Button
             startIcon={<SwGoogleColoredIcon className="text-xl" />}
             label={"Google sign up"}
             textColor={"font-semibold text-swGray800 border border-swGray100"}
+            
           />
         </div>
 
