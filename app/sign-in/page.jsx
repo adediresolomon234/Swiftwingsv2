@@ -5,6 +5,7 @@ import Button from "../components/Button";
 import { signInUser } from "../../redux/slices/authSlice";
 import InputField from "../components/shared/InputField";
 import { useDispatch } from "react-redux";
+import { TbEyeClosed } from "react-icons/tb";
 import {
   SwGoogleColoredIcon,
   SwKeyIcon,
@@ -21,6 +22,14 @@ const spaceGrotesk = Space_Grotesk({
 const SignIn = () => {
   const [email,setEmail]=useState("");
   const [password,setPassword]=useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [showPassword, setShowPassword] = useState(true);
+  const [passwordVisibility, setPasswordVisibility] = useState(true);
+
+  const togglePasswordVisibility = () => {
+      setShowPassword(!showPassword);
+      setPasswordVisibility(!passwordVisibility);
+  };
 
   const dispatch = useDispatch();
   const handleLogin =() =>{
@@ -51,7 +60,7 @@ const SignIn = () => {
             label={"Password"}
             placeholder={"Enter password"}
             startIcon={<SwKeyIcon className="text-xl" />}
-            endIcon={<SwOpenEyeIcon className="text-xl" />}
+            endIcon={showPassword ? <SwOpenEyeIcon className="text-xl" onClick={togglePasswordVisibility} /> : <TbEyeClosed className="text-xl" onClick={togglePasswordVisibility} />} // Toggle eye icon based on password visibility
             value={password}
             onChange={(e)=>setPassword(e.target.value)}
           />

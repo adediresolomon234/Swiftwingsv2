@@ -73,12 +73,12 @@ const SignUp = () => {
                         label={"Password"}
                         placeholder={"Enter password"}
                         startIcon={<SwKeyIcon className="text-xl" />}
-                        endIcon={showPassword ? <SwOpenEyeIcon className="text-xl" onClick={togglePasswordVisibility} /> : <TbEyeClosed className="text-xl" onClick={togglePasswordVisibility} />} // Toggle eye icon based on password visibility
+                         endIcon={showPassword ? <SwOpenEyeIcon className="text-xl" onClick={togglePasswordVisibility} /> : <TbEyeClosed className="text-xl" onClick={togglePasswordVisibility} />} // Toggle eye icon based on password visibility
                         type={showPassword ? "text" : "password"}
-                        value={renterPassword}  
+                        value={passwordVisibility ? password : "********"}
                         onChange={(e) => {
-                            setRenterPassword(e.target.value);  
-                            setPasswordError("");  // Clear password error on change
+                            setPassword(e.target.value);
+                            setPasswordError("");
                         }}
                     />
                 </div>
