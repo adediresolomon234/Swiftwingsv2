@@ -20,23 +20,42 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 const SignIn = () => {
-  const [email,setEmail]=useState("");
-  const [password,setPassword]=useState("");
+  const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [showPassword, setShowPassword] = useState(true);
-  const [passwordVisibility, setPasswordVisibility] = useState(true);
-
-  const togglePasswordVisibility = () => {
-      setShowPassword(!showPassword);
-      setPasswordVisibility(!passwordVisibility);
-  };
 
   const dispatch = useDispatch();
-  const handleLogin =() =>{
-    console.table(email,password)
-    dispatch(signInUser({email,password}))
-};
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const isValidEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const handleLogin = () => {
+    setEmailError("");
+    setPasswordError("");
+
+    if (!email) {
+      setEmailError("Email is required");
+      return;
+    } else if (!isValidEmail(email)) {
+      setEmailError("Invalid email format");
+      return;
+    }
+
+    if (!password) {
+      setPasswordError("Password is required");
+      return;
+    }
+
+    dispatch(signInUser({ email, password }));
+  };
 
   return (
     <main className="flex justify-center items-center min-h-[100vh] m-5">
@@ -52,18 +71,37 @@ const SignIn = () => {
             placeholder={"Enter email address"}
             startIcon={<SwMailIcon className="text-xl" />}
             value={email}
-            onChange={(e)=>setEmail(e.target.value)}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              setEmailError("");
+            }}
+            className={emailError ? "error" : ""}
           />
+          {emailError && <p className="text-red-500">{emailError}</p>}
         </div>
         <div className="w-full mt-5">
           <InputField
             label={"Password"}
             placeholder={"Enter password"}
             startIcon={<SwKeyIcon className="text-xl" />}
-            endIcon={showPassword ? <SwOpenEyeIcon className="text-xl" onClick={togglePasswordVisibility} /> : <TbEyeClosed className="text-xl" onClick={togglePasswordVisibility} />} // Toggle eye icon based on password visibility
-            value={password}
-            onChange={(e)=>setPassword(e.target.value)}
+            endIcon={
+              showPassword ? (
+                <SwOpenEyeIcon
+                  className="text-xl"
+                  onClick={togglePasswordVisibility}
+                />
+              ) : (
+                <TbEyeClosed
+                  className="text-xl"
+                  onClick={togglePasswordVisibility}
+                />
+              )
+            }
+            type={showPassword ? "text" : "password"}
+            value={showPassword ? password : "********"}
+            onChange={(e) => setPassword(e.target.value)}
           />
+          {passwordError && <p className="text-red-500">{passwordError}</p>}
         </div>
 
         <p className="ml-auto italic mt-2 text-sm text-swGray800 cursor-pointer w-fit hover:underline">
@@ -80,7 +118,6 @@ const SignIn = () => {
             startIcon={<SwGoogleColoredIcon className="text-xl" />}
             label={"Google sign up"}
             textColor={"font-semibold text-swGray800 border border-swGray100"}
-            
           />
         </div>
 
