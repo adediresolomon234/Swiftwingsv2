@@ -42,6 +42,7 @@ import {
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { getAviAirPort, getAviAircraft } from "@/redux/slices/aviPagesSlice";
+import airports from "./components/helpers/airports";
 
 const space_grotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -67,31 +68,45 @@ export default function Home() {
   let [adultsNo, setAdultsNo] = useState(0);
   let [kidsNo, setKidsNo] = useState(0);
   let [petsNo, setPetsNo] = useState(0);
-  const [selectedOption, setSelectedOption] = useState(null);
   const [hoveredIndex, setHoveredIndex] = useState(0);
+  const [allAirports, setAllAirports] = useState(airports || []);
+  const [departureAirport, setDepartureAirport] = useState(null);
+  const [arrivalAirport, setArrivalAirport] = useState(null);
 
   const { loading, error, data } = useSelector((state) => state.aviPages);
-  console.log({ data });
+  // console.log({ data: data?.data?.results });
+  console.log(departureAirport);
 
-  const options = [
-    {
-      value: "Abuja, Nigeria",
-      label: "Abuja, Nigeria",
-      description: "A tasty fruit",
-    },
-    {
-      value: "Abu Dhabi, Dubai",
-      label: "Abu Dhabi, Dubai",
-      description: "A tasty fruit",
-    },
-  ];
+  const options = airports.map((item) => ({
+    label: (
+      <div className="flex justify-between">
+        <div className="flex gap-1">
+          <p>
+            {item.city}
+            {item.city && ","} {item.country}
+          </p>
+          <p className="font-light italic text-sm text-swGray500">
+            {item.name}
+          </p>
+        </div>
+        <p>{item.iata_code}</p>
+      </div>
+    ),
+    value: item,
+  }));
 
-  const getOptionLabel = (option) => (
-    <div>
-      <strong>{option.label}</strong>
-      <div>{option.description}</div>
-    </div>
-  );
+  const getOptionLabel = (option) => option.label;
+
+  const filterOption = (option, inputValue) => {
+    const lowerCaseInput = inputValue.toLowerCase();
+
+    return (
+      option.value.city.toLowerCase().includes(lowerCaseInput) ||
+      option.value.country.toLowerCase().includes(lowerCaseInput) ||
+      option.value.name.toLowerCase().includes(lowerCaseInput) ||
+      option.value.iata_code.toLowerCase().includes(lowerCaseInput)
+    );
+  };
 
   const handleMouseEnter = (index) => {
     setHoveredIndex(index);
@@ -101,9 +116,14 @@ export default function Home() {
     setHoveredIndex(0);
   };
 
-  useEffect(() => {
-    dispatch(getAviAirPort(""));
-  }, []);
+  // useEffect(() => {
+  //   setAirports(data?.data?.results);
+  // }, [data]);
+
+  // useEffect(() => {
+  //   dispatch(getAviAirPort(""));
+  //   // data && setAirports(data?.data?.results);
+  // }, []);
 
   return (
     <main className="relative bg-swLightBgGray">
@@ -208,7 +228,10 @@ export default function Home() {
                       <div>
                         <p className="text-swGray500 text-sm">Departure city</p>
                         <p className="text-lg text-white font-medium">
-                          Abuja - Nigeria
+                          {/* Abuja - Nigeria */}
+                          {departureAirport === null
+                            ? "Select City"
+                            : `${departureAirport.city} - ${departureAirport.country}`}
                         </p>
                       </div>
                     </div>
@@ -228,29 +251,37 @@ export default function Home() {
                       <div>
                         <p className="text-swGray500 text-sm">Arrival city</p>
                         <p className="text-lg text-white font-medium">
-                          Lagos - Nigeria
+                          {/* Lagos - Nigeria */}
+                          {arrivalAirport === null
+                            ? "Select City"
+                            : `${arrivalAirport.city} - ${arrivalAirport.country}`}
                         </p>
                       </div>
                     </div>
 
                     {openDeparture && (
-                      <div className="absolute text-swGray900 top-24 rounded-md shadow-lg p-2 bg-white w-full z-10">
+                      <div className="absolute text-swGray900 top-24 w-full z-10">
                         <Select
-                          defaultValue={selectedOption}
-                          onChange={setSelectedOption}
                           getOptionLabel={getOptionLabel}
                           options={options}
+                          filterOption={filterOption}
                           placeholder="Select Departure City"
+                          onChange={(selectedOption) =>
+                            setDepartureAirport(selectedOption.value)
+                          }
                         />
                       </div>
                     )}
                     {openArrival && (
-                      <div className="absolute text-swGray900 top-24 rounded-md shadow-lg p-2 bg-white w-full z-10">
+                      <div className="absolute text-swGray900 top-24 w-full z-10">
                         <Select
-                          defaultValue={selectedOption}
-                          onChange={setSelectedOption}
+                          getOptionLabel={getOptionLabel}
                           options={options}
+                          filterOption={filterOption}
                           placeholder="Select Arrival City"
+                          onChange={(selectedOption) =>
+                            setArrivalAirport(selectedOption.value)
+                          }
                         />
                       </div>
                     )}
