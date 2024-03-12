@@ -29,96 +29,104 @@ const VerifyPage = () => {
           Sign in to Swiftwings to manage your bookings
         </p>
         <div className="flex gap-3 justify-center">
-          <input
-            type="text"
-            className="border border-swGray300 text-swGray300 rounded-lg h-16 w-16 text-5xl text-center focus:outline-none"
-            placeholder="0"
-            maxLength={1}
-            ref={firstInput}
-            onChange={(e) => {
-              if (e.target.value.length > 0) {
-                console.log();
-                setInputNum(2);
-                setVerifyCode((prevArray) =>
-                  prevArray.map((item, index) =>
-                    index === 0 ? e.target.value : item
-                  )
-                );
-              } else {
-                setVerifyCode((prevArray) =>
-                  prevArray.map((item, index) => (index === 0 ? 0 : item))
-                );
-                setInputNum(1);
-              }
-            }}
-          />
-          <input
-            type="text"
-            className="border border-swGray300 text-swGray300 rounded-lg h-16 w-16 text-5xl text-center focus:outline-none"
-            placeholder="0"
-            maxLength={1}
-            ref={secondInput}
-            onChange={(e) => {
-              if (e.target.value.length > 0) {
-                setVerifyCode((prevArray) =>
-                  prevArray.map((item, index) =>
-                    index === 1 ? e.target.value : item
-                  )
-                );
-                setInputNum(3);
-              } else {
-                setVerifyCode((prevArray) =>
-                  prevArray.map((item, index) => (index === 1 ? 0 : item))
-                );
-                setInputNum(1);
-              }
-            }}
-          />
-          <input
-            type="text"
-            className="border border-swGray300 text-swGray300 rounded-lg h-16 w-16 text-5xl text-center focus:outline-none"
-            placeholder="0"
-            maxLength={1}
-            ref={thirdInput}
-            onChange={(e) => {
-              // e.target.value.length > 0 ? setInputNum(4) : setInputNum(2)
-              if (e.target.value.length > 0) {
-                setInputNum(4);
-                setVerifyCode((prevArray) =>
-                  prevArray.map((item, index) =>
-                    index === 2 ? e.target.value : item
-                  )
-                );
-              } else {
-                setVerifyCode((prevArray) =>
-                  prevArray.map((item, index) => (index === 2 ? 0 : item))
-                );
-                setInputNum(2);
-              }
-            }}
-          />
-          <input
-            type="text"
-            className="border border-swGray300 text-swGray300 rounded-lg h-16 w-16 text-5xl text-center focus:outline-none"
-            placeholder="0"
-            maxLength={1}
-            ref={fourthInput}
-            onChange={(e) => {
-              if (e.target.value.length > 0) {
-                setInputNum(4);
-                setVerifyCode((prevArray) =>
-                  prevArray.map((item, index) =>
-                    index === 3 ? e.target.value : item
-                  )
-                );
-              } else {
-                setVerifyCode((prevArray) =>
-                  prevArray.map((item, index) => (index === 3 ? 0 : item))
-                );
-                setInputNum(3);
-              }
-            }}
-          />
+          <div className="border border-swGray300 text-swGray300 rounded-lg h-16 w-16 p-2">
+            <input
+              type="text"
+              className="w-full h-full text-5xl text-center focus:outline-none"
+              placeholder="0"
+              maxLength={1}
+              ref={firstInput}
+              onChange={(e) => {
+                if (e.target.value.length > 0) {
+                  console.log();
+                  setInputNum(2);
+                  setVerifyCode((prevArray) =>
+                    prevArray.map((item, index) =>
+                      index === 0 ? e.target.value : item
+                    )
+                  );
+                } else {
+                  setVerifyCode((prevArray) =>
+                    prevArray.map((item, index) => (index === 0 ? 0 : item))
+                  );
+                  setInputNum(1);
+                }
+              }}
+            />
+          </div>
+          <div className="border border-swGray300 text-swGray300 rounded-lg h-16 w-16 p-2">
+            <input
+              type="text"
+              className="w-full h-full text-5xl text-center focus:outline-none"
+              placeholder="0"
+              maxLength={1}
+              ref={secondInput}
+              onChange={(e) => {
+                if (e.target.value.length > 0) {
+                  setVerifyCode((prevArray) =>
+                    prevArray.map((item, index) =>
+                      index === 1 ? e.target.value : item
+                    )
+                  );
+                  setInputNum(3);
+                } else {
+                  setVerifyCode((prevArray) =>
+                    prevArray.map((item, index) => (index === 1 ? 0 : item))
+                  );
+                  setInputNum(1);
+                }
+              }}
+            />
+          </div>
+          <div className="border border-swGray300 text-swGray300 rounded-lg h-16 w-16 p-2">
+            <input
+              type="text"
+              className="text-5xl text-center h-full w-full focus:outline-none"
+              placeholder="0"
+              maxLength={1}
+              ref={thirdInput}
+              onChange={(e) => {
+                // e.target.value.length > 0 ? setInputNum(4) : setInputNum(2)
+                if (e.target.value.length > 0) {
+                  setInputNum(4);
+                  setVerifyCode((prevArray) =>
+                    prevArray.map((item, index) =>
+                      index === 2 ? e.target.value : item
+                    )
+                  );
+                } else {
+                  setVerifyCode((prevArray) =>
+                    prevArray.map((item, index) => (index === 2 ? 0 : item))
+                  );
+                  setInputNum(2);
+                }
+              }}
+            />
+          </div>
+          <div className="border border-swGray300 text-swGray300 rounded-lg h-16 w-16 p-2">
+            <input
+              type="text"
+              className="w-full h-full text-5xl text-center focus:outline-none"
+              placeholder="0"
+              maxLength={1}
+              ref={fourthInput}
+              onChange={(e) => {
+                if (e.target.value.length > 0) {
+                  setInputNum(4);
+                  setVerifyCode((prevArray) =>
+                    prevArray.map((item, index) =>
+                      index === 3 ? e.target.value : item
+                    )
+                  );
+                } else {
+                  setVerifyCode((prevArray) =>
+                    prevArray.map((item, index) => (index === 3 ? 0 : item))
+                  );
+                  setInputNum(3);
+                }
+              }}
+            />
+          </div>
         </div>
         <div className="my-7 flex flex-col gap-3">
           <Button

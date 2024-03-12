@@ -41,7 +41,8 @@ import {
 } from "./components/svgs";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
-import githubSlice, { getGithubAccount } from "@/redux/slices/githubSlice";
+import { getAviAirPort, getAviAircraft } from "@/redux/slices/aviPagesSlice";
+import airports from "./components/helpers/airports";
 
 const space_grotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -67,16 +68,45 @@ export default function Home() {
   let [adultsNo, setAdultsNo] = useState(0);
   let [kidsNo, setKidsNo] = useState(0);
   let [petsNo, setPetsNo] = useState(0);
-  const [selectedOption, setSelectedOption] = useState(null);
   const [hoveredIndex, setHoveredIndex] = useState(0);
+  const [allAirports, setAllAirports] = useState(airports || []);
+  const [departureAirport, setDepartureAirport] = useState(null);
+  const [arrivalAirport, setArrivalAirport] = useState(null);
 
-  const { loading, error, data } = useSelector((state) => state.github);
-  console.log({ data });
+  const { loading, error, data } = useSelector((state) => state.aviPages);
+  // console.log({ data: data?.data?.results });
+  console.log(departureAirport);
 
-  const options = [
-    { value: "Abuja, Nigeria", label: "Abuja, Nigeria" },
-    { value: "Abu Dhabi, Dubai", label: "Abu Dhabi, Dubai" },
-  ];
+  const options = airports.map((item) => ({
+    label: (
+      <div className="flex justify-between">
+        <div className="flex gap-1">
+          <p>
+            {item.city}
+            {item.city && ","} {item.country}
+          </p>
+          <p className="font-light italic text-sm text-swGray500">
+            {item.name}
+          </p>
+        </div>
+        <p>{item.iata_code}</p>
+      </div>
+    ),
+    value: item,
+  }));
+
+  const getOptionLabel = (option) => option.label;
+
+  const filterOption = (option, inputValue) => {
+    const lowerCaseInput = inputValue.toLowerCase();
+
+    return (
+      option.value.city.toLowerCase().includes(lowerCaseInput) ||
+      option.value.country.toLowerCase().includes(lowerCaseInput) ||
+      option.value.name.toLowerCase().includes(lowerCaseInput) ||
+      option.value.iata_code.toLowerCase().includes(lowerCaseInput)
+    );
+  };
 
   const handleMouseEnter = (index) => {
     setHoveredIndex(index);
@@ -86,9 +116,14 @@ export default function Home() {
     setHoveredIndex(0);
   };
 
-  useEffect(() => {
-    dispatch(getGithubAccount());
-  }, []);
+  // useEffect(() => {
+  //   setAirports(data?.data?.results);
+  // }, [data]);
+
+  // useEffect(() => {
+  //   dispatch(getAviAirPort(""));
+  //   // data && setAirports(data?.data?.results);
+  // }, []);
 
   return (
     <main className="relative bg-swLightBgGray">
@@ -139,28 +174,31 @@ export default function Home() {
                 </Link>
                 <div className="p-1 text-xl rounded-full flex gap-5 font-medium backdrop-blur bg-white/25">
                   <button
-                    className={`${bookingEngine === "oneWayTrip"
+                    className={`${
+                      bookingEngine === "oneWayTrip"
                         ? "text-white backdrop-blur bg-swBlack/50 font-semibold"
                         : "text-swGray300 hover:backdrop-blur hover:bg-white/5"
-                      } py-2 px-4 rounded-full`}
+                    } py-2 px-4 rounded-full`}
                     onClick={() => setBookingEngine("oneWayTrip")}
                   >
                     One Way Rrip
                   </button>
                   <button
-                    className={`${bookingEngine === "roundTrip"
+                    className={`${
+                      bookingEngine === "roundTrip"
                         ? "text-white backdrop-blur bg-swBlack/50 font-semibold"
                         : "text-swGray300 hover:backdrop-blur hover:bg-white/5]"
-                      } py-2 px-4 rounded-full`}
+                    } py-2 px-4 rounded-full`}
                     onClick={() => setBookingEngine("roundTrip")}
                   >
                     Round Trip
                   </button>
                   <button
-                    className={`${bookingEngine === "multiCity"
+                    className={`${
+                      bookingEngine === "multiCity"
                         ? "text-white backdrop-blur bg-swBlack/50 font-semibold"
                         : "text-swGray300 hover:backdrop-blur hover:bg-white/5"
-                      } py-2 px-4 rounded-full`}
+                    } py-2 px-4 rounded-full`}
                     onClick={() => setBookingEngine("multiCity")}
                   >
                     Multi-city trip
@@ -190,7 +228,10 @@ export default function Home() {
                       <div>
                         <p className="text-swGray500 text-sm">Departure city</p>
                         <p className="text-lg text-white font-medium">
-                          Abuja - Nigeria
+                          {/* Abuja - Nigeria */}
+                          {departureAirport === null
+                            ? "Select City"
+                            : `${departureAirport.city} - ${departureAirport.country}`}
                         </p>
                       </div>
                     </div>
@@ -210,156 +251,165 @@ export default function Home() {
                       <div>
                         <p className="text-swGray500 text-sm">Arrival city</p>
                         <p className="text-lg text-white font-medium">
-                          Lagos - Nigeria
+                          {/* Lagos - Nigeria */}
+                          {arrivalAirport === null
+                            ? "Select City"
+                            : `${arrivalAirport.city} - ${arrivalAirport.country}`}
                         </p>
                       </div>
                     </div>
 
-                  {openDeparture && (
-                    <div className="absolute text-swGray900 top-24 rounded-md shadow-lg p-2 bg-white w-full z-10">
-                      <Select
-                        defaultValue={selectedOption}
-                        onChange={setSelectedOption}
-                        options={options}
-                        placeholder="Select Departure City"
-                      />
-                    </div>
-                  )}
-                  {openArrival && (
-                    <div className="absolute text-swGray900 top-24 rounded-md shadow-lg p-2 bg-white w-full z-10">
-                      <Select
-                        defaultValue={selectedOption}
-                        onChange={setSelectedOption}
-                        options={options}
-                        placeholder="Select Arrival City"
-                      />
-                    </div>
-                  )}
-                </div>
-                <div className="flex justify-around gap-5 mx-auto flex-wrap">
-                  <div className="p-5 pr-16 flex items-center w-72 gap-5 border border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50 rounded-2xl cursor-pointer">
-                    <div className="p-2 rounded-full text-swGray900">
-                      <SwCalendarIcon className="text-xl" />
-                    </div>
-                    <div>
-                      <p className="text-swGray500 text-sm">Departure date</p>
-                      <p className="text-lg text-white font-medium">20 Jan</p>
-                    </div>
-                  </div>
-                  <div className="relative">
-                    <div
-                      className="p-5 flex items-center w-72 gap-5 border border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50 rounded-2xl cursor-pointer"
-                      onClick={() => setOpenPassageners(!openPassangers)}
-                    >
-                      <div className="p-2 rounded-full text-swGray900">
-                        <SwUserIcon className="text-xl" />
-                      </div>
-                      <div>
-                        <p className="text-swGray500 text-sm">
-                          Departure city
-                        </p>
-                        <p className="text-lg text-white font-medium">
-                          4 Adult - 2 Children
-                        </p>
-                      </div>
-                    </div>
-                    {openPassangers && (
-                      <div className="absolute text-swGray900 top-24 bg-white w-full shadow-md rounded-md">
-                        <div className="p-5 flex flex-col gap-5 font-medium">
-                          <p className="font-semibold text-lg">Occupants</p>
-
-                          <div className="flex flex-col gap-5">
-                            <div className="flex justify-between items-center">
-                              <p className="">Adults</p>
-                              <div className="border hover:border-swPrimary500 rounded-md overflow-hidden flex">
-                                <p
-                                  className="p-2 cursor-pointer hover:bg-swPrimary500 hover:text-white"
-                                  onClick={() =>
-                                    setAdultsNo(adultsNo > 0 ? --adultsNo : 0)
-                                  }
-                                >
-                                  <FiMinus size={20} />
-                                </p>
-                                <p className="h-10 w-14 flex justify-center items-center border-x">
-                                  {adultsNo}
-                                </p>
-                                <p
-                                  className="p-2 cursor-pointer hover:bg-swPrimary500 hover:text-white"
-                                  onClick={() => setAdultsNo(++adultsNo)}
-                                >
-                                  <FiPlus size={20} />
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="flex flex-col gap-5">
-                            <div className="flex justify-between items-center">
-                              <p className="">Kids</p>
-                              <div className="border hover:border-swPrimary500 rounded-md overflow-hidden flex">
-                                <p
-                                  className="p-2 cursor-pointer hover:bg-swPrimary500 hover:text-white"
-                                  onClick={() =>
-                                    setKidsNo(kidsNo > 0 ? --kidsNo : 0)
-                                  }
-                                >
-                                  <FiMinus size={20} />
-                                </p>
-                                <p className="h-10 w-14 flex justify-center items-center border-x">
-                                  {kidsNo}
-                                </p>
-                                <p
-                                  className="p-2 cursor-pointer hover:bg-swPrimary500 hover:text-white"
-                                  onClick={() => setKidsNo(++kidsNo)}
-                                >
-                                  <FiPlus size={20} />
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="flex flex-col gap-5">
-                            <div className="flex justify-between items-center">
-                              <p className="">Pets</p>
-                              <div className="border hover:border-swPrimary500 rounded-md overflow-hidden flex">
-                                <p
-                                  className="p-2 cursor-pointer hover:bg-swPrimary500 hover:text-white"
-                                  onClick={() =>
-                                    setPetsNo(petsNo > 0 ? --petsNo : 0)
-                                  }
-                                >
-                                  <FiMinus size={20} />
-                                </p>
-                                <p className="h-10 w-14 flex justify-center items-center border-x">
-                                  {petsNo}
-                                </p>
-                                <p
-                                  className="p-2 cursor-pointer hover:bg-swPrimary500 hover:text-white"
-                                  onClick={() => setPetsNo(++petsNo)}
-                                >
-                                  <FiPlus size={20} />
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="flex items-center justify-between">
-                            <p>Done?</p>
-                            <Button
-                              bgColor={"bg-swPrimary500"}
-                              label={"Save"}
-                              textColor={"text-white"}
-                              endIcon={<IoCheckmark size={20} />}
-                            />
-                          </div>
-                        </div>
+                    {openDeparture && (
+                      <div className="absolute text-swGray900 top-24 w-full z-10">
+                        <Select
+                          getOptionLabel={getOptionLabel}
+                          options={options}
+                          filterOption={filterOption}
+                          placeholder="Select Departure City"
+                          onChange={(selectedOption) =>
+                            setDepartureAirport(selectedOption.value)
+                          }
+                        />
                       </div>
                     )}
+                    {openArrival && (
+                      <div className="absolute text-swGray900 top-24 w-full z-10">
+                        <Select
+                          getOptionLabel={getOptionLabel}
+                          options={options}
+                          filterOption={filterOption}
+                          placeholder="Select Arrival City"
+                          onChange={(selectedOption) =>
+                            setArrivalAirport(selectedOption.value)
+                          }
+                        />
+                      </div>
+                    )}
+                  </div>
+                  <div className="flex justify-around gap-5 mx-auto flex-wrap">
+                    <div className="p-5 pr-16 flex items-center w-72 gap-5 border border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50 rounded-2xl cursor-pointer">
+                      <div className="p-2 rounded-full text-swGray900">
+                        <SwCalendarIcon className="text-xl" />
+                      </div>
+                      <div>
+                        <p className="text-swGray500 text-sm">Departure date</p>
+                        <p className="text-lg text-white font-medium">20 Jan</p>
+                      </div>
+                    </div>
+                    <div className="relative">
+                      <div
+                        className="p-5 flex items-center w-72 gap-5 border border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50 rounded-2xl cursor-pointer"
+                        onClick={() => setOpenPassageners(!openPassangers)}
+                      >
+                        <div className="p-2 rounded-full text-swGray900">
+                          <SwUserIcon className="text-xl" />
+                        </div>
+                        <div>
+                          <p className="text-swGray500 text-sm">
+                            Departure city
+                          </p>
+                          <p className="text-lg text-white font-medium">
+                            4 Adult - 2 Children
+                          </p>
+                        </div>
+                      </div>
+                      {openPassangers && (
+                        <div className="absolute text-swGray900 top-24 bg-white w-full shadow-md rounded-md">
+                          <div className="p-5 flex flex-col gap-5 font-medium">
+                            <p className="font-semibold text-lg">Occupants</p>
+
+                            <div className="flex flex-col gap-5">
+                              <div className="flex justify-between items-center">
+                                <p className="">Adults</p>
+                                <div className="border hover:border-swPrimary500 rounded-md overflow-hidden flex">
+                                  <p
+                                    className="p-2 cursor-pointer hover:bg-swPrimary500 hover:text-white"
+                                    onClick={() =>
+                                      setAdultsNo(adultsNo > 0 ? --adultsNo : 0)
+                                    }
+                                  >
+                                    <FiMinus size={20} />
+                                  </p>
+                                  <p className="h-10 w-14 flex justify-center items-center border-x">
+                                    {adultsNo}
+                                  </p>
+                                  <p
+                                    className="p-2 cursor-pointer hover:bg-swPrimary500 hover:text-white"
+                                    onClick={() => setAdultsNo(++adultsNo)}
+                                  >
+                                    <FiPlus size={20} />
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="flex flex-col gap-5">
+                              <div className="flex justify-between items-center">
+                                <p className="">Kids</p>
+                                <div className="border hover:border-swPrimary500 rounded-md overflow-hidden flex">
+                                  <p
+                                    className="p-2 cursor-pointer hover:bg-swPrimary500 hover:text-white"
+                                    onClick={() =>
+                                      setKidsNo(kidsNo > 0 ? --kidsNo : 0)
+                                    }
+                                  >
+                                    <FiMinus size={20} />
+                                  </p>
+                                  <p className="h-10 w-14 flex justify-center items-center border-x">
+                                    {kidsNo}
+                                  </p>
+                                  <p
+                                    className="p-2 cursor-pointer hover:bg-swPrimary500 hover:text-white"
+                                    onClick={() => setKidsNo(++kidsNo)}
+                                  >
+                                    <FiPlus size={20} />
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="flex flex-col gap-5">
+                              <div className="flex justify-between items-center">
+                                <p className="">Pets</p>
+                                <div className="border hover:border-swPrimary500 rounded-md overflow-hidden flex">
+                                  <p
+                                    className="p-2 cursor-pointer hover:bg-swPrimary500 hover:text-white"
+                                    onClick={() =>
+                                      setPetsNo(petsNo > 0 ? --petsNo : 0)
+                                    }
+                                  >
+                                    <FiMinus size={20} />
+                                  </p>
+                                  <p className="h-10 w-14 flex justify-center items-center border-x">
+                                    {petsNo}
+                                  </p>
+                                  <p
+                                    className="p-2 cursor-pointer hover:bg-swPrimary500 hover:text-white"
+                                    onClick={() => setPetsNo(++petsNo)}
+                                  >
+                                    <FiPlus size={20} />
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div className="flex items-center justify-between">
+                              <p>Done?</p>
+                              <Button
+                                bgColor={"bg-swPrimary500"}
+                                label={"Save"}
+                                textColor={"text-white"}
+                                endIcon={<IoCheckmark size={20} />}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          </section>
         </section>
-      </section>
         <section className="mt-60 py-16 px-5 text-swGray900">
           <div className="max-w-4xl w-full mx-auto text-center">
             <Services
@@ -491,9 +541,13 @@ export default function Home() {
                       }`}
                     ></div>
                     {hoveredIndex >= 0 && (
-                      <div key={fleet[hoveredIndex].id} className={`relative fleet-image show`}>
+                      <div
+                        key={fleet[hoveredIndex].id}
+                        className={`relative fleet-image show`}
+                      >
                         <div aria-hidden="true" className={`absolute`}></div>
-                        <Image src={`/images/${fleet[hoveredIndex].image}`}
+                        <Image
+                          src={`/images/${fleet[hoveredIndex].image}`}
                           alt="illustration"
                           loading="lazy"
                           width={780}
@@ -547,8 +601,9 @@ export default function Home() {
                         {service.title}
                       </h4>
                     </div>
-                    <p className="mt-4 text-xs text-left text-gray-300">{service.description}</p>
-
+                    <p className="mt-4 text-xs text-left text-gray-300">
+                      {service.description}
+                    </p>
                   </div>
                 </div>
               ))}
@@ -570,10 +625,11 @@ export default function Home() {
                 Membership
               </h2>
               <p className="text-swGray700 mt-8 sm:mx-auto   text-xl text-center sm:text-xl md:text-xl">
-                Swift Wings Ltd offers an exclusive Jet Card Membership, providing
-                discerning travelers with unparalleled access to private jet
-                charter services. As a Jet Card member, you enjoy priority booking
-                and seamless travel experiences tailored to your preferences.
+                Swift Wings Ltd offers an exclusive Jet Card Membership,
+                providing discerning travelers with unparalleled access to
+                private jet charter services. As a Jet Card member, you enjoy
+                priority booking and seamless travel experiences tailored to
+                your preferences.
               </p>
             </div>
           </div>
@@ -613,7 +669,11 @@ export default function Home() {
                 Customer Testimonials
               </h2>
               <p className="text-swGray700 mt-8 sm:mx-auto text-xl text-center sm:text-xl md:text-xl">
-                Swift Wings Ltd offers an exclusive Jet Card Membership, providing discerning travelers with unparalleled access to private jet charter services. As a Jet Card member, you enjoy priority booking and seamless travel experiences tailored to your preferences.
+                Swift Wings Ltd offers an exclusive Jet Card Membership,
+                providing discerning travelers with unparalleled access to
+                private jet charter services. As a Jet Card member, you enjoy
+                priority booking and seamless travel experiences tailored to
+                your preferences.
               </p>
             </div>
           </div>
@@ -662,7 +722,7 @@ export default function Home() {
             />
           </div>
         </section>
-        </NavAndFooter>
+      </NavAndFooter>
     </main>
   );
 }
