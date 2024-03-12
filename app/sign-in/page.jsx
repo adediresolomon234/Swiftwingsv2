@@ -1,6 +1,11 @@
+"use client";
 import { Space_Grotesk } from "next/font/google";
+import { useState } from "react";
 import Button from "../components/Button";
+import { signInUser } from "../../redux/slices/authSlice";
 import InputField from "../components/shared/InputField";
+import { useDispatch } from "react-redux";
+import { TbEyeClosed } from "react-icons/tb";
 import {
   SwGoogleColoredIcon,
   SwKeyIcon,
@@ -15,6 +20,43 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 const SignIn = () => {
+  const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [showPassword, setShowPassword] = useState(true);
+
+  const dispatch = useDispatch();
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const isValidEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const handleLogin = () => {
+    setEmailError("");
+    setPasswordError("");
+
+    if (!email) {
+      setEmailError("Email is required");
+      return;
+    } else if (!isValidEmail(email)) {
+      setEmailError("Invalid email format");
+      return;
+    }
+
+    if (!password) {
+      setPasswordError("Password is required");
+      return;
+    }
+
+    dispatch(signInUser({ email, password }));
+  };
+
   return (
     <main className="flex justify-center items-center min-h-[100vh] m-5">
       <div className="max-w-sm w-full p-2">
@@ -28,15 +70,38 @@ const SignIn = () => {
             label={"Email"}
             placeholder={"Enter email address"}
             startIcon={<SwMailIcon className="text-xl" />}
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              setEmailError("");
+            }}
+            className={emailError ? "error" : ""}
           />
+          {emailError && <p className="text-red-500">{emailError}</p>}
         </div>
         <div className="w-full mt-5">
           <InputField
             label={"Password"}
             placeholder={"Enter password"}
             startIcon={<SwKeyIcon className="text-xl" />}
-            endIcon={<SwOpenEyeIcon className="text-xl" />}
+            endIcon={
+              showPassword ? (
+                <SwOpenEyeIcon
+                  className="text-xl"
+                  onClick={togglePasswordVisibility}
+                />
+              ) : (
+                <TbEyeClosed
+                  className="text-xl"
+                  onClick={togglePasswordVisibility}
+                />
+              )
+            }
+            type={showPassword ? "text" : "password"}
+            value={showPassword ? password : "********"}
+            onChange={(e) => setPassword(e.target.value)}
           />
+          {passwordError && <p className="text-red-500">{passwordError}</p>}
         </div>
 
         <p className="ml-auto italic mt-2 text-sm text-swGray800 cursor-pointer w-fit hover:underline">
@@ -47,6 +112,7 @@ const SignIn = () => {
           <Button
             label={"Sign In"}
             bgColor={"bg-swPrimary500 text-white w-full"}
+            onClick={handleLogin}
           />
           <Button
             startIcon={<SwGoogleColoredIcon className="text-xl" />}

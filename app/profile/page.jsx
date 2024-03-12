@@ -4,8 +4,6 @@ import { Space_Grotesk } from "next/font/google";
 import CustomSelect from "../components/shared/CustomSelete";
 import PhoneExt from "../components/shared/phoneInputField";
 import InputField from "../components/shared/InputField";
-import PhoneExt from "../components/shared/phoneInputField";
-import ModalPopup from "../components/shared/Modal"
 import "../../styles.css"
 import ModalPopup from "../components/shared/Modal";
 import {
