@@ -43,6 +43,7 @@ import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { getAviAirPort, getAviAircraft } from "@/redux/slices/aviPagesSlice";
 import airports from "./components/helpers/airports";
+import { useRouter } from "next/navigation";
 
 const space_grotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -61,6 +62,7 @@ function isNearViewport(id) {
 
 export default function Home() {
   const dispatch = useDispatch();
+  const router = useRouter()
   const [bookingEngine, setBookingEngine] = useState("oneWayTrip");
   const [openPassangers, setOpenPassageners] = useState(false);
   const [openDeparture, setOpenDeparture] = useState(false);
@@ -72,6 +74,8 @@ export default function Home() {
   const [allAirports, setAllAirports] = useState(airports || []);
   const [departureAirport, setDepartureAirport] = useState(null);
   const [arrivalAirport, setArrivalAirport] = useState(null);
+  const departureRef = useRef(null);
+  const arrivalRef = useRef(null);
 
   const { loading, error, data } = useSelector((state) => state.aviPages);
   // console.log({ data: data?.data?.results });
@@ -116,6 +120,16 @@ export default function Home() {
     setHoveredIndex(0);
   };
 
+  const handleBookJet = () => {
+    localStorage.setItem("departureAirport", departureAirport);
+    localStorage.setItem("arrivalAirport", arrivalAirport);
+    localStorage.setItem("adultOccupants", adultsNo);
+    localStorage.setItem("chilrenOccupants", kidsNo);
+    localStorage.setItem("petOccupants", petsNo);
+
+    router.push("/booking")
+  };
+
   // useEffect(() => {
   //   setAirports(data?.data?.results);
   // }, [data]);
@@ -124,6 +138,26 @@ export default function Home() {
   //   dispatch(getAviAirPort(""));
   //   // data && setAirports(data?.data?.results);
   // }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        departureRef.current &&
+        !departureRef.current.contains(event.target)
+      ) {
+        setOpenDeparture(false);
+      }
+
+      if (arrivalRef.current && !arrivalRef.current.contains(event.target)) {
+        setOpenArrival(false);
+      }
+    };
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
 
   return (
     <main className="relative bg-swLightBgGray">
@@ -204,7 +238,10 @@ export default function Home() {
                     Multi-city trip
                   </button>
                 </div>
-                <div className={`${space_grotesk.className} w-fit text-lg `}>
+                <div
+                  className={`${space_grotesk.className} w-fit text-lg `}
+                  onClick={handleBookJet}
+                >
                   <Button
                     label="Book Jet"
                     bgColor={"bg-swPrimary500 hover:bg-swPrimary600"}
@@ -217,7 +254,8 @@ export default function Home() {
                 <div className="flex items-center gap-5 mx-auto flex-wrap">
                   <div className="flex items-center mx-auto relative">
                     <div
-                      className="p-5 pr-16 flex w-[18rem] items-center gap-5 border border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50 rounded-tl-2xl rounded-bl-2xl cursor-pointer"
+                      className="p-5 pr-16 flex h-[5.5rem] w-[18rem] items-center gap-5 border border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50 rounded-tl-2xl rounded-bl-2xl cursor-pointer"
+                      ref={departureRef}
                       onClick={() => setOpenDeparture(!openDeparture)}
                     >
                       <div className="bg-swPrimary500 p-1 rounded-full">
@@ -240,7 +278,8 @@ export default function Home() {
                       <GoArrowLeft size={15} className="-mt-2 mr-1" />
                     </div>
                     <div
-                      className="p-5 pr-16 flex w-[18rem] items-center gap-5 border border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50 border-l-transparent rounded-tr-2xl rounded-br-2xl cursor-pointer"
+                      className="p-5 pr-16 flex h-[5.5rem] w-[18rem] items-center gap-5 border border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50 border-l-transparent rounded-tr-2xl rounded-br-2xl cursor-pointer"
+                      ref={arrivalRef}
                       onClick={() => setOpenArrival(!openArrival)}
                     >
                       <div className="bg-swPrimary500 p-1 rounded-full">
@@ -287,7 +326,7 @@ export default function Home() {
                     )}
                   </div>
                   <div className="flex justify-around gap-5 mx-auto flex-wrap">
-                    <div className="p-5 pr-16 flex items-center w-72 gap-5 border border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50 rounded-2xl cursor-pointer">
+                    <div className="p-5 pr-16 flex items-center h-[5.5rem] w-72 gap-5 border border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50 rounded-2xl cursor-pointer">
                       <div className="p-2 rounded-full text-swGray900">
                         <SwCalendarIcon className="text-xl" />
                       </div>
@@ -298,18 +337,16 @@ export default function Home() {
                     </div>
                     <div className="relative">
                       <div
-                        className="p-5 flex items-center w-72 gap-5 border border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50 rounded-2xl cursor-pointer"
+                        className="p-5 flex items-center h-[5.5rem] w-72 gap-5 border border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50 rounded-2xl cursor-pointer"
                         onClick={() => setOpenPassageners(!openPassangers)}
                       >
                         <div className="p-2 rounded-full text-swGray900">
                           <SwUserIcon className="text-xl" />
                         </div>
                         <div>
-                          <p className="text-swGray500 text-sm">
-                            Departure city
-                          </p>
+                          <p className="text-swGray500 text-sm">Occupants</p>
                           <p className="text-lg text-white font-medium">
-                            4 Adult - 2 Children
+                            Add occupants
                           </p>
                         </div>
                       </div>
