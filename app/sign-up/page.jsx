@@ -1,8 +1,5 @@
 "use client";
-<<<<<<< HEAD
 import { useState } from "react";
-=======
->>>>>>> 3658524c4cfa1202aec4528dd92cbc2ccd663f04
 import { Space_Grotesk } from "next/font/google";
 import "../../styles.css"
 import Button from "../components/Button";
@@ -26,7 +23,6 @@ const spaceGrotesk = Space_Grotesk({
 
 
 const SignUp = () => {
-<<<<<<< HEAD
     const [email, setEmail] = useState('');
     const [emailError, setEmailError] = useState('');
     const [password, setPassword] = useState('');
@@ -168,7 +164,6 @@ const SignUp = () => {
             </div>
         </main>
     );
-=======
   const router = useRouter();
   return (
     <main className="flex justify-center items-center min-h-[100vh]">
@@ -231,7 +226,6 @@ const SignUp = () => {
       </div>
     </main>
   );
->>>>>>> 3658524c4cfa1202aec4528dd92cbc2ccd663f04
 };
 
 export default SignUp;
