@@ -79,29 +79,31 @@ const SignIn = () => {
           />
           {emailError && <p className="text-red-500">{emailError}</p>}
         </div>
-        <div className="w-full mt-5">
-          <InputField
-            label={"Password"}
-            placeholder={"Enter password"}
-            startIcon={<SwKeyIcon className="text-xl" />}
-            endIcon={
-              showPassword ? (
-                <SwOpenEyeIcon
-                  className="text-xl"
-                  onClick={togglePasswordVisibility}
-                />
-              ) : (
-                <TbEyeClosed
-                  className="text-xl"
-                  onClick={togglePasswordVisibility}
-                />
-              )
-            }
-            type={showPassword ? "text" : "password"}
-            value={showPassword ? password : "********"}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          {passwordError && <p className="text-red-500">{passwordError}</p>}
+        <div className="w-full mt-5 relative">
+          <div className="relative">
+            <SwKeyIcon className="text-xl absolute top-14 left-3 transform -translate-y-1/2" />
+            <InputField
+              label={"Password"}
+              inputType={showPassword ? 'text' : 'password'}
+              placeholder="Enter password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              onBlur={() => isValidPassword(password)}
+              css={`w-full h-14 rounded-lg pl-12 border border-gray-300 ${passwordError ? 'error' : ''}`}
+              endIcon={
+                <div className="absolute inset-y-0 right-0 text-xl pr-3 pt-5 pb-5 flex items-center">
+                  {showPassword ? (
+                    <SwOpenEyeIcon onClick={togglePasswordVisibility} />
+                  ) : (
+                    <TbEyeClosed onClick={togglePasswordVisibility} />
+                  )}
+                </div>
+              }
+            />
+          </div>
+          {passwordError && (
+            <p className="text-red-500 mt-2 pb-2">{passwordError}</p>
+          )}
         </div>
 
         <p className="ml-auto italic mt-2 text-sm text-swGray800 cursor-pointer w-fit hover:underline">
