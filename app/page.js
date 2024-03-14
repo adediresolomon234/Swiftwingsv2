@@ -2,9 +2,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Space_Grotesk } from "next/font/google";
 import Image from "next/image";
-import privateJetImg from "../public/images/Private jet, airplane icon, vector.png";
-import departImg from "../public/images/Depart-white.png";
-import arriveImg from "../public/images/Arrive-white.png";
 import { GoArrowRight } from "react-icons/go";
 import { GoArrowLeft } from "react-icons/go";
 import { MdMms, MdOutlineCalendarToday } from "react-icons/md";
@@ -15,7 +12,6 @@ import Services from "./components/Services";
 import servicesPlane from "../public/images/servicesLuxuryPlane.png";
 import servicesMembership from "../public/images/servicesMembership.png";
 import servicesCustomer from "../public/images/sevicesCustomer.png";
-import Offer1 from "../public/images/Offer1.png";
 import AboutUsCard from "./components/AboutUsCard";
 import "../styles.css";
 import { services } from "./components/servicedata";
@@ -24,7 +20,6 @@ import Icon from "@mdi/react";
 import { textAreas } from "./components/servicesgrid";
 import Crown from "../public/images/Crown.png";
 import { CiStar } from "react-icons/ci";
-import indexAirplane from "../public/images/indexAirplane.png";
 import { FiMinus, FiPlus } from "react-icons/fi";
 import { IoCheckmark } from "react-icons/io5";
 import Select from "react-select";
@@ -44,6 +39,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAviAirPort, getAviAircraft } from "@/redux/slices/aviPagesSlice";
 import airports from "./components/helpers/airports";
 import { useRouter } from "next/navigation";
+import { DatePicker } from "@mui/x-date-pickers";
+import TextField from "@mui/material/TextField";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterFormats } from "@mui/x-date-pickers";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 const space_grotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -62,7 +63,7 @@ function isNearViewport(id) {
 
 export default function Home() {
   const dispatch = useDispatch();
-  const router = useRouter()
+  const router = useRouter();
   const [bookingEngine, setBookingEngine] = useState("oneWayTrip");
   const [openPassangers, setOpenPassageners] = useState(false);
   const [openDeparture, setOpenDeparture] = useState(false);
@@ -70,16 +71,24 @@ export default function Home() {
   let [adultsNo, setAdultsNo] = useState(0);
   let [kidsNo, setKidsNo] = useState(0);
   let [petsNo, setPetsNo] = useState(0);
+  const [allPassangers, setAllPassangers] = useState({
+    adults: 0,
+    kids: 0,
+    pets: 0,
+  });
   const [hoveredIndex, setHoveredIndex] = useState(0);
   const [allAirports, setAllAirports] = useState(airports || []);
   const [departureAirport, setDepartureAirport] = useState(null);
   const [arrivalAirport, setArrivalAirport] = useState(null);
+  const [isDateOpen, setDateOpen] = useState(false);
+  const [dateValue, setDateValue] = useState(null);
   const departureRef = useRef(null);
   const arrivalRef = useRef(null);
+  const dateRef = useRef(null);
+  const occupantRef = useRef(null);
 
   const { loading, error, data } = useSelector((state) => state.aviPages);
   // console.log({ data: data?.data?.results });
-  console.log(departureAirport);
 
   const options = airports.map((item) => ({
     label: (
@@ -121,14 +130,32 @@ export default function Home() {
   };
 
   const handleBookJet = () => {
-    localStorage.setItem("departureAirport", departureAirport);
-    localStorage.setItem("arrivalAirport", arrivalAirport);
-    localStorage.setItem("adultOccupants", adultsNo);
-    localStorage.setItem("chilrenOccupants", kidsNo);
-    localStorage.setItem("petOccupants", petsNo);
+    localStorage.setItem("departureAirport", JSON.stringify(departureAirport));
+    localStorage.setItem("arrivalAirport", JSON.stringify(arrivalAirport));
+    localStorage.setItem("adultsNo", adultsNo);
+    localStorage.setItem("kidsNo", kidsNo);
+    localStorage.setItem("petsNo", petsNo);
 
-    router.push("/booking")
+    router.push("/booking");
   };
+
+  const handleSavePassangers = () => {
+    setAllPassangers((prev) => ({
+      adults: adultsNo,
+      kids: kidsNo,
+      pets: petsNo,
+      prev,
+    }));
+
+    setOpenPassageners(false);
+  };
+
+  const handleDateChange = (dateValue) => {
+    setDateValue(dateValue);
+    setDateOpen(false);
+  };
+
+  console.log({ dateValue });
 
   // useEffect(() => {
   //   setAirports(data?.data?.results);
@@ -139,25 +166,39 @@ export default function Home() {
   //   // data && setAirports(data?.data?.results);
   // }, []);
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (
-        departureRef.current &&
-        !departureRef.current.contains(event.target)
-      ) {
-        setOpenDeparture(false);
-      }
+  // useEffect(() => {
+  //   const handleClickOutside = (event) => {
+  //     if (
+  //       departureRef.current &&
+  //       !departureRef.current.contains(event.target)
+  //     ) {
+  //       setOpenDeparture(false);
+  //       console.log(event.target);
+  //     }
 
-      if (arrivalRef.current && !arrivalRef.current.contains(event.target)) {
-        setOpenArrival(false);
-      }
-    };
-    document.addEventListener("click", handleClickOutside);
+  //     // if (
+  //     //   arrivalRef.current &&
+  //     //   !arrivalRef.current.contains(event.target) &&
+  //     //   event.target.id !== arrive
+  //     // ) {
+  //     //   setOpenArrival(false);
+  //     // }
 
-    return () => {
-      document.removeEventListener("click", handleClickOutside);
-    };
-  }, []);
+  //     // if (
+  //     //   occupantRef.current &&
+  //     //   !occupantRef.current.contains(event.target) &&
+  //     //   event.target.id !== occupants
+  //     // ) {
+  //     //   // setOpenPassageners(false);
+  //     //   console.log("HEllo");
+  //     // }
+  //   };
+  //   document.addEventListener("click", handleClickOutside);
+
+  //   return () => {
+  //     document.removeEventListener("click", handleClickOutside);
+  //   };
+  // }, []);
 
   return (
     <main className="relative bg-swLightBgGray">
@@ -256,7 +297,9 @@ export default function Home() {
                     <div
                       className="p-5 pr-16 flex h-[5.5rem] w-[18rem] items-center gap-5 border border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50 rounded-tl-2xl rounded-bl-2xl cursor-pointer"
                       ref={departureRef}
-                      onClick={() => setOpenDeparture(!openDeparture)}
+                      onClick={(e) => {
+                        setOpenDeparture(!openDeparture);
+                      }}
                     >
                       <div className="bg-swPrimary500 p-1 rounded-full">
                         <div className="h-7 w-7 relative flex justify-center items-center">
@@ -265,7 +308,7 @@ export default function Home() {
                       </div>
                       <div>
                         <p className="text-swGray500 text-sm">Departure city</p>
-                        <p className="text-lg text-white font-medium">
+                        <p className="text-white font-medium">
                           {/* Abuja - Nigeria */}
                           {departureAirport === null
                             ? "Select City"
@@ -280,7 +323,10 @@ export default function Home() {
                     <div
                       className="p-5 pr-16 flex h-[5.5rem] w-[18rem] items-center gap-5 border border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50 border-l-transparent rounded-tr-2xl rounded-br-2xl cursor-pointer"
                       ref={arrivalRef}
-                      onClick={() => setOpenArrival(!openArrival)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setOpenArrival(!openArrival);
+                      }}
                     >
                       <div className="bg-swPrimary500 p-1 rounded-full">
                         <div className="h-7 w-7 relative flex justify-center items-center">
@@ -289,7 +335,7 @@ export default function Home() {
                       </div>
                       <div>
                         <p className="text-swGray500 text-sm">Arrival city</p>
-                        <p className="text-lg text-white font-medium">
+                        <p className="text-white font-medium">
                           {/* Lagos - Nigeria */}
                           {arrivalAirport === null
                             ? "Select City"
@@ -299,45 +345,95 @@ export default function Home() {
                     </div>
 
                     {openDeparture && (
-                      <div className="absolute text-swGray900 top-24 w-full z-10">
+                      <div
+                        // id="depart"
+
+                        className="absolute text-swGray800 top-24 w-full z-10"
+                      >
                         <Select
                           getOptionLabel={getOptionLabel}
                           options={options}
                           filterOption={filterOption}
                           placeholder="Select Departure City"
-                          onChange={(selectedOption) =>
-                            setDepartureAirport(selectedOption.value)
-                          }
+                          onChange={(selectedOption) => {
+                            setDepartureAirport(selectedOption.value);
+                            setOpenDeparture(false);
+                          }}
                         />
                       </div>
                     )}
                     {openArrival && (
-                      <div className="absolute text-swGray900 top-24 w-full z-10">
+                      <div
+                        id="arrive"
+                        className="absolute text-swGray800 top-24 w-full z-10"
+                      >
                         <Select
                           getOptionLabel={getOptionLabel}
                           options={options}
                           filterOption={filterOption}
                           placeholder="Select Arrival City"
-                          onChange={(selectedOption) =>
-                            setArrivalAirport(selectedOption.value)
-                          }
+                          onChange={(selectedOption) => {
+                            setArrivalAirport(selectedOption.value);
+                            setOpenArrival(false);
+                          }}
                         />
                       </div>
                     )}
                   </div>
                   <div className="flex justify-around gap-5 mx-auto flex-wrap">
-                    <div className="p-5 pr-16 flex items-center h-[5.5rem] w-72 gap-5 border border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50 rounded-2xl cursor-pointer">
+                    <div className="relative p-5 pr-16 flex items-center h-[5.5rem] w-72 gap-5 border border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50 rounded-2xl cursor-pointer">
                       <div className="p-2 rounded-full text-swGray900">
                         <SwCalendarIcon className="text-xl" />
                       </div>
                       <div>
-                        <p className="text-swGray500 text-sm">Departure date</p>
-                        <p className="text-lg text-white font-medium">20 Jan</p>
+                        {bookingEngine === "roundTrip" ? (
+                          <div>
+                            <p className="text-swLightGray text-sm">
+                              Departure and arrival date
+                            </p>
+                            <p className=" text-swGray800 font-semibold">
+                              20 Jan
+                            </p>
+                          </div>
+                        ) : (
+                          <div onClick={() => setDateOpen(true)}>
+                            <p className="text-swLightGray text-sm">
+                              Departure date
+                            </p>
+                            <p className=" text-swGray800 font-semibold">
+                              20 Jan
+                            </p>
+                          </div>
+                        )}
                       </div>
+                      {isDateOpen && (
+                        <div className="absolute">
+                          <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DatePicker
+                              label="Date picker"
+                              value={dateValue}
+                              onChange={handleDateChange}
+                              open={isDateOpen}
+                              onOpen={() => setDateOpen(true)}
+                              onClose={() => setDateOpen(false)}
+                              renderInput={(params) => (
+                                <TextField
+                                  {...params}
+                                  InputProps={{
+                                    ...params.InputProps,
+                                    disableUnderline: true,
+                                  }}
+                                />
+                              )}
+                            />
+                          </LocalizationProvider>
+                        </div>
+                      )}
                     </div>
                     <div className="relative">
                       <div
                         className="p-5 flex items-center h-[5.5rem] w-72 gap-5 border border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50 rounded-2xl cursor-pointer"
+                        ref={occupantRef}
                         onClick={() => setOpenPassageners(!openPassangers)}
                       >
                         <div className="p-2 rounded-full text-swGray900">
@@ -345,13 +441,17 @@ export default function Home() {
                         </div>
                         <div>
                           <p className="text-swGray500 text-sm">Occupants</p>
-                          <p className="text-lg text-white font-medium">
-                            Add occupants
+                          <p className="text-white font-medium">
+                            Adults - {allPassangers.adults} Children -{" "}
+                            {allPassangers.kids} Pets - {allPassangers.pets}
                           </p>
                         </div>
                       </div>
                       {openPassangers && (
-                        <div className="absolute text-swGray900 top-24 bg-white w-full shadow-md rounded-md">
+                        <div
+                          id="occupants"
+                          className="absolute text-swGray900 top-24 bg-white w-full shadow-md rounded-md"
+                        >
                           <div className="p-5 flex flex-col gap-5 font-medium">
                             <p className="font-semibold text-lg">Occupants</p>
 
@@ -435,6 +535,7 @@ export default function Home() {
                                 label={"Save"}
                                 textColor={"text-white"}
                                 endIcon={<IoCheckmark size={20} />}
+                                onClick={handleSavePassangers}
                               />
                             </div>
                           </div>

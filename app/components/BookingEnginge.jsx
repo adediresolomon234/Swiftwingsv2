@@ -1,7 +1,6 @@
 "use client";
-import { Button } from "@material-tailwind/react";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BiUser } from "react-icons/bi";
 import { FiMinus, FiPlus, FiSearch } from "react-icons/fi";
 import { GoArrowLeft, GoArrowRight } from "react-icons/go";
@@ -12,6 +11,8 @@ import departImg from "../../public/images/Depart-white.png";
 import arriveImg from "../../public/images/Arrive-white.png";
 import Select from "react-select";
 import { SwSearchIcon } from "./svgs";
+import airports from "./helpers/airports";
+import Button from "./Button";
 
 const BookingEngine = () => {
   const [bookingEngine, setBookingEngine] = useState("oneWayTrip");
@@ -21,14 +22,95 @@ const BookingEngine = () => {
   let [adultsNo, setAdultsNo] = useState(0);
   let [kidsNo, setKidsNo] = useState(0);
   let [petsNo, setPetsNo] = useState(0);
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [allPassangers, setAllPassangers] = useState({
+    adults: 0,
+    kids: 0,
+    pets: 0,
+  });
+  const [departureAirport, setDepartureAirport] = useState(null);
+  const [arrivalAirport, setArrivalAirport] = useState(null);
+  const departureRef = useRef(null);
+  const arrivalRef = useRef(null);
 
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
-  const options = [
-    { value: "Abuja, Nigeria", label: "Abuja, Nigeria" },
-    { value: "Abu Dhabi, Dubai", label: "Abu Dhabi, Dubai" },
-  ];
+  const options = airports.map((item) => ({
+    label: (
+      <div className="flex justify-between">
+        <div className="flex gap-1">
+          <p>
+            {item.city}
+            {item.city && ","} {item.country}
+          </p>
+          <p className="font-light italic text-sm text-swGray500">
+            {item.name}
+          </p>
+        </div>
+        <p>{item.iata_code}</p>
+      </div>
+    ),
+    value: item,
+  }));
+
+  const getOptionLabel = (option) => option.label;
+
+  const filterOption = (option, inputValue) => {
+    const lowerCaseInput = inputValue.toLowerCase();
+
+    return (
+      option.value.city.toLowerCase().includes(lowerCaseInput) ||
+      option.value.country.toLowerCase().includes(lowerCaseInput) ||
+      option.value.name.toLowerCase().includes(lowerCaseInput) ||
+      option.value.iata_code.toLowerCase().includes(lowerCaseInput)
+    );
+  };
+
+  const handleSavePassangers = () => {
+    setAllPassangers((prev) => ({
+      adults: adultsNo,
+      kids: kidsNo,
+      pets: petsNo,
+      prev,
+    }));
+
+    setOpenPassageners(false);
+  };
+
+  useEffect(() => {
+    setDepartureAirport(JSON.parse(localStorage.getItem("departureAirport")));
+    setArrivalAirport(JSON.parse(localStorage.getItem("arrivalAirport")));
+    setAllPassangers((prev) => ({
+      adults: JSON.parse(localStorage.getItem("adultsNo")),
+      kids: JSON.parse(localStorage.getItem("kidsNo")),
+      pets: JSON.parse(localStorage.getItem("petsNo")),
+      prev,
+    }));
+
+    setAdultsNo(JSON.parse(localStorage.getItem("adultsNo")));
+    setKidsNo(JSON.parse(localStorage.getItem("kidsNo")));
+    setPetsNo(JSON.parse(localStorage.getItem("petsNo")));
+    // console.log(JSON.stringify(localStorage));
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        departureRef.current &&
+        !departureRef.current.contains(event.target)
+      ) {
+        setOpenDeparture(false);
+      }
+
+      if (arrivalRef.current && !arrivalRef.current.contains(event.target)) {
+        setOpenArrival(false);
+      }
+    };
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
 
   return (
     <div className="w-full border rounded-3xl">
@@ -73,12 +155,13 @@ const BookingEngine = () => {
             <SwSearchIcon className="" />
           </div>
         </div>
-        {/* Hello */}
+
         <div className="flex justify-between mb-5">
           <div className="flex items-center gap-5 mx-auto flex-wrap">
             <div className="flex items-center mx-auto relative">
               <div
-                className="p-5 pr-16 flex w-[21rem] items-center gap-5 border rounded-tl-2xl rounded-bl-2xl cursor-pointer hover:bg-swLightBgGray"
+                className="p-5 pr-16 flex h-[5.5rem] w-[21rem] items-center gap-5 border rounded-tl-2xl rounded-bl-2xl cursor-pointer hover:bg-swLightBgGray"
+                ref={departureRef}
                 onClick={() => setOpenDeparture(!openDeparture)}
               >
                 <div className="bg-swPrimary500 p-1 rounded-full shadow-lg shadow-swPrimary500">
@@ -88,8 +171,10 @@ const BookingEngine = () => {
                 </div>
                 <div>
                   <p className="text-swLightGray text-sm">Departure city</p>
-                  <p className="text-lg text-swGray800 font-semibold">
-                    Abuja - Nigeria
+                  <p className=" text-swGray800 font-semibold">
+                    {departureAirport === null
+                      ? "Select City"
+                      : `${departureAirport.city} - ${departureAirport.country}`}
                   </p>
                 </div>
               </div>
@@ -98,7 +183,8 @@ const BookingEngine = () => {
                 <GoArrowLeft size={15} className="-mt-2 mr-1" />
               </div>
               <div
-                className="p-5 pr-16 flex w-[21rem] items-center gap-5 border border-l-transparent rounded-tr-2xl rounded-br-2xl cursor-pointer hover:bg-swLightBgGray"
+                className="p-5 pr-16 flex h-[5.5rem] w-[21rem] items-center gap-5 border border-l-transparent rounded-tr-2xl rounded-br-2xl cursor-pointer hover:bg-swLightBgGray"
+                ref={arrivalRef}
                 onClick={() => setOpenArrival(!openArrival)}
               >
                 <div className="bg-swPrimary500 p-1 rounded-full shadow-lg shadow-swPrimary500">
@@ -108,27 +194,39 @@ const BookingEngine = () => {
                 </div>
                 <div>
                   <p className="text-swLightGray text-sm">Arrival city</p>
-                  <p className="text-lg text-swGray800 font-semibold">
-                    Lagos - Nigeria
+                  <p className=" text-swGray800 font-semibold">
+                    {arrivalAirport === null
+                      ? "Select City"
+                      : `${arrivalAirport.city} - ${arrivalAirport.country}`}
                   </p>
                 </div>
               </div>
 
               {openDeparture && (
-                <div className="absolute text-swGray800 top-24 rounded-md shadow-lg p-2 bg-white w-full z-10">
+                <div className="absolute text-swGray800 top-24 w-full z-10">
                   <Select
-                    defaultValue={selectedOption}
-                    onChange={setSelectedOption}
+                    defaultValue={departureAirport}
+                    getOptionLabel={getOptionLabel}
+                    filterOption={filterOption}
+                    onChange={(selectedOption) => {
+                      setDepartureAirport(selectedOption.value);
+                      setOpenDeparture(false);
+                    }}
                     options={options}
-                    placeholder="Select Departure City"
+                    placeholder="Select Arrival City"
                   />
                 </div>
               )}
               {openArrival && (
-                <div className="absolute text-swGray800 top-24 rounded-md shadow-lg p-2 bg-white w-full z-10">
+                <div className="absolute text-swGray800 top-24 w-full z-10">
                   <Select
-                    defaultValue={selectedOption}
-                    onChange={setSelectedOption}
+                    // defaultValue={arrivalAirport}
+                    getOptionLabel={getOptionLabel}
+                    filterOption={filterOption}
+                    onChange={(selectedOption) => {
+                      setArrivalAirport(selectedOption.value);
+                      setOpenArrival(false);
+                    }}
                     options={options}
                     placeholder="Select Arrival City"
                   />
@@ -136,18 +234,29 @@ const BookingEngine = () => {
               )}
             </div>
             <div className="flex justify-around gap-5 mx-auto flex-wrap">
-              <div className="p-5 pr-16 flex items-center w-[21rem] gap-5 border rounded-2xl cursor-pointer hover:bg-swLightBgGray">
+              <div className="p-5 pr-16 flex items-center h-[5.5rem] w-[21rem] gap-5 border rounded-2xl cursor-pointer hover:bg-swLightBgGray">
                 <div className="p-2 rounded-full border text-swGray800">
                   <MdOutlineCalendarToday size={20} />
                 </div>
                 <div>
-                  <p className="text-swLightGray text-sm">Departure date</p>
-                  <p className="text-lg text-swGray800 font-semibold">20 Jan</p>
+                  {bookingEngine === "roundTrip" ? (
+                    <>
+                      <p className="text-swLightGray text-sm">
+                        Departure and arrival date
+                      </p>
+                      <p className=" text-swGray800 font-semibold">20 Jan</p>
+                    </>
+                  ) : (
+                    <>
+                      <p className="text-swLightGray text-sm">Departure date</p>
+                      <p className=" text-swGray800 font-semibold">20 Jan</p>
+                    </>
+                  )}
                 </div>
               </div>
               <div className="relative">
                 <div
-                  className="p-5 flex items-center w-[21rem] gap-5 border rounded-2xl cursor-pointer hover:bg-swLightBgGray"
+                  className="p-5 flex items-center h-[5.5rem] w-[21rem] gap-5 border rounded-2xl cursor-pointer hover:bg-swLightBgGray"
                   onClick={() => setOpenPassageners(!openPassangers)}
                 >
                   <div className="p-2 rounded-full border text-swGray800">
@@ -155,8 +264,9 @@ const BookingEngine = () => {
                   </div>
                   <div>
                     <p className="text-swLightGray text-sm">Departure city</p>
-                    <p className="text-lg text-swGray800 font-semibold">
-                      4 Adult - 2 Children
+                    <p className=" text-swGray800 font-semibold">
+                      Adults - {allPassangers.adults} Children -{" "}
+                      {allPassangers.kids} Pets - {allPassangers.pets}
                     </p>
                   </div>
                 </div>
@@ -245,6 +355,7 @@ const BookingEngine = () => {
                           label={"Save"}
                           textColor={"text-white"}
                           endIcon={<IoCheckmark size={20} />}
+                          onClick={handleSavePassangers}
                         />
                       </div>
                     </div>
@@ -259,7 +370,8 @@ const BookingEngine = () => {
             <div className="flex items-center gap-5 mx-auto flex-wrap">
               <div className="flex items-center mx-auto relative">
                 <div
-                  className="p-5 pr-16 flex w-[23rem] items-center gap-5 border rounded-tl-2xl rounded-bl-2xl cursor-pointer"
+                  className="p-5 pr-16 flex h-[5.5rem] w-[21rem] items-center gap-5 border rounded-tl-2xl rounded-bl-2xl cursor-pointer hover:bg-swLightBgGray"
+                  ref={departureRef}
                   onClick={() => setOpenDeparture(!openDeparture)}
                 >
                   <div className="bg-swPrimary500 p-1 rounded-full shadow-lg shadow-swPrimary500">
@@ -269,8 +381,10 @@ const BookingEngine = () => {
                   </div>
                   <div>
                     <p className="text-swLightGray text-sm">Departure city</p>
-                    <p className="text-lg text-swGray800 font-semibold">
-                      Abuja - Nigeria
+                    <p className=" text-swGray800 font-semibold">
+                      {departureAirport === null
+                        ? "Select City"
+                        : `${departureAirport.city} - ${departureAirport.country}`}
                     </p>
                   </div>
                 </div>
@@ -279,7 +393,8 @@ const BookingEngine = () => {
                   <GoArrowLeft size={15} className="-mt-2 mr-1" />
                 </div>
                 <div
-                  className="p-5 pr-16 flex w-[23rem] items-center gap-5 border border-l-transparent rounded-tr-2xl rounded-br-2xl cursor-pointer"
+                  className="p-5 pr-16 flex h-[5.5rem] w-[21rem] items-center gap-5 border border-l-transparent rounded-tr-2xl rounded-br-2xl cursor-pointer hover:bg-swLightBgGray"
+                  ref={arrivalRef}
                   onClick={() => setOpenArrival(!openArrival)}
                 >
                   <div className="bg-swPrimary500 p-1 rounded-full shadow-lg shadow-swPrimary500">
@@ -289,27 +404,39 @@ const BookingEngine = () => {
                   </div>
                   <div>
                     <p className="text-swLightGray text-sm">Arrival city</p>
-                    <p className="text-lg text-swGray800 font-semibold">
-                      Lagos - Nigeria
+                    <p className=" text-swGray800 font-semibold">
+                      {arrivalAirport === null
+                        ? "Select City"
+                        : `${arrivalAirport.city} - ${arrivalAirport.country}`}
                     </p>
                   </div>
                 </div>
 
                 {openDeparture && (
-                  <div className="absolute text-swGray800 top-24 rounded-md shadow-lg p-2 bg-white w-full z-10">
+                  <div className="absolute text-swGray800 top-24 w-full z-10">
                     <Select
-                      defaultValue={selectedOption}
-                      onChange={setSelectedOption}
+                      defaultValue={departureAirport}
+                      getOptionLabel={getOptionLabel}
+                      filterOption={filterOption}
+                      onChange={(selectedOption) => {
+                        setDepartureAirport(selectedOption.value);
+                        setOpenDeparture(false);
+                      }}
                       options={options}
-                      placeholder="Select Departure City"
+                      placeholder="Select Arrival City"
                     />
                   </div>
                 )}
                 {openArrival && (
-                  <div className="absolute text-swGray800 top-24 rounded-md shadow-lg p-2 bg-white w-full z-10">
+                  <div className="absolute text-swGray800 top-24 w-full z-10">
                     <Select
-                      defaultValue={selectedOption}
-                      onChange={setSelectedOption}
+                      // defaultValue={arrivalAirport}
+                      getOptionLabel={getOptionLabel}
+                      filterOption={filterOption}
+                      onChange={(selectedOption) => {
+                        setArrivalAirport(selectedOption.value);
+                        setOpenArrival(false);
+                      }}
                       options={options}
                       placeholder="Select Arrival City"
                     />
@@ -317,20 +444,18 @@ const BookingEngine = () => {
                 )}
               </div>
               <div className="flex justify-around gap-5 mx-auto flex-wrap">
-                <div className="p-5 pr-16 flex items-center w-[23rem] gap-5 border rounded-2xl cursor-pointer">
+                <div className="p-5 pr-16 flex items-center h-[5.5rem] w-[21rem] gap-5 border rounded-2xl cursor-pointer hover:bg-swLightBgGray">
                   <div className="p-2 rounded-full border text-swGray800">
                     <MdOutlineCalendarToday size={20} />
                   </div>
                   <div>
                     <p className="text-swLightGray text-sm">Departure date</p>
-                    <p className="text-lg text-swGray800 font-semibold">
-                      20 Jan
-                    </p>
+                    <p className=" text-swGray800 font-semibold">20 Jan</p>
                   </div>
                 </div>
                 <div className="relative">
                   <div
-                    className="p-5 flex items-center w-[23rem] gap-5 border rounded-2xl cursor-pointer"
+                    className="p-5 flex items-center h-[5.5rem] w-[21rem] gap-5 border rounded-2xl cursor-pointer hover:bg-swLightBgGray"
                     onClick={() => setOpenPassageners(!openPassangers)}
                   >
                     <div className="p-2 rounded-full border text-swGray800">
@@ -338,8 +463,9 @@ const BookingEngine = () => {
                     </div>
                     <div>
                       <p className="text-swLightGray text-sm">Departure city</p>
-                      <p className="text-lg text-swGray800 font-semibold">
-                        4 Adult - 2 Children
+                      <p className=" text-swGray800 font-semibold">
+                        Adults - {allPassangers.adults} Children -{" "}
+                        {allPassangers.kids} Pets - {allPassangers.pets}
                       </p>
                     </div>
                   </div>
@@ -428,6 +554,7 @@ const BookingEngine = () => {
                             label={"Save"}
                             textColor={"text-white"}
                             endIcon={<IoCheckmark size={20} />}
+                            onClick={handleSavePassangers}
                           />
                         </div>
                       </div>
