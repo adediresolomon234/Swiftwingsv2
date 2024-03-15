@@ -1,11 +1,12 @@
 "use client";
+import React, { useEffect } from 'react';
 import { Space_Grotesk } from "next/font/google";
 import { useState } from "react";
 import Button from "../components/Button";
-import { signInUser } from "../../redux/slices/authSlice";
 import InputField from "../components/shared/InputField";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { TbEyeClosed } from "react-icons/tb";
+import { signInUser, selectAuthError } from "../../redux/slices/authSlice";
 import {
   SwGoogleColoredIcon,
   SwKeyIcon,
@@ -25,7 +26,7 @@ const SignIn = () => {
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [showPassword, setShowPassword] = useState(true);
-
+  const authError = useSelector(selectAuthError);
   const dispatch = useDispatch();
 
   const togglePasswordVisibility = () => {
@@ -57,6 +58,11 @@ const SignIn = () => {
     dispatch(signInUser({ email, password }));
   };
 
+  useEffect(() => {
+    if (authError) {
+      setPasswordError(authError); // Displaying error message
+    }
+  }, [authError]);
   return (
     <main className="flex justify-center items-center min-h-[100vh] m-5">
       <div className="max-w-sm w-full p-2">
