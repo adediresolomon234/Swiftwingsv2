@@ -88,7 +88,7 @@ border-radius: 40px;
 .before-after-line::after {
   content: '';
   position: absolute;
-  top: 50%;
+  top: 60%;
   width: 40%;
   height: 1px;
   background-color: #333; 
@@ -105,3 +105,31 @@ border-radius: 40px;
 .select-container:hover select {
   border-color: none;
 }
+
+.slider::before,
+.slider::after {
+  content: '';
+  position: absolute;
+  width: 100px;
+  height: 100%;
+  z-index: 2;
+}
+
+.slider::before {
+  left: 0;
+  background: linear-gradient(to right, #fff, rgba(242, 242, 242, 0));
+}
+
+.slider::after {
+  right: 0;
+  background: linear-gradient(to left, #fff, rgba(255,255,255,0));
+}
+.image-slide-up {
+  transform: translateY(100%);
+  transition: transform 0.8s ease-out;
+}
+
+.image-slide-up.show {
+  transform: translateY(-10px);
+}
+

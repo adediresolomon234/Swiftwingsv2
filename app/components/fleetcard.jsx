@@ -1,5 +1,6 @@
 import { mdiCarSeat, mdiSpeedometer, mdiArrowLeftRight } from '@mdi/js';
 
+
 export const fleet = [
     {
         id: 1,
