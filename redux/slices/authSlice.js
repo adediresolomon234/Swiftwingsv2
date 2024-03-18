@@ -1,109 +1,170 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 
-// Validation functions
-const validateSignUp = (user) => {
-  if (!user.email || !user.password || !user.reenterPassword) {
-    throw new Error('Email, password, and re-enter password are required');
+export const signUpUser = createAsyncThunk(
+  "auth/signUpUser",
+  async (payload, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        "https://swiftwings-mw-staging.onrender.com/api/v1/user/add",
+        payload
+      );
+      return response.data;
+    } catch (error) {
+      return error?.response?.data?.error;
+    }
   }
-};
+);
 
-const validateProfile = (profile) => {
-  if (!profile.firstName || !profile.lastName || !profile.phoneNumber) {
-    throw new Error('First name, last name, and phone number are required');
+export const signInUser = createAsyncThunk(
+  "auth/signInUser",
+  async (userData, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        "https://swiftwings-mw-staging.onrender.com/api/v1/user/login",
+        userData
+      );
+      return response.data;
+    } catch (error) {
+      if (!error.response) {
+        throw error;
+      }
+      if (error.response.status === 404) {
+        return rejectWithValue("The email you entered is not registered.");
+      }
+      if (error.response.status === 401) {
+        return rejectWithValue("The password you entered is incorrect.");
+      }
+      // const message = error || "An error occurred during sign-in.";
+      // return rejectWithValue(message);
+      return error;
+    }
   }
-};
+);
 
-// Async thunks
-export const signUpUser = createAsyncThunk('auth/register', async (user, { rejectWithValue, dispatch }) => {
-  try {
-    validateSignUp(user);
-    const response = await axios.post('https://swiftwings-mw-staging.onrender.com/api/v1/user/add', {
-      email: user.email,
-      password: user.password,
-    });
-    dispatch(signUpSuccess(response.data));
-    return response.data;
-  } catch (err) {
-    return rejectWithValue(err.response.data);
-  }
-});
-
-export const signInUser = createAsyncThunk('auth/signInUser', async (userCredentials, { rejectWithValue }) => {
-  try {
-    const request = await axios.post('https://swiftwings-mw-staging.onrender.com/api/v1/user/login', userCredentials);
-    const response = await request.data.data;
-    localStorage.setItem('user', JSON.stringify(response));
-    return response;
-  } catch (err) {
-    if (err.response && err.response.status === 401) {
-      return rejectWithValue('Invalid email or password');
+export const createUserProfile = createAsyncThunk(
+  "auth/createUserProfile",
+  async (
+    { title, firstName, lastName, phoneNumber, receiveInformation },
+    { getState, rejectWithValue }
+  ) => {
+    const { token } = getState().auth;
+    if (!token) {
+      return rejectWithValue("No authentication token found.");
+    }
+    try {
+      const response = await axios.post(
+        "https://swiftwings-mw-staging.onrender.com/api/v1/user/add",
+        {
+          title,
+          first_name: firstName,
+          last_name: lastName,
+          phone_number: phoneNumber,
+          receive_information: receiveInformation,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      if (!error.response) {
+        throw error;
+      }
+      return rejectWithValue(error.response.data.message);
     }
     return rejectWithValue(err.response?.data || 'An error occurred');
   }
 });
 
-export const createUserProfile = createAsyncThunk('auth/createProfile', async (profile, { rejectWithValue }) => {
-  try {
-    validateProfile(profile);
-   
-    const response = await axios.put(`https://swiftwings-mw-staging.onrender.com/api/v1/user/${profile._id}`, profile);
-    return response.data;
-  } catch (err) {
-    return rejectWithValue(err.response?.data || 'An error occurred');
+export const fetchAllUsers = createAsyncThunk(
+  "auth/fetchAllUsers",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(
+        "https://swiftwings-mw-staging.onrender.com/api/v1/user/all"
+      );
+      return response.data;
+    } catch (error) {
+      if (!error.response) {
+        throw error;
+      }
+      return rejectWithValue(error.response.data.message);
+    }
   }
-});
+);
 
-// Selectors
-export const selectAuthStatus = (state) => state.user.status;
-export const selectAuthError = (state) => state.user.error;
+const initialState = {
+  user: null,
+  token: null,
+  users: [],
+  loading: false,
+  error: null,
+};
 
-// Slice
 const authSlice = createSlice({
-  name: 'user',
-  initialState: {
-    user: null,
-    profile: null,
-    status: 'idle',
-    error: null,
-    isLoggedIn: false,
-  },
+  name: "auth",
+  initialState,
   reducers: {
-    signUpSuccess: (state, action) => {
-      state.user = action.payload;
-      state.status = 'succeeded';
-    },
-    signInSuccess: (state, action) => {
-      state.user = action.payload;
-      state.status = 'succeeded';
-      state.isLoggedIn = true;
+    clearUserState: (state) => {
+      state.data = null;
+      state.loading = "idle";
+      state.error = null;
     },
   },
   extraReducers: (builder) => {
     builder
+      .addCase(signUpUser.pending, (state) => {
+        state.loading = "pending";
+        state.error = null;
+      })
+      .addCase(signUpUser.fulfilled, (state, action) => {
+        state.loading = "succeeded";
+        state.data = action.payload;
+      })
+      .addCase(signUpUser.rejected, (state, action) => {
+        state.loading = "failed";
+        state.error = action.payload;
+      })
       .addCase(signInUser.pending, (state) => {
-        state.status = 'loading';
+        state.loading = "pending";
         state.error = null;
       })
       .addCase(signInUser.fulfilled, (state, action) => {
-        state.status = 'idle';
-        state.user = action.payload;
+        state.loading = "succeeded";
+        state.data = action.payload;
       })
       .addCase(signInUser.rejected, (state, action) => {
-        state.status = 'idle';
-        state.user = null;
-        state.error = action.payload || 'An error occurred';
+        state.loading = "failed";
+        state.error = action.payload;
+      })
+      .addCase(createUserProfile.pending, (state) => {
+        state.loading = "pending";
+        state.error = null;
       })
       .addCase(createUserProfile.fulfilled, (state, action) => {
-        state.status = 'succeeded';
-        state.profile = action.payload;
+        state.loading = "succeeded";
+        state.data = action.payload;
       })
       .addCase(createUserProfile.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.payload || 'An error occurred';
+        state.loading = "failed";
+        state.error = action.payload;
+      })
+      .addCase(fetchAllUsers.pending, (state) => {
+        state.loading = "pending";
+        state.error = null;
+      })
+      .addCase(fetchAllUsers.fulfilled, (state, action) => {
+        state.loading = "succeeded";
+        state.data = action.payload;
+      })
+      .addCase(fetchAllUsers.rejected, (state, action) => {
+        state.loading = "failed";
+        state.error = action.action.payload;
       });
   },
 });
 
-export const { signUpSuccess, signInSuccess } = authSlice.actions;
+export const { clearUserState } = authSlice.actions;
+
 export default authSlice.reducer;

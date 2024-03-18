@@ -1,10 +1,10 @@
 "use client";
-import { useState,useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Space_Grotesk } from "next/font/google";
-import "../../styles.css"
+import "../../styles.css";
 import Button from "../components/Button";
 import InputField from "../components/shared/InputField";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signUpUser } from "../../redux/slices/authSlice";
 import { TbEyeClosed } from "react-icons/tb";
 import {
@@ -14,8 +14,9 @@ import {
   SwOpenEyeIcon,
   SwPlusIcon,
 } from "../components/svgs";
-import Link from 'next/link';
-import { unwrapResult } from '@reduxjs/toolkit'; 
+import { useRouter } from "next/navigation";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -23,28 +24,24 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 const SignUp = () => {
-  const [email, setEmail] = useState('');
-  const [emailError, setEmailError] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordError, setPasswordError] = useState('');
-  const [reenterPassword, setReenterPassword] = useState('');
-  const [reenterPasswordError, setReenterPasswordError] = useState('');
-  const [showPassword, setShowPassword] = useState(true);
-  const [showReenterPassword, setShowReenterPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [serverError, setServerError] = useState(''); 
-
   const dispatch = useDispatch();
-  
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [reenterPassword, setReenterPassword] = useState("");
+  const [reenterPasswordError, setReenterPasswordError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showReenterPassword, setShowReenterPassword] = useState(false);
+  const [formData, setFormData] = useState({
+    first_name: "",
+    last_name: "",
+    phone_number: "",
+    email: "",
+    password: "",
+  });
 
-  useEffect(() => {
-    setEmail('');
-    setPassword('');
-    setReenterPassword('');
-    setEmailError('');
-    setPasswordError('');
-    setReenterPasswordError('');
-  }, []);
+  const { loading, error, data } = useSelector((state) => state.auth);
+  // console.log(error);
+  console.log({ data });
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -54,41 +51,44 @@ const SignUp = () => {
     setShowReenterPassword(!showReenterPassword);
   };
 
-  const registerHandle = async () => {
-    setEmailError('');
-    setPasswordError('');
-    setReenterPasswordError('');
-    setServerError(''); // reset server error
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
 
-    if (!email) {
-      setEmailError('Email is required');
-    } else if (!isValidEmail(email)) {
-      setEmailError('Invalid email format');
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const registerHandle = () => {
+    // Reset errors
+    setEmailError("");
+    setPasswordError("");
+    setReenterPasswordError("");
+
+    // Validate email
+    if (!formData.email) {
+      setEmailError("Email is required");
+    } else if (!isValidEmail(formData.email)) {
+      setEmailError("Invalid email format");
     }
 
-    if (!password) {
-      setPasswordError('Password is required');
-    } else if (!isValidPassword(password)) {
-      setPasswordError('Password must have at least 8 characters, one uppercase letter, one lowercase letter, and one digit');
+    // Validate password
+    if (!formData.password) {
+      setPasswordError("Password is required");
+    } else if (!isValidPassword(formData.password)) {
+      setPasswordError(
+        "Password must have at least 8 characters, one uppercase letter, one lowercase letter, and one digit"
+      );
     }
 
+    // Validate re-entered password
     if (!reenterPassword) {
-      setReenterPasswordError('Please re-enter your password');
-    } else if (password !== reenterPassword) {
-      setReenterPasswordError('Passwords do not match');
+      setReenterPasswordError("Please re-enter your password");
+    } else if (formData.password !== reenterPassword) {
+      setReenterPasswordError("Passwords do not match");
     }
+
+    // If no errors, dispatch the signUpUser action
     if (!emailError && !passwordError && !reenterPasswordError) {
-      setLoading(true); 
-      try {
-        const resultAction = await dispatch(signUpUser({ email, password, reenterPassword }));
-        unwrapResult(resultAction);
-        return (
-          <Link href="/profile"> </Link> );
-      } catch (err) {
-        setServerError(err.message); 
-      } finally {
-        setLoading(false); 
-      }
+      dispatch(signUpUser(formData));
     }
   };
 
@@ -102,95 +102,139 @@ const SignUp = () => {
     return passwordRegex.test(password);
   };
 
+  useEffect(() => {
+    if (data && data?.message) {
+      // router.push("/");
+      toast.success(data?.message);
+      // alert(data?.message);
+    }
+    // console.log(data);
+    if (error) toast.error(error);
+  }, [data, error]);
 
   return (
     <main className="flex justify-center items-center min-h-screen">
+      <ToastContainer />
       <div className="max-w-sm w-full p-2 mt-20">
         <p className="text-center text-2xl font-medium">Create a new account</p>
         <p className="text-center mt-2 mb-8 text-[0.95rem]">
-          Join Swiftwings, book a jet, Enjoy premium membership offers and privileges
+          Join Swiftwings, book a jet, Enjoy premium membership offers and
+          privileges
         </p>
+
         <div className="w-full">
           <InputField
+            label={"First Name"}
+            placeholder={"Enter first name"}
+            name="first_name"
+            value={formData.first_name}
+            onChange={handleInputChange}
+            // className={emailError ? "error" : ""}
+          />
+        </div>
+
+        <div className="w-full mt-5">
+          <InputField
+            label={"Last Name"}
+            placeholder={"Enter last name"}
+            name="last_name"
+            value={formData.last_name}
+            onChange={handleInputChange}
+            // className={emailError ? "error" : ""}
+          />
+        </div>
+
+        <div className="w-full mt-5">
+          <InputField
             label={"Email"}
+            name={"email"}
             placeholder={"Enter email address"}
             startIcon={<SwMailIcon className="text-xl" />}
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-              setEmailError("");
-            }}
+            // value={email}
+            onChange={handleInputChange}
             className={emailError ? "error" : ""}
           />
           {emailError && <p className="text-red-500">{emailError}</p>}
         </div>
-        <div className="w-full mt-5 relative">
-          <div className="relative">
-            <SwKeyIcon className="text-xl absolute top-14 left-3 transform -translate-y-1/2" />
-            <InputField
-              label={"Password"}
-              inputType={showPassword ? 'text' : 'password'}
-              placeholder="Enter password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              onBlur={() => isValidPassword(password)}
-              css={`w-full h-14 rounded-lg pl-12 border border-gray-300 ${passwordError ? 'error' : ''}`}
-              endIcon={
-                <div className="absolute inset-y-0 right-0 text-xl pr-3 pt-5 pb-5 flex items-center">
-                  {showPassword ? (
-                    <SwOpenEyeIcon onClick={togglePasswordVisibility} />
-                  ) : (
-                    <TbEyeClosed onClick={togglePasswordVisibility} />
-                  )}
-                </div>
-              }
-            />
-          </div>
-          {passwordError && (
-            <p className="text-red-500 mt-2 pb-2">{passwordError}</p>
-          )}
-        </div>
 
-        <div className="w-full mt-5 relative">
-          <div className="relative">
-            <SwKeyIcon className="text-xl absolute top-14 left-3 transform -translate-y-1/2" />
-            <InputField
-              label={"Re-enter password"}
-              inputType={showReenterPassword ? 'text' : 'password'}
-              placeholder="Re-enter password"
-              value={reenterPassword}
-              onChange={(e) => setReenterPassword(e.target.value)}
-              onBlur={() => isValidPassword(reenterPassword)}
-              css={`w-full h-14 rounded-lg pl-12 border border-gray-300 ${reenterPasswordError ? 'error' : ''}`}
-              endIcon={
-                <div className="absolute inset-y-0 right-0 pr-3 text-xl pt-5 pb-5 flex items-center">
-                  {showReenterPassword ? (
-                    <SwOpenEyeIcon onClick={toggleReenterPasswordVisibility} />
-                  ) : (
-                    <TbEyeClosed onClick={toggleReenterPasswordVisibility} />
-                  )}
-                </div>
-              }
-            />
-          </div>
-          {reenterPasswordError && (
-            <p className="text-red-500 mt-2 pb-2">{reenterPasswordError}</p>
-          )}
-        </div>
-
-        <div className="my-7 flex flex-col gap-3">
-          <Button
-             label={loading ? "Loading..." : "Sign Up"}
-            bgColor={"bg-swPrimary500 text-white w-full"}
-            onClick={registerHandle}
-            disabled={loading}
+        <div className="w-full mt-5">
+          <InputField
+            label={"Phone"}
+            placeholder={"Enter Phone No"}
+            name="phone_number"
+            value={formData.phone_number}
+            onChange={handleInputChange}
+            // className={emailError ? "error" : ""}
           />
         </div>
-        {serverError && <p className="text-red-500">{serverError}</p>}
+
+        <div className="w-full mt-5">
+          <InputField
+            label={"Password"}
+            name={"password"}
+            placeholder={"Enter password"}
+            startIcon={<SwKeyIcon className="text-xl" />}
+            endIcon={
+              showPassword ? (
+                <SwOpenEyeIcon
+                  className="text-xl"
+                  onClick={togglePasswordVisibility}
+                />
+              ) : (
+                <TbEyeClosed
+                  className="text-xl"
+                  onClick={togglePasswordVisibility}
+                />
+              )
+            }
+            inputType={showPassword ? "text" : "password"}
+            onChange={handleInputChange}
+            className={passwordError ? "error" : ""}
+          />
+          {passwordError && <p className="text-red-500">{passwordError}</p>}
+        </div>
+        <div className="w-full mt-5">
+          <InputField
+            label={"Re-enter password"}
+            placeholder={"Re-enter password"}
+            startIcon={<SwKeyIcon className="text-xl" />}
+            endIcon={
+              showReenterPassword ? (
+                <SwOpenEyeIcon
+                  className="text-xl"
+                  onClick={toggleReenterPasswordVisibility}
+                />
+              ) : (
+                <TbEyeClosed
+                  className="text-xl"
+                  onClick={toggleReenterPasswordVisibility}
+                />
+              )
+            }
+            inputType={showReenterPassword ? "text" : "password"}
+            onChange={(e) => setReenterPassword(e.target.value)}
+            className={reenterPasswordError ? "error" : ""}
+          />
+          {reenterPasswordError && (
+            <p className="text-red-500">{reenterPasswordError}</p>
+          )}
+        </div>
+        <div className="my-7 flex flex-col gap-3">
+          {/* <Button
+            label={"Sign Up"}
+            bgColor={"bg-swPrimary500 text-white w-full"}
+            onClick={registerHandle}
+          /> */}
+          <Button
+            label={`${loading === "pending" ? "Signing Up" : "Sign Up"}`}
+            bgColor={"bg-swPrimary500 text-white w-full"}
+            onClick={registerHandle}
+            loader={loading === "pending" ? true : false}
+            disabled={loading === "pending" ? true : false}
+          />
+        </div>
         <div className="my-4 mt-2 flex items-center before:mt-0.1 before:flex-1 before:border-t before:border-neutral-200 after:mt-0.1 after:flex-1 after:border-t after:border-neutral-200">
-          <p className="mx-4 mb-0 text-center font-medium text-swGray700">
-            Or
-          </p>
+          <p className="mx-4 mb-0 text-center font-medium text-swGray700">Or</p>
         </div>
         <div className="my-7 flex flex-col gap-3">
           <Button
@@ -199,13 +243,75 @@ const SignUp = () => {
             textColor={"font-semibold text-swGray800 border border-swGray100"}
           />
         </div>
-        <p className="text-swGray800 text-center">
-          Already have an account ?
-        </p>
+        <p className="text-swGray800 text-center">Already have an account ?</p>
         <div className="w-full mt-4 font-medium">
           <Button
             label={"Login"}
-            textColor={"font-semibold text-swGray800 border border-swGray100 w-full"}
+            textColor={
+              "font-semibold text-swGray800 border border-swGray100 w-full"
+            }
+          />
+        </div>
+      </div>
+    </main>
+  );
+  // const router = useRouter();
+  return (
+    <main className="flex justify-center items-center min-h-[100vh]">
+      <div className="max-w-sm w-full p-2 mt-20">
+        <p className="text-center text-2xl font-medium">Create a new account</p>
+        <p className="text-center mt-5 mb-8 text-[0.95rem]">
+          Join Swiftwings, book a jet, Enjoy premium membership offers and
+          privileges
+        </p>
+
+        <div className="w-full">
+          <InputField
+            label={"Email"}
+            placeholder={"Enter email address"}
+            startIcon={<SwMailIcon className="text-xl" />}
+          />
+        </div>
+        <div className="w-full mt-5">
+          <InputField
+            label={"Password"}
+            placeholder={"Enter password"}
+            startIcon={<SwKeyIcon className="text-xl" />}
+            endIcon={<SwOpenEyeIcon className="text-xl" />}
+          />
+        </div>
+        <div className="w-full mt-5">
+          <InputField
+            label={"Re-enter password"}
+            placeholder={"Re-enter password"}
+            startIcon={<SwKeyIcon className="text-xl" />}
+            endIcon={<SwOpenEyeIcon className="text-xl" />}
+          />
+        </div>
+        <div className="my-7 flex flex-col gap-3">
+          <Button
+            label={"Sign Up"}
+            bgColor={"bg-swPrimary500 text-white w-full"}
+            onClick={() => router.push("/verify")}
+          />
+        </div>
+        <div class="my-4 mt-2 flex items-center before:mt-0.1 before:flex-1 before:border-t before:border-neutral-200 after:mt-0.1 after:flex-1 after:border-t after:border-neutral-200">
+          <p class="mx-4 mb-0 text-center font-medium text-swGray700">Or</p>
+        </div>
+        <div className="my-7 flex flex-col gap-3">
+          <Button
+            startIcon={<SwGoogleColoredIcon className="text-xl" />}
+            label={"Google sign in"}
+            textColor={"font-semibold text-swGray800 border border-swGray100"}
+          />
+        </div>
+        <p className="text-swGray800 text-center">Already have an account ?</p>
+        <div className="w-full mt-4 font-medium">
+          <Button
+            label={"Login"}
+            textColor={
+              "font-semibold text-swGray800 border border-swGray100 w-full"
+            }
           />
         </div>
       </div>
@@ -214,4 +320,3 @@ const SignUp = () => {
 };
 
 export default SignUp;
-

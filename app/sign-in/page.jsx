@@ -1,10 +1,10 @@
 "use client";
 import React, { useEffect } from 'react';
 import { Space_Grotesk } from "next/font/google";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../components/Button";
 import InputField from "../components/shared/InputField";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { TbEyeClosed } from "react-icons/tb";
 import { signInUser, selectAuthError } from "../../redux/slices/authSlice";
 import {
@@ -14,6 +14,9 @@ import {
   SwOpenEyeIcon,
   SwPlusIcon,
 } from "../components/svgs";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useRouter } from "next/navigation";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -21,13 +24,17 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 const SignIn = () => {
+  const dispatch = useDispatch();
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const [showPassword, setShowPassword] = useState(true);
-  const authError = useSelector(selectAuthError);
-  const dispatch = useDispatch();
+  const [showPassword, setShowPassword] = useState(false);
+
+  
+
+  const { loading, error, data } = useSelector((state) => state.auth);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -37,6 +44,7 @@ const SignIn = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
+
 
   const handleLogin = () => {
     setEmailError("");
@@ -59,19 +67,24 @@ const SignIn = () => {
   };
 
   useEffect(() => {
-    if (authError) {
-      setPasswordError(authError); // Displaying error message
+    if (data && data?.message) {
+      router.push("/");
+      toast.success(data?.message);
     }
-  }, [authError]);
+    console.log(data);
+    if (error) toast.error(error);
+  }, [data, error]);
+
   return (
     <main className="flex justify-center items-center min-h-[100vh] m-5">
+      <ToastContainer />
       <div className="max-w-sm w-full p-2">
         <p className="text-center text-2xl font-medium">Sign In</p>
         <p className="text-center mt-5 mb-8 text-[0.95rem]">
           Sign in to Swiftwings to manage your bookings
         </p>
 
-        <div className="w-full">
+        <div className="w-ful mt-5">
           <InputField
             label={"Email"}
             placeholder={"Enter email address"}
@@ -85,31 +98,28 @@ const SignIn = () => {
           />
           {emailError && <p className="text-red-500">{emailError}</p>}
         </div>
-        <div className="w-full mt-5 relative">
-          <div className="relative">
-            <SwKeyIcon className="text-xl absolute top-14 left-3 transform -translate-y-1/2" />
-            <InputField
-              label={"Password"}
-              inputType={showPassword ? 'text' : 'password'}
-              placeholder="Enter password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              onBlur={() => isValidPassword(password)}
-              css={`w-full h-14 rounded-lg pl-12 border border-gray-300 ${passwordError ? 'error' : ''}`}
-              endIcon={
-                <div className="absolute inset-y-0 right-0 text-xl pr-3 pt-5 pb-5 flex items-center">
-                  {showPassword ? (
-                    <SwOpenEyeIcon onClick={togglePasswordVisibility} />
-                  ) : (
-                    <TbEyeClosed onClick={togglePasswordVisibility} />
-                  )}
-                </div>
-              }
-            />
-          </div>
-          {passwordError && (
-            <p className="text-red-500 mt-2 pb-2">{passwordError}</p>
-          )}
+        <div className="w-full mt-5">
+          <InputField
+            label={"Password"}
+            placeholder={"Enter password"}
+            startIcon={<SwKeyIcon className="text-xl" />}
+            endIcon={
+              showPassword ? (
+                <SwOpenEyeIcon
+                  className="text-xl"
+                  onClick={togglePasswordVisibility}
+                />
+              ) : (
+                <TbEyeClosed
+                  className="text-xl"
+                  onClick={togglePasswordVisibility}
+                />
+              )
+            }
+            inputType={showPassword ? "text" : "password"}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          {passwordError && <p className="text-red-500">{passwordError}</p>}
         </div>
 
         <p className="ml-auto italic mt-2 text-sm text-swGray800 cursor-pointer w-fit hover:underline">
@@ -118,9 +128,11 @@ const SignIn = () => {
 
         <div className="my-7 flex flex-col gap-3">
           <Button
-            label={"Sign In"}
+            label={`${loading === "pending" ? "Signing In" : "Sign In"}`}
             bgColor={"bg-swPrimary500 text-white w-full"}
             onClick={handleLogin}
+            loader={loading === "pending" ? true : false}
+            disabled={loading === "pending" ? true : false}
           />
           <Button
             startIcon={<SwGoogleColoredIcon className="text-xl" />}
