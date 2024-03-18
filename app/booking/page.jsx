@@ -6,6 +6,7 @@ import Button from "@/app/components/Button";
 import NavAndFooter from "@/app/components/shared/NavAndFooter";
 import {
   SwArrowRightIcon,
+  SwCalendarIcon,
   SwLeftRightArrowIcon,
   SwLuggageIcon,
   SwMeterIcon,
@@ -26,6 +27,8 @@ import Select from "react-select";
 import airports from "../components/helpers/airports";
 import departImg from "../../public/images/Arrive-white.png";
 import arriveImg from "../../public/images/Arrive-white.png";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
 
 const BookJet = () => {
   const [bookingEngine, setBookingEngine] = useState("oneWayTrip");
@@ -44,6 +47,11 @@ const BookJet = () => {
   const [arrivalAirport, setArrivalAirport] = useState(null);
   const departureRef = useRef(null);
   const arrivalRef = useRef(null);
+  const [isDateOpen, setDateOpen] = useState(false);
+  const [dateValue, setDateValue] = useState(null);
+  const [bookingDetails, setBookingDetails] = useState({});
+  const [sourceDetails, setSourceDetails] = useState({});
+  const [destinationDetails, setDestinationDetails] = useState({});
 
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
@@ -52,20 +60,20 @@ const BookJet = () => {
       <div className="flex justify-between">
         <div className="flex gap-1">
           <p>
-            {item.city}
-            {item.city && ","} {item.country}
+            {item?.city}
+            {item?.city && ","} {item?.country}
           </p>
           <p className="font-light italic text-sm text-swGray500">
-            {item.name}
+            {item?.name}
           </p>
         </div>
-        <p>{item.iata_code}</p>
+        <p>{item?.iata_code}</p>
       </div>
     ),
     value: item,
   }));
 
-  const getOptionLabel = (option) => option.label;
+  const getOptionLabel = (option) => option?.label;
 
   const filterOption = (option, inputValue) => {
     const lowerCaseInput = inputValue.toLowerCase();
@@ -86,24 +94,42 @@ const BookJet = () => {
       prev,
     }));
 
+    setBookingDetails((prevState) => ({
+      ...prevState,
+      booking_details: {
+        ...prevState.booking_details,
+        passengers: {
+          adults: adultsNo,
+          kids: kidsNo,
+          pets: petsNo,
+        },
+      },
+    }));
+
     setOpenPassageners(false);
   };
 
   useEffect(() => {
-    setDepartureAirport(JSON.parse(localStorage.getItem("departureAirport")));
-    setArrivalAirport(JSON.parse(localStorage.getItem("arrivalAirport")));
-    setAllPassangers((prev) => ({
-      adults: JSON.parse(localStorage.getItem("adultsNo")),
-      kids: JSON.parse(localStorage.getItem("kidsNo")),
-      pets: JSON.parse(localStorage.getItem("petsNo")),
-      prev,
-    }));
+    const bookingDetails = JSON.parse(localStorage.getItem("bookingDetails"));
+    const user = JSON.parse(localStorage.getItem("user"));
+    delete user.token;
 
-    setAdultsNo(JSON.parse(localStorage.getItem("adultsNo")));
-    setKidsNo(JSON.parse(localStorage.getItem("kidsNo")));
-    setPetsNo(JSON.parse(localStorage.getItem("petsNo")));
-    // console.log(JSON.stringify(localStorage));
+    setBookingDetails(bookingDetails);
+    setSourceDetails(
+      bookingDetails?.booking_details?.formData[0]?.source?.value
+    );
+    setDestinationDetails(
+      bookingDetails?.booking_details?.formData[0]?.destination?.value
+    );
+
+    console.log(bookingDetails);
   }, []);
+
+  const handleDateChange = (dateValue) => {
+    setDateValue(dateValue);
+    setDateOpen(false);
+  };
+  console.log({ isDateOpen });
 
   // useEffect(() => {
   //   const handleClickOutside = (event) => {
@@ -124,6 +150,38 @@ const BookJet = () => {
   //     document.removeEventListener("click", handleClickOutside);
   //   };
   // }, []);
+
+  const handleAirport = (selectedOption, location) => {
+    const newAirport = selectedOption.value;
+
+    setBookingDetails((prevState) => ({
+      ...prevState,
+      booking_details: {
+        ...prevState.booking_details,
+        formData: [
+          {
+            ...prevState.booking_details.formData[0],
+            [location === "source" ? "source" : "destination"]: {
+              ...prevState.booking_details.formData[0][
+                location === "source" ? "source" : "destination"
+              ],
+              label: `${newAirport.name} - ${newAirport.city} - ${newAirport.iata_code} ${newAirport.country}`,
+              value: newAirport,
+            },
+          },
+        ],
+      },
+    }));
+
+    location === "source"
+      ? setSourceDetails(newAirport)
+      : setDestinationDetails(newAirport);
+
+    setOpenDeparture(false);
+    setOpenArrival(false);
+  };
+
+  console.log(bookingDetails);
 
   return (
     <NavAndFooter>
@@ -190,9 +248,9 @@ const BookJet = () => {
                           Departure city
                         </p>
                         <p className=" text-swGray800 font-semibold">
-                          {departureAirport === null
+                          {!sourceDetails
                             ? "Select City"
-                            : `${departureAirport.city} - ${departureAirport.country}`}
+                            : `${sourceDetails?.city} - ${sourceDetails?.country}`}
                         </p>
                       </div>
                     </div>
@@ -213,9 +271,9 @@ const BookJet = () => {
                       <div>
                         <p className="text-swLightGray text-sm">Arrival city</p>
                         <p className=" text-swGray800 font-semibold">
-                          {arrivalAirport === null
+                          {!destinationDetails
                             ? "Select City"
-                            : `${arrivalAirport.city} - ${arrivalAirport.country}`}
+                            : `${destinationDetails?.city} - ${destinationDetails?.country}`}
                         </p>
                       </div>
                     </div>
@@ -223,13 +281,16 @@ const BookJet = () => {
                     {openDeparture && (
                       <div className="absolute text-swGray800 top-24 w-full z-10">
                         <Select
-                          defaultValue={departureAirport}
+                          // defaultValue={
+                          //   bookingDetails?.booking_details?.formData[0]?.source
+                          //     .value
+                          // }
+                          value={sourceDetails}
                           getOptionLabel={getOptionLabel}
                           filterOption={filterOption}
-                          onChange={(selectedOption) => {
-                            setDepartureAirport(selectedOption.value);
-                            setOpenDeparture(false);
-                          }}
+                          onChange={(selectedOption) =>
+                            handleAirport(selectedOption, "source")
+                          }
                           options={options}
                           placeholder="Select Arrival City"
                         />
@@ -238,13 +299,13 @@ const BookJet = () => {
                     {openArrival && (
                       <div className="absolute text-swGray800 top-24 w-full z-10">
                         <Select
-                          defaultValue={arrivalAirport}
+                          // defaultValue={arrivalAirport}
+                          value={destinationDetails}
                           getOptionLabel={getOptionLabel}
                           filterOption={filterOption}
-                          onChange={(selectedOption) => {
-                            setArrivalAirport(selectedOption.value);
-                            setOpenArrival(false);
-                          }}
+                          onChange={(selectedOption) =>
+                            handleAirport(selectedOption, "destination")
+                          }
                           options={options}
                           placeholder="Select Arrival City"
                         />
@@ -257,7 +318,7 @@ const BookJet = () => {
                         <MdOutlineCalendarToday size={20} />
                       </div>
                       <div>
-                        {bookingEngine === "roundTrip" ? (
+                        {bookingEngine === "Round Trip" ? (
                           <div>
                             <p className="text-swLightGray text-sm">
                               Departure and arrival date
@@ -474,6 +535,46 @@ const BookJet = () => {
                       )}
                     </div>
                     <div className="flex justify-around gap-5 mx-auto flex-wrap">
+                      <div className="relative p-5 pr-16 flex items-center h-[5.5rem] w-72 gap-5 border border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50 rounded-2xl cursor-pointer">
+                        <div className="p-2 rounded-full text-swGray900">
+                          <SwCalendarIcon className="text-xl" />
+                        </div>
+                        <div>
+                          {bookingEngine === "roundTrip" ? (
+                            <div>
+                              <p className="text-swLightGray text-sm">
+                                Departure and arrival date
+                              </p>
+                              <p className=" text-swGray800 font-semibold">
+                                20 Jan
+                              </p>
+                            </div>
+                          ) : (
+                            <div onClick={() => setDateOpen(true)}>
+                              <p className="text-swLightGray text-sm">
+                                Departure date
+                              </p>
+                              <p className=" text-swGray800 font-semibold">
+                                20 Jan
+                              </p>
+                            </div>
+                          )}
+                        </div>
+                        {isDateOpen && (
+                          <div className="absolute">
+                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                              <DateTimePicker
+                                // label="Controlled picker"
+                                value={dateValue}
+                                onChange={handleDateChange}
+                                open={isDateOpen}
+                                onOpen={() => setDateOpen(true)}
+                                onClose={() => setDateOpen(false)}
+                              />
+                            </LocalizationProvider>
+                          </div>
+                        )}
+                      </div>
                       <div className="p-5 pr-16 flex items-center h-[5.5rem] w-[21rem] gap-5 border rounded-2xl cursor-pointer hover:bg-swLightBgGray">
                         <div className="p-2 rounded-full border text-swGray800">
                           <MdOutlineCalendarToday size={20} />
@@ -673,9 +774,8 @@ const BookJet = () => {
               <p className="text-xl font-medium mb-5">Flight Summary</p>
               <div className="w-full rounded-3xl border p-5  bg-white">
                 <p className="font-semibold text-lg">
-                  Flight from {departureAirport?.city},{" "}
-                  {departureAirport?.country} - {arrivalAirport?.city},{" "}
-                  {arrivalAirport?.country}
+                  Flight from {sourceDetails?.city} , {sourceDetails?.country} -{" "}
+                  {destinationDetails?.city}, {destinationDetails?.country}
                 </p>
                 <div className="flex gap-5 mt-5">
                   <div className="flex flex-col justify-between">
