@@ -73,9 +73,8 @@ export const createUserProfile = createAsyncThunk(
       }
       return rejectWithValue(error.response.data.message);
     }
-    return rejectWithValue(err.response?.data || 'An error occurred');
   }
-});
+);
 
 export const fetchAllUsers = createAsyncThunk(
   "auth/fetchAllUsers",

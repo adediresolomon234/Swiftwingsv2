@@ -1,12 +1,12 @@
 "use client";
-import React, { useEffect } from 'react';
 import { Space_Grotesk } from "next/font/google";
 import { useEffect, useState } from "react";
 import Button from "../components/Button";
+import { signInUser } from "../../redux/slices/authSlice";
 import InputField from "../components/shared/InputField";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { TbEyeClosed } from "react-icons/tb";
-import { signInUser, selectAuthError } from "../../redux/slices/authSlice";
+import { isValidEmail } from "../components/helpers/emailValidation";
 import {
   SwGoogleColoredIcon,
   SwKeyIcon,
@@ -39,12 +39,6 @@ const SignIn = () => {
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
-
-  const isValidEmail = (email) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
-
 
   const handleLogin = () => {
     setEmailError("");
