@@ -29,6 +29,7 @@ import departImg from "../../public/images/Arrive-white.png";
 import arriveImg from "../../public/images/Arrive-white.png";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import dayjs from "dayjs";
 
 const BookJet = () => {
   const [bookingEngine, setBookingEngine] = useState("oneWayTrip");
@@ -40,7 +41,7 @@ const BookJet = () => {
   let [petsNo, setPetsNo] = useState(0);
   const [allPassangers, setAllPassangers] = useState({
     adults: 0,
-    kids: 0,
+    chilren: 0,
     pets: 0,
   });
   const [departureAirport, setDepartureAirport] = useState(null);
@@ -48,7 +49,7 @@ const BookJet = () => {
   const departureRef = useRef(null);
   const arrivalRef = useRef(null);
   const [isDateOpen, setDateOpen] = useState(false);
-  const [dateValue, setDateValue] = useState(null);
+  const [dateValue, setDateValue] = useState(dayjs());
   const [bookingDetails, setBookingDetails] = useState({});
   const [sourceDetails, setSourceDetails] = useState({});
   const [destinationDetails, setDestinationDetails] = useState({});
@@ -89,7 +90,7 @@ const BookJet = () => {
   const handleSavePassangers = () => {
     setAllPassangers((prev) => ({
       adults: adultsNo,
-      kids: kidsNo,
+      chldren: kidsNo,
       pets: petsNo,
       prev,
     }));
@@ -98,38 +99,40 @@ const BookJet = () => {
       ...prevState,
       booking_details: {
         ...prevState.booking_details,
-        passengers: {
-          adults: adultsNo,
-          kids: kidsNo,
-          pets: petsNo,
-        },
+        formData: [
+          {
+            ...prevState.booking_details.formData[0],
+            passengers: {
+              adults: adultsNo,
+              children: kidsNo,
+              pets: petsNo,
+            },
+          },
+        ],
       },
     }));
 
     setOpenPassageners(false);
   };
 
-  useEffect(() => {
-    const bookingDetails = JSON.parse(localStorage.getItem("bookingDetails"));
-    const user = JSON.parse(localStorage.getItem("user"));
-    delete user.token;
-
-    setBookingDetails(bookingDetails);
-    setSourceDetails(
-      bookingDetails?.booking_details?.formData[0]?.source?.value
-    );
-    setDestinationDetails(
-      bookingDetails?.booking_details?.formData[0]?.destination?.value
-    );
-
-    console.log(bookingDetails);
-  }, []);
-
   const handleDateChange = (dateValue) => {
     setDateValue(dateValue);
     setDateOpen(false);
+    setBookingDetails((prevState) => ({
+      ...prevState,
+      booking_details: {
+        ...prevState.booking_details,
+        formData: [
+          {
+            ...prevState.booking_details.formData[0],
+            depatureDate: `${dateValue.$y}-${dateValue.$M + 1}-${dateValue.$D}`,
+            depatureTime: `${dateValue.$H}:${dateValue.$m}`,
+          },
+        ],
+      },
+    }));
   };
-  console.log({ isDateOpen });
+  // console.log({ isDateOpen });
 
   // useEffect(() => {
   //   const handleClickOutside = (event) => {
@@ -181,6 +184,34 @@ const BookJet = () => {
     setOpenArrival(false);
   };
 
+  useEffect(() => {
+    const bookingDetails = JSON.parse(localStorage.getItem("bookingDetails"));
+    const bookingFormData = bookingDetails?.booking_details?.formData[0];
+    const userDetails = JSON.parse(localStorage.getItem("user"));
+    delete userDetails.token;
+    console.log(userDetails);
+
+    setBookingDetails(bookingDetails);
+    setSourceDetails(bookingFormData?.source?.value);
+    setDestinationDetails(bookingFormData?.value);
+    setAllPassangers(bookingFormData?.passengers);
+    setAdultsNo(bookingFormData?.adults);
+    setKidsNo(bookingFormData?.children);
+    setPetsNo(bookingFormData?.pets);
+
+    console.log(bookingFormData?.depatureDate);
+    setDateValue(
+      dayjs(`${bookingFormData?.depatureDate}T${bookingFormData?.depatureTime}`)
+    );
+
+    if (userDetails) {
+      setBookingDetails((prevState) => ({
+        ...prevState,
+        user: userDetails, // Replace the entire user object
+      }));
+    }
+  }, []);
+
   console.log(bookingDetails);
 
   return (
@@ -206,11 +237,11 @@ const BookJet = () => {
                   </button>
                   <button
                     className={`${
-                      bookingEngine === "roundTrip"
+                      bookingEngine === "Round Trip"
                         ? "text-swPrimary500 font-semibold bg-white"
                         : "text-swLightGray hover:bg-white"
                     } py-2 px-4 rounded-full`}
-                    onClick={() => setBookingEngine("roundTrip")}
+                    onClick={() => setBookingEngine("Round Trip")}
                   >
                     Round Trip
                   </button>
@@ -313,9 +344,9 @@ const BookJet = () => {
                     )}
                   </div>
                   <div className="flex justify-around gap-5 mx-auto flex-wrap">
-                    <div className="p-5 pr-16 flex items-center h-[5.5rem] w-[21rem] gap-5 border rounded-2xl cursor-pointer hover:bg-swLightBgGray">
-                      <div className="p-2 rounded-full border text-swGray800">
-                        <MdOutlineCalendarToday size={20} />
+                    <div className="relative p-5 pr-16 flex items-center h-[5.5rem] w-72 gap-5 border rounded-2xl cursor-pointer">
+                      <div className="p-2 rounded-full text-swGray900">
+                        <SwCalendarIcon className="text-xl" />
                       </div>
                       <div>
                         {bookingEngine === "Round Trip" ? (
@@ -328,16 +359,31 @@ const BookJet = () => {
                             </p>
                           </div>
                         ) : (
-                          <div>
+                          <div onClick={() => setDateOpen(true)}>
                             <p className="text-swLightGray text-sm">
                               Departure date
                             </p>
                             <p className=" text-swGray800 font-semibold">
-                              20 Jan
+                              {dateValue.format("D, MMM")}
                             </p>
                           </div>
                         )}
                       </div>
+                      {isDateOpen && (
+                        <div className="absolute">
+                          <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DateTimePicker
+                              // label="Controlled picker"
+                              defaultValue={dateValue}
+                              value={dateValue}
+                              onChange={handleDateChange}
+                              open={isDateOpen}
+                              onOpen={() => setDateOpen(true)}
+                              onClose={() => setDateOpen(false)}
+                            />
+                          </LocalizationProvider>
+                        </div>
+                      )}
                     </div>
                     <div className="relative">
                       <div
@@ -353,7 +399,7 @@ const BookJet = () => {
                           </p>
                           <p className=" text-swGray800 font-semibold">
                             Adults - {allPassangers.adults} Children -{" "}
-                            {allPassangers.kids} Pets - {allPassangers.pets}
+                            {allPassangers.children} Pets - {allPassangers.pets}
                           </p>
                         </div>
                       </div>
@@ -540,7 +586,7 @@ const BookJet = () => {
                           <SwCalendarIcon className="text-xl" />
                         </div>
                         <div>
-                          {bookingEngine === "roundTrip" ? (
+                          {bookingEngine === "Round Trip" ? (
                             <div>
                               <p className="text-swLightGray text-sm">
                                 Departure and arrival date
@@ -550,7 +596,10 @@ const BookJet = () => {
                               </p>
                             </div>
                           ) : (
-                            <div onClick={() => setDateOpen(true)}>
+                            <div
+                              onClick={() => setDateOpen(true)}
+                              className="bg-black"
+                            >
                               <p className="text-swLightGray text-sm">
                                 Departure date
                               </p>
@@ -780,8 +829,12 @@ const BookJet = () => {
                 <div className="flex gap-5 mt-5">
                   <div className="flex flex-col justify-between">
                     <div className="">
-                      <p className="font-semibold text-lg">10:00 am</p>
-                      <p className="text-sm">Wed 20, Jan</p>
+                      <p className="font-semibold text-lg">
+                        {dateValue.format("h:mm a")}
+                      </p>
+                      <p className="text-sm">
+                        {dateValue.format(`ddd D, MMM`)}
+                      </p>
                     </div>
                     <div className="">
                       <p className="font-semibold text-lg">22:00 pm</p>
@@ -801,13 +854,19 @@ const BookJet = () => {
 
                   <div className="flex flex-col justify-between">
                     <div className="">
-                      <p className="font-semibold text-lg">10:00 am</p>
-                      <p className="text-sm">Nnamdi Azikwe Airport, Abuja</p>
+                      <p className="font-semibold text-lg">
+                        {dateValue.format("h:mm a")}
+                      </p>
+                      <p className="text-sm">
+                        {sourceDetails?.name}, {sourceDetails?.city}
+                      </p>
                     </div>
                     <p className="font-medium">12 Hours</p>
                     <div className="">
                       <p className="font-semibold text-lg">22:00 pm</p>
-                      <p className="text-sm">Nnamdi Azikwe Airport, Abuja</p>
+                      <p className="text-sm">
+                        {destinationDetails?.name}, {destinationDetails?.city}
+                      </p>
                     </div>
                   </div>
                 </div>
