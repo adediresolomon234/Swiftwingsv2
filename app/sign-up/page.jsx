@@ -103,6 +103,11 @@ const SignUp = () => {
   };
 
   useEffect(() => {
+    if (data && !data?.message) {
+      // router.push("/");
+      toast.success(data);
+      // alert(data?.message);
+    }
     if (data && data?.message) {
       // router.push("/");
       toast.success(data?.message);

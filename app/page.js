@@ -39,7 +39,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAviAirPort, getAviAircraft } from "@/redux/slices/aviPagesSlice";
 import airports from "./components/helpers/airports";
 import { useRouter } from "next/navigation";
-import { DatePicker } from "@mui/x-date-pickers";
+import { DatePicker, DateTimePicker } from "@mui/x-date-pickers";
 import TextField from "@mui/material/TextField";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterFormats } from "@mui/x-date-pickers";
@@ -64,7 +64,7 @@ function isNearViewport(id) {
 export default function Home() {
   const dispatch = useDispatch();
   const router = useRouter();
-  const [bookingEngine, setBookingEngine] = useState("oneWayTrip");
+  const [bookingEngine, setBookingEngine] = useState("One way Trip");
   const [openPassangers, setOpenPassageners] = useState(false);
   const [openDeparture, setOpenDeparture] = useState(false);
   const [openArrival, setOpenArrival] = useState(false);
@@ -130,11 +130,49 @@ export default function Home() {
   };
 
   const handleBookJet = () => {
-    localStorage.setItem("departureAirport", JSON.stringify(departureAirport));
-    localStorage.setItem("arrivalAirport", JSON.stringify(arrivalAirport));
-    localStorage.setItem("adultsNo", adultsNo);
-    localStorage.setItem("kidsNo", kidsNo);
-    localStorage.setItem("petsNo", petsNo);
+    // localStorage.setItem("departureAirport", JSON.stringify(departureAirport));
+    // localStorage.setItem("arrivalAirport", JSON.stringify(arrivalAirport));
+    // localStorage.setItem("adultsNo", adultsNo);
+    // localStorage.setItem("kidsNo", kidsNo);
+    // localStorage.setItem("petsNo", petsNo);
+    const booking = {
+      user: {
+        first_name: "",
+        last_name: "",
+        email: "",
+        phone_number: "",
+      },
+      status: "New",
+      booking_details: {
+        tripType: bookingEngine,
+        formData: [
+          {
+            source: {
+              label: `${departureAirport.name} - ${departureAirport.city} - ${departureAirport.iata_code} ${departureAirport.country}`,
+              value: departureAirport,
+              disabled: false,
+            },
+            destination: {
+              label: `${arrivalAirport.name} - ${arrivalAirport.city} - ${arrivalAirport.iata_code} ${arrivalAirport.country}`,
+              value: arrivalAirport,
+              disabled: false,
+            },
+            depatureTime: `${dateValue.$H}:${dateValue.$m}`,
+            returningTime: null,
+            returningDate: null,
+            depatureDate: `${dateValue.$y}-${dateValue.$M}-${dateValue.$D}`,
+            passengers: {
+              adults: adultsNo,
+              children: kidsNo,
+              pets: petsNo,
+            },
+          },
+        ],
+      },
+      additional_quote: [],
+    };
+
+    localStorage.setItem("bookingDetails", JSON.stringify(booking));
 
     router.push("/booking");
   };
@@ -155,7 +193,8 @@ export default function Home() {
     setDateOpen(false);
   };
 
-  console.log({ dateValue });
+  console.log(dateValue);
+  // console.log(dateValue.M)
 
   // useEffect(() => {
   //   setAirports(data?.data?.results);
@@ -250,31 +289,31 @@ export default function Home() {
                 <div className="p-1 text-xl rounded-full flex gap-5 font-medium backdrop-blur bg-white/25">
                   <button
                     className={`${
-                      bookingEngine === "oneWayTrip"
+                      bookingEngine === "One way Trip"
                         ? "text-white backdrop-blur bg-swBlack/50 font-semibold"
                         : "text-swGray300 hover:backdrop-blur hover:bg-white/5"
                     } py-2 px-4 rounded-full`}
-                    onClick={() => setBookingEngine("oneWayTrip")}
+                    onClick={() => setBookingEngine("One way Trip")}
                   >
                     One Way Rrip
                   </button>
                   <button
                     className={`${
-                      bookingEngine === "roundTrip"
+                      bookingEngine === "Round Trip"
                         ? "text-white backdrop-blur bg-swBlack/50 font-semibold"
                         : "text-swGray300 hover:backdrop-blur hover:bg-white/5]"
                     } py-2 px-4 rounded-full`}
-                    onClick={() => setBookingEngine("roundTrip")}
+                    onClick={() => setBookingEngine("Round Trip")}
                   >
                     Round Trip
                   </button>
                   <button
                     className={`${
-                      bookingEngine === "multiCity"
+                      bookingEngine === "Multi City"
                         ? "text-white backdrop-blur bg-swBlack/50 font-semibold"
                         : "text-swGray300 hover:backdrop-blur hover:bg-white/5"
                     } py-2 px-4 rounded-full`}
-                    onClick={() => setBookingEngine("multiCity")}
+                    onClick={() => setBookingEngine("Multi City")}
                   >
                     Multi-city trip
                   </button>
@@ -386,7 +425,7 @@ export default function Home() {
                         <SwCalendarIcon className="text-xl" />
                       </div>
                       <div>
-                        {bookingEngine === "roundTrip" ? (
+                        {bookingEngine === "Round Trip" ? (
                           <div>
                             <p className="text-swLightGray text-sm">
                               Departure and arrival date
@@ -409,22 +448,13 @@ export default function Home() {
                       {isDateOpen && (
                         <div className="absolute">
                           <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <DatePicker
-                              label="Date picker"
+                            <DateTimePicker
+                              // label="Controlled picker"
                               value={dateValue}
                               onChange={handleDateChange}
                               open={isDateOpen}
                               onOpen={() => setDateOpen(true)}
                               onClose={() => setDateOpen(false)}
-                              renderInput={(params) => (
-                                <TextField
-                                  {...params}
-                                  InputProps={{
-                                    ...params.InputProps,
-                                    disableUnderline: true,
-                                  }}
-                                />
-                              )}
                             />
                           </LocalizationProvider>
                         </div>
