@@ -45,6 +45,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterFormats } from "@mui/x-date-pickers";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import dayjs from "dayjs";
 
 const space_grotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -81,7 +82,7 @@ export default function Home() {
   const [departureAirport, setDepartureAirport] = useState(null);
   const [arrivalAirport, setArrivalAirport] = useState(null);
   const [isDateOpen, setDateOpen] = useState(false);
-  const [dateValue, setDateValue] = useState(null);
+  const [dateValue, setDateValue] = useState(dayjs());
   const departureRef = useRef(null);
   const arrivalRef = useRef(null);
   const dateRef = useRef(null);
@@ -160,7 +161,7 @@ export default function Home() {
             depatureTime: `${dateValue.$H}:${dateValue.$m}`,
             returningTime: null,
             returningDate: null,
-            depatureDate: `${dateValue.$y}-${dateValue.$M}-${dateValue.$D}`,
+            depatureDate: `${dateValue.$y}-${dateValue.$M + 1}-${dateValue.$D}`,
             passengers: {
               adults: adultsNo,
               children: kidsNo,
@@ -188,8 +189,8 @@ export default function Home() {
     setOpenPassageners(false);
   };
 
-  const handleDateChange = (dateValue) => {
-    setDateValue(dateValue);
+  const handleDateChange = (newValue) => {
+    setDateValue(newValue);
     setDateOpen(false);
   };
 
@@ -439,8 +440,8 @@ export default function Home() {
                             <p className="text-swLightGray text-sm">
                               Departure date
                             </p>
-                            <p className=" text-swGray800 font-semibold">
-                              20 Jan
+                            <p className="font-semibold">
+                              {dateValue.format("D, MMM")}
                             </p>
                           </div>
                         )}
@@ -450,6 +451,7 @@ export default function Home() {
                           <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DateTimePicker
                               // label="Controlled picker"
+                              defaultValue={dateValue}
                               value={dateValue}
                               onChange={handleDateChange}
                               open={isDateOpen}
