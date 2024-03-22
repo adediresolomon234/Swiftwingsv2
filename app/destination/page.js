@@ -3,6 +3,7 @@ import { Space_Grotesk } from "next/font/google";
 import DestinationSliders from "../components/shared/DestionationSlider";
 import Image from "next/image";
 import Swiftwings from "../../public/images/swiftwings.png";
+import DestinationList from "../components/helpers/DestinationList";
 import NavAndFooter from "../components/shared/NavAndFooter";
 
 
@@ -15,16 +16,17 @@ const spaceGrotesk = Space_Grotesk({
 
 const Destinations = () => {
     return (
+      <main className="relative bg-swLightBgGray">
       <NavAndFooter>
-        <div className="relative w-full mt-20">
-          
+      <section className="w-full p-10 pt-20 text-white relative pb-10">
+        <div className="relative w-full ">
         <div className="min-h-screen flex">
           <div className="container m-auto px-20 py-40 md:px-18 lg:py-0 lg:px-32">
             <div className="flex items-center flex-wrap gap-12 lg:gap-0">
               <div className="lg:w-1/3 space-y-6">
-                <h1 className="text-4xl  md:text-7xl dark:text-white">See the world on</h1>
+                <h1 className="text-4xl  md:text-7xl  text-swGray700">See the world on</h1>
                 <Image src={Swiftwings} alt="" width={190} height={190} />
-                <p className="text-sm text-gray-700 dark:text-gray-300">Explore the best of destinations that we cover</p>
+                <p className="text-sm  text-swGray700">Explore the best of destinations that we cover</p>
               </div>
               <div className="hidden relative md:block lg:w-2/3">
                 <DestinationSliders />
@@ -33,7 +35,15 @@ const Destinations = () => {
           </div>
         </div>
       </div>
+    </section>
+    <section className="py-16">
+    <div class="xl:container m-auto px-6 text-gray-600 md:px-12 xl:px-16">
+    <DestinationList/>
+    </div>
+
+    </section>
       </NavAndFooter>
+      </main>
     );
 
 };
