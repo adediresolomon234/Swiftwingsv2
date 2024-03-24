@@ -19,4 +19,5 @@ export { default as SwPlusIcon } from "./plusIcon.svg";
 export { default as SWArrowsChevron } from "./Arrows-chevron.svg";
 export { default as SWSuccessful } from "./success.svg";
 export { default as SWClose } from "./close-black.svg";
-
+export { default as SWPlusRoundBorderIcon } from "./PlusRoundBorderIcon.svg";
+export { default as SWMinusRoundBorderIcon } from "./MinusRoundBorderIcon.svg";
