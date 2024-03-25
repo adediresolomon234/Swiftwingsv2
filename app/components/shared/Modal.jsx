@@ -13,7 +13,7 @@ function ModalPopup() {
 
   return (
     <>
-      <Button label="Complete" bgColor={"bg-swPrimary500"} textColor={"text-white"} onClick={() => setOpenModal(true)} />
+      <Button label="Sign up to complete booking" bgColor={"bg-swPrimary500"} textColor={"text-white"} onClick={() => setOpenModal(true)} />
       {openModal && (
         <div className="fixed inset-0 z-50 bg-black bg-opacity-80 flex justify-center items-center">
           <div className="features-card overflow-hidden rounded-lg bg-white p-6 relative">

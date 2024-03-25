@@ -5,6 +5,7 @@ import Image from "next/image";
 import Swiftwings from "../../public/images/swiftwings.png";
 import DestinationList from "../components/helpers/DestinationList";
 import NavAndFooter from "../components/shared/NavAndFooter";
+import FooterHero from "../components/shared/footerHero";
 
 
 
@@ -40,7 +41,11 @@ const Destinations = () => {
     <div class="xl:container m-auto px-6 text-gray-600 md:px-12 xl:px-16">
     <DestinationList/>
     </div>
-
+    </section>
+    <section className="mt-64 py-16">
+    <div class="xl:container m-auto px-6 text-gray-600 md:px-12 xl:px-16">
+    <FooterHero />
+    </div>
     </section>
       </NavAndFooter>
       </main>

@@ -21,41 +21,52 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 const ProfilePage = () => {
-    return (
-        <main className="flex justify-center items-center min-h-screen">
-            <div className="max-w-sm w-full p-2 mt-20">
-                <p className="text-center text-2xl font-medium">Complete your profile</p>
-                <p className="text-center mt-5 mb-8 text-lg">
-                    Provide sufficient details to complete your booking, It’s a one time thing.
-                </p>
-                <div className="w-full mt-5">
-                    <CustomSelect />
-                </div>
-                <div className="w-full mt-5 ">
-                    <InputField
-                        label={"First name"}
-                        placeholder={"Enter your first name"}
-                    />
-                </div>
-                <div className="w-full mt-5">
-                    <InputField
-                        label={"Last name"}
-                        placeholder={"Enter your last name"}
-                    />
-                </div>
-                <div className="w-full mt-5">
-                    <PhoneExt />
-                </div>
-                <div className="my-7 flex flex-col gap-3">
-                    <ModalPopup />
-                </div>
-                <div className="w-full flex items-center">
-                    <input id="link-checkbox" type="checkbox" value="" className="w-5 h-5 text-swPrimary500 bg-gray-100 border-gray-300 rounded focus:outline-none cursor-pointer" />
-                    <label htmlFor="link-checkbox" className="ms-6 text-xs font-medium text-swGray600">I would like to receive marketing communications from Swiftwings.</label>
-                </div>
-            </div>
-        </main>
-    );
+  return (
+    <main className="flex justify-center items-center min-h-screen">
+      <div className="max-w-md w-full p-2 mt-20">
+        <p className="text-center text-2xl font-medium">Complete your profile</p>
+        <p className="text-center mt-5 mb-8 text-lg">
+          Provide sufficient details to complete your booking, It’s a one time thing.
+        </p>
+        <div className="w-full mt-5">
+          <InputField
+            label={"Email"}
+            name={"email"}
+            placeholder={"Enter email address"}
+            startIcon={<SwMailIcon className="text-xl" />}
+          />
+          <div className="w-full mt-5">
+            <CustomSelect />
+          </div>
+        </div>
+        <div className="flex justify-between mt-5">
+          <div className="w-1/2 pr-2">
+            <InputField
+              label={"First name"}
+              placeholder={"Enter your first name"}
+            />
+          </div>
+          <div className="w-1/2 pl-2">
+            <InputField
+              label={"Last name"}
+              placeholder={"Enter your last name"}
+            />
+          </div>
+        </div>
+
+        <div className="w-full mt-5">
+          <PhoneExt />
+        </div>
+        <div className="my-7 flex flex-col gap-3">
+          <ModalPopup />
+        </div>
+        <div className="w-full flex items-center">
+          <input id="link-checkbox" type="checkbox" value="" className="w-5 h-5 text-swPrimary500 bg-gray-100 border-gray-300 rounded focus:outline-none cursor-pointer" />
+          <label htmlFor="link-checkbox" className="ms-6 text-xs font-medium text-swGray600">I would like to receive marketing communications from Swiftwings.</label>
+        </div>
+      </div>
+    </main>
+  );
   return (
     <main className="flex justify-center items-center min-h-[100vh]">
       <div className="max-w-sm w-full p-2 mt-20">
