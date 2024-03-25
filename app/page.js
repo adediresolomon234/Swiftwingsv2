@@ -278,31 +278,28 @@ export default function Home() {
                 </Link>
                 <div className="p-1 text-xl rounded-full flex gap-5 font-medium backdrop-blur bg-white/25">
                   <button
-                    className={`${
-                      bookingEngine === "One way Trip"
-                        ? "text-white backdrop-blur bg-swBlack/50 font-semibold"
-                        : "text-swGray300 hover:backdrop-blur hover:bg-white/5"
-                    } py-2 px-4 rounded-full`}
+                    className={`${bookingEngine === "One way Trip"
+                      ? "text-white backdrop-blur bg-swBlack/50 font-semibold"
+                      : "text-swGray300 hover:backdrop-blur hover:bg-white/5"
+                      } py-2 px-4 rounded-full`}
                     onClick={() => setBookingEngine("One way Trip")}
                   >
                     One Way Rrip
                   </button>
                   <button
-                    className={`${
-                      bookingEngine === "Round Trip"
-                        ? "text-white backdrop-blur bg-swBlack/50 font-semibold"
-                        : "text-swGray300 hover:backdrop-blur hover:bg-white/5]"
-                    } py-2 px-4 rounded-full`}
+                    className={`${bookingEngine === "Round Trip"
+                      ? "text-white backdrop-blur bg-swBlack/50 font-semibold"
+                      : "text-swGray300 hover:backdrop-blur hover:bg-white/5]"
+                      } py-2 px-4 rounded-full`}
                     onClick={() => setBookingEngine("Round Trip")}
                   >
                     Round Trip
                   </button>
                   <button
-                    className={`${
-                      bookingEngine === "Multi City"
-                        ? "text-white backdrop-blur bg-swBlack/50 font-semibold"
-                        : "text-swGray300 hover:backdrop-blur hover:bg-white/5"
-                    } py-2 px-4 rounded-full`}
+                    className={`${bookingEngine === "Multi City"
+                      ? "text-white backdrop-blur bg-swBlack/50 font-semibold"
+                      : "text-swGray300 hover:backdrop-blur hover:bg-white/5"
+                      } py-2 px-4 rounded-full`}
                     onClick={() => setBookingEngine("Multi City")}
                   >
                     Multi-city trip
@@ -734,9 +731,8 @@ export default function Home() {
                   <div className="">
                     <div
                       aria-hidden="true"
-                      className={`absolute scale-75 md:scale-110 inset-0 m-auto rotate-45 bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl ${
-                        hoveredIndex >= 0 ? "opacity-100" : "opacity-0"
-                      }`}
+                      className={`absolute scale-75 md:scale-110 inset-0 m-auto rotate-45 bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl ${hoveredIndex >= 0 ? "opacity-100" : "opacity-0"
+                        }`}
                     ></div>
                     {hoveredIndex >= 0 && (
                       <div
@@ -832,25 +828,28 @@ export default function Home() {
             </div>
           </div>
           <div className="mb-16">
-            <h2 className="mb-4 text-center text-[18px]  text-gray-700 md:text-[18px] ">
+            <h2 className="mb-8 text-center text-[18px]  text-gray-700 md:text-[18px] ">
               Features
             </h2>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
             <div className="max-w-full grid gap-8 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 grid-rows-2 gap-y-8 justify-center items-center relative">
               {textAreas.map((area, index) => (
                 <div
                   key={index}
-                  className={`bg-swSecondary200 outline-none features-card flex flex-col justify-center items-center py-24 px-4 font-medium text-lg text-swGray600 text-center`}
+                  style={{ width: '270px', height: '180px' }}
+                  className={`bg-swSecondary200 outline-none features-card flex flex-col justify-center items-center py-20 px-6 font-medium text-xl text-swGray600 text-center`}
                 >
                   {area.description}
                 </div>
               ))}
               <Image
-                className="h-[298.8px] w-[328.8px] absolute my-0 mx-[!important] top-[-153px] left-[-154px] object-contain mix-blend-darken z-[1]"
+                className="h-[298.8px] w-[250px] absolute my-3 mx-[!important] top-[-163px] left-[-134px] object-contain mix-blend-darken z-[1]"
                 src={Crown}
                 alt="Crown"
               />
             </div>
-            <div className="flex justify-center text-lg mt-12">
+            </div>
+            <div className="flex justify-center text-lg mt-24">
               <Button
                 label="Become a member"
                 bgColor={"bg-swPrimary500"}

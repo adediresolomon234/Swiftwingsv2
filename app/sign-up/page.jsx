@@ -7,6 +7,7 @@ import InputField from "../components/shared/InputField";
 import { useDispatch, useSelector } from "react-redux";
 import { signUpUser } from "../../redux/slices/authSlice";
 import { TbEyeClosed } from "react-icons/tb";
+import CustomSelect from "../components/shared/CustomSelete";
 import {
   SwGoogleColoredIcon,
   SwKeyIcon,
@@ -30,6 +31,7 @@ const SignUp = () => {
   const [reenterPassword, setReenterPassword] = useState("");
   const [reenterPasswordError, setReenterPasswordError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [showReenterPassword, setShowReenterPassword] = useState(false);
   const [formData, setFormData] = useState({
     first_name: "",
@@ -52,9 +54,10 @@ const SignUp = () => {
   };
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-
-    setFormData({ ...formData, [name]: value });
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const registerHandle = () => {
@@ -89,6 +92,7 @@ const SignUp = () => {
     // If no errors, dispatch the signUpUser action
     if (!emailError && !passwordError && !reenterPasswordError) {
       dispatch(signUpUser(formData));
+      setIsSubmitted(true);
     }
   };
 
@@ -117,17 +121,29 @@ const SignUp = () => {
     if (error) toast.error(error);
   }, [data, error]);
 
+  useEffect(() => {
+    if (isSubmitted) {  // If the form has been submitted
+      setFormData({
+        first_name: "", 
+        last_name: "",
+        phone_number: "",
+        email: "",
+        password: "",
+      });
+      setIsSubmitted(false);  // Reset isSubmitted to false
+    }
+  }, [isSubmitted]); 
+
   return (
     <main className="flex justify-center items-center min-h-screen">
       <ToastContainer />
-      <div className="max-w-lg w-full p-2 mt-20">
+      <div className="max-w-md w-full p-2 mt-20">
         <p className="text-center text-2xl font-medium">Create a new account</p>
         <p className="text-center mt-2 mb-8 text-[0.95rem]">
           Join Swiftwings, book a jet, Enjoy premium membership offers and
           privileges
         </p>
-
-        <div className="w-full">
+        <div className="w-full mt-5">
           <InputField
             label={"Email"}
             name={"email"}
@@ -139,31 +155,32 @@ const SignUp = () => {
           />
           {emailError && <p className="text-red-500">{emailError}</p>}
         </div>
-
-        <div className="flex gap-5">
-          <div className="w-full mt-5">
+        <div className="w-full mt-5">
+          <CustomSelect />
+        </div>
+        <div className="flex justify-between mt-5">
+          <div className="w-1/2 pr-2">
             <InputField
               label={"First Name"}
               placeholder={"Enter first name"}
               name="first_name"
               value={formData.first_name}
               onChange={handleInputChange}
-              // className={emailError ? "error" : ""}
+            // className={emailError ? "error" : ""}
             />
           </div>
 
-          <div className="w-full mt-5">
+          <div className="w-1/2 pl-2">
             <InputField
               label={"Last Name"}
               placeholder={"Enter last name"}
               name="last_name"
               value={formData.last_name}
               onChange={handleInputChange}
-              // className={emailError ? "error" : ""}
+            // className={emailError ? "error" : ""}
             />
           </div>
         </div>
-
         <div className="w-full mt-5">
           <InputField
             label={"Phone"}
@@ -171,7 +188,7 @@ const SignUp = () => {
             name="phone_number"
             value={formData.phone_number}
             onChange={handleInputChange}
-            // className={emailError ? "error" : ""}
+          // className={emailError ? "error" : ""}
           />
         </div>
 

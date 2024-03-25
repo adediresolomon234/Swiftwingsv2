@@ -1,0 +1,33 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 30rem;
+  height: fit-content;
+  padding: 0; 
+  
+  position: relative;
+}
+
+.card img {
+  width: 100%; 
+  height: auto; 
+  border-radius: 10px; 
+  
+}
+
+.card h2 {
+  margin: 0;
+  margin-top: 1rem;
+}
+
+.ul {
+  list-style: none;
+  color: white; /* This will change the color of the bullet points */
+}
+.ul li::before {
+  content: "• ";
+}
+.li {
+  color: black; /* This will change the color of the text inside the li elements */
+}
