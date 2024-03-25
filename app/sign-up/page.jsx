@@ -120,7 +120,7 @@ const SignUp = () => {
   return (
     <main className="flex justify-center items-center min-h-screen">
       <ToastContainer />
-      <div className="max-w-sm w-full p-2 mt-20">
+      <div className="max-w-lg w-full p-2 mt-20">
         <p className="text-center text-2xl font-medium">Create a new account</p>
         <p className="text-center mt-2 mb-8 text-[0.95rem]">
           Join Swiftwings, book a jet, Enjoy premium membership offers and
@@ -128,28 +128,6 @@ const SignUp = () => {
         </p>
 
         <div className="w-full">
-          <InputField
-            label={"First Name"}
-            placeholder={"Enter first name"}
-            name="first_name"
-            value={formData.first_name}
-            onChange={handleInputChange}
-            // className={emailError ? "error" : ""}
-          />
-        </div>
-
-        <div className="w-full mt-5">
-          <InputField
-            label={"Last Name"}
-            placeholder={"Enter last name"}
-            name="last_name"
-            value={formData.last_name}
-            onChange={handleInputChange}
-            // className={emailError ? "error" : ""}
-          />
-        </div>
-
-        <div className="w-full mt-5">
           <InputField
             label={"Email"}
             name={"email"}
@@ -160,6 +138,30 @@ const SignUp = () => {
             className={emailError ? "error" : ""}
           />
           {emailError && <p className="text-red-500">{emailError}</p>}
+        </div>
+
+        <div className="flex gap-5">
+          <div className="w-full mt-5">
+            <InputField
+              label={"First Name"}
+              placeholder={"Enter first name"}
+              name="first_name"
+              value={formData.first_name}
+              onChange={handleInputChange}
+              // className={emailError ? "error" : ""}
+            />
+          </div>
+
+          <div className="w-full mt-5">
+            <InputField
+              label={"Last Name"}
+              placeholder={"Enter last name"}
+              name="last_name"
+              value={formData.last_name}
+              onChange={handleInputChange}
+              // className={emailError ? "error" : ""}
+            />
+          </div>
         </div>
 
         <div className="w-full mt-5">
