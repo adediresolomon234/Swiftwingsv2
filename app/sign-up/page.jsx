@@ -18,6 +18,7 @@ import {
 import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import NavBar from "../components/shared/NavBar";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -135,7 +136,8 @@ const SignUp = () => {
   }, [isSubmitted]); 
 
   return (
-    <main className="flex justify-center items-center min-h-screen">
+    <main className="flex justify-center items-center min-h-screen bg-swSecondary50 pt-20">
+      <NavBar Nav={false} />
       <ToastContainer />
       <div className="max-w-md w-full p-2 mt-20">
         <p className="text-center text-2xl font-medium">Create a new account</p>
@@ -155,9 +157,9 @@ const SignUp = () => {
           />
           {emailError && <p className="text-red-500">{emailError}</p>}
         </div>
-        <div className="w-full mt-5">
+        {/* <div className="w-full mt-5">
           <CustomSelect />
-        </div>
+        </div> */}
         <div className="flex justify-between mt-5">
           <div className="w-1/2 pr-2">
             <InputField

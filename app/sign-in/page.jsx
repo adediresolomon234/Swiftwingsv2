@@ -17,6 +17,7 @@ import {
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -32,12 +33,15 @@ const SignIn = () => {
   const [passwordError, setPasswordError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  
-
   const { loading, error, data } = useSelector((state) => state.auth);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
+  };
+
+  const isValidEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
   };
 
   const handleLogin = () => {
@@ -63,6 +67,7 @@ const SignIn = () => {
   useEffect(() => {
     if (data && data?.message) {
       router.push("/");
+      console.log(data)
       toast.success(data?.message);
     }
     console.log(data);
@@ -70,7 +75,7 @@ const SignIn = () => {
   }, [data, error]);
 
   return (
-    <main className="flex justify-center items-center min-h-[100vh] m-5">
+    <main className="flex justify-center items-center min-h-[100vh] m-5 bg-swSecondary50">
       <ToastContainer />
       <div className="max-w-sm w-full p-2">
         <p className="text-center text-2xl font-medium">Sign In</p>
@@ -116,9 +121,12 @@ const SignIn = () => {
           {passwordError && <p className="text-red-500">{passwordError}</p>}
         </div>
 
-        <p className="ml-auto italic mt-2 text-sm text-swGray800 cursor-pointer w-fit hover:underline">
+        <Link
+          href={"/forgot-password"}
+          className="ml-auto italic mt-2 text-sm text-swGray800 cursor-pointer w-fit hover:underline"
+        >
           Forgot Password?
-        </p>
+        </Link>
 
         <div className="my-7 flex flex-col gap-3">
           <Button
