@@ -46,7 +46,7 @@ const ForgotPassword = () => {
     return emailRegex.test(email);
   };
 
-  const registerHandle = () => {};
+  const handleForgotPassword = () => {};
 
   useEffect(() => {
     if (data && !data?.message) {
@@ -94,7 +94,7 @@ const ForgotPassword = () => {
             <Button
               label={`${loading === "pending" ? "Sending" : "Send mail"}`}
               bgColor={"bg-swPrimary500 text-white"}
-              onClick={registerHandle}
+              onClick={handleForgotPassword}
               loader={loading === "pending" ? true : false}
               disabled={loading === "pending" ? true : false}
             />

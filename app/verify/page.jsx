@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import Button from "../components/Button";
+import NavBar from "../components/shared/NavBar";
 
 const VerifyPage = () => {
   const [inputNum, setInputNum] = useState(1);
@@ -25,7 +26,8 @@ const VerifyPage = () => {
   }, [inputNum]);
 
   return (
-    <main className="flex justify-center items-center min-h-[100vh]">
+    <main className="flex justify-center items-center min-h-[100vh] bg-swSecondary50">
+      <NavBar Nav={false} />
       <div className="max-w-sm w-full p-2">
         <p className="text-center text-2xl font-medium">Verify your email</p>
         <p className="text-center mt-5 mb-8 text-[0.95rem]">

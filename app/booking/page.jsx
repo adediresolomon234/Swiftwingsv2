@@ -30,9 +30,11 @@ import arriveImg from "../../public/images/Arrive-white.png";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
+import { useRouter } from "next/navigation";
 
 const BookJet = () => {
   const containerRef = useRef(null);
+  const router = useRouter()
   const [clickedOutside, setClickedOutside] = useState(false);
   const [bookingEngine, setBookingEngine] = useState("One way Trip");
   const [openPassangers, setOpenPassageners] = useState(false);
@@ -713,6 +715,7 @@ const BookJet = () => {
                   label={"Request Quote"}
                   bgColor={"bg-swPrimary500 hover:bg-swPrimary600"}
                   className="w-full text-white text-center"
+                  onClick={() => router.push("/complete-profile")}
                 />
               </div>
             </div>

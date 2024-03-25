@@ -26,6 +26,7 @@ const spaceGrotesk = Space_Grotesk({
 
 const CompleteProfile = () => {
   const dispatch = useDispatch();
+  const router = useRouter();
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [reenterPassword, setReenterPassword] = useState("");
@@ -59,38 +60,38 @@ const CompleteProfile = () => {
   };
 
   const registerHandle = () => {
-    // Reset errors
-    setEmailError("");
-    setPasswordError("");
-    setReenterPasswordError("");
+    // // Reset errors
+    // setEmailError("");
+    // setPasswordError("");
+    // setReenterPasswordError("");
 
-    // Validate email
-    if (!formData.email) {
-      setEmailError("Email is required");
-    } else if (!isValidEmail(formData.email)) {
-      setEmailError("Invalid email format");
-    }
+    // // Validate email
+    // if (!formData.email) {
+    //   setEmailError("Email is required");
+    // } else if (!isValidEmail(formData.email)) {
+    //   setEmailError("Invalid email format");
+    // }
 
-    // Validate password
-    if (!formData.password) {
-      setPasswordError("Password is required");
-    } else if (!isValidPassword(formData.password)) {
-      setPasswordError(
-        "Password must have at least 8 characters, one uppercase letter, one lowercase letter, and one digit"
-      );
-    }
+    // // Validate password
+    // if (!formData.password) {
+    //   setPasswordError("Password is required");
+    // } else if (!isValidPassword(formData.password)) {
+    //   setPasswordError(
+    //     "Password must have at least 8 characters, one uppercase letter, one lowercase letter, and one digit"
+    //   );
+    // }
 
-    // Validate re-entered password
-    if (!reenterPassword) {
-      setReenterPasswordError("Please re-enter your password");
-    } else if (formData.password !== reenterPassword) {
-      setReenterPasswordError("Passwords do not match");
-    }
+    // // Validate re-entered password
+    // if (!reenterPassword) {
+    //   setReenterPasswordError("Please re-enter your password");
+    // } else if (formData.password !== reenterPassword) {
+    //   setReenterPasswordError("Passwords do not match");
+    // }
 
     // If no errors, dispatch the signUpUser action
-    if (!emailError && !passwordError && !reenterPasswordError) {
-      dispatch(signUpUser(formData));
-    }
+    // if (!emailError && !passwordError && !reenterPasswordError && formData.first_name && formData.last_name) {
+    dispatch(signUpUser(formData));
+    // }
   };
 
   const isValidEmail = (email) => {
@@ -112,6 +113,7 @@ const CompleteProfile = () => {
     if (data && data?.message) {
       // router.push("/");
       toast.success(data?.message);
+      router.push("/verify");
       // alert(data?.message);
     }
     // console.log(data);
@@ -119,62 +121,38 @@ const CompleteProfile = () => {
   }, [data, error]);
 
   return (
-    <>
-      <main className="flex justify-center items-center min-h-screen mt-10">
-        <NavBar Nav={false} />
-        <ToastContainer />
-        <div className="max-w-lg w-full p-2 mt-20">
-          <p className="text-center text-2xl font-medium">
-            Complete your profile
-          </p>
-          <p className="text-center mt-2 mb-8 text-[0.95rem]">
-            Provide sufficient details to complete your booking, It&apos;s a one
-            time thing.
-          </p>
+    <main className="flex justify-center items-center min-h-screen mt-10 bg-swSecondary50">
+      <NavBar Nav={false} />
+      <ToastContainer />
+      <div className="max-w-lg w-full p-2 mt-20">
+        <p className="text-center text-2xl font-medium">
+          Complete your profile
+        </p>
+        <p className="text-center mt-2 mb-8 text-[0.95rem]">
+          Provide sufficient details to complete your booking, It&apos;s a one
+          time thing.
+        </p>
 
-          <div className="w-full">
-            <InputField
-              label={"Email"}
-              name={"email"}
-              placeholder={"Enter email address"}
-              startIcon={<SwMailIcon className="text-xl" />}
-              // value={email}
-              onChange={handleInputChange}
-              className={emailError ? "error" : ""}
-            />
-            {emailError && <p className="text-red-500">{emailError}</p>}
-          </div>
+        <div className="w-full">
+          <InputField
+            label={"Email"}
+            name={"email"}
+            placeholder={"Enter email address"}
+            startIcon={<SwMailIcon className="text-xl" />}
+            // value={email}
+            onChange={handleInputChange}
+            className={emailError ? "error" : ""}
+          />
+          {emailError && <p className="text-red-500">{emailError}</p>}
+        </div>
 
-          <div className="flex gap-5">
-            <div className="w-full mt-5">
-              <InputField
-                label={"First Name"}
-                placeholder={"Enter first name"}
-                name="first_name"
-                value={formData.first_name}
-                onChange={handleInputChange}
-                // className={emailError ? "error" : ""}
-              />
-            </div>
-
-            <div className="w-full mt-5">
-              <InputField
-                label={"Last Name"}
-                placeholder={"Enter last name"}
-                name="last_name"
-                value={formData.last_name}
-                onChange={handleInputChange}
-                // className={emailError ? "error" : ""}
-              />
-            </div>
-          </div>
-
+        <div className="flex gap-5">
           <div className="w-full mt-5">
             <InputField
-              label={"Phone"}
-              placeholder={"Enter Phone No"}
-              name="phone_number"
-              value={formData.phone_number}
+              label={"First Name"}
+              placeholder={"Enter first name"}
+              name="first_name"
+              value={formData.first_name}
               onChange={handleInputChange}
               // className={emailError ? "error" : ""}
             />
@@ -182,71 +160,96 @@ const CompleteProfile = () => {
 
           <div className="w-full mt-5">
             <InputField
-              label={"Password"}
-              name={"password"}
-              placeholder={"Enter password"}
-              startIcon={<SwKeyIcon className="text-xl" />}
-              endIcon={
-                showPassword ? (
-                  <SwOpenEyeIcon
-                    className="text-xl"
-                    onClick={togglePasswordVisibility}
-                  />
-                ) : (
-                  <TbEyeClosed
-                    className="text-xl"
-                    onClick={togglePasswordVisibility}
-                  />
-                )
-              }
-              inputType={showPassword ? "text" : "password"}
+              label={"Last Name"}
+              placeholder={"Enter last name"}
+              name="last_name"
+              value={formData.last_name}
               onChange={handleInputChange}
-              className={passwordError ? "error" : ""}
-            />
-            {passwordError && <p className="text-red-500">{passwordError}</p>}
-          </div>
-          <div className="w-full mt-5">
-            <InputField
-              label={"Re-enter password"}
-              placeholder={"Re-enter password"}
-              startIcon={<SwKeyIcon className="text-xl" />}
-              endIcon={
-                showReenterPassword ? (
-                  <SwOpenEyeIcon
-                    className="text-xl"
-                    onClick={toggleReenterPasswordVisibility}
-                  />
-                ) : (
-                  <TbEyeClosed
-                    className="text-xl"
-                    onClick={toggleReenterPasswordVisibility}
-                  />
-                )
-              }
-              inputType={showReenterPassword ? "text" : "password"}
-              onChange={(e) => setReenterPassword(e.target.value)}
-              className={reenterPasswordError ? "error" : ""}
-            />
-            {reenterPasswordError && (
-              <p className="text-red-500">{reenterPasswordError}</p>
-            )}
-          </div>
-          <div className="my-7 flex flex-col gap-3">
-            <Button
-              label={`${
-                loading === "pending"
-                  ? "Signing up"
-                  : "Sign up to complete booking"
-              }`}
-              bgColor={"bg-swPrimary500 text-white w-full"}
-              onClick={registerHandle}
-              loader={loading === "pending" ? true : false}
-              disabled={loading === "pending" ? true : false}
+              // className={emailError ? "error" : ""}
             />
           </div>
         </div>
-      </main>
-    </>
+
+        <div className="w-full mt-5">
+          <InputField
+            label={"Phone"}
+            placeholder={"Enter Phone No"}
+            name="phone_number"
+            value={formData.phone_number}
+            onChange={handleInputChange}
+            // className={emailError ? "error" : ""}
+          />
+        </div>
+
+        <div className="w-full mt-5">
+          <InputField
+            label={"Password"}
+            name={"password"}
+            placeholder={"Enter password"}
+            startIcon={<SwKeyIcon className="text-xl" />}
+            endIcon={
+              showPassword ? (
+                <SwOpenEyeIcon
+                  className="text-xl"
+                  onClick={togglePasswordVisibility}
+                />
+              ) : (
+                <TbEyeClosed
+                  className="text-xl"
+                  onClick={togglePasswordVisibility}
+                />
+              )
+            }
+            inputType={showPassword ? "text" : "password"}
+            onChange={handleInputChange}
+            className={passwordError ? "error" : ""}
+          />
+          {passwordError && <p className="text-red-500">{passwordError}</p>}
+        </div>
+        <div className="w-full mt-5">
+          <InputField
+            label={"Re-enter password"}
+            placeholder={"Re-enter password"}
+            startIcon={<SwKeyIcon className="text-xl" />}
+            endIcon={
+              showReenterPassword ? (
+                <SwOpenEyeIcon
+                  className="text-xl"
+                  onClick={toggleReenterPasswordVisibility}
+                />
+              ) : (
+                <TbEyeClosed
+                  className="text-xl"
+                  onClick={toggleReenterPasswordVisibility}
+                />
+              )
+            }
+            inputType={showReenterPassword ? "text" : "password"}
+            onChange={(e) => setReenterPassword(e.target.value)}
+            className={reenterPasswordError ? "error" : ""}
+          />
+          {reenterPasswordError && (
+            <p className="text-red-500">{reenterPasswordError}</p>
+          )}
+        </div>
+
+        <div></div>
+
+        <div className="my-7 flex justify-center">
+          <Button
+            label={`${
+              loading === "pending"
+                ? "Signing up"
+                : "Sign up to complete booking"
+            }`}
+            bgColor={"bg-swPrimary500 text-white"}
+            onClick={registerHandle}
+            loader={loading === "pending" ? true : false}
+            disabled={loading === "pending" ? true : false}
+          />
+        </div>
+      </div>
+    </main>
   );
 };
 

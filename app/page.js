@@ -296,11 +296,12 @@ export default function Home() {
                     Round Trip
                   </button>
                   <button
-                    className={`${bookingEngine === "Multi City"
-                      ? "text-white backdrop-blur bg-swBlack/50 font-semibold"
-                      : "text-swGray300 hover:backdrop-blur hover:bg-white/5"
-                      } py-2 px-4 rounded-full`}
-                    onClick={() => setBookingEngine("Multi City")}
+                    className={`${
+                      bookingEngine === "Multi-city Trip"
+                        ? "text-white backdrop-blur bg-swBlack/50 font-semibold"
+                        : "text-swGray300 hover:backdrop-blur hover:bg-white/5"
+                    } py-2 px-4 rounded-full`}
+                    onClick={() => setBookingEngine("Multi-city Trip")}
                   >
                     Multi-city trip
                   </button>
@@ -317,7 +318,7 @@ export default function Home() {
                   />
                 </div>
               </div>
-              {bookingEngine === "Multi City" ? (
+              {bookingEngine === "Multi-city Trip" ? (
                 <MultiCity />
               ) : (
                 <div className="flex justify-between mb-5">
@@ -695,7 +696,7 @@ export default function Home() {
                       onMouseEnter={() => handleMouseEnter(index)}
                       onMouseLeave={handleMouseLeave}
                     >
-                      <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-2 mt-2  border-gray-200 rounded duration-300 hover:bg-swBgGray">
+                      <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-2 border-gray-200 rounded duration-300 hover:bg-swBgGray">
                         <div className="flex items-center fleet-item">
                           <a aria-label="icon" className="block">
                             <p className="font-medium md:block text-[20px] text-swGray700">
