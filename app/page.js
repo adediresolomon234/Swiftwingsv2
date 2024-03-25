@@ -46,6 +46,7 @@ import { AdapterFormats } from "@mui/x-date-pickers";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
+import MultiCity from "./components/multi-city-trip-boking/MultiCity";
 
 const space_grotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -83,10 +84,11 @@ export default function Home() {
   const [arrivalAirport, setArrivalAirport] = useState(null);
   const [isDateOpen, setDateOpen] = useState(false);
   const [dateValue, setDateValue] = useState(dayjs());
+  const [roundTripDateValue, setRoundTripDateValue] = useState(dayjs());
   const departureRef = useRef(null);
   const arrivalRef = useRef(null);
   const dateRef = useRef(null);
-  const occupantRef = useRef(null);
+  const passengerRef = useRef(null);
 
   const { loading, error, data } = useSelector((state) => state.aviPages);
   // console.log({ data: data?.data?.results });
@@ -130,12 +132,11 @@ export default function Home() {
     setHoveredIndex(0);
   };
 
+  const handleRoundTripDateChange = (roundTripDateValue) => {
+    setRoundTripDateValue(roundTripDateValue);
+  };
+
   const handleBookJet = () => {
-    // localStorage.setItem("departureAirport", JSON.stringify(departureAirport));
-    // localStorage.setItem("arrivalAirport", JSON.stringify(arrivalAirport));
-    // localStorage.setItem("adultsNo", adultsNo);
-    // localStorage.setItem("kidsNo", kidsNo);
-    // localStorage.setItem("petsNo", petsNo);
     const booking = {
       user: {
         first_name: "",
@@ -149,19 +150,23 @@ export default function Home() {
         formData: [
           {
             source: {
-              label: `${departureAirport.name} - ${departureAirport.city} - ${departureAirport.iata_code} ${departureAirport.country}`,
+              label: `${departureAirport?.name} - ${departureAirport?.city} - ${departureAirport?.iata_code} ${departureAirport?.country}`,
               value: departureAirport,
               disabled: false,
             },
             destination: {
-              label: `${arrivalAirport.name} - ${arrivalAirport.city} - ${arrivalAirport.iata_code} ${arrivalAirport.country}`,
+              label: `${arrivalAirport?.name} - ${arrivalAirport?.city} - ${arrivalAirport?.iata_code} ${arrivalAirport?.country}`,
               value: arrivalAirport,
               disabled: false,
             },
-            depatureTime: `${dateValue.$H}:${dateValue.$m}`,
-            returningTime: null,
-            returningDate: null,
-            depatureDate: `${dateValue.$y}-${dateValue.$M + 1}-${dateValue.$D}`,
+            depatureTime: `${dateValue?.$H}:${dateValue?.$m}`,
+            returningTime: `${roundTripDateValue?.$H}:${roundTripDateValue?.$m}`,
+            returningDate: `${roundTripDateValue?.$y}-${
+              roundTripDateValue?.$M + 1
+            }-${roundTripDateValue?.$D}`,
+            depatureDate: `${dateValue?.$y}-${dateValue?.$M + 1}-${
+              dateValue?.$D
+            }`,
             passengers: {
               adults: adultsNo,
               children: kidsNo,
@@ -191,54 +196,38 @@ export default function Home() {
 
   const handleDateChange = (newValue) => {
     setDateValue(newValue);
-    setDateOpen(false);
   };
 
   console.log(dateValue);
-  // console.log(dateValue.M)
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      // Check if the click event occurred outside the container
 
-  // useEffect(() => {
-  //   setAirports(data?.data?.results);
-  // }, [data]);
+      if (!departureRef?.current?.contains(event.target)) {
+        setOpenDeparture(false);
+        console.log("departure clicked");
+      }
+      if (!arrivalRef?.current?.contains(event.target)) {
+        setOpenArrival(false);
+        console.log("arrival clicked");
+      }
+      // if (!dateRef?.current?.contains(event.target)) {
+      //   setDateOpen(false);
+      //   console.log("date clicked");
+      // }
+      if (!passengerRef?.current?.contains(event.target)) {
+        setOpenPassageners(false);
+      }
+    };
 
-  // useEffect(() => {
-  //   dispatch(getAviAirPort(""));
-  //   // data && setAirports(data?.data?.results);
-  // }, []);
+    // Add event listener for click events
+    document.addEventListener("mousedown", handleClickOutside);
 
-  // useEffect(() => {
-  //   const handleClickOutside = (event) => {
-  //     if (
-  //       departureRef.current &&
-  //       !departureRef.current.contains(event.target)
-  //     ) {
-  //       setOpenDeparture(false);
-  //       console.log(event.target);
-  //     }
-
-  //     // if (
-  //     //   arrivalRef.current &&
-  //     //   !arrivalRef.current.contains(event.target) &&
-  //     //   event.target.id !== arrive
-  //     // ) {
-  //     //   setOpenArrival(false);
-  //     // }
-
-  //     // if (
-  //     //   occupantRef.current &&
-  //     //   !occupantRef.current.contains(event.target) &&
-  //     //   event.target.id !== occupants
-  //     // ) {
-  //     //   // setOpenPassageners(false);
-  //     //   console.log("HEllo");
-  //     // }
-  //   };
-  //   document.addEventListener("click", handleClickOutside);
-
-  //   return () => {
-  //     document.removeEventListener("click", handleClickOutside);
-  //   };
-  // }, []);
+    return () => {
+      // Remove event listener when the component unmounts
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  });
 
   return (
     <main className="relative bg-swLightBgGray">
@@ -328,252 +317,291 @@ export default function Home() {
                   />
                 </div>
               </div>
-              <div className="flex justify-between mb-5">
-                <div className="flex items-center gap-5 mx-auto flex-wrap">
-                  <div className="flex items-center mx-auto relative">
-                    <div
-                      className="p-5 pr-16 flex h-[5.5rem] w-[18rem] items-center gap-5 border border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50 rounded-tl-2xl rounded-bl-2xl cursor-pointer"
-                      ref={departureRef}
-                      onClick={(e) => {
-                        setOpenDeparture(!openDeparture);
-                      }}
-                    >
-                      <div className="bg-swPrimary500 p-1 rounded-full">
-                        <div className="h-7 w-7 relative flex justify-center items-center">
-                          <SwDeparturePlaneIcon className="text-[1.6rem]" />
-                        </div>
-                      </div>
-                      <div>
-                        <p className="text-swGray500 text-sm">Departure city</p>
-                        <p className="text-white font-medium">
-                          {/* Abuja - Nigeria */}
-                          {departureAirport === null
-                            ? "Select City"
-                            : `${departureAirport.city} - ${departureAirport.country}`}
-                        </p>
-                      </div>
-                    </div>
-                    <div className="p-1 rounded-full border border-swGray900 text-swBlack ml-[47.5%] bg-white absolute z-10">
-                      <GoArrowRight size={15} className={"-mb-2 ml-1"} />
-                      <GoArrowLeft size={15} className="-mt-2 mr-1" />
-                    </div>
-                    <div
-                      className="p-5 pr-16 flex h-[5.5rem] w-[18rem] items-center gap-5 border border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50 border-l-transparent rounded-tr-2xl rounded-br-2xl cursor-pointer"
-                      ref={arrivalRef}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setOpenArrival(!openArrival);
-                      }}
-                    >
-                      <div className="bg-swPrimary500 p-1 rounded-full">
-                        <div className="h-7 w-7 relative flex justify-center items-center">
-                          <SwArrivalPlaneIcon className="text-[1.6rem]" />
-                        </div>
-                      </div>
-                      <div>
-                        <p className="text-swGray500 text-sm">Arrival city</p>
-                        <p className="text-white font-medium">
-                          {/* Lagos - Nigeria */}
-                          {arrivalAirport === null
-                            ? "Select City"
-                            : `${arrivalAirport.city} - ${arrivalAirport.country}`}
-                        </p>
-                      </div>
-                    </div>
-
-                    {openDeparture && (
+              {bookingEngine === "Multi City" ? (
+                <MultiCity />
+              ) : (
+                <div className="flex justify-between mb-5">
+                  <div className="flex items-center gap-5 mx-auto flex-wrap">
+                    <div className="flex items-center mx-auto relative">
                       <div
-                        // id="depart"
-
-                        className="absolute text-swGray800 top-24 w-full z-10"
+                        className="p-5 pr-16 flex h-[5.5rem] w-[18rem] items-center gap-5 border border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50 rounded-tl-2xl rounded-bl-2xl cursor-pointer"
+                        onClick={(e) => {
+                          setOpenDeparture(!openDeparture);
+                        }}
                       >
-                        <Select
-                          getOptionLabel={getOptionLabel}
-                          options={options}
-                          filterOption={filterOption}
-                          placeholder="Select Departure City"
-                          onChange={(selectedOption) => {
-                            setDepartureAirport(selectedOption.value);
-                            setOpenDeparture(false);
-                          }}
-                        />
-                      </div>
-                    )}
-                    {openArrival && (
-                      <div
-                        id="arrive"
-                        className="absolute text-swGray800 top-24 w-full z-10"
-                      >
-                        <Select
-                          getOptionLabel={getOptionLabel}
-                          options={options}
-                          filterOption={filterOption}
-                          placeholder="Select Arrival City"
-                          onChange={(selectedOption) => {
-                            setArrivalAirport(selectedOption.value);
-                            setOpenArrival(false);
-                          }}
-                        />
-                      </div>
-                    )}
-                  </div>
-                  <div className="flex justify-around gap-5 mx-auto flex-wrap">
-                    <div className="relative p-5 pr-16 flex items-center h-[5.5rem] w-72 gap-5 border border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50 rounded-2xl cursor-pointer">
-                      <div className="p-2 rounded-full text-swGray900">
-                        <SwCalendarIcon className="text-xl" />
-                      </div>
-                      <div>
-                        {bookingEngine === "Round Trip" ? (
-                          <div>
-                            <p className="text-swLightGray text-sm">
-                              Departure and arrival date
-                            </p>
-                            <p className=" text-swGray800 font-semibold">
-                              20 Jan
-                            </p>
+                        <div className="bg-swPrimary500 p-1 rounded-full">
+                          <div className="h-7 w-7 relative flex justify-center items-center">
+                            <SwDeparturePlaneIcon className="text-[1.6rem]" />
                           </div>
-                        ) : (
-                          <div onClick={() => setDateOpen(true)}>
-                            <p className="text-swLightGray text-sm">
-                              Departure date
-                            </p>
-                            <p className="font-semibold">
-                              {dateValue.format("D, MMM")}
-                            </p>
-                          </div>
-                        )}
-                      </div>
-                      {isDateOpen && (
-                        <div className="absolute">
-                          <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <DateTimePicker
-                              // label="Controlled picker"
-                              defaultValue={dateValue}
-                              value={dateValue}
-                              onChange={handleDateChange}
-                              open={isDateOpen}
-                              onOpen={() => setDateOpen(true)}
-                              onClose={() => setDateOpen(false)}
-                            />
-                          </LocalizationProvider>
-                        </div>
-                      )}
-                    </div>
-                    <div className="relative">
-                      <div
-                        className="p-5 flex items-center h-[5.5rem] w-72 gap-5 border border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50 rounded-2xl cursor-pointer"
-                        ref={occupantRef}
-                        onClick={() => setOpenPassageners(!openPassangers)}
-                      >
-                        <div className="p-2 rounded-full text-swGray900">
-                          <SwUserIcon className="text-xl" />
                         </div>
                         <div>
-                          <p className="text-swGray500 text-sm">Occupants</p>
+                          <p className="text-swGray500 text-sm">
+                            Departure city
+                          </p>
                           <p className="text-white font-medium">
-                            Adults - {allPassangers.adults} Children -{" "}
-                            {allPassangers.kids} Pets - {allPassangers.pets}
+                            {/* Abuja - Nigeria */}
+                            {departureAirport === null
+                              ? "Select City"
+                              : `${departureAirport.city} - ${departureAirport.country}`}
                           </p>
                         </div>
                       </div>
-                      {openPassangers && (
-                        <div
-                          id="occupants"
-                          className="absolute text-swGray900 top-24 bg-white w-full shadow-md rounded-md"
-                        >
-                          <div className="p-5 flex flex-col gap-5 font-medium">
-                            <p className="font-semibold text-lg">Occupants</p>
-
-                            <div className="flex flex-col gap-5">
-                              <div className="flex justify-between items-center">
-                                <p className="">Adults</p>
-                                <div className="border hover:border-swPrimary500 rounded-md overflow-hidden flex">
-                                  <p
-                                    className="p-2 cursor-pointer hover:bg-swPrimary500 hover:text-white"
-                                    onClick={() =>
-                                      setAdultsNo(adultsNo > 0 ? --adultsNo : 0)
-                                    }
-                                  >
-                                    <FiMinus size={20} />
-                                  </p>
-                                  <p className="h-10 w-14 flex justify-center items-center border-x">
-                                    {adultsNo}
-                                  </p>
-                                  <p
-                                    className="p-2 cursor-pointer hover:bg-swPrimary500 hover:text-white"
-                                    onClick={() => setAdultsNo(++adultsNo)}
-                                  >
-                                    <FiPlus size={20} />
-                                  </p>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="flex flex-col gap-5">
-                              <div className="flex justify-between items-center">
-                                <p className="">Kids</p>
-                                <div className="border hover:border-swPrimary500 rounded-md overflow-hidden flex">
-                                  <p
-                                    className="p-2 cursor-pointer hover:bg-swPrimary500 hover:text-white"
-                                    onClick={() =>
-                                      setKidsNo(kidsNo > 0 ? --kidsNo : 0)
-                                    }
-                                  >
-                                    <FiMinus size={20} />
-                                  </p>
-                                  <p className="h-10 w-14 flex justify-center items-center border-x">
-                                    {kidsNo}
-                                  </p>
-                                  <p
-                                    className="p-2 cursor-pointer hover:bg-swPrimary500 hover:text-white"
-                                    onClick={() => setKidsNo(++kidsNo)}
-                                  >
-                                    <FiPlus size={20} />
-                                  </p>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="flex flex-col gap-5">
-                              <div className="flex justify-between items-center">
-                                <p className="">Pets</p>
-                                <div className="border hover:border-swPrimary500 rounded-md overflow-hidden flex">
-                                  <p
-                                    className="p-2 cursor-pointer hover:bg-swPrimary500 hover:text-white"
-                                    onClick={() =>
-                                      setPetsNo(petsNo > 0 ? --petsNo : 0)
-                                    }
-                                  >
-                                    <FiMinus size={20} />
-                                  </p>
-                                  <p className="h-10 w-14 flex justify-center items-center border-x">
-                                    {petsNo}
-                                  </p>
-                                  <p
-                                    className="p-2 cursor-pointer hover:bg-swPrimary500 hover:text-white"
-                                    onClick={() => setPetsNo(++petsNo)}
-                                  >
-                                    <FiPlus size={20} />
-                                  </p>
-                                </div>
-                              </div>
-                            </div>
-
-                            <div className="flex items-center justify-between">
-                              <p>Done?</p>
-                              <Button
-                                bgColor={"bg-swPrimary500"}
-                                label={"Save"}
-                                textColor={"text-white"}
-                                endIcon={<IoCheckmark size={20} />}
-                                onClick={handleSavePassangers}
-                              />
-                            </div>
+                      <div className="p-1 rounded-full border border-swGray900 text-swBlack ml-[47.5%] bg-white absolute z-10">
+                        <GoArrowRight size={15} className={"-mb-2 ml-1"} />
+                        <GoArrowLeft size={15} className="-mt-2 mr-1" />
+                      </div>
+                      <div
+                        className="p-5 pr-16 flex h-[5.5rem] w-[18rem] items-center gap-5 border border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50 border-l-transparent rounded-tr-2xl rounded-br-2xl cursor-pointer"
+                        onClick={(e) => {
+                          setOpenArrival(!openArrival);
+                        }}
+                      >
+                        <div className="bg-swPrimary500 p-1 rounded-full">
+                          <div className="h-7 w-7 relative flex justify-center items-center">
+                            <SwArrivalPlaneIcon className="text-[1.6rem]" />
                           </div>
+                        </div>
+                        <div>
+                          <p className="text-swGray500 text-sm">Arrival city</p>
+                          <p className="text-white font-medium">
+                            {/* Lagos - Nigeria */}
+                            {arrivalAirport === null
+                              ? "Select City"
+                              : `${arrivalAirport.city} - ${arrivalAirport.country}`}
+                          </p>
+                        </div>
+                      </div>
+
+                      {openDeparture && (
+                        <div
+                          // id="depart"
+                          ref={departureRef}
+                          className="absolute text-swGray800 top-24 w-full z-10"
+                        >
+                          <Select
+                            getOptionLabel={getOptionLabel}
+                            options={options}
+                            filterOption={filterOption}
+                            placeholder="Select Departure City"
+                            onChange={(selectedOption) => {
+                              setDepartureAirport(selectedOption.value);
+                              setOpenDeparture(false);
+                            }}
+                          />
+                        </div>
+                      )}
+                      {openArrival && (
+                        <div
+                          id="arrive"
+                          ref={arrivalRef}
+                          className="absolute text-swGray800 top-24 w-full z-10"
+                        >
+                          <Select
+                            getOptionLabel={getOptionLabel}
+                            options={options}
+                            filterOption={filterOption}
+                            placeholder="Select Arrival City"
+                            onChange={(selectedOption) => {
+                              setArrivalAirport(selectedOption.value);
+                              setOpenArrival(false);
+                            }}
+                          />
                         </div>
                       )}
                     </div>
+                    <div className="flex justify-around gap-5 mx-auto flex-wrap">
+                      <div
+                        onClick={() => setDateOpen(true)}
+                        className="relative p-5 flex h-[5.5rem] w-[18rem] items-center gap-5 border border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50 rounded-2xl cursor-pointer"
+                        // ref={dateRef}
+                      >
+                        {!isDateOpen && (
+                          <div className="p-2 rounded-full text-white">
+                            <SwCalendarIcon className="text-xl" />
+                          </div>
+                        )}
+                        <div>
+                          {bookingEngine === "Round Trip" ? (
+                            <div className="w-full">
+                              {!isDateOpen && (
+                                <>
+                                  <p className="text-swGray500 text-sm">
+                                    Departure and arrival date
+                                  </p>
+                                  <p className=" text-white font-semibold">
+                                    {dateValue.format("D MMM")} -{" "}
+                                    {roundTripDateValue.format("D MMM")}
+                                  </p>
+                                </>
+                              )}
+                            </div>
+                          ) : (
+                            <div>
+                              {!isDateOpen && (
+                                <>
+                                  <p className="text-swGray500 text-sm">
+                                    Departure date
+                                  </p>
+                                  <p className=" text-white font-semibold">
+                                    {dateValue.format("D MMM")}
+                                  </p>
+                                </>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                        {isDateOpen && (
+                          <div
+                            className={`absolute ${
+                              bookingEngine === "Round Trip" && "-ml-5"
+                            }`}
+                          >
+                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                              <div className="flex">
+                                <DateTimePicker
+                                  label="Departure Date"
+                                  defaultValue={dateValue}
+                                  value={dateValue}
+                                  onChange={handleDateChange}
+                                  onClose={() => setDateOpen(false)}
+                                  renderInput={(params) => (
+                                    <TextField {...params} />
+                                  )}
+                                />
+                                {bookingEngine === "Round Trip" && (
+                                  <DateTimePicker
+                                    label="Arrival Date"
+                                    defaultValue={roundTripDateValue}
+                                    value={roundTripDateValue}
+                                    onChange={handleRoundTripDateChange}
+                                    onClose={() => setDateOpen(false)}
+                                    renderInput={(params) => (
+                                      <TextField {...params} />
+                                    )}
+                                  />
+                                )}
+                              </div>
+                            </LocalizationProvider>
+                          </div>
+                        )}
+                      </div>
+                      <div className="relative">
+                        <div
+                          className="p-5 flex items-center h-[5.5rem] w-72 gap-5 border border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50 rounded-2xl cursor-pointer"
+                          onClick={() => setOpenPassageners(!openPassangers)}
+                        >
+                          <div className="p-2 rounded-full text-swGray900">
+                            <SwUserIcon className="text-xl" />
+                          </div>
+                          <div>
+                            <p className="text-swGray500 text-sm">Occupants</p>
+                            <p className="text-white font-medium">
+                              Adults - {allPassangers.adults} Children -{" "}
+                              {allPassangers.kids} Pets - {allPassangers.pets}
+                            </p>
+                          </div>
+                        </div>
+                        {openPassangers && (
+                          <div
+                            ref={passengerRef}
+                            className="absolute text-swGray900 top-24 bg-white w-full shadow-md rounded-md"
+                          >
+                            <div className="p-5 flex flex-col gap-5 font-medium">
+                              <p className="font-semibold text-lg">Occupants</p>
+
+                              <div className="flex flex-col gap-5">
+                                <div className="flex justify-between items-center">
+                                  <p className="">Adults</p>
+                                  <div className="border hover:border-swPrimary500 rounded-md overflow-hidden flex">
+                                    <p
+                                      className="p-2 cursor-pointer hover:bg-swPrimary500 hover:text-white"
+                                      onClick={() =>
+                                        setAdultsNo(
+                                          adultsNo > 0 ? --adultsNo : 0
+                                        )
+                                      }
+                                    >
+                                      <FiMinus size={20} />
+                                    </p>
+                                    <p className="h-10 w-14 flex justify-center items-center border-x">
+                                      {adultsNo}
+                                    </p>
+                                    <p
+                                      className="p-2 cursor-pointer hover:bg-swPrimary500 hover:text-white"
+                                      onClick={() => setAdultsNo(++adultsNo)}
+                                    >
+                                      <FiPlus size={20} />
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="flex flex-col gap-5">
+                                <div className="flex justify-between items-center">
+                                  <p className="">Kids</p>
+                                  <div className="border hover:border-swPrimary500 rounded-md overflow-hidden flex">
+                                    <p
+                                      className="p-2 cursor-pointer hover:bg-swPrimary500 hover:text-white"
+                                      onClick={() =>
+                                        setKidsNo(kidsNo > 0 ? --kidsNo : 0)
+                                      }
+                                    >
+                                      <FiMinus size={20} />
+                                    </p>
+                                    <p className="h-10 w-14 flex justify-center items-center border-x">
+                                      {kidsNo}
+                                    </p>
+                                    <p
+                                      className="p-2 cursor-pointer hover:bg-swPrimary500 hover:text-white"
+                                      onClick={() => setKidsNo(++kidsNo)}
+                                    >
+                                      <FiPlus size={20} />
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="flex flex-col gap-5">
+                                <div className="flex justify-between items-center">
+                                  <p className="">Pets</p>
+                                  <div className="border hover:border-swPrimary500 rounded-md overflow-hidden flex">
+                                    <p
+                                      className="p-2 cursor-pointer hover:bg-swPrimary500 hover:text-white"
+                                      onClick={() =>
+                                        setPetsNo(petsNo > 0 ? --petsNo : 0)
+                                      }
+                                    >
+                                      <FiMinus size={20} />
+                                    </p>
+                                    <p className="h-10 w-14 flex justify-center items-center border-x">
+                                      {petsNo}
+                                    </p>
+                                    <p
+                                      className="p-2 cursor-pointer hover:bg-swPrimary500 hover:text-white"
+                                      onClick={() => setPetsNo(++petsNo)}
+                                    >
+                                      <FiPlus size={20} />
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div className="flex items-center justify-between">
+                                <p>Done?</p>
+                                <Button
+                                  bgColor={"bg-swPrimary500"}
+                                  label={"Save"}
+                                  textColor={"text-white"}
+                                  endIcon={<IoCheckmark size={20} />}
+                                  onClick={handleSavePassangers}
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
             </div>
           </section>
         </section>
