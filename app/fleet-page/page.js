@@ -6,8 +6,6 @@ import NavAndFooter from "../components/shared/NavAndFooter";
 import FooterHero from "../components/shared/footerHero";
 
 
-
-
 const spaceGrotesk = Space_Grotesk({
     subsets: ["latin"],
     weight: ["300", "400", "500", "600", "700"],
@@ -36,9 +34,9 @@ const FleetPage = () => {
                     </div>
                 </section>
                 <section className="py-16">
-                    <div class="grid grid-cols-3 gap-4">
-                        <div class="...">06</div>
-                        <div class="col-span-2 ...">07</div>
+                    <div className="grid grid-cols-3 gap-4">
+                        <div className=""></div>
+                        <div className="col-span-2 "></div>
                     </div>
                 </section>
                 <section className="py-16">

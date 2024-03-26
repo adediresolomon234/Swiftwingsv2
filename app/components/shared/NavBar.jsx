@@ -8,8 +8,15 @@ const NavBar = ({ Nav }) => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const getUser = JSON.parse(localStorage.getItem("user"));
-    setUser(getUser);
+    const userItem = localStorage.getItem("user");
+    if (userItem) {
+      try {
+        const getUser = JSON.parse(userItem);
+        setUser(getUser);
+      } catch (error) {
+        console.error("Error parsing user data:", error);
+      }
+    }
   }, []);
 
   return (
