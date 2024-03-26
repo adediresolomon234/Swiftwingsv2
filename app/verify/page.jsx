@@ -29,7 +29,9 @@ const VerifyPage = () => {
     <main className="flex justify-center items-center min-h-[100vh] bg-swSecondary50">
       <NavBar Nav={false} />
       <div className="max-w-sm w-full p-2">
-        <p className="text-center text-2xl font-medium">Verify your email</p>
+        <p className="text-center text-2xl font-semibold text-swGray800">
+          Verify your email
+        </p>
         <p className="text-center mt-5 mb-8 text-[0.95rem]">
           Sign in to Swiftwings to manage your bookings
         </p>

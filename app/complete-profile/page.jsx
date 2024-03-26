@@ -1,4 +1,5 @@
 "use client";
+
 import { useEffect, useState } from "react";
 import { Space_Grotesk } from "next/font/google";
 import "../../styles.css";
@@ -125,10 +126,10 @@ const CompleteProfile = () => {
       <NavBar Nav={false} />
       <ToastContainer />
       <div className="max-w-lg w-full p-2 mt-20">
-        <p className="text-center text-2xl font-medium">
+        <p className="text-center text-2xl font-semibold text-swGray800">
           Complete your profile
         </p>
-        <p className="text-center mt-2 mb-8 text-[0.95rem]">
+        <p className="text-center mt-2 mb-8 text-lg text-swGRay800">
           Provide sufficient details to complete your booking, It&apos;s a one
           time thing.
         </p>

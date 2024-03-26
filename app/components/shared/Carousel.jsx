@@ -1,6 +1,8 @@
-import Carousel from "react-spring-3d-carousel";
+"use client";
+
+//import Carousel from "react-spring-3d-carousel";
 import { useState, useEffect } from "react";
-import { config } from "react-spring";
+//import { config } from "react-spring";
 
 const MyCarousel  =(props) => {
   const table = props.cards.map((element, index) => {
@@ -29,13 +31,13 @@ const MyCarousel  =(props) => {
     <div
       style={{ width: props.width, height: props.height, margin: props.margin }}
     >
-      <Carousel
+      {/* <Carousel
         slides={cards}
         goToSlide={goToSlide}
         offsetRadius={offsetRadius}
         showNavigation={showArrows}
         animationConfig={config.gentle}
-      />
+      /> */}
     </div>
   );
 };
