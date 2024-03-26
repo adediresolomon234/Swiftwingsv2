@@ -4,11 +4,11 @@ import Footer from "./Footer";
 import NavBar from "./NavBar";
 import { Children } from "react";
 
-const NavAndFooter = ({ children }) => {
+const NavAndFooter = ({ children, Nav }) => {
   return (
     <div>
-      <NavBar />
-      <div >{children}</div>
+      <NavBar Nav={Nav} />
+      <div>{children}</div>
       <Footer />
     </div>
   );
