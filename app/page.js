@@ -173,8 +173,9 @@ export default function Home() {
       additional_quote: [],
     };
 
-    localStorage.setItem("bookingDetails", JSON.stringify(booking));
-
+    if (typeof self !== 'undefined') {
+      localStorage.setItem("bookingDetails", JSON.stringify(booking));
+    }
     router.push("/booking");
   };
 
