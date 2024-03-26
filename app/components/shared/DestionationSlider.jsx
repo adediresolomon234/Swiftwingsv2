@@ -1,9 +1,17 @@
 // components/DestinationSliders.js
 import { v4 as uuidv4 } from "uuid";
 import Card from "./Card";
+import { useState, useEffect } from "react"
 import MyCarousel  from "./Carousel";
 
 const DestinationSliders = () => {
+  useEffect(() => {
+    // Ensure code runs only in the browser environment
+    if (typeof window !== 'undefined') {
+      // Place your client-side code here
+    }
+  }, []);
+
   let cards = [
     {
       key: uuidv4(),

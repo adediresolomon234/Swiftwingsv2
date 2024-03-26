@@ -17,6 +17,14 @@ const MyCarousel  =(props) => {
     setShowArrows(props.showArrows);
   }, [props.offset, props.showArrows]);
 
+  useEffect(() => {
+    // Code that depends on browser environment (e.g., window)
+    // Ensure it runs only in the browser environment
+    if (typeof window !== 'undefined') {
+      // Place your client-side code here
+    }
+  }, []);
+  
   return (
     <div
       style={{ width: props.width, height: props.height, margin: props.margin }}
