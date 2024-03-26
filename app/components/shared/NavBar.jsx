@@ -26,7 +26,7 @@ const NavBar = ({ Nav }) => {
             <Link href={""} className="py-2 px-4 rounded-full hover:bg-white">
               Fleets
             </Link>
-            <Link href={""} className="py-2 px-4 rounded-full hover:bg-white">
+            <Link href={"/destination"} className="py-2 px-4 rounded-full hover:bg-white">
               Destination
             </Link>
             <Link href={""} className="py-2 px-4 rounded-full hover:bg-white">

@@ -4,8 +4,6 @@ import { Space_Grotesk } from "next/font/google";
 import Image from "next/image";
 import { GoArrowRight } from "react-icons/go";
 import { GoArrowLeft } from "react-icons/go";
-import { MdMms, MdOutlineCalendarToday } from "react-icons/md";
-import { BiUser } from "react-icons/bi";
 import Button from "./components/Button";
 import { HiArrowRight } from "react-icons/hi";
 import Services from "./components/Services";
@@ -42,8 +40,6 @@ import { useRouter } from "next/navigation";
 import { DatePicker, DateTimePicker } from "@mui/x-date-pickers";
 import TextField from "@mui/material/TextField";
 import { LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterFormats } from "@mui/x-date-pickers";
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 import MultiCity from "./components/multi-city-trip-boking/MultiCity";
@@ -64,7 +60,6 @@ function isNearViewport(id) {
 }
 
 export default function Home() {
-  const dispatch = useDispatch();
   const router = useRouter();
   const [bookingEngine, setBookingEngine] = useState("One way Trip");
   const [openPassangers, setOpenPassageners] = useState(false);
