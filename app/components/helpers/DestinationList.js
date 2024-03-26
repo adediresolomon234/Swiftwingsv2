@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useRef, useEffect } from 'react';
 import { countries } from './countries';
 import CountryCard from './CountryCard';

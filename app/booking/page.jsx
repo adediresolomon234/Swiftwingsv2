@@ -194,8 +194,6 @@ const BookJet = () => {
     const bookingDetails = JSON.parse(localStorage.getItem("bookingDetails"));
     const bookingFormData = bookingDetails?.booking_details?.formData[0];
     const userDetails = JSON.parse(localStorage.getItem("user"));
-    console.log(userDetails);
-
     setBookingDetails(bookingDetails);
     setSourceDetails(bookingFormData?.source?.value);
     setDestinationDetails(bookingFormData?.destination?.value);

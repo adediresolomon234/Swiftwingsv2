@@ -2,7 +2,7 @@
 "use client";
 import Footer from "./Footer";
 import NavBar from "./NavBar";
-import { Children } from "react";
+
 
 const NavAndFooter = ({ children, Nav }) => {
   return (
