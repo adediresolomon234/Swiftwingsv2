@@ -1,7 +1,7 @@
 "use client";
 
 import DestinationSliders from "../components/shared/DestionationSlider";
-import { useEffect, useState } from 'react'; // Import useEffect and useState
+import { useEffect, useState } from 'react'; 
 import Swiftwings from "../../public/images/Swiftwings.png";
 import DestinationList from "../components/helpers/DestinationList";
 import NavAndFooter from "../components/shared/NavAndFooter";
