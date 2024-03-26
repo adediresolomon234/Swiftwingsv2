@@ -18,6 +18,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import NavAndFooter from "../components/shared/NavAndFooter";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -44,6 +45,11 @@ const SignIn = () => {
     return emailRegex.test(email);
   };
 
+  const resetInputField = () => {
+    setEmail("");
+    setPassword("");
+  };
+
   const handleLogin = () => {
     setEmailError("");
     setPasswordError("");
@@ -66,97 +72,104 @@ const SignIn = () => {
 
   useEffect(() => {
     if (data && data?.message) {
-      router.push("/");
-      console.log(data)
+      let user = data?.data;
+      user = { ...user, isLoggedIn: true };
+      localStorage.setItem("user", JSON.stringify(user));
       toast.success(data?.message);
+      resetInputField();
+      router.push("/");
     }
-    console.log(data);
     if (error) toast.error(error);
   }, [data, error]);
 
   return (
-    <main className="flex justify-center items-center min-h-[100vh] m-5 bg-swSecondary50">
-      <ToastContainer />
-      <div className="max-w-sm w-full p-2">
-        <p className="text-center text-2xl font-medium">Sign In</p>
-        <p className="text-center mt-5 mb-8 text-[0.95rem]">
-          Sign in to Swiftwings to manage your bookings
-        </p>
+    <NavAndFooter Nav={false}>
+      <main className="flex justify-center items-center min-h-[100vh] m-5 bg-swSecondary50">
+        <ToastContainer />
+        <div className="max-w-sm w-full p-2">
+          <p className="text-center text-2xl font-semibold text-black">
+            Sign In
+          </p>
+          <p className="text-center mt-5 mb-8 text-[0.95rem]">
+            Sign in to Swiftwings to manage your bookings
+          </p>
 
-        <div className="w-ful mt-5">
-          <InputField
-            label={"Email"}
-            placeholder={"Enter email address"}
-            startIcon={<SwMailIcon className="text-xl" />}
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-              setEmailError("");
-            }}
-            className={emailError ? "error" : ""}
-          />
-          {emailError && <p className="text-red-500">{emailError}</p>}
-        </div>
-        <div className="w-full mt-5">
-          <InputField
-            label={"Password"}
-            placeholder={"Enter password"}
-            startIcon={<SwKeyIcon className="text-xl" />}
-            endIcon={
-              showPassword ? (
-                <SwOpenEyeIcon
-                  className="text-xl"
-                  onClick={togglePasswordVisibility}
-                />
-              ) : (
-                <TbEyeClosed
-                  className="text-xl"
-                  onClick={togglePasswordVisibility}
-                />
-              )
-            }
-            inputType={showPassword ? "text" : "password"}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          {passwordError && <p className="text-red-500">{passwordError}</p>}
-        </div>
+          <div className="w-ful mt-5">
+            <InputField
+              label={"Email"}
+              placeholder={"Enter email address"}
+              startIcon={<SwMailIcon className="text-xl" />}
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                setEmailError("");
+              }}
+              className={emailError ? "error" : ""}
+            />
+            {emailError && <p className="text-red-500">{emailError}</p>}
+          </div>
+          <div className="w-full mt-5">
+            <InputField
+              label={"Password"}
+              placeholder={"Enter password"}
+              startIcon={<SwKeyIcon className="text-xl" />}
+              value={password}
+              endIcon={
+                showPassword ? (
+                  <SwOpenEyeIcon
+                    className="text-xl"
+                    onClick={togglePasswordVisibility}
+                  />
+                ) : (
+                  <TbEyeClosed
+                    className="text-xl"
+                    onClick={togglePasswordVisibility}
+                  />
+                )
+              }
+              inputType={showPassword ? "text" : "password"}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            {passwordError && <p className="text-red-500">{passwordError}</p>}
+          </div>
 
-        <Link
-          href={"/forgot-password"}
-          className="ml-auto italic mt-2 text-sm text-swGray800 cursor-pointer w-fit hover:underline"
-        >
-          Forgot Password?
-        </Link>
+          <Link
+            href={"/forgot-password"}
+            className="ml-auto italic mt-2 text-sm text-swGray800 cursor-pointer w-fit hover:underline"
+          >
+            Forgot Password?
+          </Link>
 
-        <div className="my-7 flex flex-col gap-3">
-          <Button
-            label={`${loading === "pending" ? "Signing In" : "Sign In"}`}
-            bgColor={"bg-swPrimary500 text-white w-full"}
-            onClick={handleLogin}
-            loader={loading === "pending" ? true : false}
-            disabled={loading === "pending" ? true : false}
-          />
-          <Button
-            startIcon={<SwGoogleColoredIcon className="text-xl" />}
-            label={"Google sign up"}
-            textColor={"font-semibold text-swGray800 border border-swGray100"}
-          />
-        </div>
+          <div className="my-7 flex flex-col gap-3">
+            <Button
+              label={`${loading === "pending" ? "Signing In" : "Sign In"}`}
+              bgColor={"bg-swPrimary500 text-white w-full"}
+              onClick={handleLogin}
+              loader={loading === "pending" ? true : false}
+              disabled={loading === "pending" ? true : false}
+            />
+            <Button
+              startIcon={<SwGoogleColoredIcon className="text-xl" />}
+              label={"Google sign up"}
+              textColor={"font-semibold text-swGray800 border border-swGray100"}
+            />
+          </div>
 
-        <p className={`${spaceGrotesk.className} font-semibold text-center`}>
-          Are you new to Swiftwings?
-        </p>
-        <div className="w-full mt-4 font-medium">
-          <Button
-            startIcon={<SwPlusIcon className="text-xl" />}
-            label={"Create a new account"}
-            textColor={
-              "font-semibold text-swGray800 border border-swGray100 w-full"
-            }
-          />
+          <p className={`${spaceGrotesk.className} font-semibold text-center`}>
+            Are you new to Swiftwings?
+          </p>
+          <div className="w-full mt-4 font-medium">
+            <Button
+              startIcon={<SwPlusIcon className="text-xl" />}
+              label={"Create a new account"}
+              textColor={
+                "font-semibold text-swGray800 border border-swGray100 w-full"
+              }
+            />
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </NavAndFooter>
   );
 };
 
