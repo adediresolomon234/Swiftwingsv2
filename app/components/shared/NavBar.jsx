@@ -47,12 +47,15 @@ const NavBar = ({ Nav }) => {
 
         <div className="text-sm">
           {user?.isLoggedIn ? (
-            <div
+            <Link
+              href="/sign-in"
               className="py-2 px-4 rounded-full text-lg text-white bg-swPrimary500 hover:bg-swPrimary600 cursor-pointer"
-              onClick={() => localStorage.removeItem("user")}
+              onClick={() => {
+                localStorage.removeItem("user");
+              }}
             >
               Log out
-            </div>
+            </Link>
           ) : (
             <div className="flex gap-5 items-center">
               <Link

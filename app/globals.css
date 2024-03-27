@@ -2,3 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
+.indexDate > * .css-1jy569b-MuiFormLabel-root-MuiInputLabel-root,
+.bookingDate > * .css-1jy569b-MuiFormLabel-root-MuiInputLabel-root,
+.indexDate > * .css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root,
+.bookingDate > * .css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root {
+  color: transparent !important;
+}
+
+fieldset.MuiOutlinedInput-notchedOutline {
+  border-color: transparent;
+}
+
+.Mui-focused fieldset.MuiOutlinedInput-notchedOutline {
+  border-color: transparent;
+}
+
+.indexDate > * .css-i4bv87-MuiSvgIcon-root {
+  color: white !important;
+}
+
+.bookingDate > * .css-i4bv87-MuiSvgIcon-root {
+  color: #5a5a5a !important;
+}

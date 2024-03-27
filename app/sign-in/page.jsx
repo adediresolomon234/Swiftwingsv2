@@ -20,6 +20,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import NavAndFooter from "../components/shared/NavAndFooter";
+import axios from "axios";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -34,8 +35,10 @@ const SignIn = () => {
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-
-  const { loading, error, data } = useSelector((state) => state.auth);
+  const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  // const { loading, error, data } = useSelector((state) => state.auth);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -51,7 +54,28 @@ const SignIn = () => {
     setPassword("");
   };
 
+  const signIn = async () => {
+    try {
+      const response = await axios.post(
+        "https://swiftwings-mw-staging.onrender.com/api/v1/user/login",
+        { email, password }
+      );
+      setData(response?.data);
+      let user = response?.data?.data;
+      user = { ...user, isLoggedIn: true };
+      localStorage.setItem("user", JSON.stringify(user));
+      toast.success(response?.data?.message);
+      resetInputField();
+      router.push("/");
+      setLoading(false);
+    } catch (error) {
+      toast.error(error?.message);
+      setLoading(false);
+    }
+  };
+
   const handleLogin = () => {
+    setLoading(true);
     setEmailError("");
     setPasswordError("");
 
@@ -68,20 +92,25 @@ const SignIn = () => {
       return;
     }
 
-    dispatch(signInUser({ email, password }));
+    // dispatch(signInUser({ email, password }));
+    signIn();
   };
+  console.log({ loading });
 
-  useEffect(() => {
-    if (data && data?.message) {
-      let user = data?.data;
-      user = { ...user, isLoggedIn: true };
-      localStorage.setItem("user", JSON.stringify(user));
-      toast.success(data?.message);
-      resetInputField();
-      router.push("/");
-    }
-    if (error) toast.error(error);
-  }, [data, error]);
+  // useEffect(() => {
+  //   if (data && data?.message) {
+  //     let user = data?.data;
+  //     user = { ...user, isLoggedIn: true };
+  //     localStorage.setItem("user", JSON.stringify(user));
+  //     toast.success(data?.message);
+  //     resetInputField();
+  //     router.push("/");
+  //   }
+  //   if (error) {
+  //     console.log(error);
+  //     toast.error(error);
+  //   }
+  // }, [data, error]);
 
   return (
     <NavAndFooter Nav={false}>
@@ -143,11 +172,11 @@ const SignIn = () => {
 
           <div className="my-7 flex flex-col gap-3">
             <Button
-              label={`${loading === "pending" ? "Signing In" : "Sign In"}`}
+              label={`${loading === true ? "Signing In" : "Sign In"}`}
               bgColor={"bg-swPrimary500 text-white w-full"}
               onClick={handleLogin}
-              loader={loading === "pending" ? true : false}
-              disabled={loading === "pending" ? true : false}
+              loader={loading === true ? true : false}
+              disabled={loading === true ? true : false}
             />
             <Button
               startIcon={<SwGoogleColoredIcon className="text-xl" />}
