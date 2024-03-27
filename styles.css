@@ -1,13 +1,10 @@
-
-  
- .fleet-image {
+.fleet-image {
   width: 720px;
-  margin-right: -100px; 
+  margin-right: -100px;
   opacity: 0;
-  transition: opacity 0.30s ease-in, transform 0.30s ease-in-out; 
+  transition: opacity 0.3s ease-in, transform 0.3s ease-in-out;
   position: relative;
   top: 20px;
-
 }
 .fleet-image.show {
   opacity: 1;
@@ -16,69 +13,66 @@
 }
 
 .fleet-item {
-  margin-left: 4px; 
+  margin-left: 4px;
 }
-  .image-container {
-    position: relative;
-  }
-  
-  .image-container .hidden {
-    display: none;
-  }
-
-  ::-webkit-scrollbar {
-    display: none; 
-  }
-  
-.Testimonial-card{
--webkit-border-radius: 60px;
--moz-border-radius: 60px;
-border-radius: 70px;
-
+.image-container {
+  position: relative;
 }
-.newsletter{
+
+.image-container .hidden {
+  display: none;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.Testimonial-card {
+  -webkit-border-radius: 60px;
+  -moz-border-radius: 60px;
+  border-radius: 70px;
+}
+.newsletter {
   -webkit-border-radius: 30px;
   -moz-border-radius: 30px;
   border-radius: 40px;
-  
-  }
+}
 .container-snap {
-  display: flex; 
-  scroll-snap-type: x mandatory; 
+  display: flex;
+  scroll-snap-type: x mandatory;
   overflow-x: auto;
 }
 
 .wrapper {
   display: flex;
-
 }
 
-.features-card{
+.features-card {
   -webkit-border-radius: 86px;
--moz-border-radius: 86px;
-border-radius: 40px;
+  -moz-border-radius: 86px;
+  border-radius: 40px;
 }
 
-.custom-modal{
+.custom-modal {
   border-radius: 1.5rem !important;
 }
 
 .Testimonial-card {
-  flex: 0 0 auto; 
-  scroll-snap-align: start; 
-  margin-right: 20px; 
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  margin-right: 20px;
 }
 
 .fleet-item-wrapper {
-  width: 100%; 
+  width: 100%;
 }
 
 .image-container {
-  width: 50%; 
+  width: 50%;
 }
 
 .fleet-image-wrapper {
-  max-width: 100%; 
+  max-width: 100%;
 }
 
 .blur {
@@ -86,12 +80,12 @@ border-radius: 40px;
 }
 .before-after-line::before,
 .before-after-line::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 60%;
   width: 40%;
   height: 1px;
-  background-color: #333; 
+  background-color: #333;
 }
 
 .before-after-line::before {
@@ -108,7 +102,7 @@ border-radius: 40px;
 
 .slider::before,
 .slider::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 100px;
   height: 100%;
@@ -122,7 +116,7 @@ border-radius: 40px;
 
 .slider::after {
   right: 0;
-  background: linear-gradient(to left, #fff, rgba(255,255,255,0));
+  background: linear-gradient(to left, #fff, rgba(255, 255, 255, 0));
 }
 .image-slide-up {
   transform: translateY(100%);

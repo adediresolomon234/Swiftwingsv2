@@ -31,10 +31,16 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 import { useRouter } from "next/navigation";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { addBooking } from "@/redux/slices/bookingSlice";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const BookJet = () => {
+  const dispatch = useDispatch();
   const containerRef = useRef(null);
-  const router = useRouter()
+  const router = useRouter();
   const [clickedOutside, setClickedOutside] = useState(false);
   const [bookingEngine, setBookingEngine] = useState("One way Trip");
   const [openPassangers, setOpenPassageners] = useState(false);
@@ -60,8 +66,11 @@ const BookJet = () => {
   const [bookingDetails, setBookingDetails] = useState({});
   const [sourceDetails, setSourceDetails] = useState({});
   const [destinationDetails, setDestinationDetails] = useState({});
+  const [jets, setJets] = useState(null);
 
   const [hoveredIndex, setHoveredIndex] = useState(null);
+
+  const { loading, error, data } = useSelector((state) => state.booking);
 
   const options = airports.map((item) => ({
     label: (
@@ -124,7 +133,6 @@ const BookJet = () => {
 
   const handleDateChange = (dateValue) => {
     setDateValue(dateValue);
-    // setDateOpen(false);
     setBookingDetails((prevState) => ({
       ...prevState,
       booking_details: {
@@ -190,6 +198,36 @@ const BookJet = () => {
     setOpenArrival(false);
   };
 
+  const handleAircraftSelect = (e, aircraftDetails, index) => {
+    const isChecked = e.target.checked;
+    if (isChecked === true) {
+      setBookingDetails((prevState) => ({
+        ...prevState,
+        additional_quote: [...prevState.additional_quote, aircraftDetails],
+      }));
+    } else {
+      setBookingDetails((prevState) => ({
+        ...prevState,
+        additional_quote: prevState.additional_quote.filter(
+          (aircraft) => aircraft !== aircraftDetails
+        ),
+      }));
+    }
+  };
+
+  const handleQuote = () => {
+    dispatch(addBooking(bookingDetails));
+  };
+  useEffect(() => {
+    if (data) {
+      toast.success(data?.message);
+    }
+    if (error) {
+      toast.error(error?.message);
+    }
+  }, [data, error]);
+  // console.log({ data });
+
   useEffect(() => {
     const bookingDetails = JSON.parse(localStorage.getItem("bookingDetails"));
     const bookingFormData = bookingDetails?.booking_details?.formData[0];
@@ -209,6 +247,7 @@ const BookJet = () => {
 
     if (userDetails) {
       delete userDetails.token;
+      delete userDetails.isLoggedIn;
       setBookingDetails((prevState) => ({
         ...prevState,
         user: userDetails, // Replace the entire user object
@@ -216,7 +255,7 @@ const BookJet = () => {
     }
   }, []);
 
-  console.log(bookingDetails);
+  // console.log(bookingDetails);
   // console.log(bookingEngine);
 
   useEffect(() => {
@@ -225,15 +264,15 @@ const BookJet = () => {
 
       if (!departureRef?.current?.contains(event.target)) {
         setOpenDeparture(false);
-        console.log("departure clicked");
+        // console.log("departure clicked");
       }
       if (!arrivalRef?.current?.contains(event.target)) {
         setOpenArrival(false);
-        console.log("arrival clicked");
+        // console.log("arrival clicked");
       }
       if (!dateRef?.current?.contains(event.target)) {
         setDateOpen(false);
-        console.log("date clicked");
+        // console.log("date clicked");
       }
       if (!passengerRef?.current?.contains(event.target)) {
         setOpenPassageners(false);
@@ -249,8 +288,24 @@ const BookJet = () => {
     };
   });
 
+  useEffect(() => {
+    const fetchJets = async () => {
+      try {
+        const response = await axios.get(
+          "https://swiftwings-mw.onrender.com/api/v1/aircraft/all"
+        );
+        setJets(response?.data?.data);
+      } catch (error) {
+        return error;
+      }
+    };
+    fetchJets();
+  }, []);
+  // console.log({ jets });
+
   return (
     <NavAndFooter>
+      <ToastContainer />
       <div className="bg-swLightBgGray py-24 px-5 z-10">
         <div className="m-5 mx-auto max-w-[90rem] z-10">
           <div className="w-full border rounded-3xl">
@@ -388,38 +443,31 @@ const BookJet = () => {
                         onClick={() => setDateOpen(true)}
                         className="relative p-5 pr-5 flex items-center h-[5.5rem] w-72 gap-5 border rounded-2xl cursor-pointer"
                       >
-                        {!isDateOpen && (
-                          <div className="p-2 rounded-full text-swGray900">
-                            <SwCalendarIcon className="text-xl" />
-                          </div>
-                        )}
+                        <div className="p-2 rounded-full text-swGray900">
+                          <SwCalendarIcon className="text-xl" />
+                        </div>
+
                         <div>
                           {bookingEngine === "Round Trip" ? (
                             <div className="w-full">
-                              {!isDateOpen && (
-                                <>
-                                  <p className="text-swLightGray text-sm">
-                                    Departure and arrival date
-                                  </p>
-                                  <p className=" text-swGray800 font-semibold">
-                                    {dateValue.format("D MMM")} -{" "}
-                                    {roundTripDateValue.format("D MMM")}
-                                  </p>
-                                </>
-                              )}
+                              <p className="text-swLightGray text-sm">
+                                Departure and arrival date
+                              </p>
+                              <p className=" text-swGray800 font-semibold">
+                                {dateValue.format("D MMM")} -{" "}
+                                {roundTripDateValue.format("D MMM")}
+                              </p>
                             </div>
                           ) : (
                             <div>
-                              {!isDateOpen && (
-                                <div>
-                                  <p className="text-swLightGray text-sm">
-                                    Departure date
-                                  </p>
-                                  <p className=" text-swGray800 font-semibold">
-                                    {dateValue.format("D MMM")}
-                                  </p>
-                                </div>
-                              )}
+                              <div>
+                                <p className="text-swLightGray text-sm">
+                                  Departure date
+                                </p>
+                                <p className=" text-swGray800 font-semibold">
+                                  {dateValue.format("D MMM")}
+                                </p>
+                              </div>
                             </div>
                           )}
                         </div>
@@ -431,13 +479,19 @@ const BookJet = () => {
                             }`}
                           >
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
-                              <div className="flex">
+                              <div className="flex bookingDate">
                                 <DateTimePicker
                                   label="Departure Date"
                                   defaultValue={dateValue}
                                   value={dateValue}
-                                  onChange={handleDateChange}
+                                  // open={isDateOpen}
+                                  onOpen={() => setDateOpen(true)}
+                                  // onAccept={() => {
+                                  //   alert("accepted");
+                                  //   setDateOpen(false);
+                                  // }}
                                   onClose={() => setDateOpen(false)}
+                                  onChange={handleDateChange}
                                 />
                                 {bookingEngine === "Round Trip" && (
                                   <DateTimePicker
@@ -581,59 +635,68 @@ const BookJet = () => {
             <div className="w-2/3">
               <p className="text-xl font-medium mb-5">Select Private Jet</p>
               <div className="w-full rounded-3xl border p-5 bg-white">
-                {Array(4)
-                  .fill()
-                  .map((_, index) => (
-                    <div key={index} className="">
-                      <div className="transition ease-in-out delay-100 duration-1000 flex justify-between items-center hover:bg-swLighterBgGray p-5 rounded-xl cursor-pointer focus:border focus:outline-swPrimary500">
-                        <div className="flex gap-5 items-center">
-                          <input type="checkbox" className="h-5 w-5" />
-                          <div className="text-swLightGray">
-                            <p className="text-2xl font-medium">Hawker 800XP</p>
-                            <p className="text-sm">Midsize Business Jet</p>
+                {jets?.map((item, index) => (
+                  <div key={item?.id} className="">
+                    <div className="transition ease-in-out delay-100 duration-1000 flex gap-5 justify-between items-center hover:bg-swLighterBgGray p-5 rounded-xl cursor-pointer focus:border focus:outline-swPrimary500">
+                      <div className="flex gap-5 items-center whitespace-nowrap">
+                        <input
+                          type="checkbox"
+                          onClick={(e) => handleAircraftSelect(e, item, index)}
+                          className="h-5 w-5"
+                        />
+                        <div className="text-swLightGray">
+                          <p className="text-2xl font-medium">{item?.model}</p>
+                          <p className="text-sm">{item?.classification}</p>
+                        </div>
+                      </div>
+                      <div className="max-w-xl w-full text-swGray800 gap-5 flex">
+                        <div className="w-full flex justify-between gap-5">
+                          <div className="flex flex-col gap-2">
+                            <div className="flex items-center gap-2">
+                              <SwSeatIcon className="text-lg" />
+                              <p className="text-xs">{item?.no_of_seats}</p>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <SwLuggageIcon className="text-lg" />
+                              <p className="text-xs">
+                                {item?.luggage_capacity}
+                              </p>
+                            </div>
+                          </div>
+
+                          <div className="flex flex-col gap-2">
+                            <div className="flex items-center gap-2">
+                              <SwMeterIcon className="text-lg" />
+                              <p className="text-xs">{item?.speed}</p>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <SwMeterIcon className="text-lg" />
+                              <p className="text-xs">{item?.range}</p>
+                            </div>
+                          </div>
+
+                          <div className="flex flex-col gap-2">
+                            <div className="flex items-center gap-2">
+                              <SwLeftRightArrowIcon className="text-lg" />
+                              <p className="text-xs">{item?.interior_width}</p>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <SwTopBottomArrowIcon className="text-lg" />
+                              <p className="text-xs">{item?.interior_height}</p>
+                            </div>
                           </div>
                         </div>
-                        <div className="text-swGray800 gap-10 flex">
-                          <div className="flex flex-col gap-2">
-                            <div className="flex justify-between gap-5">
-                              <div className="flex items-center gap-2">
-                                <SwSeatIcon className="text-xl" />
-                                <p className="text-sm">8 seats</p>
-                              </div>
-                              <div className="flex items-center gap-2">
-                                <SwMeterIcon className="text-xl" />
-                                <p className="text-sm">826 km/h speed</p>
-                              </div>
-                              <div className="flex items-center gap-2">
-                                <SwLeftRightArrowIcon className="text-xl" />
-                                <p className="text-sm">6 feet</p>
-                              </div>
-                            </div>
 
-                            <div className="flex justify-between gap-5">
-                              <div className="flex items-center gap-2">
-                                <SwLuggageIcon className="text-xl" />
-                                <p className="text-sm">8 seats</p>
-                              </div>
-                              <div className="flex items-center gap-2">
-                                <SwMeterIcon className="text-xl" />
-                                <p className="text-sm">826 km/h speed</p>
-                              </div>
-                              <div className="flex items-center gap-2">
-                                <SwTopBottomArrowIcon className="text-xl" />
-                                <p className="text-sm">6 feet</p>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="flex items-center gap-3 py-2 px-4 rounded-full hover:bg-white">
-                            <p className="font-medium">View details</p>
-                            <SwArrowRightIcon className="text-sm" />
-                          </div>
+                        <div className="flex items-center gap-3 py-2 px-4 rounded-full hover:bg-white">
+                          <p className="font-medium whitespace-nowrap">
+                            View Jet
+                          </p>
+                          <SwArrowRightIcon className="text-sm" />
                         </div>
                       </div>
                     </div>
-                  ))}
+                  </div>
+                ))}
                 <Button
                   label={"Add to quote"}
                   className="border mt-5 text-swGray800 font-semibold"
@@ -683,7 +746,7 @@ const BookJet = () => {
                         {sourceDetails?.name}, {sourceDetails?.city}
                       </p>
                     </div>
-                    <p className="font-medium">12 Hours</p>
+                    {/* <p className="font-medium">12 Hours</p> */}
                     <div className="">
                       <p className="font-semibold text-lg">22:00 pm</p>
                       <p className="text-sm">
@@ -713,7 +776,9 @@ const BookJet = () => {
                   label={"Request Quote"}
                   bgColor={"bg-swPrimary500 hover:bg-swPrimary600"}
                   className="w-full text-white text-center"
-                  onClick={() => router.push("/complete-profile")}
+                  onClick={handleQuote}
+                  loader={loading === "pending" ? true : false}
+                  disabled={loading === "pending" ? true : false}
                 />
               </div>
             </div>
