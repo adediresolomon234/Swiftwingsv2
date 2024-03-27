@@ -1,5 +1,4 @@
-"use client";
-
+// components/DestinationSliders.js
 import { v4 as uuidv4 } from "uuid";
 import Card from "./Card";
 import MyCarousel  from "./Carousel";
