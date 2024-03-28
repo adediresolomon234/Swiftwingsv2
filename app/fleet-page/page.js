@@ -5,10 +5,13 @@ import Fleetsection from "../../public/images/Fleetsection.png";
 import NavAndFooter from "../components/shared/NavAndFooter";
 import FooterHero from "../components/shared/footerHero";
 import InputField from "../components/shared/InputField";
-import { SwSearchIcon, SWFilterIcon, } from "../components/svgs";
+import { SwSearchIcon, SWFilterIcon } from "../components/svgs";
 import SortFilter from "../components/shared/SortFilter";
 import TypeFilter from "../components/shared/TypeFilter";
-import { mdiCarSeat, mdiSpeedometer, mdiArrowLeftRight } from '@mdi/js'
+import { mdiCarSeat, mdiSpeedometer, mdiArrowLeftRight } from '@mdi/js';
+import AircraftCard from '../components/shared/AircraftCard';
+import { fleet } from '../components/fleetcard';
+
 
 const spaceGrotesk = Space_Grotesk({
     subsets: ["latin"],
@@ -55,85 +58,20 @@ const FleetPage = () => {
                         </div>
 
                         <div className="col-span-2 ">
-                            <div className="max-w-full grid gap-8 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 grid-rows-2 gap-y-8 justify-center items-center relative">
-                                <div className="w-84 flex flex-col items-start justify-start pt-2 px-2 pb-[width] box-border gap-2 text-center text-base text-black font-body-xs-regular">
-                                    <Image
-                                        className="w-80 rounded-md h-43 object-cover"
-                                        alt="Aircraft Image"
-                                        src="/images/Features1.png"
-                                        width={80}
-                                        height={43}
+                            <div className="max-w-screen-xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+                                {fleet.map((aircraft) => (
+                                    <AircraftCard
+                                        key={aircraft.id}
+                                        name={aircraft.name}
+                                        image={aircraft.image}
+                                        seat={aircraft.seat}
+                                        kilometer={aircraft.kilometer}
+                                        feet={aircraft.feet}
+                                        icon={mdiCarSeat}
+                                        icon2={mdiSpeedometer}
+                                        icon3={mdiArrowLeftRight}
                                     />
-                                    <div className="self-stretch relative leading-6 font-medium">
-                                    Bombardier Global 8000
-                                    </div>
-                                    <div className="self-stretch flex flex-row items-center justify-between py-0 px-[width] text-left text-xs text-gray-800">
-                                        <div className="flex flex-row items-center justify-start gap-2.5">
-                                        <mdiCarSeat/>
-                                            <div className="relative leading-4.5">3 seats</div>
-                                        </div>
-                                        <div className="flex flex-row items-center justify-start gap-2.5">
-                                       < mdiSpeedometer/>
-                                            <div className="relative leading-4.5"> 5km/h</div>
-                                        </div>
-                                        <div className="flex flex-row items-center justify-start gap-2.5">
-                                            <mdiArrowLeftRight/>
-                                            <div className="relative leading-4.5">6feet</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="w-84 flex flex-col items-start justify-start pt-2 px-2 pb-[width] box-border gap-2 text-center text-base text-black font-body-xs-regular">
-                                    <Image
-                                        className="w-80 rounded-md h-43 object-cover"
-                                        alt="Aircraft Image"
-                                        src="/images/Features1.png"
-                                        width={80}
-                                        height={43}
-                                    />
-                                    <div className="self-stretch relative leading-6 font-medium">
-                                    Bombardier Global 8000
-                                    </div>
-                                    <div className="self-stretch flex flex-row items-center justify-between py-0 px-[width] text-left text-xs text-gray-800">
-                                        <div className="flex flex-row items-center justify-start gap-2.5">
-                                        <mdiCarSeat/>
-                                            <div className="relative leading-4.5">3 seats</div>
-                                        </div>
-                                        <div className="flex flex-row items-center justify-start gap-2.5">
-                                       < mdiSpeedometer/>
-                                            <div className="relative leading-4.5"> 5km/h</div>
-                                        </div>
-                                        <div className="flex flex-row items-center justify-start gap-2.5">
-                                            <mdiArrowLeftRight/>
-                                            <div className="relative leading-4.5">6feet</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="w-84 flex flex-col items-start justify-start pt-2 px-2 pb-[width] box-border gap-2 text-center text-base text-black font-body-xs-regular">
-                                    <Image
-                                        className="w-80 rounded-md h-43 object-cover"
-                                        alt="Aircraft Image"
-                                        src="/images/Features1.png"
-                                        width={80}
-                                        height={43}
-                                    />
-                                    <div className="self-stretch relative leading-6 font-medium">
-                                    Bombardier Global 8000
-                                    </div>
-                                    <div className="self-stretch flex flex-row items-center justify-between py-0 px-[width] text-left text-xs text-gray-800">
-                                        <div className="flex flex-row items-center justify-start gap-2.5">
-                                        <mdiCarSeat/>
-                                            <div className="relative leading-4.5">3 seats</div>
-                                        </div>
-                                        <div className="flex flex-row items-center justify-start gap-2.5">
-                                       < mdiSpeedometer/>
-                                            <div className="relative leading-4.5"> 5km/h</div>
-                                        </div>
-                                        <div className="flex flex-row items-center justify-start gap-2.5">
-                                            <mdiArrowLeftRight/>
-                                            <div className="relative leading-4.5">6feet</div>
-                                        </div>
-                                    </div>
-                                </div>
+                                ))}
                             </div>
                         </div>
                     </div>
@@ -146,7 +84,6 @@ const FleetPage = () => {
             </NavAndFooter>
         </main>
     );
-
 };
 
 export default FleetPage;

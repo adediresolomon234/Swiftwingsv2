@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { SWArrowsChevron,SWFilterIcon} from "../svgs";
 
-const CustomFilter = () => {
+const SortFilter = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
 
@@ -38,5 +38,5 @@ const CustomFilter = () => {
 
 
   
-  export default CustomFilter ;
+  export default SortFilter ;
   
