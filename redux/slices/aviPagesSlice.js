@@ -6,7 +6,7 @@ import { API_URL } from "@/constant";
 
 export const getAviAircraft = createAsyncThunk("aircrafts/all", async () => {
   try {
-    const response = await axios.get(`${API_URL}/aircrafts`, {
+    const response = await axios.get(`${API_URL}/avipages/aircrafts`, {
       headers: {
         // origin: "/*",
         Authorization: "Token WJUeXU8O6sj9YLoYJX7zeV4w92u2OAnkMqDy",
@@ -26,7 +26,7 @@ export const getAviAirPort = createAsyncThunk(
   async (searchTerm) => {
     try {
       const response = await axios.get(
-        `${API_URL}/airports?searchTerm=${searchTerm}`,
+        `${API_URL}/avipages/airports?searchTerm=${searchTerm}`,
         {
           headers: {
             // origin: "/*",

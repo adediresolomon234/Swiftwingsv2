@@ -155,13 +155,19 @@ export default function Home() {
               disabled: false,
             },
             depatureTime: `${dateValue?.$H}:${dateValue?.$m}`,
-            returningTime: `${roundTripDateValue?.$H}:${roundTripDateValue?.$m}`,
-            returningDate: `${roundTripDateValue?.$y}-${
-              roundTripDateValue?.$M + 1
-            }-${roundTripDateValue?.$D}`,
             depatureDate: `${dateValue?.$y}-${dateValue?.$M + 1}-${
               dateValue?.$D
             }`,
+            returningTime:
+              bookingEngine === "Round Trip"
+                ? `${roundTripDateValue?.$H}:${roundTripDateValue?.$m}`
+                : null,
+            returningDate:
+              bookingEngine === "Round Trip"
+                ? `${roundTripDateValue?.$y}-${roundTripDateValue?.$M + 1}-${
+                    roundTripDateValue?.$D
+                  }`
+                : null,
             passengers: {
               adults: adultsNo,
               children: kidsNo,
@@ -194,7 +200,7 @@ export default function Home() {
     setDateValue(newValue);
   };
 
-  console.log(dateValue);
+  console.log({ isDateOpen });
   useEffect(() => {
     const handleClickOutside = (event) => {
       // Check if the click event occurred outside the container
@@ -274,19 +280,21 @@ export default function Home() {
                 </Link>
                 <div className="p-1 text-xl rounded-full flex gap-5 font-medium backdrop-blur bg-white/25">
                   <button
-                    className={`${bookingEngine === "One way Trip"
-                      ? "text-white backdrop-blur bg-swBlack/50 font-semibold"
-                      : "text-swGray300 hover:backdrop-blur hover:bg-white/5"
-                      } py-2 px-4 rounded-full`}
+                    className={`${
+                      bookingEngine === "One way Trip"
+                        ? "text-white backdrop-blur bg-swBlack/50 font-semibold"
+                        : "text-swGray300 hover:backdrop-blur hover:bg-white/5"
+                    } py-2 px-4 rounded-full`}
                     onClick={() => setBookingEngine("One way Trip")}
                   >
                     One Way Rrip
                   </button>
                   <button
-                    className={`${bookingEngine === "Round Trip"
-                      ? "text-white backdrop-blur bg-swBlack/50 font-semibold"
-                      : "text-swGray300 hover:backdrop-blur hover:bg-white/5]"
-                      } py-2 px-4 rounded-full`}
+                    className={`${
+                      bookingEngine === "Round Trip"
+                        ? "text-white backdrop-blur bg-swBlack/50 font-semibold"
+                        : "text-swGray300 hover:backdrop-blur hover:bg-white/5]"
+                    } py-2 px-4 rounded-full`}
                     onClick={() => setBookingEngine("Round Trip")}
                   >
                     Round Trip
@@ -412,38 +420,29 @@ export default function Home() {
                         className="relative p-5 flex h-[5.5rem] w-[18rem] items-center gap-5 border border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50 rounded-2xl cursor-pointer"
                         // ref={dateRef}
                       >
-                        {!isDateOpen && (
-                          <div className="p-2 rounded-full text-white">
-                            <SwCalendarIcon className="text-xl" />
-                          </div>
-                        )}
+                        <div className="p-2 rounded-full text-white">
+                          <SwCalendarIcon className="text-xl" />
+                        </div>
+
                         <div>
                           {bookingEngine === "Round Trip" ? (
                             <div className="w-full">
-                              {!isDateOpen && (
-                                <>
-                                  <p className="text-swGray500 text-sm">
-                                    Departure and arrival date
-                                  </p>
-                                  <p className=" text-white font-semibold">
-                                    {dateValue.format("D MMM")} -{" "}
-                                    {roundTripDateValue.format("D MMM")}
-                                  </p>
-                                </>
-                              )}
+                              <p className="text-swGray500 text-sm">
+                                Departure and arrival date
+                              </p>
+                              <p className=" text-white font-semibold">
+                                {dateValue.format("D MMM")} -{" "}
+                                {roundTripDateValue.format("D MMM")}
+                              </p>
                             </div>
                           ) : (
                             <div>
-                              {!isDateOpen && (
-                                <>
-                                  <p className="text-swGray500 text-sm">
-                                    Departure date
-                                  </p>
-                                  <p className=" text-white font-semibold">
-                                    {dateValue.format("D MMM")}
-                                  </p>
-                                </>
-                              )}
+                              <p className="text-swGray500 text-sm">
+                                Departure date
+                              </p>
+                              <p className=" text-white font-semibold">
+                                {dateValue.format("D MMM")}
+                              </p>
                             </div>
                           )}
                         </div>
@@ -454,13 +453,19 @@ export default function Home() {
                             }`}
                           >
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
-                              <div className="flex">
+                              <div className="flex indexDate">
                                 <DateTimePicker
                                   label="Departure Date"
                                   defaultValue={dateValue}
                                   value={dateValue}
-                                  onChange={handleDateChange}
+                                  // open={isDateOpen}
+                                  onOpen={() => setDateOpen(true)}
+                                  // onAccept={() => {
+                                  //   alert("accepted");
+                                  //   setDateOpen(false);
+                                  // }}
                                   onClose={() => setDateOpen(false)}
+                                  onChange={handleDateChange}
                                   renderInput={(params) => (
                                     <TextField {...params} />
                                   )}
@@ -728,8 +733,9 @@ export default function Home() {
                   <div className="">
                     <div
                       aria-hidden="true"
-                      className={`absolute scale-75 md:scale-110 inset-0 m-auto rotate-45 bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl ${hoveredIndex >= 0 ? "opacity-100" : "opacity-0"
-                        }`}
+                      className={`absolute scale-75 md:scale-110 inset-0 m-auto rotate-45 bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl ${
+                        hoveredIndex >= 0 ? "opacity-100" : "opacity-0"
+                      }`}
                     ></div>
                     {hoveredIndex >= 0 && (
                       <div
@@ -828,23 +834,23 @@ export default function Home() {
             <h2 className="mb-8 text-center text-[18px]  text-gray-700 md:text-[18px] ">
               Features
             </h2>
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <div className="max-w-full grid gap-8 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 grid-rows-2 gap-y-8 justify-center items-center relative">
-              {textAreas.map((area, index) => (
-                <div
-                  key={index}
-                  style={{ width: '270px', height: '180px' }}
-                  className={`bg-swSecondary200 outline-none features-card flex flex-col justify-center items-center py-20 px-6 font-medium text-xl text-swGray600 text-center`}
-                >
-                  {area.description}
-                </div>
-              ))}
-              <Image
-                className="h-[298.8px] w-[250px] absolute my-3 mx-[!important] top-[-163px] left-[-134px] object-contain mix-blend-darken z-[1]"
-                src={Crown}
-                alt="Crown"
-              />
-            </div>
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <div className="max-w-full grid gap-8 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 grid-rows-2 gap-y-8 justify-center items-center relative">
+                {textAreas.map((area, index) => (
+                  <div
+                    key={index}
+                    style={{ width: "270px", height: "180px" }}
+                    className={`bg-swSecondary200 outline-none features-card flex flex-col justify-center items-center py-20 px-6 font-medium text-xl text-swGray600 text-center`}
+                  >
+                    {area.description}
+                  </div>
+                ))}
+                <Image
+                  className="h-[298.8px] w-[250px] absolute my-3 mx-[!important] top-[-163px] left-[-134px] object-contain mix-blend-darken z-[1]"
+                  src={Crown}
+                  alt="Crown"
+                />
+              </div>
             </div>
             <div className="flex justify-center text-lg mt-24">
               <Button
