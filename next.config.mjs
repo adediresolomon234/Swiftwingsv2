@@ -4,7 +4,7 @@
  * @type {import('next').NextConfig}
  */
 
-const nextConfig = {
+ const nextConfig = {
   reactStrictMode: false,
   experimental: {
     appDir: true,
@@ -17,6 +17,12 @@ const nextConfig = {
 
     return config;
   },
+  images: {
+    domains: ['swiperjs.com'],
+  },
+  images: {
+    domains: ['md.aviapages.com'],
+},
 };
 
 export default nextConfig;

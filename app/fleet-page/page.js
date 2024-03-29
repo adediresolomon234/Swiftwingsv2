@@ -11,6 +11,11 @@ import TypeFilter from "../components/shared/TypeFilter";
 import { mdiCarSeat, mdiSpeedometer, mdiArrowLeftRight } from '@mdi/js';
 import AircraftCard from '../components/shared/AircraftCard';
 import { fleet } from '../components/fleetcard';
+import { fetchAircrafts } from '../../redux/slices/aircraftdetails';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from "react";
+
+
 
 
 const spaceGrotesk = Space_Grotesk({
@@ -19,6 +24,21 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 const FleetPage = () => {
+    const dispatch = useDispatch();
+    const aircrafts = useSelector(state => state.aircrafts.aircrafts);
+    const status = useSelector(state => state.aircrafts.status);
+
+    useEffect(() => {
+        dispatch(fetchAircrafts());
+    }, [dispatch]);
+
+    const handleAircraftClick = (id) => {
+        import('next/router').then(({ useRouter }) => {
+            const router = useRouter();
+            router.push(`/aircraft/${id}`);
+        });
+    };
+
     return (
         <main className="relative bg-swLightBgGray">
             <NavAndFooter>
@@ -56,22 +76,17 @@ const FleetPage = () => {
                                 <TypeFilter />
                             </div>
                         </div>
-
                         <div className="col-span-2 ">
                             <div className="max-w-screen-xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-                                {fleet.map((aircraft) => (
-                                    <AircraftCard
-                                        key={aircraft.id}
-                                        name={aircraft.name}
-                                        image={aircraft.image}
-                                        seat={aircraft.seat}
-                                        kilometer={aircraft.kilometer}
-                                        feet={aircraft.feet}
-                                        icon={mdiCarSeat}
-                                        icon2={mdiSpeedometer}
-                                        icon3={mdiArrowLeftRight}
-                                    />
-                                ))}
+                            {status === 'loading' ? (
+                            <p>Loading...</p>
+                        ) : status === 'failed' ? (
+                            <p>Error: {error}</p>
+                        ) : (
+                            aircrafts.map((aircraft) => (
+                                <AircraftCard key={aircraft.id} aircraft={aircraft} />
+                            ))
+                        )}
                             </div>
                         </div>
                     </div>
