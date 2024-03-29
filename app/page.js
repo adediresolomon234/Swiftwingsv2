@@ -179,7 +179,7 @@ export default function Home() {
       additional_quote: [],
     };
 
-    if (typeof self !== 'undefined') {
+    if (typeof self !== "undefined") {
       localStorage.setItem("bookingDetails", JSON.stringify(booking));
     }
     router.push("/booking");
@@ -319,6 +319,15 @@ export default function Home() {
                     bgColor={"bg-swPrimary500 hover:bg-swPrimary600"}
                     textColor={"text-white"}
                     endIcon={<HiArrowRight size={20} />}
+                    disabled={
+                      !departureAirport?.city
+                        ? true
+                        : !arrivalAirport?.city
+                        ? true
+                        : !allPassangers?.adults
+                        ? true
+                        : false
+                    }
                   />
                 </div>
               </div>
@@ -420,20 +429,35 @@ export default function Home() {
                         className="relative p-5 flex h-[5.5rem] w-[18rem] items-center gap-5 border border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50 rounded-2xl cursor-pointer"
                         // ref={dateRef}
                       >
-                        <div className="p-2 rounded-full text-white">
-                          <SwCalendarIcon className="text-xl" />
-                        </div>
+                        {!isDateOpen && (
+                          <div className="p-2 rounded-full text-white">
+                            <SwCalendarIcon className="text-xl" />
+                          </div>
+                        )}
 
-                        <div>
+                        <div className="w-full">
                           {bookingEngine === "Round Trip" ? (
                             <div className="w-full">
-                              <p className="text-swGray500 text-sm">
-                                Departure and arrival date
-                              </p>
-                              <p className=" text-white font-semibold">
-                                {dateValue.format("D MMM")} -{" "}
-                                {roundTripDateValue.format("D MMM")}
-                              </p>
+                              {!isDateOpen ? (
+                                <>
+                                  <p className="text-swGray500 text-sm">
+                                    Departure and arrival date
+                                  </p>
+                                  <p className=" text-white font-semibold">
+                                    {dateValue.format("D MMM")} -{" "}
+                                    {roundTripDateValue.format("D MMM")}
+                                  </p>
+                                </>
+                              ) : (
+                                <div className="w-full flex">
+                                  <div className="text-sm w-full font-semibold text-white">
+                                    {dateValue.format("D MMM")}
+                                  </div>
+                                  <div className="text-sm ml-5 w-full font-semibold text-white">
+                                    {roundTripDateValue.format("D MMM")}
+                                  </div>
+                                </div>
+                              )}
                             </div>
                           ) : (
                             <div>
@@ -458,12 +482,7 @@ export default function Home() {
                                   label="Departure Date"
                                   defaultValue={dateValue}
                                   value={dateValue}
-                                  // open={isDateOpen}
                                   onOpen={() => setDateOpen(true)}
-                                  // onAccept={() => {
-                                  //   alert("accepted");
-                                  //   setDateOpen(false);
-                                  // }}
                                   onClose={() => setDateOpen(false)}
                                   onChange={handleDateChange}
                                   renderInput={(params) => (

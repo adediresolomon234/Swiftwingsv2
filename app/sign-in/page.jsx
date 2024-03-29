@@ -67,7 +67,6 @@ const SignIn = () => {
       toast.success(response?.data?.message);
       resetInputField();
       router.push("/");
-      setLoading(false);
     } catch (error) {
       toast.error(error?.message);
       setLoading(false);
@@ -176,7 +175,11 @@ const SignIn = () => {
               bgColor={"bg-swPrimary500 text-white w-full"}
               onClick={handleLogin}
               loader={loading === true ? true : false}
-              disabled={loading === true ? true : false}
+              disabled={
+                loading === true || (!email ? true : !password ? true : false)
+                  ? true
+                  : false
+              }
             />
             <Button
               startIcon={<SwGoogleColoredIcon className="text-xl" />}

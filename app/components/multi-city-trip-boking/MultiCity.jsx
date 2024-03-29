@@ -67,11 +67,6 @@ const MultiCity = () => {
         roundTripDateValue?.$D
       }`,
       depatureDate: `${dateValue?.$y}-${dateValue?.$M + 1}-${dateValue?.$D}`,
-      // passengers: {
-      //   adults: adultsNo,
-      //   children: kidsNo,
-      //   pets: petsNo,
-      // },
     },
   ]);
 
@@ -200,11 +195,20 @@ const MultiCity = () => {
   };
 
   const handleDateOpen = (index, state) => {
-    const updateDateState = [...isDateOpen];
-    updateDateState[index] = state;
-    setDateOpen(updateDateState);
+    if (isDateOpen.length === 1) {
+      setDateOpen(null);
+      setDateOpen([state]);
+    } else {
+      setDateOpen((prev) => {
+        const newState = [...prev];
+        newState[index] = state;
+        return newState;
+      });
+    }
+    // console.log({  });
   };
 
+  console.log({ isDateOpen });
   const incrementPassenger = (index, type) => {
     setAllPassengers((prevPassengers) => {
       const updatedPassengers = [...prevPassengers];
@@ -402,7 +406,7 @@ const MultiCity = () => {
                   <div>
                     <p className="text-swGray500 text-sm">Departure date</p>
                     <p className=" text-white font-semibold">
-                      {dateValue.format("D MMM")}
+                      {dateValue[index].format("D MMM")}
                     </p>
                   </div>
                 )}
