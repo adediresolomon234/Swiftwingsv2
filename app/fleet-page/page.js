@@ -4,6 +4,13 @@ import Image from "next/image";
 import Fleetsection from "../../public/images/Fleetsection.png";
 import NavAndFooter from "../components/shared/NavAndFooter";
 import FooterHero from "../components/shared/footerHero";
+import InputField from "../components/shared/InputField";
+import { SwSearchIcon, SWFilterIcon } from "../components/svgs";
+import SortFilter from "../components/shared/SortFilter";
+import TypeFilter from "../components/shared/TypeFilter";
+import { mdiCarSeat, mdiSpeedometer, mdiArrowLeftRight } from '@mdi/js';
+import AircraftCard from '../components/shared/AircraftCard';
+import { fleet } from '../components/fleetcard';
 
 
 const spaceGrotesk = Space_Grotesk({
@@ -35,20 +42,48 @@ const FleetPage = () => {
                 </section>
                 <section className="py-16">
                     <div className="grid grid-cols-3 gap-4">
-                        <div className=""></div>
-                        <div className="col-span-2 "></div>
+                        <div className="p-12 max-w-sm w-full  ">
+                            <div className="w-full mt-5">
+                                <InputField
+                                    label={<span className="flex items-center mb-3 "><SwSearchIcon className="text-xl mr-2" />Search</span>}
+                                    placeholder="Enter Aircraft "
+                                />
+                            </div>
+                            <div className="w-full mt-12">
+                                <SortFilter />
+                            </div>
+                            <div className="w-full mt-3">
+                                <TypeFilter />
+                            </div>
+                        </div>
+
+                        <div className="col-span-2 ">
+                            <div className="max-w-screen-xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+                                {fleet.map((aircraft) => (
+                                    <AircraftCard
+                                        key={aircraft.id}
+                                        name={aircraft.name}
+                                        image={aircraft.image}
+                                        seat={aircraft.seat}
+                                        kilometer={aircraft.kilometer}
+                                        feet={aircraft.feet}
+                                        icon={mdiCarSeat}
+                                        icon2={mdiSpeedometer}
+                                        icon3={mdiArrowLeftRight}
+                                    />
+                                ))}
+                            </div>
+                        </div>
                     </div>
                 </section>
                 <section className="py-16">
-                    <div class="xl:container m-auto px-6 text-gray-600 md:px-12 xl:px-16">
+                    <div className="xl:container m-auto px-6 text-gray-600 md:px-12 xl:px-16">
                         <FooterHero />
                     </div>
                 </section>
-
             </NavAndFooter>
         </main>
     );
-
 };
 
 export default FleetPage;
