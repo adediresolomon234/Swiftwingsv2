@@ -1,37 +1,40 @@
-import Image from 'next/image';
+import { mdiCarSeat, mdiSpeedometer, mdiArrowLeftRight } from '@mdi/js';
 
-const AircraftCard = ({ name, image, seat, kilometer, feet, icon, icon2, icon3 }) => {
+const AircraftCard = ({ aircraft }) => {
+    const { name, images, seat, kilometer, feet } = aircraft;
+
     return (
         <div className="flex flex-col items-center justify-center pt-2 px-2 pb-[width] box-border gap-2 text-center text-base text-black font-body-xs-regular">
-            <Image
-                className="w-80 rounded-md h-43 object-cover"
-                alt={name}
-                src={`/images/${image}`}
-                width={80}
-                height={43}
-                layout="responsive"
-            />
-            <div className="self-stretch relative leading-6 font-medium">
-                {name}
+            <div className="relative h-full">
+                {images && images.length > 0 ? (
+                    <img
+                        className="w-100 rounded-md h-full object-cover"
+                        alt={`Image of ${name}`}
+                        src={images[0].media.path}
+                    />
+                ) : (
+                    <p>No image available</p>
+                )}
             </div>
-            <div className="self-stretch grid grid-cols-3 gap-4 py-0 px-1 text-left text-xs text-gray-800">
-                <div className="flex items-center justify-start gap-2">
-                    <svg className="text-xl mr-2" viewBox="0 0 24 24">
-                        <path fill="currentColor" d={icon} />
+            <div className="self-stretch relative leading-6 font-medium">{name}</div>
+            <div className="self-stretch grid grid-cols-3 gap-4 py-0 px-1 text-left text-xl text-gray-800">
+                <div className="flex flex-col items-center justify-center gap-2">
+                    <svg className="w-6 h-6" viewBox="0 0 24 24">
+                        <path fill="currentColor" d={mdiCarSeat} />
                     </svg>
-                    <div className="relative leading-4.5 w-[32rem]">{seat}</div>
+                    <div className="relative leading-4.5">{seat}</div>
                 </div>
-                <div className="flex items-center justify-start gap-2">
-                    <svg className="text-xl mr-2" viewBox="0 0 24 24">
-                        <path fill="currentColor" d={icon2} />
+                <div className="flex flex-col items-center justify-center gap-2">
+                    <svg className="w-6 h-6" viewBox="0 0 24 24">
+                        <path fill="currentColor" d={mdiSpeedometer} />
                     </svg>
-                    <div className="relative leading-4.5 w-[32rem]">{kilometer}</div>
+                    <div className="relative leading-4.5">{kilometer}</div>
                 </div>
-                <div className="flex items-center justify-start gap-2">
-                    <svg className="text-xl mr-2" viewBox="0 0 24 24">
-                        <path fill="currentColor" d={icon3} />
+                <div className="flex flex-col items-center justify-center gap-2">
+                    <svg className="w-6 h-6" viewBox="0 0 24 24">
+                        <path fill="currentColor" d={mdiArrowLeftRight} />
                     </svg>
-                    <div className="relative leading-4.5 w-[32rem]">{feet}</div>
+                    <div className="relative leading-4.5">{feet}</div>
                 </div>
             </div>
         </div>
@@ -39,4 +42,3 @@ const AircraftCard = ({ name, image, seat, kilometer, feet, icon, icon2, icon3 }
 };
 
 export default AircraftCard;
-
