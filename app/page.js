@@ -1,6 +1,6 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
-import { Space_Grotesk } from "next/font/google";
+import { Space_Grotesk } from "@next/font/google";
 import Image from "next/image";
 import { GoArrowRight } from "react-icons/go";
 import { GoArrowLeft } from "react-icons/go";

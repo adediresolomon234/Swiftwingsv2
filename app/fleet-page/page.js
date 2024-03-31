@@ -78,15 +78,16 @@ const FleetPage = () => {
                         </div>
                         <div className="col-span-2 ">
                             <div className="max-w-screen-xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-                            {status === 'loading' ? (
-                            <p>Loading...</p>
-                        ) : status === 'failed' ? (
-                            <p>Error: {error}</p>
-                        ) : (
-                            aircrafts.map((aircraft) => (
-                                <AircraftCard key={aircraft.id} aircraft={aircraft} />
-                            ))
-                        )}
+                                {status === 'loading' ? (
+                                    <p>Loading...</p>
+                                ) : status === 'failed' ? (
+                                    <p>Error: Failed to fetch aircrafts</p> 
+                                ) : (
+                                    aircrafts.map((aircraft) => (
+                                        <AircraftCard key={aircraft.id} aircraft={aircraft} />
+                                    ))
+                                )}
+
                             </div>
                         </div>
                     </div>

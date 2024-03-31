@@ -1,5 +1,5 @@
 "use client";
-import { Poppins } from "next/font/google";
+import { Poppins, } from "next/font/google";
 import "./globals.css";
 import { Provider } from "react-redux";
 import { store } from "@/redux/store";

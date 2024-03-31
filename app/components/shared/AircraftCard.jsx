@@ -17,24 +17,24 @@ const AircraftCard = ({ aircraft }) => {
                 )}
             </div>
             <div className="self-stretch relative leading-6 font-medium">{name}</div>
-            <div className="self-stretch grid grid-cols-3 gap-4 py-0 px-1 text-left text-xl text-gray-800">
-                <div className="flex flex-col items-center justify-center gap-2">
+            <div className="self-stretch flex justify-center gap-4 py-0 px-1 text-center text-xl text-gray-800">
+                <div className="flex items-center">
                     <svg className="w-6 h-6" viewBox="0 0 24 24">
                         <path fill="currentColor" d={mdiCarSeat} />
                     </svg>
-                    <div className="relative leading-4.5">{seat}</div>
+                    <div className="relative leading-4.5 text=[5px]">{seat}</div>
                 </div>
-                <div className="flex flex-col items-center justify-center gap-2">
+                <div className="flex items-center">
                     <svg className="w-6 h-6" viewBox="0 0 24 24">
                         <path fill="currentColor" d={mdiSpeedometer} />
                     </svg>
-                    <div className="relative leading-4.5">{kilometer}</div>
+                    <div className="relative leading-4. text=[5px]">{kilometer}</div>
                 </div>
-                <div className="flex flex-col items-center justify-center gap-2">
+                <div className="flex items-center">
                     <svg className="w-6 h-6" viewBox="0 0 24 24">
                         <path fill="currentColor" d={mdiArrowLeftRight} />
                     </svg>
-                    <div className="relative leading-4.5">{feet}</div>
+                    <div className="relative leading-4.5 text=[5px]">{feet}</div>
                 </div>
             </div>
         </div>

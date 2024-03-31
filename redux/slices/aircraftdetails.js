@@ -1,40 +1,39 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios';
-import { API_URL } from "@/constant";
 
-// Define your initial state
-const initialState = {
-  aircrafts: [],
-  status: "idle",
-  error: null,
-};
-
-// Define your async thunk to fetch aircrafts
-export const fetchAircrafts = createAsyncThunk("aircrafts/fetchAircrafts", async () =>{
+export const fetchAircrafts = createAsyncThunk("aircrafts/fetchAircrafts", async () => {
   try {
-    const response = await axios.get(`${API_URL}/avipages/aircrafts`, {
-      headers: {
-        Authorization: "Token WJUeXU8O6sj9YLoYJX7zeV4w92u2OAnkMqDy",
-      },
-    });
-    // Extract necessary details from the API response
-    const aircraftsData = response.data.data.results.map(aircraft => ({
-      id: aircraft.id,
-      name: aircraft.name,
-      image: aircraft.image || '/default-image-url.png', 
+    const response = await axios.get("https://swiftwings-mw-staging.onrender.com/api/v1/aircraft/all");
+
+    const aircraftsData = response.data.data.map(aircraft => ({
+      id: aircraft._id,
+      name: aircraft.model, 
+      image: aircraft.image_url || '/default-image-url.png', 
       speed: aircraft.speed, 
-      kilometer: aircraft.kilometer, 
-      feet: aircraft.feet, 
-      features: aircraft.features, 
-      specifications: aircraft.specifications, // Assuming 'specifications' is available in the API response
+      kilometer: aircraft.range, 
+      feet: aircraft.luggage_capacity, 
+      features: {
+        manufacturer: aircraft.manufacturer,
+        classification: aircraft.classification,
+        no_of_seats: aircraft.no_of_seats, 
+        interior_height: aircraft.interior_height,
+        interior_width: aircraft.interior_width,
+        overview_summary: aircraft.overview_summary,
+      }
     }));
+    
     return aircraftsData;
   } catch (error) {
     throw new Error("Failed to fetch aircrafts");
   }
 });
 
-// Define your slice
+const initialState = {
+  aircrafts: [],
+  status: "idle",
+  error: null,
+};
+
 const aircraftsSlice = createSlice({
   name: "aircrafts",
   initialState,
@@ -43,6 +42,7 @@ const aircraftsSlice = createSlice({
     builder
       .addCase(fetchAircrafts.pending, (state) => {
         state.status = "loading";
+        state.error = null; 
       })
       .addCase(fetchAircrafts.fulfilled, (state, action) => {
         state.status = "succeeded";
