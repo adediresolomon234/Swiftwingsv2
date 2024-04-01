@@ -11,7 +11,7 @@
 
 .card img {
   width: 100%; 
-  height: auto; 
+  height: 50%; 
   border-radius: 10px; 
   
 }
@@ -21,13 +21,4 @@
   margin-top: 1rem;
 }
 
-.ul {
-  list-style: none;
-  color: white; /* This will change the color of the bullet points */
-}
-.ul li::before {
-  content: "• ";
-}
-.li {
-  color: black; /* This will change the color of the text inside the li elements */
-}
+

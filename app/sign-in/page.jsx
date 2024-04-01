@@ -66,7 +66,7 @@ const SignIn = () => {
       localStorage.setItem("user", JSON.stringify(user));
       toast.success(response?.data?.message);
       resetInputField();
-      router.push("/");
+      router.push("/complete-profile");
       setLoading(false);
     } catch (error) {
       toast.error(error?.message);

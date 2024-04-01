@@ -1,40 +1,50 @@
 import { mdiCarSeat, mdiSpeedometer, mdiArrowLeftRight } from '@mdi/js';
+import { useRouter } from "next/navigation";
 
 const AircraftCard = ({ aircraft }) => {
-    const { name, images, seat, kilometer, feet } = aircraft;
+    const { model, image, speed, feet, features } = aircraft;
+    const router = useRouter();
+
+    const handleCardClick = () => {
+        router.push(
+            `/fleet-specification?image=${encodeURIComponent(image)}&range=${feet}&seat=${features.no_of_seats}&speed=${speed}&name=${encodeURIComponent(features.manufacturer)}`
+        );
+    };
 
     return (
         <div className="flex flex-col items-center justify-center pt-2 px-2 pb-[width] box-border gap-2 text-center text-base text-black font-body-xs-regular">
-            <div className="relative h-full">
-                {images && images.length > 0 ? (
+            <div className="relative h-full" onClick={handleCardClick}>
+                {image ? (
                     <img
-                        className="w-100 rounded-md h-full object-cover"
-                        alt={`Image of ${name}`}
-                        src={images[0].media.path}
+                         className="w-full rounded-xl h-full object-cover"
+                        src={image}
+                        alt={`Image of ${model}`}
+                        width={300}
+                        height={200}
                     />
                 ) : (
                     <p>No image available</p>
                 )}
             </div>
-            <div className="self-stretch relative leading-6 font-medium">{name}</div>
-            <div className="self-stretch grid grid-cols-3 gap-4 py-0 px-1 text-left text-xl text-gray-800">
-                <div className="flex flex-col items-center justify-center gap-2">
+            <div className="self-stretch relative leading-6 font-medium mt-3 text-xl mb-3">{features.manufacturer}</div>
+            <div className="self-stretch flex justify-center gap-4 py-0 px-1 text-center text-sm text-gray-800">
+                <div className="flex items-center">
                     <svg className="w-6 h-6" viewBox="0 0 24 24">
                         <path fill="currentColor" d={mdiCarSeat} />
                     </svg>
-                    <div className="relative leading-4.5">{seat}</div>
+                    <div className="relative leading-4.5 ml-3 ">{features.no_of_seats}</div>
                 </div>
-                <div className="flex flex-col items-center justify-center gap-2">
+                <div className="flex items-center">
                     <svg className="w-6 h-6" viewBox="0 0 24 24">
                         <path fill="currentColor" d={mdiSpeedometer} />
                     </svg>
-                    <div className="relative leading-4.5">{kilometer}</div>
+                    <div className="relative leading-4 ml-3">{speed}</div>
                 </div>
-                <div className="flex flex-col items-center justify-center gap-2">
+                <div className="flex items-center">
                     <svg className="w-6 h-6" viewBox="0 0 24 24">
                         <path fill="currentColor" d={mdiArrowLeftRight} />
                     </svg>
-                    <div className="relative leading-4.5">{feet}</div>
+                    <div className="relative leading-4.5 ml-3 ">{feet}</div>
                 </div>
             </div>
         </div>

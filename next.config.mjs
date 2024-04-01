@@ -22,6 +22,7 @@
   },
   images: {
     domains: ['md.aviapages.com'],
+    domains: ['res.cloudinary.com'],
 },
 };
 

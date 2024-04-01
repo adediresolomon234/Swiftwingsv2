@@ -1,43 +1,32 @@
 "use client";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchAircrafts } from '../../redux/slices/aircraftdetails';
+import { SwSearchIcon } from "../components/svgs";
+import AircraftCard from '../components/shared/AircraftCard';
+import InputField from "../components/shared/InputField";
+import SortFilter from "../components/shared/SortFilter";
+import TypeFilter from "../components/shared/TypeFilter";
 import { Space_Grotesk } from "next/font/google";
 import Image from "next/image";
 import Fleetsection from "../../public/images/Fleetsection.png";
 import NavAndFooter from "../components/shared/NavAndFooter";
 import FooterHero from "../components/shared/footerHero";
-import InputField from "../components/shared/InputField";
-import { SwSearchIcon, SWFilterIcon } from "../components/svgs";
-import SortFilter from "../components/shared/SortFilter";
-import TypeFilter from "../components/shared/TypeFilter";
-import { mdiCarSeat, mdiSpeedometer, mdiArrowLeftRight } from '@mdi/js';
-import AircraftCard from '../components/shared/AircraftCard';
-import { fleet } from '../components/fleetcard';
-import { fetchAircrafts } from '../../redux/slices/aircraftdetails';
-import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from "react";
-
-
-
-
-const spaceGrotesk = Space_Grotesk({
-    subsets: ["latin"],
-    weight: ["300", "400", "500", "600", "700"],
-});
 
 const FleetPage = () => {
     const dispatch = useDispatch();
     const aircrafts = useSelector(state => state.aircrafts.aircrafts);
     const status = useSelector(state => state.aircrafts.status);
+    const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
         dispatch(fetchAircrafts());
     }, [dispatch]);
 
-    const handleAircraftClick = (id) => {
-        import('next/router').then(({ useRouter }) => {
-            const router = useRouter();
-            router.push(`/aircraft/${id}`);
-        });
-    };
+  
+    const filteredAircrafts = aircrafts.filter(aircraft => {
+        return aircraft.name.toLowerCase().includes(searchQuery.toLowerCase());
+    });
 
     return (
         <main className="relative bg-swLightBgGray">
@@ -66,7 +55,9 @@ const FleetPage = () => {
                             <div className="w-full mt-5">
                                 <InputField
                                     label={<span className="flex items-center mb-3 "><SwSearchIcon className="text-xl mr-2" />Search</span>}
-                                    placeholder="Enter Aircraft "
+                                    placeholder="Enter Aircraft"
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
                                 />
                             </div>
                             <div className="w-full mt-12">
@@ -78,15 +69,16 @@ const FleetPage = () => {
                         </div>
                         <div className="col-span-2 ">
                             <div className="max-w-screen-xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-                            {status === 'loading' ? (
-                            <p>Loading...</p>
-                        ) : status === 'failed' ? (
-                            <p>Error: {error}</p>
-                        ) : (
-                            aircrafts.map((aircraft) => (
-                                <AircraftCard key={aircraft.id} aircraft={aircraft} />
-                            ))
-                        )}
+                                {status === 'loading' ? (
+                                    <p>Loading...</p>
+                                ) : status === 'failed' ? (
+                                    <p>Error: Failed to fetch aircrafts</p> 
+                                ) : (
+                                    filteredAircrafts.map((aircraft) => (
+                                        <AircraftCard key={aircraft.id} aircraft={aircraft} />
+                                    ))
+                                )}
+
                             </div>
                         </div>
                     </div>

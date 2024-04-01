@@ -30,7 +30,7 @@ const ForgotPassword = () => {
   const [formData, setFormData] = useState({
     email: "",
   });
-
+  const router = useRouter(); 
   const { loading, error, data } = useSelector((state) => state.auth);
   // console.log(error);
   // console.log({ data });
@@ -40,13 +40,47 @@ const ForgotPassword = () => {
 
     setFormData({ ...formData, [name]: value });
   };
+  
 
   const isValidEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
 
-  const handleForgotPassword = () => {};
+  const sendVerificationCode = async (email) => {
+    try {
+
+      const response = await fetch('/api/sendVerificationCode', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+  
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  const handleForgotPassword = async () => {
+    if (isValidEmail(formData.email)) {
+      try {
+        await sendVerificationCode(formData.email);
+        router.push("/forgetpasswordverify");
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    } else {
+      setEmailError("Please enter a valid email address");
+    }
+  };
 
   useEffect(() => {
     if (data && !data?.message) {
