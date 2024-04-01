@@ -36,7 +36,7 @@ const Destinations = () => {
           </div>
         </section>
         <section className="py-16">
-          <div class="xl:container m-auto px-6 text-gray-600 md:px-12 xl:px-16">
+          <div className="xl:container m-auto px-6 text-gray-600 md:px-12 xl:px-16">
             <DestinationList />
           </div>
         </section>

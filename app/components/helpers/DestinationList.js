@@ -28,7 +28,7 @@ const DestinationList = () => {
   return (
     <div className="flex flex-col lg:flex-row gap-3">
       <div className="py-8 flex flex-wrap md:flex-nowrap space-x-1">
-        {/* Reduced the space between letters using space-x-1 */}
+        
         <div className="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
           {Array.from({ length: 26 }, (_, i) => String.fromCharCode('A'.charCodeAt(0) + i)).map((letter) => (
             <p key={letter} onClick={() => scrollToDestination(letter)} className="cursor-pointer">
