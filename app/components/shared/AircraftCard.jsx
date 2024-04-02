@@ -6,17 +6,33 @@ const AircraftCard = ({ aircraft }) => {
     const router = useRouter();
 
     const handleCardClick = () => {
-        router.push(
-            `/fleet-specification?image=${encodeURIComponent(image)}&range=${feet}&seat=${features.no_of_seats}&speed=${speed}&name=${encodeURIComponent(features.manufacturer)}`
-        );
+        const query = new URLSearchParams({
+            image: image ? encodeURIComponent(image) : '',
+            range: feet ? encodeURIComponent(feet) : '',
+            seat: features.no_of_seats ? encodeURIComponent(features.no_of_seats) : '',
+            speed: speed ? encodeURIComponent(speed) : '',
+            name: features.manufacturer ? encodeURIComponent(features.manufacturer) : '',
+            model: model ? encodeURIComponent(model) : '',
+            luggage_capacity: features.luggage_capacity ? encodeURIComponent(features.luggage_capacity) : '',
+            interior_height: features.interior_height ? encodeURIComponent(features.interior_height) : '',
+            interior_width: features.interior_width ? encodeURIComponent(features.interior_width) : '',
+            overview_summary: features.overview_summary ? encodeURIComponent(features.overview_summary) : '',
+            image_url: features.image_url ? encodeURIComponent(features.image_url) : '',
+            image_url_2: features.image_url_2 ? encodeURIComponent(features.image_url_2) : '',
+            image_url_3: features.image_url_3 ? encodeURIComponent(features.image_url_3) : '',
+            image_url_4: features.image_url_4 ? encodeURIComponent(features.image_url_4) : ''
+        });
+
+        router.push(`/fleet-specification?${query.toString()}`);
     };
+
 
     return (
         <div className="flex flex-col items-center justify-center pt-2 px-2 pb-[width] box-border gap-2 text-center text-base text-black font-body-xs-regular">
             <div className="relative h-full" onClick={handleCardClick}>
                 {image ? (
                     <img
-                         className="w-full rounded-xl h-full object-cover"
+                        className="w-full rounded-xl h-full object-cover"
                         src={image}
                         alt={`Image of ${model}`}
                         width={300}
