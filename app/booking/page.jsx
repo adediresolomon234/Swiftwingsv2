@@ -246,6 +246,11 @@ const BookJet = () => {
     setDateValue(
       dayjs(`${bookingFormData?.depatureDate}T${bookingFormData?.depatureTime}`)
     );
+    setRoundTripDateValue(
+      dayjs(
+        `${bookingFormData?.returningDate}T${bookingFormData?.returningTime}`
+      )
+    );
 
     if (userDetails) {
       delete userDetails.token;

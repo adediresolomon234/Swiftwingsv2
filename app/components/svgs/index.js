@@ -22,3 +22,4 @@ export { default as SWClose } from "./Close-Black.svg";
 export { default as SWPlusRoundBorderIcon } from "./PlusRoundBorderIcon.svg";
 export { default as SWMinusRoundBorderIcon } from "./MinusRoundBorderIcon.svg";
 export { default as SWFilterIcon } from "./FilterIcon.svg";
+export { default as SWGlobeIcon } from "./globe.svg";

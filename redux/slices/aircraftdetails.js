@@ -1,0 +1,58 @@
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from 'axios';
+
+export const fetchAircrafts = createAsyncThunk("aircrafts/fetchAircrafts", async () => {
+  try {
+    const response = await axios.get("https://swiftwings-mw-staging.onrender.com/api/v1/aircraft/all");
+
+    const aircraftsData = response.data.data.map(aircraft => ({
+      id: aircraft._id,
+      name: aircraft.model, 
+      image: aircraft.image_url || '/default-image-url.png', 
+      speed: aircraft.speed, 
+      kilometer: aircraft.range, 
+      feet: aircraft.luggage_capacity, 
+      features: {
+        manufacturer: aircraft.manufacturer,
+        classification: aircraft.classification,
+        no_of_seats: aircraft.no_of_seats, 
+        interior_height: aircraft.interior_height,
+        interior_width: aircraft.interior_width,
+        overview_summary: aircraft.overview_summary,
+      }
+    }));
+    
+    return aircraftsData;
+  } catch (error) {
+    throw new Error("Failed to fetch aircrafts");
+  }
+});
+
+const initialState = {
+  aircrafts: [],
+  status: "idle",
+  error: null,
+};
+
+const aircraftsSlice = createSlice({
+  name: "aircrafts",
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchAircrafts.pending, (state) => {
+        state.status = "loading";
+        state.error = null; 
+      })
+      .addCase(fetchAircrafts.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.aircrafts = action.payload;
+      })
+      .addCase(fetchAircrafts.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      });
+  },
+});
+
+export default aircraftsSlice.reducer;

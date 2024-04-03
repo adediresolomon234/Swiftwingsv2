@@ -22,12 +22,12 @@ const Destinations = () => {
             <div className="min-h-screen flex">
               <div className="container m-auto px-20 py-40 md:px-18 lg:py-0 lg:px-32">
                 <div className="flex items-center flex-wrap gap-10 lg:gap-0">
-                  <div className="lg:w-1/3 space-y-2">
-                    <h1 className="text-4xl  md:text-7xl  text-swGray700 mb-4">See the world on</h1>
+                  <div className="lg:w-1/2 space-y-2">
+                    <h1 className="text-5xl  md:text-[5rem] font-semibold text-swGray700 mb-4">See the <br></br> world on</h1>
                     {isBrowser && <Image src={Swiftwings} alt="" width={190} height={190} />}
                     <p className="text-sm  text-swGray700 mt-8">Explore the best of destinations that we cover</p>
                   </div>
-                  <div className="hidden relative md:block lg:w-2/3">
+                  <div className="hidden relative md:block lg:w-1/2">
                     <DestinationSliders />
                   </div>
                 </div>
@@ -36,7 +36,7 @@ const Destinations = () => {
           </div>
         </section>
         <section className="py-16">
-          <div class="xl:container m-auto px-6 text-gray-600 md:px-12 xl:px-16">
+          <div className="m-auto px-6 text-gray-600 md:px-12 xl:px-16">
             <DestinationList />
           </div>
         </section>

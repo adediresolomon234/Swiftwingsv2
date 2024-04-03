@@ -1,37 +1,49 @@
-import Image from 'next/image';
+import { mdiCarSeat, mdiSpeedometer, mdiArrowLeftRight } from '@mdi/js';
+import { useRouter } from "next/navigation";
+import "../shared/Fleetspec/fleetspec.css"
 
-const AircraftCard = ({ name, image, seat, kilometer, feet, icon, icon2, icon3 }) => {
+const AircraftCard = ({ aircraft }) => {
+    const router = useRouter();
+
+    const handleCardClick = () => {
+        router.push(`/fleet-specification/${aircraft.id}`);
+    };
+    const { model, image, speed, feet, features } = aircraft;
+
     return (
         <div className="flex flex-col items-center justify-center pt-2 px-2 pb-[width] box-border gap-2 text-center text-base text-black font-body-xs-regular">
-            <Image
-                className="w-80 rounded-md h-43 object-cover"
-                alt={name}
-                src={`/images/${image}`}
-                width={80}
-                height={43}
-                layout="responsive"
-            />
-            <div className="self-stretch relative leading-6 font-medium">
-                {name}
+            <div className="relative h-full" onClick={handleCardClick}>
+                {image ? (
+                    <img
+                        className="w-full rounded-xl h-full object-cover image-container"
+                        src={image}
+                        alt={`Image of ${model}`}
+                        width={300}
+                        height={200}
+                    />
+                ) : (
+                    <p>No image available</p>
+                )}
             </div>
-            <div className="self-stretch grid grid-cols-3 gap-4 py-0 px-1 text-left text-xs text-gray-800">
-                <div className="flex items-center justify-start gap-2">
-                    <svg className="text-xl mr-2" viewBox="0 0 24 24">
-                        <path fill="currentColor" d={icon} />
+            <div className="self-stretch relative leading-6 font-medium mt-3 text-xl mb-3">{features.manufacturer}</div>
+            <div className="self-stretch flex justify-center gap-4 py-3 px-1 text-center text-sm text-gray-800">
+                <div className="flex items-center">
+                    <svg className="w-6 h-6" viewBox="0 0 24 24">
+                        <path fill="currentColor" d={mdiCarSeat} />
                     </svg>
-                    <div className="relative leading-4.5 w-[32rem]">{seat}</div>
+                    <div className="relative leading-4.5 ml-3 ">{features.no_of_seats} seats</div>
                 </div>
-                <div className="flex items-center justify-start gap-2">
-                    <svg className="text-xl mr-2" viewBox="0 0 24 24">
-                        <path fill="currentColor" d={icon2} />
+                <div className="flex items-center">
+                    <svg className="w-6 h-6" viewBox="0 0 24 24">
+                        <path fill="currentColor" d={mdiSpeedometer} />
                     </svg>
-                    <div className="relative leading-4.5 w-[32rem]">{kilometer}</div>
+                    <div className="relative leading-4 ml-3">{speed}</div>
                 </div>
-                <div className="flex items-center justify-start gap-2">
-                    <svg className="text-xl mr-2" viewBox="0 0 24 24">
-                        <path fill="currentColor" d={icon3} />
+                <div className="flex items-center">
+                    <svg className="w-6 h-6" viewBox="0 0 24 24">
+                        <path fill="currentColor" d={mdiArrowLeftRight} />
                     </svg>
-                    <div className="relative leading-4.5 w-[32rem]">{feet}</div>
+                    <div className="relative leading-4.5 ml-3 ">{feet}</div>
                 </div>
             </div>
         </div>
@@ -39,4 +51,3 @@ const AircraftCard = ({ name, image, seat, kilometer, feet, icon, icon2, icon3 }
 };
 
 export default AircraftCard;
-

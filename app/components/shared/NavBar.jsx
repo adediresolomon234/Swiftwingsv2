@@ -30,7 +30,7 @@ const NavBar = ({ Nav }) => {
           ""
         ) : (
           <div className="flex gap-8">
-            <Link href={""} className="py-2 px-4 rounded-full hover:bg-white">
+            <Link href={"/fleet-page"} className="py-2 px-4 rounded-full hover:bg-white">
               Fleets
             </Link>
             <Link href={"/destinations"} className="py-2 px-4 rounded-full hover:bg-white">
