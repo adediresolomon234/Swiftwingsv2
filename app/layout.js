@@ -2,7 +2,7 @@
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import { Provider } from "react-redux";
-import { BrowserRouter } from "react-router-dom"; // Import BrowserRouter
+//import { BrowserRouter } from "react-router-dom"; // Import BrowserRouter
 import { store } from "@/redux/store";
 
 const poppins = Poppins({
@@ -18,11 +18,14 @@ const metadata = {
 export default function RootLayout({ children }) {
   return (
     <Provider store={store}>
-      <BrowserRouter> 
+      <html lang="en">
+        <body className={poppins.className}>{children}</body>
+      </html>
+      {/* <BrowserRouter> 
         <html lang="en">
           <body className={poppins.className}>{children}</body>
         </html>
-      </BrowserRouter>
+      </BrowserRouter> */}
     </Provider>
   );
 }

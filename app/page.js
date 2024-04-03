@@ -420,9 +420,9 @@ export default function Home() {
                         className="relative p-5 flex h-[5.5rem] w-[18rem] items-center gap-5 border border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50 rounded-2xl cursor-pointer"
                         // ref={dateRef}
                       >
-                        <div className="p-2 rounded-full text-white">
+                        {/* <div className="p-2 rounded-full text-white">
                           <SwCalendarIcon className="text-xl" />
-                        </div>
+                        </div> */}
 
                         <div>
                           {bookingEngine === "Round Trip" ? (

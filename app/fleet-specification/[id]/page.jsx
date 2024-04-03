@@ -1,18 +1,15 @@
 "use client";
 import { Space_Grotesk } from "next/font/google";
 import Image from "next/image";
-import FleetImage234 from "../../public/images/FleetImage234.png";
-import NavAndFooter from "../components/shared/NavAndFooter";
-import FooterHero from "../components/shared/footerHero";
-import { SWGlobeIcon, SwSeatIcon, SwMeterIcon } from "../components/svgs";
-import FleetSpecSlider from "../components/shared/Fleetspec/FleetSpecSlider";
+import FleetImage234 from "../../../public/images/FleetImage234.png";
+import NavAndFooter from "../../components/shared/NavAndFooter";
+import FooterHero from "../../components/shared/footerHero";
+import { SWGlobeIcon, SwSeatIcon, SwMeterIcon } from "../../components/svgs";
+import FleetSpecSlider from "../../components/shared/Fleetspec/FleetSpecSlider";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-const spaceGrotesk = Space_Grotesk({
-    subsets: ["latin"],
-    weight: ["300", "400", "500", "600", "700"],
-});
+
 
 const FleetSpec = () => {
     const router = useRouter();
@@ -30,17 +27,17 @@ const FleetSpec = () => {
         }
     }, [id]);
 
-    if (!router.isReady) {
-        return null;
-    }
+    // if (!router.isReady) {
+    //     return null;
+    // }
 
-    if (!id) {
-        return (
-            <div>
-                No aircraft ID provided.
-            </div>
-        );
-    }
+    // if (!id) {
+    //     return (
+    //         <div>
+    //             No aircraft ID provided.
+    //         </div>
+    //     );
+    // }
 
     return (
         <main className="relative bg-swLightBgGray ">
@@ -49,6 +46,7 @@ const FleetSpec = () => {
                     {aircraftDetails && (
                         <>
                             <div className="absolute h-full w-full top-0 left-0 overflow-hidden ">
+                                hello
                                 <Image src={FleetImage234} alt="airplane" className="h-full w-full object-cover" />
                             </div>
                             <div className="h-full w-full bg-swBlack absolute top-0 left-0 bg-opacity-10" />
@@ -171,6 +169,7 @@ const FleetSpec = () => {
                         <FooterHero />
                     </div>
                 </section>
+
             </NavAndFooter>
         </main>
     );

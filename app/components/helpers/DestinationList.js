@@ -18,27 +18,28 @@ const DestinationList = () => {
   }, [selectedLetter]);
 
   return (
-    <div className="flex flex-col lg:flex-row gap-3">
-      <div className="py-12 flex flex-wrap md:flex-nowrap space-x-5">
-        <div className="md:w-64 md:mb-0 mb-8 flex-shrink-0 flex flex-col space-y-4">
-          {Array.from({ length: 26 }, (_, i) => String.fromCharCode('A'.charCodeAt(0) + i)).map((letter) => (
-            <p key={letter} onClick={() => scrollToDestination(letter)} className="cursor-pointer">
-              {letter}
-            </p>
-          ))}
-        </div>
-      </div>
-      <div className="flex-grow">
-        <div className="md:flex-grow">
-          {countries.map((country, index) => (
-            <div key={index} className="flex items-center justify-center">
-              <div id={country.name[0]}></div>
-              <CountryCard country={country} />
-            </div>
-          ))}
-        </div>
+    <div className="flex flex-col lg:flex-row">
+    <div className="flex-shrink-0 w-1/12 hidden lg:block">
+      <div className="md:w-64 md:mb-0 mb-8 flex flex-col space-y-4 sticky top-0">
+        {Array.from({ length: 26 }, (_, i) => String.fromCharCode('A'.charCodeAt(0) + i)).map((letter) => (
+          <p key={letter} onClick={() => scrollToDestination(letter)} className="cursor-pointer">
+            {letter}
+          </p>
+        ))}
       </div>
     </div>
+    <div className="flex-grow w-full lg:w-9/12">
+      <div className="md:flex-grow">
+        {countries.map((country, index) => (
+          <div key={index} className="flex items-center justify-center">
+            <div id={country.name[0]}></div>
+            <CountryCard country={country} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+  
   );
 };
 
