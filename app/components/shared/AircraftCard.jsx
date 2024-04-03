@@ -6,7 +6,7 @@ const AircraftCard = ({ aircraft }) => {
     const router = useRouter();
 
     const handleCardClick = () => {
-        router.push(`/fleet-specification?id=${aircraft.id}`);
+        router.push(`/fleet-specification/${aircraft.id}`);
     };
     const { model, image, speed, feet, features } = aircraft;
 
