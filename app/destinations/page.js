@@ -23,7 +23,7 @@ const Destinations = () => {
               <div className="container m-auto px-20 py-40 md:px-18 lg:py-0 lg:px-32">
                 <div className="flex items-center flex-wrap gap-10 lg:gap-0">
                   <div className="lg:w-1/3 space-y-2">
-                    <h1 className="text-4xl  md:text-7xl  text-swGray700 mb-4">See the world on</h1>
+                    <h1 className="text-7xl  md:text-[6rem] font-semibold text-swGray700 mb-4">See the world on</h1>
                     {isBrowser && <Image src={Swiftwings} alt="" width={190} height={190} />}
                     <p className="text-sm  text-swGray700 mt-8">Explore the best of destinations that we cover</p>
                   </div>
