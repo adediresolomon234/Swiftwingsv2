@@ -24,3 +24,7 @@ fieldset.MuiOutlinedInput-notchedOutline {
 .bookingDate > * .css-i4bv87-MuiSvgIcon-root {
   color: #5a5a5a !important;
 }
+
+.MuiOutlinedInput-notchedOutline {
+  border: none !important ;
+}

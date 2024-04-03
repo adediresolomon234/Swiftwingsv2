@@ -101,8 +101,13 @@ const MultiCity = () => {
     );
   };
 
-  const handleDateChange = (newValue) => {
-    setDateValue(newValue);
+  const handleDateChange = (value, index) => {
+    setDateValue((prev) => {
+      const newValue = [...prev];
+      newValue[index] = value;
+      return newValue;
+    });
+    console.log(value);
   };
 
   const handleSavePassengers = () => {
@@ -195,16 +200,12 @@ const MultiCity = () => {
   };
 
   const handleDateOpen = (index, state) => {
-    if (isDateOpen.length === 1) {
-      setDateOpen(null);
-      setDateOpen([state]);
-    } else {
-      setDateOpen((prev) => {
-        const newState = [...prev];
-        newState[index] = state;
-        return newState;
-      });
-    }
+    setDateOpen((prev) => {
+      const newState = [...prev];
+      newState[index] = state;
+      return newState;
+    });
+
     // console.log({  });
   };
 
@@ -402,28 +403,39 @@ const MultiCity = () => {
                     <SwCalendarIcon className="text-xl" />
                   </div>
                 )}
-                {!isDateOpen[index] && (
-                  <div>
-                    <p className="text-swGray500 text-sm">Departure date</p>
-                    <p className=" text-white font-semibold">
-                      {dateValue[index].format("D MMM")}
-                    </p>
-                  </div>
-                )}
+
+                <div>
+                  <p className="text-swGray500 text-sm">Departure date</p>
+                  <p className=" text-white font-semibold">
+                    {dateValue[index]?.format("D MMM")}
+                  </p>
+                </div>
 
                 {isDateOpen[index] && (
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <div className="flex">
-                      <DateTimePicker
-                        label="Departure Date"
-                        defaultValue={dateValue}
-                        value={dateValue}
-                        onChange={handleDateChange}
-                        onClose={() => handleDateOpen(index, false)}
-                        renderInput={(params) => <TextField {...params} />}
-                      />
-                    </div>
-                  </LocalizationProvider>
+                  <div
+                    // ref={dateRef}
+                    className={`absolute`}
+                  >
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <div
+                        className={`flex ${
+                          pathname === "/" ? "indexDate" : "bookingDate"
+                        }`}
+                      >
+                        <DateTimePicker
+                          label="Departure Date"
+                          defaultValue={dateValue[index]}
+                          value={dateValue[index]}
+                          onChange={(value) => handleDateChange(value, index)}
+                          onClose={() => handleDateOpen(index, false)}
+                          renderInput={(params) => <TextField {...params} />}
+                          InputProps={{
+                            disableUnderline: true,
+                          }}
+                        />
+                      </div>
+                    </LocalizationProvider>
+                  </div>
                 )}
               </div>
               <div className="relative">
