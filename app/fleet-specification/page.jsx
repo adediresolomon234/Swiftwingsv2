@@ -7,6 +7,7 @@ import FooterHero from "../components/shared/footerHero";
 import { SWGlobeIcon, SwSeatIcon, SwMeterIcon } from "../components/svgs";
 import FleetSpecSlider from "../components/shared/Fleetspec/FleetSpecSlider";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const spaceGrotesk = Space_Grotesk({
     subsets: ["latin"],
@@ -15,61 +16,85 @@ const spaceGrotesk = Space_Grotesk({
 
 const FleetSpec = () => {
     const router = useRouter();
-    const { image, range, seat, speed, manufacturer } = router.query || {};
+    const id = router.query?.id; // Use optional chaining to safely access 'id'
 
-    if (!router.isReady || !image || !range || !seat || !speed || !manufacturer) {
+    const [aircraftDetails, setAircraftDetails] = useState(null);
+
+    useEffect(() => {
+        if (id) {
+            fetchAircraftDetails(id).then(details => {
+                setAircraftDetails(details);
+            }).catch(error => {
+                console.error('Error fetching aircraft details:', error);
+            });
+        }
+    }, [id]);
+
+    if (!router.isReady) {
         return null;
+    }
+
+    if (!id) {
+        return (
+            <div>
+                No aircraft ID provided.
+            </div>
+        );
     }
 
     return (
         <main className="relative bg-swLightBgGray ">
             <NavAndFooter>
                 <section className="w-full h-full p-10 pt-48 text-white relative pb-10  ">
-                    <div className="absolute h-full w-full top-0 left-0 overflow-hidden ">
-                        <Image src={image} alt="airplane" className="h-full w-full object-cover" />
-                    </div>
-                    <div className="h-full w-full bg-swBlack absolute top-0 left-0 bg-opacity-10" />
-                    <div className="max-w-7xl mx-auto mb-10 relative text-center">
-                        <div className="pt-8 z-50">
-                            <p className="text-4xl font-bold leading-snug text-swPrimary700">
-                                {manufacturer}
-                            </p>
-                            <div className="grid md:grid-cols-2 gap-28 pt-[27rem]">
-                                <div className="mt-20">
-                                    <p className="text-lg text-swPrimary600  text-start">
-                                        The Global 8000 private jet is the flagship for a new era where the fastest speed, the longest range and the smoothest ride converge in a single business aircraft with proven reliability and the healthiest, best-connected cabin in the industry.
+                    {aircraftDetails && (
+                        <>
+                            <div className="absolute h-full w-full top-0 left-0 overflow-hidden ">
+                                <Image src={FleetImage234} alt="airplane" className="h-full w-full object-cover" />
+                            </div>
+                            <div className="h-full w-full bg-swBlack absolute top-0 left-0 bg-opacity-10" />
+                            <div className="max-w-7xl mx-auto mb-10 relative text-center">
+                                <div className="pt-8 z-50">
+                                    <p className="text-4xl font-bold leading-snug text-swPrimary700">
+                                        {aircraftDetails.model}
                                     </p>
-                                </div>
-                                <div className="mt-20">
-                                    <div className="ml-10">
-                                        <div className="grid grid-cols-3 gap-4 w-full max-w-full rounded-xl bg-white border border-gray-200 overflow-hidden">
-                                            <div className="flex flex-col items-center justify-center py-6 px-8">
-                                                <div className="flex items-center justify-center mb-3 text-swPrimary600">
-                                                    <SWGlobeIcon className="text-swPrimary600 text-xl" />
+                                    <div className="grid md:grid-cols-2 gap-28 pt-[27rem]">
+                                        <div className="mt-20">
+                                            <p className="text-lg text-swPrimary600  text-start">
+                                                {aircraftDetails.features.overview_summary}
+                                            </p>
+                                        </div>
+                                        <div className="mt-20">
+                                            <div className="ml-10">
+                                                <div className="grid grid-cols-3 gap-4 w-full max-w-full rounded-xl bg-white border border-gray-200 overflow-hidden">
+                                                    <div className="flex flex-col items-center justify-center py-6 px-8">
+                                                        <div className="flex items-center justify-center mb-3 text-swPrimary600">
+                                                            <SWGlobeIcon className="text-swPrimary600 text-xl" />
+                                                        </div>
+                                                        <div className="text-center font-semibold text-swGray700">RANGE</div>
+                                                        <div className="text-center text-swGray500">{aircraftDetails.range}</div>
+                                                    </div>
+                                                    <div className="flex flex-col items-center justify-center py-6 px-6">
+                                                        <div className="flex items-center justify-center mb-3 text-swPrimary600">
+                                                            <SwSeatIcon className="text-swPrimary600 text-xl" />
+                                                        </div>
+                                                        <div className="text-center font-semibold text-swGray700">Passengers</div>
+                                                        <div className="text-center text-swGray500">{aircraftDetails.seat}</div>
+                                                    </div>
+                                                    <div className="flex flex-col items-center justify-center py-6 px-4">
+                                                        <div className="flex items-center justify-center mb-3 text-swPrimary600">
+                                                            <SwMeterIcon className="text-swPrimary600 text-xl" />
+                                                        </div>
+                                                        <div className="text-center font-semibold text-swGray700">Speed</div>
+                                                        <div className="text-center text-swGray500">{aircraftDetails.speed}</div>
+                                                    </div>
                                                 </div>
-                                                <div className="text-center font-semibold text-swGray700">RANGE</div>
-                                                <div className="text-center text-swGray500">{range}</div>
-                                            </div>
-                                            <div className="flex flex-col items-center justify-center py-6 px-6">
-                                                <div className="flex items-center justify-center mb-3 text-swPrimary600">
-                                                    <SwSeatIcon className="text-swPrimary600 text-xl" />
-                                                </div>
-                                                <div className="text-center font-semibold text-swGray700">Passengers</div>
-                                                <div className="text-center text-swGray500">{seat}</div>
-                                            </div>
-                                            <div className="flex flex-col items-center justify-center py-6 px-4">
-                                                <div className="flex items-center justify-center mb-3 text-swPrimary600">
-                                                    <SwMeterIcon className="text-swPrimary600 text-xl" />
-                                                </div>
-                                                <div className="text-center font-semibold text-swGray700">Speed</div>
-                                                <div className="text-center text-swGray500">{speed}</div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                        </>
+                    )}
                 </section>
                 <section className="py-16">
                     <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">

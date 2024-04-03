@@ -12,18 +12,21 @@ import Image from "next/image";
 import Fleetsection from "../../public/images/Fleetsection.png";
 import NavAndFooter from "../components/shared/NavAndFooter";
 import FooterHero from "../components/shared/footerHero";
+import { useRouter } from "next/navigation";
+import { PuffLoader } from 'react-spinners';
 
 const FleetPage = () => {
     const dispatch = useDispatch();
     const aircrafts = useSelector(state => state.aircrafts.aircrafts);
     const status = useSelector(state => state.aircrafts.status);
+    const router = useRouter();
     const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
         dispatch(fetchAircrafts());
     }, [dispatch]);
 
-  
+
     const filteredAircrafts = aircrafts.filter(aircraft => {
         return aircraft.name.toLowerCase().includes(searchQuery.toLowerCase());
     });
@@ -67,19 +70,18 @@ const FleetPage = () => {
                                 <TypeFilter />
                             </div>
                         </div>
-                        <div className="col-span-2 ">
-                            <div className="max-w-screen-xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-                                {status === 'loading' ? (
-                                    <p>Loading...</p>
-                                ) : status === 'failed' ? (
-                                    <p>Error: Failed to fetch aircrafts</p> 
-                                ) : (
-                                    filteredAircrafts.map((aircraft) => (
+                        <div className="col-span-2 flex items-center justify-center ">
+                            {status === 'loading' ? (
+                                <PuffLoader color="#54052e" loading={true} size={100} margin={2}  />
+                            ) : status === 'failed' ? (
+                                <p>Error: Failed to fetch aircrafts</p>
+                            ) : (
+                                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12">
+                                    {filteredAircrafts.map((aircraft) => (
                                         <AircraftCard key={aircraft.id} aircraft={aircraft} />
-                                    ))
-                                )}
-
-                            </div>
+                                    ))}
+                                </div>
+                            )}
                         </div>
                     </div>
                 </section>
