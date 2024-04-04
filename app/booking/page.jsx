@@ -218,15 +218,17 @@ const BookJet = () => {
   const handleQuote = () => {
     dispatch(addBooking(bookingDetails));
   };
+
   useEffect(() => {
-    if (data) {
+    if (data?.response?.data?.error) {
+      toast.error(data?.response?.data?.error);
+    } else if (data?.message) {
       toast.success(data?.message);
     }
     if (error) {
       toast.error(error?.message);
     }
   }, [data, error]);
-  // console.log({ data });
 
   useEffect(() => {
     const bookingDetails = JSON.parse(localStorage.getItem("bookingDetails"));
@@ -243,6 +245,11 @@ const BookJet = () => {
 
     setDateValue(
       dayjs(`${bookingFormData?.depatureDate}T${bookingFormData?.depatureTime}`)
+    );
+    setRoundTripDateValue(
+      dayjs(
+        `${bookingFormData?.returningDate}T${bookingFormData?.returningTime}`
+      )
     );
 
     if (userDetails) {
@@ -270,10 +277,10 @@ const BookJet = () => {
         setOpenArrival(false);
         // console.log("arrival clicked");
       }
-      if (!dateRef?.current?.contains(event.target)) {
-        setDateOpen(false);
-        // console.log("date clicked");
-      }
+      // if (!dateRef?.current?.contains(event.target)) {
+      //   setDateOpen(false);
+      //   // console.log("date clicked");
+      // }
       if (!passengerRef?.current?.contains(event.target)) {
         setOpenPassageners(false);
       }
@@ -402,7 +409,6 @@ const BookJet = () => {
                           </p>
                         </div>
                       </div>
-
                       {openDeparture && (
                         <div
                           ref={departureRef}
@@ -443,20 +449,35 @@ const BookJet = () => {
                         onClick={() => setDateOpen(true)}
                         className="relative p-5 pr-5 flex items-center h-[5.5rem] w-72 gap-5 border rounded-2xl cursor-pointer"
                       >
-                        <div className="p-2 rounded-full text-swGray900">
-                          <SwCalendarIcon className="text-xl" />
-                        </div>
+                        {!isDateOpen && (
+                          <div className="p-2 rounded-full text-swGray900">
+                            <SwCalendarIcon className="text-xl" />
+                          </div>
+                        )}
 
-                        <div>
+                        <div className="w-full">
                           {bookingEngine === "Round Trip" ? (
                             <div className="w-full">
-                              <p className="text-swLightGray text-sm">
-                                Departure and arrival date
-                              </p>
-                              <p className=" text-swGray800 font-semibold">
-                                {dateValue.format("D MMM")} -{" "}
-                                {roundTripDateValue.format("D MMM")}
-                              </p>
+                              {!isDateOpen ? (
+                                <>
+                                  <p className="text-swLightGray text-sm">
+                                    Departure and arrival date
+                                  </p>
+                                  <p className=" text-swGray800 font-semibold">
+                                    {dateValue.format("D MMM")} -{" "}
+                                    {roundTripDateValue.format("D MMM")}
+                                  </p>
+                                </>
+                              ) : (
+                                <div className="w-full flex">
+                                  <div className="text-sm font-semibold w-full">
+                                    {dateValue.format("D MMM")}
+                                  </div>
+                                  <div className="text-sm font-semibold ml-5 w-full">
+                                    {roundTripDateValue.format("D MMM")}
+                                  </div>
+                                </div>
+                              )}
                             </div>
                           ) : (
                             <div>
@@ -473,7 +494,7 @@ const BookJet = () => {
                         </div>
                         {isDateOpen && (
                           <div
-                            ref={dateRef}
+                            // ref={dateRef}
                             className={`absolute ${
                               bookingEngine === "Round Trip" && "-ml-5"
                             }`}
