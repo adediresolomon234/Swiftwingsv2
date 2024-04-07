@@ -43,6 +43,8 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 import MultiCity from "./components/multi-city-trip-boking/MultiCity";
+import { fetchAircrafts } from "@/redux/slices/aircraftdetails";
+import { mdiCarSeat, mdiSpeedometer, mdiArrowLeftRight } from '@mdi/js';
 
 const space_grotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -61,6 +63,7 @@ function isNearViewport(id) {
 
 export default function Home() {
   const router = useRouter();
+  const dispatch = useDispatch();
   const [bookingEngine, setBookingEngine] = useState("One way Trip");
   const [openPassangers, setOpenPassageners] = useState(false);
   const [openDeparture, setOpenDeparture] = useState(false);
@@ -75,6 +78,8 @@ export default function Home() {
   });
   const [hoveredIndex, setHoveredIndex] = useState(0);
   const [allAirports, setAllAirports] = useState(airports || []);
+  const aircrafts = useSelector((state) => state.aircrafts.aircrafts);
+  const [fleet, setFleet] = useState([]);
   const [departureAirport, setDepartureAirport] = useState(null);
   const [arrivalAirport, setArrivalAirport] = useState(null);
   const [isDateOpen, setDateOpen] = useState(false);
@@ -119,6 +124,17 @@ export default function Home() {
     );
   };
 
+  useEffect(() => {
+    dispatch(fetchAircrafts());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (aircrafts.length > 0) {
+
+      setFleet(aircrafts.slice(0, 5));
+    }
+  }, [aircrafts]);
+
   const handleMouseEnter = (index) => {
     setHoveredIndex(index);
   };
@@ -155,18 +171,16 @@ export default function Home() {
               disabled: false,
             },
             depatureTime: `${dateValue?.$H}:${dateValue?.$m}`,
-            depatureDate: `${dateValue?.$y}-${dateValue?.$M + 1}-${
-              dateValue?.$D
-            }`,
+            depatureDate: `${dateValue?.$y}-${dateValue?.$M + 1}-${dateValue?.$D
+              }`,
             returningTime:
               bookingEngine === "Round Trip"
                 ? `${roundTripDateValue?.$H}:${roundTripDateValue?.$m}`
                 : null,
             returningDate:
               bookingEngine === "Round Trip"
-                ? `${roundTripDateValue?.$y}-${roundTripDateValue?.$M + 1}-${
-                    roundTripDateValue?.$D
-                  }`
+                ? `${roundTripDateValue?.$y}-${roundTripDateValue?.$M + 1}-${roundTripDateValue?.$D
+                }`
                 : null,
             passengers: {
               adults: adultsNo,
@@ -184,7 +198,9 @@ export default function Home() {
     }
     router.push("/booking");
   };
-
+  const handleSeeAllClick = () => {
+    router.push('/fleet-page');
+  };
   const handleSavePassangers = () => {
     setAllPassangers((prev) => ({
       adults: adultsNo,
@@ -280,31 +296,28 @@ export default function Home() {
                 </Link>
                 <div className="p-1 text-xl rounded-full flex gap-5 font-medium backdrop-blur bg-white/25">
                   <button
-                    className={`${
-                      bookingEngine === "One way Trip"
-                        ? "text-white backdrop-blur bg-swBlack/50 font-semibold"
-                        : "text-swGray300 hover:backdrop-blur hover:bg-white/5"
-                    } py-2 px-4 rounded-full`}
+                    className={`${bookingEngine === "One way Trip"
+                      ? "text-white backdrop-blur bg-swBlack/50 font-semibold"
+                      : "text-swGray300 hover:backdrop-blur hover:bg-white/5"
+                      } py-2 px-4 rounded-full`}
                     onClick={() => setBookingEngine("One way Trip")}
                   >
                     One Way Rrip
                   </button>
                   <button
-                    className={`${
-                      bookingEngine === "Round Trip"
-                        ? "text-white backdrop-blur bg-swBlack/50 font-semibold"
-                        : "text-swGray300 hover:backdrop-blur hover:bg-white/5]"
-                    } py-2 px-4 rounded-full`}
+                    className={`${bookingEngine === "Round Trip"
+                      ? "text-white backdrop-blur bg-swBlack/50 font-semibold"
+                      : "text-swGray300 hover:backdrop-blur hover:bg-white/5]"
+                      } py-2 px-4 rounded-full`}
                     onClick={() => setBookingEngine("Round Trip")}
                   >
                     Round Trip
                   </button>
                   <button
-                    className={`${
-                      bookingEngine === "Multi-city Trip"
-                        ? "text-white backdrop-blur bg-swBlack/50 font-semibold"
-                        : "text-swGray300 hover:backdrop-blur hover:bg-white/5"
-                    } py-2 px-4 rounded-full`}
+                    className={`${bookingEngine === "Multi-city Trip"
+                      ? "text-white backdrop-blur bg-swBlack/50 font-semibold"
+                      : "text-swGray300 hover:backdrop-blur hover:bg-white/5"
+                      } py-2 px-4 rounded-full`}
                     onClick={() => setBookingEngine("Multi-city Trip")}
                   >
                     Multi-city trip
@@ -323,10 +336,10 @@ export default function Home() {
                       !departureAirport?.city
                         ? true
                         : !arrivalAirport?.city
-                        ? true
-                        : !allPassangers?.adults
-                        ? true
-                        : false
+                          ? true
+                          : !allPassangers?.adults
+                            ? true
+                            : false
                     }
                   />
                 </div>
@@ -427,7 +440,7 @@ export default function Home() {
                       <div
                         onClick={() => setDateOpen(true)}
                         className="relative p-5 flex h-[5.5rem] w-[18rem] items-center gap-5 border border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50 rounded-2xl cursor-pointer"
-                        // ref={dateRef}
+                      // ref={dateRef}
                       >
                         {!isDateOpen && (
                           <div className="p-2 rounded-full text-white">
@@ -472,9 +485,8 @@ export default function Home() {
                         </div>
                         {isDateOpen && (
                           <div
-                            className={`absolute ${
-                              bookingEngine === "Round Trip" && "-ml-5"
-                            }`}
+                            className={`absolute ${bookingEngine === "Round Trip" && "-ml-5"
+                              }`}
                           >
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                               <div className="flex indexDate">
@@ -700,14 +712,14 @@ export default function Home() {
         </section>
         <section className="max-w-7xl mx-auto py-10">
           <div className="relative pt-40 pb-20 lg:pt-44">
-            <div className="relative 2xl:container m-auto px-6 md:px-12 lg:px-4">
+            <div className="relative 2xl:container m-auto px-0 md:px-0 lg:px-0">
               <p className="sm:mx-auto sm:w-10/12 md:w-2/3 p-1 text-swPrimary500 font-semibold text-center sm:text-[18px] md:text-[18px] lg:text-[18px] lg:w-auto lg:text-left">
                 Fleet Showcase
               </p>
               <h1 className="mt-8 sm:mx-auto sm:w-10/12 md:w-2/3 text-swGray700 text-4xl font-semibold text-center sm:text-5xl md:text-5xl lg:w-auto lg:text-left xl:text-6xl">
                 Our Fleets.
               </h1>
-              <div className="flex gap-6 mt-12">
+              <div className="flex gap-8 mt-12">
                 <div className="col-span-4 relative">
                   {fleet.map((item, index) => (
                     <div
@@ -716,26 +728,32 @@ export default function Home() {
                       onMouseEnter={() => handleMouseEnter(index)}
                       onMouseLeave={handleMouseLeave}
                     >
-                      <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-2 border-gray-200 rounded duration-300 hover:bg-swBgGray">
+                      <div className="grid grid-cols-1 gap-32 lg:grid-cols-3 lg:gap-8 border-gray-200 rounded duration-300 hover:bg-swBgGray">
                         <div className="flex items-center fleet-item">
                           <a aria-label="icon" className="block">
-                            <p className="font-medium md:block text-[20px] text-swGray700">
+                            <p className="font-medium md:block text-[18px] text-swGray700">
                               {item.name}
                             </p>
                           </a>
                         </div>
-                        <div className="flex-1 flex flex-col items-start justify-between text-xs text-gray-800 px-1 py-2 lg:col-span-2">
-                          <div className="flex justify-between flex-grow gap-[18px] mt-6 font-normal ">
+                        <div className="flex-1 flex flex-col items-start justify-between text-xs text-gray-800 px-1 py-3 lg:col-span-2">
+                          <div className="flex justify-between flex-grow gap-8 mt-6 font-normal ">
                             <div className="flex items-center ">
-                              <Icon path={item.icon} size={1} />
-                              <span className="ml-3">{item.seat}</span>
+                              <svg className="w-6 h-6" viewBox="0 0 24 24">
+                                <path fill="currentColor" d={mdiCarSeat} />
+                              </svg>
+                              <span className="ml-3">{item.features.no_of_seats} seats</span>
                             </div>
                             <div className="flex items-center">
-                              <Icon path={item.icon2} size={1} />
-                              <span className="ml-3 ">{item.kilometer}</span>
+                              <svg className="w-6 h-6" viewBox="0 0 24 24">
+                                <path fill="currentColor" d={mdiSpeedometer} />
+                              </svg>
+                              <span className="ml-3 ">{item.speed}</span>
                             </div>
                             <div className="flex items-center">
-                              <Icon path={item.icon3} size={1} />
+                              <svg className="w-6 h-6" viewBox="0 0 24 24">
+                                <path fill="currentColor" d={mdiArrowLeftRight} />
+                              </svg>
                               <span className="ml-3 ">{item.feet}</span>
                             </div>
                           </div>
@@ -748,24 +766,25 @@ export default function Home() {
                     </div>
                   ))}
                 </div>
-                <div className="flex justify-center items-center image-container relative">
+                <div className="flex justify-center items-center relative w-[50%]"> 
                   <div className="">
                     <div
                       aria-hidden="true"
-                      className={`absolute scale-75 md:scale-110 inset-0 m-auto rotate-45 bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl ${
-                        hoveredIndex >= 0 ? "opacity-100" : "opacity-0"
-                      }`}
+                      className={`absolute scale-75 md:scale-110 inset-0 m-auto rotate-45 bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl ${hoveredIndex >= 0 ? "opacity-100" : "opacity-0"
+                        }`}
                     ></div>
-                    {hoveredIndex >= 0 && (
+                    {hoveredIndex >= 0 && fleet[hoveredIndex]?.image && (
                       <div
                         key={fleet[hoveredIndex].id}
                         className={`relative fleet-image show`}
                       >
                         <div aria-hidden="true" className={`absolute`}></div>
                         <Image
-                          src={`/images/${fleet[hoveredIndex].image}`}
+                          className="image-class"
+                          src={fleet[hoveredIndex].image}
                           alt="illustration"
                           loading="lazy"
+                          layout="responsive"
                           width={780}
                           height={492}
                         />
@@ -774,6 +793,7 @@ export default function Home() {
                   </div>
                 </div>
               </div>
+
               <div
                 className={`${space_grotesk.className} flex justify-right text-xl mt-12 py-8 `}
               >
@@ -782,6 +802,7 @@ export default function Home() {
                   bgColor={"bg-swPrimary500"}
                   textColor={"text-white"}
                   endIcon={<HiArrowRight size={15} />}
+                  onClick={handleSeeAllClick}
                 />
               </div>
             </div>
@@ -831,6 +852,7 @@ export default function Home() {
               bgColor={"bg-swPrimary500"}
               textColor={"text-white"}
               endIcon={<HiArrowRight size={20} />}
+
             />
           </div>
         </section>

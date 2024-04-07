@@ -21,9 +21,14 @@
     domains: ['swiperjs.com'],
   },
   images: {
-    domains: ['md.aviapages.com'],
-    domains: ['res.cloudinary.com'],
-},
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+        pathname: '**',
+      },
+    ],
+  },
 };
 
 export default nextConfig;
