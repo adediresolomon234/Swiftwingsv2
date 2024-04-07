@@ -1,14 +1,25 @@
 import { mdiCarSeat, mdiSpeedometer, mdiArrowLeftRight } from '@mdi/js';
 import { useRouter } from "next/navigation";
-import "../shared/Fleetspec/fleetspec.css"
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import "../shared/Fleetspec/fleetspec.css";
 
-const AircraftCard = ({ aircraft }) => {
+const AircraftCard = ({aircraft}) => {
+
+    // const dispatch = useDispatch();
+    // const aircrafts = useSelector(state => state.aircrafts.aircrafts)
     const router = useRouter();
+
+    // useEffect(() => {
+    //     dispatch(fetchAircrafts()); 
+    // }, [dispatch]);
+
 
     const handleCardClick = () => {
         router.push(`/fleet-specification/${aircraft.id}`);
     };
     const { model, image, speed, feet, features } = aircraft;
+    console.log(model);
 
     return (
         <div className="flex flex-col items-center justify-center pt-2 px-2 pb-[width] box-border gap-2 text-center text-base text-black font-body-xs-regular">

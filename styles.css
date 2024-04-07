@@ -1,6 +1,6 @@
 .fleet-image {
-  width: 720px;
-  margin-right: -100px;
+  width: 100%;
+  margin-right: -150px;
   opacity: 0;
   transition: opacity 0.3s ease-in, transform 0.3s ease-in-out;
   position: relative;
@@ -68,7 +68,7 @@
 }
 
 .image-container {
-  width: 50%;
+  width: 100%;
 }
 
 .fleet-image-wrapper {
@@ -148,3 +148,8 @@
   border: 1px solid transparent !important;
 }
 
+.image-class {
+  width: 900px !important; 
+  height: 380px !important; 
+  object-fit: cover;
+}
