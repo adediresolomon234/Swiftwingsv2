@@ -6,9 +6,6 @@
 
  const nextConfig = {
   reactStrictMode: false,
-  experimental: {
-    appDir: true,
-  },
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
@@ -19,8 +16,6 @@
   },
   images: {
     domains: ['swiperjs.com'],
-  },
-  images: {
     remotePatterns: [
       {
         protocol: 'https',
