@@ -20,7 +20,7 @@ import airports from "../helpers/airports";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import Select from "react-select";
 
-const MultiCity = () => {
+const MultiCity = ({ another, bookingDetails, setBookingDetils }) => {
   const pathname = usePathname();
   const dispatch = useDispatch();
   const router = useRouter();
@@ -44,7 +44,6 @@ const MultiCity = () => {
   const [arrivalAirport, setArrivalAirport] = useState([null]);
   const [isDateOpen, setDateOpen] = useState([false]);
   const [dateValue, setDateValue] = useState([dayjs()]);
-  const [roundTripDateValue, setRoundTripDateValue] = useState(dayjs());
   const departureRef = useRef(null);
   const arrivalRef = useRef(null);
   const dateRef = useRef(null);
@@ -62,13 +61,18 @@ const MultiCity = () => {
         disabled: false,
       },
       depatureTime: `${dateValue?.$H}:${dateValue?.$m}`,
-      returningTime: `${roundTripDateValue?.$H}:${roundTripDateValue?.$m}`,
-      returningDate: `${roundTripDateValue?.$y}-${roundTripDateValue?.$M + 1}-${
-        roundTripDateValue?.$D
-      }`,
+      returningTime: null,
+      returningDate: null,
       depatureDate: `${dateValue?.$y}-${dateValue?.$M + 1}-${dateValue?.$D}`,
+      passengers: {
+        adults: allPassengers?.adults,
+        children: allPassengers?.kids,
+        pets: allPassengers?.pets,
+      },
     },
   ]);
+
+  console.log({ another });
 
   const options = airports.map((item) => ({
     label: (
@@ -107,7 +111,6 @@ const MultiCity = () => {
       newValue[index] = value;
       return newValue;
     });
-    console.log(value);
   };
 
   const handleSavePassengers = () => {
@@ -130,11 +133,14 @@ const MultiCity = () => {
           disabled: false,
         },
         depatureTime: `${dateValue?.$H}:${dateValue?.$m}`,
-        returningTime: `${roundTripDateValue?.$H}:${roundTripDateValue?.$m}`,
-        returningDate: `${roundTripDateValue?.$y}-${
-          roundTripDateValue?.$M + 1
-        }-${roundTripDateValue?.$D}`,
+        returningTime: null,
+        returningDate: null,
         depatureDate: `${dateValue?.$y}-${dateValue?.$M + 1}-${dateValue?.$D}`,
+        passengers: {
+          adults: allPassengers?.adults,
+          children: allPassengers?.kids,
+          pets: allPassengers?.pets,
+        },
       },
     ]);
 
@@ -209,7 +215,6 @@ const MultiCity = () => {
     // console.log({  });
   };
 
-  console.log({ isDateOpen });
   const incrementPassenger = (index, type) => {
     setAllPassengers((prevPassengers) => {
       const updatedPassengers = [...prevPassengers];
@@ -265,9 +270,41 @@ const MultiCity = () => {
     };
   });
 
-  useEffect(() => {});
+  useEffect(() => {
+    const updateFormData = [...formData];
+
+    updateFormData.forEach((item, index) => {
+      item.source.label = `${departureAirport[index]?.name} - ${departureAirport[index]?.city} - ${departureAirport[index]?.iata_code} ${departureAirport[index]?.country}`;
+      (item.source.value = departureAirport[index]),
+        (item.destination.label = `${arrivalAirport[index]?.name} - ${arrivalAirport[index]?.city} - ${arrivalAirport[index]?.iata_code} ${arrivalAirport[index]?.country}`),
+        (item.destination.value = arrivalAirport[index]),
+        (item.depatureTime = `${dateValue[index]?.$H}:${dateValue[index]?.$m}`);
+      item.depatureDate = `${dateValue[index]?.$y}-${
+        dateValue[index]?.$M + 1
+      }-${dateValue[index].$D}`;
+      item.passengers.adults = allPassengers[index].adults;
+      item.passengers.children = allPassengers[index].kids;
+      item.passengers.pets = allPassengers[index].pets;
+    });
+    setFormData(updateFormData);
+
+    setBookingDetils((prevState) => ({
+      ...prevState,
+      booking_details: {
+        ...prevState.booking_details,
+        formData: formData,
+      },
+    }));
+  }, [departureAirport, arrivalAirport, dateValue, allPassengers]);
 
   // console.log(openDeparture);
+
+  useEffect(() => {
+    setFormData(bookingDetails?.booking_details?.formData);
+  }, []);
+
+  console.log("onibook", bookingDetails);
+  console.log({ formData });
 
   return (
     <div>
@@ -306,7 +343,7 @@ const MultiCity = () => {
                     {/* Abuja - Nigeria */}
                     {departureAirport[index] === null
                       ? "Select City"
-                      : `${departureAirport[index].city} - ${departureAirport[index].country}`}
+                      : `${departureAirport[index]?.city} - ${departureAirport[index]?.country}`}
                   </p>
                 </div>
               </div>
@@ -335,7 +372,7 @@ const MultiCity = () => {
                     {/* Lagos - Nigeria */}
                     {arrivalAirport[index] === null
                       ? "Select City"
-                      : `${arrivalAirport[index].city} - ${arrivalAirport[index].country}`}
+                      : `${arrivalAirport[index]?.city} - ${arrivalAirport[index]?.country}`}
                   </p>
                 </div>
               </div>

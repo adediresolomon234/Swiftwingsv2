@@ -36,6 +36,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addBooking } from "@/redux/slices/bookingSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import MultiCity from "../components/multi-city-trip-boking/MultiCity";
 
 const BookJet = () => {
   const dispatch = useDispatch();
@@ -260,9 +261,12 @@ const BookJet = () => {
         user: userDetails, // Replace the entire user object
       }));
     }
+
+    console.log("book", bookingDetails);
   }, []);
 
-  // console.log(bookingDetails);
+  console.log("booking", bookingDetails);
+  // console.log({ bookingDetails });
   // console.log(bookingEngine);
 
   useEffect(() => {
@@ -347,11 +351,11 @@ const BookJet = () => {
                   </button>
                   <button
                     className={`${
-                      bookingEngine === "multiCity"
+                      bookingEngine === "Multi-city Trip"
                         ? "text-swPrimary500 font-semibold bg-white"
                         : "text-swLightGray hover:bg-white"
                     } py-2 px-4 rounded-full`}
-                    onClick={() => setBookingEngine("multiCity")}
+                    onClick={() => setBookingEngine("Multi-city Trip")}
                   >
                     Multi-city trip
                   </button>
@@ -361,7 +365,7 @@ const BookJet = () => {
                 </div>
               </div>
 
-              {bookingEngine !== "multiCity" ? (
+              {bookingEngine !== "Multi-city Trip" ? (
                 <div className="flex justify-between mb-5">
                   <div className="flex items-center gap-5 mx-auto flex-wrap">
                     <div className="flex items-center mx-auto relative">
@@ -648,7 +652,11 @@ const BookJet = () => {
                   </div>
                 </div>
               ) : (
-                ""
+                <MultiCity
+                  bookingDetails={bookingDetails}
+                  another={bookingDetails}
+                  setBookingDetils={setBookingDetails}
+                />
               )}
             </div>
           </div>
