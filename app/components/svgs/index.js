@@ -26,3 +26,4 @@ export { default as SWGlobeIcon } from "./globe.svg";
 export { default as SWBookingIcon } from "./BookingIcon2.svg";
 export { default as SWNeedhelpIcon } from "./needhelp.svg";
 export { default as SWStarIcon } from "./star.svg";
+export { default as SWNotificationIcon } from "./notificationIcon.svg";
