@@ -23,3 +23,8 @@ export { default as SWPlusRoundBorderIcon } from "./PlusRoundBorderIcon.svg";
 export { default as SWMinusRoundBorderIcon } from "./MinusRoundBorderIcon.svg";
 export { default as SWFilterIcon } from "./FilterIcon.svg";
 export { default as SWGlobeIcon } from "./globe.svg";
+export { default as SWBookingIcon } from "./BookingIcon2.svg";
+export { default as SWNeedhelpIcon } from "./needhelp.svg";
+export { default as SWStarIcon } from "./star.svg";
+export { default as SWNotificationIcon } from "./notificationIcon.svg";
+export { default as SWEditIcon } from "./EditIcon.svg";

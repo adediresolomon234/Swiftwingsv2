@@ -13,7 +13,7 @@ import servicesCustomer from "../public/images/sevicesCustomer.png";
 import AboutUsCard from "./components/AboutUsCard";
 import "../styles.css";
 import { services } from "./components/servicedata";
-import { fleet } from "./components/fleetcard";
+import { fleet } from "./components/NavItems";
 import Icon from "@mdi/react";
 import { textAreas } from "./components/servicesgrid";
 import Crown from "../public/images/Crown.png";
@@ -822,8 +822,8 @@ export default function Home() {
                               <span className="ml-3 ">{item.feet}</span>
                             </div>
                           </div>
-                          <div className=" self-stretch relative leading-[18px] mt-2 mx-2 text-swLightGray">
-                            {item.size}
+                          <div className=" self-stretch relative leading-[18px] mt-4 mx-2 text-swLightGray">
+                            {item.name}
                           </div>
                         </div>
                       </div>
