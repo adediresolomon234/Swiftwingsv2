@@ -71,6 +71,7 @@ export default function Home() {
   let [adultsNo, setAdultsNo] = useState(0);
   let [kidsNo, setKidsNo] = useState(0);
   let [petsNo, setPetsNo] = useState(0);
+  const [multiBookDetails, setMultiBookDetails] = useState(null);
   const [allPassangers, setAllPassangers] = useState({
     adults: 0,
     kids: 0,
@@ -147,8 +148,8 @@ export default function Home() {
     setRoundTripDateValue(roundTripDateValue);
   };
 
-  const handleBookJet = () => {
-    const booking = {
+  const multiCityBook = () => {
+    setMultiBookDetails({
       user: {
         first_name: "",
         last_name: "",
@@ -179,8 +180,9 @@ export default function Home() {
                 : null,
             returningDate:
               bookingEngine === "Round Trip"
-                ? `${roundTripDateValue?.$y}-${roundTripDateValue?.$M + 1}-${roundTripDateValue?.$D
-                }`
+                ? `${roundTripDateValue?.$y}-${roundTripDateValue?.$M + 1}-${
+                    roundTripDateValue?.$D
+                  }`
                 : null,
             passengers: {
               adults: adultsNo,
@@ -189,6 +191,58 @@ export default function Home() {
             },
           },
         ],
+      },
+      additional_quote: [],
+    });
+  };
+
+  const handleBookJet = () => {
+    const booking = {
+      user: {
+        first_name: "",
+        last_name: "",
+        email: "",
+        phone_number: "",
+      },
+      status: "New",
+      booking_details: {
+        tripType: bookingEngine,
+        formData:
+          bookingEngine === "Multi-city Trip"
+            ? multiBookDetails.booking_details.formData
+            : [
+                {
+                  source: {
+                    label: `${departureAirport?.name} - ${departureAirport?.city} - ${departureAirport?.iata_code} ${departureAirport?.country}`,
+                    value: departureAirport,
+                    disabled: false,
+                  },
+                  destination: {
+                    label: `${arrivalAirport?.name} - ${arrivalAirport?.city} - ${arrivalAirport?.iata_code} ${arrivalAirport?.country}`,
+                    value: arrivalAirport,
+                    disabled: false,
+                  },
+                  depatureTime: `${dateValue?.$H}:${dateValue?.$m}`,
+                  depatureDate: `${dateValue?.$y}-${dateValue?.$M + 1}-${
+                    dateValue?.$D
+                  }`,
+                  returningTime:
+                    bookingEngine === "Round Trip"
+                      ? `${roundTripDateValue?.$H}:${roundTripDateValue?.$m}`
+                      : null,
+                  returningDate:
+                    bookingEngine === "Round Trip"
+                      ? `${roundTripDateValue?.$y}-${
+                          roundTripDateValue?.$M + 1
+                        }-${roundTripDateValue?.$D}`
+                      : null,
+                  passengers: {
+                    adults: adultsNo,
+                    children: kidsNo,
+                    pets: petsNo,
+                  },
+                },
+              ],
       },
       additional_quote: [],
     };
@@ -216,18 +270,18 @@ export default function Home() {
     setDateValue(newValue);
   };
 
-  console.log({ isDateOpen });
+  // console.log({ isDateOpen });
   useEffect(() => {
     const handleClickOutside = (event) => {
       // Check if the click event occurred outside the container
 
       if (!departureRef?.current?.contains(event.target)) {
         setOpenDeparture(false);
-        console.log("departure clicked");
+        // console.log("departure clicked");
       }
       if (!arrivalRef?.current?.contains(event.target)) {
         setOpenArrival(false);
-        console.log("arrival clicked");
+        // console.log("arrival clicked");
       }
       // if (!dateRef?.current?.contains(event.target)) {
       //   setDateOpen(false);
@@ -314,11 +368,15 @@ export default function Home() {
                     Round Trip
                   </button>
                   <button
-                    className={`${bookingEngine === "Multi-city Trip"
-                      ? "text-white backdrop-blur bg-swBlack/50 font-semibold"
-                      : "text-swGray300 hover:backdrop-blur hover:bg-white/5"
-                      } py-2 px-4 rounded-full`}
-                    onClick={() => setBookingEngine("Multi-city Trip")}
+                    className={`${
+                      bookingEngine === "Multi-city Trip"
+                        ? "text-white backdrop-blur bg-swBlack/50 font-semibold"
+                        : "text-swGray300 hover:backdrop-blur hover:bg-white/5"
+                    } py-2 px-4 rounded-full`}
+                    onClick={() => {
+                      multiCityBook();
+                      setBookingEngine("Multi-city Trip");
+                    }}
                   >
                     Multi-city trip
                   </button>
@@ -333,19 +391,26 @@ export default function Home() {
                     textColor={"text-white"}
                     endIcon={<HiArrowRight size={20} />}
                     disabled={
-                      !departureAirport?.city
-                        ? true
-                        : !arrivalAirport?.city
-                          ? true
-                          : !allPassangers?.adults
-                            ? true
-                            : false
+                      (departureAirport?.city ||
+                        multiBookDetails?.booking_details?.formData[0]?.source
+                          ?.value) &&
+                      (arrivalAirport?.city ||
+                        multiBookDetails?.booking_details?.formData[0]
+                          ?.destination.value) &&
+                      (allPassangers?.adults ||
+                        multiBookDetails?.booking_details?.formData[0]
+                          ?.passengers?.adults)
+                        ? false
+                        : true
                     }
                   />
                 </div>
               </div>
               {bookingEngine === "Multi-city Trip" ? (
-                <MultiCity />
+                <MultiCity
+                  bookingDetails={multiBookDetails}
+                  setBookingDetils={setMultiBookDetails}
+                />
               ) : (
                 <div className="flex justify-between mb-5">
                   <div className="flex items-center gap-5 mx-auto flex-wrap">
