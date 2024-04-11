@@ -37,6 +37,7 @@ import { addBooking } from "@/redux/slices/bookingSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import MultiCity from "../components/multi-city-trip-boking/MultiCity";
+import BookingPageMultiCity from "../components/booking-page-multiCity/BookingPageMulticity";
 
 const BookJet = () => {
   const dispatch = useDispatch();
@@ -68,6 +69,7 @@ const BookJet = () => {
   const [sourceDetails, setSourceDetails] = useState({});
   const [destinationDetails, setDestinationDetails] = useState({});
   const [jets, setJets] = useState(null);
+  const [clearMultiCityFormData, setClearMultiCityFormData] = useState(false);
 
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
@@ -265,7 +267,7 @@ const BookJet = () => {
     console.log("book", bookingDetails);
   }, []);
 
-  console.log("booking", bookingDetails);
+  // console.log("booking", bookingDetails);
   // console.log({ bookingDetails });
   // console.log(bookingEngine);
 
@@ -298,7 +300,7 @@ const BookJet = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   });
-
+  // console.log({ clearMultiCityFormData });
   useEffect(() => {
     const fetchJets = async () => {
       try {
@@ -312,7 +314,7 @@ const BookJet = () => {
     };
     fetchJets();
   }, []);
-  // console.log({ jets });
+  console.log({ bookingDetails });
 
   return (
     <NavAndFooter>
@@ -335,7 +337,17 @@ const BookJet = () => {
                         ? "text-swPrimary500 font-semibold bg-white"
                         : "text-swLightGray hover:bg-white"
                     } py-2 px-4 rounded-full`}
-                    onClick={() => setBookingEngine("One way Trip")}
+                    onClick={() => {
+                      setBookingEngine("One way Trip");
+                      setBookingDetails((prev) => ({
+                        ...prev,
+                        booking_details: {
+                          ...prev.booking_details,
+                          tripType: "One way Trip",
+                        },
+                      }));
+                      setClearMultiCityFormData(true);
+                    }}
                   >
                     One way Trip
                   </button>
@@ -345,7 +357,17 @@ const BookJet = () => {
                         ? "text-swPrimary500 font-semibold bg-white"
                         : "text-swLightGray hover:bg-white"
                     } py-2 px-4 rounded-full`}
-                    onClick={() => setBookingEngine("Round Trip")}
+                    onClick={() => {
+                      setBookingEngine("Round Trip");
+                      setBookingDetails((prev) => ({
+                        ...prev,
+                        booking_details: {
+                          ...prev.booking_details,
+                          tripType: "Round Trip",
+                        },
+                      }));
+                      setClearMultiCityFormData(true);
+                    }}
                   >
                     Round Trip
                   </button>
@@ -355,7 +377,17 @@ const BookJet = () => {
                         ? "text-swPrimary500 font-semibold bg-white"
                         : "text-swLightGray hover:bg-white"
                     } py-2 px-4 rounded-full`}
-                    onClick={() => setBookingEngine("Multi-city Trip")}
+                    onClick={() => {
+                      setBookingEngine("Multi-city Trip");
+                      setBookingDetails((prev) => ({
+                        ...prev,
+                        booking_details: {
+                          ...prev.booking_details,
+                          tripType: "Multi-city Trip",
+                        },
+                      }));
+                      setClearMultiCityFormData(false);
+                    }}
                   >
                     Multi-city trip
                   </button>
@@ -652,9 +684,10 @@ const BookJet = () => {
                   </div>
                 </div>
               ) : (
-                <MultiCity
+                <BookingPageMultiCity
                   bookingDetails={bookingDetails}
-                  another={bookingDetails}
+                  // another={bookingDetails}
+                  clearFormData={clearMultiCityFormData}
                   setBookingDetils={setBookingDetails}
                 />
               )}
