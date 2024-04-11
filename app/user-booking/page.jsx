@@ -7,9 +7,9 @@ import logo from "../../public/images/fullLogo.png";
 import Link from "next/link";
 import { navItems } from "../components/NavItems";
 import { SWNeedhelpIcon } from "../components/svgs";
-import BookingEngine from "../components/BookingEnginge";
 
-const UserProfilePage = () => {
+
+const UserBookingPage = () => {
   return (
     <div className="flex flex-col md:flex-row w-full h-screen overflow-hidden bg-swPrimary50 pt-3 px-4 pb-6 ">
       <div className="max-h-screen w-98 rounded-xl bg-white flex flex-col items-start justify-start pt-12 px-10 pb-2 gap-8">
@@ -53,12 +53,12 @@ const UserProfilePage = () => {
       </div>
       <section className="flex flex-col w-full p-4 md:overflow-auto">
         <TopSectionPage />
-        <div className="rounded-xl bg-white p-4 mt-8">
-        <BookingEngine/>
+        <div className="rounded-xl bg-white p-4 mt-4">
+          
         </div>
       </section>
     </div>
   );
 };
 
-export default UserProfilePage;
+export default UserBookingPage;

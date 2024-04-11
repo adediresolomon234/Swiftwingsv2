@@ -12,7 +12,7 @@ const TopSectionPage = () => {
         Good Afternoon, Jane
       </div>
     </div>
-    <div className="flex flex-col items-center justify-center max-w-full rounded-lg" style={{ width: '973px', height: '44px', padding: '0px 124px 0px 144px', gap: '8px', borderRadius: 'var(--8)', opacity: '0px' }}>
+    <div className="flex flex-col items-center  justify-center max-w-full rounded-lg" style={{ width: '973px', height: '44px', padding: '0px 124px 0px 144px', gap: '8px', borderRadius: 'var(--8)', opacity: '0px' }}>
       <InputField
         name="email"
         placeholder="Become a Member"

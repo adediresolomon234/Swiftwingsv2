@@ -7,7 +7,9 @@ import logo from "../../public/images/fullLogo.png";
 import Link from "next/link";
 import { navItems } from "../components/NavItems";
 import { SWNeedhelpIcon } from "../components/svgs";
-import BookingEngine from "../components/BookingEnginge";
+import ProfileCard from "../components/shared/ProfileCard";
+import UpdatepasswordCard from "../components/shared/UpdatePasswordCard"
+
 
 const UserProfilePage = () => {
   return (
@@ -20,16 +22,16 @@ const UserProfilePage = () => {
         </div>
         <nav className="flex flex-col space-y-4">
           {navItems.map((item) => (
-            <Link  className="flex items-center space-x-8 text-primary-500" href={item.href} key={item.id}>
-                {item.icon}
-                <span>{item.name}</span>
-           
+            <Link className="flex items-center space-x-8 text-primary-500" href={item.href} key={item.id}>
+              {item.icon}
+              <span>{item.name}</span>
+
             </Link>
           ))}
         </nav>
         <div className="mt-auto">
           <div className="flex items-center mb-2">
-            <SWNeedhelpIcon className="text-xl"/>
+            <SWNeedhelpIcon className="text-xl" />
             <span className="ml-2">Need Help?</span>
           </div>
           <p className="mb-4 text-sm">We can attend to any booking issues</p>
@@ -41,7 +43,7 @@ const UserProfilePage = () => {
               textTransform: "none",
               color: "#5c0632",
               fontSize: "16",
-              fontStyle: "bold", 
+              fontStyle: "bold",
               background: "#fff",
               borderRadius: "32px",
               "&:hover": { background: "#fff" },
@@ -51,12 +53,19 @@ const UserProfilePage = () => {
           </Button>
         </div>
       </div>
-      <section className="flex flex-col w-full p-4 md:overflow-auto">
+      <div className="flex flex-col w-full p-4 md:overflow-auto">
         <TopSectionPage />
-        <div className="rounded-xl bg-white p-4 mt-8">
-        <BookingEngine/>
+        <div className="rounded-xl bg-white p-4 mt-4">
+          <ProfileCard />
         </div>
-      </section>
+        <div className="rounded-xl bg-white p-4 mt-4">
+          <UpdatepasswordCard />
+        </div>
+        <Button className="flex w-max items-end gap-4 mt-12 bg-white rounded-xl text-swGray800">
+          Log out
+        </Button>
+      </div>
+
     </div>
   );
 };
