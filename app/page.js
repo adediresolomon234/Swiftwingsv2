@@ -13,14 +13,15 @@ import servicesCustomer from "../public/images/sevicesCustomer.png";
 import AboutUsCard from "./components/AboutUsCard";
 import "../styles.css";
 import { services } from "./components/servicedata";
-import { fleet } from "./components/fleetcard";
+import { fleet } from "./components/NavItems";
 import Icon from "@mdi/react";
 import { textAreas } from "./components/servicesgrid";
 import Crown from "../public/images/Crown.png";
 import { CiStar } from "react-icons/ci";
 import { FiMinus, FiPlus } from "react-icons/fi";
+import { FaSearch } from "react-icons/fa";
 import { IoCheckmark } from "react-icons/io5";
-import Select from "react-select";
+import Select, { StylesConfig } from "react-select";
 import NavAndFooter from "./components/shared/NavAndFooter";
 import { testimonial } from "./CustomerTestimonial";
 import Marquee from "react-fast-marquee";
@@ -91,22 +92,33 @@ export default function Home() {
   const dateRef = useRef(null);
   const passengerRef = useRef(null);
 
-  const { loading, error, data } = useSelector((state) => state.aviPages);
-  // console.log({ data: data?.data?.results });
+  const colourStyles = {
+    control: (styles, { isFocused }) => ({
+      ...styles,
+      backgroundColor: 'white',
+      padding: "5px",
+      borderRadius: "5px",
+      outline: isFocused ? 'none' : 'initial',
+      boxShadow: isFocused ? 'none' : 'initial'
+    }),
+    option: (styles) => ({ ...styles, backgroundColor: 'white' }),
+  };
+
+
 
   const options = airports.map((item) => ({
     label: (
-      <div className="flex justify-between">
-        <div className="flex gap-1">
-          <p>
+      <div className="flex justify-between hover:bg-gray-100 focus:bg-gray-100 hover:rounded-lg hover:border py-4 px-2">
+        <div className="flex gap-1 ">
+          <p className="text-[14px]">
             {item.city}
-            {item.city && ","} {item.country}
+            {item.city && ", "}{item.country}
           </p>
-          <p className="font-light italic text-sm text-swGray500">
+          <p className="font-light italic text-sm text-swGray pl-1 text-[14px]">
             {item.name}
           </p>
         </div>
-        <p>{item.iata_code}</p>
+        <p className="text-swGray500">{item.iata_code}</p>
       </div>
     ),
     value: item,
@@ -180,9 +192,8 @@ export default function Home() {
                 : null,
             returningDate:
               bookingEngine === "Round Trip"
-                ? `${roundTripDateValue?.$y}-${roundTripDateValue?.$M + 1}-${
-                    roundTripDateValue?.$D
-                  }`
+                ? `${roundTripDateValue?.$y}-${roundTripDateValue?.$M + 1}-${roundTripDateValue?.$D
+                }`
                 : null,
             passengers: {
               adults: adultsNo,
@@ -211,38 +222,36 @@ export default function Home() {
           bookingEngine === "Multi-city Trip"
             ? multiBookDetails.booking_details.formData
             : [
-                {
-                  source: {
-                    label: `${departureAirport?.name} - ${departureAirport?.city} - ${departureAirport?.iata_code} ${departureAirport?.country}`,
-                    value: departureAirport,
-                    disabled: false,
-                  },
-                  destination: {
-                    label: `${arrivalAirport?.name} - ${arrivalAirport?.city} - ${arrivalAirport?.iata_code} ${arrivalAirport?.country}`,
-                    value: arrivalAirport,
-                    disabled: false,
-                  },
-                  depatureTime: `${dateValue?.$H}:${dateValue?.$m}`,
-                  depatureDate: `${dateValue?.$y}-${dateValue?.$M + 1}-${
-                    dateValue?.$D
-                  }`,
-                  returningTime:
-                    bookingEngine === "Round Trip"
-                      ? `${roundTripDateValue?.$H}:${roundTripDateValue?.$m}`
-                      : null,
-                  returningDate:
-                    bookingEngine === "Round Trip"
-                      ? `${roundTripDateValue?.$y}-${
-                          roundTripDateValue?.$M + 1
-                        }-${roundTripDateValue?.$D}`
-                      : null,
-                  passengers: {
-                    adults: adultsNo,
-                    children: kidsNo,
-                    pets: petsNo,
-                  },
+              {
+                source: {
+                  label: `${departureAirport?.name} - ${departureAirport?.city} - ${departureAirport?.iata_code} ${departureAirport?.country}`,
+                  value: departureAirport,
+                  disabled: false,
                 },
-              ],
+                destination: {
+                  label: `${arrivalAirport?.name} - ${arrivalAirport?.city} - ${arrivalAirport?.iata_code} ${arrivalAirport?.country}`,
+                  value: arrivalAirport,
+                  disabled: false,
+                },
+                depatureTime: `${dateValue?.$H}:${dateValue?.$m}`,
+                depatureDate: `${dateValue?.$y}-${dateValue?.$M + 1}-${dateValue?.$D
+                  }`,
+                returningTime:
+                  bookingEngine === "Round Trip"
+                    ? `${roundTripDateValue?.$H}:${roundTripDateValue?.$m}`
+                    : null,
+                returningDate:
+                  bookingEngine === "Round Trip"
+                    ? `${roundTripDateValue?.$y}-${roundTripDateValue?.$M + 1
+                    }-${roundTripDateValue?.$D}`
+                    : null,
+                passengers: {
+                  adults: adultsNo,
+                  children: kidsNo,
+                  pets: petsNo,
+                },
+              },
+            ],
       },
       additional_quote: [],
     };
@@ -368,11 +377,10 @@ export default function Home() {
                     Round Trip
                   </button>
                   <button
-                    className={`${
-                      bookingEngine === "Multi-city Trip"
-                        ? "text-white backdrop-blur bg-swBlack/50 font-semibold"
-                        : "text-swGray300 hover:backdrop-blur hover:bg-white/5"
-                    } py-2 px-4 rounded-full`}
+                    className={`${bookingEngine === "Multi-city Trip"
+                      ? "text-white backdrop-blur bg-swBlack/50 font-semibold"
+                      : "text-swGray300 hover:backdrop-blur hover:bg-white/5"
+                      } py-2 px-4 rounded-full`}
                     onClick={() => {
                       multiCityBook();
                       setBookingEngine("Multi-city Trip");
@@ -394,12 +402,12 @@ export default function Home() {
                       (departureAirport?.city ||
                         multiBookDetails?.booking_details?.formData[0]?.source
                           ?.value) &&
-                      (arrivalAirport?.city ||
-                        multiBookDetails?.booking_details?.formData[0]
-                          ?.destination.value) &&
-                      (allPassangers?.adults ||
-                        multiBookDetails?.booking_details?.formData[0]
-                          ?.passengers?.adults)
+                        (arrivalAirport?.city ||
+                          multiBookDetails?.booking_details?.formData[0]
+                            ?.destination.value) &&
+                        (allPassangers?.adults ||
+                          multiBookDetails?.booking_details?.formData[0]
+                            ?.passengers?.adults)
                         ? false
                         : true
                     }
@@ -468,13 +476,26 @@ export default function Home() {
                         <div
                           // id="depart"
                           ref={departureRef}
-                          className="absolute text-swGray800 top-24 w-full z-10"
+                          className="absolute text-swGray800 top-24 w-full z-10 bg-hover"
                         >
                           <Select
+                            styles={colourStyles}
                             getOptionLabel={getOptionLabel}
                             options={options}
                             filterOption={filterOption}
-                            placeholder="Select Departure City"
+                            placeholder={<div style={{
+                              position: 'absolute',
+                              left: '10px',
+                              top: '50%',
+                              transform: 'translateY(-50%)',
+                              color: '#c2c2c2',
+                              pointerEvents: 'none', 
+                              display: 'flex',
+                              alignItems: 'center',
+                              fontWeight: 'lighter'
+                            }}>
+                              <FaSearch style={{ marginRight: '5px', fontWeight: 'lighter' }} /> Enter Departure City
+                            </div>}
                             onChange={(selectedOption) => {
                               setDepartureAirport(selectedOption.value);
                               setOpenDeparture(false);
@@ -489,10 +510,23 @@ export default function Home() {
                           className="absolute text-swGray800 top-24 w-full z-10"
                         >
                           <Select
+                            styles={colourStyles}
                             getOptionLabel={getOptionLabel}
                             options={options}
                             filterOption={filterOption}
-                            placeholder="Select Arrival City"
+                            placeholder={<div style={{
+                              position: 'absolute',
+                              left: '10px', 
+                              top: '50%',
+                              transform: 'translateY(-50%)',
+                              color: '#c2c2c2', 
+                              pointerEvents: 'none', 
+                              display: 'flex',
+                              alignItems: 'center',
+                              fontWeight: 'lighter'
+                            }}>
+                              <FaSearch style={{ marginRight: '5px', fontWeight: 'lighter' }} /> Enter Arrival City
+                            </div>}
                             onChange={(selectedOption) => {
                               setArrivalAirport(selectedOption.value);
                               setOpenArrival(false);
@@ -822,8 +856,8 @@ export default function Home() {
                               <span className="ml-3 ">{item.feet}</span>
                             </div>
                           </div>
-                          <div className=" self-stretch relative leading-[18px] mt-2 mx-2 text-swLightGray">
-                            {item.size}
+                          <div className=" self-stretch relative leading-[18px] mt-4 mx-2 text-swLightGray">
+                            {item.name}
                           </div>
                         </div>
                       </div>
@@ -831,7 +865,7 @@ export default function Home() {
                     </div>
                   ))}
                 </div>
-                <div className="flex justify-center items-center relative w-[50%]"> 
+                <div className="flex justify-center items-center relative w-[50%]">
                   <div className="">
                     <div
                       aria-hidden="true"
