@@ -1,6 +1,6 @@
 "use client"
 import React from "react";
-import { Button } from "@mui/material";
+import Button from "../components/Button";
 import TopSectionPage from "../components/shared/user-dashboard/TopSection";
 import Image from "next/image";
 import logo from "../../public/images/fullLogo.png";
@@ -34,21 +34,9 @@ const UserProfilePage = () => {
           </div>
           <p className="mb-4 text-sm">We can attend to any booking issues</p>
           <Button
-            fullWidth
-            disableElevation
-            variant="contained"
-            sx={{
-              textTransform: "none",
-              color: "#5c0632",
-              fontSize: "16",
-              fontStyle: "bold", 
-              background: "#fff",
-              borderRadius: "32px",
-              "&:hover": { background: "#fff" },
-            }}
-          >
-            Contact support
-          </Button>
+            label={"Contact support"}
+            textColor={"w-full text-swPrimary500 border border-swGray100 hover:bg-swPrimary500 hover:text-swSecondary50"}
+          />
         </div>
       </div>
       <section className="flex flex-col w-full p-4 md:overflow-auto">
