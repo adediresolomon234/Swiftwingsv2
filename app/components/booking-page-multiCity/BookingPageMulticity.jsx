@@ -20,17 +20,17 @@ import airports from "../helpers/airports";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import Select from "react-select";
 
-const MultiCity = ({ another, bookingDetails, setBookingDetils }) => {
+const BookingPageMultiCity = ({
+  clearFormData,
+  bookingDetails,
+  setBookingDetils,
+}) => {
   const pathname = usePathname();
   const dispatch = useDispatch();
   const router = useRouter();
-  // const [bookingEngine, setBookingEngine] = useState("One way Trip");
   const [openPassengers, setOpenPassageners] = useState([false]);
   const [openDeparture, setOpenDeparture] = useState([false]);
   const [openArrival, setOpenArrival] = useState([false]);
-  // let [adultsNo, setAdultsNo] = useState([0]);
-  // let [kidsNo, setKidsNo] = useState([0]);
-  // let [petsNo, setPetsNo] = useState([0]);
   const [allPassengers, setAllPassengers] = useState([
     {
       adults: 0,
@@ -38,8 +38,6 @@ const MultiCity = ({ another, bookingDetails, setBookingDetils }) => {
       pets: 0,
     },
   ]);
-  const [hoveredIndex, setHoveredIndex] = useState(0);
-  const [allAirports, setAllAirports] = useState(airports || []);
   const [departureAirport, setDepartureAirport] = useState([null]);
   const [arrivalAirport, setArrivalAirport] = useState([null]);
   const [isDateOpen, setDateOpen] = useState([false]);
@@ -66,13 +64,11 @@ const MultiCity = ({ another, bookingDetails, setBookingDetils }) => {
       depatureDate: `${dateValue?.$y}-${dateValue?.$M + 1}-${dateValue?.$D}`,
       passengers: {
         adults: allPassengers?.adults,
-        children: allPassengers?.kids,
+        children: allPassengers?.children,
         pets: allPassengers?.pets,
       },
     },
   ]);
-
-  console.log({ another });
 
   const options = airports.map((item) => ({
     label: (
@@ -118,33 +114,31 @@ const MultiCity = ({ another, bookingDetails, setBookingDetils }) => {
   };
 
   const handleAddTrip = () => {
-    // Update formData
     setFormData((prev) => [
       ...prev,
       {
         source: {
-          label: `${departureAirport?.name} - ${departureAirport?.city} - ${departureAirport?.iata_code} ${departureAirport?.country}`,
-          value: departureAirport,
+          label: null,
+          value: null,
           disabled: false,
         },
         destination: {
-          label: `${arrivalAirport?.name} - ${arrivalAirport?.city} - ${arrivalAirport?.iata_code} ${arrivalAirport?.country}`,
-          value: arrivalAirport,
+          label: null,
+          value: null,
           disabled: false,
         },
-        depatureTime: `${dateValue?.$H}:${dateValue?.$m}`,
+        depatureTime: `${dayjs()?.$H}:${dayjs()?.$m}`,
         returningTime: null,
         returningDate: null,
-        depatureDate: `${dateValue?.$y}-${dateValue?.$M + 1}-${dateValue?.$D}`,
+        depatureDate: `${dayjs()?.$y}-${dayjs()?.$M + 1}-${dayjs()?.$D}`,
         passengers: {
-          adults: allPassengers?.adults,
-          children: allPassengers?.kids,
-          pets: allPassengers?.pets,
+          adults: 0,
+          children: 0,
+          pets: 0,
         },
       },
     ]);
 
-    // Update allPassengers state
     setAllPassengers((prev) => [
       ...prev,
       {
@@ -154,7 +148,6 @@ const MultiCity = ({ another, bookingDetails, setBookingDetils }) => {
       },
     ]);
 
-    // Update openPassengers state
     setOpenPassageners((prev) => [...prev, false]);
 
     setDepartureAirport((prev) => [...prev, null]);
@@ -172,37 +165,35 @@ const MultiCity = ({ another, bookingDetails, setBookingDetils }) => {
   };
 
   const handleRemoveTrip = (index) => {
-    const updatedFormData = [...formData];
-    updatedFormData.splice(index, 1);
+    const updatedFormData = formData.filter((_, idx) => idx !== index);
     setFormData(updatedFormData);
 
-    const updatedDateOpen = [...isDateOpen];
-    updatedDateOpen.splice(index, 1);
+    const updatedDateOpen = isDateOpen.filter((_, idx) => idx !== index);
     setDateOpen(updatedDateOpen);
 
-    const updateAllPassengers = [...allPassengers];
-    updateAllPassengers.splice(index, 1);
+    const updateAllPassengers = allPassengers.filter((_, idx) => idx !== index);
     setAllPassengers(updateAllPassengers);
 
-    const updateOpenPassengers = [...openPassengers];
-    updateOpenPassengers.splice(index, 1);
+    const updateOpenPassengers = openPassengers.filter(
+      (_, idx) => idx !== index
+    );
     setOpenPassageners(updateOpenPassengers);
 
-    const updateDepartureAirport = [...departureAirport];
-    updateDepartureAirport.splice(index, 1);
+    const updateDepartureAirport = departureAirport.filter(
+      (_, idx) => idx !== index
+    );
     setDepartureAirport(updateDepartureAirport);
 
-    const updateArrivalAirport = [...departureAirport];
-    updateArrivalAirport.splice(index, 1);
+    const updateArrivalAirport = arrivalAirport.filter(
+      (_, idx) => idx !== index
+    );
     setArrivalAirport(updateArrivalAirport);
 
-    const updateOpenDeparture = [...openDeparture];
-    updateOpenDeparture.splice(index, 1);
-    setArrivalAirport(updateOpenDeparture);
+    const updateOpenDeparture = openDeparture.filter((_, idx) => idx !== index);
+    setOpenDeparture(updateOpenDeparture);
 
-    const updateOpenArrival = [...openArrival];
-    updateOpenArrival.splice(index, 1);
-    setArrivalAirport(updateOpenArrival);
+    const updateOpenArrival = openArrival.filter((_, idx) => idx !== index);
+    setOpenArrival(updateOpenArrival);
   };
 
   const handleDateOpen = (index, state) => {
@@ -211,15 +202,12 @@ const MultiCity = ({ another, bookingDetails, setBookingDetils }) => {
       newState[index] = state;
       return newState;
     });
-
-    // console.log({  });
   };
 
   const incrementPassenger = (index, type) => {
     setAllPassengers((prevPassengers) => {
       const updatedPassengers = [...prevPassengers];
       if (updatedPassengers[index][type] >= 0) {
-        // Change condition to >= 0 for incrementing
         updatedPassengers[index][type] += 1;
       } else {
         updatedPassengers[index][type] = 0;
@@ -231,7 +219,6 @@ const MultiCity = ({ another, bookingDetails, setBookingDetils }) => {
     setAllPassengers((prevPassengers) => {
       const updatedPassengers = [...prevPassengers];
       if (updatedPassengers[index][type] >= 0) {
-        // Change condition to >= 0 for incrementing
         updatedPassengers[index][type] -= 1;
       } else {
         updatedPassengers[index][type] = 0;
@@ -242,20 +229,12 @@ const MultiCity = ({ another, bookingDetails, setBookingDetils }) => {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      // Check if the click event occurred outside the container
-
       if (!departureRef?.current?.contains(event.target)) {
         setOpenDeparture(new Array(openPassengers.length).fill(false));
-        // console.log("departure clicked");
       }
       if (!arrivalRef?.current?.contains(event.target)) {
         setOpenArrival(new Array(openPassengers.length).fill(false));
-        // console.log("arrival clicked");
       }
-      // if (!dateRef?.current?.contains(event.target)) {
-      //   setDateOpen(false);
-      //   console.log("date clicked");
-      // }
       if (!passengerRef?.current?.contains(event.target)) {
         setOpenPassageners(new Array(openPassengers.length).fill(false));
       }
@@ -271,22 +250,30 @@ const MultiCity = ({ another, bookingDetails, setBookingDetils }) => {
   });
 
   useEffect(() => {
-    const updateFormData = [...formData];
+    setFormData(bookingDetails?.booking_details?.formData);
+  }, []);
 
-    updateFormData.forEach((item, index) => {
-      item.source.label = `${departureAirport[index]?.name} - ${departureAirport[index]?.city} - ${departureAirport[index]?.iata_code} ${departureAirport[index]?.country}`;
-      (item.source.value = departureAirport[index]),
-        (item.destination.label = `${arrivalAirport[index]?.name} - ${arrivalAirport[index]?.city} - ${arrivalAirport[index]?.iata_code} ${arrivalAirport[index]?.country}`),
-        (item.destination.value = arrivalAirport[index]),
-        (item.depatureTime = `${dateValue[index]?.$H}:${dateValue[index]?.$m}`);
-      item.depatureDate = `${dateValue[index]?.$y}-${
-        dateValue[index]?.$M + 1
-      }-${dateValue[index]?.$D}`;
-      item.passengers.adults = allPassengers[index]?.adults;
-      item.passengers.children = allPassengers[index]?.kids;
-      item.passengers.pets = allPassengers[index]?.pets;
+  useEffect(() => {
+    setDepartureAirport((prev) => {
+      return formData.map((item) => {
+        return item.source.value;
+      });
     });
-    setFormData(updateFormData);
+    setArrivalAirport((prev) => {
+      return formData.map((item) => {
+        return item.destination.value;
+      });
+    });
+    setDateValue((prev) => {
+      return formData.map((item) => {
+        return dayjs(`${item.depatureDate} ${item.depatureTime}`);
+      });
+    });
+    setAllPassengers((prev) => {
+      return formData.map((item) => {
+        return item.passengers;
+      });
+    });
 
     setBookingDetils((prevState) => ({
       ...prevState,
@@ -295,19 +282,17 @@ const MultiCity = ({ another, bookingDetails, setBookingDetils }) => {
         formData: formData,
       },
     }));
-  }, [departureAirport, arrivalAirport, dateValue, allPassengers]);
-
-  // console.log(openDeparture);
+  }, [formData]);
 
   useEffect(() => {
-    setFormData(bookingDetails?.booking_details?.formData);
-    setDepartureAirport((prev) => {
-      return formData.map((item) => item.source.value);
+    departureAirport.forEach((item, index) => {
+      handleRemoveTrip(index);
     });
-  }, []);
+    setFormData(bookingDetails?.booking_details?.formData);
+  }, [clearFormData]);
 
-  console.log("onibook", bookingDetails);
   console.log({ formData });
+  console.log({ bookingDetails });
 
   return (
     <div>
@@ -326,7 +311,7 @@ const MultiCity = ({ another, bookingDetails, setBookingDetils }) => {
           <div className="flex items-center gap-5 mx-auto flex-wrap">
             <div className="flex items-center mx-auto relative">
               <div
-                className="p-5 pr-16 flex h-[5.5rem] w-[18rem] items-center gap-5 border border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50 rounded-tl-2xl rounded-bl-2xl cursor-pointer"
+                className="p-5 pr-16 flex h-[5.5rem] w-[18rem] items-center gap-5 border border-swGray900 rounded-tl-2xl rounded-bl-2xl cursor-pointer"
                 onClick={() => {
                   setOpenDeparture((prev) => {
                     const newState = [...prev]; // Create a copy of the previous state
@@ -342,7 +327,7 @@ const MultiCity = ({ another, bookingDetails, setBookingDetils }) => {
                 </div>
                 <div>
                   <p className="text-swGray500 text-sm">Departure city</p>
-                  <p className="text-white font-medium">
+                  <p className="text-swGray500 font-medium">
                     {/* Abuja - Nigeria */}
                     {departureAirport[index] === null
                       ? "Select City"
@@ -355,7 +340,7 @@ const MultiCity = ({ another, bookingDetails, setBookingDetils }) => {
                 <GoArrowLeft size={15} className="-mt-2 mr-1" />
               </div>
               <div
-                className="p-5 pr-16 flex h-[5.5rem] w-[18rem] items-center gap-5 border border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50 border-l-transparent rounded-tr-2xl rounded-br-2xl cursor-pointer"
+                className="p-5 pr-16 flex h-[5.5rem] w-[18rem] items-center gap-5 border border-swGray900  border-l-transparent rounded-tr-2xl rounded-br-2xl cursor-pointer"
                 onClick={(e) => {
                   setOpenArrival((prev) => {
                     const newState = [...prev]; // Create a copy of the previous state
@@ -371,7 +356,7 @@ const MultiCity = ({ another, bookingDetails, setBookingDetils }) => {
                 </div>
                 <div>
                   <p className="text-swGray500 text-sm">Arrival city</p>
-                  <p className="text-white font-medium">
+                  <p className="text-swGray500 font-medium">
                     {/* Lagos - Nigeria */}
                     {arrivalAirport[index] === null
                       ? "Select City"
@@ -435,18 +420,18 @@ const MultiCity = ({ another, bookingDetails, setBookingDetils }) => {
             <div className="flex justify-around gap-5 mx-auto flex-wrap">
               <div
                 onClick={() => handleDateOpen(index, true)}
-                className="relative p-5 flex h-[5.5rem] w-[18rem] items-center gap-5 border border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50 rounded-2xl cursor-pointer"
+                className="relative p-5 flex h-[5.5rem] w-[18rem] items-center gap-5 border border-swGray900 rounded-2xl cursor-pointer"
                 // ref={dateRef}
               >
                 {!isDateOpen[index] && (
-                  <div className="p-2 rounded-full text-white">
+                  <div className="p-2 rounded-full text-swGray500">
                     <SwCalendarIcon className="text-xl" />
                   </div>
                 )}
 
                 <div>
                   <p className="text-swGray500 text-sm">Departure date</p>
-                  <p className=" text-white font-semibold">
+                  <p className=" text-swGray500 font-semibold">
                     {dateValue[index]?.format("D MMM")}
                   </p>
                 </div>
@@ -480,7 +465,7 @@ const MultiCity = ({ another, bookingDetails, setBookingDetils }) => {
               </div>
               <div className="relative">
                 <div
-                  className="p-5 flex items-center h-[5.5rem] w-72 gap-5 border border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50 rounded-2xl cursor-pointer"
+                  className="p-5 flex items-center h-[5.5rem] w-72 gap-5 border border-swGray900 backdrop-blur rounded-2xl cursor-pointer"
                   onClick={() =>
                     setOpenPassageners((prev) => {
                       const newState = [...prev]; // Create a copy of the previous state
@@ -494,9 +479,9 @@ const MultiCity = ({ another, bookingDetails, setBookingDetils }) => {
                   </div>
                   <div>
                     <p className="text-swGray500 text-sm">Occupants</p>
-                    <p className="text-white font-medium">
+                    <p className="text-swGray500 font-medium">
                       Adults - {allPassengers[index]?.adults} Children -{" "}
-                      {allPassengers[index]?.kids} Pets -{" "}
+                      {allPassengers[index]?.children} Pets -{" "}
                       {allPassengers[index]?.pets}
                     </p>
                   </div>
@@ -541,16 +526,20 @@ const MultiCity = ({ another, bookingDetails, setBookingDetils }) => {
                           <div className="border hover:border-swPrimary500 rounded-md overflow-hidden flex">
                             <p
                               className="p-2 cursor-pointer hover:bg-swPrimary500 hover:text-white"
-                              onClick={() => decrementPassenger(index, "kids")}
+                              onClick={() =>
+                                decrementPassenger(index, "children")
+                              }
                             >
                               <FiMinus size={20} />
                             </p>
                             <p className="h-10 w-14 flex justify-center items-center border-x">
-                              {allPassengers[index]?.kids}
+                              {allPassengers[index]?.children}
                             </p>
                             <p
                               className="p-2 cursor-pointer hover:bg-swPrimary500 hover:text-white"
-                              onClick={() => incrementPassenger(index, "kids")}
+                              onClick={() =>
+                                incrementPassenger(index, "children")
+                              }
                             >
                               <FiPlus size={20} />
                             </p>
@@ -610,4 +599,4 @@ const MultiCity = ({ another, bookingDetails, setBookingDetils }) => {
   );
 };
 
-export default MultiCity;
+export default BookingPageMultiCity;
