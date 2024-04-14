@@ -1,8 +1,7 @@
 "use client";
 import React from "react";
-import InputField from "../../../components/shared/InputField";
-import Image from "next/image";
-import { SWStarIcon, SwUserIcon,SWNotificationIcon } from "../../../components/svgs"
+import InputField from "../InputField";
+import { SWStarIcon, SwUserIcon,SWNotificationIcon } from "../../svgs"
 
 const TopSectionPage = () => {
   return (

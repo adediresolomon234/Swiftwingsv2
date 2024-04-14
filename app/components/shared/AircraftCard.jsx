@@ -1,7 +1,5 @@
 import { mdiCarSeat, mdiSpeedometer, mdiArrowLeftRight } from '@mdi/js';
 import { useRouter } from "next/navigation";
-import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import "../shared/Fleetspec/fleetspec.css";
 
 const AircraftCard = ({aircraft}) => {
