@@ -249,9 +249,8 @@ export default function Home() {
                   <div className="">
                     <div
                       aria-hidden="true"
-                      className={`absolute scale-75 md:scale-110 inset-0 m-auto rotate-45 bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl ${
-                        hoveredIndex >= 0 ? "opacity-100" : "opacity-0"
-                      }`}
+                      className={`absolute scale-75 md:scale-110 inset-0 m-auto rotate-45 bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl ${hoveredIndex >= 0 ? "opacity-100" : "opacity-0"
+                        }`}
                     ></div>
                     {hoveredIndex >= 0 && fleet[hoveredIndex]?.image && (
                       <div
@@ -300,31 +299,30 @@ export default function Home() {
             </div>
             <div className="grid gap-3  sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
               {services.map((service, index) => (
-              <div className="max-w-2xl mx-auto p-2">
-                <div
-                  key={index}
-                  className=" overflow-hidden w-full"
-                >
-                  <img
-                    className="object-cover w-full rounded-t-2xl"
-                    src={service.imageSrc}
-                    alt={service.title}
-                    loading="lazy"
-                    width="640"
-                    height="805"
-                  />
-                  <div className="p-3  bg-gradient-to-r from-neutral-400 to-stone-500/90 rounded-b-2xl text-left  ">
-                    <div className="justify-start items-start">
-                      <h4 className="mb-2 text-2xl font-bold tracking-tight text-white ">
-                        {service.title}
-                      </h4>
+                <div className="max-w-2xl mx-auto p-2" key={index}>
+                  <div
+                    className=" overflow-hidden w-full"
+                  >
+                    <img
+                      className="object-cover w-full rounded-t-2xl"
+                      src={service.imageSrc}
+                      alt={service.title}
+                      loading="lazy"
+                      width="640"
+                      height="805"
+                    />
+                    <div className="p-3  bg-gradient-to-r from-neutral-400 to-stone-500/90 rounded-b-2xl text-left  ">
+                      <div className="justify-start items-start">
+                        <h4 className="mb-2 text-2xl font-bold tracking-tight text-white ">
+                          {service.title}
+                        </h4>
+                      </div>
+                      <p className="mb-3 font-normal text-white text-sm">
+                        {service.description}
+                      </p>
                     </div>
-                    <p className="mb-3 font-normal text-white text-sm">
-                      {service.description}
-                    </p>
                   </div>
                 </div>
-              </div>
               ))}
             </div>
           </div>
