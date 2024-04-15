@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Space_Grotesk } from "next/font/google";
 import Image from "next/image";
 import { GoArrowRight } from "react-icons/go";
@@ -21,12 +21,10 @@ import Marquee from "react-fast-marquee";
 import { FaXTwitter } from "react-icons/fa6";
 import heroBgImg from "../public/images/heroBackgroundImage.png";
 import { useDispatch, useSelector } from "react-redux";
-import airports from "./components/helpers/airports";
 import { useRouter } from "next/navigation";
-import dayjs from "dayjs";
 import { fetchAircrafts } from "@/redux/slices/aircraftdetails";
 import { mdiCarSeat, mdiSpeedometer, mdiArrowLeftRight } from "@mdi/js";
-import MultiCityTrip from "./components/multi-city-trip-boking/MultiCityTrip";
+import BookingEngine from "./components/bookingEngine/bookingEngine";
 
 const space_grotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -50,7 +48,6 @@ export default function Home() {
   const aircrafts = useSelector((state) => state.aircrafts.aircrafts);
   const [fleet, setFleet] = useState([]);
 
-
   useEffect(() => {
     dispatch(fetchAircrafts());
   }, [dispatch]);
@@ -69,14 +66,9 @@ export default function Home() {
     setHoveredIndex(0);
   };
 
-  
-
   const handleSeeAllClick = () => {
     router.push("/fleet-page");
   };
-  
-
-
 
   return (
     <main className="relative bg-swLightBgGray">
@@ -117,7 +109,7 @@ export default function Home() {
           </div>
 
           <section className="max-w-7xl mx-auto w-full relative">
-            <MultiCityTrip />
+            <BookingEngine />
           </section>
         </section>
         <section className="mt-60 py-16 px-5 text-swGray900">
