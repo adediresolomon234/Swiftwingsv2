@@ -7,7 +7,7 @@ import logo from "../../public/images/fullLogo.png";
 import Link from "next/link";
 import { navItems } from "../components/NavItems";
 import { SWNeedhelpIcon } from "../components/svgs";
-import BookingEngine from "../components/BookingEnginge";
+//import BookingEngine from "../components/BookingEnginge";
 
 const UserProfilePage = () => {
   return (
@@ -42,7 +42,7 @@ const UserProfilePage = () => {
       <section className="flex flex-col w-full p-4 md:overflow-auto">
         <TopSectionPage />
         <div className="rounded-xl bg-white p-4 mt-8">
-        <BookingEngine/>
+        {/* <BookingEngine/> */}
         </div>
       </section>
     </div>
