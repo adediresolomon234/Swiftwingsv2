@@ -8,7 +8,7 @@ const ProfileCard = () => {
  
   const handleEditClick = () => {
     
-    router.push('/user-profile-AccountDetailsUpdate');
+    router.push('/AccountDetails');
   };
   return (
     <div className="w-full relative rounded-lg bg-white overflow-hidden flex flex-col items-start justify-start p-4 lg:p-6 box-border gap-6 text-left text-base text-gray-800 font-body-md-regular">

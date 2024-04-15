@@ -8,7 +8,7 @@ import {
         id: 1,
         name: "Booking a Jet",
         icon: <SwArrivalPlaneIcon className="text-xl" />,
-        href: "/booking-jet" 
+        href: "/userprofile" 
       },
       {
         id: 2,
@@ -20,7 +20,7 @@ import {
         id: 3,
         name: "User",
         icon: <SwUserIcon className="text-xl"/>,
-        href: "/user" 
+        href: "/profile-page" 
       },
      
     ]
