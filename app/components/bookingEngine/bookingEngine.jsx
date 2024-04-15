@@ -6,6 +6,7 @@ import {
   SwArrivalPlaneIcon,
   SwCalendarIcon,
   SwDeparturePlaneIcon,
+  SwSearchIcon,
   SwUserIcon,
 } from "../svgs";
 import Select from "react-select";
@@ -20,13 +21,14 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import TextField from "@mui/material/TextField";
 import { HiArrowRight } from "react-icons/hi";
 import { FaSearch } from "react-icons/fa";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 const space_grotesk = Space_Grotesk({
   subsets: ["latin"],
 });
 
-const MultiCityTrip = ({}) => {
+const BookingEngine = ({ setBookingDetails }) => {
+  const router = useRouter();
   const pathname = usePathname();
   const [bookingType, setBookingType] = useState("One way Trip");
   const [openDeparture, setOpenDeparture] = useState(null);
@@ -54,32 +56,36 @@ const MultiCityTrip = ({}) => {
     },
   ]);
 
-  const updateBookingState = (updatedFields, date) => {
+  const updateBookingState = (updatedFields, index, date) => {
     setBookingState((prevState) => {
-      const newState = prevState.map((booking) => {
-        if (date) {
-          if (date === "departure") {
-            return {
-              ...booking,
-              depatureDate: `${updatedFields?.$y}-${updatedFields?.$M + 1}-${
-                updatedFields?.$D
-              }`,
-              depatureTime: `${updatedFields?.$H}:${updatedFields?.$m}`,
-            };
+      const newState = prevState.map((booking, idx) => {
+        if (idx === index) {
+          if (date) {
+            if (date === "departure") {
+              return {
+                ...booking,
+                depatureDate: `${updatedFields?.$y}-${updatedFields?.$M + 1}-${
+                  updatedFields?.$D
+                }`,
+                depatureTime: `${updatedFields?.$H}:${updatedFields?.$m}`,
+              };
+            } else {
+              return {
+                ...booking,
+                returningDate: `${updatedFields?.$y}-${updatedFields?.$M + 1}-${
+                  updatedFields?.$D
+                }`,
+                returningTime: `${updatedFields?.$H}:${updatedFields?.$m}`,
+              };
+            }
           } else {
             return {
               ...booking,
-              returningDate: `${updatedFields?.$y}-${updatedFields?.$M + 1}-${
-                updatedFields?.$D
-              }`,
-              returningTime: `${updatedFields?.$H}:${updatedFields?.$m}`,
+              ...updatedFields,
             };
           }
         } else {
-          return {
-            ...booking,
-            ...updatedFields,
-          };
+          return booking; // Return original state for other indices
         }
       });
       console.log({ newState });
@@ -238,21 +244,62 @@ const MultiCityTrip = ({}) => {
     };
   });
 
-  console.log({ bookingState });
+  useEffect(() => {
+    const booking = JSON.parse(localStorage.getItem("bookingDetails"));
+    console.log({ booking });
+    if (pathname === "/booking") {
+      if (booking) {
+        setBookingType(booking?.booking_details?.tripType);
+        setBookingState(booking?.booking_details?.formData);
+        setBookingDetails(booking);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    setBookingDetails((prev) => ({
+      ...prev,
+      booking_details: {
+        tripType: bookingType,
+        formData: bookingState,
+      },
+    }));
+  }, [bookingType, bookingState]);
+
+  // console.log({ bookingState });
+
   return (
     <main>
       <div className="w-full border rounded-3xl">
-        <div className="p-5 rounded-3xl backdrop-blur bg-swBlack/20 border border-swGray900">
+        <div
+          className={`p-5 rounded-3xl ${
+            pathname === "/"
+              ? "backdrop-blur bg-swBlack/20 border border-swGray900"
+              : ""
+          } `}
+        >
           <div className="flex justify-between items-center mb-5">
-            <p className="font-semibold text-swGray800 ml-2 text-lg">
+            <p
+              className={`font-semibold ${
+                pathname === "/" ? "text-white" : "text-swGray800"
+              } ml-2 text-lg`}
+            >
               Book a jet
             </p>
-            <div className="p-1 text-xl rounded-full flex gap-5 font-medium backdrop-blur bg-white/25">
+            <div
+              className={`p-1 text-xl rounded-full flex gap-5 font-medium ${
+                pathname == "/" ? "backdrop-blur bg-white/25" : "bg-swGray50"
+              } `}
+            >
               <button
                 className={`${
                   bookingType === "One way Trip"
-                    ? "text-white backdrop-blur bg-swBlack/50 font-semibold"
-                    : "text-swGray300 hover:backdrop-blur hover:bg-white/5"
+                    ? `${
+                        pathname == "/"
+                          ? "text-white backdrop-blur bg-swBlack/50"
+                          : "text-swPrimary500 bg-white"
+                      } font-semibold`
+                    : `text-swGray300 hover:backdrop-blur hover:bg-white/5`
                 } py-2 px-4 rounded-full`}
                 onClick={() => setBookingType("One way Trip")}
               >
@@ -261,7 +308,11 @@ const MultiCityTrip = ({}) => {
               <button
                 className={`${
                   bookingType === "Round Trip"
-                    ? "text-white backdrop-blur bg-swBlack/50 font-semibold"
+                    ? `${
+                        pathname == "/"
+                          ? "text-white backdrop-blur bg-swBlack/50"
+                          : "text-swPrimary500 bg-white"
+                      } font-semibold`
                     : "text-swGray300 hover:backdrop-blur hover:bg-white/5]"
                 } py-2 px-4 rounded-full`}
                 onClick={() => setBookingType("Round Trip")}
@@ -271,7 +322,11 @@ const MultiCityTrip = ({}) => {
               <button
                 className={`${
                   bookingType === "Multi-city Trip"
-                    ? "text-white backdrop-blur bg-swBlack/50 font-semibold"
+                    ? `${
+                        pathname == "/"
+                          ? "text-white backdrop-blur bg-swBlack/50"
+                          : "text-swPrimary500 bg-white"
+                      } font-semibold`
                     : "text-swGray300 hover:backdrop-blur hover:bg-white/5"
                 } py-2 px-4 rounded-full`}
                 onClick={() => {
@@ -281,18 +336,24 @@ const MultiCityTrip = ({}) => {
                 Multi-city trip
               </button>
             </div>
-            <div
-              className={`${space_grotesk.className} w-fit text-lg `}
-              onClick={handleBookJet}
-            >
-              <Button
-                label="Book Jet"
-                bgColor={"bg-swPrimary500 hover:bg-swPrimary600"}
-                textColor={"text-white"}
-                endIcon={<HiArrowRight size={20} />}
-                disabled={bookingBtnDisable()}
-              />
-            </div>
+            {pathname === "/" ? (
+              <div
+                className={`${space_grotesk.className} w-fit text-lg `}
+                onClick={handleBookJet}
+              >
+                <Button
+                  label="Book Jet"
+                  bgColor={"bg-swPrimary500 hover:bg-swPrimary600"}
+                  textColor={"text-white"}
+                  endIcon={<HiArrowRight size={20} />}
+                  disabled={bookingBtnDisable()}
+                />
+              </div>
+            ) : (
+              <div className="text-white p-5 rounded-full bg-swPrimary500">
+                <SwSearchIcon className="text-[1rem]" />
+              </div>
+            )}
           </div>
 
           {bookingState.map((item, index) => (
@@ -310,17 +371,25 @@ const MultiCityTrip = ({}) => {
               <div className="flex items-center gap-5 mx-auto flex-wrap">
                 <div className="flex items-center mx-auto relative">
                   <div
-                    className="p-5 pr-16 flex h-[5.5rem] w-[18rem] items-center gap-5 border border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50 rounded-tl-2xl rounded-bl-2xl cursor-pointer"
+                    className={`p-5 pr-16 flex h-[5.5rem] w-[18rem] items-center gap-5 border backdrop-blur ${
+                      pathname == "/"
+                        ? "border-swGray900 bg-swBlack/40 hover:bg-swBlack/50"
+                        : ""
+                    }  rounded-tl-2xl rounded-bl-2xl cursor-pointer`}
                     onClick={() => setOpenDeparture(index)}
                   >
-                    <div className="bg-swPrimary500 p-1 rounded-full">
+                    <div className="bg-swPrimary500 p-1 rounded-full text-white">
                       <div className="h-7 w-7 relative flex justify-center items-center">
                         <SwDeparturePlaneIcon className="text-[1.6rem]" />
                       </div>
                     </div>
                     <div>
                       <p className="text-swGray500 text-sm">Departure city</p>
-                      <p className="text-white font-medium">
+                      <p
+                        className={`${
+                          pathname == "/" ? "text-white" : "text-swGray900"
+                        }  font-medium`}
+                      >
                         {!item?.source
                           ? "Select City"
                           : `${item?.source?.city} - ${item?.source?.country}`}
@@ -332,17 +401,25 @@ const MultiCityTrip = ({}) => {
                     <GoArrowLeft size={15} className="-mt-2 mr-1" />
                   </div>
                   <div
-                    className="p-5 pr-16 flex h-[5.5rem] w-[18rem] items-center gap-5 border border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50 border-l-transparent rounded-tr-2xl rounded-br-2xl cursor-pointer"
+                    className={`p-5 pr-16 flex h-[5.5rem] w-[18rem] items-center gap-5 border ${
+                      pathname == "/"
+                        ? "border-swGray900 bg-swBlack/40 hover:bg-swBlack/50"
+                        : ""
+                    } border-l-transparent rounded-tr-2xl rounded-br-2xl cursor-pointer`}
                     onClick={() => setOpenArrival(index)}
                   >
-                    <div className="bg-swPrimary500 p-1 rounded-full">
+                    <div className="bg-swPrimary500 p-1 rounded-full text-white">
                       <div className="h-7 w-7 relative flex justify-center items-center">
                         <SwArrivalPlaneIcon className="text-[1.6rem]" />
                       </div>
                     </div>
                     <div>
                       <p className="text-swGray500 text-sm">Arrival city</p>
-                      <p className="text-white font-medium">
+                      <p
+                        className={`${
+                          pathname == "/" ? "text-white" : "text-swGray900"
+                        }  font-medium`}
+                      >
                         {!item?.destination
                           ? "Select City"
                           : `${item?.destination?.city} - ${item?.destination?.country}`}
@@ -384,7 +461,10 @@ const MultiCityTrip = ({}) => {
                           </div>
                         }
                         onChange={(selectedOption) => {
-                          updateBookingState({ source: selectedOption.value });
+                          updateBookingState(
+                            { source: selectedOption.value },
+                            index
+                          );
                           setOpenDeparture(null);
                         }}
                       />
@@ -425,9 +505,12 @@ const MultiCityTrip = ({}) => {
                           </div>
                         }
                         onChange={(selectedOption) => {
-                          updateBookingState({
-                            destination: selectedOption.value,
-                          });
+                          updateBookingState(
+                            {
+                              destination: selectedOption.value,
+                            },
+                            index
+                          );
                           setOpenArrival(null);
                         }}
                       />
@@ -437,13 +520,23 @@ const MultiCityTrip = ({}) => {
                 <div className="flex justify-around gap-5 mx-auto flex-wrap">
                   <div
                     onClick={() => setDateOpen(index)}
-                    className="relative p-5 flex h-[5.5rem] w-[18rem] items-center gap-5 border border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50 rounded-2xl cursor-pointer"
+                    className={`relative p-5 flex h-[5.5rem] w-[18rem] items-center gap-5 ${
+                      pathname === "/"
+                        ? " border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50"
+                        : ""
+                    } border rounded-2xl cursor-pointer`}
                     // ref={dateRef}
                   >
-                    {!isDateOpen === index && (
-                      <div className="p-2 rounded-full text-white">
+                    {isDateOpen !== index ? (
+                      <div
+                        className={`p-2 rounded-full border ${
+                          pathname === "/" ? "text-white" : "text-swGray900"
+                        }`}
+                      >
                         <SwCalendarIcon className="text-xl" />
                       </div>
+                    ) : (
+                      ""
                     )}
 
                     <div className="w-full">
@@ -454,7 +547,13 @@ const MultiCityTrip = ({}) => {
                               <p className="text-swGray500 text-sm">
                                 Departure and arrival date
                               </p>
-                              <p className=" text-white ">
+                              <p
+                                className={`${
+                                  pathname === "/"
+                                    ? "text-white"
+                                    : "text-swGray900"
+                                }`}
+                              >
                                 {item.depatureDate
                                   ? dayjs(
                                       `${item.depatureDate} ${item.depatureTime}`
@@ -470,14 +569,26 @@ const MultiCityTrip = ({}) => {
                             </>
                           ) : (
                             <div className="w-full flex">
-                              <div className="text-sm w-full  text-white">
+                              <div
+                                className={`text-sm w-full ${
+                                  pathname === "/"
+                                    ? "text-white"
+                                    : "text-swGray900"
+                                }`}
+                              >
                                 {item.depatureDate
                                   ? dayjs(
                                       `${item.depatureDate} ${item.depatureTime}`
                                     ).format("D MMM")
                                   : "Select Dept"}
                               </div>
-                              <div className="text-sm ml-5 w-full  text-white">
+                              <div
+                                className={`text-sm ml-5 w-full ${
+                                  pathname === "/"
+                                    ? "text-white"
+                                    : "text-swGray900"
+                                }`}
+                              >
                                 {item.depatureDate
                                   ? dayjs(
                                       `${item.returningDate} ${item.returningTime}`
@@ -492,10 +603,14 @@ const MultiCityTrip = ({}) => {
                           <p className="text-swGray500 text-sm">
                             Departure date
                           </p>
-                          <p className=" text-white ">
-                            {item.depatureDate
+                          <p
+                            className={`${
+                              pathname == "/" ? "text-white" : "text-swGray900"
+                            } font-semibold`}
+                          >
+                            {item?.depatureDate
                               ? dayjs(
-                                  `${item.depatureDate} ${item.depatureTime}`
+                                  `${item?.depatureDate} ${item?.depatureTime}`
                                 ).format("D MMM")
                               : "Select Date"}
                           </p>
@@ -509,7 +624,11 @@ const MultiCityTrip = ({}) => {
                         }`}
                       >
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
-                          <div className="flex indexDate">
+                          <div
+                            className={`flex ${
+                              pathname === "/" ? "indexDate" : "bookingDate"
+                            }`}
+                          >
                             <DateTimePicker
                               label="Departure Date"
                               defaultValue={dayjs()}
@@ -519,7 +638,7 @@ const MultiCityTrip = ({}) => {
                               onOpen={() => setDateOpen(index)}
                               onClose={() => setDateOpen(null)}
                               onChange={(value) =>
-                                updateBookingState(value, "departure")
+                                updateBookingState(value, index, "departure")
                               }
                               renderInput={(params) => (
                                 <TextField {...params} />
@@ -533,7 +652,7 @@ const MultiCityTrip = ({}) => {
                                   `${item.returningDate} ${item.returningTime}`
                                 )}
                                 onChange={(value) =>
-                                  updateBookingState(value, "returning")
+                                  updateBookingState(value, index, "returning")
                                 }
                                 onClose={() => setDateOpen(null)}
                                 renderInput={(params) => (
@@ -548,25 +667,37 @@ const MultiCityTrip = ({}) => {
                   </div>
                   <div className="relative">
                     <div
-                      className="p-5 flex items-center h-[5.5rem] w-72 gap-5 border border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50 rounded-2xl cursor-pointer"
+                      className={`p-5 flex items-center h-[5.5rem] w-72 gap-5 border ${
+                        pathname === "/"
+                          ? "border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50"
+                          : ""
+                      }  rounded-2xl cursor-pointer`}
                       onClick={() => setOpenPassageners(index)}
                     >
-                      <div className="p-2 rounded-full text-swGray900">
+                      <div
+                        className={`p-2 border rounded-full ${
+                          pathname === "/" ? "text-white" : "text-swGray900"
+                        }`}
+                      >
                         <SwUserIcon className="text-xl" />
                       </div>
                       <div>
                         <p className="text-swGray500 text-sm">Occupants</p>
-                        <p className="text-white font-medium">
-                          Adults - {item?.passengers?.adults} Children -{" "}
-                          {item?.passengers?.children} Pets -{" "}
-                          {item?.passengers?.pets}
+                        <p
+                          className={`font-medium ${
+                            pathname === "/" ? "text-white" : "text-swGray900"
+                          }`}
+                        >
+                          {item?.passengers?.adults} Adults -{" "}
+                          {item?.passengers?.children} Children -{" "}
+                          {item?.passengers?.pets} Pets
                         </p>
                       </div>
                     </div>
                     {openPassangers === index && (
                       <div
                         ref={passengerRef}
-                        className="absolute text-swGray900 top-24 bg-white w-full shadow-md rounded-md"
+                        className="absolute text-swGray900 top-24 bg-white w-full shadow-md rounded-md z-20"
                       >
                         <div className="p-5 flex flex-col gap-5 font-medium">
                           <p className="font-semibold text-lg">Occupants</p>
@@ -691,4 +822,4 @@ const MultiCityTrip = ({}) => {
   );
 };
 
-export default MultiCityTrip;
+export default BookingEngine;
