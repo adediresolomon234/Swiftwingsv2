@@ -257,13 +257,15 @@ const BookingEngine = ({ setBookingDetails }) => {
   }, []);
 
   useEffect(() => {
-    setBookingDetails((prev) => ({
-      ...prev,
-      booking_details: {
-        tripType: bookingType,
-        formData: bookingState,
-      },
-    }));
+    if (setBookingDetails) {
+      setBookingDetails((prev) => ({
+        ...prev,
+        booking_details: {
+          tripType: bookingType,
+          formData: bookingState,
+        },
+      }));
+    }
   }, [bookingType, bookingState]);
 
   // console.log({ bookingState });
