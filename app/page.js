@@ -210,16 +210,16 @@ export default function Home() {
                       onMouseEnter={() => handleMouseEnter(index)}
                       onMouseLeave={handleMouseLeave}
                     >
-                      <div className="grid grid-cols-1 gap-32 lg:grid-cols-3 lg:gap-8 border-gray-200 rounded duration-300 hover:bg-swBgGray">
-                        <div className="flex items-center fleet-item">
+                      <div className="p-6 lg:p-2 grid grid-cols-1 gap-2 lg:grid-cols-3 lg:gap-8 border-gray-200 rounded duration-300 hover:bg-swBgGray">
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center fleet-item space-y-2 sm:space-y-0">
                           <a aria-label="icon" className="block">
-                            <p className="font-medium md:block text-[18px] text-swGray700">
+                            <p className="font-medium md:block text-[18px] text-swGray700 ">
                               {item.name}
                             </p>
                           </a>
                         </div>
                         <div className="flex-1 flex flex-col items-start justify-between text-xs text-gray-800 px-1 py-3 lg:col-span-2">
-                          <div className="flex justify-between flex-grow gap-8 mt-6 font-normal ">
+                          <div className="flex justify-between flex-grow gap-8 mt-6 font-normal sm:mt-0 mt-[-10px] ">
                             <div className="flex items-center ">
                               <svg className="w-6 h-6" viewBox="0 0 24 24">
                                 <path fill="currentColor" d={mdiCarSeat} />
@@ -249,11 +249,11 @@ export default function Home() {
                           </div>
                         </div>
                       </div>
-                      <hr className="w-full border-gray-200" />
+                      <hr className="w-full border-gray-200 mb-3 sm:mb-0" />
                     </div>
                   ))}
                 </div>
-                <div className="flex justify-center items-center relative w-[50%]">
+                <div className="flex justify-center items-center relative w-[50%] lg:block hidden">
                   <div className="">
                     <div
                       aria-hidden="true"
@@ -283,7 +283,7 @@ export default function Home() {
               </div>
 
               <div
-                className={`${space_grotesk.className} flex justify-right text-xl mt-12 py-8 `}
+                className={`${space_grotesk.className} flex justify-right text-xl mt-12 py-8 p-6 lg:p-0 `}
               >
                 <Button
                   label="See all"
