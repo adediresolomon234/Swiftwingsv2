@@ -28,3 +28,5 @@ export { default as SWNeedhelpIcon } from "./needhelp.svg";
 export { default as SWStarIcon } from "./star.svg";
 export { default as SWNotificationIcon } from "./notificationIcon.svg";
 export { default as SWEditIcon } from "./EditIcon.svg";
+export { default as SWLeftArrowIcon } from "./LeftArrowIcon.svg";
+export { default as SWMarkIcon } from "./MarkIcon.svg";
