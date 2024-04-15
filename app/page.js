@@ -298,31 +298,33 @@ export default function Home() {
                 We offer world a class exotic experience
               </p>
             </div>
-            <div className="grid gap-6 px-8 sm:px-0 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-3  sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
               {services.map((service, index) => (
+              <div className="max-w-2xl mx-auto p-2">
                 <div
                   key={index}
-                  className="group relative rounded-3xl space-y-8 overflow-hidden"
+                  className=" overflow-hidden w-full"
                 >
                   <img
-                    className="mx-auto h-[26rem] w-full object-cover object-top  duration-500 group-hover:scale-105 group-hover:grayscale-0"
+                    className="object-cover w-full rounded-t-2xl"
                     src={service.imageSrc}
                     alt={service.title}
                     loading="lazy"
                     width="640"
                     height="805"
                   />
-                  <div className="absolute bottom-0 inset-x-0 h-max mt-auto px-12 py-4 bg-gradient-to-r from-neutral-400 to-stone-500/90">
-                    <div>
-                      <h4 className="text-xl text-left font-semibold text-white mb-3">
+                  <div className="p-3  bg-gradient-to-r from-neutral-400 to-stone-500/90 rounded-b-2xl text-left  ">
+                    <div className="justify-start items-start">
+                      <h4 className="mb-2 text-2xl font-bold tracking-tight text-white ">
                         {service.title}
                       </h4>
                     </div>
-                    <p className="mt-4 text-xs text-left text-gray-300">
+                    <p className="mb-3 font-normal text-white text-sm">
                       {service.description}
                     </p>
                   </div>
                 </div>
+              </div>
               ))}
             </div>
           </div>

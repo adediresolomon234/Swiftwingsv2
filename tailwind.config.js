@@ -40,6 +40,7 @@ module.exports = {
         swSecondary700: "#b2ad9d",
         swSecondary800: "#8a867a",
         swSecondary900: "#69665d",
+        swSecondary950: "#C9C5C5",
         swError50: "#feeceb",
         swError100: "#fac5c1",
         swError200: "#f8a9a3",

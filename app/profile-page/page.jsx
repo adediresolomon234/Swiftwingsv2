@@ -9,9 +9,18 @@ import { navItems } from "../components/NavItems";
 import { SWNeedhelpIcon } from "../components/svgs";
 import ProfileCard from "../components/shared/ProfileCard";
 import UpdatepasswordCard from "../components/shared/UpdatePasswordCard"
+import { useRouter } from "next/navigation";
 
 
 const UserProfilePage = () => {
+    const router = useRouter();
+    const handleEditClick = () => {
+      sessionStorage.clear();
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
+      router.push('/sign-in');
+    }
+
   return (
     <div className="flex flex-col md:flex-row w-full h-screen overflow-hidden bg-swPrimary50 pt-3 px-4 pb-6 ">
       <div className="max-h-screen w-98 rounded-xl bg-white flex flex-col items-start justify-start pt-12 px-10 pb-2 gap-8">
@@ -49,7 +58,7 @@ const UserProfilePage = () => {
         <div className="rounded-xl bg-white p-4 mt-4">
           <UpdatepasswordCard />
         </div>
-        <Button className="flex w-max items-end gap-4 mt-12 bg-white rounded-3xl text-swGray800"
+        <Button onClick={handleEditClick} className="flex w-max items-end gap-4 mt-12 bg-white rounded-3xl text-swGray800"
          label={"Log out"}
          textColor={"w-full text-swPrimary500  border border-swGray100 hover:bg-swPrimary500 hover:text-swSecondary500"}
         />

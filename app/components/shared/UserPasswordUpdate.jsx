@@ -123,7 +123,7 @@ const PasswordUpdateCard = () => {
 
     const router = useRouter();
     const handleEditClick = () => {
-        router.back('/user-profile-page');
+        router.back('/profile-page');
     };
     return (
         <div className="w-full relative rounded-xl bg-white overflow-hidden flex flex-col items-center justify-center pt-3 px-6 pb-3 box-border gap-8 text-left text-xl  text-gray-800 font-header-sm-semi-bold">

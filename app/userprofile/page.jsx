@@ -27,7 +27,7 @@ const UserProfilePage = () => {
             </Link>
           ))}
         </nav>
-        <div className="mt-auto">
+        <div className="mt-auto ">
           <div className="flex items-center mb-2">
             <SWNeedhelpIcon className="text-xl"/>
             <span className="ml-2">Need Help?</span>
