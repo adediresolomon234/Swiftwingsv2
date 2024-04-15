@@ -1,6 +1,8 @@
 import { Space_Grotesk } from "next/font/google";
 import { GoArrowLeft, GoArrowRight } from "react-icons/go";
 import {
+  SWMinusRoundBorderIcon,
+  SWPlusRoundBorderIcon,
   SwArrivalPlaneIcon,
   SwCalendarIcon,
   SwDeparturePlaneIcon,
@@ -18,12 +20,14 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import TextField from "@mui/material/TextField";
 import { HiArrowRight } from "react-icons/hi";
 import { FaSearch } from "react-icons/fa";
+import { usePathname } from "next/navigation";
 
 const space_grotesk = Space_Grotesk({
   subsets: ["latin"],
 });
 
 const MultiCityTrip = ({}) => {
+  const pathname = usePathname();
   const [bookingType, setBookingType] = useState("One way Trip");
   const [openDeparture, setOpenDeparture] = useState(null);
   const [openArrival, setOpenArrival] = useState(null);
@@ -169,6 +173,30 @@ const MultiCityTrip = ({}) => {
     option: (styles) => ({ ...styles, backgroundColor: "white" }),
   };
 
+  const handleRemoveTrip = (index) => {
+    const updatedFormData = bookingState.filter((_, idx) => idx !== index);
+    setBookingState(updatedFormData);
+  };
+
+  const handleAddTrip = () => {
+    setBookingState((prev) => [
+      ...prev,
+      {
+        source: null,
+        destination: null,
+        depatureTime: null,
+        depatureDate: null,
+        returningTime: null,
+        returningDate: null,
+        passengers: {
+          adults: 0,
+          children: 0,
+          pets: 0,
+        },
+      },
+    ]);
+  };
+
   const handleBookJet = () => {
     const booking = {
       user: null,
@@ -210,13 +238,12 @@ const MultiCityTrip = ({}) => {
     };
   });
 
+  console.log({ bookingState });
   return (
     <main>
       <div className="w-full border rounded-3xl">
         <div className="p-5 rounded-3xl backdrop-blur bg-swBlack/20 border border-swGray900">
-          <div
-            className="flex justify-between items-center mb-5"
-          >
+          <div className="flex justify-between items-center mb-5">
             <p className="font-semibold text-swGray800 ml-2 text-lg">
               Book a jet
             </p>
@@ -269,7 +296,17 @@ const MultiCityTrip = ({}) => {
           </div>
 
           {bookingState.map((item, index) => (
-            <div key={index} className="flex justify-between mb-5">
+            <div key={index} className="flex flex-col justify-between mb-5">
+              <div className="mb-2 flex gap-5 justify-end w-full">
+                {bookingType === "Multi-city Trip" && index > 0 ? (
+                  <SWMinusRoundBorderIcon
+                    className={`${
+                      pathname === "/" ? "text-white" : "text-swPrimary500"
+                    } text-2xl cursor-pointer`}
+                    onClick={() => handleRemoveTrip(index)}
+                  />
+                ) : null}
+              </div>
               <div className="flex items-center gap-5 mx-auto flex-wrap">
                 <div className="flex items-center mx-auto relative">
                   <div
@@ -638,6 +675,16 @@ const MultiCityTrip = ({}) => {
               </div>
             </div>
           ))}
+          {bookingType === "Multi-city Trip" && (
+            <div className="mt-2 flex gap-5 justify-center w-full">
+              <SWPlusRoundBorderIcon
+                className={`${
+                  pathname === "/" ? "text-white" : "text-swPrimary500"
+                } text-2xl cursor-pointer`}
+                onClick={handleAddTrip}
+              />
+            </div>
+          )}
         </div>
       </div>
     </main>
