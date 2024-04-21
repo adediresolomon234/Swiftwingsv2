@@ -203,6 +203,24 @@ const BookingEngine = ({ setBookingDetails }) => {
     ]);
   };
 
+  const resetBookingState = () => {
+    setBookingState([
+      {
+        source: null,
+        destination: null,
+        depatureTime: null,
+        depatureDate: null,
+        returningTime: null,
+        returningDate: null,
+        passengers: {
+          adults: 0,
+          children: 0,
+          pets: 0,
+        },
+      },
+    ]);
+  };
+
   const handleBookJet = () => {
     const booking = {
       user: null,
@@ -272,11 +290,11 @@ const BookingEngine = ({ setBookingDetails }) => {
 
   return (
     <main>
-      <div className="w-full border rounded-3xl">
+      <div className="w-full rounded-3xl">
         <div
-          className={`p-5 rounded-3xl ${
+          className={`p-5 rounded-3xl border ${
             pathname === "/"
-              ? "backdrop-blur bg-swBlack/20 border border-swGray900"
+              ? "backdrop-blur bg-swBlack/20 border-swGray900"
               : ""
           } `}
         >
@@ -303,7 +321,10 @@ const BookingEngine = ({ setBookingDetails }) => {
                       } font-semibold`
                     : `text-swGray300 hover:backdrop-blur hover:bg-white/5`
                 } py-2 px-4 rounded-full`}
-                onClick={() => setBookingType("One way Trip")}
+                onClick={() => {
+                  setBookingType("One way Trip");
+                  resetBookingState();
+                }}
               >
                 One Way Rrip
               </button>
@@ -317,7 +338,10 @@ const BookingEngine = ({ setBookingDetails }) => {
                       } font-semibold`
                     : "text-swGray300 hover:backdrop-blur hover:bg-white/5]"
                 } py-2 px-4 rounded-full`}
-                onClick={() => setBookingType("Round Trip")}
+                onClick={() => {
+                  setBookingType("Round Trip");
+                  resetBookingState();
+                }}
               >
                 Round Trip
               </button>
@@ -333,6 +357,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                 } py-2 px-4 rounded-full`}
                 onClick={() => {
                   setBookingType("Multi-city Trip");
+                  resetBookingState();
                 }}
               >
                 Multi-city trip
@@ -582,7 +607,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                                   ? dayjs(
                                       `${item.depatureDate} ${item.depatureTime}`
                                     ).format("D MMM")
-                                  : "Select Dept"}
+                                  : "Departure"}
                               </div>
                               <div
                                 className={`text-sm ml-5 w-full ${
@@ -595,7 +620,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                                   ? dayjs(
                                       `${item.returningDate} ${item.returningTime}`
                                     ).format("D MMM")
-                                  : "Select Arr"}
+                                  : "Arrival"}
                               </div>
                             </div>
                           )}
