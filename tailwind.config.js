@@ -76,6 +76,7 @@ module.exports = {
         swBgGray: "#F1F1F1",
         swLighterGray: "#E9EBF8",
         swLighterBgGray: "#F9F9F9",
+        swLightenessWhiter: "#FFFFFF19",
       },
     },
   },
