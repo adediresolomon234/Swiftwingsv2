@@ -66,9 +66,15 @@ const SignIn = () => {
       localStorage.setItem("user", JSON.stringify(user));
       toast.success(response?.data?.message);
       resetInputField();
-      router.push("/");
+      const bookingInComplete = localStorage.getItem("bookingInComplete");
+      if (bookingInComplete) {
+        router.push("/booking");
+      } else {
+        router.push("/");
+      }
+      localStorage.removeItem("bookingInComplete");
     } catch (error) {
-      toast.error(error?.message);
+      toast.error(error?.response?.data?.error);
       setLoading(false);
     }
   };

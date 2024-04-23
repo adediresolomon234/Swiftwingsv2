@@ -21,14 +21,18 @@ import { addBooking } from "@/redux/slices/bookingSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import BookingEngine from "../components/bookingEngine/bookingEngine";
+import BookingComplete from "../components/bookingEngine/bookingComplete";
+import { useRouter } from "next/navigation";
 
 const BookJet = () => {
   const dispatch = useDispatch();
+  const router = useRouter();
   const [dateValue, setDateValue] = useState(dayjs());
   const [bookingDetails, setBookingDetails] = useState(null);
   const [sourceDetails, setSourceDetails] = useState(null);
   const [destinationDetails, setDestinationDetails] = useState(null);
   const [jets, setJets] = useState(null);
+  const [success, setSuccess] = useState(false);
 
   const { loading, error, data } = useSelector((state) => state.booking);
 
@@ -50,14 +54,31 @@ const BookJet = () => {
   };
 
   const handleQuote = () => {
-    dispatch(addBooking(bookingDetails));
+    if (bookingDetails?.user) {
+      dispatch(addBooking(bookingDetails));
+    } else {
+      localStorage.setItem("bookingInComplete", true);
+      router.push("/complete-profile");
+    }
+  };
+
+  const handleQuoteDisable = () => {
+    return loading === "pending"
+      ? true
+      : false ||
+          !bookingDetails?.booking_details?.formData[0].source ||
+          !bookingDetails?.booking_details?.formData[0].destination ||
+          !bookingDetails?.booking_details?.formData[0].depatureDate ||
+          bookingDetails?.booking_details?.formData[0].passengers.adults < 1 ||
+          bookingDetails?.additional_quote.length < 1;
   };
 
   useEffect(() => {
     if (data?.response?.data?.error) {
       toast.error(data?.response?.data?.error);
     } else if (data?.message) {
-      toast.success(data?.message);
+      // toast.success(data?.message);
+      setSuccess(true);
     }
     if (error) {
       toast.error(error?.message);
@@ -252,13 +273,14 @@ const BookJet = () => {
                   className="w-full text-white text-center"
                   onClick={handleQuote}
                   loader={loading === "pending" ? true : false}
-                  disabled={loading === "pending" ? true : false}
+                  disabled={handleQuoteDisable()}
                 />
               </div>
             </div>
           </div>
         </div>
       </div>
+      <BookingComplete open={success} onClose={setSuccess} />
     </NavAndFooter>
   );
 };
