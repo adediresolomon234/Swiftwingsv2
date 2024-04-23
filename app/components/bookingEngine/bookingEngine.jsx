@@ -276,7 +276,7 @@ const BookingEngine = ({ setBookingDetails }) => {
     <main>
       <div className="w-full rounded-3xl md:border">
         <div
-          className={`p-2 rounded-3xl bg-swLightenessWhiter md:bg-white ${pathname === "/"
+          className={`p-2 rounded-3xl bg-swLightenessWhiter md:bg-none ${pathname === "/"
             ? "backdrop-blur border border-swGray900"
             : ""
             } md:p-5 md:bg-swBlack/20`}
