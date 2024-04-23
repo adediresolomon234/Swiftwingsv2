@@ -14,11 +14,11 @@ const Footer = () => {
     return (
 
         <footer className="w-full rounded-3xl bg-swPrimary700 relative flex flex-col items-center overflow-hidden py-12 md:py-12">        
-            <div className="mb-16 sm:mx-auto w-full sm:w-1/2 md:w-1/2">
-                <h2 className="mb-4 text-center text-[38px] text-white md:text-[38px]">
+            <div className="mb-16 sm:mx-auto w-full sm:w-5/4 md:w-1/2">
+            <h2 className="mb-4 text-center text-xl text-white md:text-3xl md:text-center">
                     Let’s work together
                 </h2>
-                <p className="text-white  mt-8 text-base text-center sm:text-base md:text-base">
+                <p className="text-white p-8 mt-8 text-sm text-center sm:text-base md:text-base">
                     Swift Wings Ltd offers an exclusive Jet Card Membership, providing discerning travelers with unparalleled access to private jet charter services. As a Jet Card member, you enjoy priority booking and seamless travel experiences tailored to your preferences.
                 </p>
             </div>
@@ -28,7 +28,7 @@ const Footer = () => {
                     textColor={"text-gray-700"}
                 />
             </div>
-            <div className="w-full md:w-3/4 lg:w-4/5 mx-auto px-4 sm:px-8 lg:px-16 xl:px-32 mt-20">
+            <div className="w-full md:w-3/4 lg:w-4/5 mx-auto px-4 sm:px-8 lg:px-16 xl:px-32 m-20">
                 <div className="newsletter w-full relative rounded-2xl bg-white overflow-hidden flex flex-col items-start justify-start p-6 md:p-8 lg:p-12 xl:p-10 gap-4 md:gap-6 text-left text-lg lg:text-xl text-swGray800 font-semibold">
                     <div className="self-stretch tracking-tighter leading-tight p-2 text-2xl">
                         Sign Up to our Newsletter
@@ -53,7 +53,7 @@ const Footer = () => {
             </div>
 
             <div className="relative w-full ">
-                <footer className="w-full rounded-3xl bg-swWine relative flex flex-col items-center overflow-hidden py-20 md:py-40">
+                <footer className="w-full rounded-3xl bg-swWine relative flex flex-col items-center overflow-hidden">
                     <div className="mx-auto w-full max-w-screen-2xl p-4 py-6 lg:py-8">
                         <div className="md:flex md:justify-between">
                             <div className="mb-6 md:mb-0">
@@ -62,7 +62,7 @@ const Footer = () => {
                                     <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">Swiftwings</span>
                                 </a>
                             </div>
-                            <div className="grid grid-cols-2 gap-3 sm:gap-2 sm:grid-cols-4">
+                            <div className="grid grid-cols-1 gap-3 sm:gap-2 sm:grid-cols-4">
                                 <div>
                                     <h2 className="mb-6 text-xl font-semibold uppercase text-white">Service</h2>
                                     <ul className="text-white font-medium">

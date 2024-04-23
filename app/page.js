@@ -136,25 +136,27 @@ export default function Home() {
           </div>
         </section>
 
-        <section className=" max-w-6xl mx-auto py-10">
-          <p className="text-swPrimary500 font-medium text-lg">About us</p>
-          <div className="flex justify-between mt-10">
-            <p className="font-semibold text-swPrimary500 text-5xl max-w-sm">
-              Get to know more about Swiftwings
-            </p>
-            <p className="text-swGray500 text-lg font-light max-w-[26rem] w-full">
-              Swift Wings is a premier provider of private jets charter flights
-              connecting global airports, offering unmatched convenience and
-              exclusivity for luxury travel.
-            </p>
-          </div>
+        <section className=" max-w-6xl mx-auto p-5">
+        <div className="flex flex-col items-start gap-5 ">
+            <p className="text-swPrimary500 font-medium text-lg">About us</p>
+            <div className="flex flex-col md:flex-row justify-between mt-10 w-full space-y-8 md:space-y-0 ">
+              <p className="font-semibold text-swPrimary500 text-3xl max-w-md md:text-5xl">
+                Get to know more about Swiftwings
+              </p>
+              <p className="text-swGray500 text-lg font-light max-w-[26rem] ">
+                Swift Wings is a premier provider of private jets charter flights
+                connecting global airports, offering unmatched convenience and
+                exclusivity for luxury travel.
+              </p>
+            </div>
+        </div>
 
-          <div className="flex flex-col items-center gap-5 mt-14 ">
-            <div className="flex gap-5 justify-center ">
+          <div className="flex flex-col items-center gap-5 mt-14 p-5 md: p-0 ">
+            <div className="grid grid-col-3 grid-flow-col gap-4 mb: gap-12 justify-center ">
               <AboutUsCard
                 number={"75"}
                 text={"Swiftwings users from all over the globe."}
-                className=""
+                className="text-sm"
               />
               <AboutUsCard
                 number={"1.5k"}
@@ -336,12 +338,12 @@ export default function Home() {
           </div>
         </section>
         <section className="max-w-6xl mx-auto py-10">
-          <div className="container mx-auto px-6 text-center md:px-12">
+          <div className="container mx-auto px-6 text-start md:text-center md:px-12">
             <div className="mb-16">
-              <h2 className="mb-4 text-center text-[18px] font-semibold text-swPrimary500  md:text-[18px] ">
+              <h2 className="mb-4 text-start md:text-center text-[18px] font-semibold text-swPrimary500  md:text-[18px] ">
                 Membership
               </h2>
-              <p className="text-swGray700 mt-8 sm:mx-auto   text-xl text-center sm:text-xl md:text-xl">
+              <p className="text-swGray700 mt-8 sm:mx-auto md:text-xl text-start md:text-center text-md ">
                 Swift Wings Ltd offers an exclusive Jet Card Membership,
                 providing discerning travelers with unparalleled access to
                 private jet charter services. As a Jet Card member, you enjoy
@@ -382,13 +384,13 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className="mx-auto py-16 px-16">
-          <div className="container mx-auto px-6 text-center md:px-12">
+        <section className="mx-auto py-16 px-3 md:px-16 ">
+          <div className="container mx-auto px-6 text-start md:text-center md:px-12">
             <div className="mx-auto max-w-[990px]">
-              <h2 className="mb-4 text-center text-[18px]  text-swPrimary500 md:text-[18px] ">
+              <h2 className="mb-4 text-start md:text-center text-[18px]  text-swPrimary500 md:text-[18px] ">
                 Customer Testimonials
               </h2>
-              <p className="text-swGray700 mt-8 sm:mx-auto text-xl text-center sm:text-xl md:text-xl">
+              <p className="text-swGray700 mt-8 sm:mx-auto text-start md:text-xl md:text-center text-center text-md">
                 Swift Wings Ltd offers an exclusive Jet Card Membership,
                 providing discerning travelers with unparalleled access to
                 private jet charter services. As a Jet Card member, you enjoy
