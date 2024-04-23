@@ -20,7 +20,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import NavBar from "../components/shared/NavBar";
 
-
 const CompleteProfile = () => {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -58,32 +57,38 @@ const CompleteProfile = () => {
 
   const registerHandle = () => {
     // // Reset errors
-    // setEmailError("");
-    // setPasswordError("");
-    // setReenterPasswordError("");
+    setEmailError("");
+    setPasswordError("");
+    setReenterPasswordError("");
 
-    // // Validate email
-    // if (!formData.email) {
-    //   setEmailError("Email is required");
-    // } else if (!isValidEmail(formData.email)) {
-    //   setEmailError("Invalid email format");
-    // }
+    // Validate email
+    if (!formData.email) {
+      setEmailError("Email is required");
+      return;
+    } else if (!isValidEmail(formData.email)) {
+      setEmailError("Invalid email format");
+      return;
+    }
 
-    // // Validate password
-    // if (!formData.password) {
-    //   setPasswordError("Password is required");
-    // } else if (!isValidPassword(formData.password)) {
-    //   setPasswordError(
-    //     "Password must have at least 8 characters, one uppercase letter, one lowercase letter, and one digit"
-    //   );
-    // }
+    // Validate password
+    if (!formData.password) {
+      setPasswordError("Password is required");
+      return;
+    } else if (!isValidPassword(formData.password)) {
+      setPasswordError(
+        "Password must have at least 9 characters, one uppercase letter, one lowercase letter, and one digit"
+      );
+      return;
+    }
 
-    // // Validate re-entered password
-    // if (!reenterPassword) {
-    //   setReenterPasswordError("Please re-enter your password");
-    // } else if (formData.password !== reenterPassword) {
-    //   setReenterPasswordError("Passwords do not match");
-    // }
+    // Validate re-entered password
+    if (!reenterPassword) {
+      setReenterPasswordError("Please re-enter your password");
+      return;
+    } else if (formData.password !== reenterPassword) {
+      setReenterPasswordError("Passwords do not match");
+      return;
+    }
 
     // If no errors, dispatch the signUpUser action
     // if (!emailError && !passwordError && !reenterPasswordError && formData.first_name && formData.last_name) {
@@ -104,7 +109,7 @@ const CompleteProfile = () => {
   useEffect(() => {
     if (data && !data?.message) {
       // router.push("/");
-      toast.success(data);
+      toast.error(data);  
       // alert(data?.message);
     }
     if (data && data?.message) {
