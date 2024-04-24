@@ -69,7 +69,7 @@ const BookingPageInformation = () => {
           !bookingDetails?.booking_details?.formData[0].destination ||
           !bookingDetails?.booking_details?.formData[0].depatureDate ||
           bookingDetails?.booking_details?.formData[0].passengers.adults < 1 ||
-          bookingDetails?.additional_quote.length < 1;
+          bookingDetails?.additional_quote?.length < 1;
   };
 
   useEffect(() => {
