@@ -40,12 +40,12 @@ const BookingPageInformation = () => {
     if (isChecked === true) {
       setBookingDetails((prevState) => ({
         ...prevState,
-        additional_quote: [...prevState.additional_quote, aircraftDetails],
+        additional_quote: [...prevState?.additional_quote, aircraftDetails],
       }));
     } else {
       setBookingDetails((prevState) => ({
         ...prevState,
-        additional_quote: prevState.additional_quote.filter(
+        additional_quote: prevState?.additional_quote.filter(
           (aircraft) => aircraft !== aircraftDetails
         ),
       }));
@@ -65,11 +65,11 @@ const BookingPageInformation = () => {
     return loading === "pending"
       ? true
       : false ||
-          !bookingDetails?.booking_details?.formData[0].source ||
-          !bookingDetails?.booking_details?.formData[0].destination ||
-          !bookingDetails?.booking_details?.formData[0].depatureDate ||
-          bookingDetails?.booking_details?.formData[0].passengers.adults < 1 ||
-          bookingDetails?.additional_quote.length < 1;
+          !bookingDetails?.booking_details?.formData[0]?.source ||
+          !bookingDetails?.booking_details?.formData[0]?.destination ||
+          !bookingDetails?.booking_details?.formData[0]?.depatureDate ||
+          bookingDetails?.booking_details?.formData[0]?.passengers.adults < 1 ||
+          bookingDetails?.additional_quote?.length < 1;
   };
 
   useEffect(() => {
