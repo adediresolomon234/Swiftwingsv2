@@ -10,11 +10,11 @@
 }
 
 fieldset.MuiOutlinedInput-notchedOutline {
-  border-color: transparent;
+  border-color: transparent !important;
 }
 
 .Mui-focused fieldset.MuiOutlinedInput-notchedOutline {
-  border-color: transparent;
+  border-color: transparent !important;
 }
 
 .indexDate > * .css-i4bv87-MuiSvgIcon-root {
@@ -27,4 +27,8 @@ fieldset.MuiOutlinedInput-notchedOutline {
 
 .MuiOutlinedInput-notchedOutline {
   border: none !important ;
+}
+
+.css-12zenr0-MuiInputBase-root-MuiOutlinedInput-root {
+  color: transparent !important;
 }
