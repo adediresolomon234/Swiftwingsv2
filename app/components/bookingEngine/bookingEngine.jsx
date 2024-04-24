@@ -8,7 +8,7 @@ import {
   SwDeparturePlaneIcon,
   SwSearchIcon,
   SwUserIcon,
-  SWArrowsChevron
+  SWArrowsChevron,
 } from "../svgs";
 import Select from "react-select";
 import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
@@ -23,8 +23,7 @@ import TextField from "@mui/material/TextField";
 import { HiArrowRight } from "react-icons/hi";
 import { FaSearch } from "react-icons/fa";
 import { usePathname, useRouter } from "next/navigation";
-
-
+import { ThemeProvider, createTheme } from "@mui/material";
 
 const space_grotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -38,7 +37,7 @@ const BookingEngine = ({ setBookingDetails }) => {
   const [openArrival, setOpenArrival] = useState(null);
   const [isDateOpen, setDateOpen] = useState(null);
   const [openPassangers, setOpenPassageners] = useState(null);
-  const [selectedOption, setSelectedOption] = useState('');
+  const [selectedOption, setSelectedOption] = useState("");
   const departureRef = useRef(null);
   const arrivalRef = useRef(null);
   // const dateRef = useRef(null);
@@ -68,15 +67,17 @@ const BookingEngine = ({ setBookingDetails }) => {
             if (date === "departure") {
               return {
                 ...booking,
-                depatureDate: `${updatedFields?.$y}-${updatedFields?.$M + 1}-${updatedFields?.$D
-                  }`,
+                depatureDate: `${updatedFields?.$y}-${updatedFields?.$M + 1}-${
+                  updatedFields?.$D
+                }`,
                 depatureTime: `${updatedFields?.$H}:${updatedFields?.$m}`,
               };
             } else {
               return {
                 ...booking,
-                returningDate: `${updatedFields?.$y}-${updatedFields?.$M + 1}-${updatedFields?.$D
-                  }`,
+                returningDate: `${updatedFields?.$y}-${updatedFields?.$M + 1}-${
+                  updatedFields?.$D
+                }`,
                 returningTime: `${updatedFields?.$H}:${updatedFields?.$m}`,
               };
             }
@@ -107,9 +108,27 @@ const BookingEngine = ({ setBookingDetails }) => {
     });
   };
 
+  const resetBookingState = () => {
+    setBookingState([
+      {
+        source: null,
+        destination: null,
+        depatureTime: null,
+        depatureDate: null,
+        returningTime: null,
+        returningDate: null,
+        passengers: {
+          adults: 0,
+          children: 0,
+          pets: 0,
+        },
+      },
+    ]);
+  };
+
   const options = airports.map((item) => ({
     label: (
-      <div className="flex justify-between hover:bg-gray-100 focus:bg-gray-100 hover:rounded-lg hover:border py-4 px-2">
+      <div className="flex justify-between hover:bg-swPrimary100 focus:bg-swPrimary100 hover:rounded-lg hover:border py-4 px-2">
         <div className="flex gap-1 ">
           <p className="text-[14px]">
             {item.city}
@@ -180,6 +199,14 @@ const BookingEngine = ({ setBookingDetails }) => {
     }),
     option: (styles) => ({ ...styles, backgroundColor: "white" }),
   };
+
+  const customTheme = createTheme({
+    palette: {
+      primary: {
+        main: "#5c0632", // Change to your desired primary color
+      },
+    },
+  });
 
   const handleRemoveTrip = (index) => {
     const updatedFormData = bookingState.filter((_, idx) => idx !== index);
@@ -276,32 +303,87 @@ const BookingEngine = ({ setBookingDetails }) => {
     <main>
       <div className="w-full rounded-3xl md:border">
         <div
-          className={`p-2 rounded-3xl bg-swLightenessWhiter md:bg-none ${pathname === "/"
-            ? "backdrop-blur border border-swGray900"
-            : ""
-            } md:p-5 md:bg-swBlack/20`}
+          className={`p-2 rounded-3xl  ${
+            pathname === "/" ? "backdrop-blur border border-swGray900 bg-swLightenessWhiter" : "bg-white"
+          } md:p-5 `}
         >
-          <div className={`flex sm:justify-between sm:items-center mb-5 ${pathname === "/" ? "flex-col sm:flex-row" : "flex-col sm:flex-row"}`}>
+          <div
+            className={`flex sm:justify-between sm:items-center mb-5 ${
+              pathname === "/" ? "flex-col sm:flex-row" : "flex-col sm:flex-row"
+            }`}
+          >
             <p
-              className={`font-semibold ${pathname === "/" ? "text-white" : "text-swGray800"
-                } ml-2 text-lg`}
+              className={`font-semibold ${
+                pathname === "/" ? "text-white" : "text-swGray800"
+              } ml-2 text-lg`}
             >
               Book a jet
             </p>
-            <div className={`p-1 text-xl rounded-full flex gap-5 font-medium ${pathname === "/" ? "sm:backdrop-blur sm:bg-white/25" : "bg-swGray50"
-              }`} >
+            <div
+              className={`p-1 text-xl rounded-full flex gap-5 font-medium ${
+                pathname === "/"
+                  ? "sm:backdrop-blur sm:bg-white/25"
+                  : "bg-swGray50"
+              }`}
+            >
               <div className="hidden sm:flex">
-                <button className={`${bookingType === "One way Trip" ? `${pathname == "/" ? "text-white backdrop-blur bg-swBlack/50" : "text-swPrimary500 bg-white"} font-semibold` : `text-swGray300 hover:backdrop-blur hover:bg-white/5`} py-2 px-4 rounded-full`} onClick={() => setBookingType("One way Trip")}>
+                <button
+                  className={`${
+                    bookingType === "One way Trip"
+                      ? `${
+                          pathname === "/"
+                            ? "text-white backdrop-blur bg-swBlack/50"
+                            : "text-swPrimary500 bg-white"
+                        } font-semibold`
+                      : `text-swGray300 hover:backdrop-blur hover:bg-white/5`
+                  } py-2 px-4 rounded-full`}
+                  onClick={() => {
+                    resetBookingState();
+                    setBookingType("One way Trip");
+                  }}
+                >
                   One Way Trips
                 </button>
-                <button className={`${bookingType === "Round Trip" ? `${pathname == "/" ? "text-white backdrop-blur bg-swBlack/50" : "text-swPrimary500 bg-white"} font-semibold` : "text-swGray300 hover:backdrop-blur hover:bg-white/5"} py-2 px-4 rounded-full`} onClick={() => setBookingType("Round Trip")}>
+                <button
+                  className={`${
+                    bookingType === "Round Trip"
+                      ? `${
+                          pathname === "/"
+                            ? "text-white backdrop-blur bg-swBlack/50"
+                            : "text-swPrimary500 bg-white"
+                        } font-semibold`
+                      : "text-swGray300 hover:backdrop-blur hover:bg-white/5"
+                  } py-2 px-4 rounded-full`}
+                  onClick={() => {
+                    resetBookingState();
+                    setBookingType("Round Trip");
+                  }}
+                >
                   Round Trip
                 </button>
-                <button className={`${bookingType === "Multi-city Trip" ? `${pathname == "/" ? "text-white backdrop-blur bg-swBlack/50" : "text-swPrimary500 bg-white"} font-semibold` : "text-swGray300 hover:backdrop-blur hover:bg-white/5"} py-2 px-4 rounded-full`} onClick={() => setBookingType("Multi-city Trip")} >
+                <button
+                  className={`${
+                    bookingType === "Multi-city Trip"
+                      ? `${
+                          pathname === "/"
+                            ? "text-white backdrop-blur bg-swBlack/50"
+                            : "text-swPrimary500 bg-white"
+                        } font-semibold`
+                      : "text-swGray300 hover:backdrop-blur hover:bg-white/5"
+                  } py-2 px-4 rounded-full`}
+                  onClick={() => {
+                    resetBookingState();
+                    setBookingType("Multi-city Trip");
+                  }}
+                >
                   Multi-city Trip
                 </button>
               </div>
-              <div className={`sm:hidden w-full self-stretch rounded-lg overflow-hidden flex flex-row items-center justify-center p-2 gap-4 text-grey-grey-500  border-solid border-gray-900 ${pathname === "/" ? "text-white" : "text-swPrimary500"}`}>
+              <div
+                className={`sm:hidden w-full self-stretch rounded-lg overflow-hidden flex flex-row items-center justify-center p-2 gap-4 text-grey-grey-500  border-solid border-gray-900 ${
+                  pathname === "/" ? "text-white" : "text-swPrimary500"
+                }`}
+              >
                 <div className="flex-1 flex flex-row items-center justify-center">
                   <div className="flex-1 relative leading-8">
                     <select
@@ -317,7 +399,10 @@ const BookingEngine = ({ setBookingDetails }) => {
               </div>
             </div>
             {pathname === "/" ? (
-              <div className={`${space_grotesk.className} hidden md:block  w-fit text-lg `} onClick={handleBookJet} >
+              <div
+                className={`${space_grotesk.className} hidden md:block  w-fit text-lg `}
+                onClick={handleBookJet}
+              >
                 <Button
                   label="Book Jet"
                   bgColor={"bg-swPrimary500 hover:bg-swPrimary600"}
@@ -338,15 +423,23 @@ const BookingEngine = ({ setBookingDetails }) => {
               <div className="mb-2 flex gap-5 justify-end w-full">
                 {bookingType === "Multi-city Trip" && index > 0 ? (
                   <SWMinusRoundBorderIcon
-                    className={`${pathname === "/" ? "text-white" : "text-swPrimary500"
-                      } text-2xl cursor-pointer`}
+                    className={`${
+                      pathname === "/" ? "text-white" : "text-swPrimary500"
+                    } text-2xl cursor-pointer`}
                     onClick={() => handleRemoveTrip(index)}
                   />
                 ) : null}
               </div>
               <div className="flex items-center gap-5 mx-auto flex-wrap">
                 <div className=" mx-auto relative lg:flex lg:items-center lg:flex-row flex-col md:flex-row ">
-                  <div className={`p-5 pr-16 flex h-[5.5rem] w-[18rem] items-center gap-5 border backdrop-blur rounded-tl-2xl rounded-tr-2xl md:rounded-tr-none md:rounded-l-none md:rounded-tl-2xl md:rounded-bl-2xl cursor-pointer  ${pathname === "/" ? "border-swGray900 bg-swBlack/40 hover:bg-swBlack/50" : ""}`} onClick={() => setOpenDeparture(index)}>
+                  <div
+                    className={`p-5 pr-16 flex h-[5.5rem] w-[18rem] items-center gap-5 border backdrop-blur rounded-tl-2xl rounded-tr-2xl md:rounded-tr-none md:rounded-l-none md:rounded-tl-2xl md:rounded-bl-2xl cursor-pointer  ${
+                      pathname === "/"
+                        ? "border-swGray900 bg-swBlack/40 hover:bg-swBlack/50"
+                        : ""
+                    }`}
+                    onClick={() => setOpenDeparture(index)}
+                  >
                     <div className="bg-swPrimary500 p-1 rounded-full text-white">
                       <div className="h-7 w-7 relative flex justify-center items-center">
                         <SwDeparturePlaneIcon className="text-[1.6rem]" />
@@ -355,8 +448,9 @@ const BookingEngine = ({ setBookingDetails }) => {
                     <div>
                       <p className="text-swGray500 text-sm">Departure city</p>
                       <p
-                        className={`${pathname == "/" ? "text-white" : "text-swGray900"
-                          }  font-medium`}
+                        className={`${
+                          pathname == "/" ? "text-white" : "text-swGray900"
+                        }  font-medium`}
                       >
                         {!item?.source
                           ? "Select City"
@@ -369,7 +463,14 @@ const BookingEngine = ({ setBookingDetails }) => {
                     <GoArrowRight size={15} className="-mb-2 ml-1" />
                     <GoArrowLeft size={15} className="-mt-2 mr-1" />
                   </div>
-                  <div className={`p-5 pr-16  mt-1 flex h-[5.5rem] w-[18rem] items-center gap-5 border backdrop-blur rounded-bl-2xl rounded-br-2xl md:mt-0 md:rounded-tr-2xl md:rounded-l-none md:rounded-tr-2xl md:rounded-br-2xl cursor-pointer ${pathname === "/" ? "border-swGray900 bg-swBlack/40 hover:bg-swBlack/50" : ""}`} onClick={() => setOpenArrival(index)}>
+                  <div
+                    className={`p-5 pr-16  mt-1 flex h-[5.5rem] w-[18rem] items-center gap-5 border backdrop-blur rounded-bl-2xl rounded-br-2xl md:mt-0 md:rounded-tr-2xl md:rounded-l-none md:rounded-tr-2xl md:rounded-br-2xl cursor-pointer ${
+                      pathname === "/"
+                        ? "border-swGray900 bg-swBlack/40 hover:bg-swBlack/50"
+                        : ""
+                    }`}
+                    onClick={() => setOpenArrival(index)}
+                  >
                     <div className="bg-swPrimary500 p-1 rounded-full text-white">
                       <div className="h-7 w-7 relative flex justify-center items-center">
                         <SwArrivalPlaneIcon className="text-[1.6rem]" />
@@ -377,13 +478,22 @@ const BookingEngine = ({ setBookingDetails }) => {
                     </div>
                     <div>
                       <p className="text-swGray500 text-sm">Arrival city</p>
-                      <p className={`${pathname == "/" ? "text-white" : "text-swGray900"}  font-medium`} >
-                        {!item?.destination ? "Select City" : `${item?.destination?.city} - ${item?.destination?.country}`}
+                      <p
+                        className={`${
+                          pathname == "/" ? "text-white" : "text-swGray900"
+                        }  font-medium`}
+                      >
+                        {!item?.destination
+                          ? "Select City"
+                          : `${item?.destination?.city} - ${item?.destination?.country}`}
                       </p>
                     </div>
                   </div>
                   {openDeparture === index && (
-                    <div ref={departureRef} className="absolute text-swGray800 top-24 w-full z-10" >
+                    <div
+                      ref={departureRef}
+                      className="absolute text-swGray800 top-24 w-full z-10"
+                    >
                       <Select
                         styles={colourStyles}
                         getOptionLabel={getOptionLabel}
@@ -472,16 +582,18 @@ const BookingEngine = ({ setBookingDetails }) => {
                 <div className="flex justify-around gap-5 mx-auto flex-wrap">
                   <div
                     onClick={() => setDateOpen(index)}
-                    className={`relative p-5 flex h-[5.5rem] w-[18rem] items-center gap-5 ${pathname === "/"
-                      ? " border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50"
-                      : ""
-                      } border rounded-2xl cursor-pointer`}
-                  // ref={dateRef}
+                    className={`relative p-5 flex h-[5.5rem] w-[18rem] items-center gap-5 ${
+                      pathname === "/"
+                        ? " border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50"
+                        : ""
+                    } border rounded-2xl cursor-pointer`}
+                    // ref={dateRef}
                   >
                     {isDateOpen !== index ? (
                       <div
-                        className={`p-2 rounded-full border ${pathname === "/" ? "text-white" : "text-swGray900"
-                          }`}
+                        className={`p-2 rounded-full border ${
+                          pathname === "/" ? "text-white" : "text-swGray900"
+                        }`}
                       >
                         <SwCalendarIcon className="text-xl" />
                       </div>
@@ -498,48 +610,51 @@ const BookingEngine = ({ setBookingDetails }) => {
                                 Departure and arrival date
                               </p>
                               <p
-                                className={`${pathname === "/"
-                                  ? "text-white"
-                                  : "text-swGray900"
-                                  }`}
+                                className={`${
+                                  pathname === "/"
+                                    ? "text-white"
+                                    : "text-swGray900"
+                                }`}
                               >
                                 {item.depatureDate
                                   ? dayjs(
-                                    `${item.depatureDate} ${item.depatureTime}`
-                                  ).format("D MMM")
+                                      `${item.depatureDate} ${item.depatureTime}`
+                                    ).format("D MMM")
                                   : "Select Departure"}{" "}
                                 -{" "}
                                 {item.depatureDate
                                   ? dayjs(
-                                    `${item.returningDate} ${item.returningTime}`
-                                  ).format("D MMM")
+                                      `${item.returningDate} ${item.returningTime}`
+                                    ).format("D MMM")
                                   : "Select Arrival"}
                               </p>
                             </>
                           ) : (
                             <div className="w-full flex">
                               <div
-                                className={`text-sm w-full ${pathname === "/"
-                                  ? "text-white"
-                                  : "text-swGray900"
-                                  }`}
+                                className={`text-sm w-full ${
+                                  pathname === "/"
+                                    ? "text-white"
+                                    : "text-swGray900"
+                                }`}
                               >
                                 {item.depatureDate
                                   ? dayjs(
-                                    `${item.depatureDate} ${item.depatureTime}`
-                                  ).format("D MMM")
+                                      `${item.depatureDate} ${item.depatureTime}`
+                                    ).format("D MMM")
                                   : "Select Dept"}
                               </div>
                               <div
-                                className={`text-sm ml-5 w-full ${pathname === "/"
-                                  ? "text-white"
-                                  : "text-swGray900"
-                                  }`}
+                                className={`text-sm ml-5 w-full ${
+                                  pathname === "/"
+                                    ? "text-white"
+                                    : "text-swGray900"
+                                }`}
                               >
                                 {item.depatureDate
                                   ? dayjs(
-                                    `${item.returningDate} ${item.returningTime}`
-                                  ).format("D MMM")
+                                      `${item.returningDate} ${item.returningTime}`
+                                    ).format("D MMM")
                                   : "Select Arr"}
                               </div>
                             </div>
@@ -551,13 +666,14 @@ const BookingEngine = ({ setBookingDetails }) => {
                             Departure date
                           </p>
                           <p
-                            className={`${pathname == "/" ? "text-white" : "text-swGray900"
-                              } font-semibold`}
+                            className={`${
+                              pathname == "/" ? "text-white" : "text-swGray900"
+                            } font-semibold`}
                           >
                             {item?.depatureDate
                               ? dayjs(
-                                `${item?.depatureDate} ${item?.depatureTime}`
-                              ).format("D MMM")
+                                  `${item?.depatureDate} ${item?.depatureTime}`
+                                ).format("D MMM")
                               : "Select Date"}
                           </p>
                         </div>
@@ -565,69 +681,78 @@ const BookingEngine = ({ setBookingDetails }) => {
                     </div>
                     {isDateOpen === index && (
                       <div
-                        className={`absolute ${bookingType === "Round Trip" && "-ml-5"
-                          }`}
+                        className={`absolute ${
+                          bookingType === "Round Trip" && "-ml-5"
+                        }`}
                       >
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                          <div
-                            className={`flex ${pathname === "/" ? "indexDate" : "bookingDate"
+                        <ThemeProvider theme={customTheme}>
+                          <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <div
+                              className={`flex ${
+                                pathname === "/" ? "indexDate" : "bookingDate"
                               }`}
-                          >
-                            <DateTimePicker
-                              label="Departure Date"
-                              defaultValue={dayjs()}
-                              value={dayjs(
-                                `${item.depatureDate} ${item.depatureTime}`
-                              )}
-                              onOpen={() => setDateOpen(index)}
-                              onClose={() => setDateOpen(null)}
-                              onChange={(value) =>
-                                updateBookingState(value, index, "departure")
-                              }
-                              renderInput={(params) => (
-                                <TextField {...params} />
-                              )}
-                            />
-                            {bookingType === "Round Trip" && (
+                            >
                               <DateTimePicker
-                                label="Arrival Date"
                                 defaultValue={dayjs()}
                                 value={dayjs(
-                                  `${item.returningDate} ${item.returningTime}`
+                                  `${item.depatureDate} ${item.depatureTime}`
                                 )}
-                                onChange={(value) =>
-                                  updateBookingState(value, index, "returning")
-                                }
+                                onOpen={() => setDateOpen(index)}
                                 onClose={() => setDateOpen(null)}
+                                onChange={(value) =>
+                                  updateBookingState(value, index, "departure")
+                                }
                                 renderInput={(params) => (
                                   <TextField {...params} />
                                 )}
                               />
-                            )}
-                          </div>
-                        </LocalizationProvider>
+                              {bookingType === "Round Trip" && (
+                                <DateTimePicker
+                                  defaultValue={dayjs()}
+                                  value={dayjs(
+                                    `${item.returningDate} ${item.returningTime}`
+                                  )}
+                                  onChange={(value) =>
+                                    updateBookingState(
+                                      value,
+                                      index,
+                                      "returning"
+                                    )
+                                  }
+                                  onClose={() => setDateOpen(null)}
+                                  renderInput={(params) => (
+                                    <TextField {...params} />
+                                  )}
+                                />
+                              )}
+                            </div>
+                          </LocalizationProvider>
+                        </ThemeProvider>
                       </div>
                     )}
                   </div>
                   <div className="relative">
                     <div
-                      className={`p-5 flex items-center h-[5.5rem] w-72 gap-5 border ${pathname === "/"
-                        ? "border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50"
-                        : ""
-                        }  rounded-2xl cursor-pointer`}
+                      className={`p-5 flex items-center h-[5.5rem] w-72 gap-5 border ${
+                        pathname === "/"
+                          ? "border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50"
+                          : ""
+                      }  rounded-2xl cursor-pointer`}
                       onClick={() => setOpenPassageners(index)}
                     >
                       <div
-                        className={`p-2 border rounded-full ${pathname === "/" ? "text-white" : "text-swGray900"
-                          }`}
+                        className={`p-2 border rounded-full ${
+                          pathname === "/" ? "text-white" : "text-swGray900"
+                        }`}
                       >
                         <SwUserIcon className="text-xl" />
                       </div>
                       <div>
                         <p className="text-swGray500 text-sm">Occupants</p>
                         <p
-                          className={`font-medium ${pathname === "/" ? "text-white" : "text-swGray900"
-                            }`}
+                          className={`font-medium ${
+                            pathname === "/" ? "text-white" : "text-swGray900"
+                          }`}
                         >
                           {item?.passengers?.adults} Adults -{" "}
                           {item?.passengers?.children} Children -{" "}
@@ -750,15 +875,19 @@ const BookingEngine = ({ setBookingDetails }) => {
           {bookingType === "Multi-city Trip" && (
             <div className="mt-2 flex gap-5 justify-center w-full">
               <SWPlusRoundBorderIcon
-                className={`${pathname === "/" ? "text-white" : "text-swPrimary500"
-                  } text-2xl cursor-pointer`}
+                className={`${
+                  pathname === "/" ? "text-white" : "text-swPrimary500"
+                } text-2xl cursor-pointer`}
                 onClick={handleAddTrip}
               />
             </div>
           )}
           <div className="md:hidden mt-4 flex justify-end">
             {pathname === "/" ? (
-              <div className={`${space_grotesk.className} w-fit text-lg `} onClick={handleBookJet} >
+              <div
+                className={`${space_grotesk.className} w-fit text-lg `}
+                onClick={handleBookJet}
+              >
                 <Button
                   label="Book Jet"
                   bgColor={"bg-swPrimary500 hover:bg-swPrimary600"}
