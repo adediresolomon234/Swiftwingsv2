@@ -80,7 +80,7 @@ export default function Home() {
           <div className="h-full w-full bg-swBlack absolute top-0 left-0 bg-opacity-10" />
           <div className="max-w-7xl mx-auto mb-10 relative text-center">
             <div className="pt-28 z-50">
-              <p className="text-8xl font-bold leading-snug z-50">
+              <p className="text-4xl md:text-6xl lg:text-8xl font-bold leading-snug z-50">
                 Experience Unmatched Luxury Travel
               </p>
               <p className="text-lg mt-10 z-10">
