@@ -30,7 +30,7 @@ const NavBar = ({ Nav }) => {
       <div className="w-full bg-white/50 text-swGray800 border-b-2 backdrop-blur">
         <div className="flex flex-wrap items-center justify-between max-w-screen-full mx-auto py-6 px-10">
           <Link href={"/"} className="flex items-center">
-            <Image src={logo} alt="Logo"  className="w-full lg:w-full" /> 
+            <Image src={logo} alt="Logo"  className="w-24 h-7 lg:w-full lg:h-full"   /> 
           </Link>
           <div className="flex items-center lg:order-2">
             <div className="hidden mt-2 mr-4 sm:inline-block">
@@ -53,7 +53,7 @@ const NavBar = ({ Nav }) => {
                   <Link href="/sign-in" className="py-2 px-4 rounded-full hover:bg-white text-lg hidden lg:flex">
                     Sign In
                   </Link>
-                  <Link href="/sign-in" className="py-1 px-2 md:py-2 px-4 rounded-full text-xs md:text-lg text-white bg-swPrimary500 hover:bg-swPrimary600 ">
+                  <Link href="/sign-up" className="py-1 px-2 md:py-2 px-4 rounded-full text-xs md:text-lg text-white bg-swPrimary500 hover:bg-swPrimary600 ">
 
                     Sign Up
                   </Link>

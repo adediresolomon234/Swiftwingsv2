@@ -130,7 +130,7 @@ const CompleteProfile = () => {
         <p className="text-center text-2xl font-semibold text-swGray800">
           Complete your profile
         </p>
-        <p className="text-center mt-2 mb-8 text-lg text-swGRay800">
+        <p className="text-center mt-2 mb-8 text-md md:text-lg text-swGRay800">
           Provide sufficient details to complete your booking, It&apos;s a one
           time thing.
         </p>
@@ -148,8 +148,8 @@ const CompleteProfile = () => {
           {emailError && <p className="text-red-500">{emailError}</p>}
         </div>
 
-        <div className="flex gap-5">
-          <div className="w-full mt-5">
+        <div className="flex flex-col sm:flex-row justify-between mt-5">
+          <div className="w-full sm:w-1/2 pr-0 sm:pr-2">
             <InputField
               label={"First Name"}
               placeholder={"Enter first name"}
@@ -160,7 +160,7 @@ const CompleteProfile = () => {
             />
           </div>
 
-          <div className="w-full mt-5">
+          <div className="w-full sm:w-1/2 pl-0 sm:pl-2 mt-5 sm:mt-0">
             <InputField
               label={"Last Name"}
               placeholder={"Enter last name"}
