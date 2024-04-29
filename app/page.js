@@ -84,7 +84,7 @@ export default function Home() {
 
   return (
     <main className="relative bg-swLightBgGray">
-      <NavAndFooter>
+     <NavAndFooter Nav={true}>
         <section className="w-full p-10 pt-48 text-white relative pb-10">
           <div className="absolute h-full w-full top-0 left-0">
             {isMobile ? (

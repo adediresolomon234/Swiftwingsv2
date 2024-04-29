@@ -303,7 +303,7 @@ const BookingEngine = ({ setBookingDetails }) => {
     <main>
       <div className="w-full rounded-3xl md:border">
         <div
-          className={`p-2 rounded-3xl  ${
+          className={`p-0 rounded-3xl  ${
             pathname === "/" ? "backdrop-blur border border-swGray900 bg-swLightenessWhiter" : "bg-white"
           } md:p-5 `}
         >
@@ -315,7 +315,7 @@ const BookingEngine = ({ setBookingDetails }) => {
             <p
               className={`font-semibold ${
                 pathname === "/" ? "text-white" : "text-swGray800"
-              } ml-2 text-lg`}
+              } ml-2 text-lg mt-5 md:mt-0`}
             >
               Book a jet
             </p>
@@ -419,7 +419,7 @@ const BookingEngine = ({ setBookingDetails }) => {
           </div>
 
           {bookingState.map((item, index) => (
-            <div key={index} className="flex flex-col justify-between mb-5">
+            <div key={index} className="flex flex-col justify-between mb-5 w-full h-full sm:w-full sm:h-full md:w-full md:h-full lg:w-full lg:h-full xl:w-full xl:h-full 2xl:w-full 2xl:h-full">
               <div className="mb-2 flex gap-5 justify-end w-full">
                 {bookingType === "Multi-city Trip" && index > 0 ? (
                   <SWMinusRoundBorderIcon
@@ -431,9 +431,9 @@ const BookingEngine = ({ setBookingDetails }) => {
                 ) : null}
               </div>
               <div className="flex items-center gap-5 mx-auto flex-wrap">
-                <div className=" mx-auto relative lg:flex lg:items-center lg:flex-row flex-col md:flex-row ">
+                <div className=" mx-auto relative lg:flex lg:items-center lg:flex-row flex-col md:flex-row  ">
                   <div
-                    className={`p-5 pr-16 flex h-[5.5rem] w-[18rem] items-center gap-5 border backdrop-blur rounded-tl-2xl rounded-tr-2xl md:rounded-tr-none md:rounded-l-none md:rounded-tl-2xl md:rounded-bl-2xl cursor-pointer  ${
+                    className={`p-0 pr-16 flex h-[5.5rem] w-[18rem] items-center gap-5 border backdrop-blur rounded-tl-2xl rounded-tr-2xl md:rounded-tr-none md:rounded-l-none md:rounded-tl-2xl md:rounded-bl-2xl cursor-pointer  ${
                       pathname === "/"
                         ? "border-swGray900 bg-swBlack/40 hover:bg-swBlack/50"
                         : ""
@@ -582,7 +582,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                 <div className="flex justify-around gap-5 mx-auto flex-wrap">
                   <div
                     onClick={() => setDateOpen(index)}
-                    className={`relative p-5 flex h-[5.5rem] w-[18rem] items-center gap-5 ${
+                    className={`mx-auto relative p-8 flex h-[5.5rem] w-[18rem] items-center gap-5 ${
                       pathname === "/"
                         ? " border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50"
                         : ""
@@ -882,7 +882,7 @@ const BookingEngine = ({ setBookingDetails }) => {
               />
             </div>
           )}
-          <div className="md:hidden mt-4 flex justify-end">
+          <div className="md:hidden m-6 flex justify-end">
             {pathname === "/" ? (
               <div
                 className={`${space_grotesk.className} w-fit text-lg `}

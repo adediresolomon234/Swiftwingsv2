@@ -125,7 +125,7 @@ const SignUp = () => {
 
   useEffect(() => {
     if (isSubmitted) {
-      // If the form has been submitted
+  
       setFormData({
         first_name: "",
         last_name: "",
@@ -133,13 +133,13 @@ const SignUp = () => {
         email: "",
         password: "",
       });
-      setIsSubmitted(false); // Reset isSubmitted to false
+      setIsSubmitted(false); 
     }
   }, [isSubmitted]);
 
   return (
     <NavAndFooter Nav={false}>
-      <main className="flex justify-center items-center min-h-screen bg-swSecondary50 pt-20">
+      <main className="flex justify-center items-center min-h-screen bg-swSecondary50 pt-3">
         <ToastContainer />
         <div className="max-w-lg w-full p-2 mt-20">
           <p className="text-center text-2xl font-semibold text-swGray800">

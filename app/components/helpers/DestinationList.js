@@ -19,14 +19,14 @@ const DestinationList = () => {
 
   return (
     <div className="flex flex-col lg:flex-row">
-    <div className="flex-shrink-0 w-1/12 hidden lg:block">
-      <div className="md:w-64 md:mb-0 mb-8 flex flex-col space-y-4 sticky top-0">
-        {Array.from({ length: 26 }, (_, i) => String.fromCharCode('A'.charCodeAt(0) + i)).map((letter) => (
-          <p key={letter} onClick={() => scrollToDestination(letter)} className="cursor-pointer">
-            {letter}
-          </p>
-        ))}
-      </div>
+    <div className="flex-shrink-0 w-1/12 lg:w-auto lg:block hidden">
+        <div className="md:w-64 md:mb-0 mb-8 flex flex-col space-y-4 sticky top-0">
+          {Array.from({ length: 26 }, (_, i) => String.fromCharCode('A'.charCodeAt(0) + i)).map((letter) => (
+            <p key={letter} onClick={() => scrollToDestination(letter)} className="cursor-pointer">
+              {letter}
+            </p>
+          ))}
+        </div>
     </div>
     <div className="flex-grow w-full lg:w-9/12">
       <div className="md:flex-grow">

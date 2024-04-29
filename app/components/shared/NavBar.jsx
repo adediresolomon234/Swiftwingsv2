@@ -9,6 +9,10 @@ const NavBar = ({ Nav }) => {
   const [user, setUser] = useState(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  if (!Nav) {
+    // If Nav is false, return null to prevent rendering the navigation bar
+    return null;
+  }
   useEffect(() => {
     const userItem = localStorage.getItem("user");
     if (userItem) {
@@ -24,6 +28,8 @@ const NavBar = ({ Nav }) => {
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
+
+
 
   return (
     <nav className="w-full fixed z-50 top-0 left-0 ">
