@@ -26,6 +26,7 @@ import { useRouter } from "next/navigation";
 import { fetchAircrafts } from "@/redux/slices/aircraftdetails";
 import { mdiCarSeat, mdiSpeedometer, mdiArrowLeftRight } from "@mdi/js";
 import BookingEngine from "./components/bookingEngine/bookingEngine";
+import SuccessModal from "./components/shared/modals/SuccessModal";
 
 const space_grotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -159,9 +160,9 @@ export default function Home() {
                 Get to know more about Swiftwings
               </p>
               <p className="text-swGray500 text-lg font-light max-w-[26rem] ">
-                Swift Wings is a premier provider of private jets charter flights
-                connecting global airports, offering unmatched convenience and
-                exclusivity for luxury travel.
+                Swift Wings is a premier provider of private jets charter
+                flights connecting global airports, offering unmatched
+                convenience and exclusivity for luxury travel.
               </p>
             </div>
           </div>
@@ -266,8 +267,9 @@ export default function Home() {
                   <div className="">
                     <div
                       aria-hidden="true"
-                      className={`absolute scale-75 md:scale-110 inset-0 m-auto rotate-45 bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl ${hoveredIndex >= 0 ? "opacity-100" : "opacity-0"
-                        }`}
+                      className={`absolute scale-75 md:scale-110 inset-0 m-auto rotate-45 bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl ${
+                        hoveredIndex >= 0 ? "opacity-100" : "opacity-0"
+                      }`}
                     ></div>
                     {hoveredIndex >= 0 && fleet[hoveredIndex]?.image && (
                       <div
@@ -317,9 +319,7 @@ export default function Home() {
             <div className="grid gap-3  sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
               {services.map((service, index) => (
                 <div className="max-w-2xl mx-auto p-2" key={index}>
-                  <div
-                    className=" overflow-hidden w-full"
-                  >
+                  <div className=" overflow-hidden w-full">
                     <img
                       className="object-cover w-full rounded-t-2xl"
                       src={service.imageSrc}
