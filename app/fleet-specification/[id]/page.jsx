@@ -41,7 +41,7 @@ const FleetSpec = () => {
 
     return (
         <main className="relative bg-swLightBgGray ">
-            <NavAndFooter>
+            <NavAndFooter Nav={true}>
                 <section className="w-full h-full p-10 pt-48 text-white relative pb-10  ">
                     {aircraftDetails && (
                         <>

@@ -126,7 +126,7 @@ const CompleteProfile = () => {
     <main className="flex justify-center items-center min-h-screen mt-10 bg-swSecondary50">
       <NavBar Nav={false} />
       <ToastContainer />
-      <div className="max-w-lg w-full p-2 mt-20">
+      <div className="max-w-lg w-full p-2 mt-10">
         <p className="text-center text-2xl font-semibold text-swGray800">
           Complete your profile
         </p>
@@ -248,6 +248,7 @@ const CompleteProfile = () => {
             onClick={registerHandle}
             loader={loading === "pending" ? true : false}
             disabled={loading === "pending" ? true : false}
+            className="w-full max-w-md"
           />
         </div>
       </div>

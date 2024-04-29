@@ -31,3 +31,4 @@ export { default as SWEditIcon } from "./EditIcon.svg";
 export { default as SWLeftArrowIcon } from "./LeftArrowIcon.svg";
 export { default as SWMarkIcon } from "./MarkIcon.svg";
 export { default as SWToggleIcon } from "./toggleIcon.svg";
+export { default as SWTButtoncircleIcon } from "./Buttoncircle.svg";

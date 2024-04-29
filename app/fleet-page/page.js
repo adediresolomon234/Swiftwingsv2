@@ -33,7 +33,7 @@ const FleetPage = () => {
 
     return (
         <main className="relative bg-swLightBgGray">
-            <NavAndFooter>
+           <NavAndFooter Nav={true}>
                 <section className="relative w-full pt-48 pb-10 text-white">
                     <div className="absolute inset-0 flex flex-col items-start justify-start">
                         <Image src={Fleetsection} alt="airplane" className="absolute inset-0 w-full h-full object-cover" />
