@@ -5,15 +5,18 @@ import {
   SwKeyIcon,
   SwMailIcon,
   SwOpenEyeIcon,
-} from "../../components/svgs";
-import Button from "../../components/Button";
-import InputField from "./InputField";
+} from "../../svgs";
+import Button from "../../Button";
+import InputField from "../InputField";
 import { ToastContainer, toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { TbEyeClosed } from "react-icons/tb";
-import UserProfileModal from "./UserProfileModal";
+import UserProfileModal from "../UserProfileModal";
 import { useRouter } from "next/navigation";
+import { FaCheck } from "react-icons/fa";
+import SuccessModal from "../modals/SuccessModal";
+import CancelModal from "../modals/CancelModal";
 
 const PasswordUpdateCard = ({ setPageState }) => {
   const dispatch = useDispatch();
@@ -24,6 +27,7 @@ const PasswordUpdateCard = ({ setPageState }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [showReenterPassword, setShowReenterPassword] = useState(false);
+  const [success, setSuccess] = useState(false);
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
@@ -31,10 +35,6 @@ const PasswordUpdateCard = ({ setPageState }) => {
     email: "",
     password: "",
   });
-
-  const { loading, error, data } = useSelector((state) => state.auth);
-  // console.log(error);
-  console.log({ data });
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -87,55 +87,19 @@ const PasswordUpdateCard = ({ setPageState }) => {
     }
   };
 
-  const isValidEmail = (email) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
-
   const isValidPassword = (password) => {
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
     return passwordRegex.test(password);
   };
 
-  useEffect(() => {
-    if (data && !data?.message) {
-      // router.push("/");
-      toast.success(data);
-      // alert(data?.message);
-    }
-    if (data && data?.message) {
-      // router.push("/");
-      toast.success(data?.message);
-      // alert(data?.message);
-    }
-    // console.log(data);
-    if (error) toast.error(error);
-  }, [data, error]);
-
-  useEffect(() => {
-    if (isSubmitted) {
-      // If the form has been submitted
-      setFormData({
-        first_name: "",
-        last_name: "",
-        phone_number: "",
-        email: "",
-        password: "",
-      });
-      setIsSubmitted(false); // Reset isSubmitted to false
-    }
-  }, [isSubmitted]);
-
   const router = useRouter();
-  const handleEditClick = () => {
-    router.back("/profile-page");
-  };
+
   return (
     <div className="w-full relative rounded-xl bg-white overflow-hidden flex flex-col items-center justify-center pt-3 px-6 pb-3 box-border gap-8 text-left text-xl  text-gray-800 font-header-sm-semi-bold">
       <div className="self-stretch flex flex-row items-center justify-between">
         <div className="flex flex-row items-center justify-start gap-8 text-xl text-gray-600">
           <div
-            onClick={setPageState("profile")}
+            onClick={() => setPageState("profile")}
             className="flex items-center gap-1 relative leading-6 font-medium rounded-full border border-swGray200 p-3 cursor-pointer"
           >
             <SWLeftArrowIcon />
@@ -143,10 +107,10 @@ const PasswordUpdateCard = ({ setPageState }) => {
 
           <div className="relative leading-8 font-medium">Password Update</div>
         </div>
-        <UserProfileModal
-          title="Password Updated"
-          message="You’ve successfully updated your account password."
-          openModalLabel="Save Changes"
+        <Button
+          label="Save changes"
+          endIcon={<FaCheck size={20} />}
+          bgColor="bg-swPrimary500 text-white"
         />
       </div>
       <div className="max-w-lg w-full">
@@ -227,6 +191,14 @@ const PasswordUpdateCard = ({ setPageState }) => {
           )}
         </div>
       </div>
+      <SuccessModal
+        open={success}
+        onClose={setSuccess}
+        singleBtn={true}
+        firstBtnText={"Done"}
+        headingText={"Password Updated"}
+        text={"You've successfully updated your account password."}
+      />
     </div>
   );
 };

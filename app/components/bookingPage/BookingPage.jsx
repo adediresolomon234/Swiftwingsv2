@@ -365,7 +365,7 @@ const BookingPageInformation = () => {
             firstBtnText={"Go home"}
             firstBtnClick={() => router.push("/")}
             secondBtnText={"View Profile"}
-            secondBtnClick={() => setSuccess(false)}
+            secondBtnClick={() => router.push("/user-dashboard")}
           />
         </main>
       ) : (

@@ -9,7 +9,8 @@ import Link from "next/link";
 import { navItems } from "../components/NavItems";
 import { SWNeedhelpIcon } from "../components/svgs";
 import BookingPageInformation from "../components/bookingPage/BookingPage";
-import ProfileCard from "../components/shared/ProfileCard";
+import ProfileCard from "../components/shared/user-dashboard/ProfileCard";
+import Bookings from "../components/shared/user-dashboard/Bookings";
 
 const UserBookingPage = () => {
   const [pageState, setPageState] = useState("book-a-jet");
@@ -58,10 +59,11 @@ const UserBookingPage = () => {
           />
         </div>
       </div>
-      <section className="flex flex-col gap-5 w-full p-4 pt-0 md:overflow-auto">
+      <section className="flex flex-col gap-5 w-full p-4 pr-0 pt-0 md:overflow-auto">
         <TopSectionPage />
         <div className="rounded-xl">
           {pageState === "book-a-jet" && <BookingPageInformation />}
+          {pageState === "bookings" && <Bookings />}
           {pageState === "profile" && <ProfileCard />}
         </div>
       </section>

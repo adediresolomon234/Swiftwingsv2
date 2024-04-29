@@ -13,7 +13,7 @@ export const navItems = [
   },
   {
     id: 2,
-    name: "Booking",
+    name: "Bookings",
     icon: <SWBookingIcon className="text-xl" />,
     state: "bookings",
   },
