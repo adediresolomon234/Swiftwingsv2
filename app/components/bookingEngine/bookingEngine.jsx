@@ -642,7 +642,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                                   ? dayjs(
                                       `${item.depatureDate} ${item.depatureTime}`
                                     ).format("D MMM")
-                                  : "Select Dept"}
+                                  : "Deptarture"}
                               </div>
                               <div
                                 className={`text-sm ml-5 w-full ${
@@ -655,7 +655,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                                   ? dayjs(
                                       `${item.returningDate} ${item.returningTime}`
                                     ).format("D MMM")
-                                  : "Select Arr"}
+                                  : "Arrival"}
                               </div>
                             </div>
                           )}

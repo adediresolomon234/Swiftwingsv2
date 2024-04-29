@@ -156,3 +156,15 @@
   object-fit: cover;
   border-radius: 2rem;
 }
+
+input[type="checkbox"] {
+  color: red;
+  accent-color: currentColor;
+  mix-blend-mode: multiply;
+}
+
+.form-checkbox {
+  color: red;
+  accent-color: currentColor;
+  background-color: currentColor;
+}

@@ -25,6 +25,7 @@ import { useRouter } from "next/navigation";
 import { fetchAircrafts } from "@/redux/slices/aircraftdetails";
 import { mdiCarSeat, mdiSpeedometer, mdiArrowLeftRight } from "@mdi/js";
 import BookingEngine from "./components/bookingEngine/bookingEngine";
+import SuccessModal from "./components/shared/modals/SuccessModal";
 
 const space_grotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -137,19 +138,19 @@ export default function Home() {
         </section>
 
         <section className=" max-w-6xl mx-auto p-5">
-        <div className="flex flex-col items-start gap-5 ">
+          <div className="flex flex-col items-start gap-5 ">
             <p className="text-swPrimary500 font-medium text-lg">About us</p>
             <div className="flex flex-col md:flex-row justify-between mt-10 w-full space-y-8 md:space-y-0 ">
               <p className="font-semibold text-swPrimary500 text-3xl max-w-md md:text-5xl">
                 Get to know more about Swiftwings
               </p>
               <p className="text-swGray500 text-lg font-light max-w-[26rem] ">
-                Swift Wings is a premier provider of private jets charter flights
-                connecting global airports, offering unmatched convenience and
-                exclusivity for luxury travel.
+                Swift Wings is a premier provider of private jets charter
+                flights connecting global airports, offering unmatched
+                convenience and exclusivity for luxury travel.
               </p>
             </div>
-        </div>
+          </div>
 
           <div className="flex flex-col items-center gap-5 mt-14 p-5 md: p-0 ">
             <div className="grid grid-col-3 grid-flow-col gap-4 mb: gap-12 justify-center ">
@@ -251,8 +252,9 @@ export default function Home() {
                   <div className="">
                     <div
                       aria-hidden="true"
-                      className={`absolute scale-75 md:scale-110 inset-0 m-auto rotate-45 bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl ${hoveredIndex >= 0 ? "opacity-100" : "opacity-0"
-                        }`}
+                      className={`absolute scale-75 md:scale-110 inset-0 m-auto rotate-45 bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl ${
+                        hoveredIndex >= 0 ? "opacity-100" : "opacity-0"
+                      }`}
                     ></div>
                     {hoveredIndex >= 0 && fleet[hoveredIndex]?.image && (
                       <div
@@ -302,9 +304,7 @@ export default function Home() {
             <div className="grid gap-3  sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
               {services.map((service, index) => (
                 <div className="max-w-2xl mx-auto p-2" key={index}>
-                  <div
-                    className=" overflow-hidden w-full"
-                  >
+                  <div className=" overflow-hidden w-full">
                     <img
                       className="object-cover w-full rounded-t-2xl"
                       src={service.imageSrc}
