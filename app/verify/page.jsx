@@ -1,14 +1,16 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import Button from "../components/Button";
+import NavBar from "../components/shared/NavBar";
 
 const VerifyPage = () => {
   const [inputNum, setInputNum] = useState(1);
-  const [verifyCode, setVerifyCode] = useState([0, 0, 0, 0]);
+  const [verifyCode, setVerifyCode] = useState([0, 0, 0, 0, 0]);
   const firstInput = useRef(null);
   const secondInput = useRef(null);
   const thirdInput = useRef(null);
   const fourthInput = useRef(null);
+  const fifthInput = useRef(null);
   console.log(verifyCode);
 
   useEffect(() => {
@@ -18,13 +20,18 @@ const VerifyPage = () => {
       ? secondInput.current.focus()
       : inputNum === 3
       ? thirdInput.current.focus()
-      : fourthInput.current.focus();
+      : inputNum === 4
+      ? fourthInput.current.focus()
+      : fifthInput.current.focus();
   }, [inputNum]);
 
   return (
-    <main className="flex justify-center items-center min-h-[100vh]">
+    <main className="flex justify-center items-center min-h-[100vh] bg-swSecondary50">
+      <NavBar Nav={false} />
       <div className="max-w-sm w-full p-2">
-        <p className="text-center text-2xl font-medium">Verify your email</p>
+        <p className="text-center text-2xl font-semibold text-swGray800">
+          Verify your email
+        </p>
         <p className="text-center mt-5 mb-8 text-[0.95rem]">
           Sign in to Swiftwings to manage your bookings
         </p>
@@ -112,7 +119,7 @@ const VerifyPage = () => {
               ref={fourthInput}
               onChange={(e) => {
                 if (e.target.value.length > 0) {
-                  setInputNum(4);
+                  setInputNum(5);
                   setVerifyCode((prevArray) =>
                     prevArray.map((item, index) =>
                       index === 3 ? e.target.value : item
@@ -123,6 +130,30 @@ const VerifyPage = () => {
                     prevArray.map((item, index) => (index === 3 ? 0 : item))
                   );
                   setInputNum(3);
+                }
+              }}
+            />
+          </div>
+          <div className="border border-swGray300 text-swGray300 rounded-lg h-16 w-16 p-2">
+            <input
+              type="text"
+              className="w-full h-full text-5xl text-center focus:outline-none"
+              placeholder="0"
+              maxLength={1}
+              ref={fifthInput}
+              onChange={(e) => {
+                if (e.target.value.length > 0) {
+                  setInputNum(5);
+                  setVerifyCode((prevArray) =>
+                    prevArray.map((item, index) =>
+                      index === 4 ? e.target.value : item
+                    )
+                  );
+                } else {
+                  setVerifyCode((prevArray) =>
+                    prevArray.map((item, index) => (index === 4 ? 0 : item))
+                  );
+                  setInputNum(4);
                 }
               }}
             />

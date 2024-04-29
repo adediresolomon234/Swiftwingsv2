@@ -18,5 +18,16 @@ export { default as SwGoogleColoredIcon } from "./googleColoredIcon.svg";
 export { default as SwPlusIcon } from "./plusIcon.svg";
 export { default as SWArrowsChevron } from "./Arrows-chevron.svg";
 export { default as SWSuccessful } from "./success.svg";
-export { default as SWClose } from "./close-black.svg";
-
+export { default as SWClose } from "./Close-Black.svg";
+export { default as SWPlusRoundBorderIcon } from "./PlusRoundBorderIcon.svg";
+export { default as SWMinusRoundBorderIcon } from "./MinusRoundBorderIcon.svg";
+export { default as SWFilterIcon } from "./FilterIcon.svg";
+export { default as SWGlobeIcon } from "./globe.svg";
+export { default as SWBookingIcon } from "./BookingIcon2.svg";
+export { default as SWNeedhelpIcon } from "./needhelp.svg";
+export { default as SWStarIcon } from "./star.svg";
+export { default as SWNotificationIcon } from "./notificationIcon.svg";
+export { default as SWEditIcon } from "./EditIcon.svg";
+export { default as SWLeftArrowIcon } from "./LeftArrowIcon.svg";
+export { default as SWMarkIcon } from "./MarkIcon.svg";
+export { default as SWToggleIcon } from "./toggleIcon.svg";
