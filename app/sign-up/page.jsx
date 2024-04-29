@@ -145,7 +145,7 @@ const SignUp = () => {
           <p className="text-center text-2xl font-semibold text-swGray800">
             Create a new account
           </p>
-          <p className="text-center mt-2 mb-8 text-lg text-swGRay800">
+          <p className="text-center mt-2 mb-8 text-md md:text-lg text-swGRay800">
             Join Swiftwings, book a jet, Enjoy premium membership offers and
             privileges
           </p>
@@ -164,26 +164,26 @@ const SignUp = () => {
           {/* <div className="w-full mt-5">
           <CustomSelect />
         </div> */}
-          <div className="flex justify-between mt-5">
-            <div className="w-1/2 pr-2">
+          <div className="flex flex-col sm:flex-row justify-between mt-5">
+            <div className="w-full sm:w-1/2 pr-0 sm:pr-2">
               <InputField
                 label={"First Name"}
                 placeholder={"Enter first name"}
                 name="first_name"
                 value={formData.first_name}
                 onChange={handleInputChange}
-                // className={emailError ? "error" : ""}
+              // className={emailError ? "error" : ""}
               />
             </div>
 
-            <div className="w-1/2 pl-2">
+            <div className="w-full sm:w-1/2 pl-0 sm:pl-2 mt-5 sm:mt-0">
               <InputField
                 label={"Last Name"}
                 placeholder={"Enter last name"}
                 name="last_name"
                 value={formData.last_name}
                 onChange={handleInputChange}
-                // className={emailError ? "error" : ""}
+              // className={emailError ? "error" : ""}
               />
             </div>
           </div>
@@ -194,7 +194,7 @@ const SignUp = () => {
               name="phone_number"
               value={formData.phone_number}
               onChange={handleInputChange}
-              // className={emailError ? "error" : ""}
+            // className={emailError ? "error" : ""}
             />
           </div>
 
