@@ -1,26 +1,26 @@
-import Link from "next/link";
+"use client";
+
+import React, { useEffect, useState } from "react";
+import { SWToggleIcon } from "../svgs";
 import Button from "../Button";
-import logo from "../../../public/images/fullLogo.png";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { SWToggleIcon} from "../svgs"
+import Link from "next/link";
+import logo from "../../../public/images/fullLogo.png";
 
 const NavBar = ({ Nav }) => {
   const [user, setUser] = useState(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  if (!Nav) {
-    // If Nav is false, return null to prevent rendering the navigation bar
-    return null;
-  }
   useEffect(() => {
-    const userItem = localStorage.getItem("user");
-    if (userItem) {
-      try {
-        const getUser = JSON.parse(userItem);
-        setUser(getUser);
-      } catch (error) {
-        console.error("Error parsing user data:", error);
+    if (typeof self !== "undefined") {
+      const userItem = localStorage.getItem("user");
+      if (userItem) {
+        try {
+          const getUser = JSON.parse(userItem);
+          setUser(getUser);
+        } catch (error) {
+          console.error("Error parsing user data:", error);
+        }
       }
     }
   }, []);
@@ -29,14 +29,17 @@ const NavBar = ({ Nav }) => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-
+  if (!Nav) {
+    // If Nav is false, return null to prevent rendering the navigation bar
+    return null;
+  }
 
   return (
-    <nav className="w-full fixed z-50 top-0 left-0 ">
+    <nav className="w-full fixed z-50 top-0 left-0">
       <div className="w-full bg-white/50 text-swGray800 border-b-2 backdrop-blur">
         <div className="flex flex-wrap items-center justify-between max-w-screen-full mx-auto py-6 px-10">
           <Link href={"/"} className="flex items-center">
-            <Image src={logo} alt="Logo"  className="w-24 h-7 lg:w-full lg:h-full"   /> 
+            <Image src={logo} alt="Logo" className="w-24 h-7 lg:w-full lg:h-full" />
           </Link>
           <div className="flex items-center lg:order-2">
             <div className="hidden mt-2 mr-4 sm:inline-block">
@@ -60,7 +63,6 @@ const NavBar = ({ Nav }) => {
                     Sign In
                   </Link>
                   <Link href="/sign-up" className="py-1 px-2 md:py-2 px-4 rounded-full text-xs md:text-lg text-white bg-swPrimary500 hover:bg-swPrimary600 ">
-
                     Sign Up
                   </Link>
                 </div>
@@ -87,9 +89,9 @@ const NavBar = ({ Nav }) => {
                     clip-rule="evenodd"
                   ></path>
                 ) : (
-                 <SWToggleIcon/>
+                  <SWToggleIcon />
                 )}
-             </svg>
+              </svg>
             </button>
           </div>
           <div
@@ -99,17 +101,17 @@ const NavBar = ({ Nav }) => {
             id="mobile-menu-2"
           >
             {Nav !== false && (
-              <ul className ="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-20 lg:mt-0">
-                <Link href={"/fleet-page"}  className="block py-2 pl-3 pr-4 text-gray-700  border-gray-100 hover:bg-white rounded-full p-4 hover:text-swPrimary600 "aria-current="page">
+              <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-20 lg:mt-0">
+                <Link href={"/fleet-page"} className="block py-2 pl-3 pr-4 text-gray-700  border-gray-100 hover:bg-white rounded-full p-4 hover:text-swPrimary600 " aria-current="page">
                   Fleets
                 </Link>
-                 <Link href={"/Destination"}  className="block py-2 pl-3 pr-4 text-gray-700  border-gray-100 hover:bg-white rounded-full p-4 hover:text-swPrimary600  "aria-current="page">
-                   Destination
+                <Link href={"/Destination"} className="block py-2 pl-3 pr-4 text-gray-700  border-gray-100 hover:bg-white rounded-full p-4 hover:text-swPrimary600  " aria-current="page">
+                  Destination
                 </Link>
-                <Link href="#" className="block py-2 pl-3 pr-4 text-gray-700  border-gray-100 hover:bg-white rounded-full p-4 hover:text-swPrimary600  "aria-current="page" >
-                   Company{" "}
+                <Link href="#" className="block py-2 pl-3 pr-4 text-gray-700  border-gray-100 hover:bg-white rounded-full p-4 hover:text-swPrimary600  " aria-current="page" >
+                  Company{" "}
                 </Link>
-                <Link href="#" className="block py-2 pl-3 pr-4 text-gray-700 border-gray-100 hover:bg-white rounded-full p-4 hover:text-swPrimary600  "aria-current="page">
+                <Link href="#" className="block py-2 pl-3 pr-4 text-gray-700 border-gray-100 hover:bg-white rounded-full p-4 hover:text-swPrimary600  " aria-current="page">
                   Contact Us
                 </Link>
               </ul>
@@ -122,3 +124,4 @@ const NavBar = ({ Nav }) => {
 };
 
 export default NavBar;
+
