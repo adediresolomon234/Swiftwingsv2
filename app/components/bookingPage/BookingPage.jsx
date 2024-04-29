@@ -21,7 +21,8 @@ import "react-toastify/dist/ReactToastify.css";
 import BookingEngine from "../../components/bookingEngine/bookingEngine";
 import { usePathname, useRouter } from "next/navigation";
 import SuccessModal from "../shared/modals/SuccessModal";
-import {PuffLoader } from "react-spinners";
+import Image from "next/image";
+import loadingGif from "../../../public/images/loading.gif";
 
 const BookingPageInformation = () => {
   const pathname = usePathname();
@@ -118,7 +119,7 @@ const BookingPageInformation = () => {
       }));
     }
 
-    // setHydrated(true);
+    setHydrated(true);
 
     // console.log("book", bookingDetails);
   }, []);
@@ -132,27 +133,9 @@ const BookingPageInformation = () => {
     }
   }, [bookingDetails]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      // Perform initialization tasks (e.g., data fetching)
-      // Once initialization is complete, set hydrated to true
-      await performInitialization();
-      setHydrated(true);
-    };
-
-    fetchData();
-  }, []);
-
   return (
     <>
-      {!hydrated ? (
-        <div className="flex justify-center items-center my-10">
-          <div>
-            <PuffLoader size={50} color="#d5d5d5" />
-            {/* <BounceLoader size={50} color="#d5d5d5" /> */}
-          </div>
-        </div>
-      ) : (
+      {hydrated ? (
         <main>
           <ToastContainer />
           <div className="bg-swLightBgGray z-10">
@@ -372,7 +355,6 @@ const BookingPageInformation = () => {
               </div>
             </div>
           </div>
-          {/* <BookingComplete open={success} onClose={setSuccess} /> */}
           <SuccessModal
             open={success}
             headingText={"Booking complete"}
@@ -386,6 +368,12 @@ const BookingPageInformation = () => {
             secondBtnClick={() => setSuccess(false)}
           />
         </main>
+      ) : (
+        <div className="flex justify-center items-center h-[70vh]">
+          <div>
+            <Image src={loadingGif} alt="loading" height={50} width={50} />
+          </div>
+        </div>
       )}
     </>
   );
