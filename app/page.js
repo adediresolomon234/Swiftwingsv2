@@ -20,6 +20,7 @@ import { testimonial } from "./CustomerTestimonial";
 import Marquee from "react-fast-marquee";
 import { FaXTwitter } from "react-icons/fa6";
 import heroBgImg from "../public/images/heroBackgroundImage.png";
+import MbheroBgImg from "../public/images/MbheroBgImg.png";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { fetchAircrafts } from "@/redux/slices/aircraftdetails";
@@ -48,6 +49,16 @@ export default function Home() {
   const [hoveredIndex, setHoveredIndex] = useState(0);
   const aircrafts = useSelector((state) => state.aircrafts.aircrafts);
   const [fleet, setFleet] = useState([]);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    window.addEventListener('resize', handleResize);
+    handleResize()
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     dispatch(fetchAircrafts());
@@ -76,12 +87,16 @@ export default function Home() {
       <NavAndFooter>
         <section className="w-full p-10 pt-48 text-white relative pb-10">
           <div className="absolute h-full w-full top-0 left-0">
-            <Image src={heroBgImg} alt="aiplane" className="h-full w-full" />
+            {isMobile ? (
+              <Image src={MbheroBgImg} alt="aiplane" className="h-full w-full object-cover" />
+            ) : (
+              <Image src={heroBgImg} alt="aiplane" className="h-full w-full object-cover" />
+            )}
           </div>
           <div className="h-full w-full bg-swBlack absolute top-0 left-0 bg-opacity-10" />
           <div className="max-w-7xl mx-auto mb-10 relative text-center">
             <div className="pt-28 z-50">
-              <p className="text-8xl font-bold leading-snug z-50">
+              <p className="text-4xl md:text-6xl lg:text-8xl font-bold leading-snug z-50">
                 Experience Unmatched Luxury Travel
               </p>
               <p className="text-lg mt-10 z-10">
