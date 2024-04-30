@@ -6,23 +6,23 @@ import {
   SwMailIcon,
   SwOpenEyeIcon,
   SWSuccessful,
-} from "../svgs";
-import Button from "../Button";
-import InputField from "./InputField";
+} from "../../svgs";
+import Button from "../../Button";
+import InputField from "../InputField";
 import { ToastContainer, toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import CustomSelect from "./CustomSelete";
+import CustomSelect from "../CustomSelete";
 import { TbEyeClosed } from "react-icons/tb";
-import UserProfileModal from "./UserProfileModal";
+import UserProfileModal from "../UserProfileModal";
+import { FaCheck } from "react-icons/fa";
+import SuccessModal from "../modals/SuccessModal";
 
 const AccountDetailsUpdateCard = ({ setPageState }) => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const handleEditClick = () => {
-    router.back("/user-profile-page");
-  };
+  const [success, setSuccess] = useState(false);
 
   const [formData, setFormData] = useState({
     first_name: "",
@@ -30,7 +30,7 @@ const AccountDetailsUpdateCard = ({ setPageState }) => {
     phone_number: "",
   });
 
-  const { loading, error, data } = useSelector((state) => state.auth);
+  // const { loading, error, data } = useSelector((state) => state.auth);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -52,10 +52,10 @@ const AccountDetailsUpdateCard = ({ setPageState }) => {
             Update Account details
           </div>
         </div>
-        <UserProfileModal
-          title="Account information updated"
-          message="You’ve successfully updated your account information. "
-          openModalLabel="Save Changes"
+        <Button
+          label="Save changes"
+          endIcon={<FaCheck size={20} />}
+          bgColor="bg-swPrimary500 text-white"
         />
       </div>
       <div className="max-w-lg w-full mb-5">
@@ -90,6 +90,14 @@ const AccountDetailsUpdateCard = ({ setPageState }) => {
           />
         </div>
       </div>
+      <SuccessModal
+        open={success}
+        onClose={setSuccess}
+        singleBtn={true}
+        firstBtnText={"Done"}
+        headingText={"Account information updated"}
+        text={"You've successfully updated your account information."}
+      />
     </div>
   );
 };

@@ -8,12 +8,12 @@ export const navItems = [
   {
     id: 1,
     name: "Booking a Jet",
-    icon: <SwDeparturePlaneIcon className="text-3xl" />,
+    icon: <SwDeparturePlaneIcon className="text-2xl -mr-1" />,
     state: "book-a-jet",
   },
   {
     id: 2,
-    name: "Booking",
+    name: "Bookings",
     icon: <SWBookingIcon className="text-xl" />,
     state: "bookings",
   },

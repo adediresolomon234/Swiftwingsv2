@@ -1,16 +1,18 @@
 import React, { useState } from "react";
-import { SWEditIcon } from "../../components/svgs";
+import { SWEditIcon } from "../../svgs";
 import { useRouter } from "next/navigation";
 import AccountDetailsUpdateCard from "./AccountDetailsUpdate";
+import PasswordUpdateCard from "./UserPasswordUpdate";
 
 const ProfileCard = () => {
   const [pageState, setPageState] = useState("profile");
+  console.log(pageState);
   return (
     <div>
       {pageState === "profile" && (
         <div>
-          <div className="w-full relative rounded-lg bg-white overflow-hidden flex flex-col items-start justify-start lg:p-6 box-border gap-6 text-left text-base text-gray-800 font-body-md-regular">
-            <div className="self-stretch flex flex-row items-center justify-between mb-">
+          <div className="w-full relative rounded-lg bg-white overflow-hidden flex flex-col items-start justify-start box-border gap-6 text-left text-base text-gray-800 font-body-md-regular">
+            <div className="self-stretch flex flex-row items-center justify-between p-5">
               <div className="text-lg font-me text-swGray600">
                 Here’s your shiny new profile
               </div>
@@ -57,7 +59,7 @@ const ProfileCard = () => {
         <AccountDetailsUpdateCard setPageState={setPageState} />
       )}
       {pageState === "update-password" && (
-        <AccountDetailsUpdateCard setPageState={setPageState} />
+        <PasswordUpdateCard setPageState={setPageState} />
       )}
     </div>
   );

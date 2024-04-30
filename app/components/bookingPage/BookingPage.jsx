@@ -106,9 +106,10 @@ const BookingPageInformation = () => {
     };
     fetchJets();
 
-    const userDetails = localStorage.getItem("user")
-      ? JSON.parse(localStorage.getItem("user"))
-      : null;
+    const userDetails =
+      localStorage.getItem("user") !== (null || undefined)
+        ? JSON.parse(localStorage.getItem("user"))
+        : null;
 
     if (userDetails) {
       delete userDetails.token;
@@ -365,7 +366,7 @@ const BookingPageInformation = () => {
             firstBtnText={"Go home"}
             firstBtnClick={() => router.push("/")}
             secondBtnText={"View Profile"}
-            secondBtnClick={() => setSuccess(false)}
+            secondBtnClick={() => router.push("/user-dashboard")}
           />
         </main>
       ) : (
