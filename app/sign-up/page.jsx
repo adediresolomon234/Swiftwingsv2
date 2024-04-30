@@ -282,7 +282,7 @@ const SignUp = () => {
             <Button
               label={"Login"}
               textColor={
-                "font-semibold text-swGray800 border border-swGray100 w-full"
+                "font-semibold text-swGray800 border border-swGray100 max-w-lg"
               }
             />
           </div>

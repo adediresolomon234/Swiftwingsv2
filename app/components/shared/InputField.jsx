@@ -15,7 +15,7 @@ const InputField = ({
   disabled,
 }) => {
   return (
-    <div className="">
+    <div className="px-4 lg">
       {label && (
         <label htmlFor={name} className=" text-swGray800 mb-2 text-lg">
           {label}
@@ -23,7 +23,7 @@ const InputField = ({
       )}
 
       <div
-        className={`${css} relative flex items-center cursor-pointer text-swGray800 hover:border-swPrimary500 rounded-lg overflow-hidden border-2 ${borderColor} focus:outline-none cursor-pointer ${
+        className={`${css} relative flex items-center cursor-pointer  text-swGray800 hover:border-swPrimary500 rounded-lg overflow-hidden border-2 ${borderColor} focus:outline-none cursor-pointer ${
           startIcon ? "pl-8" : ""
         } ${endIcon ? "pr-8" : ""}`}
       >

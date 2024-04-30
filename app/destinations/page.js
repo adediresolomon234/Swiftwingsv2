@@ -10,7 +10,7 @@ import Image from "next/image";
 import Destinationsection from "../../public/images/Destinationsection.png"
 import { FaChevronDown } from "react-icons/fa";
 import Button from "../components/Button";
-import {SWTButtoncircleIcon} from "../components/svgs"
+import { SWTButtoncircleIcon } from "../components/svgs"
 
 
 const Destinations = () => {
@@ -18,58 +18,62 @@ const Destinations = () => {
   useEffect(() => {
     setIsBrowser(true);
   }, []);
+  const [location, setLocation] = useState({ city: "San Francisco", state: "California" });
 
   return (
     <main className="relative bg-swLightBgGray">
       <NavAndFooter Nav={true}>
-        <section className="w-full p-4 sm:p-10 pt-48 text-white relative pb-10 h-screen">
-          <div className="absolute inset-0">
-            <Image src={Destinationsection} alt="airplane" className="h-full w-full object-cover" />
-            <div className="h-full w-full bg-swBlack absolute top-0 left-0 bg-opacity-10" />
-          </div>
-          <div className="max-w-7xl mx-auto relative text-center">
-            <div className="flex flex-col items-center justify-center h-full">
-              <div className="max-w-lg backdrop-blur bg-swBlack/50 rounded-t-3xl rounded-br-none rounded-bl-3xl overflow-hidden shrink-0 flex flex-col items-start justify-start py-2 px-12 box-border">
-                <div className="flex flex-row items-start justify-start gap-[12px]">
-                  <div className="flex flex-col items-center justify-start pt-2.5 px-0 pb-0">
-                    <div className="w-1.5 h-1.5 relative rounded-[50%] bg-primary-500" />
-                  </div>
-                  <div className="relative leading-8 font-medium inline-block min-w-md text-start">
-                    San Francisco
-                  </div>
-                </div>
-                <div className="flex flex-row items-center justify-center py-0 px-4 text-sm text-primary-300">
-                  <div className="relative leading-[20px] inline-block min-w-md text-start">
-                    California
-                  </div>
+        <div class="relative">
+          <Image class="absolute inset-0 w-full h-full object-cover object-top" src={Destinationsection} width="400" height="500" alt="hero background image" />
+          <div aria-hidden="true" class="absolute inset-0 w-full h-full bg-gray-900 bg-opacity-30 backdrop-blur-sm"></div>
+          <div class="relative container m-auto px-6 md:px-12 lg:px-6">
+            <div class="mb-12 pt-40 space-y-16 md:mb-20 md:pt-56 lg:w-8/12 lg:mx-auto">
+              <div className="location-info flex items-center justify-center mb-8">
+                <div className="location-marker w-3 h-3 bg-primary-500 rounded-full mr-2" />
+                <div className="location-details text-white max-w-lg bg-gray-200 bg-opacity-30 backdrop-blur-sm rounded-t-3xl rounded-br-none rounded-bl-3xl overflow-hidden shrink-0 flex flex-col items-start justify-start py-2 px-12 box-border">
+                  <h2 className="font-semibold">{location.city}</h2>
+                  <p className="text-sm">{location.state}</p>
                 </div>
               </div>
+
+            </div>
+
+            <div class="pb-16">
+              <div class="md:px-10">
+                <div className="text-container">
+                  <div className=" inset-0 flex flex-col items-start justify-start sm:flex-row sm:items-center py-8 px-0 ">
+                    <div className="mr-8 flex flex-col items-start">
+                      <div className="text-xl md:text-5xl font-semibold text-black mb-3">What’s your</div>
+                      <div className="text-7xl md:text-8xl font-bold text-white mb-8 max-w-1rem break-all md:break-words uppercase">
+                        Destination?
+                      </div>
+                    </div>
+                    <div className="mt-0  md:mt-12 flex items-center">
+                      <div className="text-sm md:text-xl text-white max-w-lg">
+                        Experiences beyond your imagination, seeking journeys beyond the ordinary
+                      </div>
+                      <div className="ml-4 text-2xl text-white">
+                        <FaChevronDown className="text-white" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-8 -mx-6 px-8 overflow-x-auto md:overflow-x-hidden">
+                  <div class="w-full flex justify-center flex-wrap items-center gap-4 md:w-auto md:gap-6 lg:gap-8">
+                    <Button
+                      label="Book A jet"
+                      bgColor="bg-white text-gray-900 font-bold "
+                      endIcon={<SWTButtoncircleIcon size={32} />}
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="absolute inset-0 flex flex-col items-start justify-start sm:flex-row sm:items-center sm:justify-between mt-96 py-8 px-4 sm:px-20">
-            <div className="mr-8">
-              <div className="text-xl md:text-5xl font-semibold text-black mb-3">What’s your</div>
-              <div className="text-6xl md:text-8xl font-bold text-white mb-8 max-w-1rem break-words">
-                Destination?
-              </div>
-            </div>
-            <div className="mt-8 sm:mt-0 flex items-center">
-              <div className="text-lg md:text-xl text-white max-w-md">
-                Experiences beyond your imagination, seeking journeys beyond the ordinary
-              </div>
-              <div className="ml-4 text-2xl text-white">
-                <FaChevronDown className="text-white" />
-              </div>
-            </div>
-          </div>
-          {/* <div className=" mt-96my-7 flex flex-col gap-3">
-            <Button
-              label={"Book A jet"}
-              bgColor={"bg-white text-black w-full"}
-              endIcon={<SWTButtoncircleIcon size={50} />}
-            />
-          </div> */}
-        </section>
+
+        </div>
+
+
         <section className="py-16">
           <div className="m-auto px-6 text-gray-600 md:px-12 xl:px-16">
             <DestinationList />

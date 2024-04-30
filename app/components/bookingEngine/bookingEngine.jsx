@@ -389,6 +389,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                     <select
                       className="backdrop-blur bg-swBlack/50 text-white text-sm rounded-lg block w-full p-3 focus:ring-white focus:border-white "
                       onChange={(e) => setBookingType(e.target.value)}
+                      
                     >
                       <option value="One way Trip">One Way Trip</option>
                       <option value="Round Trip">Round Trip</option>
