@@ -106,9 +106,10 @@ const BookingPageInformation = () => {
     };
     fetchJets();
 
-    const userDetails = localStorage.getItem("user")
-      ? JSON.parse(localStorage.getItem("user"))
-      : null;
+    const userDetails =
+      localStorage.getItem("user") !== (null || undefined)
+        ? JSON.parse(localStorage.getItem("user"))
+        : null;
 
     if (userDetails) {
       delete userDetails.token;

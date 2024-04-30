@@ -4,6 +4,7 @@ import dayjs from "dayjs";
 
 const Bookings = () => {
   const [search, setSearch] = useState("");
+  const [pageState, setPageState] = useState("bookings")
   const data = [
     {
       bookDate: "2024-05-24",
@@ -93,7 +94,7 @@ const Bookings = () => {
               className="border-none focus:outline-none w-full h-full"
             />
           </div>
-          <div className="rounded-full py-2 px-4 font-medium text-swPrimary500 border flex gap-2 items-center">
+          <div className="rounded-full py-2 px-4 font-medium text-swPrimary500 border flex gap-2 items-center hover:bg-swGray50 cursor-pointer">
             <p>Filter</p>
             <SwSortIcon className="text-xl" />
           </div>
