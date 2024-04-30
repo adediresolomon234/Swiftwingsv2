@@ -128,7 +128,7 @@ export default function Home() {
             <BookingEngine />
           </section>
         </section>
-        <section className="mt-60 py-16 px-5 text-swGray900">
+        <section className="mt-30 py-16 px-5 text-swGray900">
           <div className="max-w-4xl w-full mx-auto text-center">
             <Services
               name={"Luxury travels"}
@@ -136,14 +136,14 @@ export default function Home() {
               image={servicesPlane}
             />
           </div>
-          <div className="max-w-4xl w-full mx-auto text-center mt-40">
+          <div className="max-w-4xl w-full mx-auto text-center mt-32">
             <Services
               name={"Membership plan"}
               text="SwiftWings offers flexible and investment-free solutions tailored to meet your unique flying needs. SwiftWings grants its clients access to a distinguished fleet, including over 80 SwiftWings aircraft globally, with a strong presence in the United States. As a SwiftWings customer, you'll experience unparalleled 24/7 concierge service delivered by a dedicated team of aviation experts."
               image={servicesMembership}
             />
           </div>
-          <div className="max-w-4xl w-full mx-auto text-center  mt-40">
+          <div className="max-w-4xl w-full mx-auto text-center  mt-32">
             <Services
               name={"Dedicated customer service"}
               text="At SwiftWings, our dedicated customer service is more than a commitment; it's a promise of excellence. Our aviation experts, based in New York and Florida, are available 24/7 to provide unparalleled support, ensuring your journey is seamless and stress-free. From personalized itinerary planning to addressing your unique needs, SwiftWings' customer service is devoted to delivering an unmatched level of care, enhancing every aspect of your private jet experience. Your satisfaction and peace of mind are at the heart of our service philosophy."
