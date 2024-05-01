@@ -434,7 +434,7 @@ const BookingEngine = ({ setBookingDetails }) => {
               <div className="flex items-center gap-5 mx-auto flex-wrap">
                 <div className=" mx-auto relative lg:flex lg:items-center lg:flex-row flex-col md:flex-row  ">
                   <div
-                    className={`p-0 pr-16 flex h-[5.5rem] w-[18rem] items-center gap-5 border backdrop-blur rounded-tl-2xl rounded-tr-2xl md:rounded-tr-none md:rounded-l-none md:rounded-tl-2xl md:rounded-bl-2xl cursor-pointer  ${
+                    className={`p-5 pr-16 flex h-[5.5rem] w-[18rem] items-center gap-5 border backdrop-blur rounded-tl-2xl rounded-tr-2xl md:rounded-tr-none md:rounded-l-none md:rounded-tl-2xl md:rounded-bl-2xl cursor-pointer  ${
                       pathname === "/"
                         ? "border-swGray900 bg-swBlack/40 hover:bg-swBlack/50"
                         : ""
