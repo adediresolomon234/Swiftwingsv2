@@ -391,7 +391,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                 <div className="flex-1 flex flex-row items-center justify-center">
                   <div className="flex-1 relative leading-8">
                     <select
-                      className="backdrop-blur bg-swBlack/50 text-white text-sm rounded-lg block w-full p-3 focus:ring-white focus:border-white "
+                      className="backdrop-blur bg-swBlack/50 text-white text-sm rounded-lg block w-full p-3 focus:ring-white focus:border-white p-4 focus:outline-none"
                       onChange={(e) => setBookingType(e.target.value)}
                     >
                       <option value="One way Trip">One Way Trip</option>
@@ -404,7 +404,7 @@ const BookingEngine = ({ setBookingDetails }) => {
             </div>
             {pathname === "/" ? (
               <div
-                className={`${space_grotesk.className} hidden md:block  w-fit text-lg `}
+                className={`${space_grotesk.className} hidden md:block  w-fit text-lg`}
                 onClick={handleBookJet}
               >
                 <Button
@@ -440,7 +440,7 @@ const BookingEngine = ({ setBookingDetails }) => {
               <div className="grid items-center gap-5 mx-auto grid-cols-1 md:grid-cols-2 md:grid-rows-1 w-full">
                 <div className="mx-auto grid-cols-1 md:grid-rows-1 md:grid-cols-2 grid relative w-full">
                   <div
-                    className={`p-5 pr-16 flex h-[5.5rem] w-[18rem] items-center gap-5 border backdrop-blur rounded-tl-2xl rounded-tr-2xl md:rounded-tr-none md:rounded-l-none md:rounded-tl-2xl md:rounded-bl-2xl cursor-pointer  ${
+                   className={`flex h-[5.5rem] z-10 pl-5 relative w-full items-center gap-5 border backdrop-blur rounded-tl-2xl rounded-tr-2xl md:rounded-tr-none md:rounded-l-none md:rounded-tl-2xl md:rounded-bl-2xl cursor-pointer  ${
                       pathname === "/"
                         ? "border-swGray900 bg-swBlack/40 hover:bg-swBlack/50"
                         : ""
@@ -895,7 +895,7 @@ const BookingEngine = ({ setBookingDetails }) => {
               />
             </div>
           )}
-          <div className="md:hidden m-6 flex justify-end">
+          <div className="md:hidden my-6 flex justify-end">
             {pathname === "/" ? (
               <div
                 className={`${space_grotesk.className} w-fit text-lg `}

@@ -64,7 +64,7 @@ const BookingPageInformation = () => {
       dispatch(addBooking(bookingDetails));
     } else {
       localStorage.setItem("bookingInComplete", true);
-      router.push("/complete-profile");
+      router.push("/sign-in");
     }
   };
 

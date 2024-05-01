@@ -39,7 +39,7 @@ const NavBar = ({ Nav }) => {
       <div className="w-full bg-white/50 text-swGray800 border-b-2 backdrop-blur">
         <div className="flex flex-wrap items-center justify-between max-w-screen-full mx-auto py-6 px-10">
           <Link href={"/"} className="flex items-center">
-            <Image src={logo} alt="Logo" className="w-24 h-7 lg:w-full lg:h-full" />
+            <Image src={logo} alt="Logo" className="w-40 h-12" />
           </Link>
           <div className="flex items-center lg:order-2">
             <div className="hidden mt-2 mr-4 sm:inline-block">
@@ -62,7 +62,7 @@ const NavBar = ({ Nav }) => {
                   <Link href="/sign-in" className="py-2 px-4 rounded-full hover:bg-white text-lg hidden lg:flex">
                     Sign In
                   </Link>
-                  <Link href="/sign-up" className="py-1 px-2 md:py-2 px-4 rounded-full text-xs md:text-lg text-white bg-swPrimary500 hover:bg-swPrimary600 ">
+                  <Link href="/sign-up" className="py-2 px-4 rounded-full text-sm md:text-lg text-white bg-swPrimary500 hover:bg-swPrimary600 ">
                     Sign Up
                   </Link>
                 </div>
@@ -105,7 +105,7 @@ const NavBar = ({ Nav }) => {
                 <Link href={"/fleet-page"} className="block py-2 pl-3 pr-4 text-gray-700  border-gray-100 hover:bg-white rounded-full p-4 hover:text-swPrimary600 " aria-current="page">
                   Fleets
                 </Link>
-                <Link href={"/Destination"} className="block py-2 pl-3 pr-4 text-gray-700  border-gray-100 hover:bg-white rounded-full p-4 hover:text-swPrimary600  " aria-current="page">
+                <Link href={"/destinations"} className="block py-2 pl-3 pr-4 text-gray-700  border-gray-100 hover:bg-white rounded-full p-4 hover:text-swPrimary600  " aria-current="page">
                   Destination
                 </Link>
                 <Link href="#" className="block py-2 pl-3 pr-4 text-gray-700  border-gray-100 hover:bg-white rounded-full p-4 hover:text-swPrimary600  " aria-current="page" >
