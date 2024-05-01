@@ -102,7 +102,9 @@ const BookingEngine = ({ setBookingDetails }) => {
       if (sign === "add") {
         updatedPassengers[index].passengers[passenger] += 1;
       } else {
-        updatedPassengers[index].passengers[passenger] -= 1;
+        if (updatedPassengers[index].passengers[passenger] > 0) {
+          updatedPassengers[index].passengers[passenger] -= 1;
+        }
       }
       return updatedPassengers;
     });
@@ -304,11 +306,13 @@ const BookingEngine = ({ setBookingDetails }) => {
       <div className="w-full rounded-3xl md:border">
         <div
           className={`p-0 rounded-3xl  ${
-            pathname === "/" ? "backdrop-blur border border-swGray900 bg-swLightenessWhiter" : "bg-white"
-          } md:p-5 `}
+            pathname === "/"
+              ? "backdrop-blur border border-swGray900 bg-swLightenessWhiter"
+              : "bg-white"
+          } p-5 `}
         >
           <div
-            className={`flex sm:justify-between sm:items-center mb-5 ${
+            className={`flex flex-wrap sm:justify-between sm:items-center mb-5 ${
               pathname === "/" ? "flex-col sm:flex-row" : "flex-col sm:flex-row"
             }`}
           >
@@ -389,7 +393,6 @@ const BookingEngine = ({ setBookingDetails }) => {
                     <select
                       className="backdrop-blur bg-swBlack/50 text-white text-sm rounded-lg block w-full p-3 focus:ring-white focus:border-white "
                       onChange={(e) => setBookingType(e.target.value)}
-                      
                     >
                       <option value="One way Trip">One Way Trip</option>
                       <option value="Round Trip">Round Trip</option>
@@ -420,7 +423,10 @@ const BookingEngine = ({ setBookingDetails }) => {
           </div>
 
           {bookingState.map((item, index) => (
-            <div key={index} className="flex flex-col justify-between mb-5 w-full h-full sm:w-full sm:h-full md:w-full md:h-full lg:w-full lg:h-full xl:w-full xl:h-full 2xl:w-full 2xl:h-full">
+            <div
+              key={index}
+              className="flex flex-col justify-between mb-5 w-full h-full"
+            >
               <div className="mb-2 flex gap-5 justify-end w-full">
                 {bookingType === "Multi-city Trip" && index > 0 ? (
                   <SWMinusRoundBorderIcon
@@ -431,8 +437,8 @@ const BookingEngine = ({ setBookingDetails }) => {
                   />
                 ) : null}
               </div>
-              <div className="flex items-center gap-5 mx-auto flex-wrap">
-                <div className=" mx-auto relative lg:flex lg:items-center lg:flex-row flex-col md:flex-row  ">
+              <div className="grid items-center gap-5 mx-auto grid-cols-1 md:grid-cols-2 md:grid-rows-1 w-full">
+                <div className="mx-auto grid-cols-1 md:grid-rows-1 md:grid-cols-2 grid relative w-full">
                   <div
                     className={`p-5 pr-16 flex h-[5.5rem] w-[18rem] items-center gap-5 border backdrop-blur rounded-tl-2xl rounded-tr-2xl md:rounded-tr-none md:rounded-l-none md:rounded-tl-2xl md:rounded-bl-2xl cursor-pointer  ${
                       pathname === "/"
@@ -460,12 +466,14 @@ const BookingEngine = ({ setBookingDetails }) => {
                     </div>
                   </div>
 
-                  <div className="hidden sm:block p-1 rounded-full border border-swGray900 text-swBlack ml-[47.5%] bg-white absolute z-10">
-                    <GoArrowRight size={15} className="-mb-2 ml-1" />
-                    <GoArrowLeft size={15} className="-mt-2 mr-1" />
+                  <div className="absolute h-full w-full top-0 left-0 flex justify-center items-center">
+                    <div className="hidden sm:block p-1 rounded-full border border-swGray900 text-swBlack bg-white z-10">
+                      <GoArrowRight size={15} className="-mb-2 ml-1" />
+                      <GoArrowLeft size={15} className="-mt-2 mr-1" />
+                    </div>
                   </div>
                   <div
-                    className={`p-5 pr-16  mt-1 flex h-[5.5rem] w-[18rem] items-center gap-5 border backdrop-blur rounded-bl-2xl rounded-br-2xl md:mt-0 md:rounded-tr-2xl md:rounded-l-none md:rounded-tr-2xl md:rounded-br-2xl cursor-pointer ${
+                    className={`p-5 flex h-[5.5rem] relative w-full items-center gap-5 border backdrop-blur rounded-bl-2xl rounded-br-2xl md:mt-0 md:rounded-tr-2xl md:rounded-l-none md:rounded-tr-2xl md:rounded-br-2xl cursor-pointer ${
                       pathname === "/"
                         ? "border-swGray900 bg-swBlack/40 hover:bg-swBlack/50"
                         : ""
@@ -580,10 +588,10 @@ const BookingEngine = ({ setBookingDetails }) => {
                     </div>
                   )}
                 </div>
-                <div className="flex justify-around gap-5 mx-auto flex-wrap">
+                <div className="grid grid-cols-1 grid-rows-2 md:grid-rows-1 md:grid-cols-2 w-full gap-5">
                   <div
                     onClick={() => setDateOpen(index)}
-                    className={`mx-auto relative p-8 flex h-[5.5rem] w-[18rem] items-center gap-5 ${
+                    className={`relative p-8 flex h-[5.5rem] w-full items-center gap-5 ${
                       pathname === "/"
                         ? " border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50"
                         : ""
@@ -669,7 +677,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                           <p
                             className={`${
                               pathname == "/" ? "text-white" : "text-swGray900"
-                            } font-semibold`}
+                            } font-medium`}
                           >
                             {item?.depatureDate
                               ? dayjs(
@@ -732,9 +740,9 @@ const BookingEngine = ({ setBookingDetails }) => {
                       </div>
                     )}
                   </div>
-                  <div className="relative">
+                  <div className="relative w-full">
                     <div
-                      className={`p-5 flex items-center h-[5.5rem] w-72 gap-5 border ${
+                      className={`p-5 flex items-center h-[5.5rem] w-full gap-5 border ${
                         pathname === "/"
                           ? "border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50"
                           : ""
@@ -755,9 +763,13 @@ const BookingEngine = ({ setBookingDetails }) => {
                             pathname === "/" ? "text-white" : "text-swGray900"
                           }`}
                         >
-                          {item?.passengers?.adults} Adults -{" "}
-                          {item?.passengers?.children} Children -{" "}
-                          {item?.passengers?.pets} Pets
+                          <span className="block whitespace-nowrap">
+                            {item?.passengers?.adults} Adults
+                          </span>
+                          <span className="block whitespace-nowrap">
+                            {item?.passengers?.children} Children
+                          </span>
+                          {/* -{" "}{item?.passengers?.pets} */}
                         </p>
                       </div>
                     </div>
@@ -828,7 +840,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                               </div>
                             </div>
                           </div>
-                          <div className="flex flex-col gap-5">
+                          {/* <div className="flex flex-col gap-5">
                             <div className="flex justify-between items-center">
                               <p className="">Pets</p>
                               <div className="border hover:border-swPrimary500 rounded-md overflow-hidden flex">
@@ -853,7 +865,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                                 </p>
                               </div>
                             </div>
-                          </div>
+                          </div> */}
 
                           <div className="flex items-center justify-between">
                             <p>Done?</p>
