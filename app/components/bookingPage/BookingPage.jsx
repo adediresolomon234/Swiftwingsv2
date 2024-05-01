@@ -35,6 +35,7 @@ const BookingPageInformation = () => {
   const [jets, setJets] = useState([]);
   const [success, setSuccess] = useState(false);
   const [hydrated, setHydrated] = useState(false);
+  const [loggedInUser, setLoggedInUser] = useState(null);
 
   const { loading, error, data } = useSelector((state) => state.booking);
 
@@ -59,8 +60,9 @@ const BookingPageInformation = () => {
   };
 
   const handleQuote = () => {
-    if (bookingDetails?.user) {
+    if (loggedInUser) {
       bookingDetails.status = "New";
+      bookingDetails.user = loggedInUser
       dispatch(addBooking(bookingDetails));
     } else {
       localStorage.setItem("bookingInComplete", true);
@@ -83,7 +85,6 @@ const BookingPageInformation = () => {
     if (data?.response?.data?.error) {
       toast.error(data?.response?.data?.error);
     } else if (data?.message) {
-      // toast.success(data?.message);
       setSuccess(true);
     }
     if (error) {
@@ -91,7 +92,7 @@ const BookingPageInformation = () => {
     }
   }, [data, error]);
 
-  console.log({ bookingDetails });
+
 
   useEffect(() => {
     const fetchJets = async () => {
@@ -111,7 +112,11 @@ const BookingPageInformation = () => {
         ? JSON.parse(localStorage.getItem("user"))
         : null;
 
+        
+
     if (userDetails) {
+      console.log({userDetails});
+      setLoggedInUser(userDetails)
       delete userDetails.token;
       delete userDetails.isLoggedIn;
       setBookingDetails((prevState) => ({
