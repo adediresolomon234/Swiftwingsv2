@@ -142,14 +142,14 @@ const BookingPageInformation = () => {
           <div className="bg-swLightBgGray z-10">
             <div className="m-5 mx-auto max-w-[90rem] z-10">
               <BookingEngine setBookingDetails={setBookingDetails} />
-              <div className="flex gap-10 text-swGray800 mt-10">
-                <div className="w-2/3">
+              <div className="md:flex block md:gap-10 text-swGray800 mt-10">
+                <div className="md:w-2/3 w-full">
                   <p className="text-xl font-medium mb-5">Select Private Jet</p>
-                  <div className="w-full rounded-3xl border p-5 bg-white">
+                  <div className="w-full rounded-2xl border md:p-5 p-0 bg-white">
                     {jets?.map((item, index) => (
                       <div key={item?.id} className="">
-                        <div className="transition ease-in-out delay-100 duration-1000 flex gap-5 justify-between items-center hover:bg-swLighterBgGray p-5 rounded-xl cursor-pointer focus:border focus:outline-swPrimary500">
-                          <div className="flex gap-5 items-center whitespace-nowrap">
+                        <div className="transition ease-in-out delay-100 duration-1000 flex flex-col sm:flex-row gap-5 justify-between items-center hover:bg-swLighterBgGray p-5 rounded-xl cursor-pointer focus:border focus:outline-swPrimary500">
+                          <div className="w-full w-1/3 flex gap-5 items-center whitespace-nowrap">
                             <input
                               type="checkbox"
                               onClick={(e) =>
@@ -158,14 +158,14 @@ const BookingPageInformation = () => {
                               className="h-6 w-6 accent-swPrimary500"
                             />
                             <div className="text-swLightGray">
-                              <p className="text-2xl font-medium">
+                              <p className="text-lg font-medium">
                                 {item?.model}
                               </p>
                               <p className="text-sm">{item?.classification}</p>
                             </div>
                           </div>
-                          <div className="max-w-xl w-full text-swGray800 gap-5 flex">
-                            <div className="w-full flex justify-between gap-5">
+                          <div className="max-w-xl w-full text-swGray800 gap-5 flex flex-col sm:flex-row">
+                            <div className="w-full sm:w-auto flex justify-between gap-5">
                               <div className="flex flex-col gap-2">
                                 <div className="flex items-center gap-2">
                                   <SwSeatIcon className="text-lg" />
@@ -221,15 +221,15 @@ const BookingPageInformation = () => {
                       </div>
                     ))}
                     {/* <Button
-                  label={"Add to quote"}
-                  className="border mt-5 text-swGray800 font-semibold"
-                  bgColor={"bg-white hover:bg-swLightBgGray"}
-                /> */}
+    label={"Add to quote"}
+    className="border mt-5 text-swGray800 font-semibold"
+    bgColor={"bg-white hover:bg-swLightBgGray"}
+  /> */}
                   </div>
                 </div>
-                <div className="w-1/3">
+                <div className="md:w-1/3 w-full">
                   <p className="text-xl font-medium mb-5">Flight Summary</p>
-                  <div className="w-full rounded-3xl border p-5  bg-white">
+                  <div className="w-full rounded-2xl border p-5 p-0 bg-white">
                     <p className="font-semibold text-lg">
                       Flight from {sourceDetails?.city} ,{" "}
                       {sourceDetails?.country} - {destinationDetails?.city},{" "}

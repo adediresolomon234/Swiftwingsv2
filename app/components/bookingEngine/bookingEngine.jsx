@@ -416,8 +416,8 @@ const BookingEngine = ({ setBookingDetails }) => {
                 />
               </div>
             ) : (
-              <div className="text-white p-5 rounded-full bg-swPrimary500">
-                <SwSearchIcon className="text-[1rem]" />
+              <div className="text-white p-5 rounded-full bg-white">
+                <SwSearchIcon className="text-[1rem]"  />
               </div>
             )}
           </div>
