@@ -17,7 +17,7 @@ const SuccessModal = ({
   if (!open) return;
   return (
     <main className="fixed flex justify-center items-center h-[100vh] w-full top-0 left-0 bg-black bg-opacity-25 z-[200]">
-      <div className="max-w-xl w-full p-5 bg-white rounded-3xl">
+      <div className="max-w-xl w-full p-5 bg-white rounded-3xl m-5">
         <div
           className="text-swPrimary500 cursor-pointer p-2 rounded-full border w-fit ml-auto hover:bg-swPrimary50"
           onClick={() => onClose(false)}

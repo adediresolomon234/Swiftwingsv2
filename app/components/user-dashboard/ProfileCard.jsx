@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { SWEditIcon } from "../../svgs";
+import { SWEditIcon } from "../svgs";
 import { useRouter } from "next/navigation";
 import AccountDetailsUpdateCard from "./AccountDetailsUpdate";
 import PasswordUpdateCard from "./UserPasswordUpdate";

@@ -62,7 +62,7 @@ const BookingPageInformation = () => {
   const handleQuote = () => {
     if (loggedInUser) {
       bookingDetails.status = "New";
-      bookingDetails.user = loggedInUser
+      bookingDetails.user = loggedInUser;
       dispatch(addBooking(bookingDetails));
     } else {
       localStorage.setItem("bookingInComplete", true);
@@ -92,8 +92,6 @@ const BookingPageInformation = () => {
     }
   }, [data, error]);
 
-
-
   useEffect(() => {
     const fetchJets = async () => {
       try {
@@ -112,11 +110,9 @@ const BookingPageInformation = () => {
         ? JSON.parse(localStorage.getItem("user"))
         : null;
 
-        
-
     if (userDetails) {
-      console.log({userDetails});
-      setLoggedInUser(userDetails)
+      console.log({ userDetails });
+      setLoggedInUser(userDetails);
       delete userDetails.token;
       delete userDetails.isLoggedIn;
       setBookingDetails((prevState) => ({
@@ -147,13 +143,13 @@ const BookingPageInformation = () => {
           <div className="bg-swLightBgGray z-10">
             <div className="m-5 mx-auto max-w-[90rem] z-10">
               <BookingEngine setBookingDetails={setBookingDetails} />
-              <div className="md:flex block md:gap-10 text-swGray800 mt-10">
-                <div className="md:w-2/3 w-full">
+              <div className="lg:flex block md:gap-10 text-swGray800 mt-10">
+                <div className="w-full">
                   <p className="text-xl font-medium mb-5">Select Private Jet</p>
                   <div className="w-full rounded-2xl border md:p-5 p-0 bg-white">
                     {jets?.map((item, index) => (
                       <div key={item?.id} className="">
-                        <div className="transition ease-in-out delay-100 duration-1000 flex flex-col sm:flex-row gap-5 justify-between items-center hover:bg-swLighterBgGray p-5 rounded-xl cursor-pointer focus:border focus:outline-swPrimary500">
+                        <div className="transition ease-in-out delay-100 duration-1000 flex flex-col md:flex-row gap-5 justify-between items-center hover:bg-swLighterBgGray p-5 rounded-xl cursor-pointer focus:border focus:outline-swPrimary500">
                           <div className="w-full w-1/3 flex gap-5 items-center whitespace-nowrap">
                             <input
                               type="checkbox"
@@ -169,7 +165,7 @@ const BookingPageInformation = () => {
                               <p className="text-sm">{item?.classification}</p>
                             </div>
                           </div>
-                          <div className="max-w-xl w-full text-swGray800 gap-5 flex flex-col sm:flex-row">
+                          <div className="lg:max-w-xl w-full text-swGray800 gap-5 flex flex-col sm:flex-row sm:justify-around">
                             <div className="w-full sm:w-auto flex justify-between gap-5">
                               <div className="flex flex-col gap-2">
                                 <div className="flex items-center gap-2">
@@ -226,30 +222,34 @@ const BookingPageInformation = () => {
                       </div>
                     ))}
                     {/* <Button
-    label={"Add to quote"}
-    className="border mt-5 text-swGray800 font-semibold"
-    bgColor={"bg-white hover:bg-swLightBgGray"}
-  /> */}
+                        label={"Add to quote"}
+                        className="border mt-5 text-swGray800 font-semibold"
+                        bgColor={"bg-white hover:bg-swLightBgGray"}
+                      /> */}
                   </div>
                 </div>
                 <div className="md:w-1/3 w-full">
-                  <p className="text-xl font-medium mb-5">Flight Summary</p>
+                  <p className="text-xl font-medium mb-5 ">Flight Summary</p>
                   <div className="w-full rounded-2xl border p-5 p-0 bg-white">
                     <p className="font-semibold text-lg">
-                      Flight from {sourceDetails?.city} ,{" "}
-                      {sourceDetails?.country} - {destinationDetails?.city},{" "}
+                      Flight from {sourceDetails?.city || "Select city"} ,{" "}
+                      {sourceDetails?.country} -{" "}
+                      {destinationDetails?.city || "Select city"},{" "}
                       {destinationDetails?.country}
                     </p>
 
                     {/* depatureDate
-                  : 
-                  "2024-4-17"
-                  depatureTime
-                  : 
-                  "1:0" */}
+                    : 
+                    "2024-4-17"
+                    depatureTime
+                    : 
+                    "1:0" */}
                     {bookingDetails?.booking_details?.formData.map(
                       (item, index) => (
-                        <div key={index} className="flex gap-1 mt-5">
+                        <div
+                          key={index}
+                          className="flex gap-1 mt-5 justify-center"
+                        >
                           <div className="flex flex-col justify-between">
                             <div className="">
                               <p className="font-semibold text-lg">
@@ -316,14 +316,15 @@ const BookingPageInformation = () => {
                           : dateValue.format("h:mm a")}
                       </p> */}
                               <p className="text-sm">
-                                {item?.source?.city}, {item?.source?.country}
+                                {item?.source?.city || "Select city"},{" "}
+                                {item?.source?.country}
                               </p>
                             </div>
                             {/* <p className="font-medium">12 Hours</p> */}
                             <div className="">
                               {/* <p className="font-semibold text-lg">22:00 pm</p> */}
                               <p className="text-sm">
-                                {item?.destination?.city},{" "}
+                                {item?.destination?.city || "Select city"},{" "}
                                 {item?.destination?.country}
                               </p>
                             </div>

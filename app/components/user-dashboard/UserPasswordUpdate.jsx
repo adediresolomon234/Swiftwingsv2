@@ -1,22 +1,17 @@
 "use client";
 import React from "react";
-import {
-  SWLeftArrowIcon,
-  SwKeyIcon,
-  SwMailIcon,
-  SwOpenEyeIcon,
-} from "../../svgs";
-import Button from "../../Button";
-import InputField from "../InputField";
+import { SWLeftArrowIcon, SwKeyIcon, SwMailIcon, SwOpenEyeIcon } from "../svgs";
+import Button from "../Button";
+import InputField from "../shared/InputField";
 import { ToastContainer, toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { TbEyeClosed } from "react-icons/tb";
-import UserProfileModal from "../UserProfileModal";
+import UserProfileModal from "../shared/UserProfileModal";
 import { useRouter } from "next/navigation";
 import { FaCheck } from "react-icons/fa";
-import SuccessModal from "../modals/SuccessModal";
-import CancelModal from "../modals/CancelModal";
+import SuccessModal from "../shared/modals/SuccessModal";
+import CancelModal from "../shared/modals/CancelModal";
 
 const PasswordUpdateCard = ({ setPageState }) => {
   const dispatch = useDispatch();

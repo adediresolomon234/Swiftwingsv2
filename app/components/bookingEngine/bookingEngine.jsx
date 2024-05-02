@@ -19,7 +19,6 @@ import { useEffect, useRef, useState } from "react";
 import airports from "../helpers/airports";
 import dayjs from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import TextField from "@mui/material/TextField";
 import { HiArrowRight } from "react-icons/hi";
 import { FaSearch } from "react-icons/fa";
 import { usePathname, useRouter } from "next/navigation";
@@ -327,7 +326,7 @@ const BookingEngine = ({ setBookingDetails }) => {
               className={`p-1 text-xl rounded-full flex gap-5 font-medium ${
                 pathname === "/"
                   ? "sm:backdrop-blur sm:bg-white/25"
-                  : "bg-swGray50"
+                  : "bg-white sm:bg-swGray50"
               }`}
             >
               <div className="hidden sm:flex">
@@ -416,8 +415,8 @@ const BookingEngine = ({ setBookingDetails }) => {
                 />
               </div>
             ) : (
-              <div className="text-white p-5 rounded-full bg-white">
-                <SwSearchIcon className="text-[1rem]"  />
+              <div className="text-white p-5 rounded-full bg-swPrimary500 hidden md:block">
+                <SwSearchIcon className="text-[1rem]" />
               </div>
             )}
           </div>
@@ -440,7 +439,7 @@ const BookingEngine = ({ setBookingDetails }) => {
               <div className="grid items-center gap-5 mx-auto grid-cols-1 md:grid-cols-2 md:grid-rows-1 w-full">
                 <div className="mx-auto grid-cols-1 md:grid-rows-1 md:grid-cols-2 grid relative w-full">
                   <div
-                   className={`flex h-[5.5rem] z-10 pl-5 relative w-full items-center gap-5 border backdrop-blur rounded-tl-2xl rounded-tr-2xl md:rounded-tr-none md:rounded-l-none md:rounded-tl-2xl md:rounded-bl-2xl cursor-pointer  ${
+                    className={`flex h-[5.5rem] z-10 pl-5 relative w-full items-center gap-5 border backdrop-blur rounded-tl-2xl rounded-tr-2xl md:rounded-tr-none md:rounded-l-none md:rounded-tl-2xl md:rounded-bl-2xl cursor-pointer  ${
                       pathname === "/"
                         ? "border-swGray900 bg-swBlack/40 hover:bg-swBlack/50"
                         : ""
@@ -501,7 +500,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                   {openDeparture === index && (
                     <div
                       ref={departureRef}
-                      className="absolute text-swGray800 top-24 w-full z-10"
+                      className="absolute text-swGray800 top-full mt-1 w-full z-10"
                     >
                       <Select
                         styles={colourStyles}
@@ -545,7 +544,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                     <div
                       id="arrive"
                       ref={arrivalRef}
-                      className="absolute text-swGray800 top-24 w-full z-10"
+                      className="absolute text-swGray800 top-full mt-1 w-full z-10"
                     >
                       <Select
                         styles={colourStyles}
@@ -711,9 +710,6 @@ const BookingEngine = ({ setBookingDetails }) => {
                                 onChange={(value) =>
                                   updateBookingState(value, index, "departure")
                                 }
-                                renderInput={(params) => (
-                                  <TextField {...params} />
-                                )}
                               />
                               {bookingType === "Round Trip" && (
                                 <DateTimePicker
@@ -729,9 +725,6 @@ const BookingEngine = ({ setBookingDetails }) => {
                                     )
                                   }
                                   onClose={() => setDateOpen(null)}
-                                  renderInput={(params) => (
-                                    <TextField {...params} />
-                                  )}
                                 />
                               )}
                             </div>
@@ -910,7 +903,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                 />
               </div>
             ) : (
-              <div className="text-white p-5 rounded-full bg-swPrimary500">
+              <div className="text-swGray800 p-5 rounded-full bg-white border">
                 <SwSearchIcon className="text-[1rem]" />
               </div>
             )}

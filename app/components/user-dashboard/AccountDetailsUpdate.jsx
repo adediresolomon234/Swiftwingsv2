@@ -6,18 +6,18 @@ import {
   SwMailIcon,
   SwOpenEyeIcon,
   SWSuccessful,
-} from "../../svgs";
-import Button from "../../Button";
-import InputField from "../InputField";
+} from "../svgs";
+import Button from "../Button";
+import InputField from "../shared/InputField";
 import { ToastContainer, toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import CustomSelect from "../CustomSelete";
+import CustomSelect from "../shared/CustomSelete";
 import { TbEyeClosed } from "react-icons/tb";
-import UserProfileModal from "../UserProfileModal";
+import UserProfileModal from "../shared/UserProfileModal";
 import { FaCheck } from "react-icons/fa";
-import SuccessModal from "../modals/SuccessModal";
+import SuccessModal from "../shared/modals/SuccessModal";
 
 const AccountDetailsUpdateCard = ({ setPageState }) => {
   const dispatch = useDispatch();
