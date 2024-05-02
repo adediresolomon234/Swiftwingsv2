@@ -1,11 +1,27 @@
-import React, { useState } from "react";
+"use client";
+
+import React, { useState, useEffect } from "react";
 import { SWEditIcon } from "../svgs";
 import { useRouter } from "next/navigation";
 import AccountDetailsUpdateCard from "./AccountDetailsUpdate";
 import PasswordUpdateCard from "./UserPasswordUpdate";
-
+import Link from "next/link";
+import { IoPersonCircleOutline } from "react-icons/io5";
 const ProfileCard = () => {
   const [pageState, setPageState] = useState("profile");
+  const [userData, setUserData] = useState(false);
+  const [openUserDropDown, setOpenUserDropDown] = useState(false);
+
+  useEffect(() => {
+    const userDataString = localStorage.getItem("user");
+    const userData = userDataString ? JSON.parse(userDataString) : null;
+    userData && setUserData(true);
+  }, []);
+
+  const handleSignOut = () => {
+    setUserData(false);
+    localStorage.removeItem("userData");
+  };
   console.log(pageState);
   return (
     <div>
@@ -48,11 +64,45 @@ const ProfileCard = () => {
               <SWEditIcon />
             </div>
           </div>
-          <div className="mt-5">
-            <div className="w-fit py-2 px-4 rounded-full bg-white text-swGray800 font-medium">
-              Logout
+          {userData && (
+          <div className="relative">
+            <div
+              className="text-jsPrimary100 cursor-pointer"
+              onClick={() => setOpenUserDropDown(!openUserDropDown)}
+            >
+              <IoPersonCircleOutline size={50} />
             </div>
+
+            {openUserDropDown && (
+              <div
+                className={`absolute w-[12rem] -right-5 top-full mt-7 p-3 bg-white rounded-md ${
+                  openUserDropDown ? "min-h-10" : "h-0"
+                }`}
+              >
+                <div className="w-full flex flex-col">
+                  <Link
+                    href={"/bookings"}
+                    className="w-full hover:bg-yellow-50 rounded-md p-3"
+                  >
+                    Bookings
+                  </Link>
+                  <Link
+                    href={"#"}
+                    className="w-full hover:bg-yellow-50 rounded-md p-3"
+                  >
+                    Settings
+                  </Link>
+                  <div
+                    className="w-full hover:bg-yellow-50 rounded-md p-3 cursor-pointer"
+                    onClick={handleSignOut}
+                  >
+                    Sign-out
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
+        )}
         </div>
       )}
       {pageState === "update-profile" && (
