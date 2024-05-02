@@ -6,10 +6,26 @@ import Button from "../Button";
 import Image from "next/image";
 import Link from "next/link";
 import logo from "../../../public/images/fullLogo.png";
+import { IoPersonCircleOutline } from "react-icons/io5";
 
 const NavBar = ({ Nav }) => {
   const [user, setUser] = useState(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const [userData, setUserData] = useState(false);
+  const [openUserDropDown, setOpenUserDropDown] = useState(false);
+
+  useEffect(() => {
+    const userDataString = localStorage.getItem("user");
+    const userData = userDataString ? JSON.parse(userDataString) : null;
+    userData && setUserData(true);
+  }, []);
+
+  const handleSignOut = () => {
+    setUserData(false);
+    localStorage.removeItem("userData");
+  };
+
 
   useEffect(() => {
     if (typeof self !== "undefined") {
@@ -48,15 +64,43 @@ const NavBar = ({ Nav }) => {
 
             <div className="text-sm lg:text-lg">
               {user?.isLoggedIn ? (
-                <Link
-                  href="/sign-in"
-                  className="py-2 px-4 rounded-full text-lg text-white bg-swPrimary500 hover:bg-swPrimary600"
-                  onClick={() => {
-                    localStorage.removeItem("user");
-                  }}
+                <div className="relative">
+                <div
+                  className="text-jsPrimary100 cursor-pointer"
+                  onClick={() => setOpenUserDropDown(!openUserDropDown)}
                 >
-                  Log out
-                </Link>
+                  <IoPersonCircleOutline size={50} />
+                </div>
+    
+                {openUserDropDown && (
+                  <div
+                    className={`absolute w-[12rem] -right-5 top-full mt-7 p-3 bg-white rounded-md ${
+                      openUserDropDown ? "min-h-10" : "h-0"
+                    }`}
+                  >
+                    <div className="w-full flex flex-col">
+                      <Link
+                        href={"/user-dashboard"}
+                        className="w-full hover:bg-yellow-50 rounded-md p-3"
+                      >
+                        Bookings
+                      </Link>
+                      <Link
+                        href={"#"}
+                        className="w-full hover:bg-yellow-50 rounded-md p-3"
+                      >
+                        Settings
+                      </Link>
+                      <div
+                        className="w-full hover:bg-yellow-50 rounded-md p-3 cursor-pointer"
+                        onClick={handleSignOut}
+                      >
+                        Sign-out
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
               ) : (
                 <div className="flex gap-5 items-center">
                   <Link href="/sign-in" className="py-2 px-4 rounded-full hover:bg-white text-lg hidden lg:flex">
