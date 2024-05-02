@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { SWFilterIcon, SwSearchIcon, SwSortIcon } from "../../svgs";
+import { SWFilterIcon, SwSearchIcon, SwSortIcon } from "../svgs";
 import dayjs from "dayjs";
 
 const AllBookings = () => {
