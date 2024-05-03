@@ -56,7 +56,7 @@ const NavBar = ({ Nav }) => {
   return (
     <nav className="w-full fixed z-50 top-0 left-0">
       <div className="w-full bg-white/50 text-swGray800 border-b-2 backdrop-blur">
-        <div className="flex flex-wrap items-center justify-between max-w-screen-full mx-auto py-6 px-10">
+        <div className="flex flex-wrap items-center justify-between max-w-screen-full mx-auto py-6 px-5 sm:px-10">
           <Link href={"/"} className="flex items-center">
             <Image src={logo} alt="Logo" className="w-40 h-12" />
           </Link>
@@ -106,10 +106,16 @@ const NavBar = ({ Nav }) => {
               </div>
               ) : (
                 <div className="flex gap-5 items-center">
-                  <Link href="/sign-in" className="py-2 px-4 rounded-full hover:bg-white text-lg hidden lg:flex">
+                  <Link
+                    href="/sign-in"
+                    className="py-2 px-4 rounded-full hover:bg-white text-lg hidden lg:flex"
+                  >
                     Sign In
                   </Link>
-                  <Link href="/sign-up" className="py-2 px-4 rounded-full text-sm md:text-lg text-white bg-swPrimary500 hover:bg-swPrimary600 ">
+                  <Link
+                    href="/sign-up"
+                    className="py-2 px-4 rounded-full text-sm md:text-lg text-white bg-swPrimary500 hover:bg-swPrimary600 "
+                  >
                     Sign Up
                   </Link>
                 </div>
@@ -149,16 +155,32 @@ const NavBar = ({ Nav }) => {
           >
             {Nav !== false && (
               <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-20 lg:mt-0">
-                <Link href={"/fleet-page"} className="block py-2 pl-3 pr-4 text-gray-700  border-gray-100 hover:bg-white rounded-full p-4 hover:text-swPrimary600 " aria-current="page">
+                <Link
+                  href={"/fleet-page"}
+                  className="block py-2 pl-3 pr-4 text-gray-700  border-gray-100 hover:bg-white rounded-full p-4 hover:text-swPrimary600 "
+                  aria-current="page"
+                >
                   Fleets
                 </Link>
-                <Link href={"/destinations"} className="block py-2 pl-3 pr-4 text-gray-700  border-gray-100 hover:bg-white rounded-full p-4 hover:text-swPrimary600  " aria-current="page">
+                <Link
+                  href={"/destinations"}
+                  className="block py-2 pl-3 pr-4 text-gray-700  border-gray-100 hover:bg-white rounded-full p-4 hover:text-swPrimary600  "
+                  aria-current="page"
+                >
                   Destination
                 </Link>
-                <Link href="#" className="block py-2 pl-3 pr-4 text-gray-700  border-gray-100 hover:bg-white rounded-full p-4 hover:text-swPrimary600  " aria-current="page" >
+                <Link
+                  href="#"
+                  className="block py-2 pl-3 pr-4 text-gray-700  border-gray-100 hover:bg-white rounded-full p-4 hover:text-swPrimary600  "
+                  aria-current="page"
+                >
                   Company{" "}
                 </Link>
-                <Link href="#" className="block py-2 pl-3 pr-4 text-gray-700 border-gray-100 hover:bg-white rounded-full p-4 hover:text-swPrimary600  " aria-current="page">
+                <Link
+                  href="#"
+                  className="block py-2 pl-3 pr-4 text-gray-700 border-gray-100 hover:bg-white rounded-full p-4 hover:text-swPrimary600  "
+                  aria-current="page"
+                >
                   Contact Us
                 </Link>
               </ul>
@@ -171,4 +193,3 @@ const NavBar = ({ Nav }) => {
 };
 
 export default NavBar;
-
