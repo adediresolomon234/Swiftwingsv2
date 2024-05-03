@@ -30,7 +30,10 @@ const UserDashBoardNav = ({ pageState, setPageState, setNavToggle }) => {
                   : "text-swGray700"
               } flex items-center justify-between cursor-pointer`}
               key={item.id}
-              onClick={() => setPageState(item.state)}
+              onClick={() => {
+                setPageState(item.state);
+                setNavToggle(false);
+              }}
             >
               <div className="flex items-center gap-3">
                 {item.icon}
