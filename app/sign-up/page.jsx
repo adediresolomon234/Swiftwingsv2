@@ -18,6 +18,7 @@ import {
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import NavAndFooter from "../components/shared/NavAndFooter";
+import { useRouter } from "next/navigation";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -27,6 +28,7 @@ const spaceGrotesk = Space_Grotesk({
 const SignUp = () => {
   const dispatch = useDispatch();
   const [emailError, setEmailError] = useState("");
+  const router = useRouter()
   const [passwordError, setPasswordError] = useState("");
   const [reenterPassword, setReenterPassword] = useState("");
   const [reenterPasswordError, setReenterPasswordError] = useState("");
@@ -123,7 +125,6 @@ const SignUp = () => {
 
   useEffect(() => {
     if (isSubmitted) {
-  
       setFormData({
         first_name: "",
         last_name: "",
@@ -131,7 +132,7 @@ const SignUp = () => {
         email: "",
         password: "",
       });
-      setIsSubmitted(false); 
+      setIsSubmitted(false);
     }
   }, [isSubmitted]);
 
@@ -170,7 +171,7 @@ const SignUp = () => {
                 name="first_name"
                 value={formData.first_name}
                 onChange={handleInputChange}
-              // className={emailError ? "error" : ""}
+                // className={emailError ? "error" : ""}
               />
             </div>
 
@@ -181,7 +182,7 @@ const SignUp = () => {
                 name="last_name"
                 value={formData.last_name}
                 onChange={handleInputChange}
-              // className={emailError ? "error" : ""}
+                // className={emailError ? "error" : ""}
               />
             </div>
           </div>
@@ -192,7 +193,7 @@ const SignUp = () => {
               name="phone_number"
               value={formData.phone_number}
               onChange={handleInputChange}
-            // className={emailError ? "error" : ""}
+              // className={emailError ? "error" : ""}
             />
           </div>
 
@@ -276,12 +277,15 @@ const SignUp = () => {
           <p className="text-swGray800 text-center">
             Already have an account ?
           </p>
-          <div className="w-full mt-4 font-medium">
+          <div className="w-full flex justify-center mt-4 font-medium">
             <Button
               label={"Login"}
               textColor={
                 "font-semibold text-swGray800 border border-swGray100 max-w-lg"
               }
+              onClick={() => {
+                router.push("/sign-in")
+              }}
             />
           </div>
         </div>

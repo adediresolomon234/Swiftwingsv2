@@ -7,9 +7,11 @@ import Image from "next/image";
 import Link from "next/link";
 import logo from "../../../public/images/fullLogo.png";
 import { IoPersonCircleOutline } from "react-icons/io5";
+import { useRouter } from "next/navigation";
 
 const NavBar = ({ Nav }) => {
   const [user, setUser] = useState(null);
+  const router = useRouter();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const [userData, setUserData] = useState(false);
@@ -23,7 +25,8 @@ const NavBar = ({ Nav }) => {
 
   const handleSignOut = () => {
     setUserData(false);
-    localStorage.removeItem("userData");
+    localStorage.removeItem("user");
+    router.push("/");
   };
 
 

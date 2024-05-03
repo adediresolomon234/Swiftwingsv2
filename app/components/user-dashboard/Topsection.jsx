@@ -31,7 +31,7 @@ const TopSectionPage = ({ pageState, setPageState }) => {
             setNavToggle={setNavToggle}
           />
         </div>
-        <div className="text-lg text-swGray500 font-semibold">
+        <div className="md:text-lg text-sm text-swGray500 font-semibold">
           Good Afternoon, Jane
         </div>
       </div>
