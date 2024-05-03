@@ -13,7 +13,7 @@ const UserBookingPage = () => {
       <div className="w-1/4 hidden xl:block">
         <UserDashBoardNav pageState={pageState} setPageState={setPageState} />
       </div>
-      <section className="flex flex-col gap-5 w-full p-4 pr-0 pt-0 overflow-auto">
+      <section className="flex flex-col p-0 md:p-4 gap-5 w-full overflow-auto">
         <TopSectionPage pageState={pageState} setPageState={setPageState} />
         <div className="rounded-xl">
           {pageState === "book-a-jet" && <BookingPageInformation />}
