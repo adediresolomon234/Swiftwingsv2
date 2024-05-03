@@ -370,9 +370,15 @@ const BookingPageInformation = () => {
             }
             onClose={setSuccess}
             firstBtnText={"Go home"}
-            firstBtnClick={() => router.push("/")}
+            firstBtnClick={() => {
+              setSuccess(false);
+              router.push("/");
+            }}
             secondBtnText={"View Profile"}
-            secondBtnClick={() => router.push("/user-dashboard")}
+            secondBtnClick={() => {
+              setSuccess(false);
+              router.push("/user-dashboard");
+            }}
           />
         </main>
       ) : (
