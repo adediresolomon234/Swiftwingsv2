@@ -15,7 +15,7 @@ const InputField = ({
   disabled,
 }) => {
   return (
-    <div className="px-4 lg">
+    <div className="">
       {label && (
         <label htmlFor={name} className=" text-swGray800 mb-2 text-lg">
           {label}

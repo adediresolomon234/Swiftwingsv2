@@ -199,11 +199,14 @@ const SignIn = () => {
           </p>
           <div className="w-full mt-4 font-medium">
             <Button
-              startIcon={<SwPlusIcon className="text-xl" />}
+              startIcon={<SwPlusIcon className="text-xl"/>}
               label={"Create a new account"}
               textColor={
                 "font-semibold text-swGray800 border border-swGray100 w-full"
               }
+              onClick={() => {
+                router.push("sign-up");
+              }}
             />
           </div>
         </div>
