@@ -5,7 +5,6 @@ import ProfileCard from "../components/user-dashboard/ProfileCard";
 import Bookings from "../components/user-dashboard/Bookings";
 import UserDashBoardNav from "../components/user-dashboard/userDashBoardNav";
 import { useSearchParams } from "next/navigation";
-import { Suspense, useState } from "react";
 
 const UserBookingPage = () => {
   // const [pageState, setPageState] = useState("book-a-jet");
