@@ -329,33 +329,33 @@ const BookingEngine = ({ setBookingDetails }) => {
                   : "bg-white sm:bg-swGray50"
               }`}
             >
-              <div className="hidden sm:flex">
+              <div className="flex">
                 <button
                   className={`${
                     bookingType === "One way Trip"
                       ? `${
                           pathname === "/"
-                            ? "text-white backdrop-blur bg-swBlack/50"
-                            : "text-swPrimary500 bg-white"
-                        } font-semibold`
-                      : `text-swGray300 hover:backdrop-blur hover:bg-white/5`
+                            ? "text-white backdrop-blur bg-none md:bg-swBlack/50"
+                            : "text-white bg-white"
+                        } font-semibold text-sm`
+                      : `text-swGray300 hover:backdrop-blur hover:bg-white/5 text-sm`
                   } py-2 px-4 rounded-full`}
                   onClick={() => {
                     resetBookingState();
                     setBookingType("One way Trip");
                   }}
                 >
-                  One Way Trips
+                  One-way Trip
                 </button>
                 <button
                   className={`${
                     bookingType === "Round Trip"
                       ? `${
                           pathname === "/"
-                            ? "text-white backdrop-blur bg-swBlack/50"
+                            ? "text-white backdrop-blur  bg-none md:bg-swBlack/50"
                             : "text-swPrimary500 bg-white"
-                        } font-semibold`
-                      : "text-swGray300 hover:backdrop-blur hover:bg-white/5"
+                        } font-semibold text-sm`
+                      : "text-swGray300 hover:backdrop-blur hover:bg-white/5 text-sm"
                   } py-2 px-4 rounded-full`}
                   onClick={() => {
                     resetBookingState();
@@ -369,10 +369,10 @@ const BookingEngine = ({ setBookingDetails }) => {
                     bookingType === "Multi-city Trip"
                       ? `${
                           pathname === "/"
-                            ? "text-white backdrop-blur bg-swBlack/50"
+                            ? "text-white backdrop-blur  bg-none md:bg-swBlack/50"
                             : "text-swPrimary500 bg-white"
-                        } font-semibold`
-                      : "text-swGray300 hover:backdrop-blur hover:bg-white/5"
+                        } font-semibold text-sm`
+                      : "text-swGray300 hover:backdrop-blur hover:bg-white/5 text-sm"
                   } py-2 px-4 rounded-full`}
                   onClick={() => {
                     resetBookingState();
@@ -382,7 +382,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                   Multi-city Trip
                 </button>
               </div>
-              <div
+              {/* <div
                 className={`sm:hidden w-full self-stretch rounded-lg overflow-hidden flex flex-row items-center justify-center p-2 gap-4 text-grey-grey-500  border-solid border-gray-900 ${
                   pathname === "/" ? "text-white" : "text-swPrimary500"
                 }`}
@@ -399,7 +399,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                     </select>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
             {pathname === "/" ? (
               <div
