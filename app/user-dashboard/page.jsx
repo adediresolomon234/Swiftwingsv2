@@ -1,24 +1,28 @@
 "use client";
-import React, { useState } from "react";
 import TopSectionPage from "../components/user-dashboard/Topsection";
 import BookingPageInformation from "../components/bookingPage/BookingPage";
 import ProfileCard from "../components/user-dashboard/ProfileCard";
 import Bookings from "../components/user-dashboard/Bookings";
 import UserDashBoardNav from "../components/user-dashboard/userDashBoardNav";
+import { useSearchParams } from "next/navigation";
+import { useState } from "react";
 
 const UserBookingPage = () => {
-  const [pageState, setPageState] = useState("book-a-jet");
+  // const [pageState, setPageState] = useState("book-a-jet");
+  const searchParams = useSearchParams();
   return (
-    <div className="flex flex-col md:flex-row w-full h-screen overflow-hidden bg-swPrimary50 pt-3 px-4 pb-6 ">
+    <div className="flex flex-col md:flex-row w-full h-screen overflow-hidden bg-swPrimary50 p-5 ">
       <div className="w-1/4 hidden xl:block">
-        <UserDashBoardNav pageState={pageState} setPageState={setPageState} />
+        <UserDashBoardNav />
       </div>
-      <section className="flex flex-col p-0 md:p-4 gap-5 w-full overflow-auto">
-        <TopSectionPage pageState={pageState} setPageState={setPageState} />
+      <section className="flex flex-col ml-0 xl:ml-5 gap-5 w-full overflow-auto">
+        <TopSectionPage />
         <div className="rounded-xl">
-          {pageState === "book-a-jet" && <BookingPageInformation />}
-          {pageState === "bookings" && <Bookings />}
-          {pageState === "profile" && <ProfileCard />}
+          {searchParams.get("page") === "book-a-jet" && (
+            <BookingPageInformation />
+          )}
+          {searchParams.get("page") === "bookings" && <Bookings />}
+          {searchParams.get("page") === "profile" && <ProfileCard />}
         </div>
       </section>
     </div>

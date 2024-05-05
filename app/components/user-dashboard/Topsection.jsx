@@ -9,7 +9,7 @@ import {
 } from "../svgs";
 import UserDashBoardNav from "./userDashBoardNav";
 
-const TopSectionPage = ({ pageState, setPageState }) => {
+const TopSectionPage = () => {
   const [navToggle, setNavToggle] = useState(false);
   return (
     <div className="rounded-xl bg-white flex items-center justify-between p-4 text-xl text-gray-500 font-body-lg-semi-bold lg:flex-wrap">
@@ -26,12 +26,12 @@ const TopSectionPage = ({ pageState, setPageState }) => {
           } `}
         >
           <UserDashBoardNav
-            pageState={pageState}
-            setPageState={setPageState}
+            // pageState={pageState}
+            // setPageState={setPageState}
             setNavToggle={setNavToggle}
           />
         </div>
-        <div className="md:text-lg text-sm text-swGray500 font-semibold">
+        <div className="md:text-xl text-sm text-swGray500 font-semibold">
           Good Afternoon, Jane
         </div>
       </div>

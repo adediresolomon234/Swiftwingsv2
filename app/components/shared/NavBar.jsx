@@ -29,7 +29,6 @@ const NavBar = ({ Nav }) => {
     router.push("/");
   };
 
-
   useEffect(() => {
     if (typeof self !== "undefined") {
       const userItem = localStorage.getItem("user");
@@ -68,42 +67,42 @@ const NavBar = ({ Nav }) => {
             <div className="text-sm lg:text-lg">
               {user?.isLoggedIn ? (
                 <div className="relative">
-                <div
-                  className="text-jsPrimary100 cursor-pointer"
-                  onClick={() => setOpenUserDropDown(!openUserDropDown)}
-                >
-                  <IoPersonCircleOutline size={50} />
-                </div>
-    
-                {openUserDropDown && (
                   <div
-                    className={`absolute w-[12rem] -right-5 top-full mt-7 p-3 bg-white rounded-md ${
-                      openUserDropDown ? "min-h-10" : "h-0"
-                    }`}
+                    className="text-jsPrimary100 cursor-pointer"
+                    onClick={() => setOpenUserDropDown(!openUserDropDown)}
                   >
-                    <div className="w-full flex flex-col">
-                      <Link
-                        href={"/user-dashboard"}
-                        className="w-full hover:bg-yellow-50 rounded-md p-3"
-                      >
-                        Bookings
-                      </Link>
-                      <Link
-                        href={"#"}
-                        className="w-full hover:bg-yellow-50 rounded-md p-3"
-                      >
-                        Settings
-                      </Link>
-                      <div
-                        className="w-full hover:bg-yellow-50 rounded-md p-3 cursor-pointer"
-                        onClick={handleSignOut}
-                      >
-                        Sign-out
+                    <IoPersonCircleOutline size={50} />
+                  </div>
+
+                  {openUserDropDown && (
+                    <div
+                      className={`absolute w-[12rem] -right-5 top-full mt-7 p-3 bg-white rounded-md border ${
+                        openUserDropDown ? "min-h-10" : "h-0"
+                      }`}
+                    >
+                      <div className="w-full flex flex-col">
+                        <Link
+                          href={"/user-dashboard?page=bookings"}
+                          className="w-full hover:bg-yellow-50 rounded-md p-3"
+                        >
+                          Bookings
+                        </Link>
+                        <Link
+                          href={"#"}
+                          className="w-full hover:bg-yellow-50 rounded-md p-3"
+                        >
+                          Settings
+                        </Link>
+                        <div
+                          className="w-full hover:bg-yellow-50 rounded-md p-3 cursor-pointer"
+                          onClick={handleSignOut}
+                        >
+                          Sign-out
+                        </div>
                       </div>
                     </div>
-                  </div>
-                )}
-              </div>
+                  )}
+                </div>
               ) : (
                 <div className="flex gap-5 items-center">
                   <Link

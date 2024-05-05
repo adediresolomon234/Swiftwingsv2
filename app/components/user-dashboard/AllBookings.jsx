@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { SWFilterIcon, SwSearchIcon, SwSortIcon } from "../svgs";
 import dayjs from "dayjs";
+import Link from "next/link";
 
 const AllBookings = () => {
   const [search, setSearch] = useState("");
@@ -81,7 +82,9 @@ const AllBookings = () => {
   return (
     <main className="bg-white p-5 rounded-xl">
       <div className="flex items-center justify-between">
-        <p className="text-xl hidden md:block text-swGray600">All your booking in one place</p>
+        <p className="text-xl hidden md:block text-swGray600">
+          All your booking in one place
+        </p>
         <div className="flex items-center gap-5">
           <div className="flex gap-2 border rounded-md p-2">
             <SwSearchIcon className="text-2xl text-swGray600 " />
@@ -101,7 +104,8 @@ const AllBookings = () => {
       </div>
       <div className="mt-5">
         {data.map((item) => (
-          <div
+          <Link
+            href={`/user-dashboard?page=bookings&id=${item?.bookingId}`}
             key={item.bookingId}
             className="md:flex block justify-between p-5 items-center text-swGray800 hover:bg-swGray50 rounded-lg"
           >
@@ -132,11 +136,15 @@ const AllBookings = () => {
             <div className="flex gap-5 items-center mt-4 md:mt-0">
               <div className="w-40">
                 <p className="text-sm text-swGray600">Booking ID</p>
-                <p className="md:text-lg text-xs font-medium">{item.bookingId}</p>
+                <p className="md:text-lg text-xs font-medium">
+                  {item.bookingId}
+                </p>
               </div>
               <div className="w-40 hidden md:block">
                 <p className="text-sm text-swGray600">Flight type</p>
-                <p className="md:text-lg text-xs font-medium">{item.tripType}</p>
+                <p className="md:text-lg text-xs font-medium">
+                  {item.tripType}
+                </p>
               </div>
               <div className="flex items-center w-32">
                 <div
@@ -154,7 +162,7 @@ const AllBookings = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </main>

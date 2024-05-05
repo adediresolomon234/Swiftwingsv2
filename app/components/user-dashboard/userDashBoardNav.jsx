@@ -1,11 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
-import { SWLeftArrowIcon, SWNeedhelpIcon, SwLeftRightArrowIcon } from "../svgs";
+import { SWLeftArrowIcon, SWNeedhelpIcon } from "../svgs";
 import logo from "../../../public/images/fullLogo.png";
 import Button from "../Button";
 import { navItems } from "../NavItems";
+import { useSearchParams } from "next/navigation";
 
-const UserDashBoardNav = ({ pageState, setPageState, setNavToggle }) => {
+const UserDashBoardNav = ({ setNavToggle }) => {
+  const searchParams = useSearchParams();
   return (
     <div className="max-h-screen h-full rounded-xl bg-white flex flex-col justify-between items-between pt-12 px-5 pb-2 gap-8">
       <div className="p-5 w-full">
@@ -16,33 +18,35 @@ const UserDashBoardNav = ({ pageState, setPageState, setNavToggle }) => {
 
           <div
             className="rounded-full p-2 hover:bg-swGray50 cursor-pointer xl:hidden block"
-            onClick={() => setNavToggle(false)}
+            onClick={() => {
+              setNavToggle && setNavToggle(false);
+            }}
           >
             <SWLeftArrowIcon className="text-xl" />
           </div>
         </div>
         <nav className="flex flex-col space-y-4">
           {navItems.map((item) => (
-            <div
+            <Link
+              href={`/user-dashboard?page=${item.state}`}
               className={`${
-                pageState === item.state
+                searchParams.get("page") === item.state
                   ? "text-swPrimary500 font-semibold"
                   : "text-swGray700"
               } flex items-center justify-between cursor-pointer`}
               key={item.id}
               onClick={() => {
-                setPageState(item.state);
-                setNavToggle(false);
+                setNavToggle && setNavToggle(false);
               }}
             >
               <div className="flex items-center gap-3">
                 {item.icon}
                 <span>{item.name}</span>
               </div>
-              {pageState === item.state && (
+              {searchParams.get("page") === item.state && (
                 <div className="h-5 p-[0.2rem] rounded-full bg-swPrimary500" />
               )}
-            </div>
+            </Link>
           ))}
         </nav>
       </div>
