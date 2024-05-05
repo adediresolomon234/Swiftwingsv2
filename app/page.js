@@ -84,19 +84,33 @@ export default function Home() {
 
   return (
     <main className="relative bg-swLightBgGray">
-     <NavAndFooter Nav={true}>
+      <NavAndFooter Nav={true}>
         <section className="w-full p-5 md:10 pt-48 text-white relative pb-10">
-          <div className="absolute h-full w-full top-0 left-0">
+          {/* <div className="absolute h-full w-full top-0 left-0">
             {isMobile ? (
               <Image src={MbheroBgImg} alt="aiplane" className="h-full w-full object-cover" />
             ) : (
               <Image src={heroBgImg} alt="aiplane" className="h-full w-full object-cover" />
             )}
+          </div> */}
+          <div className="absolute h-full w-full top-0 left-0">
+            {isMobile ? (
+              <div className="relative h-full w-full">
+                <Image src={MbheroBgImg} alt="aiplane" className="h-full w-full object-cover" />
+                <div className="absolute top-0 left-0 w-full h-full bg-black opacity-50"></div>
+              </div>
+            ) : (
+              <div className="relative h-full w-full">
+                <Image src={heroBgImg} alt="aiplane" className="h-full w-full object-cover" />
+                <div className="absolute top-0 left-0 w-full h-full bg-black opacity-50"></div>
+              </div>
+            )}
           </div>
+
           <div className="h-full w-full bg-swBlack absolute top-0 left-0 bg-opacity-10" />
           <div className="max-w-7xl mx-auto mb-10 relative text-center">
             <div className="pt-28 z-50">
-              <p className="text-4xl md:text-6xl lg:text-8xl font-bold leading-snug z-50">
+              <p className="text-3xl md:text-4xl lg:text-5xl font-bold leading-snug z-50">
                 Experience Unmatched Luxury Travel
               </p>
               <p className="text-lg mt-10 z-10">
@@ -108,7 +122,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="flex gap-10 justify-center text-center mt-10">
+            {/* <div className="flex gap-10 justify-center text-center mt-10">
               <div>
                 <p className="font-semibold text-2xl">10k</p>
                 <p className="text-xs">Flights</p>
@@ -121,7 +135,7 @@ export default function Home() {
                 <p className="font-semibold text-2xl">100</p>
                 <p className="text-xs">Countries</p>
               </div>
-            </div>
+            </div> */}
           </div>
 
           <section className="max-w-7xl mx-auto w-full relative">
@@ -267,9 +281,8 @@ export default function Home() {
                   <div className="">
                     <div
                       aria-hidden="true"
-                      className={`absolute scale-75 md:scale-110 inset-0 m-auto rotate-45 bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl ${
-                        hoveredIndex >= 0 ? "opacity-100" : "opacity-0"
-                      }`}
+                      className={`absolute scale-75 md:scale-110 inset-0 m-auto rotate-45 bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl ${hoveredIndex >= 0 ? "opacity-100" : "opacity-0"
+                        }`}
                     ></div>
                     {hoveredIndex >= 0 && fleet[hoveredIndex]?.image && (
                       <div
