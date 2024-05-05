@@ -1,11 +1,10 @@
-
 // next.config.js
 
 /**
  * @type {import('next').NextConfig}
  */
 
- const nextConfig = {
+const nextConfig = {
   reactStrictMode: false,
   experimental: {
     appDir: true,
@@ -19,16 +18,19 @@
     return config;
   },
   images: {
-    domains: ['swiperjs.com'],
+    domains: ["swiperjs.com"],
   },
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'res.cloudinary.com',
-        pathname: '**',
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+        pathname: "**",
       },
     ],
+  },
+  experimental: {
+    missingSuspenseWithCSRBailout: false,
   },
 };
 

@@ -377,7 +377,7 @@ const BookingPageInformation = () => {
             secondBtnText={"View Profile"}
             secondBtnClick={() => {
               setSuccess(false);
-              router.push("/user-dashboard");
+              router.push("/user-dashboard?page=profile");
             }}
           />
         </main>
