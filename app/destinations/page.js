@@ -44,7 +44,7 @@ const Destinations = () => {
                   <div className=" inset-0 flex flex-col items-start justify-start sm:flex-row sm:items-center py-8 px-0 ">
                     <div className="mr-8 flex flex-col items-start">
                       <div className="text-xl md:text-5xl font-semibold text-black mb-3">What’s your</div>
-                      <div className="text-7xl md:text-8xl font-bold text-white mb-8 max-w-1rem break-all md:break-words uppercase">
+                      <div className="text-3xl md:text-6xl font-bold text-white mb-8 max-w-1rem break-all md:break-words uppercase">
                         Destination?
                       </div>
                     </div>
