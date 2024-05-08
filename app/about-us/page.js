@@ -5,7 +5,7 @@ import Image from "next/image";
 import NavAndFooter from "../components/shared/NavAndFooter";
 import Destinationsection from "../../public/images/Destinationsection.png"
 import Serviceexecllence from "../../public/images/Serviceexecllence.png"
-import Safetyfirst from "../../public/images/SafetyFirst.png"
+import Safetyfirst from "../../public/images/Safetyfirst.png"
 import team from "../../public/images/team.png"
 
 
