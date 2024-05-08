@@ -30,8 +30,8 @@ const AboutUs = () => {
                     <div className="m-auto px-6 text-gray-600 md:px-12 xl:px-16">
                         <div className="max-w-3xl mx-auto text-justify lg:text-center">
                             <h1 className="px-2 sm: text-md lg:text-lg ">
-                                Welcome to SwiftWings, where the sky is not the limit – it's just the beginning.
-                                Since our establishment in June 2017, we've been dedicated to revolutionizing the aviation industry in Nigeria and beyond.
+                                Welcome to SwiftWings, where the sky is not the limit – it is just the beginning.
+                                Since our establishment in June 2017, we have been dedicated to revolutionizing the aviation industry in Nigeria and beyond.
                             </h1>
                         </div>
                     </div>
@@ -167,7 +167,7 @@ const AboutUs = () => {
                                             World-class experience
                                         </h3>
                                         <p className="mt-6 mb-8 text-gray-600 dark:text-gray-300">
-                                            At Swift Wings, we ensure every journey is a remarkable experience by maintaining a tailored fleet of private jets that epitomize luxury, comfort, and convenience. From the moment you step on board, you'll experience an unparalleled level of service that stands unrivaled in the industry. Our aviation experts are dedicated to customizing every aspect of your journey to align with your preferences and needs, ensuring a truly unforgettable experience.
+                                            At Swift Wings, we ensure every journey is a remarkable experience by maintaining a tailored fleet of private jets that epitomize luxury, comfort, and convenience. From the moment you step on board, you will experience an unparalleled level of service that stands unrivaled in the industry. Our aviation experts are dedicated to customizing every aspect of your journey to align with your preferences and needs, ensuring a truly unforgettable experience.
                                         </p>
                                     </div>
                                 </div>
@@ -177,7 +177,7 @@ const AboutUs = () => {
                                             Private jets supremacy
                                         </h3>
                                         <p className="mt-6 mb-8 text-gray-600 dark:text-gray-300">
-                                            At Swift Wings, we prioritize accessibility in private jet travel with our diverse fleet, accommodating various budgets and travel needs. Whether it's a short trip on a light jet or a long-haul journey on a spacious cabin jet, our advanced aircraft, such as the Hawker 850xp and Bombardier Challenger 604, ensure unparalleled comfort, luxury, and reliability for every passenger.
+                                            At Swift Wings, we prioritize accessibility in private jet travel with our diverse fleet, accommodating various budgets and travel needs. Whether it is a short trip on a light jet or a long-haul journey on a spacious cabin jet, our advanced aircraft, such as the Hawker 850xp and Bombardier Challenger 604, ensure unparalleled comfort, luxury, and reliability for every passenger.
                                         </p>
                                     </div>
                                 </div>

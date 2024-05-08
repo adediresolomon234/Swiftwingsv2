@@ -161,7 +161,7 @@ const AboutUs = () => {
                                             World-class experience
                                         </h3>
                                         <p className="mt-6 mb-8 text-gray-600 dark:text-gray-300">
-                                            At Swift Wings, we ensure every journey is a remarkable experience by maintaining a tailored fleet of private jets that epitomize luxury, comfort, and convenience. From the moment you step on board, you'll experience an unparalleled level of service that stands unrivaled in the industry. Our aviation experts are dedicated to customizing every aspect of your journey to align with your preferences and needs, ensuring a truly unforgettable experience.
+                                            At Swift Wings, we ensure every journey is a remarkable experience by maintaining a tailored fleet of private jets that epitomize luxury, comfort, and convenience. From the moment you step on board, you will experience an unparalleled level of service that stands unrivaled in the industry. Our aviation experts are dedicated to customizing every aspect of your journey to align with your preferences and needs, ensuring a truly unforgettable experience.
                                         </p>
                                     </div>
                                 </div>
@@ -171,7 +171,7 @@ const AboutUs = () => {
                                             Private jets supremacy
                                         </h3>
                                         <p className="mt-6 mb-8 text-gray-600 dark:text-gray-300">
-                                            At Swift Wings, we prioritize accessibility in private jet travel with our diverse fleet, accommodating various budgets and travel needs. Whether it's a short trip on a light jet or a long-haul journey on a spacious cabin jet, our advanced aircraft, such as the Hawker 850xp and Bombardier Challenger 604, ensure unparalleled comfort, luxury, and reliability for every passenger.
+                                            At Swift Wings, we prioritize accessibility in private jet travel with our diverse fleet, accommodating various budgets and travel needs. Whether it is a short trip on a light jet or a long-haul journey on a spacious cabin jet, our advanced aircraft, such as the Hawker 850xp and Bombardier Challenger 604, ensure unparalleled comfort, luxury, and reliability for every passenger.
                                         </p>
                                     </div>
                                 </div>
@@ -250,7 +250,6 @@ const AboutUs = () => {
                                         className="mx-auto h-[26rem] w-full object-cover object-top transition duration-500 group-hover:scale-105 group-hover:grayscale-0"
                                         src={team}
                                         alt="woman"
-                                        loading="lazy"
                                         width="640"
                                         height="805"
                                     />
