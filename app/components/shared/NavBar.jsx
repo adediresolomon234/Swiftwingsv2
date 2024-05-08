@@ -54,7 +54,7 @@ const NavBar = ({ Nav }) => {
 
   return (
     <nav className="w-full fixed z-50 top-0 left-0">
-      <div className="w-full bg-white/50 text-swGray800 border-b-2 backdrop-blur">
+      <div className="w-full bg-white/40 text-swGray800 border-b-2 backdrop-blur">
         <div className="flex flex-wrap items-center justify-between max-w-screen-full mx-auto py-6 px-5 sm:px-10">
           <Link href={"/"} className="flex items-center">
             <Image src={logo} alt="Logo" className="w-40 h-12" />

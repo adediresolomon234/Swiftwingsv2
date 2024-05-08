@@ -32,3 +32,11 @@ fieldset.MuiOutlinedInput-notchedOutline {
 .css-12zenr0-MuiInputBase-root-MuiOutlinedInput-root {
   color: transparent !important;
 }
+
+.text-shadow {
+  text-shadow: 2px 2px 8px #000;
+}
+
+.no-text-shadow {
+  text-shadow: none !important;
+}
