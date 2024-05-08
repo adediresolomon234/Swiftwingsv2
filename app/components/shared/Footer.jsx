@@ -1,6 +1,6 @@
 import Button from "../Button";
 import React from 'react';
-import logo from "../../../public/images/Logo (1).png";
+import logo from "../../../public/images/fullLogo.png";
 import Image from "next/image";
 import { FaXTwitter } from "react-icons/fa6";
 import { FaInstagram, FaPhoneAlt } from "react-icons/fa";
@@ -13,9 +13,9 @@ const currentYear = new Date().getFullYear();
 const Footer = () => {
     return (
 
-        <footer className="w-full rounded-3xl bg-swPrimary700 relative flex flex-col items-center overflow-hidden py-12 md:py-12">        
+        <footer className="w-full rounded-3xl bg-swPrimary500 relative flex flex-col items-center overflow-hidden py-12 md:py-12">
             <div className="mb-16 sm:mx-auto w-full sm:w-5/4 md:w-1/2">
-            <h2 className="mb-4 text-center text-xl text-white md:text-3xl md:text-center">
+                <h2 className="mb-4 text-center text-xl text-white md:text-3xl md:text-center">
                     Let’s work together
                 </h2>
                 <p className="text-white p-8 mt-8 text-sm text-center sm:text-base md:text-base">
@@ -34,7 +34,7 @@ const Footer = () => {
                         Sign Up to our Newsletter
                     </div>
                     <div className="self-stretch flex flex-col md:flex-row items-start justify-start gap-4 md:gap-6 text-sm lg:text-base text-swGray300">
-                        <div className="relative w-full md:w-3/4">
+                        <div className="relative w-full md:w-full">
                             <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
                                 <CiMail className="w-6 h-10 font-bold" />
                             </div>
@@ -58,8 +58,7 @@ const Footer = () => {
                         <div className="md:flex md:justify-between">
                             <div className="mb-6 md:mb-0">
                                 <a href="https://swiftwings.com/" className="flex items-center">
-                                    <Image src={logo} alt="swiftwings Logo" />
-                                    <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">Swiftwings</span>
+                                        <Image src={logo} className="text-white" alt="swiftwings Logo" style={{ filter: 'brightness(0) invert(1)' }} />
                                 </a>
                             </div>
                             <div className="grid grid-cols-1 gap-3 sm:gap-2 sm:grid-cols-4">

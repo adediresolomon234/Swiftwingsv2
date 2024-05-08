@@ -12,12 +12,11 @@ const CountryCard = ({ country }) => {
           height="805"
         />
       </div>
-      {/* Content */}
       <div className="lg:flex-1 flex flex-col items-start justify-start relative p-4">
         <div className="text-lg font-medium ">
           {country.name}
         </div>
-        <div className="text-sm text-gray-700 mb-4 md:mb-56">
+        <div className="text-sm text-gray-700 mb-4 mb-56">
           {country.location}
         </div>
         <div className="swGray500 flex-grow text-[16px] mb-8">
