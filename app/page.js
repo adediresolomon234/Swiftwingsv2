@@ -161,7 +161,7 @@ export default function Home() {
             <BookingEngine />
           </section>
         </section>
-        <section className="mt-30 py-16 px-5 text-swGray900">
+        <section className="mt-30 py-16 px-5 text-swGray900 ">
           <div className="max-w-4xl w-full mx-auto text-center">
             <Services
               name={"Luxury travels"}
@@ -200,8 +200,8 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="flex flex-col items-center gap-5 mt-14 p-5 md: p-0 ">
-            <div className="grid grid-col-3 grid-flow-col gap-4 mb: gap-12 justify-center ">
+          <div className="flex flex-col items-center gap-5 mt-14 p-4 md: p-0 ">
+            <div className="grid grid-col-3 grid-flow-col gap-8 mb: gap-14 justify-center ">
               <AboutUsCard
                 number={"75"}
                 text={"Swiftwings users from all over the globe."}
@@ -218,7 +218,7 @@ export default function Home() {
               />
             </div>
 
-            <div className="bg-swSecondary400 text-swWine p-8 max-w-[44rem] rounded-2xl">
+            <div className="bg-swSecondary400 text-swWine p-8 max-w-[46rem] rounded-2xl">
               <p className="font-light">
                 Swift Wings understands that our clients’ travel needs often
                 stretch far beyond the borders of Nigeria.
@@ -349,10 +349,10 @@ export default function Home() {
                 We offer world a class exotic experience
               </p>
             </div>
-            <div className="grid gap-3  sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-3 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
               {services.map((service, index) => (
-                <div className="max-w-2xl mx-auto p-2" key={index}>
-                  <div className=" overflow-hidden w-full">
+                <div className="w-full mx-auto" key={index}>
+                  <div className="overflow-hidden w-full h-full rounded-2xl">
                     <img
                       className="object-cover w-full rounded-t-2xl"
                       src={service.imageSrc}
@@ -361,9 +361,9 @@ export default function Home() {
                       width="640"
                       height="805"
                     />
-                    <div className="p-3  bg-gradient-to-r from-neutral-400 to-stone-500/90 rounded-b-2xl text-left  ">
+                    <div className="p-3 bg-gradient-to-r from-neutral-400 to-stone-500/90 text-left h-full">
                       <div className="justify-start items-start">
-                        <h4 className="mb-2 text-2xl font-bold tracking-tight text-white ">
+                        <h4 className="mb-2 text-2xl font-bold tracking-tight text-white">
                           {service.title}
                         </h4>
                       </div>
@@ -375,6 +375,7 @@ export default function Home() {
                 </div>
               ))}
             </div>
+
           </div>
           <div className="flex justify-center text-lg mt-12">
             <Button
@@ -415,11 +416,6 @@ export default function Home() {
                     {area.description}
                   </div>
                 ))}
-                <Image
-                  className="h-[298.8px] w-[250px] absolute my-3 mx-[!important] top-[-163px] left-[-134px] object-contain mix-blend-darken z-[1]"
-                  src={Crown}
-                  alt="Crown"
-                />
               </div>
             </div>
             <div className="flex justify-center text-lg mt-24">

@@ -5,9 +5,9 @@ const FooterHero = () => {
     return (
             <div className="xl:container m-auto py-20 px-8 md:px-16 lg:px-16 overflow-hidden bg-floralwhite">
                 <div className="w-full relative flex flex-row items-start justify-between pb-[276px] pr-[236px] pl-[201px] box-border tracking-[normal] gap-[20px] text-left text-xl text-gray-900 font-header-sm-semi-bold lg:flex-wrap lg:pl-5 lg:pr-5 lg:box-border lg:pl-[195px] lg:pr-[120px] md:box-border">
-                <section className="w-full absolute !m-[0] bottom-[-140px] left-[calc(50%_-_676px)] rounded-t-45xl rounded-b-none bg-floralwhite" />
+                <section className="w-full absolute  bottom-[-140px] left-[calc(50%_-_676px)] rounded-t-45xl rounded-b-none bg-floralwhite" />
                 <img
-                  className="h-[826px] w-[706px] absolute !m-[0] right-[-200px] bottom-[-312px] object-cover z-[1]"
+                  className="h-[826px] w-[706px] absolute  right-[-200px] bottom-[-312px] object-cover z-[1]"
                   loading="lazy"
                   alt=""
                   src="/images/Circles.png"
@@ -24,7 +24,7 @@ const FooterHero = () => {
                   />
                 </div>
                 <img
-                  className="h-[600px] w-[650px] absolute !m-[0] bottom-[-130.4px] left-[-9.5px] object-contain z-[2]"
+                  className="h-[500px] w-[650px] absolute  bottom-[-80.4px ] left-0 lg:left-[-9.5px] object-contain z-[1]"
                   alt=""
                   src="/images/airplane-footer.png"
                 />
