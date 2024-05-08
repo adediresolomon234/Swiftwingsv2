@@ -13,7 +13,6 @@ import AboutUsCard from "./components/AboutUsCard";
 import "../styles.css";
 import { services } from "./components/servicedata";
 import { textAreas } from "./components/servicesgrid";
-import Crown from "../public/images/Crown.png";
 import { CiStar } from "react-icons/ci";
 import NavAndFooter from "./components/shared/NavAndFooter";
 import { testimonial } from "./CustomerTestimonial";
@@ -26,7 +25,6 @@ import { useRouter } from "next/navigation";
 import { fetchAircrafts } from "@/redux/slices/aircraftdetails";
 import { mdiCarSeat, mdiSpeedometer, mdiArrowLeftRight } from "@mdi/js";
 import BookingEngine from "./components/bookingEngine/bookingEngine";
-// import {}
 
 const space_grotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -375,7 +373,6 @@ export default function Home() {
                 </div>
               ))}
             </div>
-
           </div>
           <div className="flex justify-center text-lg mt-12">
             <Button
