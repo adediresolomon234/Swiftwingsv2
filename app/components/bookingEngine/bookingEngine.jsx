@@ -302,12 +302,12 @@ const BookingEngine = ({ setBookingDetails }) => {
 
   return (
     <main>
-      <div className="w-full rounded-3xl md:border">
+      <div className="w-full rounded-3xl  ">
         <div
           className={`p-0 rounded-3xl  ${
             pathname === "/"
-              ? "backdrop-blur border border-swGray900 bg-swLightenessWhiter"
-              : "bg-white"
+              ? "backdrop-blur bg-black/25 border border-swGray900"
+              : "bg-white border"
           } p-5 `}
         >
           <div
@@ -336,7 +336,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                       ? `${
                           pathname === "/"
                             ? "text-white backdrop-blur bg-none md:bg-swBlack/50"
-                            : "text-white bg-white"
+                            : "text-swPrimary500 bg-white"
                         } font-semibold text-sm`
                       : `text-swGray300 hover:backdrop-blur hover:bg-white/5 text-sm`
                   } py-2 px-4 rounded-full`}
@@ -424,7 +424,7 @@ const BookingEngine = ({ setBookingDetails }) => {
           {bookingState.map((item, index) => (
             <div
               key={index}
-              className="flex flex-col justify-between mb-5 w-full h-full"
+              className="flex flex-col justify-between w-full h-full"
             >
               <div className="mb-2 flex gap-5 justify-end w-full">
                 {bookingType === "Multi-city Trip" && index > 0 ? (
@@ -441,7 +441,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                   <div
                     className={`flex h-[5.5rem] z-10 pl-5 relative w-full items-center gap-5 border backdrop-blur rounded-tl-2xl rounded-tr-2xl md:rounded-tr-none md:rounded-l-none md:rounded-tl-2xl md:rounded-bl-2xl cursor-pointer  ${
                       pathname === "/"
-                        ? "border-swGray900 bg-swBlack/40 hover:bg-swBlack/50"
+                        ? "border-swGray900 bg-swBlack/40 hover:bg-swBlack/40"
                         : ""
                     }`}
                     onClick={() => setOpenDeparture(index)}
@@ -474,7 +474,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                   <div
                     className={`p-5 flex h-[5.5rem] relative w-full items-center gap-5 border backdrop-blur rounded-bl-2xl rounded-br-2xl md:mt-0 md:rounded-tr-2xl md:rounded-l-none md:rounded-tr-2xl md:rounded-br-2xl cursor-pointer ${
                       pathname === "/"
-                        ? "border-swGray900 bg-swBlack/40 hover:bg-swBlack/50"
+                        ? "border-swGray900 bg-swBlack/40 hover:bg-swBlack/40"
                         : ""
                     }`}
                     onClick={() => setOpenArrival(index)}
@@ -500,7 +500,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                   {openDeparture === index && (
                     <div
                       ref={departureRef}
-                      className="absolute text-swGray800 top-full mt-1 w-full z-10"
+                      className="absolute text-swGray800 top-[5.5rem] md:top-full mt-1 w-full z-10"
                     >
                       <Select
                         styles={colourStyles}
@@ -592,7 +592,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                     onClick={() => setDateOpen(index)}
                     className={`relative p-8 flex h-[5.5rem] w-full items-center gap-5 ${
                       pathname === "/"
-                        ? " border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50"
+                        ? " border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/40"
                         : ""
                     } border rounded-2xl cursor-pointer`}
                     // ref={dateRef}
@@ -737,7 +737,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                     <div
                       className={`p-5 flex items-center h-[5.5rem] w-full gap-5 border ${
                         pathname === "/"
-                          ? "border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/50"
+                          ? "border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/40"
                           : ""
                       }  rounded-2xl cursor-pointer`}
                       onClick={() => setOpenPassageners(index)}

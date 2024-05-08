@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { Space_Grotesk } from "next/font/google";
+import { Space_Grotesk, Libre_Baskerville } from "next/font/google";
 import Image from "next/image";
 import { GoArrowRight } from "react-icons/go";
 import Button from "./components/Button";
@@ -13,7 +13,6 @@ import AboutUsCard from "./components/AboutUsCard";
 import "../styles.css";
 import { services } from "./components/servicedata";
 import { textAreas } from "./components/servicesgrid";
-import Crown from "../public/images/Crown.png";
 import { CiStar } from "react-icons/ci";
 import NavAndFooter from "./components/shared/NavAndFooter";
 import { testimonial } from "./CustomerTestimonial";
@@ -26,10 +25,13 @@ import { useRouter } from "next/navigation";
 import { fetchAircrafts } from "@/redux/slices/aircraftdetails";
 import { mdiCarSeat, mdiSpeedometer, mdiArrowLeftRight } from "@mdi/js";
 import BookingEngine from "./components/bookingEngine/bookingEngine";
-import SuccessModal from "./components/shared/modals/SuccessModal";
 
 const space_grotesk = Space_Grotesk({
   subsets: ["latin"],
+});
+const libre_baskerville = Libre_Baskerville({
+  subsets: ["latin"],
+  weight: ["400", "700"],
 });
 
 function isNearViewport(id) {
@@ -55,9 +57,9 @@ export default function Home() {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
     };
-    window.addEventListener('resize', handleResize);
-    handleResize()
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   useEffect(() => {
@@ -96,46 +98,61 @@ export default function Home() {
           <div className="absolute h-full w-full top-0 left-0">
             {isMobile ? (
               <div className="relative h-full w-full">
-                <Image src={MbheroBgImg} alt="aiplane" className="h-full w-full object-cover" />
-                <div className="absolute top-0 left-0 w-full h-full bg-black opacity-50"></div>
+                <Image
+                  src={MbheroBgImg}
+                  alt="aiplane"
+                  className="h-full w-full object-cover"
+                />
+                <div className="absolute top-0 left-0 w-full h-full"></div>
               </div>
             ) : (
               <div className="relative h-full w-full">
-                <Image src={heroBgImg} alt="aiplane" className="h-full w-full object-cover" />
-                <div className="absolute top-0 left-0 w-full h-full bg-black opacity-50"></div>
+                <Image
+                  src={heroBgImg}
+                  alt="aiplane"
+                  className="h-full w-full object-cover"
+                />
+                <div className="absolute top-0 left-0 w-full h-full"></div>
               </div>
             )}
           </div>
 
-          <div className="h-full w-full bg-swBlack absolute top-0 left-0 bg-opacity-10" />
+          {/* <div className="h-full w-full bg-swBlack absolute top-0 left-0 bg-opacity-[0.2]" /> */}
           <div className="max-w-7xl mx-auto mb-10 relative text-center">
             <div className="pt-28 z-50">
-              <p className="text-3xl md:text-4xl lg:text-5xl font-bold leading-snug z-50">
+              <p className="text-3xl md:text-4xl lg:text-7xl max-w-4xl mx-auto w-full font-bold leading-snug z-50 text-shadow">
                 Experience Unmatched Luxury Travel
               </p>
-              <p className="text-lg mt-10 z-10">
-                Experience the epitome of safety, luxury and convenience with{" "}
-                <br />
-                <span className="font-bold">
-                  Swiftwings private jet charter service
-                </span>
-              </p>
+              <div>
+                <p className="text-lg mt-10 z-10 text-shadow-lg text-shadow">
+                  Experience the epitome of safety, luxury and convenience with{" "}
+                  <br />
+                  <span className="">
+                    <span
+                      className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
+                    >
+                      Swift<i className="font-normal">Wings</i>
+                    </span>{" "}
+                    private jet charter service
+                  </span>
+                </p>
+              </div>
             </div>
 
-            {/* <div className="flex gap-10 justify-center text-center mt-10">
+            <div className="flex gap-10 justify-center text-center mt-10 text-shadow">
               <div>
                 <p className="font-semibold text-2xl">10k</p>
                 <p className="text-xs">Flights</p>
               </div>
               <div>
-                <p className="font-semibold text-2xl">15k</p>
+                <p className="font-semibold text-2xl">6k</p>
                 <p className="text-xs">Clients</p>
               </div>
               <div>
-                <p className="font-semibold text-2xl">100</p>
+                <p className="font-semibold text-2xl">97</p>
                 <p className="text-xs">Countries</p>
               </div>
-            </div> */}
+            </div>
           </div>
 
           <section className="max-w-7xl mx-auto w-full relative">
@@ -281,8 +298,9 @@ export default function Home() {
                   <div className="">
                     <div
                       aria-hidden="true"
-                      className={`absolute scale-75 md:scale-110 inset-0 m-auto rotate-45 bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl ${hoveredIndex >= 0 ? "opacity-100" : "opacity-0"
-                        }`}
+                      className={`absolute scale-75 md:scale-110 inset-0 m-auto rotate-45 bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl ${
+                        hoveredIndex >= 0 ? "opacity-100" : "opacity-0"
+                      }`}
                     ></div>
                     {hoveredIndex >= 0 && fleet[hoveredIndex]?.image && (
                       <div
@@ -355,7 +373,6 @@ export default function Home() {
                 </div>
               ))}
             </div>
-
           </div>
           <div className="flex justify-center text-lg mt-12">
             <Button

@@ -1,34 +1,38 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from 'axios';
+import axios from "axios";
 
-export const fetchAircrafts = createAsyncThunk("aircrafts/fetchAircrafts", async () => {
-  try {
-    const response = await axios.get("https://swiftwings-mw-staging.onrender.com/api/v1/aircraft/all");
+export const fetchAircrafts = createAsyncThunk(
+  "aircrafts/fetchAircrafts",
+  async () => {
+    try {
+      const response = await axios.get(
+        "https://swiftwings-mw-staging.onrender.com/api/v1/aircraft/all"
+      );
 
-    const aircraftsData = response.data.data.map(aircraft => ({
-      id: aircraft._id,
-      name: aircraft.model, 
-      image: aircraft.image_url || '/default-image-url.png', 
-      speed: aircraft.speed, 
-      kilometer: aircraft.range, 
-      feet: aircraft.luggage_capacity, 
-      features: {
-        manufacturer: aircraft.manufacturer,
-        classification: aircraft.classification,
-        no_of_seats: aircraft.no_of_seats, 
-        interior_height: aircraft.interior_height,
-        interior_width: aircraft.interior_width,
-        overview_summary: aircraft.overview_summary,
-      }
-    }));
-    
-    return aircraftsData;
-  } catch (error) {
-    throw new Error("Failed to fetch aircrafts");
+      const aircraftsData = response.data.data.map((aircraft) => ({
+        id: aircraft._id,
+        name: aircraft.model,
+        image: aircraft.image_url || "/default-image-url.png",
+        speed: aircraft.speed,
+        kilometer: aircraft.range,
+        feet: aircraft.luggage_capacity,
+        features: {
+          manufacturer: aircraft.manufacturer,
+          classification: aircraft.classification,
+          no_of_seats: aircraft.no_of_seats,
+          interior_height: aircraft.interior_height,
+          interior_width: aircraft.interior_width,
+          overview_summary: aircraft.overview_summary,
+        },
+      }));
+
+      return aircraftsData;
+    } catch (error) {
+      console.log(error);
+      throw new Error("Failed to fetch aircrafts");
+    }
   }
-});
-
-
+);
 
 const initialState = {
   aircrafts: [],
@@ -44,7 +48,7 @@ const aircraftsSlice = createSlice({
     builder
       .addCase(fetchAircrafts.pending, (state) => {
         state.status = "loading";
-        state.error = null; 
+        state.error = null;
       })
       .addCase(fetchAircrafts.fulfilled, (state, action) => {
         state.status = "succeeded";

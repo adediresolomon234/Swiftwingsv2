@@ -23,6 +23,7 @@ import { usePathname, useRouter } from "next/navigation";
 import SuccessModal from "../shared/modals/SuccessModal";
 import Image from "next/image";
 import loadingGif from "../../../public/images/loading.gif";
+import { fetchAircrafts } from "@/redux/slices/aircraftdetails";
 
 const BookingPageInformation = () => {
   const pathname = usePathname();
@@ -32,12 +33,16 @@ const BookingPageInformation = () => {
   const [bookingDetails, setBookingDetails] = useState(null);
   const [sourceDetails, setSourceDetails] = useState(null);
   const [destinationDetails, setDestinationDetails] = useState(null);
-  const [jets, setJets] = useState([]);
   const [success, setSuccess] = useState(false);
   const [hydrated, setHydrated] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState(null);
 
   const { loading, error, data } = useSelector((state) => state.booking);
+  const {
+    status: jetLoading,
+    error: jetError,
+    aircrafts: jetData,
+  } = useSelector((state) => state.aircrafts);
 
   const handleAircraftSelect = (e, aircraftDetails, index) => {
     const isChecked = e.target.checked;
@@ -81,6 +86,8 @@ const BookingPageInformation = () => {
           bookingDetails?.additional_quote?.length < 1;
   };
 
+  console.log({ jetData });
+
   useEffect(() => {
     if (data?.response?.data?.error) {
       toast.error(data?.response?.data?.error);
@@ -93,17 +100,7 @@ const BookingPageInformation = () => {
   }, [data, error]);
 
   useEffect(() => {
-    const fetchJets = async () => {
-      try {
-        const response = await axios.get(
-          "https://swiftwings-mw.onrender.com/api/v1/aircraft/all"
-        );
-        setJets(response?.data?.data);
-      } catch (error) {
-        return error;
-      }
-    };
-    fetchJets();
+    dispatch(fetchAircrafts());
 
     const userDetails =
       localStorage.getItem("user") !== (null || undefined)
@@ -147,7 +144,7 @@ const BookingPageInformation = () => {
                 <div className="w-full">
                   <p className="text-xl font-medium mb-5">Select Private Jet</p>
                   <div className="w-full rounded-2xl border md:p-5 p-0 bg-white">
-                    {jets?.map((item, index) => (
+                    {jetData?.map((item, index) => (
                       <div key={item?.id} className="">
                         <div className="transition ease-in-out delay-100 duration-1000 flex flex-col md:flex-row gap-5 justify-between items-center hover:bg-swLighterBgGray p-5 rounded-xl cursor-pointer focus:border focus:outline-swPrimary500">
                           <div className="w-full w-1/3 flex gap-5 items-center whitespace-nowrap">
@@ -160,9 +157,11 @@ const BookingPageInformation = () => {
                             />
                             <div className="text-swLightGray">
                               <p className="text-lg font-medium">
-                                {item?.model}
+                                {item?.name}
                               </p>
-                              <p className="text-sm">{item?.classification}</p>
+                              <p className="text-sm">
+                                {item?.features?.classification}
+                              </p>
                             </div>
                           </div>
                           <div className="lg:max-w-xl w-full text-swGray800 gap-5 flex flex-col sm:flex-row sm:justify-around">
@@ -170,13 +169,13 @@ const BookingPageInformation = () => {
                               <div className="flex flex-col gap-2">
                                 <div className="flex items-center gap-2">
                                   <SwSeatIcon className="text-lg" />
-                                  <p className="text-xs">{item?.no_of_seats}</p>
+                                  <p className="text-xs">
+                                    {item?.features?.no_of_seats}
+                                  </p>
                                 </div>
                                 <div className="flex items-center gap-2">
                                   <SwLuggageIcon className="text-lg" />
-                                  <p className="text-xs">
-                                    {item?.luggage_capacity}
-                                  </p>
+                                  <p className="text-xs">{item?.feet}</p>
                                 </div>
                               </div>
 
@@ -187,7 +186,7 @@ const BookingPageInformation = () => {
                                 </div>
                                 <div className="flex items-center gap-2">
                                   <SwMeterIcon className="text-lg" />
-                                  <p className="text-xs">{item?.range}</p>
+                                  <p className="text-xs">{item?.kilometer}</p>
                                 </div>
                               </div>
 
@@ -195,13 +194,13 @@ const BookingPageInformation = () => {
                                 <div className="flex items-center gap-2">
                                   <SwLeftRightArrowIcon className="text-lg" />
                                   <p className="text-xs">
-                                    {item?.interior_width}
+                                    {item?.features?.interior_width}
                                   </p>
                                 </div>
                                 <div className="flex items-center gap-2">
                                   <SwTopBottomArrowIcon className="text-lg" />
                                   <p className="text-xs">
-                                    {item?.interior_height}
+                                    {item?.features?.interior_height}
                                   </p>
                                 </div>
                               </div>
