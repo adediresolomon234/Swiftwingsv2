@@ -44,7 +44,6 @@ const DestinationList = () => {
     </div>
     <div className="flex-grow w-full lg:w-9/12">
       <div className="md:flex-grow">
-        {/* Filter countries based on searchQuery */}
         {countries
           .filter(country => country.name.toLowerCase().includes(searchQuery.toLowerCase()))
           .map((country, index) => (
