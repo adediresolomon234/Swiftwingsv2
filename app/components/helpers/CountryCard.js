@@ -12,7 +12,6 @@ const CountryCard = ({ country }) => {
           height="805"
         />
       </div>
-      {/* Content */}
       <div className="lg:flex-1 flex flex-col items-start justify-start relative p-4">
         <div className="text-lg font-medium ">
           {country.name}
