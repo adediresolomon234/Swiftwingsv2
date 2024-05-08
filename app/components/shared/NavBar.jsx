@@ -169,14 +169,14 @@ const NavBar = ({ Nav }) => {
                   Destination
                 </Link>
                 <Link
-                  href="#"
+                  href="/about-us"
                   className="block py-2 pl-3 pr-4 text-gray-700  border-gray-100 hover:bg-white rounded-full p-4 hover:text-swPrimary600  "
                   aria-current="page"
                 >
                   Company{" "}
                 </Link>
                 <Link
-                  href="#"
+                  href="/contact-us"
                   className="block py-2 pl-3 pr-4 text-gray-700 border-gray-100 hover:bg-white rounded-full p-4 hover:text-swPrimary600  "
                   aria-current="page"
                 >
