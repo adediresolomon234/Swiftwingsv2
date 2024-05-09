@@ -14,6 +14,12 @@ import NavAndFooter from "../components/shared/NavAndFooter";
 import FooterHero from "../components/shared/footerHero";
 import { useRouter } from "next/navigation";
 import { PuffLoader } from "react-spinners";
+import { Libre_Baskerville } from "next/font/google";
+
+const libre_baskerville = Libre_Baskerville({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+});
 
 const FleetPage = () => {
   const dispatch = useDispatch();
