@@ -237,12 +237,6 @@ const BookingPageInformation = () => {
                       {destinationDetails?.country}
                     </p>
 
-                    {/* depatureDate
-                    : 
-                    "2024-4-17"
-                    depatureTime
-                    : 
-                    "1:0" */}
                     {bookingDetails?.booking_details?.formData.map(
                       (item, index) => (
                         <div
@@ -309,19 +303,13 @@ const BookingPageInformation = () => {
 
                           <div className="flex flex-col justify-between">
                             <div className="">
-                              {/* <p className="font-semibold text-lg">
-                        {dateValue.format("h:mm a") === "Invalid Date"
-                          ? "Select Date"
-                          : dateValue.format("h:mm a")}
-                      </p> */}
                               <p className="text-sm">
                                 {item?.source?.city || "Select city"},{" "}
                                 {item?.source?.country}
                               </p>
                             </div>
-                            {/* <p className="font-medium">12 Hours</p> */}
+
                             <div className="">
-                              {/* <p className="font-semibold text-lg">22:00 pm</p> */}
                               <p className="text-sm">
                                 {item?.destination?.city || "Select city"},{" "}
                                 {item?.destination?.country}

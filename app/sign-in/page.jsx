@@ -126,7 +126,13 @@ const SignIn = () => {
             Sign In
           </p>
           <p className="text-center mt-5 mb-8 text-[0.95rem]">
-            Sign in to Swiftwings to manage your bookings
+            Sign in to{" "}
+            <span
+              className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
+            >
+              Swift<i className="font-normal">Wings</i>
+            </span>{" "}
+            to manage your bookings
           </p>
 
           <div className="w-ful mt-5">
@@ -195,11 +201,17 @@ const SignIn = () => {
           </div>
 
           <p className={`${spaceGrotesk.className} font-semibold text-center`}>
-            Are you new to Swiftwings?
+            Are you new to{" "}
+            <span
+              className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
+            >
+              Swift<i className="font-normal">Wings</i>
+            </span>
+            ?
           </p>
           <div className="w-full mt-4 font-medium">
             <Button
-              startIcon={<SwPlusIcon className="text-xl"/>}
+              startIcon={<SwPlusIcon className="text-xl" />}
               label={"Create a new account"}
               textColor={
                 "font-semibold text-swGray800 border border-swGray100 w-full"

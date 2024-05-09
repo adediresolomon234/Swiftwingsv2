@@ -33,7 +33,13 @@ const VerifyPage = () => {
           Verify your email
         </p>
         <p className="text-center mt-5 mb-8 text-[0.95rem]">
-          Sign in to Swiftwings to manage your bookings
+          Sign in to{" "}
+          <span
+            className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
+          >
+            Swift<i className="font-normal">Wings</i>
+          </span>{" "}
+          to manage your bookings
         </p>
         <div className="flex gap-3 justify-center">
           <div className="border border-swGray300 text-swGray300 rounded-lg h-16 w-16 p-2">
