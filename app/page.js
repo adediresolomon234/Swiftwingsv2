@@ -163,21 +163,91 @@ export default function Home() {
           <div className="max-w-4xl w-full mx-auto text-center">
             <Services
               name={"Luxury travels"}
-              text="SwiftWings operates the largest and most diverse private aircraft fleet globally, providing an extensive array of personalized private aviation solutions that surpass the expectations of the world’s most discerning travelers. Our industry-leading scale and innovative aviation business model ensure dependable financial sustainability for our clients, setting us apart in the industry."
+              text={
+                <p>
+                  <span
+                    className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
+                  >
+                    Swift<i className="font-normal">Wings</i>
+                  </span>{" "}
+                  operates the largest and most diverse private aircraft fleet
+                  globally, providing an extensive array of personalized private
+                  aviation solutions that surpass the expectations of the
+                  world’s most discerning travelers. Our industry-leading scale
+                  and innovative aviation business model ensure dependable
+                  financial sustainability for our clients, setting us apart in
+                  the industry.
+                </p>
+              }
               image={servicesPlane}
             />
           </div>
           <div className="max-w-4xl w-full mx-auto text-center mt-32">
             <Services
               name={"Membership plan"}
-              text="SwiftWings offers flexible and investment-free solutions tailored to meet your unique flying needs. SwiftWings grants its clients access to a distinguished fleet, including over 80 SwiftWings aircraft globally, with a strong presence in the United States. As a SwiftWings customer, you'll experience unparalleled 24/7 concierge service delivered by a dedicated team of aviation experts."
+              text={
+                <p>
+                  <span
+                    className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
+                  >
+                    Swift<i className="font-normal">Wings</i>
+                  </span>{" "}
+                  offers flexible and investment-free solutions tailored to meet
+                  your unique flying needs.{" "}
+                  <span
+                    className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
+                  >
+                    Swift<i className="font-normal">Wings</i>
+                  </span>{" "}
+                  grants its clients access to a distinguished fleet, including
+                  over 80{" "}
+                  <span
+                    className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
+                  >
+                    Swift<i className="font-normal">Wings</i>
+                  </span>{" "}
+                  aircraft globally, with a strong presence in the United
+                  States. As a{" "}
+                  <span
+                    className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
+                  >
+                    Swift<i className="font-normal">Wings</i>
+                  </span>{" "}
+                  customer, you&apos;ll experience unparalleled 24/7 concierge
+                  service delivered by a dedicated team of aviation experts.
+                </p>
+              }
               image={servicesMembership}
             />
           </div>
           <div className="max-w-4xl w-full mx-auto text-center  mt-32">
             <Services
               name={"Dedicated customer service"}
-              text="At SwiftWings, our dedicated customer service is more than a commitment; it's a promise of excellence. Our aviation experts, based in New York and Florida, are available 24/7 to provide unparalleled support, ensuring your journey is seamless and stress-free. From personalized itinerary planning to addressing your unique needs, SwiftWings' customer service is devoted to delivering an unmatched level of care, enhancing every aspect of your private jet experience. Your satisfaction and peace of mind are at the heart of our service philosophy."
+              text={
+                <p>
+                  At{" "}
+                  <span
+                    className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
+                  >
+                    Swift<i className="font-normal">Wings</i>
+                  </span>
+                  , our dedicated customer service is more than a commitment;
+                  it&apos;s a promise of excellence. Our aviation experts, based
+                  in New York and Florida, are available 24/7 to provide
+                  unparalleled support, ensuring your journey is seamless and
+                  stress-free. From personalized itinerary planning to
+                  addressing your unique needs,{" "}
+                  <span
+                    className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
+                  >
+                    Swift<i className="font-normal">Wings</i>
+                  </span>
+                  &apos; customer service is devoted to delivering an unmatched
+                  level of care, enhancing every aspect of your private jet
+                  experience. Your satisfaction and peace of mind are at the
+                  heart of our service philosophy.
+                </p>
+              }
               image={servicesCustomer}
             />
           </div>
@@ -188,12 +258,22 @@ export default function Home() {
             <p className="text-swPrimary500 font-medium text-lg">About us</p>
             <div className="flex flex-col md:flex-row justify-between mt-10 w-full space-y-8 md:space-y-0 ">
               <p className="font-semibold text-swPrimary500 text-3xl max-w-md md:text-5xl">
-                Get to know more about Swiftwings
+                Get to know more about{" "}
+                <span
+                  className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
+                >
+                  Swift<i className="font-normal">Wings</i>
+                </span>
               </p>
               <p className="text-swGray500 text-lg font-light max-w-[26rem] ">
-                Swift Wings is a premier provider of private jets charter
-                flights connecting global airports, offering unmatched
-                convenience and exclusivity for luxury travel.
+                <span
+                  className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
+                >
+                  Swift<i className="font-normal">Wings</i>
+                </span>{" "}
+                is a premier provider of private jets charter flights connecting
+                global airports, offering unmatched convenience and exclusivity
+                for luxury travel.
               </p>
             </div>
           </div>
@@ -202,24 +282,56 @@ export default function Home() {
             <div className="grid grid-col-3 grid-flow-col gap-8 mb: gap-14 justify-center ">
               <AboutUsCard
                 number={"75"}
-                text={"Swiftwings users from all over the globe."}
+                text={
+                  <p>
+                    <span
+                      className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
+                    >
+                      Swift<i className="font-normal">Wings</i>
+                    </span>{" "}
+                    users from all over the globe.
+                  </p>
+                }
                 className="text-sm"
               />
               <AboutUsCard
                 number={"1.5k"}
-                text={"Swiftwings access to a network of airplanes"}
+                text={
+                  <p>
+                    <span
+                      className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
+                    >
+                      Swift<i className="font-normal">Wings</i>
+                    </span>{" "}
+                    access to a network of airplanes
+                  </p>
+                }
                 numberColor={"text-swBlack"}
               />
               <AboutUsCard
                 number={"50"}
-                text={"Swiftwings destinations in the past 3 years"}
+                text={
+                  <p>
+                    <span
+                      className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
+                    >
+                      Swift<i className="font-normal">Wings</i>
+                    </span>{" "}
+                    destinations in the past 3 years
+                  </p>
+                }
               />
             </div>
 
             <div className="bg-swSecondary400 text-swWine p-8 max-w-[46rem] rounded-2xl">
               <p className="font-light">
-                Swift Wings understands that our clients’ travel needs often
-                stretch far beyond the borders of Nigeria.
+                <span
+                  className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
+                >
+                  Swift<i className="font-normal">Wings</i>
+                </span>{" "}
+                understands that our clients’ travel needs often stretch far
+                beyond the borders of Nigeria.
                 <br /> That’s why we provide extensive global coverage,
                 seamlessly connecting you to destinations in Europe, North
                 America, South America, and other corners of the world, even the
@@ -390,11 +502,16 @@ export default function Home() {
                 Membership
               </h2>
               <p className="text-swGray700 mt-8 sm:mx-auto md:text-xl text-start md:text-center text-md ">
-                Swift Wings Ltd offers an exclusive Jet Card Membership,
-                providing discerning travelers with unparalleled access to
-                private jet charter services. As a Jet Card member, you enjoy
-                priority booking and seamless travel experiences tailored to
-                your preferences.
+                <span
+                  className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
+                >
+                  Swift<i className="font-normal">Wings</i>
+                </span>{" "}
+                Ltd offers an exclusive Jet Card Membership, providing
+                discerning travelers with unparalleled access to private jet
+                charter services. As a Jet Card member, you enjoy priority
+                booking and seamless travel experiences tailored to your
+                preferences.
               </p>
             </div>
           </div>
@@ -432,11 +549,16 @@ export default function Home() {
                 Customer Testimonials
               </h2>
               <p className="text-swGray700 mt-8 sm:mx-auto text-start md:text-xl md:text-center text-center text-md">
-                Swift Wings Ltd offers an exclusive Jet Card Membership,
-                providing discerning travelers with unparalleled access to
-                private jet charter services. As a Jet Card member, you enjoy
-                priority booking and seamless travel experiences tailored to
-                your preferences.
+                <span
+                  className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
+                >
+                  Swift<i className="font-normal">Wings</i>
+                </span>{" "}
+                Ltd offers an exclusive Jet Card Membership, providing
+                discerning travelers with unparalleled access to private jet
+                charter services. As a Jet Card member, you enjoy priority
+                booking and seamless travel experiences tailored to your
+                preferences.
               </p>
             </div>
           </div>
