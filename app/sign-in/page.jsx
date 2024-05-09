@@ -1,6 +1,6 @@
 "use client";
 
-import { Space_Grotesk } from "next/font/google";
+import { Space_Grotesk, Libre_Baskerville } from "next/font/google";
 import { useEffect, useState } from "react";
 import Button from "../components/Button";
 import { signInUser } from "../../redux/slices/authSlice";
@@ -25,6 +25,11 @@ import axios from "axios";
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
+});
+
+const libre_baskerville = Libre_Baskerville({
+  subsets: ["latin"],
+  weight: ["400", "700"],
 });
 
 const SignIn = () => {

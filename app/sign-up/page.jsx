@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Space_Grotesk } from "next/font/google";
+import { Space_Grotesk, Libre_Baskerville } from "next/font/google";
 import "../../styles.css";
 import Button from "../components/Button";
 import InputField from "../components/shared/InputField";
@@ -23,6 +23,11 @@ import { useRouter } from "next/navigation";
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
+});
+
+const libre_baskerville = Libre_Baskerville({
+  subsets: ["latin"],
+  weight: ["400", "700"],
 });
 
 const SignUp = () => {

@@ -1,6 +1,6 @@
 "use client";
 
-import { Space_Grotesk } from "next/font/google";
+import { Space_Grotesk, Libre_Baskerville } from "next/font/google";
 import CustomSelect from "../components/shared/CustomSelete";
 import PhoneExt from "../components/shared/phoneInputField";
 import InputField from "../components/shared/InputField";
@@ -18,6 +18,11 @@ import {
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
+});
+
+const libre_baskerville = Libre_Baskerville({
+  subsets: ["latin"],
+  weight: ["400", "700"],
 });
 
 const ProfilePage = () => {

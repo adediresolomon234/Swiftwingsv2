@@ -2,6 +2,12 @@
 import { useEffect, useRef, useState } from "react";
 import Button from "../components/Button";
 import NavBar from "../components/shared/NavBar";
+import { Libre_Baskerville } from "next/font/google";
+
+const libre_baskerville = Libre_Baskerville({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+});
 
 const VerifyPage = () => {
   const [inputNum, setInputNum] = useState(1);
