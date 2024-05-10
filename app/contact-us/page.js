@@ -7,8 +7,8 @@ import Destinationsection from "../../public/images/Destinationsection.png"
 import Serviceexecllence from "../../public/images/Serviceexecllence.png"
 import Safetyfirst from "../../public/images/Safetyfirst.png"
 import team from "../../public/images/team.png"
-import { SWTLocationIcon, SWTCallPhoneIcon, SwMailIcon, SWTFacebookIcon, SWTInstagramIcon, SWTLinkedInIcon, SWTTikTokIcon, SWTTwitterIcon } from "../components/svgs"
-
+import { SWTLocationIcon, SWTCallPhoneIcon, SwMailIcon, SWTFacebookIcon, SWTInstagramIcon, SWTLinkedInIcon, SWTTikTokIcon, SWTTwitterIcon, SwUserIcon } from "../components/svgs"
+import InputField from "../components/shared/InputField";
 
 const AboutUs = () => {
 
@@ -130,11 +130,11 @@ const AboutUs = () => {
                                                     <p className="text-gray-600 text-base" >@swiftwingsjet</p>
                                                 </div>
                                                 <div class="px-12 py-6 flex flex-col items-center text-center bg-gray-100">
-                                                    <SWTLinkedInIcon className="w-12 h-12 mb-6"/>
+                                                    <SWTLinkedInIcon className="w-12 h-12 mb-6" />
                                                     <p className="text-gray-600 text-base" >@swiftwingsjet</p>
                                                 </div>
                                                 <div class="px-12 py-6 flex flex-col items-center text-center bg-gray-100">
-                                                    <SWTTikTokIcon className="w-12 h-12 mb-6"/>
+                                                    <SWTTikTokIcon className="w-12 h-12 mb-6" />
                                                     <p className="text-gray-600 text-base" >@swiftwingsjet</p>
                                                 </div>
                                             </div>
@@ -147,6 +147,60 @@ const AboutUs = () => {
                     </div>
                 </section>
 
+                <section className="py-3">
+                    <div className="m-auto px-6 text-gray-600 md:px-12 xl:px-16">
+                        <div className="text-container">
+                            <div className=" inset-0  items-start justify-start sm:flex-row sm:items-center py-8 px-0 ">
+                                <div className="mr-8  items-start">
+                                    <div className="text-xl md:text-md font-semibold text-black mb-3">Inquiry Form</div>
+                                    <div className="w-1/2 mt-5">
+                                        <InputField
+                                            label={"Full Name"}
+                                            placeholder={"Full Name"}
+                                            startIcon={<SwUserIcon className="text-xl" />}
+
+                                        />
+                                    </div>
+                                    <div className="w-1/2 mt-5">
+                                        <InputField
+                                            label={"Email"}
+                                            placeholder={"Enter email address"}
+                                            startIcon={<SwMailIcon className="text-xl" />}
+
+                                        />
+                                    </div>
+                                    <div className="w-1/2 mt-5">
+                                        <InputField
+                                            label={"Phone"}
+                                            placeholder={"Phone number"}
+                                            startIcon={<SWTCallPhoneIcon className="text-xl" />}
+
+                                        />
+                                    </div>
+                                    <div className="w-1/2 mt-5">
+                                        <InputField
+                                            label={"Subject"}
+                                            placeholder={"Enter Subject"}
+
+
+                                        />
+                                    </div>
+                                    <div class="w-1/2 mt-5 flex">
+
+                                        <div class="flex-1">
+                                            <div>
+                                                <label for="message" class="block text-xl mb-2 text-gray-700">Message</label>
+                                                <textarea id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300"/>
+                                          </div>
+                                          
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
 
                 <section className="py-16">
                     {/* <div class="py-12">
@@ -189,7 +243,7 @@ const AboutUs = () => {
                 </section>
                 <section className="py-16">
 
-                    
+
                 </section>
 
                 <section className="mt-64 py-16">
