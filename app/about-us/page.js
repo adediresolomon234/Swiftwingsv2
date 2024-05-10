@@ -1,13 +1,17 @@
-
 "use client";
 import "../../styles.css";
 import Image from "next/image";
 import NavAndFooter from "../components/shared/NavAndFooter";
-import Destinationsection from "../../public/images/Destinationsection.png"
-import Serviceexecllence from "../../public/images/Serviceexecllence.png"
-import Safetyfirst from "../../public/images/Safetyfirst.png"
-import team from "../../public/images/team.png"
+import Destinationsection from "../../public/images/Destinationsection.png";
+import Serviceexecllence from "../../public/images/Serviceexecllence.png";
+import Safetyfirst from "../../public/images/Safetyfirst.png";
+import team from "../../public/images/team.png";
+import { Libre_Baskerville } from "next/font/google";
 
+const libre_baskerville = Libre_Baskerville({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+});
 
 const AboutUs = () => {
 
@@ -266,20 +270,14 @@ const AboutUs = () => {
                     </div>
                 </section>
 
-                <section className="mt-64 py-16">
-                    <div className="xl:container m-auto px-6 text-gray-600 md:px-12 xl:px-16">
-                        {/* <FooterHero /> */}
-                    </div>
-                </section>
-            </NavAndFooter>
-        </main >
-
-    );
+        <section className="mt-64 py-16">
+          <div className="xl:container m-auto px-6 text-gray-600 md:px-12 xl:px-16">
+            {/* <FooterHero /> */}
+          </div>
+        </section>
+      </NavAndFooter>
+    </main>
+  );
 };
 
 export default AboutUs;
-
-
-
-
-

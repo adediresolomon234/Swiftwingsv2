@@ -1,6 +1,6 @@
 "use client";
 
-import { Space_Grotesk } from "next/font/google";
+import { Space_Grotesk, Libre_Baskerville } from "next/font/google";
 import CustomSelect from "../components/shared/CustomSelete";
 import PhoneExt from "../components/shared/phoneInputField";
 import InputField from "../components/shared/InputField";
@@ -18,6 +18,11 @@ import {
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
+});
+
+const libre_baskerville = Libre_Baskerville({
+  subsets: ["latin"],
+  weight: ["400", "700"],
 });
 
 const ProfilePage = () => {
@@ -74,7 +79,13 @@ const ProfilePage = () => {
             htmlFor="link-checkbox"
             className="ms-6 text-xs font-medium text-swGray600"
           >
-            I would like to receive marketing communications from Swiftwings.
+            I would like to receive marketing communications from{" "}
+            <span
+              className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
+            >
+              Swift<i className="font-normal">Wings</i>
+            </span>
+            .
           </label>
         </div>
       </div>
@@ -146,7 +157,13 @@ const ProfilePage = () => {
             for="link-checkbox"
             class="ms-6 text-xs font-medium text-swGray600  dark:text-gray-300"
           >
-            I would like to receive marketing communications from Swiftwings.
+            I would like to receive marketing communications from{" "}
+            <span
+              className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
+            >
+              Swift<i className="font-normal">Wings</i>
+            </span>
+            .
           </label>
         </div>
       </div>

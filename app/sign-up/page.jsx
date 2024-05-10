@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Space_Grotesk } from "next/font/google";
+import { Space_Grotesk, Libre_Baskerville } from "next/font/google";
 import "../../styles.css";
 import Button from "../components/Button";
 import InputField from "../components/shared/InputField";
@@ -25,10 +25,15 @@ const spaceGrotesk = Space_Grotesk({
   weight: ["300", "400", "500", "600", "700"],
 });
 
+const libre_baskerville = Libre_Baskerville({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+});
+
 const SignUp = () => {
   const dispatch = useDispatch();
   const [emailError, setEmailError] = useState("");
-  const router = useRouter()
+  const router = useRouter();
   const [passwordError, setPasswordError] = useState("");
   const [reenterPassword, setReenterPassword] = useState("");
   const [reenterPasswordError, setReenterPasswordError] = useState("");
@@ -145,8 +150,13 @@ const SignUp = () => {
             Create a new account
           </p>
           <p className="text-center mt-2 mb-8 text-md md:text-lg text-swGRay800">
-            Join Swiftwings, book a jet, Enjoy premium membership offers and
-            privileges
+            Join{" "}
+            <span
+              className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
+            >
+              Swift<i className="font-normal">Wings</i>
+            </span>
+            , book a jet, Enjoy premium membership offers and privileges
           </p>
           <div className="w-full mt-5">
             <InputField
@@ -284,7 +294,7 @@ const SignUp = () => {
                 "font-semibold text-swGray800 border border-swGray100 max-w-lg"
               }
               onClick={() => {
-                router.push("/sign-in")
+                router.push("/sign-in");
               }}
             />
           </div>

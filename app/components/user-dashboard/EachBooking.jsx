@@ -4,14 +4,17 @@ import {
   SwArrowRightIcon,
   SwLuggageIcon,
   SwMeterIcon,
+  SwPlaneIcon,
   SwSeatIcon,
+  SwWeightIcon,
 } from "../svgs";
 import { MdArrowForwardIos } from "react-icons/md";
+import dayjs from "dayjs";
 
 const EachBooking = () => {
   const router = useRouter();
   return (
-    <main className="flex gap-5">
+    <main className="flex gap-5 flex-col lg:flex-row">
       <div className="flex flex-col gap-5 w-full">
         <div className="flex flex-col gap-5 text-swGray800 bg-white p-5 rounded-xl w-full">
           <div className="flex justify-between items-center gap-5">
@@ -102,7 +105,94 @@ const EachBooking = () => {
           {/* ))} */}
         </div>
       </div>
-      <div className="bg-white p-5 rounded-xl md:w-1/3 w-full"></div>
+      <div className="bg-white p-5 rounded-xl sm:w-2/5 w-full">
+        <p className="font-semibold text-swGray600 text-lg">Destinations</p>
+        <div className="flex justify-between items-center mt-8">
+          <p className="text-swGray600">Flight type:</p>
+          <p className="font-medium text-swGray800 ">Round Trip</p>
+        </div>
+        <div className="text-swGray800 mt-5">
+          <p className="">Flight from Abuja, Nigeria - Abu Dhabi Dubia</p>
+        </div>
+        {/* {bookingDetails?.booking_details?.formData.map((item, index) => ( */}
+        <div className="flex gap-1 mt-5 justify-center lg:">
+          <div className="flex flex-col justify-between">
+            <div className="">
+              <p className="font-semibold text-lg">
+                {dayjs().format("h:mm a") === "Invalid Date"
+                  ? "Select date"
+                  : dayjs().format("h:mm a")}
+              </p>
+              <p className="text-sm">
+                {dayjs().format(`ddd D, MMM`) === "Invalid Date"
+                  ? "Select date"
+                  : dayjs().format(`ddd D, MMM`)}
+              </p>
+            </div>
+            <div className="">
+              {/* {item?.returningDate && ( */}
+              <p className="font-semibold text-lg">
+                {dayjs().format("h:mm a") === "Invalid Date"
+                  ? "Select date"
+                  : dayjs().format("h:mm a")}
+              </p>
+              {/* )} */}
+
+              {/* {item?.returningDate && ( */}
+              <p className="text-sm">
+                {dayjs().format(`ddd D, MMM`) === "Invalid Date"
+                  ? "Select date"
+                  : dayjs().format(`ddd D, MMM`)}
+              </p>
+              {/* )} */}
+            </div>
+          </div>
+
+          <div className="flex items-center flex-col gap-1 h-60 p-2">
+            <div className="p-1 bg-swError500 rounded-full" />
+            <div className="h-full border border-r border-dashed" />
+            <div className="w-fit h-fit">
+              <SwPlaneIcon className="text-base" />
+            </div>
+            <div className="h-full border border-r border-dashed" />
+            <div className="p-1 bg-swSuccess500 rounded-full" />
+          </div>
+
+          <div className="flex flex-col justify-between">
+            <div className="">
+              <p className="text-sm">
+                {/* {item?.source?.city || "Select city"}, {item?.source?.country} */}
+                Select city
+              </p>
+            </div>
+
+            <div className="">
+              <p className="text-sm">
+                {/* {item?.destination?.city || "Select city"},{" "}
+                {item?.destination?.country} */}
+                Select city
+              </p>
+            </div>
+          </div>
+        </div>
+        {/* ))} */}
+
+        <div className="p-3 bg-swLighterBgGray rounded-xl my-7">
+          <p className="text-sm">
+            Include free Baggage & Cabin in capacity Per person
+          </p>
+          <div className="flex gap-5 mt-2">
+            <div className="flex gap-2 items-center">
+              <SwLuggageIcon className="text-lg" />
+              <p>40 Kg</p>
+            </div>
+            <div className="flex gap-2 items-center">
+              <SwWeightIcon className="text-lg" />
+              <p>10 Kg</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
   );
 };
