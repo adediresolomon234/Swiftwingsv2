@@ -39,3 +39,4 @@ export { default as SWTLocationIcon } from "./Location.svg";
 export { default as SWTTikTokIcon } from "./TikTok.svg";
 export { default as SWTTwitterIcon } from "./Twitter.svg";
 export { default as SWTCallPhoneIcon } from "./CallPhone.svg";
+export { default as SWTButtoncircleIcon } from "./Buttoncircle.svg";
