@@ -192,12 +192,12 @@ const AboutUs = () => {
                         <div class="xl:container mx-auto px-6 md:px-12">
                             <div class="mb-16 md:w-2/3 lg:w-1/2">
                                 <h2 class="mb-4 text-2xl font-bold text-gray-800 dark:text-white md:text-4xl">
-                                Our Team
+                                    Our Team
                                 </h2>
-        
+
                             </div>
                             <div class="grid gap-6 px-4 sm:px-0 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                            <div className="group relative rounded-3xl  space-y-6 overflow-hidden">
+                                <div className="group relative rounded-3xl space-y-6 overflow-hidden">
                                     <Image
                                         className="mx-auto h-[26rem] w-full object-cover object-top transition duration-500 group-hover:scale-105 group-hover:grayscale-0"
                                         src={team}
@@ -206,16 +206,14 @@ const AboutUs = () => {
                                         width="640"
                                         height="805"
                                     />
-                                    <div className="absolute bottom-0 inset-x-0 h-max mt-auto px-8 py-6 bg-gray-800  translate-y-24 transition duration-300 ease-in-out group-hover:translate-y-0">
-                                        <div>
-                                            <h4 className="text-xl font-semibold text-white">Hentoni Doe</h4>
-                                            <span className="block text-sm text-gray-500">CEO-Founder</span>
+                                    <div className="absolute inset-x-0 bottom-10 flex justify-center">
+                                        <div className="w-auto rounded-2xl  px-4 py-2  bg-white bg-opacity-20 backdrop-filter backdrop-blur text-start">
+                                            <h4 className="text-md font-semibold text-swPrimary500">FirstName & LastName</h4>
+                                            <span className="block text-sm text-gray-500">Position</span>
                                         </div>
-                                        <p className="mt-8 text-gray-300 ">Quae labore quia tempora dolor impedit. Possimus, sint ducimus ipsam?</p>
                                     </div>
-
                                 </div>
-                                <div className="group relative rounded-3xl  space-y-6 overflow-hidden">
+                                <div className="group relative rounded-3xl space-y-6 overflow-hidden">
                                     <Image
                                         className="mx-auto h-[26rem] w-full object-cover object-top transition duration-500 group-hover:scale-105 group-hover:grayscale-0"
                                         src={team}
@@ -224,34 +222,14 @@ const AboutUs = () => {
                                         width="640"
                                         height="805"
                                     />
-                                    <div className="absolute bottom-0 inset-x-0 h-max mt-auto px-8 py-6 bg-gray-800  translate-y-24 transition duration-300 ease-in-out group-hover:translate-y-0">
-                                        <div>
-                                            <h4 className="text-xl font-semibold text-white">Hentoni Doe</h4>
-                                            <span className="block text-sm text-gray-500">CEO-Founder</span>
+                                    <div className="absolute inset-x-0 bottom-10 flex justify-center">
+                                        <div className="w-auto rounded-2xl  px-4 py-2  bg-white bg-opacity-20 backdrop-filter backdrop-blur text-start">
+                                            <h4 className="text-md font-semibold text-swPrimary500">FirstName & LastName</h4>
+                                            <span className="block text-sm text-gray-500">Position</span>
                                         </div>
-                                        <p className="mt-8 text-gray-300 ">Quae labore quia tempora dolor impedit. Possimus, sint ducimus ipsam?</p>
                                     </div>
-
                                 </div>
-                                <div class="group relative rounded-3xl  space-y-6 overflow-hidden">
-                                    <Image
-                                        class="mx-auto h-[26rem] w-full  object-cover object-top transition duration-500 group-hover:scale-105 group-hover:grayscale-0"
-                                        src={team}
-                                        alt=""
-                                        loading="lazy"
-                                        width="640"
-                                        height="805"
-                                    />
-                                    <div class="absolute bottom-0 inset-x-0 h-max mt-auto px-8 py-6 bg-gray-800 dark:bg-white translate-y-24 transition duration-300 ease-in-out group-hover:translate-y-0">
-                                        <div>
-                                            <h4 class="text-xl font-semibold text-white">Hentoni Doe</h4>
-                                            <span className="block text-sm text-gray-500">CEO-Founder</span>
-                                        </div>
-                                        <p className="mt-8 text-gray-300 ">Quae labore quia tempora dolor impedit. Possimus, sint ducimus ipsam?</p>
-                                    </div>
-
-                                </div>
-                                <div className="group relative rounded-3xl  space-y-6 overflow-hidden">
+                                <div className="group relative rounded-3xl space-y-6 overflow-hidden">
                                     <Image
                                         className="mx-auto h-[26rem] w-full object-cover object-top transition duration-500 group-hover:scale-105 group-hover:grayscale-0"
                                         src={team}
@@ -260,14 +238,28 @@ const AboutUs = () => {
                                         width="640"
                                         height="805"
                                     />
-                                    <div className="absolute bottom-0 inset-x-0 h-max mt-auto px-8 py-6 bg-gray-800  translate-y-24 transition duration-300 ease-in-out group-hover:translate-y-0">
-                                        <div>
-                                            <h4 className="text-xl font-semibold text-white">Hentoni Doe</h4>
-                                            <span className="block text-sm text-gray-500">CEO-Founder</span>
+                                    <div className="absolute inset-x-0 bottom-10 flex justify-center">
+                                        <div className="w-auto rounded-2xl px-4 py-2 bg-white bg-opacity-20 backdrop-filter backdrop-blur text-start">
+                                            <h4 className="text-md font-semibold text-swPrimary500">FirstName & LastName</h4>
+                                            <span className="block text-sm text-gray-500">Position</span>
                                         </div>
-                                        <p className="mt-8 text-gray-300 ">Quae labore quia tempora dolor impedit. Possimus, sint ducimus ipsam?</p>
                                     </div>
-
+                                </div>
+                                <div className="group relative rounded-3xl space-y-6 overflow-hidden">
+                                    <Image
+                                        className="mx-auto h-[26rem] w-full object-cover object-top transition duration-500 group-hover:scale-105 group-hover:grayscale-0"
+                                        src={team}
+                                        alt="woman"
+                                        loading="lazy"
+                                        width="640"
+                                        height="805"
+                                    />
+                                    <div className="absolute inset-x-0 bottom-10 flex justify-center">
+                                        <div className="w-auto rounded-2xl  px-4 py-2  bg-white bg-opacity-20 backdrop-filter backdrop-blur text-start">
+                                            <h4 className="text-md font-semibold text-swPrimary500">FirstName & LastName</h4>
+                                            <span className="block text-sm text-gray-500">Position</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
