@@ -1,5 +1,11 @@
 
 "use client";
+import React from 'react';
+import Accordion from '@mui/material/Accordion';
+import AccordionActions from '@mui/material/AccordionActions';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import { useState } from 'react';
 import "../../styles.css";
 import Image from "next/image";
 import NavAndFooter from "../components/shared/NavAndFooter";
@@ -7,10 +13,21 @@ import Destinationsection from "../../public/images/Destinationsection.png"
 import Serviceexecllence from "../../public/images/Serviceexecllence.png"
 import Safetyfirst from "../../public/images/Safetyfirst.png"
 import team from "../../public/images/team.png"
-import { SWTLocationIcon, SWTCallPhoneIcon, SwMailIcon, SWTFacebookIcon, SWTInstagramIcon, SWTLinkedInIcon, SWTTikTokIcon, SWTTwitterIcon, SwUserIcon } from "../components/svgs"
+import { SWTLocationIcon, SWTCallPhoneIcon, SwMailIcon, SWTFacebookIcon,SWTAccordionsOpenIcon ,SWTAccordionsCloseIcon, SWTInstagramIcon, SWTLinkedInIcon, SWTTikTokIcon, SWTTwitterIcon, SwUserIcon } from "../components/svgs"
 import InputField from "../components/shared/InputField";
+import Button from "../components/Button"
+import { accordions } from '../components/helpers/FrequentlyQuestions';
+import FooterHero from '../components/shared/footerHero';
+
 
 const AboutUs = () => {
+
+    const [activeAccordion, setActiveAccordion] = useState(null);
+    const [isExpanded, setIsExpanded] = useState(false);
+    const toggleAccordion = (index) => {
+        setActiveAccordion(activeAccordion === index ? null : index);
+        setIsExpanded(!isExpanded);
+    };
 
 
     return (
@@ -108,52 +125,52 @@ const AboutUs = () => {
                         </div>
                     </div>
                 </section>
-                <section className="py-16">
-                    <div className="m-auto px-6 text-gray-600 md:px-12 xl:px-16">
-                        <div className="text-container">
-                            <div className=" inset-0 flex flex-col items-start justify-start sm:flex-row sm:items-center py-8 px-0 ">
-                                <div className="mr-8 flex flex-col items-start">
-                                    <div className="text-xl md:text-md font-semibold text-black mb-3">Connect with us on social media</div>
-                                    <div class="py-16 ">
-                                        <div class="container m-auto px-6 space-y-8 md:px-12 lg:px-56 ">
-                                            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 md:gap-28 gap-6 lg:gap-60 justify-items-center text-center">
-                                                <div class="px-12 py-6 flex flex-col items-center text-center bg-gray-100">
-                                                    <SWTInstagramIcon className="w-12 h-12 mb-6" />
-                                                    <p className="text-gray-600 text-base" >@swiftwingsjet</p>
-                                                </div>
-                                                <div class="px-12 py-6 flex flex-col items-center text-center bg-gray-100">
-                                                    <SWTTwitterIcon className="w-12 h-12 mb-6" />
-                                                    <p className="text-gray-600 text-base" >@swiftwingsjet</p>
-                                                </div>
-                                                <div class="px-12 py-6 flex flex-col items-center text-center bg-gray-100">
-                                                    <SWTFacebookIcon className="w-12 h-12 mb-6" />
-                                                    <p className="text-gray-600 text-base" >@swiftwingsjet</p>
-                                                </div>
-                                                <div class="px-12 py-6 flex flex-col items-center text-center bg-gray-100">
-                                                    <SWTLinkedInIcon className="w-12 h-12 mb-6" />
-                                                    <p className="text-gray-600 text-base" >@swiftwingsjet</p>
-                                                </div>
-                                                <div class="px-12 py-6 flex flex-col items-center text-center bg-gray-100">
-                                                    <SWTTikTokIcon className="w-12 h-12 mb-6" />
-                                                    <p className="text-gray-600 text-base" >@swiftwingsjet</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
 
+                <section className="py-16">
+                    <div class="py-12">
+                        <div class="xl:container m-auto px-6 text-gray-600 md:px-12 xl:px-6">
+                            <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-5">
+                                <div class="group p-6 sm:p-8 rounded-3xl bg-white ">
+                                    <div class="px-12 py-6 flex flex-col items-center text-center bg-gray-100">
+                                        <SWTInstagramIcon className="w-12 h-12 mb-6" />
+                                        <p className="text-gray-600 text-base" >@swiftwingsjet</p>
+                                    </div>
+                                </div>
+                                <div className="group p-6 sm:p-8 rounded-3xl bg-white ">
+                                    <div class="px-12 py-6 flex flex-col items-center text-center bg-gray-100">
+                                        <SWTTwitterIcon className="w-12 h-12 mb-6" />
+                                        <p className="text-gray-600 text-base" >@swiftwingsjet</p>
+                                    </div>
+                                </div>
+                                <div className="group p-6 sm:p-8 rounded-3xl bg-white  ">
+                                    <div class="px-12 py-6 flex flex-col items-center text-center bg-gray-100">
+                                        <SWTFacebookIcon className="w-12 h-12 mb-6" />
+                                        <p className="text-gray-600 text-base" >@swiftwingsjet</p>
+                                    </div>
+                                </div>
+                                <div className="group p-6 sm:p-8 rounded-3xl bg-white  ">
+                                    <div class="px-12 py-6 flex flex-col items-center text-center bg-gray-100">
+                                        <SWTLinkedInIcon className="w-12 h-12 mb-6" />
+                                        <p className="text-gray-600 text-base" >@swiftwingsjet</p>
+                                    </div>
+                                </div>
+                                <div className="group p-6 sm:p-8 rounded-3xl bg-white  ">
+                                    <div class="px-12 py-6 flex flex-col items-center text-center bg-gray-100">
+                                        <SWTTikTokIcon className="w-12 h-12 mb-6" />
+                                        <p className="text-gray-600 text-base" >@swiftwingsjet</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </section>
-
                 <section className="py-3">
                     <div className="m-auto px-6 text-gray-600 md:px-12 xl:px-16">
                         <div className="text-container">
                             <div className=" inset-0  items-start justify-start sm:flex-row sm:items-center py-8 px-0 ">
                                 <div className="mr-8  items-start">
                                     <div className="text-xl md:text-md font-semibold text-black mb-3">Inquiry Form</div>
-                                    <div className="w-1/2 mt-5">
+                                    <div className="w-full lg:w-1/2 mt-5">
                                         <InputField
                                             label={"Full Name"}
                                             placeholder={"Full Name"}
@@ -161,7 +178,7 @@ const AboutUs = () => {
 
                                         />
                                     </div>
-                                    <div className="w-1/2 mt-5">
+                                    <div className="w-full lg:w-1/2 mt-5">
                                         <InputField
                                             label={"Email"}
                                             placeholder={"Enter email address"}
@@ -169,7 +186,7 @@ const AboutUs = () => {
 
                                         />
                                     </div>
-                                    <div className="w-1/2 mt-5">
+                                    <div className="w-full lg:w-1/2 mt-5">
                                         <InputField
                                             label={"Phone"}
                                             placeholder={"Phone number"}
@@ -177,7 +194,7 @@ const AboutUs = () => {
 
                                         />
                                     </div>
-                                    <div className="w-1/2 mt-5">
+                                    <div className="w-full lg:w-1/2 mt-5">
                                         <InputField
                                             label={"Subject"}
                                             placeholder={"Enter Subject"}
@@ -185,70 +202,76 @@ const AboutUs = () => {
 
                                         />
                                     </div>
-                                    <div class="w-1/2 mt-5 flex">
-
-                                        <div class="flex-1">
-                                            <div>
-                                                <label for="message" class="block text-xl mb-2 text-gray-700">Message</label>
-                                                <textarea id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300"/>
-                                          </div>
-                                          
+                                    <div className="mt-5 flex flex-col lg:flex-row lg:items-center">
+                                        <div className="w-full lg:w-1/2  lg:mb-0">
+                                            <label for="message" className="block text-xl mb-2  text-gray-700">Message</label>
+                                            <textarea id="message" rows="4" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300"></textarea>
                                         </div>
+                                        <Button label={'Send'} bgColor={"bg-swPrimary500 block w-1/2 mt-0 lg:w-auto  text-sm text-white rounded-lg shadow-md lg:ml-4 mt-24"} />
                                     </div>
-
                                 </div>
                             </div>
                         </div>
                     </div>
                 </section>
-
                 <section className="py-16">
-                    {/* <div class="py-12">
-                        <div class="xl:container m-auto px-6 text-gray-600 md:px-12 xl:px-6">
-                            <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-                                <div class="group p-6 sm:p-8 rounded-3xl bg-white ">
-                                    <div class="mt-6 relative">
-                                        <h3 class="text-2xl font-semibold text-gray-800 dark:text-white">
-                                            Global coverage
-                                        </h3>
-                                        <p class="mt-6 mb-8 text-gray-600 dark:text-gray-300">
-                                            Swift Wings offers extensive global coverage to meet the travel needs of our clients, seamlessly connecting them to destinations worldwide, including Europe, North America, South America, and beyond. With a network of trusted partners and affiliates, we ensure convenience and flexibility in air travel on a global scale, even to the most remote corners of the world.
+
+
+                    <div class="xl:container m-auto px-6 text-gray-600 md:px-12 xl:px-16">
+                        <div class="lg:bg-gray-50 dark:lg:bg-darker lg:p-16 rounded-[4rem] space-y-60 md:flex md:gap-6  md:space-y-0 ">
+                            <div class="md:5/12 lg:w-1/2">
+                                <div class="flex relative">
+                                    <div class="w-72 h-60 bg-swPrimary700 card-container-3 transform transition-all absolute rounded-lg top-3 -left-6 ">
+
+                                    </div>
+                                    <div class="w-72 h-72 card-container-2 bg-swPrimary600 transform transition-all  absolute -top-2 -left-12 rounded-lg">
+
+                                    </div>
+                                    <div class="w-full card-container md:w-80 h-full md:h-80 bg-swPrimary500 flex flex-col justify-start items-center transform transition-all absolute -top-6 md:-left-20 rounded-lg">
+                                        <h2 class="text-2xl font-bold  md:text-4xl text-white  px-12 py-4">
+                                            Frequently Asked Questions
+                                        </h2>
+                                        <p class="text-md px-12 mb-8 lg:mb-0 md:text-xl text-white">
+                                            Here are previously answers questions.
                                         </p>
                                     </div>
+
+
                                 </div>
-                                <div className="group p-6 sm:p-8 rounded-3xl bg-white ">
-                                    <div className="mt-6 relative">
-                                        <h3 className="text-2xl font-semibold text-gray-800 dark:text-white">
-                                            World-class experience
-                                        </h3>
-                                        <p className="mt-6 mb-8 text-gray-600 dark:text-gray-300">
-                                            At Swift Wings, we ensure every journey is a remarkable experience by maintaining a tailored fleet of private jets that epitomize luxury, comfort, and convenience. From the moment you step on board, you will experience an unparalleled level of service that stands unrivaled in the industry. Our aviation experts are dedicated to customizing every aspect of your journey to align with your preferences and needs, ensuring a truly unforgettable experience.
-                                        </p>
-                                    </div>
-                                </div>
-                                <div className="group p-6 sm:p-8 rounded-3xl bg-white  ">
-                                    <div className="mt-6 relative">
-                                        <h3 className="text-2xl font-semibold text-gray-800 dark:text-white">
-                                            Private jets supremacy
-                                        </h3>
-                                        <p className="mt-6 mb-8 text-gray-600 dark:text-gray-300">
-                                            At Swift Wings, we prioritize accessibility in private jet travel with our diverse fleet, accommodating various budgets and travel needs. Whether it is a short trip on a light jet or a long-haul journey on a spacious cabin jet, our advanced aircraft, such as the Hawker 850xp and Bombardier Challenger 604, ensure unparalleled comfort, luxury, and reliability for every passenger.
-                                        </p>
-                                    </div>
+                            </div>
+                            <div className="md:7/12 lg:w-1/2 mt-12 px-4 lg:mt-0">
+                                <div>
+                                    {accordions.map((accordion) => (
+                                            <Accordion key={accordion.id} expanded={isExpanded} onChange={toggleAccordion}>
+                                                <AccordionSummary
+                                                    aria-controls={`panel${accordion.id}-content`}
+                                                    id={`panel${accordion.id}-header`}
+                                                    className={'font-bold'}
+                                                    expandIcon={isExpanded ? <SWTAccordionsOpenIcon /> : <SWTAccordionsCloseIcon />}
+                                                >
+                                                {accordion.header}
+                                            </AccordionSummary>
+                                            <AccordionDetails>
+                                                {accordion.content}
+                                            </AccordionDetails>
+                                            {accordion.id === 3 && (
+                                                <AccordionActions>
+
+                                                </AccordionActions>
+                                            )}
+                                        </Accordion>
+                                    ))}
                                 </div>
                             </div>
                         </div>
-                    </div> */}
-
-                </section>
-                <section className="py-16">
+                    </div>
 
 
                 </section>
 
                 <section className="mt-64 py-16">
                     <div className="xl:container m-auto px-6 text-gray-600 md:px-12 xl:px-16">
-                        {/* <FooterHero /> */}
+                         <FooterHero /> 
                     </div>
                 </section>
             </NavAndFooter>

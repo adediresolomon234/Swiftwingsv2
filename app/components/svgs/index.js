@@ -40,3 +40,5 @@ export { default as SWTTikTokIcon } from "./TikTok.svg";
 export { default as SWTTwitterIcon } from "./Twitter.svg";
 export { default as SWTCallPhoneIcon } from "./CallPhone.svg";
 export { default as SWTButtoncircleIcon } from "./Buttoncircle.svg";
+export { default as SWTAccordionsOpenIcon } from "./accordions2.svg";
+export { default as SWTAccordionsCloseIcon } from "./accordions.svg";

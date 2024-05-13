@@ -120,8 +120,8 @@ export default function Home() {
           {/* <div className="h-full w-full bg-swBlack absolute top-0 left-0 bg-opacity-[0.2]" /> */}
           <div className="max-w-7xl mx-auto mb-10 relative text-center">
             <div className="pt-28 z-50">
-              <p className="text-3xl md:text-4xl lg:text-7xl max-w-4xl mx-auto w-full font-bold leading-snug z-50 text-shadow">
-                Experience Unmatched Luxury Travel
+              <p className="text-3xl md:text-4xl lg:text-6xl max-w-4xl mx-auto w-full font-bold leading-snug z-50 text-shadow">
+                The World is Closer to You
               </p>
               <div>
                 <p className="text-lg mt-10 z-10 text-shadow-lg text-shadow">
@@ -162,7 +162,7 @@ export default function Home() {
         <section className="mt-30 py-16 px-5 text-swGray900 ">
           <div className="max-w-4xl w-full mx-auto text-center">
             <Services
-              name={"Luxury travels"}
+              name={"VIP Treatment"}
               text={
                 <p>
                   <span
@@ -170,13 +170,8 @@ export default function Home() {
                   >
                     Swift<i className="font-normal">Wings</i>
                   </span>{" "}
-                  operates the largest and most diverse private aircraft fleet
-                  globally, providing an extensive array of personalized private
-                  aviation solutions that surpass the expectations of the
-                  world’s most discerning travelers. Our industry-leading scale
-                  and innovative aviation business model ensure dependable
-                  financial sustainability for our clients, setting us apart in
-                  the industry.
+                  Enjoy luxurious comfort, in-flight catering customised to your taste. Get entertained by favourite shows or stay connected with work using free Wi-Fi. Arrive refreshed & ready for your destination. Fly on a private flight schedule, not airlines.
+
                 </p>
               }
               image={servicesPlane}
@@ -184,7 +179,7 @@ export default function Home() {
           </div>
           <div className="max-w-4xl w-full mx-auto text-center mt-32">
             <Services
-              name={"Membership plan"}
+              name={"Global Access"}
               text={
                 <p>
                   <span
@@ -192,29 +187,9 @@ export default function Home() {
                   >
                     Swift<i className="font-normal">Wings</i>
                   </span>{" "}
-                  offers flexible and investment-free solutions tailored to meet
-                  your unique flying needs.{" "}
-                  <span
-                    className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
-                  >
-                    Swift<i className="font-normal">Wings</i>
-                  </span>{" "}
-                  grants its clients access to a distinguished fleet, including
-                  over 80{" "}
-                  <span
-                    className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
-                  >
-                    Swift<i className="font-normal">Wings</i>
-                  </span>{" "}
-                  aircraft globally, with a strong presence in the United
-                  States. As a{" "}
-                  <span
-                    className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
-                  >
-                    Swift<i className="font-normal">Wings</i>
-                  </span>{" "}
-                  customer, you&apos;ll experience unparalleled 24/7 concierge
-                  service delivered by a dedicated team of aviation experts.
+                  grants you exclusive access to private jets for seamless travel anywhere in the globe. Remember, we bring the world closer to you!
+                  {" "}
+
                 </p>
               }
               image={servicesMembership}
@@ -222,7 +197,7 @@ export default function Home() {
           </div>
           <div className="max-w-4xl w-full mx-auto text-center  mt-32">
             <Services
-              name={"Dedicated customer service"}
+              name={"Save Time"}
               text={
                 <p>
                   At{" "}
@@ -231,21 +206,27 @@ export default function Home() {
                   >
                     Swift<i className="font-normal">Wings</i>
                   </span>
-                  , our dedicated customer service is more than a commitment;
-                  it&apos;s a promise of excellence. Our aviation experts, based
-                  in New York and Florida, are available 24/7 to provide
-                  unparalleled support, ensuring your journey is seamless and
-                  stress-free. From personalized itinerary planning to
-                  addressing your unique needs,{" "}
+                  Skip the crowds & time wasters! Time is a precious commodity not to be wasted. Fly private, fast and secure with Swiftwings private jet charter services.
+                  {" "}
+
+                </p>
+              }
+              image={servicesCustomer}
+            />
+          </div>
+          <div className="max-w-4xl w-full mx-auto text-center  mt-32">
+            <Services
+              name={"Membership"}
+              text={
+                <p>
+                  At{" "}
                   <span
                     className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
                   >
                     Swift<i className="font-normal">Wings</i>
                   </span>
-                  &apos; customer service is devoted to delivering an unmatched
-                  level of care, enhancing every aspect of your private jet
-                  experience. Your satisfaction and peace of mind are at the
-                  heart of our service philosophy.
+                  Network with high profile individuals like you, strike a deeper.connection, and get access to premium services like: unlimited private jet access, highly personalised travel experience, priority scheduling, empty leg prior notification, etc
+                  {" "}
                 </p>
               }
               image={servicesCustomer}
@@ -410,9 +391,8 @@ export default function Home() {
                   <div className="">
                     <div
                       aria-hidden="true"
-                      className={`absolute scale-75 md:scale-110 inset-0 m-auto rotate-45 bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl ${
-                        hoveredIndex >= 0 ? "opacity-100" : "opacity-0"
-                      }`}
+                      className={`absolute scale-75 md:scale-110 inset-0 m-auto rotate-45 bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl ${hoveredIndex >= 0 ? "opacity-100" : "opacity-0"
+                        }`}
                     ></div>
                     {hoveredIndex >= 0 && fleet[hoveredIndex]?.image && (
                       <div
