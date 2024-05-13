@@ -278,8 +278,8 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="flex flex-col items-center gap-5 mt-14 p-4 md: p-0 ">
-            <div className="grid grid-col-3 grid-flow-col gap-8 mb: gap-14 justify-center ">
+          <div className="flex flex-col items-center gap-5 mt-14  md: p-0 ">
+            <div className="grid grid-col-3 grid-flow-col gap-4 mb:gap-14 justify-center ">
               <AboutUsCard
                 number={"75"}
                 text={
@@ -323,7 +323,7 @@ export default function Home() {
               />
             </div>
 
-            <div className="bg-swSecondary400 text-swWine p-8 max-w-[46rem] rounded-2xl">
+            <div className="bg-swSecondary400 text-swWine p-8 max-w-[41rem] rounded-2xl">
               <p className="font-light">
                 <span
                   className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
