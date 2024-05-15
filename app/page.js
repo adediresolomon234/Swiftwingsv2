@@ -214,24 +214,7 @@ export default function Home() {
               image={servicesCustomer}
             />
           </div>
-          <div className="max-w-4xl w-full mx-auto text-center  mt-32">
-            <Services
-              name={"Membership"}
-              text={
-                <p>
-                  At{" "}
-                  <span
-                    className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
-                  >
-                    Swift<i className="font-normal">Wings</i>
-                  </span>
-                  Network with high profile individuals like you, strike a deeper.connection, and get access to premium services like: unlimited private jet access, highly personalised travel experience, priority scheduling, empty leg prior notification, etc
-                  {" "}
-                </p>
-              }
-              image={servicesCustomer}
-            />
-          </div>
+         
         </section>
 
         <section className=" max-w-6xl mx-auto p-5">
@@ -487,11 +470,7 @@ export default function Home() {
                 >
                   Swift<i className="font-normal">Wings</i>
                 </span>{" "}
-                Ltd offers an exclusive Jet Card Membership, providing
-                discerning travelers with unparalleled access to private jet
-                charter services. As a Jet Card member, you enjoy priority
-                booking and seamless travel experiences tailored to your
-                preferences.
+                Network with high profile individuals like you, strike a deeper connection, and get access to premium services like: unlimited private jet access, highly personalised travel experience, priority scheduling, empty leg prior notification, etc
               </p>
             </div>
           </div>

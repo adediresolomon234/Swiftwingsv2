@@ -50,7 +50,7 @@ const Destinations = () => {
                     </div>
                     <div className="mt-0  md:mt-12 flex items-center">
                       <div className="text-sm md:text-xl text-white max-w-lg">
-                        Experiences beyond your imagination, seeking journeys beyond the ordinary
+                        We are bringing the world closer to you through global access!
                       </div>
                       <div className="ml-4 text-2xl text-white">
                         <FaChevronDown className="text-white" />
