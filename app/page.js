@@ -124,7 +124,7 @@ export default function Home() {
                 The World is Closer to You
               </p>
               <div>
-                <p className="text-lg mt-10 z-10 text-shadow-lg text-shadow">
+                {/* <p className="text-lg mt-10 z-10 text-shadow-lg text-shadow">
                   Experience the epitome of safety, luxury and convenience with{" "}
                   <br />
                   <span className="">
@@ -135,7 +135,7 @@ export default function Home() {
                     </span>{" "}
                     private jet charter service
                   </span>
-                </p>
+                </p> */}
               </div>
             </div>
 
