@@ -24,6 +24,7 @@ import SuccessModal from "../shared/modals/SuccessModal";
 import Image from "next/image";
 import loadingGif from "../../../public/images/loading.gif";
 import { fetchAircrafts } from "@/redux/slices/aircraftdetails";
+import NotLoggedInModal from "./NotLoggedInModal";
 
 const BookingPageInformation = () => {
   const pathname = usePathname();
@@ -36,6 +37,7 @@ const BookingPageInformation = () => {
   const [success, setSuccess] = useState(false);
   const [hydrated, setHydrated] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState(null);
+  const [notLoggedInModal, setNotLoggedInModal] = useState(false);
 
   const { loading, error, data } = useSelector((state) => state.booking);
   const {
@@ -43,6 +45,25 @@ const BookingPageInformation = () => {
     error: jetError,
     aircrafts: jetData,
   } = useSelector((state) => state.aircrafts);
+
+  const resetBookingState = () => {
+    setBookingDetails([
+      {
+        source: null,
+        destination: null,
+        depatureTime: null,
+        depatureDate: null,
+        returningTime: null,
+        returningDate: null,
+        passengers: {
+          adults: 0,
+          children: 0,
+          pets: 0,
+        },
+        additional_quote: [],
+      },
+    ]);
+  };
 
   const handleAircraftSelect = (e, aircraftDetails, index) => {
     const isChecked = e.target.checked;
@@ -70,8 +91,9 @@ const BookingPageInformation = () => {
       bookingDetails.user = loggedInUser;
       dispatch(addBooking(bookingDetails));
     } else {
-      localStorage.setItem("bookingInComplete", true);
-      router.push("/sign-in");
+      // localStorage.setItem("bookingInComplete", true);
+      // router.push("/sign-in");
+      setNotLoggedInModal(true);
     }
   };
 
@@ -92,6 +114,11 @@ const BookingPageInformation = () => {
     if (data?.response?.data?.error) {
       toast.error(data?.response?.data?.error);
     } else if (data?.message) {
+      const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+      checkboxes.forEach((checkbox) => {
+        checkbox.checked = false;
+      });
+      resetBookingState();
       setSuccess(true);
     }
     if (error) {
@@ -122,6 +149,7 @@ const BookingPageInformation = () => {
 
     // console.log("book", bookingDetails);
   }, []);
+  console.log(bookingDetails?.additional_quote);
 
   useEffect(() => {
     const formData = bookingDetails?.booking_details?.formData?.[0];
@@ -150,7 +178,7 @@ const BookingPageInformation = () => {
                           <div className="w-full w-1/3 flex gap-5 items-center whitespace-nowrap">
                             <input
                               type="checkbox"
-                              onClick={(e) =>
+                              onChange={(e) =>
                                 handleAircraftSelect(e, item, index)
                               }
                               className="h-6 w-6 accent-swPrimary500"
@@ -375,6 +403,12 @@ const BookingPageInformation = () => {
           </div>
         </div>
       )}
+
+      <NotLoggedInModal
+        open={notLoggedInModal}
+        onClick={setNotLoggedInModal}
+        bookingDetails={bookingDetails}
+      />
     </>
   );
 };
