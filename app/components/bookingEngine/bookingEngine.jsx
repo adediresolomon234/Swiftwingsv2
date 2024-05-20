@@ -23,6 +23,7 @@ import { HiArrowRight } from "react-icons/hi";
 import { FaSearch } from "react-icons/fa";
 import { usePathname, useRouter } from "next/navigation";
 import { ThemeProvider, createTheme } from "@mui/material";
+import { useSelector } from "react-redux";
 
 const space_grotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -41,6 +42,7 @@ const BookingEngine = ({ setBookingDetails }) => {
   const arrivalRef = useRef(null);
   // const dateRef = useRef(null);
   const passengerRef = useRef(null);
+  const { loading, error, data } = useSelector((state) => state.booking);
 
   const [bookingState, setBookingState] = useState([
     {
@@ -297,6 +299,12 @@ const BookingEngine = ({ setBookingDetails }) => {
       }));
     }
   }, [bookingType, bookingState]);
+
+  useEffect(() => {
+    if (data?.message) {
+      resetBookingState();
+    }
+  }, [data]);
 
   // console.log({ bookingState });
 
