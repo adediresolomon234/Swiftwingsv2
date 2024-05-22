@@ -31,7 +31,7 @@ const Service = () => {
                         </div>
                     </div>
                 </div>
-                <section className="py-16">
+                {/* <section className="py-16">
                     <div className="m-auto px-6 text-gray-600 md:px-12 xl:px-16">
                         <div className="max-w-3xl mx-auto text-justify lg:text-center">
                             <h1 className="px-2 sm: text-md lg:text-lg ">
@@ -40,8 +40,8 @@ const Service = () => {
                             </h1>
                         </div>
                     </div>
-                </section>
-                <section className="py-16">
+                </section> */}
+                {/* <section className="py-16">
                     <div className="m-auto px-6 text-gray-600 md:px-12 xl:px-16">
                         <div className="max-w-5xl mx-auto text-justify lg:text-center">
                             <ul className="p-2 mb-12 flex flex-col sm:flex-row overflow-x-auto no-scrollbar">
@@ -54,8 +54,8 @@ const Service = () => {
                             </ul>
                         </div>
                     </div>
-                </section>
-                <section className="py-16">
+                </section> */}
+                {/* <section className="py-16">
                     <div className="m-auto px-6 text-gray-600 md:px-12 xl:px-16">
                         <div className="max-w-5xl mx-auto text-justify lg:text-center">
                             <ul className="p-2 mb-12 flex flex-col-reverse sm:flex-row overflow-x-auto no-scrollbar">
@@ -68,8 +68,8 @@ const Service = () => {
                             </ul>
                         </div>
                     </div>
-                </section>
-                <section className="py-16">
+                </section> */}
+                {/* <section className="py-16">
                     <div className="w-full relative h-[1033px] text-left text-5xl text-gray-900 font-body-md-regular hidden sm:block">
                         <Image
                             className="absolute top-[0px] left-[calc(50%_+_7px)] w-[677px] h-[664px] object-cover"
@@ -131,8 +131,8 @@ const Service = () => {
                             </div>
                         </div>
                     </div>
-                </section>
-                <section className="py-16">
+                </section> */}
+                {/* <section className="py-16">
                     <div class="py-16 bg-gray-100">
                         <div class="xl:container m-auto px-6 text-gray-600 md:px-12 xl:px-16 ">
                             <div class="lg:bg-gray-50 dark:lg:bg-darker lg:p-16 rounded-[4rem] space-y-6 md:flex md:gap-6 justify-center md:space-y-0 lg:items-center">
@@ -151,8 +151,8 @@ const Service = () => {
                             </div>
                         </div>
                     </div>
-                </section>
-                <section className="py-16">
+                </section> */}
+                {/* <section className="py-16">
                     <div class="py-12">
                         <div class="xl:container m-auto px-6 text-gray-600 md:px-12 xl:px-6">
                             <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
@@ -190,8 +190,8 @@ const Service = () => {
                         </div>
                     </div>
 
-                </section>
-                <section className="py-16">
+                </section> */}
+                {/* <section className="py-16">
 
                     <div class="py-20">
                         <div class="xl:container mx-auto px-6 md:px-12">
@@ -269,13 +269,13 @@ const Service = () => {
                             </div>
                         </div>
                     </div>
-                </section>
+                </section> */}
 
-        <section className="mt-64 py-16">
+        {/* <section className="mt-64 py-16">
           <div className="xl:container m-auto px-6 text-gray-600 md:px-12 xl:px-16">
             {/* <FooterHero /> */}
           </div>
-        </section>
+        </section> */}
       </NavAndFooter>
     </main>
   );
