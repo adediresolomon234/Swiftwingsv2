@@ -8,7 +8,6 @@ import {
   SwDeparturePlaneIcon,
   SwSearchIcon,
   SwUserIcon,
-  SWArrowsChevron,
 } from "../svgs";
 import Select from "react-select";
 import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";

@@ -51,7 +51,6 @@ const EmptyLegPage = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  if (!open) return;
   return (
     <NavAndFooter Nav={true}>
       <main className="flex justify-center items-center p-5 z-50 py-20 pt-32 bg-black bg-opacity-10">
