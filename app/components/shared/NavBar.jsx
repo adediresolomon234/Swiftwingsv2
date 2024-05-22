@@ -8,12 +8,17 @@ import Link from "next/link";
 import logo from "../../../public/images/fullLogo.png";
 import { IoPersonCircleOutline } from "react-icons/io5";
 import { useRouter } from "next/navigation";
+import { FaChevronDown } from 'react-icons/fa';
 
 const NavBar = ({ Nav }) => {
   const [user, setUser] = useState(null);
   const router = useRouter();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
   const [userData, setUserData] = useState(false);
   const [openUserDropDown, setOpenUserDropDown] = useState(false);
 
@@ -76,9 +81,8 @@ const NavBar = ({ Nav }) => {
 
                   {openUserDropDown && (
                     <div
-                      className={`absolute w-[12rem] -right-5 top-full mt-7 p-3 bg-white rounded-md border ${
-                        openUserDropDown ? "min-h-10" : "h-0"
-                      }`}
+                      className={`absolute w-[12rem] -right-5 top-full mt-7 p-3 bg-white rounded-md border ${openUserDropDown ? "min-h-10" : "h-0"
+                        }`}
                     >
                       <div className="w-full flex flex-col">
                         <Link
@@ -147,9 +151,8 @@ const NavBar = ({ Nav }) => {
             </button>
           </div>
           <div
-            className={`${
-              isMobileMenuOpen ? "block" : "hidden"
-            } items-center justify-between w-full lg:flex lg:w-auto lg:order-1`}
+            className={`${isMobileMenuOpen ? "block" : "hidden"
+              } items-center justify-between w-full lg:flex lg:w-auto lg:order-1`}
             id="mobile-menu-2"
           >
             {Nav !== false && (
@@ -169,12 +172,55 @@ const NavBar = ({ Nav }) => {
                   Destination
                 </Link>
                 <Link
-                  href="/about-us"
+                  href={"/services"}
                   className="block py-2 pl-3 pr-4 text-gray-700  border-gray-100 hover:bg-white rounded-full p-4 hover:text-swPrimary600  "
                   aria-current="page"
                 >
-                  Company{" "}
+                  Services
                 </Link>
+                <div className="relative inline-block text-left">
+                  <div className="flex items-center">
+                    <Link href=""
+                      className=" flex block py-2 pl-3 pr-4 text-gray-700 border-gray-100 hover:bg-white rounded-full p-4 hover:text-swPrimary600"
+                      aria-current="page"
+                    >
+                      Company
+                    <button
+                      onClick={toggleDropdown}
+                      className="rounded px-1 py-1 text-sm  flex items-center"
+                    >
+                      <FaChevronDown />
+                    </button>
+                    </Link>
+                  </div>
+
+                  {isOpen && (
+                    <div
+                      className="absolute left-0 mt-2 w-56 rounded-3xl shadow-lg bg-white ring-1 ring-black ring-opacity-5"
+                      role="menu"
+                      aria-orientation="vertical"
+                      aria-labelledby="company-menu-button"
+                    >
+                      <div className="py-4 px-4" role="none">
+                        <Link href="/about-us"
+
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-swPrimary600 hover:text-white"
+                          role="menuitem"
+                        >
+                          About Us
+
+                        </Link>
+                        <Link href="/careers"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-swPrimary600 hover:text-white"
+                          role="menuitem"
+                        >
+                          Careers
+
+                        </Link>
+                      </div>
+                    </div>
+                  )}
+                </div>
                 <Link
                   href="/contact-us"
                   className="block py-2 pl-3 pr-4 text-gray-700 border-gray-100 hover:bg-white rounded-full p-4 hover:text-swPrimary600  "
