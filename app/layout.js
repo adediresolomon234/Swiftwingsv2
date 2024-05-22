@@ -1,6 +1,7 @@
 "use client";
 import { Poppins } from "next/font/google";
 import "./globals.css";
+import "react-toastify/dist/ReactToastify.css";
 import { Provider } from "react-redux";
 //import { BrowserRouter } from "react-router-dom"; // Import BrowserRouter
 import { store } from "@/redux/store";
