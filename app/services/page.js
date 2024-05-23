@@ -3,44 +3,64 @@ import "../../styles.css";
 import Image from "next/image";
 import NavAndFooter from "../components/shared/NavAndFooter";
 import Destinationsection from "../../public/images/Destinationsection.png";
-import Serviceexecllence from "../../public/images/Serviceexecllence.png";
+import Inflightcatering2 from "../../public/images/Inflightcatering2.png";
 import Safetyfirst from "../../public/images/Safetyfirst.png";
 import team from "../../public/images/team.png";
 import { Libre_Baskerville } from "next/font/google";
 
 const libre_baskerville = Libre_Baskerville({
-  subsets: ["latin"],
-  weight: ["400", "700"],
+    subsets: ["latin"],
+    weight: ["400", "700"],
 });
 
 const Service = () => {
     return (
         <main className="relative bg-swLightBgGray">
             <NavAndFooter Nav={true}>
-                <div class="relative">
+                <div className="relative">
                     <Image className="absolute inset-0 w-full h-full object-cover object-top" src={Destinationsection} width="400" height="500" alt="hero background image" />
                     {/* <div aria-hidden="true" class="absolute inset-0 w-full h-full bg-gray-900 bg-opacity-30 backdrop-blur-sm"></div> */}
                     <div className="relative mx-auto max-w-screen-full px-4 py-28 sm:px-6 lg:flex lg:h-[70vh]  lg:items-center lg:px-8">
                         <div className="max-w-xl mx-auto text-center">
                             <h1 className="text-3xl font-extrabold sm:text-3xl uppercase mb-3">
-                             Swift Wings Sets the Standard in Aviation Services
+                                Swift Wings Sets the Standard in Aviation Services
                             </h1>
                             <p className="px-2 sm:text-md lg:text-lg ">
-                             Our Services are designed to give you a first class experience tailored to your needs.
+                                Our Services are designed to give you a first class experience tailored to your needs.
                             </p>
                         </div>
                     </div>
                 </div>
-                {/* <section className="py-16">
-                    <div className="m-auto px-6 text-gray-600 md:px-12 xl:px-16">
-                        <div className="max-w-3xl mx-auto text-justify lg:text-center">
-                            <h1 className="px-2 sm: text-md lg:text-lg ">
-                                Welcome to SwiftWings, where the sky is not the limit – it is just the beginning.
-                                Since our establishment in June 2017, we have been dedicated to revolutionizing the aviation industry in Nigeria and beyond.
-                            </h1>
+                <section className="py-16">
+                    <div className="m-auto text-gray-600 md:px-12 xl:px-16">
+                        <div className="w-full mx-auto text-justify lg:text-center">
+                            <div className="flex flex-col gap-8 lg:flex-row">
+                                <div className="basis-1/2   mx-8">
+                                    <div className="max-w-xl mx-auto text-start">
+                                        <h1 className="text-sm font-extrabold sm:text-xl uppercase mb-3">
+                                          Inflight Catering
+                                        </h1>
+                                        <p className=" sm:text-md lg:text-lg ">
+                                        Indulge in gourmet dining at 40,000 feet with Swift Wings' inflight catering services. From decadent entrees to tantalizing desserts, our culinary team crafts bespoke menus tailored to your preferences
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="basis-1/2 mx-8  mt-3 lg:mt-8">
+                                    <div className="max-w-xl mx-auto text-start">
+                                        <p className="px-2 sm:text-md lg:text-lg ">
+                                        Whether you're hosting a business meeting or celebrating a special occasion, savor every moment with our exquisite inflight dining experience.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="w-full mt-8">
+                                <div className="relative">
+                                 <Image className=" w-full h-full lg:px-20 " src={Inflightcatering2} />
+                                </div>
                         </div>
                     </div>
-                </section> */}
+                </div>
+                </section>
                 {/* <section className="py-16">
                     <div className="m-auto px-6 text-gray-600 md:px-12 xl:px-16">
                         <div className="max-w-5xl mx-auto text-justify lg:text-center">
@@ -271,14 +291,14 @@ const Service = () => {
                     </div>
                 </section> */}
 
-        {/* <section className="mt-64 py-16">
+                {/* <section className="mt-64 py-16">
           <div className="xl:container m-auto px-6 text-gray-600 md:px-12 xl:px-16">
             {/* <FooterHero /> */}
-          </div>
+                {/* </div>
         </section> */}
-      </NavAndFooter>
-    </main>
-  );
+            </NavAndFooter>
+        </main>
+    );
 };
 
 export default Service;
