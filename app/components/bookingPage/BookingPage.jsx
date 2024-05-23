@@ -89,7 +89,26 @@ const BookingPageInformation = () => {
     if (loggedInUser) {
       bookingDetails.status = "New";
       bookingDetails.user = loggedInUser;
-      dispatch(addBooking(bookingDetails));
+      dispatch(addBooking(bookingDetails))
+        .unwrap()
+        .then((response) => {
+          console.log(response);
+          if (response?.response?.data?.error) {
+            toast.error(response?.response?.data?.error);
+          } else if (response?.message) {
+            const checkboxes = document.querySelectorAll(
+              'input[type="checkbox"]'
+            );
+            checkboxes.forEach((checkbox) => {
+              checkbox.checked = false;
+            });
+            resetBookingState();
+            setSuccess(true);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     } else {
       // localStorage.setItem("bookingInComplete", true);
       // router.push("/sign-in");
@@ -109,22 +128,6 @@ const BookingPageInformation = () => {
   };
 
   console.log({ jetData });
-
-  useEffect(() => {
-    if (data?.response?.data?.error) {
-      toast.error(data?.response?.data?.error);
-    } else if (data?.message) {
-      const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-      checkboxes.forEach((checkbox) => {
-        checkbox.checked = false;
-      });
-      resetBookingState();
-      setSuccess(true);
-    }
-    if (error) {
-      toast.error(error?.message);
-    }
-  }, [data, error]);
 
   useEffect(() => {
     dispatch(fetchAircrafts());

@@ -10,6 +10,20 @@ export const addBooking = createAsyncThunk("booking/add", async (payload) => {
     return error;
   }
 });
+export const addEmptyLeg = createAsyncThunk(
+  "booking/add-empty-leg",
+  async (payload) => {
+    try {
+      const response = await axios.post(
+        `https://swiftwings-mw.onrender.com/api/v1/subscribe/enquiry/add-empty-leg`,
+        payload
+      );
+      return response.data;
+    } catch (error) {
+      return error;
+    }
+  }
+);
 
 const bookingSlice = createSlice({
   name: "booking",
