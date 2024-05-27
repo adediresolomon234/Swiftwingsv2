@@ -4,9 +4,12 @@ import Image from "next/image";
 import NavAndFooter from "../components/shared/NavAndFooter";
 import Destinationsection from "../../public/images/Destinationsection.png";
 import Inflightcatering2 from "../../public/images/Inflightcatering2.png";
-import Safetyfirst from "../../public/images/Safetyfirst.png";
+import ChauffeurServices from "../../public/images/ChauffeurServices.png";
+import MedicalEvacuation from "../../public/images/MedicalEvacuation.png";
 import team from "../../public/images/team.png";
 import { Libre_Baskerville } from "next/font/google";
+import { SWTBespokeIcon, SWTStarBlack2Icon, SWTUserServiceIcon, SWTLuxuryFleetIcon, SWTDoortoDoorIcon, SWTCustomizatioIconIcon, SWTDietaryIconIcon, SWTStarIconIcon, SWTAdvancedMedicalIcon, SWTTwoPersonBlackIcon, SWTGlobalCoverageIcon, SWTClockBlackIcon } from "../components/svgs"
+import Button from "../components/Button";
 
 const libre_baskerville = Libre_Baskerville({
     subsets: ["latin"],
@@ -37,30 +40,187 @@ const Service = () => {
                             <div className="flex flex-col gap-8 lg:flex-row">
                                 <div className="basis-1/2   mx-8">
                                     <div className="max-w-xl mx-auto text-start">
-                                        <h1 className="text-sm font-extrabold sm:text-xl uppercase mb-3">
-                                          Inflight Catering
+                                        <h1 className="text-sm font-extrabold sm:text-xl uppercase mb-4">
+                                            Inflight Catering
                                         </h1>
                                         <p className=" sm:text-md lg:text-lg ">
-                                        Indulge in gourmet dining at 40,000 feet with Swift Wings' inflight catering services. From decadent entrees to tantalizing desserts, our culinary team crafts bespoke menus tailored to your preferences
+                                            Indulge in gourmet dining at 40,000 feet with Swift Wings' inflight catering services. From decadent entrees to tantalizing desserts, our culinary team crafts bespoke menus tailored to your preferences
                                         </p>
                                     </div>
                                 </div>
-                                <div class="basis-1/2 mx-8  mt-3 lg:mt-8">
+
+                                <div class="basis-1/2 mx-8  ">
                                     <div className="max-w-xl mx-auto text-start">
-                                        <p className="px-2 sm:text-md lg:text-lg ">
-                                        Whether you're hosting a business meeting or celebrating a special occasion, savor every moment with our exquisite inflight dining experience.
+
+                                        <p className=" sm:text-md lg:text-lg ">
+                                            Indulge in gourmet dining at 40,000 feet with Swift Wings' inflight catering services. From decadent entrees to tantalizing desserts, our culinary team crafts bespoke menus tailored to your preferences
                                         </p>
                                     </div>
                                 </div>
                             </div>
                             <div className="w-full mt-8">
                                 <div className="relative">
-                                 <Image className=" w-full h-full lg:px-20 " src={Inflightcatering2} />
+                                    <Image className=" w-full h-full lg:px-20 " src={Inflightcatering2} />
                                 </div>
+                            </div>
+                            <div className="py-16">
+                                <div className="container m-auto px-6 space-y-8 md:px-12 lg:px-28">
+                                    <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4">
+                                        <div className="p-4 flex items-center">
+                                            <SWTBespokeIcon className="mr-4" />
+                                            <p>Bespoke Menus</p>
+                                        </div>
+                                        <div className="p-4 flex items-center">
+                                            <SWTCustomizatioIconIcon className="mr-4" />
+                                            <p>Customization Options</p>
+                                        </div>
+                                        <div className="p-4 flex items-center">
+                                            <SWTStarIconIcon className="mr-4" />
+                                            <p>Premium Selections</p>
+                                        </div>
+                                        <div className="p-4 flex items-center">
+                                            <SWTDietaryIconIcon className="mr-4" />
+                                            <p>Dietary Accommodations</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
                 </section>
+                <section className="py-16">
+                    <div className="m-auto text-gray-600 md:px-12 xl:px-16">
+                        <div className="w-full mx-auto text-justify lg:text-center">
+                            <div className="flex flex-col gap-8 lg:flex-row">
+                                <div className="basis-1/2   mx-8">
+                                    <div className="max-w-xl mx-auto text-start">
+                                        <h1 className="text-sm font-extrabold sm:text-xl uppercase mb-4">
+                                            Medical Evacuation
+                                        </h1>
+                                        <p className=" sm:text-md lg:text-lg ">
+                                            Your safety is our priority. Swift Wings offers medical evacuation services for emergencies, ensuring prompt and efficient transportation to medical facilities when needed most.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="basis-1/2 mx-8  ">
+                                    <div className="max-w-xl mx-auto text-start">
+                                        <Button
+                                            label={"Request quote"}
+                                            bgColor={"bg-swPrimary500 text-white "}
+                                            className="ml-auto w-sm mb-8 lg:mb-3 hidden lg:block"
+                                        />
+                                        <p className=" sm:text-md lg:text-lg ">
+                                            With our dedicated team of professionals and state-of-the-art equipment, you can travel with peace of mind knowing that help is just a call away.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="my-7 px-6 lg:hidden">
+                                <Button
+                                    label={"Request quote"}
+                                    bgColor={"bg-swPrimary500 text-white w-md"}
+                                />
+                            </div>
+                            <div className="w-full mt-8">
+                                <div className="relative">
+                                    <Image className=" w-full h-full lg:px-20 " src={MedicalEvacuation} />
+                                </div>
+                            </div>
+                            <div className="py-16">
+                                <div className="container m-auto px-6 space-y-8 md:px-12 lg:px-28">
+                                    <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4">
+                                        <div className="p-4 flex items-center">
+                                            <SWTClockBlackIcon className="mr-4" />
+                                            <p>Available 24/7</p>
+                                        </div>
+                                        <div className="p-4 flex items-center">
+                                            <SWTTwoPersonBlackIcon className="mr-4" />
+                                            <p>Emergency Response Team</p>
+                                        </div>
+                                        <div className="p-4 flex items-center">
+                                            <SWTGlobalCoverageIcon className="mr-4" />
+                                            <p>Global Coverage</p>
+                                        </div>
+                                        <div className="p-4 flex items-center">
+                                            <SWTAdvancedMedicalIcon  className="mr-4" />
+                                            <p>Advanced Medical Equipment</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section className="py-16">
+                    <div className="m-auto text-gray-600 md:px-12 xl:px-16">
+                        <div className="w-full mx-auto text-justify lg:text-center">
+                            <div className="flex flex-col gap-8 lg:flex-row">
+                                <div className="basis-1/2   mx-8">
+                                    <div className="max-w-xl mx-auto text-start">
+                                        <h1 className="text-sm font-extrabold sm:text-xl uppercase mb-4">
+                                            Chauffeur Services
+                                        </h1>
+                                        <p className=" sm:text-md lg:text-lg ">
+                                            Arrive in style and comfort with Swift Wings' chauffeur services. Whether you need transportation to and from the airport or prefer a chauffeured car during your stay, our professional drivers are at your service.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="basis-1/2 mx-8  ">
+                                    <div className="max-w-xl mx-auto text-start">
+                                        <Button
+                                            label={"Request quote"}
+                                            bgColor={"bg-swPrimary500 text-white "}
+                                            className="ml-auto w-sm mb-8 lg:mb-3 hidden lg:block"
+                                        />
+                                        <p className=" sm:text-md lg:text-lg ">
+                                            Sit back, relax, and enjoy a seamless journey from door to door with our luxury chauffeur services.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="my-7 px-6 lg:hidden">
+                                <Button
+                                    label={"Request quote"}
+                                    bgColor={"bg-swPrimary500 text-white w-md"}
+                                />
+                            </div>
+                            <div className="w-full mt-8">
+                                <div className="relative">
+                                    <Image className=" w-full h-full lg:px-20 " src={ChauffeurServices} />
+                                </div>
+                            </div>
+                            <div className="py-16">
+                                <div className="container m-auto px-6 space-y-8 md:px-12 lg:px-28">
+                                    <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4">
+                                        <div className="p-4 flex items-center">
+                                            <SWTStarBlack2Icon className="mr-4" />
+                                            <p>Corporate Travel</p>
+                                        </div>
+                                        <div className="p-4 flex items-center">
+                                            <SWTLuxuryFleetIcon className="mr-4" />
+                                            <p>Luxury Fleet</p>
+                                        </div>
+                                        <div className="p-4 flex items-center">
+                                            <SWTUserServiceIcon className="mr-4" />
+                                            <p>Professional Drivers</p>
+                                        </div>
+                                        <div className="p-4 flex items-center">
+                                            <SWTDoortoDoorIcon className="mr-4" />
+                                            <p>Door-to-Door Service</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+
+
+
+
                 {/* <section className="py-16">
                     <div className="m-auto px-6 text-gray-600 md:px-12 xl:px-16">
                         <div className="max-w-5xl mx-auto text-justify lg:text-center">

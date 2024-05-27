@@ -141,7 +141,7 @@ const AboutUs = () => {
                                     </h2>
                                 </div>
                                 <div class="md:7/12 lg:w-4/5">
-                                    <p class="my-8 text-gray-600 dark:text-gray-300">
+                                    <p class="my-8 text-gray-600 ">
                                         Choosing SwiftWings means choosing quality, reliability, and unparalleled luxury.
                                         With our commitment to excellence, passion for innovation, and customer-centric approach,
                                         we offer a level of service that goes above and beyond your expectations.
@@ -157,27 +157,27 @@ const AboutUs = () => {
                             <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
                                 <div class="group p-6 sm:p-8 rounded-3xl bg-white ">
                                     <div class="mt-6 relative">
-                                        <h3 class="text-2xl font-semibold text-gray-800 dark:text-white">
+                                        <h3 class="text-2xl font-semibold text-gray-800 ">
                                             Global coverage
                                         </h3>
-                                        <p class="mt-6 mb-8 text-gray-600 dark:text-gray-300">
+                                        <p class="mt-6 mb-8 text-gray-600 ">
                                             Swift Wings offers extensive global coverage to meet the travel needs of our clients, seamlessly connecting them to destinations worldwide, including Europe, North America, South America, and beyond. With a network of trusted partners and affiliates, we ensure convenience and flexibility in air travel on a global scale, even to the most remote corners of the world.
                                         </p>
                                     </div>
                                 </div>
                                 <div className="group p-6 sm:p-8 rounded-3xl bg-white ">
                                     <div className="mt-6 relative">
-                                        <h3 className="text-2xl font-semibold text-gray-800 dark:text-white">
+                                        <h3 className="text-2xl font-semibold text-gray-800 ">
                                             World-class experience
                                         </h3>
-                                        <p className="mt-6 mb-8 text-gray-600 dark:text-gray-300">
+                                        <p className="mt-6 mb-8 text-gray-600 ">
                                             At Swift Wings, we ensure every journey is a remarkable experience by maintaining a tailored fleet of private jets that epitomize luxury, comfort, and convenience. From the moment you step on board, you will experience an unparalleled level of service that stands unrivaled in the industry. Our aviation experts are dedicated to customizing every aspect of your journey to align with your preferences and needs, ensuring a truly unforgettable experience.
                                         </p>
                                     </div>
                                 </div>
                                 <div className="group p-6 sm:p-8 rounded-3xl bg-white  ">
                                     <div className="mt-6 relative">
-                                        <h3 className="text-2xl font-semibold text-gray-800 dark:text-white">
+                                        <h3 className="text-2xl font-semibold text-gray-800 ">
                                             Private jets supremacy
                                         </h3>
                                         <p className="mt-6 mb-8 text-gray-600 dark:text-gray-300">
