@@ -165,41 +165,41 @@ export default function Home() {
           <div class="relative py-16">
             <div class="container relative m-auto px-6 text-gray-500 md:px-12">
               <div class="grid gap-6 md:mx-auto md:w-8/12 lg:w-full lg:grid-cols-4">
-                <div class="group space-y-6 rounded-3xl border border-gray-100 shadow-2xl shadow-gray-600/10 rounded-3xl bg-white px-8 py-12 text-center">
+                <div class="group space-y-6 rounded-3xl border border-gray-100 shadow-2xl shadow-gray-6 rounded-3xl bg-swSecondary200 px-8 py-12 text-center">
                   <SWTStarBlackIcon className="mx-auto svgIcon" />
-                  <h3 class="text-2xl font-semibold text-swPrimary500 bg-swPrimary50 rounded-full p-3">VIP Treatment</h3>
+                  <h3 class="text-2xl font-semibold text-swPrimary500 bg-swSecondary500  rounded-full p-3">VIP Treatment</h3>
                   <p>
                     Enjoy luxurious comfort, in-flight catering customised to your taste. Get entertained by favourite shows or stay connected with work using free Wi-Fi. Arrive refreshed & ready for your destination. Fly on a private flight schedule
                   </p>
                 </div>
-                <div class="group space-y-6 rounded-3xl border border-gray-100 shadow-2xl shadow-gray-600/10 rounded-3xl bg-white px-8 py-12 text-center">
+                <div class="group space-y-6 rounded-3xl border border-gray-100 shadow-2xl shadow-gray-6 rounded-3xl bg-swSecondary200 px-8 py-12 text-center">
                   <SWTGalaglobeIcon className="mx-auto svgIcon" />
-                  <h3 class="text-2xl font-semibold text-swPrimary500 bg-swPrimary50 rounded-full p-3">Global Access</h3>
+                  <h3 class="text-2xl font-semibold text-swPrimary500 bg-swSecondary500 rounded-full p-3">Global Access</h3>
                   <p>
-                  <span
-                  className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
-                >
-                  Swift<i className="font-normal">Wings</i>
-                </span>{" "} grants you exclusive access to private jets for seamless travel anywhere in the globe. Remember, we bring the world closer to you!
+                    <span
+                      className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
+                    >
+                      Swift<i className="font-normal">Wings</i>
+                    </span>{" "} grants you exclusive access to private jets for seamless travel anywhere in the globe. Remember, we bring the world closer to you!
                   </p>
 
                 </div>
-                <div class="group space-y-6 rounded-3xl border border-gray-100 shadow-2xl shadow-gray-600/10 rounded-3xl bg-white px-8 py-12 text-center">
+                <div class="group space-y-6 rounded-3xl border border-gray-100 shadow-2xl shadow-gray-6 rounded-3xl bg-swSecondary200 px-8 py-12 text-center">
                   <SWTSandClockBlackIcon className="mx-auto svgIcon" />
-                  <h3 class="text-2xl font-semibold text-swPrimary500 bg-swPrimary50 rounded-full p-3">Save Time</h3>
+                  <h3 class="text-2xl font-semibold text-swPrimary500 bg-swSecondary500 rounded-full p-3">Save Time</h3>
                   <p>
                     Skip the crowds & time wasters! Time is a precious commodity not to be wasted. Fly private, fast and secure with <span
-                  className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
-                >
-                  Swift<i className="font-normal">Wings</i>
-                </span>{" "} private jet charter services.
+                      className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
+                    >
+                      Swift<i className="font-normal">Wings</i>
+                    </span>{" "} private jet charter services.
                   </p>
 
 
                 </div>
-                <div class="group space-y-6 rounded-3xl border border-gray-100 shadow-2xl shadow-gray-600/10 rounded-3xl bg-white px-8 py-12 text-center ">
+                <div class="group space-y-6 rounded-3xl border border-gray-100 shadow-2xl shadow-gray-6 rounded-3xl bg-swSecondary200 px-8 py-12 text-center ">
                   <SWTAddPersonBlackIcon className="mx-auto svgIcon" />
-                  <h3 class="text-2xl font-semibold text-swPrimary500 bg-swPrimary50 rounded-full p-3">Membership</h3>
+                  <h3 class="text-2xl font-semibold text-swPrimary500 bg-swSecondary500 rounded-full p-3">Membership</h3>
                   <p>
                     Network with high profile individuals like you and strike a deeper connection and get access to premium services like: unlimited private jet access, highly personalised travel experience, priority scheduling, empty leg prior notification, etc
                   </p>

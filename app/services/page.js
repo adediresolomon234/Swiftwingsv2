@@ -143,7 +143,7 @@ const Service = () => {
                                             <p>Global Coverage</p>
                                         </div>
                                         <div className="p-4 flex items-center">
-                                            <SWTAdvancedMedicalIcon  className="mr-4" />
+                                            <SWTAdvancedMedicalIcon className="mr-4" />
                                             <p>Advanced Medical Equipment</p>
                                         </div>
                                     </div>
@@ -212,6 +212,21 @@ const Service = () => {
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section className="py-16">
+                    <div className="mx-auto text-gray-600 md:px-12 xl:px-16">
+                        <div class="flex flex-col justify-between md:flex-row items-start gap-8 px-8">
+                            <div class="max-w-md">
+                                <h2 class="text-xl text-swPrimary500 font-bold">Why Choose Swift Wings Service</h2>
+                            </div>
+                            <div class="hidden md:block w-full lg:w-1/3 mx-4 mt-3">
+                                <hr class="border-t border-gray-300 w-full"/>
+                            </div>
+                            <div class="max-w-md ">
+                                <p class="text-lg">Swift Wings is a premier provider of private jets charter flights connecting global airports, offering unmatched convenience and exclusivity for luxury travel.</p>
                             </div>
                         </div>
                     </div>
@@ -457,7 +472,7 @@ const Service = () => {
                 {/* </div>
         </section> */}
             </NavAndFooter>
-        </main>
+        </main >
     );
 };
 
