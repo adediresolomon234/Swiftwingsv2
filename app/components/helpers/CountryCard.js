@@ -4,6 +4,7 @@ import { FaChevronDown } from "react-icons/fa";
 import Button from "../../components/Button";
 import { useState } from 'react';
 
+
 const CountryCard = ({ country }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -43,7 +44,7 @@ const CountryCard = ({ country }) => {
             </div>
           </div>
         </div>
-        <div className="text-sm text-gray-700 mb-4 lg:mb-32">
+        <div className="text-sm text-gray-700 mb-4 lg:mb-20">
           {country.location}
         </div>
         <div className="swGray500 flex-grow text-[16px] mb-8">

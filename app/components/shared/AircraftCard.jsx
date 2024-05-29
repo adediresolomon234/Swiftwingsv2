@@ -1,6 +1,7 @@
 import { mdiCarSeat, mdiSpeedometer, mdiArrowLeftRight } from '@mdi/js';
 import { useRouter } from "next/navigation";
 import "../shared/Fleetspec/fleetspec.css";
+import Image from 'next/image';
 
 const AircraftCard = ({aircraft}) => {
 

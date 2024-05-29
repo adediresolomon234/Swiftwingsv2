@@ -48,26 +48,20 @@ const FleetPage = () => {
             />
             <div className="absolute inset-0 bg-swBlack bg-opacity-10" />
           </div>
-          <div className="max-w-lg mx-auto relative text-center z-10">
+          <div className="w-3/6 mx-auto relative text-center z-10">
             <div className="pt-48">
-              <p className="text-4xl md:text-6xl font-bold leading-10 md:leading-14">
+              <p className="text-3xl md:text-6xl font-bold leading-10 md:leading-28">
                 Explore the perfect JET for your{" "}
-                <span className="text-white bg-swPrimary600 rounded-full px-4 md:px-6">
-                  Journey
-                </span>
+                <span className="text-white">Journey</span>
               </p>
-              <p className="text-base md:text-lg mt-6">
-                Experience the epitome of safety, luxury and convenience with{" "}
-                <span className="font-bold">
-                  <span
-                    className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
-                  >
-                    Swift<i className="font-normal">Wings</i>
-                  </span>{" "}
-                  private jet charter service
-                </span>
-              </p>
+              <div className="flex justify-center mt-1 lg:mt-4">
+                <p className="max-w-lg text-xs md:text-md lg:text-lg mt-8 py-2 px-4 rounded-full bg-swPrimary600 ">
+                  We’re Showcasing a collection of fleets that delivers in speed, capacity and distance needs.
+                </p>
+              </div>
+
             </div>
+
           </div>
         </section>
         <section className="py-16">

@@ -162,19 +162,19 @@ export default function Home() {
         </section>
         <section className="mt-30 py-16 px-5 text-swGray900 ">
 
-          <div class="relative py-16">
-            <div class="container relative m-auto px-6 text-gray-500 md:px-12">
-              <div class="grid gap-6 md:mx-auto md:w-8/12 lg:w-full lg:grid-cols-4">
-                <div class="group space-y-6 rounded-3xl border border-gray-100 shadow-2xl shadow-gray-6 rounded-3xl bg-swSecondary200 px-8 py-12 text-center">
+          <div className="relative py-16">
+            <div className="container relative m-auto px-6 text-gray-500 md:px-12">
+              <div className="grid gap-6 md:mx-auto md:w-8/12 lg:w-full lg:grid-cols-4">
+                <div className="group space-y-6 rounded-3xl border border-gray-100 shadow-2xl shadow-gray-6 rounded-3xl bg-swSecondary200 px-8 py-12 text-center">
                   <SWTStarBlackIcon className="mx-auto svgIcon" />
-                  <h3 class="text-2xl font-semibold text-swPrimary500 bg-swSecondary500  rounded-full p-3">VIP Treatment</h3>
+                  <h3 className="text-2xl font-semibold text-swPrimary500 bg-swSecondary500  rounded-full p-3">VIP Treatment</h3>
                   <p>
                     Enjoy luxurious comfort, in-flight catering customised to your taste. Get entertained by favourite shows or stay connected with work using free Wi-Fi. Arrive refreshed & ready for your destination. Fly on a private flight schedule
                   </p>
                 </div>
-                <div class="group space-y-6 rounded-3xl border border-gray-100 shadow-2xl shadow-gray-6 rounded-3xl bg-swSecondary200 px-8 py-12 text-center">
+                <div className="group space-y-6 rounded-3xl border border-gray-100 shadow-2xl shadow-gray-6 rounded-3xl bg-swSecondary200 px-8 py-12 text-center">
                   <SWTGalaglobeIcon className="mx-auto svgIcon" />
-                  <h3 class="text-2xl font-semibold text-swPrimary500 bg-swSecondary500 rounded-full p-3">Global Access</h3>
+                  <h3 className="text-2xl font-semibold text-swPrimary500 bg-swSecondary500 rounded-full p-3">Global Access</h3>
                   <p>
                     <span
                       className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
@@ -184,9 +184,9 @@ export default function Home() {
                   </p>
 
                 </div>
-                <div class="group space-y-6 rounded-3xl border border-gray-100 shadow-2xl shadow-gray-6 rounded-3xl bg-swSecondary200 px-8 py-12 text-center">
+                <div className="group space-y-6 rounded-3xl border border-gray-100 shadow-2xl shadow-gray-6 rounded-3xl bg-swSecondary200 px-8 py-12 text-center">
                   <SWTSandClockBlackIcon className="mx-auto svgIcon" />
-                  <h3 class="text-2xl font-semibold text-swPrimary500 bg-swSecondary500 rounded-full p-3">Save Time</h3>
+                  <h3 className="text-2xl font-semibold text-swPrimary500 bg-swSecondary500 rounded-full p-3">Save Time</h3>
                   <p>
                     Skip the crowds & time wasters! Time is a precious commodity not to be wasted. Fly private, fast and secure with <span
                       className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
@@ -197,9 +197,9 @@ export default function Home() {
 
 
                 </div>
-                <div class="group space-y-6 rounded-3xl border border-gray-100 shadow-2xl shadow-gray-6 rounded-3xl bg-swSecondary200 px-8 py-12 text-center ">
+                <div className="group space-y-6 rounded-3xl border border-gray-100 shadow-2xl shadow-gray-6 rounded-3xl bg-swSecondary200 px-8 py-12 text-center ">
                   <SWTAddPersonBlackIcon className="mx-auto svgIcon" />
-                  <h3 class="text-2xl font-semibold text-swPrimary500 bg-swSecondary500 rounded-full p-3">Membership</h3>
+                  <h3 className="text-2xl font-semibold text-swPrimary500 bg-swSecondary500 rounded-full p-3">Membership</h3>
                   <p>
                     Network with high profile individuals like you and strike a deeper connection and get access to premium services like: unlimited private jet access, highly personalised travel experience, priority scheduling, empty leg prior notification, etc
                   </p>

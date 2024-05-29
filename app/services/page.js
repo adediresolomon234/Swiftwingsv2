@@ -218,19 +218,51 @@ const Service = () => {
                 </section>
                 <section className="py-16">
                     <div className="mx-auto text-gray-600 md:px-12 xl:px-16">
-                        <div class="flex flex-col justify-between md:flex-row items-start gap-8 px-8">
-                            <div class="max-w-md">
-                                <h2 class="text-xl text-swPrimary500 font-bold">Why Choose Swift Wings Service</h2>
+                        <div className="flex flex-col justify-between md:flex-row items-start gap-8 px-8">
+                            <div className="max-w-md">
+                                <h2 className="text-xl text-swPrimary500 font-bold">Why Choose Swift Wings Service</h2>
                             </div>
-                            <div class="hidden md:block w-full lg:w-1/3 mx-4 mt-3">
-                                <hr class="border-t border-gray-300 w-full"/>
+                            <div className="hidden md:block w-full lg:w-1/3 mx-4 mt-3">
+                                <hr className="border-t border-gray-300 w-full" />
                             </div>
-                            <div class="max-w-md ">
-                                <p class="text-lg">Swift Wings is a premier provider of private jets charter flights connecting global airports, offering unmatched convenience and exclusivity for luxury travel.</p>
+                            <div className="max-w-md ">
+                                <p className="text-lg">Swift Wings is a premier provider of private jets charter flights connecting global airports, offering unmatched convenience and exclusivity for luxury travel.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
+
+                <section>
+                    <div className="relative py-16">
+                        <div className="container relative m-auto px-6 text-gray-500 md:px-12 bg-swSecondary400">
+                            <div className="grid gap-6 md:mx-auto md:w-8/12 lg:w-full lg:grid-cols-3">
+                                <div className="group space-y-6  px-8 py-12 text-center">
+                                    <h3 className="text-xl font-semibold text-gray-800 p-3">Exceptional Quality</h3>
+                                    <p className="text-md">
+                                    From gourmet catering to medical evacuation, we uphold the highest standards of quality and professionalism in every service we offer.
+                                    </p>
+                                </div>
+                                <div className="group space-y-6  px-8 py-12 text-center">
+
+                                    <h3 className="text-xl font-semibold text-gray-800   p-3">Personalized Solutions</h3>
+                                    <p className="text-md">
+                                    Whether it's catering to dietary restrictions or arranging urgent medical transport, we tailor our services to meet your individual needs and preferences.
+                                    </p>
+                                </div>
+                                <div className="group space-y-6  px-8 py-12 text-center">
+
+                                    <h3 className="text-xl font-semibold text-gray-800   p-3">Reliability and Efficiency</h3>
+                                    <p className="text-md">
+                                    With Swift Wings, you can trust that your needs will be met promptly and efficiently, allowing you to focus on what matters most – your journey.
+                                    </p>
+                                </div>
+
                             </div>
                         </div>
                     </div>
                 </section>
+
 
 
 
