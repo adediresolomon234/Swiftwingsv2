@@ -19,13 +19,18 @@ import { testimonial } from "./CustomerTestimonial";
 import Marquee from "react-fast-marquee";
 import { FaXTwitter } from "react-icons/fa6";
 import heroBgImg from "../public/images/heroBackgroundImage.png";
-import MbheroBgImg1 from "../public/images/MbheroBgImg1.png";
+import MbheroBgImg from "../public/images/MbheroBgImg.png";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { fetchAircrafts } from "@/redux/slices/aircraftdetails";
 import { mdiCarSeat, mdiSpeedometer, mdiArrowLeftRight } from "@mdi/js";
 import BookingEngine from "./components/bookingEngine/bookingEngine";
-import { SWTStarBlackIcon, SWTAddPersonBlackIcon, SWTSandClockBlackIcon, SWTGalaglobeIcon } from "./components/svgs"
+import {
+  SWTStarBlackIcon,
+  SWTAddPersonBlackIcon,
+  SWTSandClockBlackIcon,
+  SWTGalaglobeIcon,
+} from "./components/svgs";
 
 const space_grotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -100,7 +105,7 @@ export default function Home() {
             {isMobile ? (
               <div className="relative h-full w-full">
                 <Image
-                  src={MbheroBgImg1}
+                  src={MbheroBgImg}
                   alt="aiplane"
                   className="h-full w-full object-cover"
                 />
@@ -109,7 +114,7 @@ export default function Home() {
             ) : (
               <div className="relative h-full w-full">
                 <Image
-                  src={MbheroBgImg1}
+                  src={heroBgImg}
                   alt="aiplane"
                   className="h-full w-full object-cover"
                 />
@@ -119,9 +124,9 @@ export default function Home() {
           </div>
 
           {/* <div className="h-full w-full bg-swBlack absolute top-0 left-0 bg-opacity-[0.2]" /> */}
-          <div className="max-w-7xl mx-auto mb-10 relative text-center">
+          <div className="max-w-7xl mx-auto mb-10 relative text-center mt-40">
             <div className="pt-28 z-50">
-              <p className="text-3xl md:text-4xl lg:text-6xl max-w-4xl mx-auto w-full font-bold leading-snug z-50 text-shadow">
+              <p className="text-6xl max-w-4xl mx-auto w-full font-bold leading-snug z-50 text-shadow">
                 The World is Closer to You
               </p>
               <div>
@@ -161,49 +166,65 @@ export default function Home() {
           </section>
         </section>
         <section className="mt-30 py-16 px-5 text-swGray900 ">
-
           <div className="relative py-16">
             <div className="container relative m-auto px-6 text-gray-500 md:px-12">
               <div className="grid gap-6 md:mx-auto md:w-8/12 lg:w-full lg:grid-cols-4">
                 <div className="group space-y-6 rounded-3xl border border-gray-100 shadow-2xl shadow-gray-6 rounded-3xl bg-swSecondary200 px-8 py-12 text-center">
                   <SWTStarBlackIcon className="mx-auto svgIcon" />
-                  <h3 className="text-2xl font-semibold text-swPrimary500 bg-swSecondary500  rounded-full p-3">VIP Treatment</h3>
+                  <h3 className="text-2xl font-semibold text-swPrimary500 bg-swSecondary500  rounded-full p-3">
+                    VIP Treatment
+                  </h3>
                   <p>
-                    Enjoy luxurious comfort, in-flight catering customised to your taste. Get entertained by favourite shows or stay connected with work using free Wi-Fi. Arrive refreshed & ready for your destination. Fly on a private flight schedule
+                    Enjoy luxurious comfort, in-flight catering customised to
+                    your taste. Get entertained by favourite shows or stay
+                    connected with work using free Wi-Fi. Arrive refreshed &
+                    ready for your destination. Fly on a private flight schedule
                   </p>
                 </div>
                 <div className="group space-y-6 rounded-3xl border border-gray-100 shadow-2xl shadow-gray-6 rounded-3xl bg-swSecondary200 px-8 py-12 text-center">
                   <SWTGalaglobeIcon className="mx-auto svgIcon" />
-                  <h3 className="text-2xl font-semibold text-swPrimary500 bg-swSecondary500 rounded-full p-3">Global Access</h3>
+                  <h3 className="text-2xl font-semibold text-swPrimary500 bg-swSecondary500 rounded-full p-3">
+                    Global Access
+                  </h3>
                   <p>
                     <span
                       className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
                     >
                       Swift<i className="font-normal">Wings</i>
-                    </span>{" "} grants you exclusive access to private jets for seamless travel anywhere in the globe. Remember, we bring the world closer to you!
+                    </span>{" "}
+                    grants you exclusive access to private jets for seamless
+                    travel anywhere in the globe. Remember, we bring the world
+                    closer to you!
                   </p>
-
                 </div>
                 <div className="group space-y-6 rounded-3xl border border-gray-100 shadow-2xl shadow-gray-6 rounded-3xl bg-swSecondary200 px-8 py-12 text-center">
                   <SWTSandClockBlackIcon className="mx-auto svgIcon" />
-                  <h3 className="text-2xl font-semibold text-swPrimary500 bg-swSecondary500 rounded-full p-3">Save Time</h3>
+                  <h3 className="text-2xl font-semibold text-swPrimary500 bg-swSecondary500 rounded-full p-3">
+                    Save Time
+                  </h3>
                   <p>
-                    Skip the crowds & time wasters! Time is a precious commodity not to be wasted. Fly private, fast and secure with <span
+                    Skip the crowds & time wasters! Time is a precious commodity
+                    not to be wasted. Fly private, fast and secure with{" "}
+                    <span
                       className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
                     >
                       Swift<i className="font-normal">Wings</i>
-                    </span>{" "} private jet charter services.
+                    </span>{" "}
+                    private jet charter services.
                   </p>
-
-
                 </div>
                 <div className="group space-y-6 rounded-3xl border border-gray-100 shadow-2xl shadow-gray-6 rounded-3xl bg-swSecondary200 px-8 py-12 text-center ">
                   <SWTAddPersonBlackIcon className="mx-auto svgIcon" />
-                  <h3 className="text-2xl font-semibold text-swPrimary500 bg-swSecondary500 rounded-full p-3">Membership</h3>
+                  <h3 className="text-2xl font-semibold text-swPrimary500 bg-swSecondary500 rounded-full p-3">
+                    Membership
+                  </h3>
                   <p>
-                    Network with high profile individuals like you and strike a deeper connection and get access to premium services like: unlimited private jet access, highly personalised travel experience, priority scheduling, empty leg prior notification, etc
+                    Network with high profile individuals like you and strike a
+                    deeper connection and get access to premium services like:
+                    unlimited private jet access, highly personalised travel
+                    experience, priority scheduling, empty leg prior
+                    notification, etc
                   </p>
-
                 </div>
               </div>
             </div>
@@ -219,8 +240,10 @@ export default function Home() {
                   >
                     Swift<i className="font-normal">Wings</i>
                   </span>{" "}
-                  Enjoy luxurious comfort, in-flight catering customised to your taste. Get entertained by favourite shows or stay connected with work using free Wi-Fi. Arrive refreshed & ready for your destination. Fly on a private flight schedule, not airlines.
-
+                  Enjoy luxurious comfort, in-flight catering customised to your
+                  taste. Get entertained by favourite shows or stay connected
+                  with work using free Wi-Fi. Arrive refreshed & ready for your
+                  destination. Fly on a private flight schedule, not airlines.
                 </p>
               }
               image={servicesPlane}
@@ -236,9 +259,9 @@ export default function Home() {
                   >
                     Swift<i className="font-normal">Wings</i>
                   </span>{" "}
-                  grants you exclusive access to private jets for seamless travel anywhere in the globe. Remember, we bring the world closer to you!
-                  {" "}
-
+                  grants you exclusive access to private jets for seamless
+                  travel anywhere in the globe. Remember, we bring the world
+                  closer to you!{" "}
                 </p>
               }
               image={servicesMembership}
@@ -255,15 +278,14 @@ export default function Home() {
                   >
                     Swift<i className="font-normal">Wings</i>
                   </span>
-                  Skip the crowds & time wasters! Time is a precious commodity not to be wasted. Fly private, fast and secure with Swiftwings private jet charter services.
-                  {" "}
-
+                  Skip the crowds & time wasters! Time is a precious commodity
+                  not to be wasted. Fly private, fast and secure with Swiftwings
+                  private jet charter services.{" "}
                 </p>
               }
               image={servicesCustomer}
             />
           </div> */}
-
         </section>
         <section className="max-w-6xl mx-auto py-10">
           <div className="container mx-auto px-6 text-center md:px-12">
@@ -468,8 +490,9 @@ export default function Home() {
                   <div className="">
                     <div
                       aria-hidden="true"
-                      className={`absolute scale-75 md:scale-110 inset-0 m-auto rotate-45 bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl ${hoveredIndex >= 0 ? "opacity-100" : "opacity-0"
-                        }`}
+                      className={`absolute scale-75 md:scale-110 inset-0 m-auto rotate-45 bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl ${
+                        hoveredIndex >= 0 ? "opacity-100" : "opacity-0"
+                      }`}
                     ></div>
                     {hoveredIndex >= 0 && fleet[hoveredIndex]?.image && (
                       <div
@@ -519,11 +542,16 @@ export default function Home() {
                 >
                   Swift<i className="font-normal">Wings</i>
                 </span>{" "} */}
-                Enjoy the benefits of <span
+                Enjoy the benefits of{" "}
+                <span
                   className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
                 >
                   Swift<i className="font-normal">Wings</i>
-                </span>{" "} private jet membership, giving you access to exclusive flights and premium services like unlimited private jet access, highly personalised travel experiences, priority scheduling, empty leg notification and others
+                </span>{" "}
+                Network with high profile individuals like you, strike a deeper
+                connection, and get access to premium services like: unlimited
+                private jet access, highly personalised travel experience,
+                priority scheduling, empty leg prior notification, etc
               </p>
             </div>
           </div>

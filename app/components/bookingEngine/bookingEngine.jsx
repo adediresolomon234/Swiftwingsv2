@@ -15,7 +15,7 @@ import { FiMinus, FiPlus } from "react-icons/fi";
 import Button from "../Button";
 import { IoCheckmark } from "react-icons/io5";
 import { useEffect, useRef, useState } from "react";
-import airports from "../helpers/airports";
+import airportsData from "../helpers/airportsData.json";
 import dayjs from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { HiArrowRight } from "react-icons/hi";
@@ -37,6 +37,7 @@ const BookingEngine = ({ setBookingDetails }) => {
   const [isDateOpen, setDateOpen] = useState(null);
   const [openPassangers, setOpenPassageners] = useState(null);
   const [selectedOption, setSelectedOption] = useState("");
+  const [airports, setAirports] = useState(airportsData || []);
   const departureRef = useRef(null);
   const arrivalRef = useRef(null);
   // const dateRef = useRef(null);

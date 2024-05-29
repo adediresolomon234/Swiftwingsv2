@@ -85,24 +85,26 @@ const BookingPageInformation = () => {
     });
   };
 
+  const uncheckBoxes = () => {
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach((checkbox) => {
+      checkbox.checked = false;
+    });
+  };
+
   const handleQuote = () => {
     if (loggedInUser) {
       bookingDetails.status = "New";
       bookingDetails.user = loggedInUser;
-      bookingDetails.email = loggedInUser.email
+      bookingDetails.email = loggedInUser.email;
       dispatch(addBooking(bookingDetails))
         .unwrap()
         .then((response) => {
-          console.log(response);
+          // console.log(response);
           if (response?.response?.data?.error) {
             toast.error(response?.response?.data?.error);
           } else if (response?.message) {
-            const checkboxes = document.querySelectorAll(
-              'input[type="checkbox"]'
-            );
-            checkboxes.forEach((checkbox) => {
-              checkbox.checked = false;
-            });
+            uncheckBoxes();
             resetBookingState();
             setSuccess(true);
           }
@@ -150,8 +152,6 @@ const BookingPageInformation = () => {
     }
 
     setHydrated(true);
-
-    // console.log("book", bookingDetails);
   }, []);
   console.log(bookingDetails?.additional_quote);
 
@@ -412,6 +412,8 @@ const BookingPageInformation = () => {
         open={notLoggedInModal}
         onClick={setNotLoggedInModal}
         bookingDetails={bookingDetails}
+        unCheckAllBoxes={uncheckBoxes}
+        setSuccess={setSuccess}
       />
     </>
   );
