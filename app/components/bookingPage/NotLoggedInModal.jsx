@@ -12,7 +12,7 @@ import { addBooking } from "@/redux/slices/bookingSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function NotLoggedInModal({ open, onClick, bookingDetails }) {
+function NotLoggedInModal({ open, onClick, bookingDetails, unCheckAllBoxes }) {
   const router = useRouter();
   const dispatch = useDispatch();
   const { loading, error, data } = useSelector((state) => state.booking);
@@ -28,7 +28,28 @@ function NotLoggedInModal({ open, onClick, bookingDetails }) {
     } else {
       bookingDetails.status = "New";
       bookingDetails.user = formData;
-      dispatch(addBooking(bookingDetails));
+      dispatch(addBooking(bookingDetails))
+        .unwrap()
+        .then((response) => {
+          if (response?.message === "Booking created successfully") {
+            toast.success(response?.message);
+            unCheckAllBoxes()
+            setTimeout(() => {
+              setFormData({
+                email: ``,
+                firstName: ``,
+                lastName: ``,
+                phone: "",
+              });
+              onClick(false);
+            }, 2000);
+          } else {
+            toast.error(response?.message);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   };
 
@@ -38,23 +59,23 @@ function NotLoggedInModal({ open, onClick, bookingDetails }) {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  useEffect(() => {
-    if (data?.response?.data?.error) {
-      toast.error(data?.response?.data?.error);
-    } else if (data?.message) {
-      setFormData({
-        email: ``,
-        firstName: ``,
-        lastName: ``,
-        phone: "",
-      });
-      onClick(false);
-    }
-    if (error) {
-      toast.error(error?.message);
-    }
-  }, [data, error]);
-  console.log(formData);
+  // useEffect(() => {
+  //   if (data?.response?.data?.error) {
+  //     toast.error(data?.response?.data?.error);
+  //   } else if (data?.message) {
+  //     setFormData({
+  //       email: ``,
+  //       firstName: ``,
+  //       lastName: ``,
+  //       phone: "",
+  //     });
+  //     onClick(false);
+  //   }
+  //   if (error) {
+  //     toast.error(error?.message);
+  //   }
+  // }, [data, error]);
+  // console.log(formData);
 
   if (!open) return;
   return (
