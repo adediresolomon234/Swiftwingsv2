@@ -89,6 +89,7 @@ const BookingPageInformation = () => {
     if (loggedInUser) {
       bookingDetails.status = "New";
       bookingDetails.user = loggedInUser;
+      bookingDetails.email = loggedInUser.email
       dispatch(addBooking(bookingDetails))
         .unwrap()
         .then((response) => {
