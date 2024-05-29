@@ -12,7 +12,13 @@ import { addBooking } from "@/redux/slices/bookingSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function NotLoggedInModal({ open, onClick, bookingDetails, unCheckAllBoxes }) {
+function NotLoggedInModal({
+  open,
+  onClick,
+  bookingDetails,
+  unCheckAllBoxes,
+  setSuccess,
+}) {
   const router = useRouter();
   const dispatch = useDispatch();
   const { loading, error, data } = useSelector((state) => state.booking);
@@ -28,21 +34,21 @@ function NotLoggedInModal({ open, onClick, bookingDetails, unCheckAllBoxes }) {
     } else {
       bookingDetails.status = "New";
       bookingDetails.user = formData;
+      bookingDetails.email = formData.email;
+      dispatch(addBooking(bookingDetails));
       dispatch(addBooking(bookingDetails))
         .unwrap()
         .then((response) => {
           if (response?.message === "Booking created successfully") {
-            toast.success(response?.message);
-            unCheckAllBoxes()
-            setTimeout(() => {
-              setFormData({
-                email: ``,
-                firstName: ``,
-                lastName: ``,
-                phone: "",
-              });
-              onClick(false);
-            }, 2000);
+            unCheckAllBoxes();
+            setFormData({
+              email: ``,
+              firstName: ``,
+              lastName: ``,
+              phone: "",
+            });
+            setSuccess(true);
+            onClick(false);
           } else {
             toast.error(response?.message);
           }
