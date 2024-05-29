@@ -44,7 +44,7 @@ const Service = () => {
                                             Inflight Catering
                                         </h1>
                                         <p className=" sm:text-md lg:text-lg ">
-                                            Indulge in gourmet dining at 40,000 feet with Swift Wings' inflight catering services. From decadent entrees to tantalizing desserts, our culinary team crafts bespoke menus tailored to your preferences
+                                            Indulge in gourmet dining at 40,000 feet with Swift Wings&lsquo; inflight catering services. From decadent entrees to tantalizing desserts, our culinary team crafts bespoke menus tailored to your preferences
                                         </p>
                                     </div>
                                 </div>
@@ -53,7 +53,7 @@ const Service = () => {
                                     <div className="max-w-xl mx-auto text-start">
 
                                         <p className=" sm:text-md lg:text-lg ">
-                                            Indulge in gourmet dining at 40,000 feet with Swift Wings' inflight catering services. From decadent entrees to tantalizing desserts, our culinary team crafts bespoke menus tailored to your preferences
+                                            Indulge in gourmet dining at 40,000 feet with Swift Wings&lsquo; inflight catering services. From decadent entrees to tantalizing desserts, our culinary team crafts bespoke menus tailored to your preferences
                                         </p>
                                     </div>
                                 </div>
@@ -162,7 +162,7 @@ const Service = () => {
                                             Chauffeur Services
                                         </h1>
                                         <p className=" sm:text-md lg:text-lg ">
-                                            Arrive in style and comfort with Swift Wings' chauffeur services. Whether you need transportation to and from the airport or prefer a chauffeured car during your stay, our professional drivers are at your service.
+                                            Arrive in style and comfort with Swift Wings&lsquo; chauffeur services. Whether you need transportation to and from the airport or prefer a chauffeured car during your stay, our professional drivers are at your service.
                                         </p>
                                     </div>
                                 </div>
@@ -247,7 +247,7 @@ const Service = () => {
 
                                     <h3 className="text-xl font-semibold text-gray-800   p-3">Personalized Solutions</h3>
                                     <p className="text-md">
-                                    Whether it's catering to dietary restrictions or arranging urgent medical transport, we tailor our services to meet your individual needs and preferences.
+                                    Whether it&lsquo;s catering to dietary restrictions or arranging urgent medical transport, we tailor our services to meet your individual needs and preferences.
                                     </p>
                                 </div>
                                 <div className="group space-y-6  px-8 py-12 text-center">
