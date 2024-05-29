@@ -70,10 +70,7 @@ const Destinations = () => {
               </div>
             </div>
           </div>
-
         </div>
-
-
         <section className="py-16">
           <div className="m-auto px-6 text-gray-600 md:px-12 xl:px-16">
             <DestinationList />

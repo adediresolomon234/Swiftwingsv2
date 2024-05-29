@@ -19,12 +19,13 @@ import { testimonial } from "./CustomerTestimonial";
 import Marquee from "react-fast-marquee";
 import { FaXTwitter } from "react-icons/fa6";
 import heroBgImg from "../public/images/heroBackgroundImage.png";
-import MbheroBgImg from "../public/images/MbheroBgImg.png";
+import MbheroBgImg1 from "../public/images/MbheroBgImg1.png";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { fetchAircrafts } from "@/redux/slices/aircraftdetails";
 import { mdiCarSeat, mdiSpeedometer, mdiArrowLeftRight } from "@mdi/js";
 import BookingEngine from "./components/bookingEngine/bookingEngine";
+import { SWTStarBlackIcon, SWTAddPersonBlackIcon, SWTSandClockBlackIcon, SWTGalaglobeIcon } from "./components/svgs"
 
 const space_grotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -99,7 +100,7 @@ export default function Home() {
             {isMobile ? (
               <div className="relative h-full w-full">
                 <Image
-                  src={MbheroBgImg}
+                  src={MbheroBgImg1}
                   alt="aiplane"
                   className="h-full w-full object-cover"
                 />
@@ -108,7 +109,7 @@ export default function Home() {
             ) : (
               <div className="relative h-full w-full">
                 <Image
-                  src={heroBgImg}
+                  src={MbheroBgImg1}
                   alt="aiplane"
                   className="h-full w-full object-cover"
                 />
@@ -160,7 +161,55 @@ export default function Home() {
           </section>
         </section>
         <section className="mt-30 py-16 px-5 text-swGray900 ">
-          <div className="max-w-4xl w-full mx-auto text-center">
+
+          <div className="relative py-16">
+            <div className="container relative m-auto px-6 text-gray-500 md:px-12">
+              <div className="grid gap-6 md:mx-auto md:w-8/12 lg:w-full lg:grid-cols-4">
+                <div className="group space-y-6 rounded-3xl border border-gray-100 shadow-2xl shadow-gray-6 rounded-3xl bg-swSecondary200 px-8 py-12 text-center">
+                  <SWTStarBlackIcon className="mx-auto svgIcon" />
+                  <h3 className="text-2xl font-semibold text-swPrimary500 bg-swSecondary500  rounded-full p-3">VIP Treatment</h3>
+                  <p>
+                    Enjoy luxurious comfort, in-flight catering customised to your taste. Get entertained by favourite shows or stay connected with work using free Wi-Fi. Arrive refreshed & ready for your destination. Fly on a private flight schedule
+                  </p>
+                </div>
+                <div className="group space-y-6 rounded-3xl border border-gray-100 shadow-2xl shadow-gray-6 rounded-3xl bg-swSecondary200 px-8 py-12 text-center">
+                  <SWTGalaglobeIcon className="mx-auto svgIcon" />
+                  <h3 className="text-2xl font-semibold text-swPrimary500 bg-swSecondary500 rounded-full p-3">Global Access</h3>
+                  <p>
+                    <span
+                      className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
+                    >
+                      Swift<i className="font-normal">Wings</i>
+                    </span>{" "} grants you exclusive access to private jets for seamless travel anywhere in the globe. Remember, we bring the world closer to you!
+                  </p>
+
+                </div>
+                <div className="group space-y-6 rounded-3xl border border-gray-100 shadow-2xl shadow-gray-6 rounded-3xl bg-swSecondary200 px-8 py-12 text-center">
+                  <SWTSandClockBlackIcon className="mx-auto svgIcon" />
+                  <h3 className="text-2xl font-semibold text-swPrimary500 bg-swSecondary500 rounded-full p-3">Save Time</h3>
+                  <p>
+                    Skip the crowds & time wasters! Time is a precious commodity not to be wasted. Fly private, fast and secure with <span
+                      className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
+                    >
+                      Swift<i className="font-normal">Wings</i>
+                    </span>{" "} private jet charter services.
+                  </p>
+
+
+                </div>
+                <div className="group space-y-6 rounded-3xl border border-gray-100 shadow-2xl shadow-gray-6 rounded-3xl bg-swSecondary200 px-8 py-12 text-center ">
+                  <SWTAddPersonBlackIcon className="mx-auto svgIcon" />
+                  <h3 className="text-2xl font-semibold text-swPrimary500 bg-swSecondary500 rounded-full p-3">Membership</h3>
+                  <p>
+                    Network with high profile individuals like you and strike a deeper connection and get access to premium services like: unlimited private jet access, highly personalised travel experience, priority scheduling, empty leg prior notification, etc
+                  </p>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* <div className="max-w-4xl w-full mx-auto text-center">
             <Services
               name={"VIP Treatment"}
               text={
@@ -176,8 +225,8 @@ export default function Home() {
               }
               image={servicesPlane}
             />
-          </div>
-          <div className="max-w-4xl w-full mx-auto text-center mt-32">
+          </div> */}
+          {/* <div className="max-w-4xl w-full mx-auto text-center mt-32">
             <Services
               name={"Global Access"}
               text={
@@ -194,8 +243,8 @@ export default function Home() {
               }
               image={servicesMembership}
             />
-          </div>
-          <div className="max-w-4xl w-full mx-auto text-center  mt-32">
+          </div> */}
+          {/* <div className="max-w-4xl w-full mx-auto text-center  mt-32">
             <Services
               name={"Save Time"}
               text={
@@ -213,11 +262,56 @@ export default function Home() {
               }
               image={servicesCustomer}
             />
-          </div>
-         
-        </section>
+          </div> */}
 
-        <section className=" max-w-6xl mx-auto p-5">
+        </section>
+        <section className="max-w-6xl mx-auto py-10">
+          <div className="container mx-auto px-6 text-center md:px-12">
+            <div className="mb-16">
+              <h2 className="mb-4 text-center text-[18px] font-semibold  text-swPrimary500  md:text-[18px] ">
+                Our Services
+              </h2>
+              <p className="text-swGray700  font-semibold lg:w-8/12 mt-8 sm:mx-auto sm:w-10/12 md:w-2/3  text-4xl text-center sm:text-5xl md:text-6xl">
+                We offer world a class exotic experience
+              </p>
+            </div>
+            <div className="grid gap-3 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+              {services.map((service, index) => (
+                <div className="w-full mx-auto" key={index}>
+                  <div className="overflow-hidden w-full h-full rounded-2xl">
+                    <img
+                      className="object-cover w-full rounded-t-2xl"
+                      src={service.imageSrc}
+                      alt={service.title}
+                      loading="lazy"
+                      width="640"
+                      height="805"
+                    />
+                    <div className="p-3 bg-gradient-to-r from-neutral-400 to-stone-500/90 text-left h-full">
+                      <div className="justify-start items-start">
+                        <h4 className="mb-2 text-2xl font-bold tracking-tight text-white">
+                          {service.title}
+                        </h4>
+                      </div>
+                      <p className="mb-3 font-normal text-white text-sm">
+                        {service.description}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="flex justify-center text-lg mt-12">
+            <Button
+              label="See all"
+              bgColor={"bg-swPrimary500"}
+              textColor={"text-white"}
+              endIcon={<HiArrowRight size={20} />}
+            />
+          </div>
+        </section>
+        {/* <section className=" max-w-6xl mx-auto p-5">
           <div className="flex flex-col items-start gap-5 ">
             <p className="text-swPrimary500 font-medium text-lg">About us</p>
             <div className="flex flex-col md:flex-row justify-between mt-10 w-full space-y-8 md:space-y-0 ">
@@ -308,7 +402,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
         <section className="max-w-7xl mx-auto py-10">
           <div className="relative pt-40 pb-20 lg:pt-44">
             <div className="relative 2xl:container m-auto px-0 md:px-0 lg:px-0">
@@ -412,52 +506,7 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className="max-w-6xl mx-auto py-10">
-          <div className="container mx-auto px-6 text-center md:px-12">
-            <div className="mb-16">
-              <h2 className="mb-4 text-center text-[18px] font-semibold  text-swPrimary500  md:text-[18px] ">
-                Our Services
-              </h2>
-              <p className="text-swGray700  font-semibold lg:w-8/12 mt-8 sm:mx-auto sm:w-10/12 md:w-2/3  text-4xl text-center sm:text-5xl md:text-6xl">
-                We offer world a class exotic experience
-              </p>
-            </div>
-            <div className="grid gap-3 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-              {services.map((service, index) => (
-                <div className="w-full mx-auto" key={index}>
-                  <div className="overflow-hidden w-full h-full rounded-2xl">
-                    <img
-                      className="object-cover w-full rounded-t-2xl"
-                      src={service.imageSrc}
-                      alt={service.title}
-                      loading="lazy"
-                      width="640"
-                      height="805"
-                    />
-                    <div className="p-3 bg-gradient-to-r from-neutral-400 to-stone-500/90 text-left h-full">
-                      <div className="justify-start items-start">
-                        <h4 className="mb-2 text-2xl font-bold tracking-tight text-white">
-                          {service.title}
-                        </h4>
-                      </div>
-                      <p className="mb-3 font-normal text-white text-sm">
-                        {service.description}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="flex justify-center text-lg mt-12">
-            <Button
-              label="See all"
-              bgColor={"bg-swPrimary500"}
-              textColor={"text-white"}
-              endIcon={<HiArrowRight size={20} />}
-            />
-          </div>
-        </section>
+
         <section className="max-w-6xl mx-auto py-10">
           <div className="container mx-auto px-6 text-start md:text-center md:px-12">
             <div className="mb-16">
@@ -465,12 +514,16 @@ export default function Home() {
                 Membership
               </h2>
               <p className="text-swGray700 mt-8 sm:mx-auto md:text-xl text-start md:text-center text-md ">
-                <span
+                {/* <span
                   className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
                 >
                   Swift<i className="font-normal">Wings</i>
-                </span>{" "}
-                Network with high profile individuals like you, strike a deeper connection, and get access to premium services like: unlimited private jet access, highly personalised travel experience, priority scheduling, empty leg prior notification, etc
+                </span>{" "} */}
+                Enjoy the benefits of <span
+                  className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
+                >
+                  Swift<i className="font-normal">Wings</i>
+                </span>{" "} private jet membership, giving you access to exclusive flights and premium services like unlimited private jet access, highly personalised travel experiences, priority scheduling, empty leg notification and others
               </p>
             </div>
           </div>

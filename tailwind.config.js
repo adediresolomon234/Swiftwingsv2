@@ -33,7 +33,7 @@ module.exports = {
         swSecondary50: "#fffefc",
         swSecondary100: "#fdfbf4",
         swSecondary200: "#fdf9ef",
-        swSecondary300: "fdf9ef",
+        swSecondary300: "#fdf9ef",
         swSecondary400: "#fbf5e4",
         swSecondary500: "#faf3dd",
         swSecondary600: "#e4ddc9",

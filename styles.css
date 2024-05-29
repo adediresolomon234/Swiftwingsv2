@@ -212,3 +212,8 @@
     transform: translateX(-50%);
   }
 }
+
+.svgIcon {
+  width: 10%;
+  height: auto;
+}
