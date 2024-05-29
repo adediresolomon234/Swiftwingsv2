@@ -65,24 +65,6 @@ function NotLoggedInModal({
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // useEffect(() => {
-  //   if (data?.response?.data?.error) {
-  //     toast.error(data?.response?.data?.error);
-  //   } else if (data?.message) {
-  //     setFormData({
-  //       email: ``,
-  //       firstName: ``,
-  //       lastName: ``,
-  //       phone: "",
-  //     });
-  //     onClick(false);
-  //   }
-  //   if (error) {
-  //     toast.error(error?.message);
-  //   }
-  // }, [data, error]);
-  // console.log(formData);
-
   if (!open) return;
   return (
     <main className="fixed w-screen h-screen top-0 left-0 bg-black bg-opacity-25 flex justify-center items-center p-5 z-50">

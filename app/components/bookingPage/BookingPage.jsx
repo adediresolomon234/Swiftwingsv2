@@ -152,8 +152,6 @@ const BookingPageInformation = () => {
     }
 
     setHydrated(true);
-
-    // console.log("book", bookingDetails);
   }, []);
   console.log(bookingDetails?.additional_quote);
 
