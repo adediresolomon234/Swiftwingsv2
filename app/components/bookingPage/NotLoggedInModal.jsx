@@ -28,6 +28,7 @@ function NotLoggedInModal({ open, onClick, bookingDetails }) {
     } else {
       bookingDetails.status = "New";
       bookingDetails.user = formData;
+      bookingDetails.email = formData.email
       dispatch(addBooking(bookingDetails));
     }
   };
