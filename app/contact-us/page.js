@@ -10,9 +10,6 @@ import "../../styles.css";
 import Image from "next/image";
 import NavAndFooter from "../components/shared/NavAndFooter";
 import Destinationsection from "../../public/images/Destinationsection.png"
-import Serviceexecllence from "../../public/images/Serviceexecllence.png"
-import Safetyfirst from "../../public/images/Safetyfirst.png"
-import team from "../../public/images/team.png"
 import { SWTLocationIcon, SWTCallPhoneIcon, SwMailIcon, SWTFacebookIcon,SWTAccordionsOpenIcon ,SWTAccordionsCloseIcon, SWTInstagramIcon, SWTLinkedInIcon, SWTTikTokIcon, SWTTwitterIcon, SwUserIcon } from "../components/svgs"
 import InputField from "../components/shared/InputField";
 import Button from "../components/Button"
