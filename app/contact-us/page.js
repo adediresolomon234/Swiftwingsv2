@@ -17,7 +17,7 @@ import { accordions } from '../components/helpers/FrequentlyQuestions';
 import FooterHero from '../components/shared/footerHero';
 
 
-const AboutUs = () => {
+const ContactUs = () => {
 
     const [activeAccordion, setActiveAccordion] = useState(null);
     const [isExpanded, setIsExpanded] = useState(false);
@@ -236,7 +236,7 @@ const AboutUs = () => {
 
                                 </div>
                             </div>
-                            <div className="md:7/12 lg:w-1/2 mt-12 px-4 lg:mt-0">
+                            {/* <div className="md:7/12 lg:w-1/2 mt-12 px-4 lg:mt-0">
                                 <div>
                                     {accordions.map((accordion) => (
                                             <Accordion key={accordion.id} expanded={isExpanded} onChange={toggleAccordion}>
@@ -259,7 +259,7 @@ const AboutUs = () => {
                                         </Accordion>
                                     ))}
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
 
@@ -277,7 +277,7 @@ const AboutUs = () => {
     );
 };
 
-export default AboutUs;
+export default ContactUs;
 
 
 

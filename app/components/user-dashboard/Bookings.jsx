@@ -1,3 +1,5 @@
+"use client"
+
 import { useState } from "react";
 import AllBookings from "./AllBookings";
 import { useRouter, useSearchParams } from "next/navigation";

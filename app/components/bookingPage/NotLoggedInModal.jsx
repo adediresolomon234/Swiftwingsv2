@@ -12,7 +12,13 @@ import { addBooking } from "@/redux/slices/bookingSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function NotLoggedInModal({ open, onClick, bookingDetails }) {
+function NotLoggedInModal({
+  open,
+  onClick,
+  bookingDetails,
+  unCheckAllBoxes,
+  setSuccess,
+}) {
   const router = useRouter();
   const dispatch = useDispatch();
   const { loading, error, data } = useSelector((state) => state.booking);
@@ -28,7 +34,28 @@ function NotLoggedInModal({ open, onClick, bookingDetails }) {
     } else {
       bookingDetails.status = "New";
       bookingDetails.user = formData;
+      bookingDetails.email = formData.email;
       dispatch(addBooking(bookingDetails));
+      dispatch(addBooking(bookingDetails))
+        .unwrap()
+        .then((response) => {
+          if (response?.message === "Booking created successfully") {
+            unCheckAllBoxes();
+            setFormData({
+              email: ``,
+              firstName: ``,
+              lastName: ``,
+              phone: "",
+            });
+            setSuccess(true);
+            onClick(false);
+          } else {
+            toast.error(response?.message);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   };
 
@@ -37,24 +64,6 @@ function NotLoggedInModal({ open, onClick, bookingDetails }) {
     // setFormData({ ...formData, [e.target.name]: e.target.value });
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
-
-  useEffect(() => {
-    if (data?.response?.data?.error) {
-      toast.error(data?.response?.data?.error);
-    } else if (data?.message) {
-      setFormData({
-        email: ``,
-        firstName: ``,
-        lastName: ``,
-        phone: "",
-      });
-      onClick(false);
-    }
-    if (error) {
-      toast.error(error?.message);
-    }
-  }, [data, error]);
-  console.log(formData);
 
   if (!open) return;
   return (
