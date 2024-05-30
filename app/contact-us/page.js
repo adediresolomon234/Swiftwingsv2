@@ -10,7 +10,7 @@ import "../../styles.css";
 import Image from "next/image";
 import NavAndFooter from "../components/shared/NavAndFooter";
 import Destinationsection from "../../public/images/Destinationsection.png"
-import { SWTLocationIcon, SWTCallPhoneIcon, SwMailIcon, SWTFacebookIcon,SWTAccordionsOpenIcon ,SWTAccordionsCloseIcon, SWTInstagramIcon, SWTLinkedInIcon, SWTTikTokIcon, SWTTwitterIcon, SwUserIcon } from "../components/svgs"
+import { SWTLocationIcon, SWTCallPhoneIcon, SwMailIcon, SWTFacebookIcon, SWTAccordionsOpenIcon, SWTAccordionsCloseIcon, SWTInstagramIcon, SWTLinkedInIcon, SWTTikTokIcon, SWTTwitterIcon, SwUserIcon } from "../components/svgs"
 import InputField from "../components/shared/InputField";
 import Button from "../components/Button"
 import { accordions } from '../components/helpers/FrequentlyQuestions';
@@ -20,10 +20,10 @@ import FooterHero from '../components/shared/footerHero';
 const ContactUs = () => {
 
     const [activeAccordion, setActiveAccordion] = useState(null);
-    const [isExpanded, setIsExpanded] = useState(false);
+
     const toggleAccordion = (index) => {
         setActiveAccordion(activeAccordion === index ? null : index);
-        setIsExpanded(!isExpanded);
+
     };
 
 
@@ -212,23 +212,21 @@ const ContactUs = () => {
                     </div>
                 </section>
                 <section className="py-16">
-
-
                     <div class="xl:container m-auto px-6 text-gray-600 md:px-12 xl:px-16">
                         <div class="lg:bg-gray-50 dark:lg:bg-darker lg:p-16 rounded-[4rem] space-y-60 md:flex md:gap-6  md:space-y-0 ">
-                            <div class="md:5/12 lg:w-1/2">
-                                <div class="flex relative">
-                                    <div class="w-72 h-60 bg-swPrimary700 card-container-3 transform transition-all absolute rounded-lg top-3 -left-6 ">
+                            <div className="md:5/12 lg:w-1/2">
+                                <div className="flex relative">
+                                    <div className="w-72 h-60 bg-swPrimary700 card-container-3 transform transition-all absolute rounded-lg top-3 -left-6 ">
 
                                     </div>
-                                    <div class="w-72 h-72 card-container-2 bg-swPrimary600 transform transition-all  absolute -top-2 -left-12 rounded-lg">
+                                    <div className="w-72 h-72 card-container-2 bg-swPrimary600 transform transition-all  absolute -top-2 -left-12 rounded-lg">
 
                                     </div>
-                                    <div class="w-full card-container md:w-80 h-full md:h-80 bg-swPrimary500 flex flex-col justify-start items-center transform transition-all absolute -top-6 md:-left-20 rounded-lg">
-                                        <h2 class="text-2xl font-bold  md:text-4xl text-white  px-12 py-4">
+                                    <div className="w-full card-container md:w-80 h-full md:h-80 bg-swPrimary500 flex flex-col justify-start items-center transform transition-all absolute -top-6 md:-left-20 rounded-lg">
+                                        <h2 className="text-2xl font-bold  md:text-4xl text-white  px-12 py-4">
                                             Frequently Asked Questions
                                         </h2>
-                                        <p class="text-md px-12 mb-8 lg:mb-0 md:text-xl text-white">
+                                        <p className="text-md px-12 mb-8 lg:mb-0 md:text-xl text-white">
                                             Here are previously answers questions.
                                         </p>
                                     </div>
@@ -236,16 +234,20 @@ const ContactUs = () => {
 
                                 </div>
                             </div>
-                            {/* <div className="md:7/12 lg:w-1/2 mt-12 px-4 lg:mt-0">
+                            <div className="md:7/12 lg:w-1/2 mt-12 px-4 lg:mt-0">
                                 <div>
-                                    {accordions.map((accordion) => (
-                                            <Accordion key={accordion.id} expanded={isExpanded} onChange={toggleAccordion}>
-                                                <AccordionSummary
-                                                    aria-controls={`panel${accordion.id}-content`}
-                                                    id={`panel${accordion.id}-header`}
-                                                    className={'font-bold'}
-                                                    expandIcon={isExpanded ? <SWTAccordionsOpenIcon /> : <SWTAccordionsCloseIcon />}
-                                                >
+                                    {accordions.map((accordion, index) => (
+                                        <Accordion
+                                            key={accordion.id}
+                                            expanded={activeAccordion === index}
+                                            onChange={() => toggleAccordion(index)}
+                                        >
+                                            <AccordionSummary
+                                                aria-controls={`panel${accordion.id}-content`}
+                                                id={`panel${accordion.id}-header`}
+                                                className="font-bold"
+                                                expandIcon={activeAccordion === index ? <SWTAccordionsOpenIcon /> : <SWTAccordionsCloseIcon />}
+                                            >
                                                 {accordion.header}
                                             </AccordionSummary>
                                             <AccordionDetails>
@@ -253,13 +255,13 @@ const ContactUs = () => {
                                             </AccordionDetails>
                                             {accordion.id === 3 && (
                                                 <AccordionActions>
-
+                                                    
                                                 </AccordionActions>
                                             )}
                                         </Accordion>
                                     ))}
                                 </div>
-                            </div> */}
+                            </div>
                         </div>
                     </div>
 
@@ -268,7 +270,7 @@ const ContactUs = () => {
 
                 <section className="mt-64 py-16">
                     <div className="xl:container m-auto px-6 text-gray-600 md:px-12 xl:px-16">
-                         <FooterHero /> 
+                        <FooterHero />
                     </div>
                 </section>
             </NavAndFooter>
