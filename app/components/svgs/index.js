@@ -42,6 +42,7 @@ export { default as SWTCallPhoneIcon } from "./CallPhone.svg";
 export { default as SWTButtoncircleIcon } from "./Buttoncircle.svg";
 export { default as SWLogo } from "./Logo.svg";
 export { default as SWTAccordionsOpenIcon } from "./accordions2.svg";
+export { default as SWTAccordionsCloseIcon } from "./accordions.svg";
 export { default as SWTStarBlackIcon } from "./StarBlack.svg";
 export { default as SWTAddPersonBlackIcon } from "./AddPersonBlack.svg";
 export { default as SWTSandClockBlackIcon } from "./SandClockBlack.svg";
