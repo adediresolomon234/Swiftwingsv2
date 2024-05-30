@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SWFilterIcon, SwSearchIcon, SwSortIcon } from "../svgs";
 import dayjs from "dayjs";
 import Link from "next/link";
+import { useDispatch } from "react-redux";
+import { getAllBooking } from "@/redux/slices/bookingSlice";
 
 const AllBookings = () => {
+  const dispatch = useDispatch();
   const [search, setSearch] = useState("");
   const data = [
     {
@@ -79,6 +82,22 @@ const AllBookings = () => {
       status: "Completed",
     },
   ];
+
+  const getAllBookings = () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    // console.log("user", user.email);
+    dispatch(getAllBooking(user.email))
+      .unwrap()
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => console.log(error));
+  };
+
+  useEffect(() => {
+    getAllBookings();
+  }, []);
+
   return (
     <main className="bg-white p-5 rounded-xl">
       <div className="flex items-center justify-between">

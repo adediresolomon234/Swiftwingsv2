@@ -10,6 +10,21 @@ export const addBooking = createAsyncThunk("booking/add", async (payload) => {
     return error;
   }
 });
+
+export const getAllBooking = createAsyncThunk(
+  "booking/allBooking",
+  async (email) => {
+    try {
+      const response = await axios.post(
+        `http://swiftwings-mw.onrender.com/api/v1/booking/single?email=${email}`
+      );
+      return response.data;
+    } catch (error) {
+      return error;
+    }
+  }
+);
+
 export const addEmptyLeg = createAsyncThunk(
   "booking/add-empty-leg",
   async (payload) => {
