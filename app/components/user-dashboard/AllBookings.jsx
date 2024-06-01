@@ -4,84 +4,86 @@ import dayjs from "dayjs";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
 import { getAllBooking } from "@/redux/slices/bookingSlice";
+import { ToastContainer, toast } from "react-toastify";
 
 const AllBookings = () => {
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");
-  const data = [
-    {
-      bookDate: "2024-05-24",
-      bookingTime: "01:00",
-      sourceCountry: "Nigeria",
-      destinationCountry: "Dubai",
-      bookingId: "ID-29485",
-      tripType: "One Way",
-      status: "New",
-    },
-    {
-      bookDate: "2024-05-24",
-      bookingTime: "01:00",
-      sourceCountry: "Nigeria",
-      destinationCountry: "Dubai",
-      bookingId: "ID-29485",
-      tripType: "Round Trip",
-      status: "Processing",
-    },
-    {
-      bookDate: "2024-05-24",
-      bookingTime: "01:00",
-      sourceCountry: "Nigeria",
-      destinationCountry: "Dubai",
-      bookingId: "ID-29485",
-      tripType: "Multi-city Trip",
-      status: "Cancelled",
-    },
-    {
-      bookDate: "2024-05-24",
-      bookingTime: "1:0",
-      sourceCountry: "Nigeria",
-      destinationCountry: "Dubai",
-      bookingId: "ID-29485",
-      tripType: "Multi-city Trip",
-      status: "Completed",
-    },
-    {
-      bookDate: "2024-05-24",
-      bookingTime: "01:00",
-      sourceCountry: "Nigeria",
-      destinationCountry: "Dubai",
-      bookingId: "ID-29485",
-      tripType: "One Way",
-      status: "New",
-    },
-    {
-      bookDate: "2024-05-24",
-      bookingTime: "01:00",
-      sourceCountry: "Nigeria",
-      destinationCountry: "Dubai",
-      bookingId: "ID-29485",
-      tripType: "Round Trip",
-      status: "Processing",
-    },
-    {
-      bookDate: "2024-05-24",
-      bookingTime: "01:00",
-      sourceCountry: "Nigeria",
-      destinationCountry: "Dubai",
-      bookingId: "ID-29485",
-      tripType: "Multi-city Trip",
-      status: "Cancelled",
-    },
-    {
-      bookDate: "2024-05-24",
-      bookingTime: "1:0",
-      sourceCountry: "Nigeria",
-      destinationCountry: "Dubai",
-      bookingId: "ID-29485",
-      tripType: "Multi-city Trip",
-      status: "Completed",
-    },
-  ];
+  const [data, setData] = useState([]);
+  // const data = [
+  //   {
+  //     bookDate: "2024-05-24",
+  //     bookingTime: "01:00",
+  //     sourceCountry: "Nigeria",
+  //     destinationCountry: "Dubai",
+  //     bookingId: "ID-29485",
+  //     tripType: "One Way",
+  //     status: "New",
+  //   },
+  //   {
+  //     bookDate: "2024-05-24",
+  //     bookingTime: "01:00",
+  //     sourceCountry: "Nigeria",
+  //     destinationCountry: "Dubai",
+  //     bookingId: "ID-29485",
+  //     tripType: "Round Trip",
+  //     status: "Processing",
+  //   },
+  //   {
+  //     bookDate: "2024-05-24",
+  //     bookingTime: "01:00",
+  //     sourceCountry: "Nigeria",
+  //     destinationCountry: "Dubai",
+  //     bookingId: "ID-29485",
+  //     tripType: "Multi-city Trip",
+  //     status: "Cancelled",
+  //   },
+  //   {
+  //     bookDate: "2024-05-24",
+  //     bookingTime: "1:0",
+  //     sourceCountry: "Nigeria",
+  //     destinationCountry: "Dubai",
+  //     bookingId: "ID-29485",
+  //     tripType: "Multi-city Trip",
+  //     status: "Completed",
+  //   },
+  //   {
+  //     bookDate: "2024-05-24",
+  //     bookingTime: "01:00",
+  //     sourceCountry: "Nigeria",
+  //     destinationCountry: "Dubai",
+  //     bookingId: "ID-29485",
+  //     tripType: "One Way",
+  //     status: "New",
+  //   },
+  //   {
+  //     bookDate: "2024-05-24",
+  //     bookingTime: "01:00",
+  //     sourceCountry: "Nigeria",
+  //     destinationCountry: "Dubai",
+  //     bookingId: "ID-29485",
+  //     tripType: "Round Trip",
+  //     status: "Processing",
+  //   },
+  //   {
+  //     bookDate: "2024-05-24",
+  //     bookingTime: "01:00",
+  //     sourceCountry: "Nigeria",
+  //     destinationCountry: "Dubai",
+  //     bookingId: "ID-29485",
+  //     tripType: "Multi-city Trip",
+  //     status: "Cancelled",
+  //   },
+  //   {
+  //     bookDate: "2024-05-24",
+  //     bookingTime: "1:0",
+  //     sourceCountry: "Nigeria",
+  //     destinationCountry: "Dubai",
+  //     bookingId: "ID-29485",
+  //     tripType: "Multi-city Trip",
+  //     status: "Completed",
+  //   },
+  // ];
 
   const getAllBookings = () => {
     const user = JSON.parse(localStorage.getItem("user"));
@@ -89,7 +91,12 @@ const AllBookings = () => {
     dispatch(getAllBooking(user.email))
       .unwrap()
       .then((res) => {
-        console.log(res);
+        if (res.success == true) {
+          setData(res?.data);
+          console.log(res);
+        } else {
+          toast.error(res.message);
+        }
       })
       .catch((error) => console.log(error));
   };
@@ -100,6 +107,7 @@ const AllBookings = () => {
 
   return (
     <main className="bg-white p-5 rounded-xl">
+      <ToastContainer />
       <div className="flex items-center justify-between">
         <p className="text-xl hidden md:block text-swGray600">
           All your booking in one place
@@ -121,68 +129,79 @@ const AllBookings = () => {
           </div>
         </div>
       </div>
-      <div className="mt-5">
-        {data.map((item) => (
-          <Link
-            href={`/user-dashboard?page=bookings&id=${item?.bookingId}`}
-            key={item.bookingId}
-            className="md:flex block justify-between p-5 items-center text-swGray800 hover:bg-swGray50 rounded-lg"
-          >
-            <div className="flex items-center gap-5">
-              <div className="w-40">
-                <p className="md:text-lg text-sm font-medium">
-                  {dayjs(`${item.bookDate} ${item.bookingTime}`).format(
-                    "D MMM, YYYY"
-                  )}
-                </p>
-                <p className="text-swGray600 text-xs">
-                  {dayjs(`${item.bookDate} ${item.bookingTime}`).format(
-                    "h:mm a"
-                  )}
-                </p>
-              </div>
+      <div className="mt-5 w-full">
+        {data.length > 0 ? (
+          data.map((item) => (
+            <Link
+              // href={`/user-dashboard?page=bookings&id=${item?.booking_number}`}
+              href={`#`}
+              key={item?.booking_number}
+              className="p-5 text-swGray800 hover:bg-swGray50 rounded-lg w-full "
+            >
+              <div className="flex justify-between items-center gap-5 w-full flex-wrap pb-2 border-b">
+                <div className="">
+                  <p className="md:text-lg text-sm font-medium">
+                    {dayjs(item?.created_date).format("D MMM, YYYY")}
+                  </p>
+                  <p className="text-swGray600 text-xs">
+                    {dayjs(item?.created_date).format("h:mm a")}
+                    {/* {format(item?.created_date, "h:mm a")} */}
+                  </p>
+                </div>
 
-              <div className="w-40">
-                <p className="md:text-lg text-xs  font-medium">
-                  {item.sourceCountry} - {item.destinationCountry}
-                </p>
-                <p className="text-swGray600 text-sm">NIG - DUB</p>
-              </div>
-            </div>
+                <div className="">
+                  <p className="text-sm text-swGray600">Trip type</p>
+                  <p className="md:text-lg text-xs font-medium">
+                    {item?.booking_details?.tripType}
+                  </p>
+                </div>
 
-            {/*  */}
+                <div className="">
+                  <p className="md:text-lg text-xs  font-medium">
+                    {item?.booking_details?.formData[0]?.source?.country} -{" "}
+                    {item?.booking_details?.formData[0]?.destination?.country}
+                  </p>
+                  <div className="text-swGray600 text-sm flex">
+                    <p>
+                      {item?.booking_details?.formData[0]?.source?.iata_code}
+                    </p>{" "}
+                    -{" "}
+                    <p>
+                      {
+                        item?.booking_details?.formData[0]?.destination
+                          ?.iata_code
+                      }
+                    </p>
+                  </div>
+                </div>
 
-            <div className="flex gap-5 items-center mt-4 md:mt-0">
-              <div className="w-40">
-                <p className="text-sm text-swGray600">Booking ID</p>
-                <p className="md:text-lg text-xs font-medium">
-                  {item.bookingId}
-                </p>
-              </div>
-              <div className="w-40 hidden md:block">
-                <p className="text-sm text-swGray600">Flight type</p>
-                <p className="md:text-lg text-xs font-medium">
-                  {item.tripType}
-                </p>
-              </div>
-              <div className="flex items-center w-32">
-                <div
-                  className={`text-white text-xs rounded-full py-2 px-4 ${
-                    item.status === "New"
-                      ? "bg-[#CBC419]"
-                      : item.status === "Processing"
-                      ? "bg-[#196BCB]"
-                      : item.status === "Completed"
-                      ? "bg-[#33CB19]"
-                      : "bg-[#CB2419]"
-                  }`}
-                >
-                  {item.status}
+                <div className="">
+                  <p className="text-sm text-swGray600">Booking ID</p>
+                  <p className="md:text-lg text-xs font-medium">
+                    {item.booking_number}
+                  </p>
+                </div>
+                <div className="flex items-center">
+                  <div
+                    className={`text-white text-xs rounded-full py-2 px-4 ${
+                      item?.status === "New"
+                        ? "bg-[#CBC419]"
+                        : item.status === "Processing"
+                        ? "bg-[#196BCB]"
+                        : item.status === "Completed"
+                        ? "bg-[#33CB19]"
+                        : "bg-[#CB2419]"
+                    }`}
+                  >
+                    {item?.status}
+                  </div>
                 </div>
               </div>
-            </div>
-          </Link>
-        ))}
+            </Link>
+          ))
+        ) : (
+          <div>No bookings found</div>
+        )}
       </div>
     </main>
   );

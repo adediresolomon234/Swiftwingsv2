@@ -40,9 +40,10 @@ const BookingEngine = ({ setBookingDetails }) => {
   const [airports, setAirports] = useState(airportsData || []);
   const departureRef = useRef(null);
   const arrivalRef = useRef(null);
+  const [loading, setLoading] = useState(false);
   // const dateRef = useRef(null);
   const passengerRef = useRef(null);
-  const { loading, error, data } = useSelector((state) => state.booking);
+  const { data } = useSelector((state) => state.booking);
 
   const [bookingState, setBookingState] = useState([
     {
@@ -249,6 +250,7 @@ const BookingEngine = ({ setBookingDetails }) => {
     if (typeof self !== "undefined") {
       localStorage.setItem("bookingDetails", JSON.stringify(booking));
     }
+    setLoading(true);
     router.push("/booking");
   };
 
@@ -419,7 +421,8 @@ const BookingEngine = ({ setBookingDetails }) => {
                   bgColor={"bg-swPrimary500 hover:bg-swPrimary600"}
                   textColor={"text-white"}
                   endIcon={<HiArrowRight size={20} />}
-                  disabled={bookingBtnDisable()}
+                  loader={loading}
+                  disabled={loading || bookingBtnDisable()}
                 />
               </div>
             ) : (
