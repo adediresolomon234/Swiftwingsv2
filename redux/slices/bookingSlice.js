@@ -15,8 +15,8 @@ export const getAllBooking = createAsyncThunk(
   "booking/allBooking",
   async (email) => {
     try {
-      const response = await axios.post(
-        `http://swiftwings-mw.onrender.com/api/v1/booking/single?email=${email}`
+      const response = await axios.get(
+        `https://swiftwings-mw.onrender.com/api/v1/booking/single?email=${email}`
       );
       return response.data;
     } catch (error) {
