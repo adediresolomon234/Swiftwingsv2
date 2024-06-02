@@ -120,7 +120,7 @@ const EachBooking = () => {
                 <div className="w-full w-1/3 flex gap-5 items-center whitespace-nowrap">
                   <div className="text-swLightGray">
                     <p className="text-lg font-medium">{jet?.name}</p>
-                    <p className="text-sm">Midsize Business Jet</p>
+                    <p className="text-sm">{jet?.features?.classification}</p>
                   </div>
                 </div>
                 <div className="lg:max-w-xl w-full text-swGray800 gap-5 flex flex-col sm:flex-row sm:justify-end">
@@ -128,7 +128,9 @@ const EachBooking = () => {
                     <div className="flex flex-col gap-2">
                       <div className="flex items-center gap-2">
                         <SwSeatIcon className="text-lg" />
-                        <p className="text-xs">8 seats</p>
+                        <p className="text-xs">
+                          {jet?.features?.no_of_seats} seats
+                        </p>
                       </div>
                       <div className="flex items-center gap-2">
                         <SwLuggageIcon className="text-lg" />
@@ -139,11 +141,11 @@ const EachBooking = () => {
                     <div className="flex flex-col gap-2">
                       <div className="flex items-center gap-2">
                         <SwMeterIcon className="text-lg" />
-                        <p className="text-xs">826 km/h speed</p>
+                        <p className="text-xs">{jet?.speed} speed</p>
                       </div>
                       <div className="flex items-center gap-2">
                         <SwMeterIcon className="text-lg" />
-                        <p className="text-xs">2,920 miles nm</p>
+                        <p className="text-xs">{jet?.kilometer} nm</p>
                       </div>
                     </div>
 
@@ -159,10 +161,17 @@ const EachBooking = () => {
         <p className="font-semibold text-swGray600 text-lg">Destinations</p>
         <div className="flex justify-between items-center mt-8">
           <p className="text-swGray600">Flight type:</p>
-          <p className="font-medium text-swGray800 ">Round Trip</p>
+          <p className="font-medium text-swGray800 ">
+            {data?.booking_details?.tripType}
+          </p>
         </div>
         <div className="text-swGray800 mt-5">
-          <p className="">Flight from Abuja, Nigeria - Abu Dhabi Dubia</p>
+          <p className="">
+            {data?.booking_details?.formData[0]?.source?.city},
+            {data?.booking_details?.formData[0]?.source?.country} -{" "}
+            {data?.booking_details?.formData[0]?.destination?.city},
+            {data?.booking_details?.formData[0]?.destination?.country}
+          </p>
         </div>
         {/* {bookingDetails?.booking_details?.formData.map((item, index) => ( */}
         <div className="flex gap-1 mt-5 justify-center lg:">
