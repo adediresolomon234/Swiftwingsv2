@@ -166,8 +166,8 @@ export default function Home() {
           </section>
         </section>
         <section className="mt-30 py-16 px-5 text-swGray900 ">
-          <div className="relative py-16">
-            <div className="container relative m-auto px-6 text-gray-500 md:px-12">
+          <div className=" py-16">
+            <div className="container  m-auto px-6 text-gray-500 md:px-12">
               <div className="grid gap-6 md:mx-auto md:w-8/12 lg:w-full lg:grid-cols-4">
                 <div className="group space-y-6 rounded-3xl border border-gray-100 shadow-2xl shadow-gray-6 rounded-3xl bg-swSecondary200 px-8 py-12 text-center">
                   <SWTStarBlackIcon className="mx-auto svgIcon" />
@@ -175,10 +175,7 @@ export default function Home() {
                     VIP Treatment
                   </h3>
                   <p>
-                    Enjoy luxurious comfort, in-flight catering customised to
-                    your taste. Get entertained by favourite shows or stay
-                    connected with work using free Wi-Fi. Arrive refreshed &
-                    ready for your destination. Fly on a private flight schedule
+                  Enjoy luxurious comfort, in-flight catering customised to your taste. Get entertained by favourite shows or stay connected with work using free Wi-Fi. Arrive refreshed & ready for your destination. Fly on a private flight schedule https://swiftwingsjet.com/quick-booking, not airline
                   </p>
                 </div>
                 <div className="group space-y-6 rounded-3xl border border-gray-100 shadow-2xl shadow-gray-6 rounded-3xl bg-swSecondary200 px-8 py-12 text-center">
@@ -297,7 +294,7 @@ export default function Home() {
                 We offer world a class exotic experience
               </p>
             </div>
-            <div className="grid gap-3 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
               {services.map((service, index) => (
                 <div className="w-full mx-auto" key={index}>
                   <div className="overflow-hidden w-full h-full rounded-2xl">
@@ -309,7 +306,7 @@ export default function Home() {
                       width="640"
                       height="805"
                     />
-                    <div className="p-3 bg-gradient-to-r from-neutral-400 to-stone-500/90 text-left h-full">
+                    <div className="p-6 bg-gradient-to-r from-neutral-400 to-stone-500/90 text-left h-full">
                       <div className="justify-start items-start">
                         <h4 className="mb-2 text-2xl font-bold tracking-tight text-white">
                           {service.title}
