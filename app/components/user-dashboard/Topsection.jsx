@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   SWStarIcon,
   SwUserIcon,
@@ -11,6 +11,13 @@ import UserDashBoardNav from "./userDashBoardNav";
 
 const TopSectionPage = () => {
   const [navToggle, setNavToggle] = useState(false);
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    const userDataString = localStorage.getItem("user");
+    const userData = userDataString ? JSON.parse(userDataString) : null;
+    setUserData(userData);
+  }, []);
   return (
     <div className="rounded-xl bg-white flex items-center justify-between p-4 text-xl text-gray-500 font-body-lg-semi-bold lg:flex-wrap">
       <div className="pl-2 flex gap-5 items-center">
@@ -32,7 +39,7 @@ const TopSectionPage = () => {
           />
         </div>
         <div className="md:text-xl text-sm text-swGray500 font-semibold">
-          Good Afternoon, Jane
+          Hello {userData?.first_name} 👋
         </div>
       </div>
 
