@@ -133,12 +133,11 @@ const AllBookings = () => {
         {data.length > 0 ? (
           data.map((item) => (
             <Link
-              // href={`/user-dashboard?page=bookings&id=${item?.booking_number}`}
-              href={`#`}
+              href={`/user-dashboard?page=bookings&id=${item?.booking_number}`}
               key={item?.booking_number}
-              className="p-5 text-swGray800 hover:bg-swGray50 rounded-lg w-full "
+              className=" text-swGray800  rounded-lg w-full "
             >
-              <div className="flex justify-between items-center gap-5 w-full flex-wrap pb-2 border-b">
+              <div className="flex justify-between items-center gap-5 w-full flex-wrap pb-2 border-b hover:bg-swGray50 p-5">
                 <div className="">
                   <p className="md:text-lg text-sm font-medium">
                     {dayjs(item?.created_date).format("D MMM, YYYY")}

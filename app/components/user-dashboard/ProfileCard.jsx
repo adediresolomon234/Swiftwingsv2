@@ -5,22 +5,22 @@ import { SWEditIcon } from "../svgs";
 import { useRouter } from "next/navigation";
 import AccountDetailsUpdateCard from "./AccountDetailsUpdate";
 import PasswordUpdateCard from "./UserPasswordUpdate";
-import Link from "next/link";
-import { IoPersonCircleOutline } from "react-icons/io5";
+import { FiUser } from "react-icons/fi";
+
 const ProfileCard = () => {
+  const router = useRouter();
   const [pageState, setPageState] = useState("profile");
-  const [userData, setUserData] = useState(false);
-  const [openUserDropDown, setOpenUserDropDown] = useState(false);
+  const [userData, setUserData] = useState(null);
 
   useEffect(() => {
     const userDataString = localStorage.getItem("user");
     const userData = userDataString ? JSON.parse(userDataString) : null;
-    userData && setUserData(true);
+    setUserData(userData);
   }, []);
 
   const handleSignOut = () => {
-    setUserData(false);
-    localStorage.removeItem("userData");
+    localStorage.removeItem("user");
+    router.push("/");
   };
   console.log(pageState);
   return (
@@ -40,14 +40,18 @@ const ProfileCard = () => {
                 <SWEditIcon />
               </div>
             </div>
-            <div className="self-stretch flex flex-col lg:flex-row items-start justify-start gap-6 text-gray-700 p-4 ">
+            <div className="self-stretch flex flex-col sm:flex-row items-center justify-start gap-6 text-gray-700 p-4 ">
               <div className="flex flex-row items-start justify-start">
-                <div className="w-24 h-24 lg:w-36 lg:h-36 relative rounded-full bg-swGray500" />
+                <div className="w-24 h-24 lg:w-36 lg:h-36 relative rounded-full bg-swGray500 flex justify-center items-center text-white">
+                  <FiUser size={60} />
+                </div>
               </div>
               <div className="text-swGray700 flex-1 flex flex-col items-start justify-start gap-2 p-4">
-                <div className="text-2xl font-semibold">Dr. James April</div>
-                <div className="">jamesapril@gmail.com</div>
-                <div className="">+234 902 583 ****</div>
+                <div className="text-2xl font-semibold mx-auto sm:m-0">
+                  {userData?.last_name} {userData?.first_name}
+                </div>
+                <div className="">{userData?.email}</div>
+                <div className="mx-auto sm:m-0">{userData?.phone_number}</div>
               </div>
             </div>
           </div>
@@ -64,45 +68,12 @@ const ProfileCard = () => {
               <SWEditIcon />
             </div>
           </div>
-          {userData && (
-          <div className="relative">
-            <div
-              className="text-jsPrimary100 cursor-pointer"
-              onClick={() => setOpenUserDropDown(!openUserDropDown)}
-            >
-              <IoPersonCircleOutline size={50} />
-            </div>
-
-            {openUserDropDown && (
-              <div
-                className={`absolute w-[12rem] -right-5 top-full mt-7 p-3 bg-white rounded-md ${
-                  openUserDropDown ? "min-h-10" : "h-0"
-                }`}
-              >
-                <div className="w-full flex flex-col">
-                  <Link
-                    href={"/bookings"}
-                    className="w-full hover:bg-yellow-50 rounded-md p-3"
-                  >
-                    Bookings
-                  </Link>
-                  <Link
-                    href={"#"}
-                    className="w-full hover:bg-yellow-50 rounded-md p-3"
-                  >
-                    Settings
-                  </Link>
-                  <div
-                    className="w-full hover:bg-yellow-50 rounded-md p-3 cursor-pointer"
-                    onClick={handleSignOut}
-                  >
-                    Sign-out
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-        )}
+          <button
+            className="py-2 px-4 bg-white rounded-full mt-5 hover:bg-gray-100"
+            onClick={handleSignOut}
+          >
+            Logout
+          </button>
         </div>
       )}
       {pageState === "update-profile" && (

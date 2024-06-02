@@ -38,6 +38,17 @@ const AccountDetailsUpdateCard = ({ setPageState }) => {
     setFormData({ ...formData, [name]: value });
   };
 
+  useEffect(() => {
+    const userDataString = localStorage.getItem("user");
+    const userData = userDataString ? JSON.parse(userDataString) : null;
+    setFormData({
+      first_name: userData.first_name,
+      last_name: userData.last_name,
+      phone_number: userData.phone_number,
+    });
+    // setUserData(userData);
+  }, []);
+
   return (
     <div className="w-full relative rounded-xl bg-white overflow-hidden flex flex-col items-center justify-center pt-3 px-6 pb-3 text-xl  text-gray-800 font-header-sm-semi-bold">
       <div className="self-stretch flex flex-row items-center justify-between">
