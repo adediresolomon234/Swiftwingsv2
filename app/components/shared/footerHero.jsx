@@ -1,5 +1,5 @@
 import Button from "../Button";
-import React from 'react';
+import React from "react";
 
 const FooterHero = () => {
   return (
@@ -7,7 +7,8 @@ const FooterHero = () => {
       <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
         <div className="flex-1 w-[440px] relative leading-[32px] font-semibold inline-block shrink-0 max-w-full z-[2]">
           <div className="p-8 max-w-[400px]">
-           You're one click away from booking the perfect Jet for your journey.
+            You&apos;re one click away from booking the perfect Jet for your
+            journey.
           </div>
           <img
             className="absolute lg:w-full lg:max-w-[850px] mx-auto lg:mx-0 mt-0 lg:right-36  lg:mt-[-145px]"
