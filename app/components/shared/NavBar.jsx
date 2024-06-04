@@ -199,7 +199,7 @@ const NavBar = ({ Nav }) => {
               <button
                 onClick={toggleMobileMenu}
                 type="button"
-                className="inline-flex items-center justify-center mt-2 ml-3 text-sm text-gray-500 rounded-full lg:hidden p-3"
+                className="inline-flex items-center justify-center mt-2 ml-3 text-sm text-gray-500 rounded-full lg:hidden"
                 aria-controls="mobile-menu-2"
                 aria-expanded={isMobileMenuOpen ? "true" : "false"}
               >
