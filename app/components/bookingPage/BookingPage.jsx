@@ -35,6 +35,7 @@ const BookingPageInformation = () => {
   const [sourceDetails, setSourceDetails] = useState(null);
   const [destinationDetails, setDestinationDetails] = useState(null);
   const [success, setSuccess] = useState(false);
+  const [notLoggedInSuccess, setNotLoggedInSuccess] = useState(false);
   const [hydrated, setHydrated] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [notLoggedInModal, setNotLoggedInModal] = useState(false);
@@ -399,6 +400,20 @@ const BookingPageInformation = () => {
               router.push("/user-dashboard?page=profile");
             }}
           />
+          <SuccessModal
+            open={notLoggedInSuccess}
+            singleBtn={true}
+            headingText={"Booking complete"}
+            text={
+              "You can check out your booking status in your profile or wait for our mail."
+            }
+            onClose={setNotLoggedInSuccess}
+            firstBtnText={"Go home"}
+            firstBtnClick={() => {
+              setNotLoggedInSuccess(false);
+              router.push("/");
+            }}
+          />
         </main>
       ) : (
         <div className="flex justify-center items-center h-[70vh]">
@@ -413,7 +428,7 @@ const BookingPageInformation = () => {
         onClick={setNotLoggedInModal}
         bookingDetails={bookingDetails}
         unCheckAllBoxes={uncheckBoxes}
-        setSuccess={setSuccess}
+        setSuccess={setNotLoggedInSuccess}
       />
     </>
   );
