@@ -64,7 +64,7 @@ const Footer = () => {
       </div>
 
       <div className="relative w-full ">
-        <footer className="w-full rounded-3xl bg-swWine relative flex flex-col items-center overflow-hidden">
+        <footer className="w-full bg-swWine relative flex flex-col items-center overflow-hidden">
           <div className="mx-auto w-full max-w-screen-2xl p-4 py-6 lg:py-8">
             <div className="md:flex md:justify-between">
               <div className="mb-6 md:mb-0">
@@ -73,92 +73,84 @@ const Footer = () => {
                     src={logo}
                     className="text-white"
                     alt="swiftwings Logo"
-                    style={{ filter: "brightness(0) invert(1)" }}
+                    style={{ filter: 'brightness(0) invert(1)' }}
                   />
                 </a>
               </div>
-              <div className="grid grid-cols-1 gap-3 sm:gap-2 sm:grid-cols-4">
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                 <div>
-                  <h2 className="mb-6 text-xl font-semibold uppercase text-white">
-                    Service
-                  </h2>
+                  <h2 className="mb-6 text-xl font-semibold uppercase text-white">Service</h2>
                   <ul className="text-white font-medium">
                     <li className="mb-4">
-                      <a href="" className="">
+                      <a href="#" className="hover:underline">
                         Luxurious trips
                       </a>
                     </li>
                     <li className="mb-4">
-                      <a href="" className="">
+                      <a href="#" className="hover:underline">
                         Inflight catering
                       </a>
                     </li>
                     <li className="mb-4">
-                      <a href="" className="">
+                      <a href="#" className="hover:underline">
                         Air ambulance
                       </a>
                     </li>
                   </ul>
                 </div>
                 <div>
-                  <h2 className="mb-6 text-xl font-semibold  uppercase text-white">
-                    Company
-                  </h2>
+                  <h2 className="mb-6 text-xl font-semibold uppercase text-white">Company</h2>
                   <ul className="text-white font-medium">
                     <li className="mb-4">
-                      <a href="" className="hover:underline">
+                      <a href="#" className="hover:underline">
                         About Us
                       </a>
                     </li>
                     <li className="mb-4">
-                      <a href="" className="hover:underline">
+                      <a href="#" className="hover:underline">
                         Contact Us
                       </a>
                     </li>
                     <li className="mb-4">
-                      <a href="" className="hover:underline">
+                      <a href="#" className="hover:underline">
                         Career
                       </a>
                     </li>
                     <li className="mb-4">
-                      <a href="" className="hover:underline">
+                      <a href="#" className="hover:underline">
                         Outreach
                       </a>
                     </li>
                   </ul>
                 </div>
                 <div>
-                  <h2 className="mb-6 text-xl font-semibold uppercase text-white">
-                    Legal
-                  </h2>
+                  <h2 className="mb-6 text-xl font-semibold uppercase text-white">Legal</h2>
                   <ul className="text-white font-medium">
                     <li className="mb-4">
-                      <a href="" className="hover:underline ">
+                      <a href="#" className="hover:underline">
                         Privacy Policy
                       </a>
                     </li>
                     <li className="mb-4">
-                      <a href="" className="hover:underline ">
-                        Terms & Condition
+                      <a href="#" className="hover:underline">
+                        Terms & Conditions
                       </a>
                     </li>
                     <li className="mb-4">
-                      <a href="" className="hover:underline ">
+                      <a href="#" className="hover:underline">
                         Usage rights
                       </a>
                     </li>
                   </ul>
                 </div>
                 <div>
-                  <h2 className="mb-6 text-xl font-semibold uppercase text-white">
-                    Company and Social
-                  </h2>
+                  <h2 className="mb-6 text-xl font-semibold uppercase text-white">Contact</h2>
                   <ul className="text-white font-medium">
                     <li className="flex items-center mb-4">
                       <div className="flex justify-center mr-3">
                         <CiMail />
                       </div>
-                      <a href="#" className="hover:underline">
+                      <a href="mailto:charter@swiftwingsjet.com" className="hover:underline">
                         charter@swiftwingsjet.com
                       </a>
                     </li>
@@ -166,15 +158,15 @@ const Footer = () => {
                       <div className="flex justify-center mr-3">
                         <FaInstagram />
                       </div>
-                      <a href="#" className="hover:underline">
+                      <a href="https://www.instagram.com/swiftwingsjet" className="hover:underline">
                         swiftwingsjet
                       </a>
                     </li>
                     <li className="flex items-center mb-4">
                       <div className="flex justify-center mr-3">
-                        <FaXTwitter />
+                        <FaXTwitter  />
                       </div>
-                      <a href="#" className="">
+                      <a href="https://www.twitter.com/swiftwingsjet" className="hover:underline">
                         swiftwingsjet
                       </a>
                     </li>
@@ -182,7 +174,7 @@ const Footer = () => {
                       <div className="flex justify-center mr-3">
                         <FaPhoneAlt />
                       </div>
-                      <a href="#" className="">
+                      <a href="tel:09028792910" className="hover:underline">
                         09028792910
                       </a>
                     </li>
@@ -190,19 +182,14 @@ const Footer = () => {
                 </div>
               </div>
             </div>
-            <hr className="my-6 border-gray-200 sm:mx-auto  lg:my-8" />
+            <hr className="my-6 border-gray-200 sm:mx-auto lg:my-8" />
             <div className="sm:flex sm:items-center sm:justify-between">
-              <span className="text-sm text-white sm:text-center d">
-                {" "}
-                9b Ike Asogwa Cl, Maryland 100211, Lagos.
-              </span>
+              <span className="text-sm text-white sm:text-center">9b Ike Asogwa Cl, Maryland 100211, Lagos.</span>
               <div className="flex mt-4 sm:justify-center sm:mt-0">
-                <span className="text-sm text-white sm:text-center ">
-                  {currentYear}{" "}
-                  <a href="https:swiftwings.com" className="hover:underline">
-                    <span
-                      className={`${libre_baskerville.className} no-text-shadow font-bold`}
-                    >
+                <span className="text-sm text-white sm:text-center">
+                  {currentYear}{' '}
+                  <a href="https://swiftwings.com" className="hover:underline">
+                    <span className={`${libre_baskerville.className} no-text-shadow font-bold`}>
                       Swift<i className="font-normal">Wings</i>
                     </span>
                   </a>
