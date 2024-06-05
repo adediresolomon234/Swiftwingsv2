@@ -131,73 +131,83 @@ const AllBookings = () => {
       </div>
       <div className="mt-5 w-full">
         {data.length > 0 ? (
-          data.map((item) => (
-            <Link
-              href={`/user-dashboard?page=bookings&id=${item?.booking_number}`}
-              key={item?.booking_number}
-              className=" text-swGray800  rounded-lg w-full "
-            >
-              <div className="flex justify-between items-center gap-5 w-full flex-wrap pb-2 border-b hover:bg-swGray50 p-5">
-                <div className="">
-                  <p className="md:text-lg text-sm font-medium">
-                    {dayjs(item?.created_date).format("D MMM, YYYY")}
-                  </p>
-                  <p className="text-swGray600 text-xs">
-                    {dayjs(item?.created_date).format("h:mm a")}
-                    {/* {format(item?.created_date, "h:mm a")} */}
-                  </p>
-                </div>
-
-                <div className="">
-                  <p className="text-sm text-swGray600">Trip type</p>
-                  <p className="md:text-lg text-xs font-medium">
-                    {item?.booking_details?.tripType}
-                  </p>
-                </div>
-
-                <div className="">
-                  <p className="md:text-lg text-xs  font-medium">
-                    {item?.booking_details?.formData[0]?.source?.country} -{" "}
-                    {item?.booking_details?.formData[0]?.destination?.country}
-                  </p>
-                  <div className="text-swGray600 text-sm flex">
-                    <p>
-                      {item?.booking_details?.formData[0]?.source?.iata_code}
-                    </p>{" "}
-                    -{" "}
-                    <p>
-                      {
-                        item?.booking_details?.formData[0]?.destination
-                          ?.iata_code
-                      }
+          data
+            .filter(
+              (item) =>
+                item?.booking_details?.formData[0]?.destination?.country
+                  .toLowerCase()
+                  .includes(search.toLocaleLowerCase()) ||
+                item?.booking_details?.formData[0]?.source?.country
+                  .toLowerCase()
+                  .includes(search.toLocaleLowerCase())
+            )
+            .map((item) => (
+              <Link
+                href={`/user-dashboard?page=bookings&id=${item?.booking_number}`}
+                key={item?.booking_number}
+                className=" text-swGray800  rounded-lg w-full "
+              >
+                <div className="flex justify-between items-center gap-5 w-full flex-wrap pb-2 border-b hover:bg-swGray50 p-5">
+                  <div className="">
+                    <p className="md:text-lg text-sm font-medium">
+                      {dayjs(item?.created_date).format("D MMM, YYYY")}
+                    </p>
+                    <p className="text-swGray600 text-xs">
+                      {dayjs(item?.created_date).format("h:mm a")}
+                      {/* {format(item?.created_date, "h:mm a")} */}
                     </p>
                   </div>
-                </div>
 
-                <div className="">
-                  <p className="text-sm text-swGray600">Booking ID</p>
-                  <p className="md:text-lg text-xs font-medium">
-                    {item.booking_number}
-                  </p>
-                </div>
-                <div className="flex items-center">
-                  <div
-                    className={`text-white text-xs rounded-full py-2 px-4 ${
-                      item?.status === "New"
-                        ? "bg-[#CBC419]"
-                        : item.status === "Processing"
-                        ? "bg-[#196BCB]"
-                        : item.status === "Completed"
-                        ? "bg-[#33CB19]"
-                        : "bg-[#CB2419]"
-                    }`}
-                  >
-                    {item?.status}
+                  <div className="">
+                    <p className="text-sm text-swGray600">Trip type</p>
+                    <p className="md:text-lg text-xs font-medium">
+                      {item?.booking_details?.tripType}
+                    </p>
+                  </div>
+
+                  <div className="">
+                    <p className="md:text-lg text-xs  font-medium">
+                      {item?.booking_details?.formData[0]?.source?.country} -{" "}
+                      {item?.booking_details?.formData[0]?.destination?.country}
+                    </p>
+                    <div className="text-swGray600 text-sm flex">
+                      <p>
+                        {item?.booking_details?.formData[0]?.source?.iata_code}
+                      </p>{" "}
+                      -{" "}
+                      <p>
+                        {
+                          item?.booking_details?.formData[0]?.destination
+                            ?.iata_code
+                        }
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="">
+                    <p className="text-sm text-swGray600">Booking ID</p>
+                    <p className="md:text-lg text-xs font-medium">
+                      {item.booking_number}
+                    </p>
+                  </div>
+                  <div className="flex items-center">
+                    <div
+                      className={`text-white text-xs rounded-full py-2 px-4 ${
+                        item?.status === "New"
+                          ? "bg-[#CBC419]"
+                          : item.status === "Processing"
+                          ? "bg-[#196BCB]"
+                          : item.status === "Completed"
+                          ? "bg-[#33CB19]"
+                          : "bg-[#CB2419]"
+                      }`}
+                    >
+                      {item?.status}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </Link>
-          ))
+              </Link>
+            ))
         ) : (
           <div>No bookings found</div>
         )}
