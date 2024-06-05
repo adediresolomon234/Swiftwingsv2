@@ -98,8 +98,29 @@ const SignUp = () => {
 
     // If no errors, dispatch the signUpUser action
     if (!emailError && !passwordError && !reenterPasswordError) {
-      dispatch(signUpUser(formData));
-      setIsSubmitted(true);
+      dispatch(signUpUser(formData))
+        .unwrap()
+        .then((res) => {
+          if (res.success === true) {
+            toast.success(res.message);
+            setFormData({
+              first_name: "",
+              last_name: "",
+              phone_number: "",
+              email: "",
+              password: "",
+            });
+            setReenterPassword("");
+            router.push("/sign-in");
+          } else {
+            toast.error(res);
+          }
+          // console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      // setIsSubmitted(true);
     }
   };
 
@@ -113,33 +134,33 @@ const SignUp = () => {
     return passwordRegex.test(password);
   };
 
-  useEffect(() => {
-    if (data && !data?.message) {
-      // router.push("/");
-      toast.success(data);
-      // alert(data?.message);
-    }
-    if (data && data?.message) {
-      // router.push("/");
-      toast.success(data?.message);
-      // alert(data?.message);
-    }
-    // console.log(data);
-    if (error) toast.error(error);
-  }, [data, error]);
+  // useEffect(() => {
+  //   if (data && !data?.message) {
+  //     //
+  //     toast.success(data);
+  //     // alert(data?.message);
+  //   }
+  //   if (data && data?.message) {
+  //     // router.push("/");
+  //     toast.success(data?.message);
+  //     // alert(data?.message);
+  //   }
+  //   // console.log(data);
+  //   if (error) toast.error(error);
+  // }, [data, error]);
 
-  useEffect(() => {
-    if (isSubmitted) {
-      setFormData({
-        first_name: "",
-        last_name: "",
-        phone_number: "",
-        email: "",
-        password: "",
-      });
-      setIsSubmitted(false);
-    }
-  }, [isSubmitted]);
+  // useEffect(() => {
+  //   if (isSubmitted) {
+  //     setFormData({
+  //       first_name: "",
+  //       last_name: "",
+  //       phone_number: "",
+  //       email: "",
+  //       password: "",
+  //     });
+  //     setIsSubmitted(false);
+  //   }
+  // }, [isSubmitted]);
 
   return (
     <NavAndFooter Nav={false}>
@@ -164,7 +185,7 @@ const SignUp = () => {
               name={"email"}
               placeholder={"Enter email address"}
               startIcon={<SwMailIcon className="text-xl" />}
-              // value={email}
+              value={formData.email}
               onChange={handleInputChange}
               className={emailError ? "error" : ""}
             />
@@ -211,6 +232,7 @@ const SignUp = () => {
             <InputField
               label={"Password"}
               name={"password"}
+              value={formData.password}
               placeholder={"Enter password"}
               startIcon={<SwKeyIcon className="text-xl" />}
               endIcon={
@@ -236,6 +258,7 @@ const SignUp = () => {
             <InputField
               label={"Re-enter password"}
               placeholder={"Re-enter password"}
+              value={reenterPassword}
               startIcon={<SwKeyIcon className="text-xl" />}
               endIcon={
                 showReenterPassword ? (
