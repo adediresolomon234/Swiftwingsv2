@@ -10,6 +10,7 @@ import team from "../../public/images/team.png";
 import { Libre_Baskerville } from "next/font/google";
 import { SWTBespokeIcon, SWTStarBlack2Icon, SWTUserServiceIcon, SWTLuxuryFleetIcon, SWTDoortoDoorIcon, SWTCustomizatioIconIcon, SWTDietaryIconIcon, SWTStarIconIcon, SWTAdvancedMedicalIcon, SWTTwoPersonBlackIcon, SWTGlobalCoverageIcon, SWTClockBlackIcon } from "../components/svgs"
 import Button from "../components/Button";
+import FooterHero from "../components/shared/footerHero";
 
 const libre_baskerville = Libre_Baskerville({
     subsets: ["latin"],
@@ -498,11 +499,11 @@ const Service = () => {
                     </div>
                 </section> */}
 
-                {/* <section className="mt-64 py-16">
+         <section className="mt-64 py-16">
           <div className="xl:container m-auto px-6 text-gray-600 md:px-12 xl:px-16">
-            {/* <FooterHero /> */}
-                {/* </div>
-        </section> */}
+        <FooterHero /> 
+         </div>
+        </section> 
             </NavAndFooter>
         </main >
     );
