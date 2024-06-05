@@ -167,15 +167,15 @@ export default function Home() {
         </section>
         <section className="mt-30 py-16 px-5 text-swGray900 ">
           <div className=" py-16">
-            <div className="container  m-auto px-6 text-gray-500 md:px-12">
-              <div className="grid gap-6 md:mx-auto md:w-8/12 lg:w-full lg:grid-cols-4">
+            <div className="container m-auto px-6 text-gray-500 md:px-12">
+              <div className="grid gap-6 md:mx-auto md:grid-cols-2 lg:w-full lg:grid-cols-3 xl:grid-cols-4">
                 <div className="group space-y-6 rounded-3xl border border-gray-100 shadow-2xl shadow-gray-6 rounded-3xl bg-swSecondary200 px-8 py-12 text-center">
                   <SWTStarBlackIcon className="mx-auto svgIcon" />
                   <h3 className="text-2xl font-semibold text-swPrimary500 bg-swSecondary500  rounded-full p-3">
                     VIP Treatment
                   </h3>
                   <p>
-                  Enjoy luxurious comfort, in-flight catering customised to your taste. Get entertained by favourite shows or stay connected with work using free Wi-Fi. Arrive refreshed & ready for your destination. Fly on a private flight schedule https://swiftwingsjet.com/quick-booking, not airline
+                  Enjoy luxurious comfort, in-flight catering customised to your taste. Get entertained by favourite shows or stay connected with work using free Wi-Fi. Arrive refreshed & ready for your destination. Fly on a private flight schedule
                   </p>
                 </div>
                 <div className="group space-y-6 rounded-3xl border border-gray-100 shadow-2xl shadow-gray-6 rounded-3xl bg-swSecondary200 px-8 py-12 text-center">
@@ -422,7 +422,7 @@ export default function Home() {
             </div>
           </div>
         </section> */}
-        <section className="max-w-7xl mx-auto py-10">
+        <section className="lg:max-w-3xl xl:max-w-7xl mx-auto py-10">
           <div className="relative pt-40 pb-20 lg:pt-44">
             <div className="relative 2xl:container m-auto px-0 md:px-0 lg:px-0">
               <p className="sm:mx-auto sm:w-10/12 md:w-2/3 p-1 text-swPrimary500 font-semibold text-center sm:text-[18px] md:text-[18px] lg:text-[18px] lg:w-auto lg:text-left">
