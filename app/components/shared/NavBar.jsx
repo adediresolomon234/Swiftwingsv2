@@ -22,11 +22,11 @@ const NavBar = ({ Nav }) => {
   const [userData, setUserData] = useState(false);
   const [openUserDropDown, setOpenUserDropDown] = useState(false);
 
-  useEffect(() => {
-    const userDataString = localStorage.getItem("user");
-    const userData = userDataString ? JSON.parse(userDataString) : null;
-    userData && setUserData(true);
-  }, []);
+  // useEffect(() => {
+  //   const userDataString = localStorage.getItem("user");
+  //   const userData = userDataString ? JSON.parse(userDataString) : null;
+  //   userData && setUserData(true);
+  // }, []);
 
   const handleSignOut = () => {
     setUserData(false);

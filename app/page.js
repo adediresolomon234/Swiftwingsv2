@@ -424,8 +424,8 @@ export default function Home() {
         </section> */}
         <section className="lg:max-w-3xl xl:max-w-7xl mx-auto py-10">
           <div className="relative pt-40 pb-20 lg:pt-44">
-            <div className="relative 2xl:container m-auto px-0 md:px-0 lg:px-0">
-              <p className="sm:mx-auto sm:w-10/12 md:w-2/3 p-1 text-swPrimary500 font-semibold text-center sm:text-[18px] md:text-[18px] lg:text-[18px] lg:w-auto lg:text-left">
+            <div className="relative 2xl:container m-auto px-6 md:px-8 lg:px-10 xl:px-0">
+              <p className="sm:mx-auto sm:w-10/12 md:w-2/3 p-1 text-swPrimary500 font-semibold text-center sm:text-[18px] md:text-[18px] lg:text-[18px] lg:w-auto lg:text-left lg:p">
                 Fleet Showcase
               </p>
               <h1 className="mt-8 sm:mx-auto sm:w-10/12 md:w-2/3 text-swGray700 text-4xl font-semibold text-center sm:text-5xl md:text-5xl lg:w-auto lg:text-left xl:text-6xl">
