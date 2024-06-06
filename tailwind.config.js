@@ -22,7 +22,7 @@ module.exports = {
         swGray900: "#454545",
         swPrimary50: "#efe6eb",
         swPrimary100: "#ccb2bf",
-        swPrimary200: "#b48ca1",
+        swPrimary200: "#b48ca1", 
         swPrimary300: "#925876",
         swPrimary400: "#7d385b",
         swPrimary500: "#5c0632",
