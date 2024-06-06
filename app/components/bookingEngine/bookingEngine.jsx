@@ -262,10 +262,6 @@ const BookingEngine = ({ setBookingDetails }) => {
       if (!arrivalRef?.current?.contains(event.target)) {
         setOpenArrival(null);
       }
-      // if (!dateRef?.current?.contains(event.target)) {
-      //   setDateOpen(false);
-      //   // console.log("date clicked");
-      // }
       if (!passengerRef?.current?.contains(event.target)) {
         setOpenPassageners(null);
       }
@@ -601,7 +597,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                 <div className="grid grid-cols-1 grid-rows-2 md:grid-rows-1 md:grid-cols-2 w-full gap-5">
                   <div
                     onClick={() => setDateOpen(index)}
-                    className={`relative p-8 flex h-[5.5rem] w-full items-center gap-5 ${
+                    className={`relative p-5 flex h-[5.5rem] w-full items-center gap-5 ${
                       pathname === "/"
                         ? " border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/40"
                         : ""
@@ -907,8 +903,8 @@ const BookingEngine = ({ setBookingDetails }) => {
               >
                 <Button
                   label="Book Jet"
-                  bgColor={"bg-swPrimary500 hover:bg-swPrimary600"}
-                  textColor={"text-white"}
+                  bgColor={"bg-white hover:bg-swPrimary600"}
+                  textColor={"hover:text-white text-swGray800"}
                   endIcon={<HiArrowRight size={20} />}
                   disabled={bookingBtnDisable()}
                 />
