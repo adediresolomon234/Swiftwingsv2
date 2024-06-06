@@ -48,14 +48,14 @@ const FleetPage = () => {
             />
             <div className="absolute inset-0 bg-swBlack bg-opacity-10" />
           </div>
-          <div className="w-3/6 mx-auto relative text-center z-10">
+          <div className=" w-full p-8 lg:w-3/6 mx-auto relative text-center z-10 lg:p-0">
             <div className="pt-48">
               <p className="text-3xl md:text-6xl font-bold leading-10 md:leading-28">
                 Explore the perfect JET for your{" "}
                 <span className="text-white">Journey</span>
               </p>
               <div className="flex justify-center mt-1 lg:mt-4">
-                <p className="max-w-lg text-xs md:text-md lg:text-lg mt-8 py-2 px-4 rounded-full bg-swPrimary600 ">
+                <p className="max-w-lg text-xs md:text-md lg:text-lg mt-8 py-3 px-6 rounded-full bg-swPrimary600 ">
                   We’re Showcasing a collection of fleets that delivers in speed, capacity and distance needs.
                 </p>
               </div>
@@ -106,7 +106,7 @@ const FleetPage = () => {
             )}
           </div>
         </section>
-        <section className="py-16">
+        <section className=" py-3">
           <div className="xl:container m-auto px-6 text-gray-600 md:px-12 xl:px-16">
             <FooterHero />
           </div>

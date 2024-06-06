@@ -116,7 +116,7 @@ export default function Home() {
                 <Image
                   src={heroBgImg}
                   alt="aiplane"
-                  className="h-full w-full object-cover"
+                  className=" h-full md:w-full lg:w-full object-cover"
                 />
                 <div className="absolute top-0 left-0 w-full h-full"></div>
               </div>
@@ -167,7 +167,12 @@ export default function Home() {
         </section>
         <section className="mt-30 py-16 px-5 text-swGray900 ">
           <div className=" py-16">
-            <div className="container m-auto px-6 text-gray-500 md:px-12">
+            <div className="container m-auto px-2 text-gray-500 md:px-12">
+              <div className="flex justify-center mb-12">
+                <h3 className="text-2xl font-semibold text-swPrimary500">
+                  Why Choose Swiftwings
+                </h3>
+              </div>
               <div className="grid gap-6 md:mx-auto md:grid-cols-2 lg:w-full lg:grid-cols-3 xl:grid-cols-4">
                 <div className="group space-y-6 rounded-3xl border border-gray-100 shadow-2xl shadow-gray-6 rounded-3xl bg-swSecondary200 px-8 py-12 text-center">
                   <SWTStarBlackIcon className="mx-auto svgIcon" />
@@ -175,7 +180,7 @@ export default function Home() {
                     VIP Treatment
                   </h3>
                   <p>
-                  Enjoy luxurious comfort, in-flight catering customised to your taste. Get entertained by favourite shows or stay connected with work using free Wi-Fi. Arrive refreshed & ready for your destination. Fly on a private flight schedule
+                    Enjoy luxurious comfort, in-flight catering customised to your taste. Get entertained by favourite shows or stay connected with work using free Wi-Fi. Arrive refreshed & ready for your destination. Fly on a private flight schedule
                   </p>
                 </div>
                 <div className="group space-y-6 rounded-3xl border border-gray-100 shadow-2xl shadow-gray-6 rounded-3xl bg-swSecondary200 px-8 py-12 text-center">
@@ -285,7 +290,7 @@ export default function Home() {
           </div> */}
         </section>
         <section className="max-w-6xl mx-auto py-10">
-          <div className="container mx-auto px-6 text-center md:px-12">
+          <div className="container mx-auto px-2 text-center md:px-12">
             <div className="mb-16">
               <h2 className="mb-4 text-center text-[18px] font-semibold  text-swPrimary500  md:text-[18px] ">
                 Our Services
@@ -424,7 +429,7 @@ export default function Home() {
         </section> */}
         <section className="lg:max-w-3xl xl:max-w-7xl mx-auto py-10">
           <div className="relative pt-40 pb-20 lg:pt-44">
-            <div className="relative 2xl:container m-auto px-6 md:px-8 lg:px-10 xl:px-0">
+            <div className="relative 2xl:container m-auto px-2 md:px-8 lg:px-10 xl:px-0">
               <p className="sm:mx-auto sm:w-10/12 md:w-2/3 p-1 text-swPrimary500 font-semibold text-center sm:text-[18px] md:text-[18px] lg:text-[18px] lg:w-auto lg:text-left lg:p">
                 Fleet Showcase
               </p>
@@ -487,9 +492,8 @@ export default function Home() {
                   <div className="">
                     <div
                       aria-hidden="true"
-                      className={`absolute scale-75 md:scale-110 inset-0 m-auto rotate-45 bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl ${
-                        hoveredIndex >= 0 ? "opacity-100" : "opacity-0"
-                      }`}
+                      className={`absolute scale-75 md:scale-110 inset-0 m-auto rotate-45 bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl ${hoveredIndex >= 0 ? "opacity-100" : "opacity-0"
+                        }`}
                     ></div>
                     {hoveredIndex >= 0 && fleet[hoveredIndex]?.image && (
                       <div
@@ -528,7 +532,7 @@ export default function Home() {
         </section>
 
         <section className="max-w-6xl mx-auto py-10">
-          <div className="container mx-auto px-6 text-start md:text-center md:px-12">
+          <div className="container mx-auto px-2 text-start md:text-center md:px-12">
             <div className="mb-16">
               <h2 className="mb-4 text-start md:text-center text-[18px] font-semibold text-swPrimary500  md:text-[18px] ">
                 Membership
@@ -557,7 +561,7 @@ export default function Home() {
               Features
             </h2>
             <div style={{ display: "flex", justifyContent: "center" }}>
-              <div className="max-w-full grid gap-8 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 grid-rows-2 gap-y-8 justify-center items-center relative">
+              <div className="max-w-full grid gap-8 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 grid-rows-2 gap-y-8 justify-center items-center relative">
                 {textAreas.map((area, index) => (
                   <div
                     key={index}
@@ -580,7 +584,7 @@ export default function Home() {
           </div>
         </section>
         <section className="mx-auto py-16 px-3 md:px-16 ">
-          <div className="container mx-auto px-6 text-start md:text-center md:px-12">
+          <div className="container mx-auto px-2 text-start md:text-center md:px-12">
             <div className="mx-auto max-w-[990px]">
               <h2 className="mb-4 text-start md:text-center text-[18px]  text-swPrimary500 md:text-[18px] ">
                 Customer Testimonials
