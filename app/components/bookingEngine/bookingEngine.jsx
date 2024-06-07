@@ -322,7 +322,7 @@ const BookingEngine = ({ setBookingDetails }) => {
             }`}
           >
             <p
-              className={`font-semibold ${
+              className={`font-me ${
                 pathname === "/" ? "text-white" : "text-swGray800"
               } ml-2 text-lg mt-5 md:mt-0`}
             >
@@ -343,8 +343,8 @@ const BookingEngine = ({ setBookingDetails }) => {
                           pathname === "/"
                             ? "text-white backdrop-blur bg-none md:bg-swBlack/50"
                             : "text-swPrimary500 bg-white"
-                        } font-semibold text-sm`
-                      : `text-swGray300 hover:backdrop-blur hover:bg-white/5 text-sm`
+                        } font-semibold text-sm md:text-lg`
+                      : `text-swGray300 hover:backdrop-blur hover:bg-white/5 text-sm md:text-lg`
                   } py-2 px-4 rounded-full`}
                   onClick={() => {
                     resetBookingState();
@@ -360,8 +360,8 @@ const BookingEngine = ({ setBookingDetails }) => {
                           pathname === "/"
                             ? "text-white backdrop-blur  bg-none md:bg-swBlack/50"
                             : "text-swPrimary500 bg-white"
-                        } font-semibold text-sm`
-                      : "text-swGray300 hover:backdrop-blur hover:bg-white/5 text-sm"
+                        } font-semibold text-sm md:text-lg`
+                      : "text-swGray300 hover:backdrop-blur hover:bg-white/5 text-sm md:text-lg"
                   } py-2 px-4 rounded-full`}
                   onClick={() => {
                     resetBookingState();
@@ -377,8 +377,8 @@ const BookingEngine = ({ setBookingDetails }) => {
                           pathname === "/"
                             ? "text-white backdrop-blur  bg-none md:bg-swBlack/50"
                             : "text-swPrimary500 bg-white"
-                        } font-semibold text-sm`
-                      : "text-swGray300 hover:backdrop-blur hover:bg-white/5 text-sm"
+                        } font-semibold text-sm md:text-lg`
+                      : "text-swGray300 hover:backdrop-blur hover:bg-white/5 text-sm md:text-lg"
                   } py-2 px-4 rounded-full`}
                   onClick={() => {
                     resetBookingState();

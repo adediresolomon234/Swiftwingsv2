@@ -54,9 +54,11 @@ function isNearViewport(id) {
 export default function Home() {
   const router = useRouter();
   const dispatch = useDispatch();
-  const [hoveredIndex, setHoveredIndex] = useState(0);
+  const [currentHoveredIndex, setCurrentHoveredIndex] = useState(0);
+  const [prevHoveredIndex, setPrevHoveredIndex] = useState(0);
   const aircrafts = useSelector((state) => state.aircrafts.aircrafts);
   const [fleet, setFleet] = useState([]);
+  const [fleetImg, setFleetImg] = useState([]);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -75,47 +77,62 @@ export default function Home() {
   useEffect(() => {
     if (aircrafts.length > 0) {
       setFleet(aircrafts.slice(0, 5));
+      aircrafts.map((aircraft, i) => {
+        if (i < 5) {
+          setFleetImg((prev) => [...prev, aircraft.image]);
+        }
+      });
     }
   }, [aircrafts]);
 
   const handleMouseEnter = (index) => {
-    setHoveredIndex(index);
+    setCurrentHoveredIndex(index);
   };
 
   const handleMouseLeave = () => {
-    setHoveredIndex(0);
+    setPrevHoveredIndex(currentHoveredIndex);
+    setCurrentHoveredIndex(0);
   };
 
   const handleSeeAllClick = () => {
     router.push("/fleet-page");
   };
 
+  console.log(
+    "prev",
+    prevHoveredIndex,
+    "current",
+    currentHoveredIndex,
+    "abs",
+    Math.abs(currentHoveredIndex - prevHoveredIndex)
+  );
+
   return (
-    <main className="relative bg-swLightBgGray">
+    <main className="relative bg-swLightBgGray overflow-hidden">
       <NavAndFooter Nav={true}>
         <section className="w-full p-5 md:10 pt-48 text-white relative pb-10">
           {/* <div className="absolute h-full w-full top-0 left-0">
-            {isMobile ? (
-              <Image src={MbheroBgImg} alt="aiplane" className="h-full w-full object-cover" />
-            ) : (
-              <Image src={heroBgImg} alt="aiplane" className="h-full w-full object-cover" />
-            )}
-          </div> */}
+              {isMobile ? (
+                <Image src={MbheroBgImg} alt="aiplane" className="h-full w-full object-cover" />
+              ) : (
+                <Image src={heroBgImg} alt="aiplane" className="h-full w-full object-cover" />
+              )}
+            </div> */}
           <div className="absolute h-full w-full top-0 left-0">
             {isMobile ? (
               <div className="relative h-full w-full">
                 <Image
-                  src={MbheroBgImg}
-                  alt="aiplane"
-                  className="h-full w-full object-cover"
+                  src={MbheroBgImg} // Ensure this image has a high enough resolution
+                  alt="airplane"
+                  className="h-full w-full object-cover" // Changed from object-fill to object-cover
                 />
-                <div className="absolute top-0 left-0 w-full h-full"></div>
+                <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-10"></div>
               </div>
             ) : (
               <div className="relative h-full w-full">
                 <Image
-                  src={heroBgImg}
-                  alt="aiplane"
+                  src={heroBgImg} // Ensure this image has a high enough resolution
+                  alt="airplane"
                   className="h-full w-full object-cover"
                 />
                 <div className="absolute top-0 left-0 w-full h-full"></div>
@@ -125,28 +142,28 @@ export default function Home() {
 
           {/* <div className="h-full w-full bg-swBlack absolute top-0 left-0 bg-opacity-[0.2]" /> */}
           <div className="max-w-7xl mx-auto mb-10 relative text-center mt-40">
-            <div className="pt-20 z-50">
+            <div className="pt-40 z-50">
               <p className="3xl:text-6xl 2xl:text-6xl lg:text-5xl md:text-4xl sm:text-4xl xs:text-4xl  max-w-4xl mx-auto w-full font-bold leading-snug z-50">
                 The World is Closer to You
               </p>
 
               <div>
                 {/* <p className="text-lg mt-10 z-10 text-shadow-lg text-shadow">
-                  Experience the epitome of safety, luxury and convenience with{" "}
-                  <br />
-                  <span className="">
-                    <span
-                      className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
-                    >
-                      Swift<i className="font-normal">Wings</i>
-                    </span>{" "}
-                    private jet charter service
-                  </span>
-                </p> */}
+                    Experience the epitome of safety, luxury and convenience with{" "}
+                    <br />
+                    <span className="">
+                      <span
+                        className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
+                      >
+                        Swift<i className="font-normal">Wings</i>
+                      </span>{" "}
+                      private jet charter service
+                    </span>
+                  </p> */}
               </div>
             </div>
 
-            <div className="flex gap-10 justify-center text-center mt-6">
+            <div className="flex gap-10 justify-center text-center mt-6 mb-20 sm:mb-0">
               <div>
                 <p className="font-semibold text-2xl">10k</p>
                 <p className="text-xs">Flights</p>
@@ -168,6 +185,15 @@ export default function Home() {
         </section>
         <section className="mt-30 py-16 px-5 text-swGray900 ">
           <div className=" py-6">
+            <p className="text-lg text-swPrimary500 text-center mb-20 font-medium">
+              Why choose{" "}
+              <span
+                className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
+              >
+                Swift<i className="font-normal">Wings</i>
+              </span>
+            </p>
+
             <div className="md:container m-auto px-0 text-gray-500">
               <h2 className="mb-12 md:text-center text-start text-[18px] font-semibold  text-swPrimary500  md:text-xl ">
                 Why Choose Swiftwings
@@ -179,7 +205,10 @@ export default function Home() {
                     VIP Treatment
                   </h3>
                   <p>
-                    Enjoy luxurious comfort, in-flight catering customised to your taste. Get entertained by favourite shows or stay connected with work using free Wi-Fi. Arrive refreshed & ready for your destination. Fly on a private flight schedule
+                    Enjoy luxurious comfort, in-flight catering customised to
+                    your taste. Get entertained by favourite shows or stay
+                    connected with work using free Wi-Fi. Arrive refreshed &
+                    ready for your destination. Fly on a private flight schedule
                   </p>
                 </div>
                 <div className="group space-y-6 rounded-3xl border border-gray-100  rounded-3xl bg-swSecondary300 px-4 py-6 md:px-8 md:py-12 text-center">
@@ -232,73 +261,73 @@ export default function Home() {
           </div>
 
           {/* <div className="max-w-4xl w-full mx-auto text-center">
-            <Services
-              name={"VIP Treatment"}
-              text={
-                <p>
-                  <span
-                    className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
-                  >
-                    Swift<i className="font-normal">Wings</i>
-                  </span>{" "}
-                  Enjoy luxurious comfort, in-flight catering customised to your
-                  taste. Get entertained by favourite shows or stay connected
-                  with work using free Wi-Fi. Arrive refreshed & ready for your
-                  destination. Fly on a private flight schedule, not airlines.
-                </p>
-              }
-              image={servicesPlane}
-            />
-          </div> */}
+              <Services
+                name={"VIP Treatment"}
+                text={
+                  <p>
+                    <span
+                      className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
+                    >
+                      Swift<i className="font-normal">Wings</i>
+                    </span>{" "}
+                    Enjoy luxurious comfort, in-flight catering customised to your
+                    taste. Get entertained by favourite shows or stay connected
+                    with work using free Wi-Fi. Arrive refreshed & ready for your
+                    destination. Fly on a private flight schedule, not airlines.
+                  </p>
+                }
+                image={servicesPlane}
+              />
+            </div> */}
           {/* <div className="max-w-4xl w-full mx-auto text-center mt-32">
-            <Services
-              name={"Global Access"}
-              text={
-                <p>
-                  <span
-                    className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
-                  >
-                    Swift<i className="font-normal">Wings</i>
-                  </span>{" "}
-                  grants you exclusive access to private jets for seamless
-                  travel anywhere in the globe. Remember, we bring the world
-                  closer to you!{" "}
-                </p>
-              }
-              image={servicesMembership}
-            />
-          </div> */}
+              <Services
+                name={"Global Access"}
+                text={
+                  <p>
+                    <span
+                      className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
+                    >
+                      Swift<i className="font-normal">Wings</i>
+                    </span>{" "}
+                    grants you exclusive access to private jets for seamless
+                    travel anywhere in the globe. Remember, we bring the world
+                    closer to you!{" "}
+                  </p>
+                }
+                image={servicesMembership}
+              />
+            </div> */}
           {/* <div className="max-w-4xl w-full mx-auto text-center  mt-32">
-            <Services
-              name={"Save Time"}
-              text={
-                <p>
-                  At{" "}
-                  <span
-                    className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
-                  >
-                    Swift<i className="font-normal">Wings</i>
-                  </span>
-                  Skip the crowds & time wasters! Time is a precious commodity
-                  not to be wasted. Fly private, fast and secure with Swiftwings
-                  private jet charter services.{" "}
-                </p>
-              }
-              image={servicesCustomer}
-            />
-          </div> */}
+              <Services
+                name={"Save Time"}
+                text={
+                  <p>
+                    At{" "}
+                    <span
+                      className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
+                    >
+                      Swift<i className="font-normal">Wings</i>
+                    </span>
+                    Skip the crowds & time wasters! Time is a precious commodity
+                    not to be wasted. Fly private, fast and secure with Swiftwings
+                    private jet charter services.{" "}
+                  </p>
+                }
+                image={servicesCustomer}
+              />
+            </div> */}
         </section>
-        <section className="max-w-6xl mx-auto pt-10">
-          <div className="md:container mx-auto px-6 text-center md:px-12">
+        <section className="max-w-7xl mx-auto pt-10 p-5">
+          <div className="md:container mx-auto text-center">
             <div className="mb-16">
               <h2 className="mb-4 md:text-center text-start text-[18px] font-semibold  text-swPrimary500  md:text-[18px] ">
                 Our Services
               </h2>
-              <p className="text-swGray700  font-semibold lg:w-8/12 mt-8 sm:mx-auto sm:w-10/12 md:w-2/3  text-4xl md:text-center text-start sm:text-5xl md:text-6xl">
+              <p className="text-swGray800  font-semibold lg:w-8/12 mt-8 sm:mx-auto sm:w-10/12 md:w-2/3  text-4xl md:text-center text-start sm:text-5xl md:text-6xl">
                 We offer world a class exotic experience
               </p>
             </div>
-            <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
               {services.map((service, index) => (
                 <div className="w-full mx-auto" key={index}>
                   <div className="overflow-hidden w-full h-full rounded-2xl">
@@ -312,11 +341,11 @@ export default function Home() {
                     />
                     <div className="p-6 bg-gradient-to-r from-neutral-400 to-stone-500/90 text-left h-full">
                       <div className="justify-start items-start">
-                        <h4 className="mb-2 text-2xl font-bold tracking-tight text-white">
+                        <h4 className="mb-2 text-2xl font-medium tracking-tight text-white">
                           {service.title}
                         </h4>
                       </div>
-                      <p className="mb-3 font-normal text-white text-sm">
+                      <p className="mb-3 font-light text-white text-sm">
                         {service.description}
                       </p>
                     </div>
@@ -326,121 +355,121 @@ export default function Home() {
             </div>
           </div>
           {/* <div className="flex justify-center text-lg mt-12">
-            <Button
-              label="See all"
-              bgColor={"bg-swPrimary500"}
-              textColor={"text-white"}
-              endIcon={<HiArrowRight size={20} />}
-            />
-          </div> */}
+              <Button
+                label="See all"
+                bgColor={"bg-swPrimary500"}
+                textColor={"text-white"}
+                endIcon={<HiArrowRight size={20} />}
+              />
+            </div> */}
         </section>
         {/* <section className=" max-w-6xl mx-auto p-5">
-          <div className="flex flex-col items-start gap-5 ">
-            <p className="text-swPrimary500 font-medium text-lg">About us</p>
-            <div className="flex flex-col md:flex-row justify-between mt-10 w-full space-y-8 md:space-y-0 ">
-              <p className="font-semibold text-swPrimary500 text-3xl max-w-md md:text-5xl">
-                Get to know more about{" "}
-                <span
-                  className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
-                >
-                  Swift<i className="font-normal">Wings</i>
-                </span>
-              </p>
-              <p className="text-swGray500 text-lg font-light max-w-[26rem] ">
-                <span
-                  className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
-                >
-                  Swift<i className="font-normal">Wings</i>
-                </span>{" "}
-                is a premier provider of private jets charter flights connecting
-                global airports, offering unmatched convenience and exclusivity
-                for luxury travel.
-              </p>
-            </div>
-          </div>
-
-          <div className="flex flex-col items-center gap-5 mt-14  md: p-0 ">
-            <div className="grid grid-col-3 grid-flow-col gap-4 mb:gap-14 justify-center ">
-              <AboutUsCard
-                number={"75"}
-                text={
-                  <p>
-                    <span
-                      className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
-                    >
-                      Swift<i className="font-normal">Wings</i>
-                    </span>{" "}
-                    users from all over the globe.
-                  </p>
-                }
-                className="text-sm"
-              />
-              <AboutUsCard
-                number={"1.5k"}
-                text={
-                  <p>
-                    <span
-                      className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
-                    >
-                      Swift<i className="font-normal">Wings</i>
-                    </span>{" "}
-                    access to a network of airplanes
-                  </p>
-                }
-                numberColor={"text-swBlack"}
-              />
-              <AboutUsCard
-                number={"50"}
-                text={
-                  <p>
-                    <span
-                      className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
-                    >
-                      Swift<i className="font-normal">Wings</i>
-                    </span>{" "}
-                    destinations in the past 3 years
-                  </p>
-                }
-              />
-            </div>
-
-            <div className="bg-swSecondary400 text-swWine p-8 max-w-[41rem] rounded-2xl">
-              <p className="font-light">
-                <span
-                  className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
-                >
-                  Swift<i className="font-normal">Wings</i>
-                </span>{" "}
-                understands that our clients’ travel needs often stretch far
-                beyond the borders of Nigeria.
-                <br /> That’s why we provide extensive global coverage,
-                seamlessly connecting you to destinations in Europe, North
-                America, South America, and other corners of the world, even the
-                most remote ones. With our network of trusted partners and
-                affiliates, we ensure that you experience the convenience and
-                flexibility of air travel on a global scale.
-              </p>
-              <div className="mt-5 flex justify-end gap-3 items-center">
-                Learn more <GoArrowRight size={20} />
+            <div className="flex flex-col items-start gap-5 ">
+              <p className="text-swPrimary500 font-medium text-lg">About us</p>
+              <div className="flex flex-col md:flex-row justify-between mt-10 w-full space-y-8 md:space-y-0 ">
+                <p className="font-semibold text-swPrimary500 text-3xl max-w-md md:text-5xl">
+                  Get to know more about{" "}
+                  <span
+                    className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
+                  >
+                    Swift<i className="font-normal">Wings</i>
+                  </span>
+                </p>
+                <p className="text-swGray500 text-lg font-light max-w-[26rem] ">
+                  <span
+                    className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
+                  >
+                    Swift<i className="font-normal">Wings</i>
+                  </span>{" "}
+                  is a premier provider of private jets charter flights connecting
+                  global airports, offering unmatched convenience and exclusivity
+                  for luxury travel.
+                </p>
               </div>
             </div>
-          </div>
-        </section> */}
-        <section className="lg:max-w-3xl xl:max-w-7xl mx-auto pt-10">
+
+            <div className="flex flex-col items-center gap-5 mt-14  md: p-0 ">
+              <div className="grid grid-col-3 grid-flow-col gap-4 mb:gap-14 justify-center ">
+                <AboutUsCard
+                  number={"75"}
+                  text={
+                    <p>
+                      <span
+                        className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
+                      >
+                        Swift<i className="font-normal">Wings</i>
+                      </span>{" "}
+                      users from all over the globe.
+                    </p>
+                  }
+                  className="text-sm"
+                />
+                <AboutUsCard
+                  number={"1.5k"}
+                  text={
+                    <p>
+                      <span
+                        className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
+                      >
+                        Swift<i className="font-normal">Wings</i>
+                      </span>{" "}
+                      access to a network of airplanes
+                    </p>
+                  }
+                  numberColor={"text-swBlack"}
+                />
+                <AboutUsCard
+                  number={"50"}
+                  text={
+                    <p>
+                      <span
+                        className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
+                      >
+                        Swift<i className="font-normal">Wings</i>
+                      </span>{" "}
+                      destinations in the past 3 years
+                    </p>
+                  }
+                />
+              </div>
+
+              <div className="bg-swSecondary400 text-swWine p-8 max-w-[41rem] rounded-2xl">
+                <p className="font-light">
+                  <span
+                    className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
+                  >
+                    Swift<i className="font-normal">Wings</i>
+                  </span>{" "}
+                  understands that our clients’ travel needs often stretch far
+                  beyond the borders of Nigeria.
+                  <br /> That’s why we provide extensive global coverage,
+                  seamlessly connecting you to destinations in Europe, North
+                  America, South America, and other corners of the world, even the
+                  most remote ones. With our network of trusted partners and
+                  affiliates, we ensure that you experience the convenience and
+                  flexibility of air travel on a global scale.
+                </p>
+                <div className="mt-5 flex justify-end gap-3 items-center">
+                  Learn more <GoArrowRight size={20} />
+                </div>
+              </div>
+            </div>
+          </section> */}
+        <section className="max-w-7xl mx-auto pt-10">
           <div className="relative lg:pt-44">
             <div className="relative 2xl:container m-auto px-6 md:px-8 lg:px-10 xl:px-0">
               <p className="sm:mx-auto sm:w-10/12 md:w-2/3 p-1 text-swPrimary500 font-semibold md:text-center text-start sm:text-[18px] md:text-[18px] lg:text-[18px] lg:w-auto lg:text-left lg:p">
                 Fleet Showcase
               </p>
-              <h1 className="mt-8 sm:mx-auto sm:w-10/12 md:w-2/3 text-swGray700 text-4xl font-semibold md:text-center text-start sm:text-5xl md:text-5xl lg:w-auto lg:text-left xl:text-6xl">
+              <h1 className="mt-8 sm:mx-auto sm:w-10/12 md:w-2/3 text-swGray800 text-4xl font-semibold md:text-center text-start sm:text-5xl md:text-5xl lg:w-auto lg:text-left xl:text-6xl">
                 Our Fleets.
               </h1>
               <div className="flex gap-8 mt-12">
-                <div className="col-span-4 relative">
+                <div className="relative">
                   {fleet.map((item, index) => (
                     <div
                       key={item.id}
-                      className="col-span-2 relative"
+                      className="relative"
                       onMouseEnter={() => handleMouseEnter(index)}
                       onMouseLeave={handleMouseLeave}
                     >
@@ -487,31 +516,41 @@ export default function Home() {
                     </div>
                   ))}
                 </div>
-                <div className="flex justify-center items-center relative w-[50%] lg:block hidden">
-                  <div className="">
-                    <div
-                      aria-hidden="true"
-                      className={`absolute scale-75 md:scale-110 inset-0 m-auto rotate-45 bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl ${hoveredIndex >= 0 ? "opacity-100" : "opacity-0"
+                <div
+                  className="flex transition-transform ease-out duration-[1000ms] w-1/2 overflow-hidden"
+                  style={{
+                    transform: `translateX(${
+                      Math.abs(currentHoveredIndex - prevHoveredIndex) * 100
+                    }%)`,
+                  }}
+                >
+                  {/* <div
+                        // aria-hidden="true"
+                        className={` ${
+                          currentHoveredIndex >= 0 ? "opacity-100" : "opacity-0"
                         }`}
-                    ></div>
-                    {hoveredIndex >= 0 && fleet[hoveredIndex]?.image && (
-                      <div
-                        key={fleet[hoveredIndex].id}
-                        className={`relative fleet-image show`}
-                      >
-                        <div aria-hidden="true" className={`absolute`}></div>
-                        <Image
-                          className="image-class"
-                          src={fleet[hoveredIndex].image}
-                          alt="illustration"
-                          loading="lazy"
-                          layout="responsive"
-                          width={780}
-                          height={492}
-                        />
-                      </div>
-                    )}
-                  </div>
+                      ></div> */}
+                  {fleetImg.map(
+                    (image, index) =>
+                      index < 5 &&
+                      index === currentHoveredIndex && (
+                        <div
+                          key={index}
+                          className="relative h-full w-full"
+                          style={{
+                            marginRight:
+                              index === fleetImg.length - 1 ? 0 : "1rem", // Adjust spacing between images
+                          }}
+                        >
+                          <Image
+                            src={image}
+                            alt={`airplane${index}`}
+                            layout="fill"
+                            className="h-full w-full object-cover"
+                          />
+                        </div>
+                      )
+                  )}
                 </div>
               </div>
 
@@ -538,10 +577,10 @@ export default function Home() {
               </h2>
               <p className="text-swGray700 mt-8 sm:mx-auto md:text-xl text-start md:text-center text-md ">
                 {/* <span
-                  className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
-                >
-                  Swift<i className="font-normal">Wings</i>
-                </span>{" "} */}
+                    className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
+                  >
+                    Swift<i className="font-normal">Wings</i>
+                  </span>{" "} */}
                 Enjoy the benefits of{" "}
                 <span
                   className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
@@ -559,12 +598,19 @@ export default function Home() {
             <h2 className="mb-8 text-center text-[18px]  text-gray-700 md:text-[18px] ">
               Features
             </h2>
-            <div style={{ display: "flex", justifyContent: "center" }} className="px-4 md:px-0">
+            <div
+              style={{ display: "flex", justifyContent: "center" }}
+              className="px-4 md:px-0"
+            >
               <div className="max-w-full grid gap-8 md:grid-cols-2 sm:grid-cols-2 xs:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 grid-rows-2 gap-y-8 justify-center items-center relative">
                 {textAreas.map((area, index) => (
                   <div
                     key={index}
-                    style={{ width: "100%", maxWidth: "270px", height: "180px" }}
+                    style={{
+                      width: "100%",
+                      maxWidth: "270px",
+                      height: "180px",
+                    }}
                     className={`bg-swSecondary300 outline-none features-card flex flex-col justify-center items-center py-6 px-4 md:px-6 font-medium text-lg md:text-xl lg:text-2xl text-swGray600 text-center`}
                   >
                     {area.description}
