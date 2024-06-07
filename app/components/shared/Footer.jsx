@@ -20,7 +20,7 @@ const Footer = () => {
         <h2 className="mb-4 text-center text-xl text-white md:text-3xl md:text-center">
           Let’s work together
         </h2>
-        <p className="text-white p-8 mt-8 text-sm text-center sm:text-base md:text-base">
+        <p className="text-white p-8 mt-8 text-md text-center">
           <span
             className={`${libre_baskerville.className} no-text-shadow font-bold`}
           >

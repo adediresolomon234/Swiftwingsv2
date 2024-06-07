@@ -107,7 +107,7 @@ const FleetPage = () => {
           </div>
         </section>
         <section className=" py-3">
-          <div className="xl:container m-auto px-6 text-gray-600 md:px-12 xl:px-16">
+          <div className="xl:container m-auto px-2 text-gray-600 md:px-12 xl:px-16">
             <FooterHero />
           </div>
         </section>

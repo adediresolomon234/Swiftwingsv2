@@ -116,7 +116,7 @@ export default function Home() {
                 <Image
                   src={heroBgImg}
                   alt="aiplane"
-                  className=" h-full md:w-full lg:w-full object-cover"
+                  className="h-full w-full object-cover"
                 />
                 <div className="absolute top-0 left-0 w-full h-full"></div>
               </div>
@@ -125,7 +125,7 @@ export default function Home() {
 
           {/* <div className="h-full w-full bg-swBlack absolute top-0 left-0 bg-opacity-[0.2]" /> */}
           <div className="max-w-7xl mx-auto mb-10 relative text-center mt-40">
-            <div className="pt-28 z-50">
+            <div className="pt-20 z-50">
               <p className="3xl:text-6xl 2xl:text-6xl lg:text-5xl md:text-4xl sm:text-4xl xs:text-4xl  max-w-4xl mx-auto w-full font-bold leading-snug z-50">
                 The World is Closer to You
               </p>
@@ -167,13 +167,11 @@ export default function Home() {
           </section>
         </section>
         <section className="mt-30 py-16 px-5 text-swGray900 ">
-          <div className=" py-16">
-            <div className="container m-auto px-2 text-gray-500 md:px-12">
-              <div className="flex justify-center mb-12">
-                <h3 className="text-2xl font-semibold text-swPrimary500">
-                  Why Choose Swiftwings
-                </h3>
-              </div>
+          <div className=" py-6">
+            <div className="md:container m-auto px-0 text-gray-500">
+              <h2 className="mb-12 md:text-center text-start text-[18px] font-semibold  text-swPrimary500  md:text-xl ">
+                Why Choose Swiftwings
+              </h2>
               <div className="grid gap-6 md:mx-auto md:grid-cols-2 lg:w-full lg:grid-cols-3 xl:grid-cols-4">
                 <div className="group space-y-6 rounded-3xl border border-gray-100  rounded-3xl bg-swSecondary300 px-8 py-12 text-center">
                   <SWTStarBlackIcon className="mx-auto svgIcon" />
@@ -290,8 +288,8 @@ export default function Home() {
             />
           </div> */}
         </section>
-        <section className="max-w-6xl mx-auto py-10">
-          <div className="container mx-auto px-2 text-center md:px-12">
+        <section className="max-w-6xl mx-auto pt-10">
+          <div className="md:container mx-auto px-6 text-center md:px-12">
             <div className="mb-16">
               <h2 className="mb-4 md:text-center text-start text-[18px] font-semibold  text-swPrimary500  md:text-[18px] ">
                 Our Services
@@ -327,14 +325,14 @@ export default function Home() {
               ))}
             </div>
           </div>
-          <div className="flex justify-center text-lg mt-12">
+          {/* <div className="flex justify-center text-lg mt-12">
             <Button
               label="See all"
               bgColor={"bg-swPrimary500"}
               textColor={"text-white"}
               endIcon={<HiArrowRight size={20} />}
             />
-          </div>
+          </div> */}
         </section>
         {/* <section className=" max-w-6xl mx-auto p-5">
           <div className="flex flex-col items-start gap-5 ">
@@ -428,10 +426,10 @@ export default function Home() {
             </div>
           </div>
         </section> */}
-        <section className="lg:max-w-3xl xl:max-w-7xl mx-auto py-10">
-          <div className="relative pt-40 pb-20 lg:pt-44">
-            <div className="relative 2xl:container m-auto px-2 md:px-8 lg:px-10 xl:px-0">
-              <p className="sm:mx-auto sm:w-10/12 md:w-2/3 p-1 text-swPrimary500 font-semibold text-center sm:text-[18px] md:text-[18px] lg:text-[18px] lg:w-auto lg:text-left lg:p">
+        <section className="lg:max-w-3xl xl:max-w-7xl mx-auto pt-10">
+          <div className="relative lg:pt-44">
+            <div className="relative 2xl:container m-auto px-6 md:px-8 lg:px-10 xl:px-0">
+              <p className="sm:mx-auto sm:w-10/12 md:w-2/3 p-1 text-swPrimary500 font-semibold md:text-center text-start sm:text-[18px] md:text-[18px] lg:text-[18px] lg:w-auto lg:text-left lg:p">
                 Fleet Showcase
               </p>
               <h1 className="mt-8 sm:mx-auto sm:w-10/12 md:w-2/3 text-swGray700 text-4xl font-semibold md:text-center text-start sm:text-5xl md:text-5xl lg:w-auto lg:text-left xl:text-6xl">
@@ -449,12 +447,12 @@ export default function Home() {
                       <div className="lg:p-2 grid grid-cols-1 gap-2 lg:grid-cols-3 lg:gap-8 border-gray-200 rounded duration-300 hover:bg-swBgGray">
                         <div className="flex flex-col sm:flex-row items-start sm:items-center fleet-item space-y-2 sm:space-y-0">
                           <a aria-label="icon" className="block">
-                            <p className="font-medium md:block text-[18px] text-swGray700 ">
+                            <p className="font-medium md:block text-[18px] text-swGray600 ">
                               {item.name}
                             </p>
                           </a>
                         </div>
-                        <div className="flex-1 flex flex-col items-start justify-between text-xs text-gray-800 px-1 py-3 lg:col-span-2">
+                        <div className="flex-1 flex flex-col items-start justify-between text-xs text-swGray800 px-1 py-3 lg:col-span-2">
                           <div className="flex justify-between flex-grow gap-8 mt-6 font-normal sm:mt-0 mt-[-10px] ">
                             <div className="flex items-center ">
                               <svg className="w-6 h-6" viewBox="0 0 24 24">
@@ -480,7 +478,7 @@ export default function Home() {
                               <span className="ml-3 ">{item.feet}</span>
                             </div>
                           </div>
-                          <div className=" self-stretch relative leading-[18px] mt-4 mx-2 text-swLightGray">
+                          <div className=" self-stretch relative leading-[18px] mt-4 text-swGray600">
                             {item.name}
                           </div>
                         </div>
@@ -518,7 +516,7 @@ export default function Home() {
               </div>
 
               <div
-                className={`${space_grotesk.className} flex justify-right text-xl mt-12 py-8 lg:p-0 `}
+                className={`${space_grotesk.className} flex justify-right text-xl py-8 lg:p-0`}
               >
                 <Button
                   label="See all"
@@ -532,8 +530,8 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="max-w-6xl mx-auto py-10">
-          <div className="container mx-auto px-2 text-start md:text-center md:px-12">
+        <section className="max-w-6xl mx-auto pt-10">
+          <div className="px-4 md:px-6 px-0 text-start md:text-center">
             <div className="mb-16">
               <h2 className="mb-4 text-start md:text-center text-[18px] font-semibold text-swPrimary500  md:text-[18px] ">
                 Membership
@@ -561,8 +559,8 @@ export default function Home() {
             <h2 className="mb-8 text-center text-[18px]  text-gray-700 md:text-[18px] ">
               Features
             </h2>
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <div className="max-w-full grid gap-8 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 grid-rows-2 gap-y-8 justify-center items-center relative">
+            <div style={{ display: "flex", justifyContent: "center" }} className="px-4 md:px-0">
+              <div className="max-w-full grid gap-8 md:grid-cols-2 sm:grid-cols-2 xs:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 grid-rows-2 gap-y-8 justify-center items-center relative">
                 {textAreas.map((area, index) => (
                   <div
                     key={index}
@@ -584,9 +582,9 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className="mx-auto py-16 px-3 md:px-16 ">
-          <div className="container mx-auto px-2 text-start md:text-center md:px-12">
-            <div className="mx-auto max-w-[990px]">
+        <section className="px-4 md:px-16 ">
+          <div className="text-start md:text-center md:px-12">
+            <div className="">
               <h2 className="mb-4 text-start md:text-center text-[18px] font-semibold  text-swPrimary500 md:text-[18px]">
                 Customer Testimonials
               </h2>
