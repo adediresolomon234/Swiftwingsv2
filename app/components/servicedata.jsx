@@ -3,7 +3,8 @@ export const services = [
   {
     title: "Group/Corporate Charter ",
     imageSrc: "images/Group-corporate.png",
-    description: "Fly together, work together! We provide Seamless travel for your team. Make your dream come true with Swiftwings private jet charters for groups, companies and corporations",
+    description:
+      "Fly together, work together! We provide Seamless travel for your team. Make your dream come true with Swiftwings private jet charters for groups, companies and corporations",
   },
   {
     title: "Medical Evacuation",
@@ -17,5 +18,10 @@ export const services = [
     description:
       "In line with bringing the world closer to you, Swiftwings takes private flight to new heights with our on-demand helicopter charters. Access remote locations, avoid traffic, and land closer to your final destination.",
   },
- 
+  {
+    title: "Concierge",
+    imageSrc: "images/Concierge.jpeg",
+    description:
+      "Beside providing top notch Private Flying experience, We provide our clients with access to luxury hotels, vehicles and trip at the best price available in eye market.  ",
+  },
 ];

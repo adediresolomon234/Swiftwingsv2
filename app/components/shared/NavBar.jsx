@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { SWToggleIcon } from "../svgs";
+import { SWToggleIcon, SwUserIcon } from "../svgs";
 import Button from "../Button";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,12 +9,14 @@ import logo from "../../../public/images/fullLogo.png";
 import { IoPersonCircleOutline } from "react-icons/io5";
 import { useRouter } from "next/navigation";
 import { FaChevronDown } from "react-icons/fa";
+import { GoSignOut } from "react-icons/go";
 
 const NavBar = ({ Nav }) => {
   const [user, setUser] = useState(null);
   const router = useRouter();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [navBg, setNavBg] = useState(false);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -46,6 +48,7 @@ const NavBar = ({ Nav }) => {
         }
       }
     }
+    console.log(user);
   }, []);
 
   const toggleMobileMenu = () => {
@@ -100,17 +103,39 @@ const NavBar = ({ Nav }) => {
     { link: "/fleet-page", name: "Fleets" },
     { link: "/destinations", name: "Destination" },
     { link: "/services", name: "Services" },
-    {
-      link: "",
-      name: "Company",
-      hasDropDown: true,
-      dropDownLinks: [
-        { link: "/about-us", name: "About Us" },
-        { link: "/careers", name: "Careers" },
-      ],
-    },
+    // {
+    //   link: "",
+    //   name: "Company",
+    //   hasDropDown: true,
+    //   dropDownLinks: [
+    //     { link: "/about-us", name: "About Us" },
+    //     { link: "/careers", name: "Careers" },
+    //   ],
+    // },
+    { link: "javascript:void(0)", name: "Company" },
     { link: "/contact-us", name: "Contact Us" },
   ];
+
+  useEffect(() => {
+    const activeNav = () => {
+      //   setCurrentScroll(window.scrollY);
+      // setCurrentWidth(window.innerWidth);
+      if (window.scrollY >= 0 && window.scrollY <= 10) {
+        setNavBg(false);
+      } else {
+        setNavBg(true);
+      }
+    };
+
+    window.addEventListener("scroll", activeNav);
+    window.addEventListener("resize", activeNav);
+
+    // // Clean up the event listener on component unmount
+    return () => {
+      window.removeEventListener("scroll", activeNav);
+      window.removeEventListener("resize", activeNav);
+    };
+  }, []);
 
   if (!Nav) {
     // If Nav is false, return null to prevent rendering the navigation bar
@@ -119,8 +144,13 @@ const NavBar = ({ Nav }) => {
 
   return (
     <nav className="w-full fixed z-50 top-0 left-0">
-      <div className="w-full bg-white/40 text-swGray800 border-b-2 backdrop-blur">
-        <div className="flex items-center justify-between max-w-screen-full mx-auto py-3 px-2 sm:px-10">
+      {/* <div className="w-full bg-white/40 text-swGray800 border-b-2 backdrop-blur"> */}
+      <div
+        className={`w-full transition-all ease-in-out bg-white duration-1000  ${
+          navBg ? "bg-opacity-100" : "bg-opacity-0"
+        }`}
+      >
+        <div className="flex items-center justify-between max-w-screen-full mx-auto py-4 px-2 sm:px-10">
           <Link href={"/"} className="flex items-center">
             <Image src={logo} alt="Logo" className="w-40 h-12" />
           </Link>
@@ -143,36 +173,43 @@ const NavBar = ({ Nav }) => {
               {user?.isLoggedIn ? (
                 <div className="relative">
                   <div
-                    className="text-jsPrimary100 cursor-pointer"
+                    className="text-jsPrimary100 cursor-pointer flex items-center gap-2 py-2 px-4 rounded-full hover:bg-white"
                     onClick={() => setOpenUserDropDown(!openUserDropDown)}
                   >
-                    <IoPersonCircleOutline size={50} />
+                    <SwUserIcon />
+                    <p>
+                      <span className="hidden sm:inline">
+                        {user?.last_name}
+                      </span>{" "}
+                      {user?.first_name}
+                    </p>
+                    <FaChevronDown />
                   </div>
 
                   {openUserDropDown && (
                     <div
-                      className={`absolute w-[12rem] -right-5 top-full mt-7 p-3 bg-white rounded-md border ${
+                      className={`absolute w-[15rem] sm:-m-16 -m-36 top-full mt-3 sm:mt-3 p-3 bg-white rounded-lg border ${
                         openUserDropDown ? "min-h-10" : "h-0"
                       }`}
                     >
                       <div className="w-full flex flex-col">
                         <Link
-                          href={"/user-dashboard?page=bookings"}
-                          className="w-full hover:bg-yellow-50 rounded-md p-3"
+                          href={"/user-dashboard?page=profile"}
+                          className="w-full hover:bg-yellow-50   rounded-md p-3 flex items-center gap-3"
                         >
-                          Bookings
+                          <SwUserIcon /> Profile
                         </Link>
-                        <Link
+                        {/* <Link
                           href={"#"}
                           className="w-full hover:bg-yellow-50 rounded-md p-3"
                         >
                           Settings
-                        </Link>
+                        </Link> */}
                         <div
-                          className="w-full hover:bg-yellow-50 rounded-md p-3 cursor-pointer"
+                          className="w-full hover:bg-yellow-50 rounded-md p-3 cursor-pointer flex items-center gap-3"
                           onClick={handleSignOut}
                         >
-                          Sign-out
+                          <GoSignOut size={20} /> Logout
                         </div>
                       </div>
                     </div>
