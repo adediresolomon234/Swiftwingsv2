@@ -1,10 +1,7 @@
 .fleet-image {
   width: 100%;
-  margin-left: 150px;
   opacity: 0;
   transition: opacity 0.3s ease-in, transform 0.3s ease-in-out;
-  position: relative;
-  top: 20px;
 }
 .fleet-image.show {
   opacity: 1;
