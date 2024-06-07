@@ -4,10 +4,10 @@ import React from "react";
 const FooterHero = () => {
   return (
    
-    <div className="container mx-auto bg-floralwhite px-2 md:px-16 lg:px-16 overflow-hidden my-8">
+    <div className="container mx-auto bg-floralwhite md:px-16 overflow-hidden my-8">
   <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-8 lg:gap-96 relative">
-    <div className="relative leading-[32px] font-semibold inline-block shrink-0 w-full z-[2]">
-      <div className="p-16 max-w-[400px]">
+    <div className="relative font-semibold inline-block shrink-0 w-full z-[2]">
+      <div className="md:p-16 p-2 max-w-[400px]">
         You&apos;re one click away from booking the perfect Jet for your journey.
       </div>
       <img
