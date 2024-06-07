@@ -465,7 +465,7 @@ export default function Home() {
                 Our Fleets.
               </h1>
               <div className="flex gap-8 mt-12">
-                <div className="relative">
+                <div className="w-full md:w-1/2 relative">
                   {fleet.map((item, index) => (
                     <div
                       key={item.id}
@@ -517,12 +517,12 @@ export default function Home() {
                   ))}
                 </div>
                 <div
-                  className="flex transition-transform ease-out duration-[1000ms] w-1/2 overflow-hidden"
-                  style={{
-                    transform: `translateX(${
-                      Math.abs(currentHoveredIndex - prevHoveredIndex) * 100
-                    }%)`,
-                  }}
+                  className="hidden md:flex transition-transform ease-out duration-[1000ms] w-1/2 overflow-hidden"
+                  // style={{
+                  //   transform: `translateX(${
+                  //     Math.abs(currentHoveredIndex - prevHoveredIndex) * 100
+                  //   }%)`,
+                  // }}
                 >
                   {/* <div
                         // aria-hidden="true"
