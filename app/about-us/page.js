@@ -64,7 +64,7 @@ const AboutUs = () => {
                             <ul className="p-2 mb-3 flex flex-col-reverse sm:flex-row overflow-x-auto no-scrollbar">
                                 <li className="text-xl w-auto mx-1 p-3 sm:text-md lg:text-lg px-2 border-gray-200 sm:w-auto sm:text-justify lg:text-end sm:order-2 lg:order-1 ">
                                     We aim to provide seamless, personalised experiences that exceed your expectations every time you fly with us. Our mission is to ensure your journey is safe, comfortable,
-                                    and unforgettable, no matter where you're headed
+                                    and unforgettable, no matter where you&apos;re headed
 
                                 </li>
                                 <li className="w-full mx-2 p-3 px-2 sm: text-2xl  border-gray-200 font-bold sm:w-auto sm:text-start  whitespace-nowrap">
