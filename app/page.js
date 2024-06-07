@@ -546,7 +546,7 @@ export default function Home() {
                             src={image}
                             alt={`airplane${index}`}
                             layout="fill"
-                            className="h-full w-full object-cover"
+                            className="h-full w-full object-contain rounded-xl"
                           />
                         </div>
                       )
