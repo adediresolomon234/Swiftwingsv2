@@ -7,10 +7,11 @@ import Serviceexecllence from "../../public/images/Serviceexecllence.png";
 import Safetyfirst from "../../public/images/Safetyfirst.png";
 import team from "../../public/images/team.png";
 import { Libre_Baskerville } from "next/font/google";
+import FooterHero from "../components/shared/footerHero";
 
 const libre_baskerville = Libre_Baskerville({
-  subsets: ["latin"],
-  weight: ["400", "700"],
+    subsets: ["latin"],
+    weight: ["400", "700"],
 });
 
 const AboutUs = () => {
@@ -32,36 +33,41 @@ const AboutUs = () => {
                 </div>
                 <section className="py-16">
                     <div className="m-auto px-6 text-gray-600 md:px-12 xl:px-16">
-                        <div className="max-w-3xl mx-auto text-justify lg:text-center">
-                            <h1 className="px-2 sm: text-md lg:text-lg ">
-                                Welcome to SwiftWings, where the sky is not the limit – it is just the beginning.
-                                Since our establishment in June 2017, we have been dedicated to revolutionizing the aviation industry in Nigeria and beyond.
+                        <div className="max-w-3xl mx-auto text-md lg:text-center">
+                            <h1 className="px-2 sm: text-xl lg:text-lg ">
+                                Swift Wings was founded in June 2017 with a mission to provide extraordinary aviation services to individuals with a keen eye for quality, as well as to esteemed corporate leaders and organisations throughout Nigeria. Speed, luxury, safety and delivery of top-notch service are the cornerstones of everything we do at Swift Wings. Our dedication lies in not just meeting but exceeding our clients’ expectations by constantly exploring new horizons and pushing the limits.
                             </h1>
                         </div>
                     </div>
                 </section>
-                <section className="py-16">
-                    <div className="m-auto px-6 text-gray-600 md:px-12 xl:px-16">
+                <section className="py-8">
+                    <div className="m-auto px-2 text-gray-600 md:px-12 xl:px-16">
                         <div className="max-w-5xl mx-auto text-justify lg:text-center">
-                            <ul className="p-2 mb-12 flex flex-col sm:flex-row overflow-x-auto no-scrollbar">
-                                <li className="w-full mx-2 p-3 px-2 sm: text-xl lg:text-2xl border-gray-200 font-bold sm:w-auto sm:text-start  whitespace-nowrap">
+                            <ul className="p-2 mb-3 flex flex-col sm:flex-row overflow-x-auto no-scrollbar">
+                                <li className="w-full mx-2 p-3 px-2 sm: text-2xl  border-gray-200 font-bold sm:w-auto sm:text-start  whitespace-nowrap">
                                     Our Mission
                                 </li>
-                                <li className="w-auto mx-1 p-3 sm: text-md lg:text-lg px-2 border-gray-200 sm:w-auto sm:text-start ">
-                                    At SwiftWings, our mission is simple yet profound: to offer exceptional aviation services that redefine luxury, reliability, and safety. We aim to exceed the expectations of our clients by providing unparalleled experiences with every flight.
+                                <li className="w-auto text-xl mx-1 p-3 sm: text-md lg:text-lg px-2 border-gray-200 sm:w-auto sm:text-start ">
+                                    To be the leading private jet charter company
+                                    in the industry, renowned for our commitment
+                                    to excellence, innovation, and personalised
+                                    service.
+
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </section>
-                <section className="py-16">
-                    <div className="m-auto px-6 text-gray-600 md:px-12 xl:px-16">
+                <section className="py-8">
+                    <div className="m-auto px-2 text-gray-600 md:px-12 xl:px-16">
                         <div className="max-w-5xl mx-auto text-justify lg:text-center">
-                            <ul className="p-2 mb-12 flex flex-col-reverse sm:flex-row overflow-x-auto no-scrollbar">
-                                <li className="w-auto mx-1 p-3 sm:text-md lg:text-lg px-2 border-gray-200 sm:w-auto sm:text-justify lg:text-end sm:order-2 lg:order-1 ">
-                                    At SwiftWings, our mission is simple yet profound: to offer exceptional aviation services that redefine luxury, reliability, and safety. We aim to exceed the expectations of our clients by providing unparalleled experiences with every flight.
+                            <ul className="p-2 mb-3 flex flex-col-reverse sm:flex-row overflow-x-auto no-scrollbar">
+                                <li className="text-xl w-auto mx-1 p-3 sm:text-md lg:text-lg px-2 border-gray-200 sm:w-auto sm:text-justify lg:text-end sm:order-2 lg:order-1 ">
+                                    We aim to provide seamless, personalised experiences that exceed your expectations every time you fly with us. Our mission is to ensure your journey is safe, comfortable,
+                                    and unforgettable, no matter where you're headed
+
                                 </li>
-                                <li className="w-full mx-2 p-3 px-2 sm:text-xl lg:text-2xl border-gray-200 font-bold sm:w-auto sm:text-start whitespace-nowrap sm:order-1 lg:order-2">
+                                <li className="w-full mx-2 p-3 px-2 sm: text-2xl  border-gray-200 font-bold sm:w-auto sm:text-start  whitespace-nowrap">
                                     Our Vision
                                 </li>
                             </ul>
@@ -80,10 +86,8 @@ const AboutUs = () => {
                                 Safety First
                             </b>
                             <div className="self-stretch relative text-xl leading-[30px] text-gray-800">
-                                Safety is the cornerstone of our operations. At SwiftWings, we
-                                prioritize the safety and well-being of our passengers above all else.
-                                With rigorous safety standards and meticulous attention to detail, we
-                                ensure every journey with us is secure and stress-free.
+                            Recognising that our team of aviation professionals is our most valuable asset, Swift Wings has meticulously assembled a group of highly experienced and dedicated individuals who share a passion for delivering unmatched service. Each team member is committed to ensuring that every aspect of your journey is safe, comfortable, speedy, and hassle-free.
+
                             </div>
                         </div>
                         <div className="relative text-left text-5xl text-gray-900 font-body-md-regular">
@@ -111,7 +115,7 @@ const AboutUs = () => {
                                     src={Serviceexecllence}
                                 />
                                 <div className="text-lg text-gray-800 p-6">
-                                    <p className="text-2xl font-semibold mb-3">Safety First</p>
+                                    <p className="text-2xl font-semibold mb-3">Our Team</p>
                                     <p className="text-md lg:text-lg">Safety is the cornerstone of our operations. At SwiftWings, we prioritize the safety and well-being of our passengers above all else. With rigorous safety standards and meticulous attention to detail, we ensure every journey with us is secure and stress-free.</p>
                                 </div>
                             </div>
@@ -270,14 +274,14 @@ const AboutUs = () => {
                     </div>
                 </section>
 
-        <section className="mt-64 py-16">
+                <section className="py-16">
           <div className="xl:container m-auto px-6 text-gray-600 md:px-12 xl:px-16">
-            {/* <FooterHero /> */}
+            <FooterHero />
           </div>
         </section>
-      </NavAndFooter>
-    </main>
-  );
+            </NavAndFooter>
+        </main>
+    );
 };
 
 export default AboutUs;

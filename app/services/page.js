@@ -22,7 +22,7 @@ const Service = () => {
         <main className="relative bg-swLightBgGray">
             <NavAndFooter Nav={true}>
                 <div className="relative">
-                    <Image className="absolute inset-0 w-full h-full object-cover object-top" src={Destinationsection} width="400" height="500" alt="hero background image" />
+                    <Image className="absolute inset-0 w-full  h-full object-cover object-top" src={Destinationsection} width="400" height="500" alt="hero background image" />
                     {/* <div aria-hidden="true" class="absolute inset-0 w-full h-full bg-gray-900 bg-opacity-30 backdrop-blur-sm"></div> */}
                     <div className="relative mx-auto max-w-screen-full px-4 py-28 sm:px-6 lg:flex lg:h-[70vh]  lg:items-center lg:px-8">
                         <div className="max-w-xl mx-auto text-center">
@@ -65,21 +65,21 @@ const Service = () => {
                                 </div>
                             </div>
                             <div className="py-16">
-                                <div className="container m-auto px-6 space-y-8 md:px-12 lg:px-28">
+                                <div className="container m-auto px-2 space-y-8 md:px-12 lg:px-28">
                                     <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4">
-                                        <div className="p-4 flex items-center">
+                                        <div className="p-2 flex items-center">
                                             <SWTBespokeIcon className="mr-4" />
                                             <p>Bespoke Menus</p>
                                         </div>
-                                        <div className="p-4 flex items-center">
+                                        <div className="p-2 flex items-center">
                                             <SWTCustomizatioIconIcon className="mr-4" />
                                             <p>Customization Options</p>
                                         </div>
-                                        <div className="p-4 flex items-center">
+                                        <div className="p-2 flex items-center">
                                             <SWTStarIconIcon className="mr-4" />
                                             <p>Premium Selections</p>
                                         </div>
-                                        <div className="p-4 flex items-center">
+                                        <div className="p-2 flex items-center">
                                             <SWTDietaryIconIcon className="mr-4" />
                                             <p>Dietary Accommodations</p>
                                         </div>
@@ -129,21 +129,21 @@ const Service = () => {
                                 </div>
                             </div>
                             <div className="py-16">
-                                <div className="container m-auto px-6 space-y-8 md:px-12 lg:px-28">
+                                <div className="container m-auto px-2 space-y-8 md:px-12 lg:px-28">
                                     <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4">
-                                        <div className="p-4 flex items-center">
+                                        <div className="p-2 flex items-center">
                                             <SWTClockBlackIcon className="mr-4" />
                                             <p>Available 24/7</p>
                                         </div>
-                                        <div className="p-4 flex items-center">
+                                        <div className="p-2 flex items-center">
                                             <SWTTwoPersonBlackIcon className="mr-4" />
                                             <p>Emergency Response Team</p>
                                         </div>
-                                        <div className="p-4 flex items-center">
+                                        <div className="p-2 flex items-center">
                                             <SWTGlobalCoverageIcon className="mr-4" />
                                             <p>Global Coverage</p>
                                         </div>
-                                        <div className="p-4 flex items-center">
+                                        <div className="p-2 flex items-center">
                                             <SWTAdvancedMedicalIcon className="mr-4" />
                                             <p>Advanced Medical Equipment</p>
                                         </div>
@@ -193,21 +193,21 @@ const Service = () => {
                                 </div>
                             </div>
                             <div className="py-16">
-                                <div className="container m-auto px-6 space-y-8 md:px-12 lg:px-28">
+                                <div className="container m-auto px-2 space-y-8 md:px-12 lg:px-28">
                                     <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4">
-                                        <div className="p-4 flex items-center">
+                                        <div className="p-2 flex items-center">
                                             <SWTStarBlack2Icon className="mr-4" />
                                             <p>Corporate Travel</p>
                                         </div>
-                                        <div className="p-4 flex items-center">
+                                        <div className="p-2 flex items-center">
                                             <SWTLuxuryFleetIcon className="mr-4" />
                                             <p>Luxury Fleet</p>
                                         </div>
-                                        <div className="p-4 flex items-center">
+                                        <div className="p-2 flex items-center">
                                             <SWTUserServiceIcon className="mr-4" />
                                             <p>Professional Drivers</p>
                                         </div>
-                                        <div className="p-4 flex items-center">
+                                        <div className="p-2 flex items-center">
                                             <SWTDoortoDoorIcon className="mr-4" />
                                             <p>Door-to-Door Service</p>
                                         </div>
@@ -499,7 +499,7 @@ const Service = () => {
                     </div>
                 </section> */}
 
-         <section className="mt-64 py-16">
+         <section className=" py-3">
           <div className="xl:container m-auto px-6 text-gray-600 md:px-12 xl:px-16">
         <FooterHero /> 
          </div>

@@ -76,7 +76,7 @@ const Destinations = () => {
             <DestinationList />
           </div>
         </section>
-        <section className="mt-64 py-16">
+        <section className="mt-16 py-3">
           <div className="xl:container m-auto px-6 text-gray-600 md:px-12 xl:px-16">
             <FooterHero />
           </div>

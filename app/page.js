@@ -169,6 +169,9 @@ export default function Home() {
         <section className="mt-30 py-16 px-5 text-swGray900 ">
           <div className=" py-6">
             <div className="md:container m-auto px-0 text-gray-500">
+              <h2 className="mb-12 md:text-center text-start text-[18px] font-semibold  text-swPrimary500  md:text-xl ">
+                Why Choose Swiftwings
+              </h2>
               <div className="grid gap-6 md:mx-auto md:grid-cols-2 lg:w-full lg:grid-cols-3 xl:grid-cols-4">
                 <div className="group space-y-6 rounded-3xl border border-gray-100  rounded-3xl bg-swSecondary300 px-8 py-12 text-center">
                   <SWTStarBlackIcon className="mx-auto svgIcon" />
