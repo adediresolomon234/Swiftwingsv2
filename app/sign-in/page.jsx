@@ -124,9 +124,9 @@ const SignIn = () => {
 
   return (
     <NavAndFooter Nav={false}>
-      <main className="flex justify-center items-center min-h-[100vh] m-5 bg-swSecondary50">
+      <main className="flex justify-center items-center min-h-[100vh] bg-swSecondary50">
         <ToastContainer />
-        <div className="max-w-sm w-full p-2">
+        <div className="max-w-sm w-full p-4">
           <p className="text-center text-2xl font-semibold text-black">
             Sign In
           </p>
