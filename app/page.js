@@ -186,7 +186,7 @@ export default function Home() {
         <section className="mt-30 py-16 px-5 text-swGray900 ">
           <div className=" py-6">
             <p className="text-lg text-swPrimary500 text-center mb-20 font-medium">
-              Why choose{" "}
+              Why Choose{" "}
               <span
                 className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
               >
@@ -195,13 +195,13 @@ export default function Home() {
             </p>
 
             <div className="md:container m-auto px-0 text-gray-500">
-              <h2 className="mb-12 md:text-center text-start text-[18px] font-semibold  text-swPrimary500  md:text-xl ">
+              {/* <h2 className="mb-12 md:text-center text-start text-[18px] font-semibold  text-swPrimary500  md:text-xl ">
                 Why Choose Swiftwings
-              </h2>
-              <div className="grid gap-6 md:mx-auto md:grid-cols-2 lg:w-full lg:grid-cols-3 xl:grid-cols-4">
-                <div className="group space-y-6 rounded-3xl border border-gray-100  rounded-3xl bg-swSecondary300 px-8 py-12 text-center">
+              </h2> */}
+              <div className="grid gap-6 md:mx-auto sm:grid-cols-2 lg:w-full xl:grid-cols-4">
+                <div className="group space-y-6 rounded-3xl border border-gray-100 bg-swSecondary300 px-8 py-12 text-center">
                   <SWTStarBlackIcon className="mx-auto svgIcon" />
-                  <h3 className="text-2xl font-semibold text-swPrimary500 bg-swSecondary500  rounded-full p-3">
+                  <h3 className="text-xl font-semibold text-swPrimary500 bg-swSecondary500  rounded-full p-3">
                     VIP Treatment
                   </h3>
                   <p>
@@ -211,9 +211,9 @@ export default function Home() {
                     ready for your destination. Fly on a private flight schedule
                   </p>
                 </div>
-                <div className="group space-y-6 rounded-3xl border border-gray-100  rounded-3xl bg-swSecondary300 px-4 py-6 md:px-8 md:py-12 text-center">
+                <div className="group space-y-6 rounded-3xl border border-gray-100 bg-swSecondary300 px-4 py-6 md:px-8 md:py-12 text-center">
                   <SWTGalaglobeIcon className="mx-auto svgIcon" />
-                  <h3 className="text-2xl font-semibold text-swPrimary500 bg-swSecondary500 rounded-full p-3">
+                  <h3 className="text-xl font-semibold text-swPrimary500 bg-swSecondary500 rounded-full p-3">
                     Global Access
                   </h3>
                   <p>
@@ -227,9 +227,9 @@ export default function Home() {
                     closer to you!
                   </p>
                 </div>
-                <div className="group space-y-6 rounded-3xl border border-gray-100  rounded-3xl bg-swSecondary300 px-8 py-12 text-center">
+                <div className="group space-y-6 rounded-3xl border border-gray-100 bg-swSecondary300 px-8 py-12 text-center">
                   <SWTSandClockBlackIcon className="mx-auto svgIcon" />
-                  <h3 className="text-2xl font-semibold text-swPrimary500 bg-swSecondary500 rounded-full p-3">
+                  <h3 className="text-xl font-semibold text-swPrimary500 bg-swSecondary500 rounded-full p-3">
                     Save Time
                   </h3>
                   <p>
@@ -243,9 +243,9 @@ export default function Home() {
                     private jet charter services.
                   </p>
                 </div>
-                <div className="group space-y-6 rounded-3xl border border-gray-100  rounded-3xl bg-swSecondary200 px-8 py-12 text-center ">
+                <div className="group space-y-6 rounded-3xl border border-gray-100 bg-swSecondary200 px-8 py-12 text-center ">
                   <SWTAddPersonBlackIcon className="mx-auto svgIcon" />
-                  <h3 className="text-2xl font-semibold text-swPrimary500 bg-swSecondary500 rounded-full p-3">
+                  <h3 className="text-xl font-semibold text-swPrimary500 bg-swSecondary500 rounded-full p-3">
                     Membership
                   </h3>
                   <p>
@@ -323,7 +323,7 @@ export default function Home() {
               <h2 className="mb-4 md:text-center text-start text-[18px] font-semibold  text-swPrimary500  md:text-[18px] ">
                 Our Services
               </h2>
-              <p className="text-swGray800  font-semibold lg:w-8/12 mt-8 sm:mx-auto sm:w-10/12 md:w-2/3  text-4xl md:text-center text-start sm:text-5xl md:text-6xl">
+              <p className="text-swGray800  font-semibold max-w-2xl mt-8 sm:mx-auto text-3xl md:text-center text-start sm:text-5xl">
                 We offer world a class exotic experience
               </p>
             </div>
@@ -461,7 +461,7 @@ export default function Home() {
               <p className="sm:mx-auto sm:w-10/12 md:w-2/3 p-1 text-swPrimary500 font-semibold md:text-center text-start sm:text-[18px] md:text-[18px] lg:text-[18px] lg:w-auto lg:text-left lg:p">
                 Fleet Showcase
               </p>
-              <h1 className="mt-8 sm:mx-auto sm:w-10/12 md:w-2/3 text-swGray800 text-4xl font-semibold md:text-center text-start sm:text-5xl md:text-5xl lg:w-auto lg:text-left xl:text-6xl">
+              <h1 className="mt-8 sm:mx-auto sm:w-10/12 md:w-2/3 text-swGray800 text-3xl font-semibold md:text-center text-start sm:text-5xl md:text-5xl lg:w-auto lg:text-left">
                 Our Fleets.
               </h1>
               <div className="flex gap-8 mt-12">
@@ -555,7 +555,7 @@ export default function Home() {
               </div>
 
               <div
-                className={`${space_grotesk.className} flex justify-right text-xl py-8 lg:p-0`}
+                className={`${space_grotesk.className} flex justify-right text-xl py-8 lg:p-0 mt-10`}
               >
                 <Button
                   label="See all"
@@ -569,13 +569,13 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="max-w-6xl mx-auto pt-10">
-          <div className="px-4 md:px-6 px-0 text-start md:text-center">
+        <section className="max-w-7xl mx-auto pt-10">
+          <div className="px-4 md:px-6 text-start md:text-center">
             <div className="mb-16">
               <h2 className="mb-4 text-start md:text-center text-[18px] font-semibold text-swPrimary500  md:text-[18px] ">
                 Membership
               </h2>
-              <p className="text-swGray700 mt-8 sm:mx-auto md:text-xl text-start md:text-center text-md ">
+              <p className="text-swGray800 max-w-4xl mt-8 sm:mx-auto md:text-lg text-start md:text-center text-md ">
                 {/* <span
                     className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
                   >
@@ -596,7 +596,7 @@ export default function Home() {
           </div>
           <div className="mb-16">
             <h2 className="mb-8 text-center text-[18px]  text-gray-700 md:text-[18px] ">
-              Features
+              Membership Features
             </h2>
             <div
               style={{ display: "flex", justifyContent: "center" }}
@@ -611,7 +611,7 @@ export default function Home() {
                       maxWidth: "270px",
                       height: "180px",
                     }}
-                    className={`bg-swSecondary300 outline-none features-card flex flex-col justify-center items-center py-6 px-4 md:px-6 font-medium text-lg md:text-xl lg:text-2xl text-swGray600 text-center`}
+                    className={`bg-swSecondary200 outline-none features-card flex flex-col justify-center items-center py-6 px-4 md:px-6 text-lg md:text-xl text-swGray600 text-center`}
                   >
                     {area.description}
                   </div>
@@ -634,7 +634,7 @@ export default function Home() {
               <h2 className="mb-4 text-start md:text-center text-[18px] font-semibold  text-swPrimary500 md:text-[18px]">
                 Customer Testimonials
               </h2>
-              <p className="text-swGray700 mt-8 sm:mx-auto text-start md:text-xl md:text-center text-center text-md">
+              <p className="text-swGray800 mt-8 sm:mx-auto max-w-4xl md:text-lg md:text-center text-start text-md">
                 <span
                   className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
                 >

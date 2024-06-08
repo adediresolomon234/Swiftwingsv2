@@ -3,13 +3,14 @@
 import Footer from "./Footer";
 import NavBar from "./NavBar";
 
-
 const NavAndFooter = ({ children, Nav }) => {
   return (
     <div>
       <NavBar Nav={Nav} />
       <div>{children}</div>
-      <Footer />
+      <div className="md:px-10 relative z-20">
+        <Footer />
+      </div>
     </div>
   );
 };

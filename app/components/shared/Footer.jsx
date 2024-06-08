@@ -15,7 +15,7 @@ const libre_baskerville = Libre_Baskerville({
 
 const Footer = () => {
   return (
-    <footer className="w-full rounded-3xl bg-swPrimary500 relative flex flex-col items-center overflow-hidden py-12 md:py-12">
+    <footer className="w-full sm:rounded-t-[4rem] bg-swPrimary500 relative flex flex-col items-center overflow-hidden py-12 md:py-12">
       <div className="mb-16 sm:mx-auto w-full sm:w-5/4 md:w-1/2">
         <h2 className="mb-4 text-center text-xl text-white md:text-3xl md:text-center">
           Let’s work together
