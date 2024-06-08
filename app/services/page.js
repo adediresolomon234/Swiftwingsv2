@@ -46,7 +46,7 @@ const Service = () => {
           <div className="relative mx-auto max-w-screen-full px-4 py-28 sm:px-6 lg:flex lg:h-[70vh]  lg:items-center lg:px-8">
             <div className="max-w-5xl mx-auto text-center">
               <h1 className="text-3xl font-bold sm:text-4xl lg:text-6xl capitalize mb-3">
-                Swift Wings Sets the Standard in Aviation{" "}
+                Swift wings Sets the Standard in Aviation{" "}
                 <span className="text-swPrimary500">Services</span>
               </h1>
               <p className="px-2 sm:text-md lg:text-lg max-w-lg mx-auto">
@@ -56,7 +56,7 @@ const Service = () => {
             </div>
           </div>
         </div>
-        <section className="py-16">
+        <section className="py-5">
           <div className="m-auto text-gray-600 md:px-12 xl:px-16">
             <div className="">
               {/* <div className="flex"> */}
@@ -67,10 +67,15 @@ const Service = () => {
                   </h1>
                   <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-10">
                     <p className="sm:text-md lg:text-lg max-w-2xl">
-                      Indulge in gourmet dining at 40,000 feet with Swift
-                      Wings&apos; inflight catering services. From decadent
-                      entrees to tantalizing desserts, our culinary team crafts
-                      bespoke menus tailored to your preferences
+                      Indulge in gourmet dining at 40,000 feet with{" "}
+                      <span
+                        className={`${libre_baskerville.className} no-text-shadow font-bold`}
+                      >
+                        Swift<i className="font-normal">Wings</i>
+                      </span>
+                      &apos; inflight catering services. From decadent entrees
+                      to tantalizing desserts, our culinary team crafts bespoke
+                      menus tailored to your preferences
                     </p>
                     <p className=" sm:text-md lg:text-lg max-w-2xl">
                       Whether you&apos;re hosting a business meeting or
@@ -85,14 +90,14 @@ const Service = () => {
                   <div className="max-w-xl mx-auto text-start"></div>
                 </div> */}
               {/* </div> */}
-              <div className="w-full mt-8">
+              <div className="w-full">
                 <div className="relative">
                   <Image className=" w-full h-full" src={Inflightcatering2} />
                 </div>
               </div>
               <div className="py-16">
-                <div className="container m-auto px-2 space-y-8 md:px-12 lg:px-28">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4">
+                <div className="px-2 space-y-8">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 text-swPrimary500">
                     <div className="p-2 flex items-center">
                       <SWTBespokeIcon className="mr-4" />
                       <p>Bespoke Menus</p>
@@ -115,32 +120,29 @@ const Service = () => {
             </div>
           </div>
         </section>
-        <section className="py-16">
+        <section className="py-5">
           <div className="m-auto text-gray-600 md:px-12 xl:px-16">
             <div className="w-full mx-auto text-justify lg:text-center">
-              <div className="flex flex-col gap-8 lg:flex-row">
-                <div className="basis-1/2   mx-8">
-                  <div className="max-w-xl mx-auto text-start">
-                    <h1 className="text-sm font-extrabold sm:text-xl uppercase mb-4">
+              <div className="p-5">
+                <div className="text-start">
+                  <div className="flex justify-between items-center">
+                    <h1 className="text-xl font-semibold sm:text-3xl capitalize mb-4 text-black">
                       Medical Evacuation
                     </h1>
-                    <p className=" sm:text-md lg:text-lg ">
-                      Your safety is our priority. Swift Wings offers medical
-                      evacuation services for emergencies, ensuring prompt and
-                      efficient transportation to medical facilities when needed
-                      most.
-                    </p>
                   </div>
-                </div>
-
-                <div class="basis-1/2 mx-8  ">
-                  <div className="max-w-xl mx-auto text-start">
-                    <Button
-                      label={"Request quote"}
-                      bgColor={"bg-swPrimary500 text-white "}
-                      className="ml-auto w-sm mb-8 lg:mb-3 hidden lg:block"
-                    />
-                    <p className=" sm:text-md lg:text-lg ">
+                  <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-10">
+                    <p className="sm:text-md lg:text-lg max-w-2xl">
+                      Your safety is our priority.{" "}
+                      <span
+                        className={`${libre_baskerville.className} no-text-shadow font-bold`}
+                      >
+                        Swift<i className="font-normal">Wings</i>
+                      </span>{" "}
+                      offers medical evacuation services for emergencies,
+                      ensuring prompt and efficient transportation to medical
+                      facilities when needed most.
+                    </p>
+                    <p className=" sm:text-md lg:text-lg max-w-2xl">
                       With our dedicated team of professionals and
                       state-of-the-art equipment, you can travel with peace of
                       mind knowing that help is just a call away.
@@ -148,12 +150,12 @@ const Service = () => {
                   </div>
                 </div>
               </div>
-              <div className="my-7 px-6 lg:hidden">
+              {/* <div className="my-7 px-6 lg:hidden">
                 <Button
                   label={"Request quote"}
                   bgColor={"bg-swPrimary500 text-white w-md"}
                 />
-              </div>
+              </div> */}
               <div className="w-full mt-8">
                 <div className="relative">
                   <Image
@@ -163,8 +165,8 @@ const Service = () => {
                 </div>
               </div>
               <div className="py-16">
-                <div className="container m-auto px-2 space-y-8 md:px-12 lg:px-28">
-                  <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4">
+                <div className="px-2 space-y-8">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 text-swPrimary500">
                     <div className="p-2 flex items-center">
                       <SWTClockBlackIcon className="mr-4" />
                       <p>Available 24/7</p>
@@ -187,44 +189,42 @@ const Service = () => {
             </div>
           </div>
         </section>
-        <section className="py-16">
+        <section className="py-5">
           <div className="m-auto text-gray-600 md:px-12 xl:px-16">
             <div className="w-full mx-auto text-justify lg:text-center">
               <div className="flex flex-col gap-8 lg:flex-row">
-                <div className="basis-1/2   mx-8">
-                  <div className="max-w-xl mx-auto text-start">
-                    <h1 className="text-sm font-extrabold sm:text-xl uppercase mb-4">
+                <div className="p-5">
+                  <div className="text-start">
+                    <h1 className="text-xl font-semibold sm:text-3xl capitalize mb-4 text-black">
                       Chauffeur Services
                     </h1>
-                    <p className=" sm:text-md lg:text-lg ">
-                      Arrive in style and comfort with Swift Wings&lsquo;
-                      chauffeur services. Whether you need transportation to and
-                      from the airport or prefer a chauffeured car during your
-                      stay, our professional drivers are at your service.
-                    </p>
-                  </div>
-                </div>
-
-                <div class="basis-1/2 mx-8  ">
-                  <div className="max-w-xl mx-auto text-start">
-                    <Button
-                      label={"Request quote"}
-                      bgColor={"bg-swPrimary500 text-white "}
-                      className="ml-auto w-sm mb-8 lg:mb-3 hidden lg:block"
-                    />
-                    <p className=" sm:text-md lg:text-lg ">
-                      Sit back, relax, and enjoy a seamless journey from door to
-                      door with our luxury chauffeur services.
-                    </p>
+                    <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-10">
+                      <p className="sm:text-md lg:text-lg max-w-2xl">
+                        Arrive in style and comfort with{" "}
+                        <span
+                          className={`${libre_baskerville.className} no-text-shadow font-bold`}
+                        >
+                          Swift<i className="font-normal">Wings</i>
+                        </span>
+                        &apos; chauffeur services. Whether you need
+                        transportation to and from the airport or prefer a
+                        chauffeured car during your stay, our professional
+                        drivers are at your service.
+                      </p>
+                      <p className=" sm:text-md lg:text-lg max-w-2xl">
+                        Sit back, relax, and enjoy a seamless journey from door
+                        to door with our luxury chauffeur services.
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div className="my-7 px-6 lg:hidden">
+              {/* <div className="my-7 px-6 lg:hidden">
                 <Button
                   label={"Request quote"}
                   bgColor={"bg-swPrimary500 text-white w-md"}
                 />
-              </div>
+              </div> */}
               <div className="w-full mt-8">
                 <div className="relative">
                   <Image
@@ -233,9 +233,9 @@ const Service = () => {
                   />
                 </div>
               </div>
-              <div className="py-16">
-                <div className="container m-auto px-2 space-y-8 md:px-12 lg:px-28">
-                  <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4">
+              <div className="py-5">
+                <div className="px-2 space-y-8">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 text-swPrimary500">
                     <div className="p-2 flex items-center">
                       <SWTStarBlack2Icon className="mr-4" />
                       <p>Corporate Travel</p>
@@ -258,12 +258,18 @@ const Service = () => {
             </div>
           </div>
         </section>
-        <section className="py-16">
+        <section className="py-5">
           <div className="mx-auto text-gray-600 md:px-12 xl:px-16">
             <div className="flex flex-col justify-between md:flex-row items-start gap-8 px-8">
               <div className="max-w-md">
                 <h2 className="text-xl text-swPrimary500 font-bold">
-                  Why Choose Swift Wings Service
+                  Why Choose{" "}
+                  <span
+                    className={`${libre_baskerville.className} no-text-shadow font-bold`}
+                  >
+                    Swift<i className="font-normal">Wings</i>
+                  </span>{" "}
+                  Service
                 </h2>
               </div>
               <div className="hidden md:block w-full lg:w-1/3 mx-4 mt-3">
@@ -271,9 +277,14 @@ const Service = () => {
               </div>
               <div className="max-w-md ">
                 <p className="text-lg">
-                  Swift Wings is a premier provider of private jets charter
-                  flights connecting global airports, offering unmatched
-                  convenience and exclusivity for luxury travel.
+                  <span
+                    className={`${libre_baskerville.className} no-text-shadow font-bold`}
+                  >
+                    Swift<i className="font-normal">Wings</i>
+                  </span>{" "}
+                  is a premier provider of private jets charter flights
+                  connecting global airports, offering unmatched convenience and
+                  exclusivity for luxury travel.
                 </p>
               </div>
             </div>
@@ -309,9 +320,15 @@ const Service = () => {
                     Reliability and Efficiency
                   </h3>
                   <p className="text-md">
-                    With Swift Wings, you can trust that your needs will be met
-                    promptly and efficiently, allowing you to focus on what
-                    matters most – your journey.
+                    With{" "}
+                    <span
+                      className={`${libre_baskerville.className} no-text-shadow font-bold`}
+                    >
+                      Swift<i className="font-normal">Wings</i>
+                    </span>
+                    , you can trust that your needs will be met promptly and
+                    efficiently, allowing you to focus on what matters most –
+                    your journey.
                   </p>
                 </div>
               </div>
