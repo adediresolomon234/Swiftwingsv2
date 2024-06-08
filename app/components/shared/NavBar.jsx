@@ -25,11 +25,6 @@ const NavBar = ({ Nav }) => {
   const [userData, setUserData] = useState(false);
   const [openUserDropDown, setOpenUserDropDown] = useState(false);
 
-  // useEffect(() => {
-  //   const userDataString = localStorage.getItem("user");
-  //   const userData = userDataString ? JSON.parse(userDataString) : null;
-  //   userData && setUserData(true);
-  // }, []);
 
   const handleSignOut = () => {
     setUserData(false);
@@ -123,7 +118,7 @@ const NavBar = ({ Nav }) => {
     //     { link: "/careers", name: "Careers" },
     //   ],
     // },
-    { link: "javascript:void(0)", name: "Company" },
+    { link: "/about-us", name: "Company" },
     { link: "/contact-us", name: "Contact Us" },
   ];
 
