@@ -166,7 +166,7 @@ const SignUp = () => {
     <NavAndFooter Nav={false}>
       <main className="flex justify-center items-center min-h-screen bg-swSecondary50 pt-3">
         <ToastContainer />
-        <div className="max-w-lg w-full p-2 mt-20">
+        <div className="max-w-lg w-full p-4 mt-20">
           <p className="text-center text-2xl font-semibold text-swGray800">
             Create a new account
           </p>
