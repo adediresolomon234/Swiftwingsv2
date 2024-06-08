@@ -7,12 +7,13 @@ import Image from "next/image";
 import Link from "next/link";
 import logo from "../../../public/images/fullLogo.png";
 import { IoPersonCircleOutline } from "react-icons/io5";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { FaChevronDown } from "react-icons/fa";
 import { GoSignOut } from "react-icons/go";
 
 const NavBar = ({ Nav }) => {
   const [user, setUser] = useState(null);
+  const pathname = usePathname();
   const router = useRouter();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -56,13 +57,16 @@ const NavBar = ({ Nav }) => {
   };
 
   const renderNavLink = (link, name, hasDropDown, dropDownLinks) => {
+    console.log({ pathname, link });
     return (
-      <div className="relative inline-block text-left">
-        <div className="flex items-center">
+      <div className="relative inline-block text-left group">
+        <div className="flex flex-col lg:items-center">
           <Link
             href={hasDropDown ? "javascript:void(0)" : link}
             onClick={hasDropDown ? toggleDropdown : null}
-            className="flex gap-2 py-2 pl-3 pr-4 text-gray-700 border-gray-100 hover:bg-white rounded-full p-4 hover:text-swPrimary600"
+            className={`flex gap-2 text-gray-700 px-4 ${
+              pathname === link ? "font-medium" : "hover:font-medium"
+            }`}
             aria-current="page"
           >
             {name}
@@ -72,6 +76,13 @@ const NavBar = ({ Nav }) => {
               </button>
             )}
           </Link>
+          {pathname === link ? (
+            <div className={`h-1 w-5 ml-4 lg:ml-0 rounded-full bg-swPrimary500`} />
+          ) : (
+            <div
+              className={`h-1 w-5 ml-4 lg:ml-0 rounded-full bg-transparent group-hover:bg-gray-400`}
+            />
+          )}
         </div>
 
         {hasDropDown && isOpen ? (
@@ -147,7 +158,7 @@ const NavBar = ({ Nav }) => {
       {/* <div className="w-full bg-white/40 text-swGray800 border-b-2 backdrop-blur"> */}
       <div
         className={`w-full transition-all ease-in-out bg-white duration-1000  ${
-          navBg ? "bg-opacity-100" : "bg-opacity-0"
+          navBg || isMobileMenuOpen ? "bg-opacity-100" : "bg-opacity-0"
         }`}
       >
         <div className="flex items-center justify-between max-w-screen-full mx-auto py-4 px-2 sm:px-10">
