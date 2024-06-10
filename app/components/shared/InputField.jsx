@@ -23,7 +23,7 @@ const InputField = ({
       )}
 
       <div
-        className={`${css} relative flex items-center cursor-pointer text-swGray800 hover:border-swPrimary500 rounded-lg overflow-hidden border mt-2 ${borderColor} focus:outline-none cursor-pointer ${
+        className={`${css} relative flex items-center text-swGray800 hover:border-swPrimary500 rounded-lg  px-8 border mt-2 ${borderColor} ${
           startIcon ? "pl-8" : ""
         } ${endIcon ? "pr-8" : ""}`}
       >
