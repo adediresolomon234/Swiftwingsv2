@@ -1,3 +1,4 @@
+import { GoSignOut } from "react-icons/go";
 import {
   SWBookingIcon,
   SwUserIcon,

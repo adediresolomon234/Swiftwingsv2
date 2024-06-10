@@ -18,10 +18,7 @@ const ProfileCard = () => {
     setUserData(userData);
   }, []);
 
-  const handleSignOut = () => {
-    localStorage.removeItem("user");
-    router.push("/");
-  };
+ 
   console.log(pageState);
   return (
     <div>
@@ -68,12 +65,6 @@ const ProfileCard = () => {
               <SWEditIcon />
             </div>
           </div>
-          <button
-            className="py-2 px-4 bg-white rounded-full mt-5 hover:bg-gray-100"
-            onClick={handleSignOut}
-          >
-            Logout
-          </button>
         </div>
       )}
       {pageState === "update-profile" && (

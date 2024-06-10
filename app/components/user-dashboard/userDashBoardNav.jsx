@@ -1,14 +1,21 @@
-"use client"
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import { SWLeftArrowIcon, SWNeedhelpIcon } from "../svgs";
 import logo from "../../../public/images/fullLogo.png";
 import Button from "../Button";
 import { navItems } from "../NavItems";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import { GoSignOut } from "react-icons/go";
 
 const UserDashBoardNav = ({ setNavToggle }) => {
   const searchParams = useSearchParams();
+  const router = useRouter();
+
+  const handleSignOut = () => {
+    localStorage.removeItem("user");
+    router.push("/");
+  };
   return (
     <div className="max-h-screen h-full rounded-xl bg-white flex flex-col justify-between items-between pt-12 px-5 pb-2 gap-8">
       <div className="p-5 w-full">
@@ -50,6 +57,12 @@ const UserDashBoardNav = ({ setNavToggle }) => {
             </Link>
           ))}
         </nav>
+        <button
+          className="mt-20 flex items-center gap-5"
+          onClick={handleSignOut}
+        >
+          <GoSignOut size={20} /> Logout
+        </button>
       </div>
       <div className="mt-auto p-5 shadow-md rounded-md w-full mb-3">
         <div className="flex items-center mb-2">
