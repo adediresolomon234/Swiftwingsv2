@@ -27,7 +27,7 @@ const CountryCard = ({ country }) => {
             <div className="relative group">
               <div className="text-lg font-medium flex">
                 {country.name}
-                <button
+                {/* <button
                   onClick={toggleDropdown}
                   className="rounded px-2 py-1 text-sm ml-12 flex items-center"
                 >
@@ -39,7 +39,7 @@ const CountryCard = ({ country }) => {
                       Book A Jet
                     </button>
                   </div>
-                )}
+                )} */}
               </div>
             </div>
           </div>

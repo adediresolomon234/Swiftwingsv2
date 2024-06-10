@@ -267,7 +267,7 @@ const ContactUs = () => {
 
 
                 </section>
-                <section className=" py-3">
+                <section className=" py-60 -mb-60">
           <div className="xl:container m-auto px-6 text-gray-600 md:px-12 xl:px-16">
             <FooterHero />
           </div>
