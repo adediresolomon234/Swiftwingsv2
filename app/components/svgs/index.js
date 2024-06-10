@@ -59,3 +59,4 @@ export { default as SWTUserServiceIcon } from "./UserServiceIcon.svg";
 export { default as SWTStarBlack2Icon } from "./StarBlack2.svg";
 export { default as SWTLuxuryFleetIcon } from "./LuxuryFleet.svg";
 export { default as SWTDoortoDoorIcon } from "./DoortoDoorIcon.svg";
+export { default as SWTEllipse9Icon } from "./Ellipse9.svg";

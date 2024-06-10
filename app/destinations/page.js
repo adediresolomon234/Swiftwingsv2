@@ -10,7 +10,7 @@ import Image from "next/image";
 import Destinationsection from "../../public/images/Destinationsection.png"
 import { FaChevronDown } from "react-icons/fa";
 import Button from "../components/Button";
-import { SWTButtoncircleIcon } from "../components/svgs"
+import { SWTButtoncircleIcon,SWTEllipse9Icon } from "../components/svgs"
 
 
 const Destinations = () => {
@@ -30,9 +30,12 @@ const Destinations = () => {
             <div class="mb-12 pt-40 space-y-16 md:mb-20 md:pt-56 lg:w-8/12 lg:mx-auto">
               <div className="location-info flex items-center justify-center mb-8">
                 <div className="location-marker w-3 h-3 bg-primary-500 rounded-full mr-2" />
-                <div className="location-details text-white max-w-lg bg-gray-200 bg-opacity-30 backdrop-blur-sm rounded-t-3xl rounded-br-none rounded-bl-3xl overflow-hidden shrink-0 flex flex-col items-start justify-start py-2 px-12 box-border">
-                  <h2 className="font-semibold">{location.city}</h2>
-                  <p className="text-sm">{location.state}</p>
+                <div className="location-details text-white max-w-lg bg-gray-200 bg-opacity-30 backdrop-blur-sm rounded-t-3xl rounded-br-none rounded-bl-3xl overflow-hidden shrink-0 flex flex-col items-start justify-start py-2 px-8 box-border">
+                  <div className="flex items-center">
+                    <SWTEllipse9Icon className="w-2"/>
+                    <h2 className="font-semibold ml-2">{location.city}</h2>
+                  </div>
+                  <p className="text-sm ml-4">{location.state}</p>
                 </div>
               </div>
 
@@ -43,8 +46,8 @@ const Destinations = () => {
                 <div className="text-container">
                   <div className=" inset-0 flex flex-col items-start justify-start sm:flex-row sm:items-center py-8 px-0 ">
                     <div className="mr-8 flex flex-col items-start">
-                      <div className="text-xl md:text-5xl font-semibold text-black mb-3">What’s your</div>
-                      <div className="text-3xl md:text-6xl font-bold text-white mb-8 max-w-1rem break-all md:break-words uppercase">
+                      <div className="text-xl md:text-5xl lg:text-7xl font-semibold text-black mb-3">What’s your</div>
+                      <div className="text-3xl md:text-6xl lg:text-8xl font-bold text-white mb-8 max-w-1rem break-all md:break-words uppercase">
                         Destination?
                       </div>
                     </div>
@@ -78,7 +81,7 @@ const Destinations = () => {
         </section>
         <section className="mt-16 py-3">
           {/* <div className="xl:container m-auto px-6 text-gray-600 md:px-12 xl:px-16"> */}
-            <FooterHero />
+          <FooterHero />
           {/* </div> */}
         </section>
       </NavAndFooter>
