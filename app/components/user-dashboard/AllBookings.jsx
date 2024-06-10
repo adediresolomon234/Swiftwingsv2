@@ -1,89 +1,17 @@
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { SWFilterIcon, SwSearchIcon, SwSortIcon } from "../svgs";
 import dayjs from "dayjs";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
 import { getAllBooking } from "@/redux/slices/bookingSlice";
 import { ToastContainer, toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 const AllBookings = () => {
+  const router = useRouter();
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");
   const [data, setData] = useState([]);
-  // const data = [
-  //   {
-  //     bookDate: "2024-05-24",
-  //     bookingTime: "01:00",
-  //     sourceCountry: "Nigeria",
-  //     destinationCountry: "Dubai",
-  //     bookingId: "ID-29485",
-  //     tripType: "One Way",
-  //     status: "New",
-  //   },
-  //   {
-  //     bookDate: "2024-05-24",
-  //     bookingTime: "01:00",
-  //     sourceCountry: "Nigeria",
-  //     destinationCountry: "Dubai",
-  //     bookingId: "ID-29485",
-  //     tripType: "Round Trip",
-  //     status: "Processing",
-  //   },
-  //   {
-  //     bookDate: "2024-05-24",
-  //     bookingTime: "01:00",
-  //     sourceCountry: "Nigeria",
-  //     destinationCountry: "Dubai",
-  //     bookingId: "ID-29485",
-  //     tripType: "Multi-city Trip",
-  //     status: "Cancelled",
-  //   },
-  //   {
-  //     bookDate: "2024-05-24",
-  //     bookingTime: "1:0",
-  //     sourceCountry: "Nigeria",
-  //     destinationCountry: "Dubai",
-  //     bookingId: "ID-29485",
-  //     tripType: "Multi-city Trip",
-  //     status: "Completed",
-  //   },
-  //   {
-  //     bookDate: "2024-05-24",
-  //     bookingTime: "01:00",
-  //     sourceCountry: "Nigeria",
-  //     destinationCountry: "Dubai",
-  //     bookingId: "ID-29485",
-  //     tripType: "One Way",
-  //     status: "New",
-  //   },
-  //   {
-  //     bookDate: "2024-05-24",
-  //     bookingTime: "01:00",
-  //     sourceCountry: "Nigeria",
-  //     destinationCountry: "Dubai",
-  //     bookingId: "ID-29485",
-  //     tripType: "Round Trip",
-  //     status: "Processing",
-  //   },
-  //   {
-  //     bookDate: "2024-05-24",
-  //     bookingTime: "01:00",
-  //     sourceCountry: "Nigeria",
-  //     destinationCountry: "Dubai",
-  //     bookingId: "ID-29485",
-  //     tripType: "Multi-city Trip",
-  //     status: "Cancelled",
-  //   },
-  //   {
-  //     bookDate: "2024-05-24",
-  //     bookingTime: "1:0",
-  //     sourceCountry: "Nigeria",
-  //     destinationCountry: "Dubai",
-  //     bookingId: "ID-29485",
-  //     tripType: "Multi-city Trip",
-  //     status: "Completed",
-  //   },
-  // ];
 
   const getAllBookings = () => {
     const user = JSON.parse(localStorage.getItem("user"));
@@ -129,26 +57,36 @@ const AllBookings = () => {
           </div>
         </div>
       </div>
-      <div className="mt-5 w-full">
-        {data.length > 0 ? (
-          data
-            .filter(
-              (item) =>
-                item?.booking_details?.formData[0]?.destination?.country
-                  .toLowerCase()
-                  .includes(search.toLocaleLowerCase()) ||
-                item?.booking_details?.formData[0]?.source?.country
-                  .toLowerCase()
-                  .includes(search.toLocaleLowerCase())
-            )
-            .map((item) => (
-              <Link
-                href={`/user-dashboard?page=bookings&id=${item?.booking_number}`}
-                key={item?.booking_number}
-                className=" text-swGray800  rounded-lg w-full "
-              >
-                <div className="flex justify-between items-center gap-5 w-full flex-wrap pb-2 border-b hover:bg-swGray50 p-5">
-                  <div className="">
+      <table className="mt-5 w-full">
+        <tbody className="w-full">
+          {data.length > 0 ? (
+            data
+              .filter(
+                (item) =>
+                  item?.booking_details?.formData[0]?.destination?.country
+                    .toLowerCase()
+                    .includes(search.toLocaleLowerCase()) ||
+                  item?.booking_details?.formData[0]?.source?.country
+                    .toLowerCase()
+                    .includes(search.toLocaleLowerCase()) ||
+                  item?.booking_number
+                    .toLowerCase()
+                    .includes(search.toLocaleLowerCase()) ||
+                  item?.booking_details?.tripType
+                    .toLowerCase()
+                    .includes(search.toLocaleLowerCase())
+              )
+              .map((item) => (
+                <tr
+                  onClick={() =>
+                    router.push(
+                      `/user-dashboard?page=bookings&id=${item?.booking_number}`
+                    )
+                  }
+                  key={item?.booking_number}
+                  className=" text-swGray800 hover:bg-swGray100 rounded w-full"
+                >
+                  <td className="p-5">
                     <p className="md:text-lg text-sm font-medium">
                       {dayjs(item?.created_date).format("D MMM, YYYY")}
                     </p>
@@ -156,16 +94,14 @@ const AllBookings = () => {
                       {dayjs(item?.created_date).format("h:mm a")}
                       {/* {format(item?.created_date, "h:mm a")} */}
                     </p>
-                  </div>
-
-                  <div className="">
+                  </td>
+                  <td className="p-5">
                     <p className="text-sm text-swGray600">Trip type</p>
                     <p className="md:text-lg text-xs font-medium">
                       {item?.booking_details?.tripType}
                     </p>
-                  </div>
-
-                  <div className="">
+                  </td>
+                  <td className="p-5">
                     <p className="md:text-lg text-xs  font-medium">
                       {item?.booking_details?.formData[0]?.source?.country} -{" "}
                       {item?.booking_details?.formData[0]?.destination?.country}
@@ -182,15 +118,14 @@ const AllBookings = () => {
                         }
                       </p>
                     </div>
-                  </div>
-
-                  <div className="">
+                  </td>
+                  <td className="p-5">
                     <p className="text-sm text-swGray600">Booking ID</p>
                     <p className="md:text-lg text-xs font-medium">
-                      {item.booking_number}
+                      {item?.booking_number}
                     </p>
-                  </div>
-                  <div className="flex items-center">
+                  </td>
+                  <td className="flex items-center p-5">
                     <div
                       className={`text-white text-xs rounded-full py-2 px-4 ${
                         item?.status === "New"
@@ -204,14 +139,18 @@ const AllBookings = () => {
                     >
                       {item?.status}
                     </div>
-                  </div>
-                </div>
-              </Link>
-            ))
-        ) : (
-          <div>No bookings found</div>
-        )}
-      </div>
+                  </td>
+                </tr>
+              ))
+          ) : (
+            <tr>
+              <td colSpan={5} className="text-center p-5">
+                No bookings found
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
     </main>
   );
 };

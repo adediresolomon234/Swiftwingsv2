@@ -25,9 +25,8 @@ const NavBar = ({ Nav }) => {
   const [userData, setUserData] = useState(false);
   const [openUserDropDown, setOpenUserDropDown] = useState(false);
 
-
   const handleSignOut = () => {
-    setUserData(false);
+    setUser(null);
     localStorage.removeItem("user");
     router.push("/");
   };
@@ -46,6 +45,8 @@ const NavBar = ({ Nav }) => {
     }
     console.log(user);
   }, []);
+  console.log({ userData });
+  console.log({ user });
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -72,7 +73,9 @@ const NavBar = ({ Nav }) => {
             )}
           </Link>
           {pathname === link ? (
-            <div className={`h-1 w-5 ml-4 lg:ml-0 rounded-full bg-swPrimary500`} />
+            <div
+              className={`h-1 w-5 ml-4 lg:ml-0 rounded-full bg-swPrimary500`}
+            />
           ) : (
             <div
               className={`h-1 w-5 ml-4 lg:ml-0 rounded-full bg-transparent group-hover:bg-gray-400`}

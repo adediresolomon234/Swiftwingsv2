@@ -52,18 +52,18 @@ const EachBooking = () => {
             <div className="flex flex-col gap-5 text-swGray800 bg-white p-5 rounded-xl w-full">
               <div className="flex justify-between items-center gap-5">
                 <div className="flex gap-5 items-center flex-wrap w-full">
-                  <div className="flex gap-5">
-                    <div
-                      className="rounded-full p-2 border w-fit hover:bg-swGray50 cursor-pointer"
-                      onClick={() => router.back()}
-                    >
-                      <SWLeftArrowIcon className="text-sm" />
+                  <div className="flex gap-5 items-center justify-between w-full">
+                    <div className="flex gap-5">
+                      <div
+                        className="rounded-full p-2 border w-fit hover:bg-swGray50 cursor-pointer"
+                        onClick={() => router.back()}
+                      >
+                        <SWLeftArrowIcon className="text-sm" />
+                      </div>
+                      <p className="text-xl font-medium text-swGray500">
+                        Booking details
+                      </p>
                     </div>
-                    <p className="text-xl font-medium text-swGray500">
-                      Booking details
-                    </p>
-                  </div>
-                  <div className="flex justify-between w-full">
                     <div
                       className={`text-white text-xs rounded-full py-2 px-4 ${
                         data?.status === "New"
@@ -77,9 +77,9 @@ const EachBooking = () => {
                     >
                       {data?.status}
                     </div>
-                    <button className="text-swError500 font-medium mr-3 text-lg">
+                    {/* <button className="text-swError500 font-medium mr-3 text-lg">
                       Cancel
-                    </button>
+                    </button> */}
                   </div>
                 </div>
               </div>
