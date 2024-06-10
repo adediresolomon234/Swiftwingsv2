@@ -634,13 +634,13 @@ const BookingEngine = ({ setBookingDetails }) => {
                                 {item.depatureDate
                                   ? dayjs(
                                       `${item.depatureDate} ${item.depatureTime}`
-                                    ).format("D MMM")
+                                    ).format("D MMM HH:mm")
                                   : "Select Departure"}{" "}
                                 -{" "}
                                 {item.depatureDate
                                   ? dayjs(
                                       `${item.returningDate} ${item.returningTime}`
-                                    ).format("D MMM")
+                                    ).format("D MMM HH:mm")
                                   : "Select Arrival"}
                               </p>
                             </>
@@ -656,7 +656,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                                 {item.depatureDate
                                   ? dayjs(
                                       `${item.depatureDate} ${item.depatureTime}`
-                                    ).format("D MMM")
+                                    ).format("D MMM HH:mm")
                                   : "Deptarture"}
                               </div>
                               <div
@@ -669,7 +669,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                                 {item.depatureDate
                                   ? dayjs(
                                       `${item.returningDate} ${item.returningTime}`
-                                    ).format("D MMM")
+                                    ).format("D MMM HH:mm")
                                   : "Arrival"}
                               </div>
                             </div>
@@ -688,7 +688,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                             {item?.depatureDate
                               ? dayjs(
                                   `${item?.depatureDate} ${item?.depatureTime}`
-                                ).format("D MMM")
+                                ).format("D MMM HH:mm")
                               : "Select Date"}
                           </p>
                         </div>
@@ -866,6 +866,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                               </div>
                             </div>
                           </div> */}
+                                                        <p className="text-swGray500 text-xs italics">Please specify at least One adult</p>
 
                           <div className="flex items-center justify-between">
                             <p>Done?</p>
