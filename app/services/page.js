@@ -2,7 +2,7 @@
 import "../../styles.css";
 import Image from "next/image";
 import NavAndFooter from "../components/shared/NavAndFooter";
-import Destinationsection from "../../public/images/Destinationsection.png";
+import Serivcepage from "../../public/images/Serivcepage.png";
 import Inflightcatering2 from "../../public/images/Inflightcatering2.png";
 import ChauffeurServices from "../../public/images/ChauffeurServices.png";
 import MedicalEvacuation from "../../public/images/MedicalEvacuation.png";
@@ -36,8 +36,8 @@ const Service = () => {
       <NavAndFooter Nav={true}>
         <div className="relative">
           <Image
-            className="absolute inset-0 w-full  h-full object-cover object-top"
-            src={Destinationsection}
+            className="absolute inset-0 w-full  h-full  object-top"
+            src={Serivcepage}
             width="400"
             height="500"
             alt="hero background image"

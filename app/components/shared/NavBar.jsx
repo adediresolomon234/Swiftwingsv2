@@ -114,6 +114,7 @@ const NavBar = ({ Nav }) => {
     { link: "/fleet-page", name: "Fleets" },
     { link: "/destinations", name: "Destination" },
     { link: "/services", name: "Services" },
+    { link: "https://swiftwingsjet.blog/t", name: "Blog" },
     // {
     //   link: "",
     //   name: "Company",
@@ -183,7 +184,7 @@ const NavBar = ({ Nav }) => {
             <Image src={logo} alt="Logo" className="w-40 h-12" />
           </Link>
 
-          <div className="hidden lg:flex gap-5 items-center">
+          <div className="hidden lg:flex gap-3 items-center">
             {navLinks.map((item, i) => (
               <div key={i}>
                 {renderNavLink(

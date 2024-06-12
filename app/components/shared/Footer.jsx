@@ -67,7 +67,7 @@ const Footer = () => {
         <footer className="w-full bg-swWine relative flex flex-col items-center overflow-hidden">
           <div className="mx-auto w-full max-w-screen-2xl p-4 py-6 lg:py-8">
             <div className="flex flex-col gap-6 justify-between sm:flex-row">
-              <div className="mb-6 md:mb-0">
+              <div className="mb-6 md:mb-0 w-2/5">
                 <a href="https://swiftwings.com/" className="flex items-center">
                   <Image
                     src={logo}
@@ -77,82 +77,82 @@ const Footer = () => {
                   />
                 </a>
               </div>
-              <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:flex sm:flex-row flex-wrap gap-5 justify-between">
+              <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:flex sm:flex-row flex-wrap gap-5 justify-between w-3/5">
                 <div>
-                  <h2 className="mb-4 text-xl font-medium text-white">
+                  <h2 className="mb-4 text-md font-medium text-white">
                     Service
                   </h2>
                   <ul className="text-white ">
                     <li className="mb-4">
-                      <a href="#" className="hover:underline">
+                      <a href="#" className="hover:underline text-xs">
                         Luxurious trips
                       </a>
                     </li>
                     <li className="mb-4">
-                      <a href="#" className="hover:underline">
+                      <a href="#" className="hover:underline text-xs">
                         Inflight catering
                       </a>
                     </li>
                     <li className="mb-4">
-                      <a href="#" className="hover:underline">
+                      <a href="#" className="hover:underline text-xs">
                         Air ambulance
                       </a>
                     </li>
                   </ul>
                 </div>
                 <div>
-                  <h2 className="mb-4 text-xl font-medium text-white">
+                  <h2 className="mb-4 text-md font-medium text-white">
                     Company
                   </h2>
                   <ul className="text-white ">
                     <li className="mb-4">
-                      <a href="#" className="hover:underline">
+                      <a href="#" className="hover:underline text-xs">
                         About Us
                       </a>
                     </li>
                     <li className="mb-4">
-                      <a href="#" className="hover:underline">
+                      <a href="#" className="hover:underline text-xs">
                         Contact Us
                       </a>
                     </li>
                     <li className="mb-4">
-                      <a href="#" className="hover:underline">
+                      <a href="#" className="hover:underline text-xs">
                         Career
                       </a>
                     </li>
                     <li className="mb-4">
-                      <a href="#" className="hover:underline">
+                      <a href="#" className="hover:underline text-xs">
                         Outreach
                       </a>
                     </li>
                   </ul>
                 </div>
                 <div>
-                  <h2 className="mb-4 text-xl font-medium text-white">Legal</h2>
+                  <h2 className="mb-4 text-md font-medium text-white">Legal</h2>
                   <ul className="text-white ">
                     <li className="mb-4">
-                      <a href="#" className="hover:underline">
+                      <a href="#" className="hover:underline text-xs">
                         Privacy Policy
                       </a>
                     </li>
                     <li className="mb-4">
-                      <a href="#" className="hover:underline">
+                      <a href="#" className="hover:underline text-xs">
                         Terms & Conditions
                       </a>
                     </li>
                     <li className="mb-4">
-                      <a href="#" className="hover:underline">
+                      <a href="#" className="hover:underline text-xs">
                         Usage rights
                       </a>
                     </li>
                   </ul>
                 </div>
                 <div>
-                  <h2 className="mb-4 text-xl font-medium text-white">
+                  <h2 className="mb-4 text-md font-medium text-white">
                     Contact
                   </h2>
                   <ul className="text-white ">
-                    <li className="flex items-center mb-4">
+                    <li className="flex items-center mb-4 text-xs">
                       <div className="flex justify-center mr-3">
                         <CiMail />
                       </div>
@@ -163,7 +163,7 @@ const Footer = () => {
                         charter@swiftwingsjet.com
                       </a>
                     </li>
-                    <li className="flex items-center mb-4">
+                    <li className="flex items-center mb-4 text-xs">
                       <div className="flex justify-center mr-3">
                         <FaInstagram />
                       </div>
@@ -174,7 +174,7 @@ const Footer = () => {
                         swiftwingsjet
                       </a>
                     </li>
-                    <li className="flex items-center mb-4">
+                    <li className="flex items-center mb-4 text-xs">
                       <div className="flex justify-center mr-3">
                         <FaXTwitter />
                       </div>
@@ -185,7 +185,7 @@ const Footer = () => {
                         swiftwingsjet
                       </a>
                     </li>
-                    <li className="flex items-center mb-4">
+                    <li className="flex items-center mb-4 text-xs">
                       <div className="flex justify-center mr-3">
                         <FaPhoneAlt />
                       </div>

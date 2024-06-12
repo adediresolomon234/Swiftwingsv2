@@ -8,7 +8,7 @@ const NavAndFooter = ({ children, Nav }) => {
     <div>
       <NavBar Nav={Nav} />
       <div>{children}</div>
-      <div className="md:px-10 relative z-20">
+      <div className="md:px-4 relative z-20">
         <Footer />
       </div>
     </div>
