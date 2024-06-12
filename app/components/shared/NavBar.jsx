@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { SWToggleIcon, SwUserIcon } from "../svgs";
 import Button from "../Button";
 import Image from "next/image";
@@ -12,14 +12,16 @@ import { FaChevronDown } from "react-icons/fa";
 import { GoSignOut } from "react-icons/go";
 
 const NavBar = ({ Nav }) => {
-  const [user, setUser] = useState(null);
   const pathname = usePathname();
   const router = useRouter();
+  const [user, setUser] = useState(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [navBg, setNavBg] = useState(false);
+  const toggleButtonRef = useRef(null);
 
-  const toggleDropdown = () => {
+  const toggleDropdown = (e) => {
+    e.stopPropagation();
     setIsOpen(!isOpen);
   };
   const [userData, setUserData] = useState(false);
@@ -28,7 +30,7 @@ const NavBar = ({ Nav }) => {
   const handleSignOut = () => {
     setUser(null);
     localStorage.removeItem("user");
-    router.push("/");
+    if (pathname !== "/") router.push("/");
   };
 
   useEffect(() => {
@@ -147,6 +149,23 @@ const NavBar = ({ Nav }) => {
     };
   }, []);
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        toggleButtonRef.current &&
+        !toggleButtonRef.current.contains(event.target)
+      ) {
+        setOpenUserDropDown(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   if (!Nav) {
     // If Nav is false, return null to prevent rendering the navigation bar
     return null;
@@ -184,6 +203,7 @@ const NavBar = ({ Nav }) => {
                 <div className="relative">
                   <div
                     className="text-jsPrimary100 cursor-pointer flex items-center gap-2 py-2 px-4 rounded-full hover:bg-white"
+                    // ref={toggleButtonRef}
                     onClick={() => setOpenUserDropDown(!openUserDropDown)}
                   >
                     <SwUserIcon />
@@ -194,10 +214,14 @@ const NavBar = ({ Nav }) => {
                       {user?.first_name}
                     </p>
                     <FaChevronDown />
+                    {openUserDropDown && (
+                      <div className="absolute top-0 left-0 h-full w-full" />
+                    )}
                   </div>
 
                   {openUserDropDown && (
                     <div
+                      ref={toggleButtonRef}
                       className={`absolute w-[15rem] sm:-m-16 -m-36 top-full mt-3 sm:mt-3 p-3 bg-white rounded-lg border ${
                         openUserDropDown ? "min-h-10" : "h-0"
                       }`}
