@@ -94,13 +94,7 @@ export default function Home() {
     <main className="relative bg-swLightBgGray overflow-x-hidden">
       <NavAndFooter Nav={true}>
         <section className="w-full p-5 md:10 pt-48 text-white relative pb-10">
-          {/* <div className="absolute h-full w-full top-0 left-0">
-            {isMobile ? (
-              <Image src={MbheroBgImg} alt="aiplane" className="h-full w-full object-cover" />
-            ) : (
-              <Image src={heroBgImg} alt="aiplane" className="h-full w-full object-cover" />
-            )}
-          </div> */}
+      
           <div className="absolute h-full w-full top-0 left-0">
             {isMobile ? (
               <div className="relative h-full w-full">
@@ -123,27 +117,11 @@ export default function Home() {
             )}
           </div>
 
-          {/* <div className="h-full w-full bg-swBlack absolute top-0 left-0 bg-opacity-[0.2]" /> */}
           <div className="max-w-7xl mx-auto mb-10 relative text-center mt-40">
             <div className="pt-20 z-50">
               <p className="3xl:text-6xl 2xl:text-6xl lg:text-5xl md:text-4xl sm:text-4xl xs:text-4xl  max-w-4xl mx-auto w-full font-bold leading-snug z-50">
                 The World is Closer to You
               </p>
-
-              <div>
-                {/* <p className="text-lg mt-10 z-10 text-shadow-lg text-shadow">
-                  Experience the epitome of safety, luxury and convenience with{" "}
-                  <br />
-                  <span className="">
-                    <span
-                      className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
-                    >
-                      Swift<i className="font-normal">Wings</i>
-                    </span>{" "}
-                    private jet charter service
-                  </span>
-                </p> */}
-              </div>
             </div>
 
             <div className="flex gap-10 justify-center text-center mt-6">
@@ -178,9 +156,7 @@ export default function Home() {
             </p>
 
             <div className="md:container m-auto px-0 text-gray-500">
-              {/* <h2 className="mb-12 md:text-center text-start text-[18px] font-semibold  text-swPrimary500  md:text-xl ">
-                Why Choose Swiftwings
-              </h2> */}
+        
               <div className="grid gap-6 md:mx-auto sm:grid-cols-2 lg:w-full xl:grid-cols-4">
                 <div className="group space-y-6 rounded-3xl border border-gray-100 bg-swSecondary300 px-8 py-12 text-center">
                   <SWTStarBlackIcon className="mx-auto svgIcon" />
@@ -442,7 +418,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </section> */}
+        </section> 
         <section className="max-w-7xl mx-auto pt-10 px-4 lg:px-8">
           <div className="relative lg:pt-44">
             <div className="">
@@ -506,12 +482,6 @@ export default function Home() {
                 </div>
                 <div className="hidden md:flex md:w-1/2 justify-center items-center">
                   <div className="">
-                    {/* <div
-              aria-hidden="true"
-              className={`absolute scale-75 md:scale-110 inset-0 m-auto rotate-45 bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl ${
-                hoveredIndex >= 0 ? "opacity-100" : "opacity-0"
-              }`}
-            ></div> */}
                     {hoveredIndex >= 0 && fleet[hoveredIndex]?.image && (
                       <div
                         key={fleet[hoveredIndex].id}
