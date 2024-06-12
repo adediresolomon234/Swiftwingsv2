@@ -91,7 +91,7 @@ export default function Home() {
   };
 
   return (
-    <main className="relative bg-swLightBgGray">
+    <main className="relative bg-swLightBgGray overflow-x-hidden">
       <NavAndFooter Nav={true}>
         <section className="w-full p-5 md:10 pt-48 text-white relative pb-10">
           {/* <div className="absolute h-full w-full top-0 left-0">
@@ -188,7 +188,10 @@ export default function Home() {
                     VIP Treatment
                   </h3>
                   <p>
-                    Enjoy luxurious comfort, in-flight catering customised to your taste. Get entertained by favourite shows or stay connected with work using free Wi-Fi. Arrive refreshed & ready for your destination. Fly on a private flight schedule
+                    Enjoy luxurious comfort, in-flight catering customised to
+                    your taste. Get entertained by favourite shows or stay
+                    connected with work using free Wi-Fi. Arrive refreshed &
+                    ready for your destination. Fly on a private flight schedule
                   </p>
                 </div>
                 <div className="group space-y-6 rounded-3xl border border-gray-100 bg-swSecondary300 px-4 py-6 md:px-8 md:py-12 text-center">
@@ -297,8 +300,8 @@ export default function Home() {
             />
           </div> */}
         </section>
-        <section className="max-w-6xl mx-auto pt-10">
-          <div className="md:container mx-auto px-6 text-center md:px-12">
+        <section className="max-w-7xl mx-auto pt-10">
+          <div className="px-6 text-center md:px-12">
             <div className="mb-16">
               <h2 className="mb-4 md:text-center text-start text-[18px] font-semibold  text-swPrimary500  md:text-[18px] ">
                 Our Services
@@ -307,7 +310,7 @@ export default function Home() {
                 We offer world a class exotic experience
               </p>
             </div>
-            <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
               {services.map((service, index) => (
                 <div className="w-full mx-auto" key={index}>
                   <div className="overflow-hidden w-full h-full rounded-2xl">
@@ -334,108 +337,9 @@ export default function Home() {
               ))}
             </div>
           </div>
-          {/* <div className="flex justify-center text-lg mt-12">
-            <Button
-              label="See all"
-              bgColor={"bg-swPrimary500"}
-              textColor={"text-white"}
-              endIcon={<HiArrowRight size={20} />}
-            />
-          </div> */}
         </section>
-        {/* <section className=" max-w-6xl mx-auto p-5">
-          <div className="flex flex-col items-start gap-5 ">
-            <p className="text-swPrimary500 font-medium text-lg">About us</p>
-            <div className="flex flex-col md:flex-row justify-between mt-10 w-full space-y-8 md:space-y-0 ">
-              <p className="font-semibold text-swPrimary500 text-3xl max-w-md md:text-5xl">
-                Get to know more about{" "}
-                <span
-                  className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
-                >
-                  Swift<i className="font-normal">Wings</i>
-                </span>
-              </p>
-              <p className="text-swGray500 text-lg font-light max-w-[26rem] ">
-                <span
-                  className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
-                >
-                  Swift<i className="font-normal">Wings</i>
-                </span>{" "}
-                is a premier provider of private jets charter flights connecting
-                global airports, offering unmatched convenience and exclusivity
-                for luxury travel.
-              </p>
-            </div>
-          </div>
 
-          <div className="flex flex-col items-center gap-5 mt-14  md: p-0 ">
-            <div className="grid grid-col-3 grid-flow-col gap-4 mb:gap-14 justify-center ">
-              <AboutUsCard
-                number={"75"}
-                text={
-                  <p>
-                    <span
-                      className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
-                    >
-                      Swift<i className="font-normal">Wings</i>
-                    </span>{" "}
-                    users from all over the globe.
-                  </p>
-                }
-                className="text-sm"
-              />
-              <AboutUsCard
-                number={"1.5k"}
-                text={
-                  <p>
-                    <span
-                      className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
-                    >
-                      Swift<i className="font-normal">Wings</i>
-                    </span>{" "}
-                    access to a network of airplanes
-                  </p>
-                }
-                numberColor={"text-swBlack"}
-              />
-              <AboutUsCard
-                number={"50"}
-                text={
-                  <p>
-                    <span
-                      className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
-                    >
-                      Swift<i className="font-normal">Wings</i>
-                    </span>{" "}
-                    destinations in the past 3 years
-                  </p>
-                }
-              />
-            </div>
-
-            <div className="bg-swSecondary400 text-swWine p-8 max-w-[41rem] rounded-2xl">
-              <p className="font-light">
-                <span
-                  className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
-                >
-                  Swift<i className="font-normal">Wings</i>
-                </span>{" "}
-                understands that our clients’ travel needs often stretch far
-                beyond the borders of Nigeria.
-                <br /> That’s why we provide extensive global coverage,
-                seamlessly connecting you to destinations in Europe, North
-                America, South America, and other corners of the world, even the
-                most remote ones. With our network of trusted partners and
-                affiliates, we ensure that you experience the convenience and
-                flexibility of air travel on a global scale.
-              </p>
-              <div className="mt-5 flex justify-end gap-3 items-center">
-                Learn more <GoArrowRight size={20} />
-              </div>
-            </div>
-          </div>
-        </section> */}
-        <section className="lg:max-w-3xl xl:max-w-7xl mx-auto pt-10">
+        <section className="max-w-7xl mx-auto pt-10">
           <div className="relative lg:pt-44">
             <div className="relative 2xl:container m-auto px-6 md:px-8 lg:px-10 xl:px-0">
               <p className="sm:mx-auto sm:w-10/12 md:w-2/3 p-1 text-swPrimary500 font-semibold md:text-center text-start sm:text-[18px] md:text-[18px] lg:text-[18px] lg:w-auto lg:text-left lg:p">
@@ -445,7 +349,7 @@ export default function Home() {
                 Our Fleets.
               </h1>
               <div className="flex gap-8 mt-12">
-                <div className="col-span-4 relative w-full md:w-[50%]">
+                <div className="relative w-full md:w-[50%]">
                   {fleet.map((item, index) => (
                     <div
                       key={item.id}
@@ -461,8 +365,8 @@ export default function Home() {
                             </p>
                           </a>
                         </div>
-                        <div className="flex items-start justify-between text-xs text-swGray800 px-1 py-3 lg:col-span-2">
-                          <div className="flex justify-between flex-grow gap-8 mt-6 font-normal sm:mt-0 mt-[-10px] ">
+                        <div className="flex items-start justify-between text-xs text-swGray800 px-1 py-3 lg:col-span-2 flex-wrap">
+                          <div className="flex justify-between flex-grow gap-8 mt-6 font-normal sm:mt-0 ">
                             <div className="flex items-center ">
                               <svg className="w-6 h-6" viewBox="0 0 24 24">
                                 <path fill="currentColor" d={mdiCarSeat} />
@@ -487,21 +391,22 @@ export default function Home() {
                               <span className="ml-3 ">{item.feet}</span>
                             </div>
                           </div>
-                          <div className=" self-stretch relative leading-[18px] mt-4 text-swGray600">
+                          {/* <div className=" self-stretch relative leading-[18px] mt-4 text-swGray600">
                             {item.name}
-                          </div>
+                          </div> */}
                         </div>
                       </div>
                       <hr className="w-full border-gray-200 mb-3 sm:mb-0" />
                     </div>
                   ))}
                 </div>
-                <div className="flex justify-center items-center relative w-[50%] lg:block hidden">
+                <div className="w-[50%] md:block hidden">
                   <div className="">
                     <div
                       aria-hidden="true"
-                      className={`absolute scale-75 md:scale-110 inset-0 m-auto rotate-45 bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl ${hoveredIndex >= 0 ? "opacity-100" : "opacity-0"
-                        }`}
+                      className={`absolute scale-75 md:scale-110 inset-0 m-auto rotate-45 bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl ${
+                        hoveredIndex >= 0 ? "opacity-100" : "opacity-0"
+                      }`}
                     ></div>
                     {hoveredIndex >= 0 && fleet[hoveredIndex]?.image && (
                       <div
@@ -568,7 +473,10 @@ export default function Home() {
             <h2 className="mb-8 text-center text-[18px]  text-gray-700 md:text-[18px] ">
               Membership Features
             </h2>
-            <div style={{ display: "flex", justifyContent: "center" }} className="px-4 md:px-0">
+            <div
+              style={{ display: "flex", justifyContent: "center" }}
+              className="px-4 md:px-0"
+            >
               <div className="max-w-full grid gap-8 md:grid-cols-2 sm:grid-cols-2 xs:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 grid-rows-2 gap-y-8 justify-center items-center relative">
                 {textAreas.map((area, index) => (
                   <div
