@@ -79,10 +79,10 @@ const Destinations = () => {
             <DestinationList />
           </div>
         </section>
-        <section className="mt-16 py-3">
-          {/* <div className="xl:container m-auto px-6 text-gray-600 md:px-12 xl:px-16"> */}
-          <FooterHero />
-          {/* </div> */}
+        <section className="">
+          <div className="xl:container m-auto px-6 text-gray-600 md:px-12 xl:px-16">
+            <FooterHero />
+          </div>
         </section>
       </NavAndFooter>
     </main>

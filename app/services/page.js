@@ -566,7 +566,7 @@ const Service = () => {
                     </div>
                 </section> */}
 
-        <section className=" py-3">
+        <section className="">
           <div className="xl:container m-auto px-6 text-gray-600 md:px-12 xl:px-16">
             <FooterHero />
           </div>
