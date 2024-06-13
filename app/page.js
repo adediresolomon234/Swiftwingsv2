@@ -94,7 +94,6 @@ export default function Home() {
     <main className="relative bg-swLightBgGray overflow-x-hidden">
       <NavAndFooter Nav={true}>
         <section className="w-full p-5 md:10 pt-48 text-white relative pb-10">
-      
           <div className="absolute h-full w-full top-0 left-0">
             {isMobile ? (
               <div className="relative h-full w-full">
@@ -156,7 +155,6 @@ export default function Home() {
             </p>
 
             <div className="md:container m-auto px-0 text-gray-500">
-        
               <div className="grid gap-6 md:mx-auto sm:grid-cols-2 lg:w-full xl:grid-cols-4">
                 <div className="group space-y-6 rounded-3xl border border-gray-100 bg-swSecondary300 px-8 py-12 text-center">
                   <SWTStarBlackIcon className="mx-auto svgIcon" />
@@ -315,110 +313,6 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="max-w-7xl mx-auto pt-10">
-          <div className="relative lg:pt-44">
-            <div className="relative 2xl:container m-auto px-6 md:px-8 lg:px-10 xl:px-0">
-              <p className="sm:mx-auto sm:w-10/12 md:w-2/3 p-1 text-swPrimary500 font-semibold md:text-center text-start sm:text-[18px] md:text-[18px] lg:text-[18px] lg:w-auto lg:text-left lg:p">
-                Fleet Showcase
-              </p>
-              <h1 className="mt-8 sm:mx-auto sm:w-10/12 md:w-2/3 text-swGray800 text-3xl font-semibold md:text-center text-start sm:text-5xl md:text-5xl lg:w-auto lg:text-left">
-                Our Fleets.
-              </h1>
-              <div className="flex gap-8 mt-12">
-                <div className="relative w-full md:w-[50%]">
-                  {fleet.map((item, index) => (
-                    <div
-                      key={item.id}
-                      className="col-span-2 relative"
-                      onMouseEnter={() => handleMouseEnter(index)}
-                      onMouseLeave={handleMouseLeave}
-                    >
-                      <div className="lg:p-2 grid grid-cols-1 gap-2 lg:grid-cols-3 lg:gap-8 border-gray-200 rounded duration-300 hover:bg-swBgGray">
-                        <div className="flex items-start sm:items-center fleet-item space-y-2 sm:space-y-0">
-                          <a aria-label="icon" className="block">
-                            <p className="font-medium md:block text-[18px] text-swGray600 ">
-                              {item.name}
-                            </p>
-                          </a>
-                        </div>
-                        <div className="flex items-start justify-between text-xs text-swGray800 px-1 py-3 lg:col-span-2 flex-wrap">
-                          <div className="flex justify-between flex-grow gap-8 mt-6 font-normal sm:mt-0 ">
-                            <div className="flex items-center ">
-                              <svg className="w-6 h-6" viewBox="0 0 24 24">
-                                <path fill="currentColor" d={mdiCarSeat} />
-                              </svg>
-                              <span className="ml-3">
-                                {item.features.no_of_seats} seats
-                              </span>
-                            </div>
-                            <div className="flex items-center">
-                              <svg className="w-6 h-6" viewBox="0 0 24 24">
-                                <path fill="currentColor" d={mdiSpeedometer} />
-                              </svg>
-                              <span className="ml-3 ">{item.speed}</span>
-                            </div>
-                            <div className="flex items-center">
-                              <svg className="w-6 h-6" viewBox="0 0 24 24">
-                                <path
-                                  fill="currentColor"
-                                  d={mdiArrowLeftRight}
-                                />
-                              </svg>
-                              <span className="ml-3 ">{item.feet}</span>
-                            </div>
-                          </div>
-                          {/* <div className=" self-stretch relative leading-[18px] mt-4 text-swGray600">
-                            {item.name}
-                          </div> */}
-                        </div>
-                      </div>
-                      <hr className="w-full border-gray-200 mb-3 sm:mb-0" />
-                    </div>
-                  ))}
-                </div>
-                <div className="w-[50%] md:block hidden">
-                  <div className="">
-                    <div
-                      aria-hidden="true"
-                      className={`absolute scale-75 md:scale-110 inset-0 m-auto rotate-45 bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl ${
-                        hoveredIndex >= 0 ? "opacity-100" : "opacity-0"
-                      }`}
-                    ></div>
-                    {hoveredIndex >= 0 && fleet[hoveredIndex]?.image && (
-                      <div
-                        key={fleet[hoveredIndex].id}
-                        className={`relative fleet-image show`}
-                      >
-                        <div aria-hidden="true" className={`absolute`}></div>
-                        <Image
-                          className="image-class"
-                          src={fleet[hoveredIndex].image}
-                          alt="illustration"
-                          loading="lazy"
-                          layout="responsive"
-                          width={780}
-                          height={492}
-                        />
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
-
-              <div
-                className={`${space_grotesk.className} flex justify-right text-xl py-8 lg:p-0 mt-10`}
-              >
-                <Button
-                  label="See all"
-                  bgColor={"bg-swPrimary500"}
-                  textColor={"text-white"}
-                  endIcon={<HiArrowRight size={15} />}
-                  onClick={handleSeeAllClick}
-                />
-              </div>
-            </div>
-          </div>
-        </section> 
         <section className="max-w-7xl mx-auto pt-10 px-4 lg:px-8">
           <div className="relative lg:pt-44">
             <div className="">
@@ -428,7 +322,7 @@ export default function Home() {
               <h1 className="mt-8 sm:mx-auto sm:w-10/12 md:w-2/3 text-swGray800 text-3xl font-semibold md:text-center text-start sm:text-5xl md:text-5xl lg:w-auto lg:text-left">
                 Our Fleets.
               </h1>
-              <div className="flex  gap-8 mt-12">
+              <div className="flex  gap-8 mt-12 items-center">
                 <div className="w-full md:w-1/2">
                   {fleet.map((item, index) => (
                     <div
@@ -446,8 +340,8 @@ export default function Home() {
                           </a>
                         </div>
                         <div className="flex items-start justify-between text-xs text-swGray800 px-1 py-3 lg:col-span-2">
-                          <div className="flex flex-col gap-4">
-                            <div className="flex justify-between gap-8 mt-6 font-normal sm:mt-0 mt-[-10px]">
+                          <div className="flex flex-col gap-4 w-full">
+                            <div className="flex justify-between gap-8 font-normal sm:mt-0 mt-[-10px]">
                               <div className="flex items-center">
                                 <svg className="w-6 h-6" viewBox="0 0 24 24">
                                   <path fill="currentColor" d={mdiCarSeat} />
@@ -458,23 +352,28 @@ export default function Home() {
                               </div>
                               <div className="flex items-center">
                                 <svg className="w-6 h-6" viewBox="0 0 24 24">
-                                  <path fill="currentColor" d={mdiSpeedometer} />
+                                  <path
+                                    fill="currentColor"
+                                    d={mdiSpeedometer}
+                                  />
                                 </svg>
                                 <span className="ml-3">{item.speed}</span>
                               </div>
                               <div className="flex items-center">
                                 <svg className="w-6 h-6" viewBox="0 0 24 24">
-                                  <path fill="currentColor" d={mdiArrowLeftRight} />
+                                  <path
+                                    fill="currentColor"
+                                    d={mdiArrowLeftRight}
+                                  />
                                 </svg>
                                 <span className="ml-3">{item.feet}</span>
                               </div>
                             </div>
-                            <div className="self-stretch relative leading-[18px] px-3 text-swGray600 text-left">
+                            {/* <div className="self-stretch relative leading-[18px] px-3 text-swGray600 text-left">
                               {item.name}
-                            </div>
+                            </div> */}
                           </div>
                         </div>
-
                       </div>
                       <hr className="w-full border-gray-200 mb-3 sm:mb-0" />
                     </div>
