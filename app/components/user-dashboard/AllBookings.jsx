@@ -1,7 +1,6 @@
-import { use, useEffect, useRef, useState } from "react";
-import { SWFilterIcon, SwSearchIcon, SwSortIcon } from "../svgs";
+import { useEffect, useRef, useState } from "react";
+import { SwSearchIcon, SwSortIcon } from "../svgs";
 import dayjs from "dayjs";
-import Link from "next/link";
 import { useDispatch } from "react-redux";
 import { getAllBooking } from "@/redux/slices/bookingSlice";
 import { ToastContainer, toast } from "react-toastify";
@@ -59,7 +58,7 @@ const AllBookings = () => {
   }, []);
 
   return (
-    <main className="bg-white p-5 rounded-xl">
+    <main className="bg-white p-5 rounded-xl min-h-72">
       <ToastContainer />
       <div className="flex items-center justify-between">
         <p className="text-xl hidden md:block text-swGray600">
@@ -92,7 +91,7 @@ const AllBookings = () => {
               {filterDropDown && (
                 <div
                   ref={toggleButtonRef}
-                  className={`absolute w-[15rem] right-0 top-full mt-3 sm:mt-3 p-3 bg-white rounded-lg border ${
+                  className={`absolute w-[15rem] right-0 top-full mt-3 sm:mt-3 p-3 bg-white rounded-lg border  ${
                     filterDropDown ? "min-h-10" : "h-0"
                   }`}
                 >
