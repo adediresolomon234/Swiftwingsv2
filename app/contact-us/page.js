@@ -110,10 +110,10 @@ const ContactUs = () => {
                             <div className=" inset-0 flex flex-col items-start justify-start sm:flex-row sm:items-center py-8 px-4 ">
                                 <div className="mr-8 flex flex-col items-start">
                                     <div className="text-xl md:text-md font-semibold text-black mb-3">Office Hours</div>
-                                    <div class="  text-justify p- ">
+                                    <div class="  text-justify ">
                                         <ul class="list-disc">
-                                            <li>Monday-Friday: [Opening Time] - [Closing Time]</li>
-                                            <li>Saturday: [Opening Time] - [Closing Time]</li>
+                                            <li>Monday-Friday: 12:00AM - 12:00AM </li>
+                                            <li>Saturday: 12:00AM  - 12:00AM </li>
                                             <li>Sunday: Closed</li>
                                         </ul>
                                     </div>
@@ -254,9 +254,6 @@ const ContactUs = () => {
                         </div>
                     </div>
                 </div>
-
-
-
                     </section>
                 <section className=" lg:py-60 mb-0 lg:-mb-60">
                     <div className="xl:container m-auto px-6 text-gray-600 md:px-12 xl:px-16">
