@@ -25,12 +25,15 @@ import Image from "next/image";
 import loadingGif from "../../../public/images/loading.gif";
 import { fetchAircrafts } from "@/redux/slices/aircraftdetails";
 import NotLoggedInModal from "./NotLoggedInModal";
+import AdditionalNoteModal from "./AdditionalNoteModal";
 
 const BookingPageInformation = () => {
   const pathname = usePathname();
   const dispatch = useDispatch();
   const router = useRouter();
   const [dateValue, setDateValue] = useState(dayjs());
+  const [additionalNote, setAdditionalNote] = useState("");
+  const [openAdditionalNote, setOpenAdditionalNote] = useState(false);
   const [bookingDetails, setBookingDetails] = useState(null);
   const [sourceDetails, setSourceDetails] = useState(null);
   const [destinationDetails, setDestinationDetails] = useState(null);
@@ -98,6 +101,7 @@ const BookingPageInformation = () => {
       bookingDetails.status = "New";
       bookingDetails.user = loggedInUser;
       bookingDetails.email = loggedInUser.email;
+      bookingDetails.additional_note = additionalNote;
       dispatch(addBooking(bookingDetails))
         .unwrap()
         .then((response) => {
@@ -105,6 +109,7 @@ const BookingPageInformation = () => {
           if (response?.response?.data?.error) {
             toast.error(response?.response?.data?.error);
           } else if (response?.message) {
+            setAdditionalNote("");
             uncheckBoxes();
             resetBookingState();
             setSuccess(true);
@@ -368,15 +373,31 @@ const BookingPageInformation = () => {
                         </div>
                       </div>
                     </div>
-
-                    <Button
-                      label={"Request Quote"}
-                      bgColor={"bg-swPrimary500 hover:bg-swPrimary600"}
-                      className="w-full text-white text-center"
-                      onClick={handleQuote}
-                      loader={loading === "pending" ? true : false}
-                      disabled={handleQuoteDisable()}
-                    />
+                    {additionalNote && (
+                      <div className="p-5 text-sm bg-gray-100 mb-5 rounded-md">
+                        {additionalNote}
+                      </div>
+                    )}
+                    <div className="flex flex-col gap-3">
+                      <Button
+                        label={"Additional note"}
+                        bgColor={"bg-swPrimary500 hover:bg-swPrimary600"}
+                        className="w-full text-white text-center"
+                        onClick={() =>
+                          setOpenAdditionalNote(!openAdditionalNote)
+                        }
+                        loader={loading === "pending" ? true : false}
+                        disabled={loading === "pending" ? true : false}
+                      />
+                      <Button
+                        label={"Request Quote"}
+                        bgColor={"bg-swPrimary500 hover:bg-swPrimary600"}
+                        className="w-full text-white text-center"
+                        onClick={handleQuote}
+                        loader={loading === "pending" ? true : false}
+                        disabled={handleQuoteDisable()}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -413,6 +434,12 @@ const BookingPageInformation = () => {
               setNotLoggedInSuccess(false);
               router.push("/");
             }}
+          />
+          <AdditionalNoteModal
+            open={openAdditionalNote}
+            onClose={setOpenAdditionalNote}
+            // additionalNote={additionalNote}
+            setAdditionalNote={setAdditionalNote}
           />
         </main>
       ) : (
