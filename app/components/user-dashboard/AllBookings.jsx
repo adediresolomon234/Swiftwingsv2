@@ -28,7 +28,7 @@ const AllBookings = () => {
       .then((res) => {
         if (res.success == true) {
           setData(res?.data);
-          console.log(res);
+
         } else {
           toast.error(res.message);
         }
@@ -61,7 +61,7 @@ const AllBookings = () => {
     <main className="bg-white p-5 rounded-xl min-h-72">
       <ToastContainer />
       <div className="flex items-center justify-between">
-        <p className="text-xl hidden md:block text-swGray600">
+        <p className="text-xl hidden md:block text-swPrimary500">
           All your booking in one place
         </p>
         <div className="flex items-center gap-5">
@@ -97,19 +97,19 @@ const AllBookings = () => {
                 >
                   <div className="w-full flex flex-col">
                     <div
-                      className="w-full hover:bg-yellow-50 rounded-md p-3 cursor-pointer flex items-center gap-3"
+                      className="w-full hover:bg-swPrimary400 hover:text-white rounded-md p-3 cursor-pointer flex items-center gap-3"
                       onClick={() => handleFilter("New")}
                     >
                       New
                     </div>
                     <div
-                      className="w-full hover:bg-yellow-50 rounded-md p-3 cursor-pointer flex items-center gap-3"
+                      className="w-full hover:bg-swPrimary400 hover:text-white rounded-md p-3 cursor-pointer flex items-center gap-3"
                       onClick={() => handleFilter("Completed")}
                     >
                       Completed
                     </div>
                     <div
-                      className="w-full hover:bg-yellow-50 rounded-md p-3 cursor-pointer flex items-center gap-3"
+                      className="w-full hover:bg-swPrimary400 hover:text-white rounded-md p-3 cursor-pointer flex items-center gap-3"
                       onClick={() => handleFilter("Cancelled")}
                     >
                       Cancelled
@@ -153,7 +153,7 @@ const AllBookings = () => {
                       )
                     }
                     key={item?.booking_number}
-                    className=" text-swGray800 hover:bg-swGray100 rounded w-full"
+                    className=" text-swGray800 hover:bg-swGray50 cursor-pointer rounded w-full"
                   >
                     <td className="whitespace-nowrap p-5">
                       <p className="md:text-lg text-sm font-medium">
@@ -165,7 +165,7 @@ const AllBookings = () => {
                       </p>
                     </td>
                     <td className="whitespace-nowrap p-5">
-                      <p className="text-sm text-swGray600">Trip type</p>
+                      <p className="text-sm text-swGray600">Trip Type</p>
                       <p className="md:text-lg text-xs font-medium">
                         {item?.booking_details?.tripType}
                       </p>

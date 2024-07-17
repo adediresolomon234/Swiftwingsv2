@@ -33,7 +33,7 @@ const UserDashBoardNav = ({ setNavToggle }) => {
             <SWLeftArrowIcon className="text-xl" />
           </div>
         </div>
-        <nav className="flex flex-col space-y-4">
+        <nav className="flex flex-col space-y-8">
           {navItems.map((item) => (
             <Link
               href={`/user-dashboard?page=${item.state}`}

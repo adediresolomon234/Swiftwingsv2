@@ -50,7 +50,7 @@ const ForgotPassword = () => {
   const sendVerificationCode = async (email) => {
     try {
 
-      const response = await fetch('/api/sendVerificationCode', {
+      const response = await fetch('http://localhost:9000/api/v1/user/forgot-password', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

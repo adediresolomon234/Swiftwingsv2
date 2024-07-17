@@ -175,7 +175,7 @@ const EachBooking = () => {
             <p className="font-semibold text-swGray600 text-lg">Destinations</p>
             <div className="flex justify-between items-center mt-8">
               <p className="text-swGray600">Flight type:</p>
-              <p className="font-medium text-swGray800 ">
+              <p className="font-medium text-swPrimary500">
                 {data?.booking_details?.tripType}
               </p>
             </div>

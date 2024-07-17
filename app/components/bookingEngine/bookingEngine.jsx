@@ -304,8 +304,6 @@ const BookingEngine = ({ setBookingDetails }) => {
     }
   }, [data]);
 
-  // console.log({ bookingState });
-
   return (
     <main>
       <div className="w-full rounded-3xl  ">
@@ -326,7 +324,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                 pathname === "/" ? "text-white" : "text-swGray800"
               } ml-2 text-lg mt-5 md:mt-0`}
             >
-              Book a jet
+              Book your flight!
             </p>
             <div
               className={`p-1 text-xl rounded-full flex gap-5 font-medium ${
@@ -344,7 +342,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                             ? "text-white backdrop-blur bg-none md:bg-swBlack/50"
                             : "text-swPrimary500 bg-white"
                         } font-semibold text-sm md:text-lg`
-                      : `text-swGray300 hover:backdrop-blur hover:bg-white/5 text-sm md:text-lg`
+                      : `text-swGray500 font-medium hover:backdrop-blur hover:bg-white/5 text-sm md:text-lg`
                   } py-2 px-4 rounded-full`}
                   onClick={() => {
                     resetBookingState();
@@ -361,7 +359,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                             ? "text-white backdrop-blur  bg-none md:bg-swBlack/50"
                             : "text-swPrimary500 bg-white"
                         } font-semibold text-sm md:text-lg`
-                      : "text-swGray300 hover:backdrop-blur hover:bg-white/5 text-sm md:text-lg"
+                      : "text-swGray500 font-medium hover:backdrop-blur hover:bg-white/5 text-sm md:text-lg"
                   } py-2 px-4 rounded-full`}
                   onClick={() => {
                     resetBookingState();
@@ -378,7 +376,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                             ? "text-white backdrop-blur  bg-none md:bg-swBlack/50"
                             : "text-swPrimary500 bg-white"
                         } font-semibold text-sm md:text-lg`
-                      : "text-swGray300 hover:backdrop-blur hover:bg-white/5 text-sm md:text-lg"
+                      : "text-swGray500 font-medium hover:bg-white/5 text-sm md:text-lg"
                   } py-2 px-4 rounded-full`}
                   onClick={() => {
                     resetBookingState();
