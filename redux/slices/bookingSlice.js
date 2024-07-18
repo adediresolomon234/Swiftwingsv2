@@ -16,7 +16,7 @@ export const getAllBooking = createAsyncThunk(
   async (email) => {
     try {
       const response = await axios.get(
-        `http://localhost:9000/api/v1/booking/single?email=${email}`
+        `${API_URL}/booking/single?email=${email}`
       );
       return response.data;
     } catch (error) {
@@ -30,7 +30,7 @@ export const addEmptyLeg = createAsyncThunk(
   async (payload) => {
     try {
       const response = await axios.post(
-        `http://localhost:9000/api/v1/subscribe/enquiry/add-empty-leg`,
+        `${API_URL}/subscribe/enquiry/add-empty-leg`,
         payload
       );
       return response.data;

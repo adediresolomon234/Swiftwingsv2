@@ -24,6 +24,7 @@ import Link from "next/link";
 import NavAndFooter from "../components/shared/NavAndFooter";
 import axios from "axios";
 import Image from "next/image";
+import { API_URL } from "@/constant";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -65,7 +66,7 @@ const SignIn = () => {
   const signIn = async () => {
     try {
       const response = await axios.post(
-        "https://swiftwings-mw-staging.onrender.com/api/v1/user/login",
+        `${API_URL}/user/login`,
         { email, password }
       );
       setData(response?.data);

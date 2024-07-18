@@ -1,12 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { API_URL } from "@/constant";
 
 export const fetchAircrafts = createAsyncThunk(
   "aircrafts/fetchAircrafts",
   async () => {
     try {
       const response = await axios.get(
-        "https://swiftwings-mw-staging.onrender.com/api/v1/aircraft/all"
+        `${API_URL}/aircraft/all`
       );
 
       const aircraftsData = response.data.data.map((aircraft) => ({

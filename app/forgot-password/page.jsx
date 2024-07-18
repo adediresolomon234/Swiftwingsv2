@@ -5,24 +5,16 @@ import "../../styles.css";
 import Button from "../components/Button";
 import InputField from "../components/shared/InputField";
 import { useDispatch, useSelector } from "react-redux";
-import { signUpUser } from "../../redux/slices/authSlice";
-import { TbEyeClosed } from "react-icons/tb";
 import {
-  SwGoogleColoredIcon,
-  SwKeyIcon,
-  SwMailIcon,
-  SwOpenEyeIcon,
-  SwPlusIcon,
+  SwMailIcon
 } from "../components/svgs";
 import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import NavBar from "../components/shared/NavBar";
+import { API_URL } from "@/constant";
 
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-});
+
 
 const ForgotPassword = () => {
   const dispatch = useDispatch();
@@ -32,8 +24,7 @@ const ForgotPassword = () => {
   });
   const router = useRouter(); 
   const { loading, error, data } = useSelector((state) => state.auth);
-  // console.log(error);
-  // console.log({ data });
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -50,7 +41,7 @@ const ForgotPassword = () => {
   const sendVerificationCode = async (email) => {
     try {
 
-      const response = await fetch('http://localhost:9000/api/v1/user/forgot-password', {
+      const response = await fetch(`${API_URL}/user/forgot-password`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

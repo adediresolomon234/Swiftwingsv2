@@ -1,12 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { API_URL } from "@/constant";
 
 export const signUpUser = createAsyncThunk(
   "auth/signUpUser",
   async (payload, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "https://swiftwings-mw-staging.onrender.com/api/v1/user/add",
+        `${API_URL}/user/add`,
         payload
       );
       return response.data;
@@ -21,7 +22,7 @@ export const signInUser = createAsyncThunk(
   async (userData, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "https://swiftwings-mw-staging.onrender.com/api/v1/user/login",
+        `${API_URL}/user/login`,
         userData
       );
       return response.data;
@@ -54,7 +55,7 @@ export const createUserProfile = createAsyncThunk(
     }
     try {
       const response = await axios.post(
-        "https://swiftwings-mw-staging.onrender.com/api/v1/user/add",
+        `${API_URL}/user/add`,
         {
           title,
           first_name: firstName,
@@ -81,7 +82,7 @@ export const fetchAllUsers = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await axios.get(
-        "https://swiftwings-mw-staging.onrender.com/api/v1/user/all"
+        `${API_URL}/user/all`
       );
       return response.data;
     } catch (error) {
