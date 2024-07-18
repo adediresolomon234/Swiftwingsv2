@@ -195,7 +195,7 @@ const AboutUs = () => {
 
                 </section>
             
-                    <div class="xl:container mx-auto md:px-12">
+                    {/* <div class="xl:container mx-auto md:px-12">
                         <div class="mb-16 md:w-2/3 lg:w-1/2">
                             <h2 class="mb-4 text-2xl font-bold text-gray-800 dark:text-white md:text-4xl">
                                 Our Team
@@ -268,7 +268,7 @@ const AboutUs = () => {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
             
 
                 <section className="">

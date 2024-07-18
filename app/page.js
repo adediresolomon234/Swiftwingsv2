@@ -35,17 +35,6 @@ const libre_baskerville = Libre_Baskerville({
   weight: ["400", "700"],
 });
 
-function isNearViewport(id) {
-  const element = document.getElementById(id);
-  if (!element) return false;
-
-  const rect = element.getBoundingClientRect();
-  const viewportHeight =
-    window.innerHeight || document.documentElement.clientHeight;
-
-  return rect.bottom >= 0 && rect.bottom <= viewportHeight;
-}
-
 export default function Home() {
   const router = useRouter();
   const dispatch = useDispatch();
