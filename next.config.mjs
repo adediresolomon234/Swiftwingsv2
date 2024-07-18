@@ -2,8 +2,7 @@
 const nextConfig = {
   reactStrictMode: false,
   experimental: {
-    appDir: true,
-    esmExternals: false,
+    appDir: true
   },
   webpack(config) {
     config.module.rules.push({
