@@ -319,7 +319,7 @@ export default function Home() {
         </section>
 
     
-        <section className="max-w-8xl mx-auto pt-10 px-4 lg:px-8">
+        <section className="max-w-7xl mx-auto pt-10 px-4 lg:px-8">
           <div className="relative lg:pt-44">
             <div className="">
               <p className="sm:mx-auto sm:w-10/12 md:w-2/3 p-1 text-swPrimary500 font-semibold md:text-center text-start sm:text-[18px] md:text-[18px] lg:text-[18px] lg:w-auto lg:text-left">
@@ -371,7 +371,7 @@ export default function Home() {
                             </div>
                             <div className="self-stretch relative leading-[18px] px-3 text-swGray600 text-left">
                               {item.name}
-                            </div> */}
+                            </div> 
                               </div>
                             </div>
                           </div>
