@@ -5,11 +5,6 @@ import Image from "next/image";
 import { GoArrowRight } from "react-icons/go";
 import Button from "./components/Button";
 import { HiArrowRight } from "react-icons/hi";
-import Services from "./components/Services";
-import servicesPlane from "../public/images/servicesLuxuryPlane.png";
-import servicesMembership from "../public/images/servicesMembership.png";
-import servicesCustomer from "../public/images/sevicesCustomer.png";
-import AboutUsCard from "./components/AboutUsCard";
 import "../styles.css";
 import { services } from "./components/servicedata";
 import { textAreas } from "./components/servicesgrid";
@@ -19,7 +14,7 @@ import { testimonial } from "./CustomerTestimonial";
 import Marquee from "react-fast-marquee";
 import { FaXTwitter } from "react-icons/fa6";
 import heroBgImg from "../public/images/heroBackgroundImage.png";
-import MbheroBgImg from "../public/images/MbheroBgImg.png";
+import MbheroBgImg from "../public/images/Hero-Section-Mobile[1].jpg";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { fetchAircrafts } from "@/redux/slices/aircraftdetails";
@@ -32,6 +27,7 @@ import {
   SWTSandClockBlackIcon,
   SWTGalaglobeIcon,
 } from "./components/svgs";
+import logo from "@/public/images/fullLogo.png";
 
 const space_grotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -41,23 +37,13 @@ const libre_baskerville = Libre_Baskerville({
   weight: ["400", "700"],
 });
 
-function isNearViewport(id) {
-  const element = document.getElementById(id);
-  if (!element) return false;
-
-  const rect = element.getBoundingClientRect();
-  const viewportHeight =
-    window.innerHeight || document.documentElement.clientHeight;
-
-  return rect.bottom >= 0 && rect.bottom <= viewportHeight;
-}
-
 export default function Home() {
   const router = useRouter();
   const dispatch = useDispatch();
   const [hoveredIndex, setHoveredIndex] = useState(0);
   const aircrafts = useSelector((state) => state.aircrafts.aircrafts);
   const [fleet, setFleet] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -90,6 +76,16 @@ export default function Home() {
   const handleSeeAllClick = () => {
     router.push("/fleet-page");
   };
+
+  useEffect(() => {
+    setLoading(false);
+  }, []);
+
+  // if (loading) {
+  //   return (
+
+  //   );
+  // }
 
   return (
     <main className="relative bg-swLightBgGray overflow-x-hidden">
@@ -124,43 +120,43 @@ export default function Home() {
             )}
           </div>
 
-          <div className="max-w-7xl mx-auto mb-10 relative text-center mt-40">
-            <div className="pt-20 z-50">
-              <p className="3xl:text-6xl 2xl:text-6xl lg:text-5xl md:text-4xl sm:text-4xl xs:text-4xl  max-w-4xl mx-auto w-full font-bold leading-snug z-50">
-                The World is Closer to You
-              </p>
-            </div>
+              <div className="max-w-7xl mx-auto mb-10 relative text-center mt-40">
+                <div className="pt-20 z-50">
+                  <p className="3xl:text-6xl 2xl:text-6xl lg:text-5xl md:text-4xl sm:text-4xl xs:text-4xl  max-w-4xl mx-auto w-full font-bold leading-snug z-50">
+                    The World is Closer to You
+                  </p>
+                </div>
 
-            <div className="flex gap-10 justify-center text-center mt-6">
-              <div>
-                <p className="font-semibold text-2xl">10k</p>
-                <p className="text-xs">Flights</p>
+                <div className="flex gap-10 justify-center text-center mt-6">
+                  <div>
+                    <p className="font-semibold text-2xl">10k</p>
+                    <p className="text-xs">Flights</p>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-2xl">6k</p>
+                    <p className="text-xs">Clients</p>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-2xl">97</p>
+                    <p className="text-xs">Countries</p>
+                  </div>
+                </div>
               </div>
-              <div>
-                <p className="font-semibold text-2xl">6k</p>
-                <p className="text-xs">Clients</p>
-              </div>
-              <div>
-                <p className="font-semibold text-2xl">97</p>
-                <p className="text-xs">Countries</p>
-              </div>
-            </div>
-          </div>
 
-          <section className="max-w-7xl mx-auto w-full relative">
-            <BookingEngine />
-          </section>
-        </section>
-        <section className="mt-30 py-16 px-5 text-swGray900 ">
-          <div className=" py-6">
-            <p className="text-lg text-swPrimary500 text-center mb-20 font-medium">
-              Why Choose{" "}
-              <span
-                className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
-              >
-                Swift<i className="font-normal">Wings</i>
-              </span>
-            </p>
+              <section className="max-w-7xl mx-auto w-full relative">
+                <BookingEngine />
+              </section>
+            </section>
+            <section className="mt-30 py-16 px-5 text-swGray900 ">
+              <div className=" py-6">
+                <p className="text-lg text-swPrimary500 text-center mb-20 font-medium">
+                  Why Choose{" "}
+                  <span
+                    className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
+                  >
+                    Swift<i className="font-normal">Wings</i>
+                  </span>
+                </p>
 
             <div className="max-w-8xl mx-auto px-0 text-gray-500">
         
@@ -226,7 +222,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* <div className="max-w-4xl w-full mx-auto text-center">
+              {/* <div className="max-w-4xl w-full mx-auto text-center">
             <Services
               name={"VIP Treatment"}
               text={
@@ -245,7 +241,7 @@ export default function Home() {
               image={servicesPlane}
             />
           </div> */}
-          {/* <div className="max-w-4xl w-full mx-auto text-center mt-32">
+              {/* <div className="max-w-4xl w-full mx-auto text-center mt-32">
             <Services
               name={"Global Access"}
               text={
@@ -263,7 +259,7 @@ export default function Home() {
               image={servicesMembership}
             />
           </div> */}
-          {/* <div className="max-w-4xl w-full mx-auto text-center  mt-32">
+              {/* <div className="max-w-4xl w-full mx-auto text-center  mt-32">
             <Services
               name={"Save Time"}
               text={
@@ -375,60 +371,59 @@ export default function Home() {
                             </div>
                             <div className="self-stretch relative leading-[18px] px-3 text-swGray600 text-left">
                               {item.name}
+                            </div> */}
+                              </div>
                             </div>
                           </div>
+                          <hr className="w-full border-gray-200 mb-3 sm:mb-0" />
                         </div>
-
-                      </div>
-                      <hr className="w-full border-gray-200 mb-3 sm:mb-0" />
+                      ))}
                     </div>
-                  ))}
-                </div>
-                <div className="hidden md:flex md:w-1/2 justify-center items-center">
-                  <div className="">
-                    {hoveredIndex >= 0 && fleet[hoveredIndex]?.image && (
-                      <div
-                        key={fleet[hoveredIndex].id}
-                        className={`relative fleet-image show`}
-                      >
-                        <Image
-                          className="image-class"
-                          src={fleet[hoveredIndex].image}
-                          alt="illustration"
-                          loading="lazy"
-                          layout="responsive"
-                          width={780}
-                          height={492}
-                        />
+                    <div className="hidden md:flex md:w-1/2 justify-center items-center">
+                      <div className="">
+                        {hoveredIndex >= 0 && fleet[hoveredIndex]?.image && (
+                          <div
+                            key={fleet[hoveredIndex].id}
+                            className={`relative fleet-image show`}
+                          >
+                            <Image
+                              className="image-class"
+                              src={fleet[hoveredIndex].image}
+                              alt="illustration"
+                              loading="lazy"
+                              layout="responsive"
+                              width={780}
+                              height={492}
+                            />
+                          </div>
+                        )}
                       </div>
-                    )}
+                    </div>
+                  </div>
+
+                  <div
+                    className={`${space_grotesk.className} flex justify-end text-xl py-8 lg:p-0 mt-10`}
+                  >
+                    <Button
+                      label="See all"
+                      bgColor={"bg-swPrimary500"}
+                      textColor={"text-white"}
+                      endIcon={<HiArrowRight size={15} />}
+                      onClick={handleSeeAllClick}
+                    />
                   </div>
                 </div>
               </div>
+            </section>
 
-              <div
-                className={`${space_grotesk.className} flex justify-end text-xl py-8 lg:p-0 mt-10`}
-              >
-                <Button
-                  label="See all"
-                  bgColor={"bg-swPrimary500"}
-                  textColor={"text-white"}
-                  endIcon={<HiArrowRight size={15} />}
-                  onClick={handleSeeAllClick}
-                />
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="max-w-7xl mx-auto pt-10">
-          <div className="px-4 md:px-6 text-start md:text-center">
-            <div className="mb-16">
-              <h2 className="mb-4 text-start md:text-center text-[18px] font-semibold text-swPrimary500  md:text-[18px] ">
-                Membership
-              </h2>
-              <p className="text-swGray800 max-w-4xl mt-8 sm:mx-auto md:text-lg text-start md:text-center text-md ">
-                {/* <span
+            <section className="max-w-7xl mx-auto pt-10">
+              <div className="px-4 md:px-6 text-start md:text-center">
+                <div className="mb-16">
+                  <h2 className="mb-4 text-start md:text-center text-[18px] font-semibold text-swPrimary500  md:text-[18px] ">
+                    Membership
+                  </h2>
+                  <p className="text-swGray800 max-w-4xl mt-8 sm:mx-auto md:text-lg text-start md:text-center text-md ">
+                    {/* <span
                   className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
                 >
                   Swift<i className="font-normal">Wings</i>

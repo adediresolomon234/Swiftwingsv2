@@ -2,7 +2,6 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { SWToggleIcon, SwUserIcon } from "../svgs";
-import Button from "../Button";
 import Image from "next/image";
 import Link from "next/link";
 import logo from "../../../public/images/fullLogo.png";
@@ -47,15 +46,12 @@ const NavBar = ({ Nav }) => {
     }
     console.log(user);
   }, []);
-  console.log({ userData });
-  console.log({ user });
-
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
   const renderNavLink = (link, name, hasDropDown, dropDownLinks) => {
-    console.log({ pathname, link });
+
     return (
       <div className="relative inline-block text-left group">
         <div className="flex flex-col lg:items-center">

@@ -8,7 +8,7 @@ import {
 export const navItems = [
   {
     id: 1,
-    name: "Booking a Jet",
+    name: "Book a Jet",
     icon: <SwDeparturePlaneIcon className="text-2xl -mr-1" />,
     state: "book-a-jet",
   },

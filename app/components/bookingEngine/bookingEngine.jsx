@@ -304,8 +304,6 @@ const BookingEngine = ({ setBookingDetails }) => {
     }
   }, [data]);
 
-  // console.log({ bookingState });
-
   return (
     <main>
       <div className="w-full rounded-3xl  ">
@@ -326,7 +324,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                 pathname === "/" ? "text-white" : "text-swGray800"
               } ml-2 text-lg mt-5 md:mt-0`}
             >
-              Book a jet
+              Book your flight!
             </p>
             <div
               className={`p-1 text-xl rounded-full flex gap-5 font-medium ${
@@ -344,7 +342,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                             ? "text-white backdrop-blur bg-none md:bg-swBlack/50"
                             : "text-swPrimary500 bg-white"
                         } font-semibold text-sm md:text-lg`
-                      : `text-swGray300 hover:backdrop-blur hover:bg-white/5 text-sm md:text-lg`
+                      : `text-swGray500 font-medium hover:backdrop-blur hover:bg-white/5 text-sm md:text-lg`
                   } py-2 px-4 rounded-full`}
                   onClick={() => {
                     resetBookingState();
@@ -361,7 +359,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                             ? "text-white backdrop-blur  bg-none md:bg-swBlack/50"
                             : "text-swPrimary500 bg-white"
                         } font-semibold text-sm md:text-lg`
-                      : "text-swGray300 hover:backdrop-blur hover:bg-white/5 text-sm md:text-lg"
+                      : "text-swGray500 font-medium hover:backdrop-blur hover:bg-white/5 text-sm md:text-lg"
                   } py-2 px-4 rounded-full`}
                   onClick={() => {
                     resetBookingState();
@@ -378,7 +376,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                             ? "text-white backdrop-blur  bg-none md:bg-swBlack/50"
                             : "text-swPrimary500 bg-white"
                         } font-semibold text-sm md:text-lg`
-                      : "text-swGray300 hover:backdrop-blur hover:bg-white/5 text-sm md:text-lg"
+                      : "text-swGray500 font-medium hover:bg-white/5 text-sm md:text-lg"
                   } py-2 px-4 rounded-full`}
                   onClick={() => {
                     resetBookingState();
@@ -757,17 +755,17 @@ const BookingEngine = ({ setBookingDetails }) => {
                         <SwUserIcon className="text-xl" />
                       </div>
                       <div>
-                        <p className="text-swGray500 text-sm">Occupants</p>
+                        <p className="text-swGray500 text-sm">Passengers</p>
                         <p
                           className={`font-medium ${
                             pathname === "/" ? "text-white" : "text-swGray900"
                           }`}
                         >
                           <span className="block whitespace-nowrap">
-                            {item?.passengers?.adults} Adults
+                            {item?.passengers?.adults} {item?.passengers?.adults === 1 ? "Adult" : "Adults"}
                           </span>
                           <span className="block whitespace-nowrap">
-                            {item?.passengers?.children} Children
+                            {item?.passengers?.children} {item?.passengers?.children === 1 ? "Child" : "Children"}
                           </span>
                           {/* -{" "}{item?.passengers?.pets} */}
                         </p>
@@ -776,10 +774,10 @@ const BookingEngine = ({ setBookingDetails }) => {
                     {openPassangers === index && (
                       <div
                         ref={passengerRef}
-                        className="absolute text-swGray900 top-24 bg-white w-full shadow-md rounded-md z-20"
+                        className="absolute text-swGray900 top-24 bg-white max-w-[60rem] right-0 shadow-md rounded-md z-20"
                       >
                         <div className="p-5 flex flex-col gap-5 font-medium">
-                          <p className="font-semibold text-lg">Occupants</p>
+                          <p className="font-semibold text-lg">Passengers</p>
                           <div className="flex flex-col gap-5">
                             <div className="flex justify-between items-center">
                               <p className="">Adults</p>
@@ -808,7 +806,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                           </div>
                           <div className="flex flex-col gap-5">
                             <div className="flex justify-between items-center">
-                              <p className="">Kids</p>
+                              <p className="">Children</p>
                               <div className="border hover:border-swPrimary500 rounded-md overflow-hidden flex">
                                 <p
                                   className="p-2 cursor-pointer hover:bg-swPrimary500 hover:text-white"

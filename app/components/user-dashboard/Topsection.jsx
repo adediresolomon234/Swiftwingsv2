@@ -25,7 +25,7 @@ const TopSectionPage = () => {
           className="p-2 rounded-full hover:bg-swGray50 cursor-pointer xl:hidden"
           onClick={() => setNavToggle(!navToggle)}
         >
-          <SWToggleIcon className="xl" />
+          <SWToggleIcon />
         </div>
         <div
           className={`fixed top-0 m-5 mt-3 max-h-[90vh] h-full transition-x duration-500 ease-in-out z-20 ${

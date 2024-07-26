@@ -1,31 +1,38 @@
-
 "use client";
-import React from 'react';
-import Accordion from '@mui/material/Accordion';
-import AccordionActions from '@mui/material/AccordionActions';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import { useState } from 'react';
+import React from "react";
+import Accordion from "@mui/material/Accordion";
+import AccordionActions from "@mui/material/AccordionActions";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import { useState } from "react";
 import "../../styles.css";
 import Image from "next/image";
 import NavAndFooter from "../components/shared/NavAndFooter";
-import Destinationsection from "../../public/images/Destinationsection.png"
-import { SWTLocationIcon, SWTCallPhoneIcon, SwMailIcon, SWTFacebookIcon, SWTAccordionsOpenIcon, SWTAccordionsCloseIcon, SWTInstagramIcon, SWTLinkedInIcon, SWTTikTokIcon, SWTTwitterIcon, SwUserIcon } from "../components/svgs"
+import Destinationsection from "../../public/images/Destinationsection.png";
+import {
+  SWTLocationIcon,
+  SWTCallPhoneIcon,
+  SwMailIcon,
+  SWTFacebookIcon,
+  SWTAccordionsOpenIcon,
+  SWTAccordionsCloseIcon,
+  SWTInstagramIcon,
+  SWTLinkedInIcon,
+  SWTTikTokIcon,
+  SWTTwitterIcon,
+  SwUserIcon,
+} from "../components/svgs";
 import InputField from "../components/shared/InputField";
-import Button from "../components/Button"
-import { accordions } from '../components/helpers/FrequentlyQuestions';
-import FooterHero from '../components/shared/footerHero';
-
+import Button from "../components/Button";
+import { accordions } from "../components/helpers/FrequentlyQuestions";
+import FooterHero from "../components/shared/footerHero";
 
 const ContactUs = () => {
+  const [activeAccordion, setActiveAccordion] = useState(null);
 
-    const [activeAccordion, setActiveAccordion] = useState(null);
-
-    const toggleAccordion = (index) => {
-        setActiveAccordion(activeAccordion === index ? null : index);
-
-    };
-
+  const toggleAccordion = (index) => {
+    setActiveAccordion(activeAccordion === index ? null : index);
+  };
 
     return (
         <main className="relative bg-swLightBgGray">
@@ -267,8 +274,3 @@ const ContactUs = () => {
 };
 
 export default ContactUs;
-
-
-
-
-

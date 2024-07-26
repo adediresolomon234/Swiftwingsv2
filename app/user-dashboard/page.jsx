@@ -1,4 +1,7 @@
+// app/user-dashboard/page.tsx
 "use client";
+
+import { Suspense } from "react";
 import TopSectionPage from "../components/user-dashboard/Topsection";
 import BookingPageInformation from "../components/bookingPage/BookingPage";
 import ProfileCard from "../components/user-dashboard/ProfileCard";
@@ -7,7 +10,6 @@ import UserDashBoardNav from "../components/user-dashboard/userDashBoardNav";
 import { useSearchParams } from "next/navigation";
 
 const UserBookingPage = () => {
-  // const [pageState, setPageState] = useState("book-a-jet");
   const searchParams = useSearchParams();
   return (
     <div className="flex flex-col md:flex-row w-full h-screen overflow-hidden bg-swPrimary50 p-5 ">
@@ -28,4 +30,10 @@ const UserBookingPage = () => {
   );
 };
 
-export default UserBookingPage;
+const UserBookingPageWithSuspense = () => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <UserBookingPage />
+  </Suspense>
+);
+
+export default UserBookingPageWithSuspense;
