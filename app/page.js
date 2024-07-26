@@ -25,6 +25,7 @@ import { useRouter } from "next/navigation";
 import { fetchAircrafts } from "@/redux/slices/aircraftdetails";
 import { mdiCarSeat, mdiSpeedometer, mdiArrowLeftRight } from "@mdi/js";
 import BookingEngine from "./components/bookingEngine/bookingEngine";
+import Head from "next/head"; 
 import {
   SWTStarBlackIcon,
   SWTAddPersonBlackIcon,
@@ -92,6 +93,12 @@ export default function Home() {
 
   return (
     <main className="relative bg-swLightBgGray overflow-x-hidden">
+       <Head>
+        <title>Best Private in Nigeria | Private Jet Fastest Flight | On Demand Private Jet Charter</title>
+        <meta
+          name="description"
+          content="Enjoy the latest and finest Private Jets in the market, Top-tier concierge services and exclusive empty legs deal." />
+      </Head>
       <NavAndFooter Nav={true}>
         <section className="w-full p-5 md:10 pt-48 text-white relative pb-10">
       
@@ -155,9 +162,9 @@ export default function Home() {
               </span>
             </p>
 
-            <div className="md:container m-auto px-0 text-gray-500">
+            <div className="max-w-8xl mx-auto px-0 text-gray-500">
         
-              <div className="grid gap-6 md:mx-auto sm:grid-cols-2 lg:w-full xl:grid-cols-4">
+              <div className="grid gap-4 md:mx-auto sm:grid-cols-2 lg:w-full xl:grid-cols-4">
                 <div className="group space-y-6 rounded-3xl border border-gray-100 bg-swSecondary300 px-8 py-12 text-center">
                   <SWTStarBlackIcon className="mx-auto svgIcon" />
                   <h3 className="text-xl font-semibold text-swPrimary500 bg-swSecondary500  rounded-full p-3">
@@ -276,7 +283,7 @@ export default function Home() {
             />
           </div> */}
         </section>
-        <section className="max-w-7xl mx-auto pt-10">
+        <section className="max-w-8xl mx-auto pt-10">
           <div className="px-6 text-center md:px-12">
             <div className="mb-16">
               <h2 className="mb-4 md:text-center text-start text-[18px] font-semibold  text-swPrimary500  md:text-[18px] ">
@@ -316,7 +323,7 @@ export default function Home() {
         </section>
 
     
-        <section className="max-w-7xl mx-auto pt-10 px-4 lg:px-8">
+        <section className="max-w-8xl mx-auto pt-10 px-4 lg:px-8">
           <div className="relative lg:pt-44">
             <div className="">
               <p className="sm:mx-auto sm:w-10/12 md:w-2/3 p-1 text-swPrimary500 font-semibold md:text-center text-start sm:text-[18px] md:text-[18px] lg:text-[18px] lg:w-auto lg:text-left">
@@ -435,7 +442,7 @@ export default function Home() {
                 Network with high profile individuals like you, strike a deeper
                 connection, and get access to premium services like: unlimited
                 private jet access, highly personalised travel experience,
-                priority scheduling, empty leg prior notification, etc
+                priority scheduling, <a href="https://www.swiftwingsjet.com/services" className="text-swGray800 font-bold hover:underline">empty leg prior notification </a> , etc
               </p>
             </div>
           </div>

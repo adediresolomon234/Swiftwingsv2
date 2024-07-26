@@ -114,7 +114,7 @@ const NavBar = ({ Nav }) => {
     { link: "/fleet-page", name: "Fleets" },
     { link: "/destinations", name: "Destination" },
     { link: "/services", name: "Services" },
-    { link: "https://swiftwingsjet.blog/t", name: "Blog" },
+    { link: "https://swiftwingsjet.blog", name: "Blog" },
     // {
     //   link: "",
     //   name: "Company",

@@ -10,7 +10,10 @@ import Image from "next/image";
 import Destinationsection from "../../public/images/Destinationsection.png"
 import { FaChevronDown } from "react-icons/fa";
 import Button from "../components/Button";
-import { SWTButtoncircleIcon,SWTEllipse9Icon } from "../components/svgs"
+import { SWTButtoncircleIcon, SWTEllipse9Icon } from "../components/svgs"
+import Link from 'next/link';
+import Head from "next/head"; 
+
 
 
 const Destinations = () => {
@@ -22,6 +25,12 @@ const Destinations = () => {
 
   return (
     <main className="relative bg-swLightBgGray">
+      <Head>
+        <title>Private Jet Destinations | Local and International Flights</title>
+        <meta
+          name="description"
+          content="Our Private Jet destinations span across Lagos, Abuja, Port Harcourt, Ghana, South Africa, USA, Japan, Australia, France, Italy, Spain, etc." />
+      </Head>
       <NavAndFooter Nav={true}>
         <div class="relative">
           <Image class="absolute inset-0 w-full h-full object-cover object-top" src={Destinationsection} width="400" height="500" alt="hero background image" />
@@ -32,7 +41,7 @@ const Destinations = () => {
                 <div className="location-marker w-3 h-3 bg-primary-500 rounded-full mr-2" />
                 <div className="location-details text-white max-w-lg bg-gray-200 bg-opacity-30 backdrop-blur-sm rounded-t-3xl rounded-br-none rounded-bl-3xl overflow-hidden shrink-0 flex flex-col items-start justify-start py-2 px-8 box-border">
                   <div className="flex items-center">
-                    <SWTEllipse9Icon className="w-2"/>
+                    <SWTEllipse9Icon className="w-2" />
                     <h2 className="font-semibold ml-2">{location.city}</h2>
                   </div>
                   <p className="text-sm ml-4">{location.state}</p>
@@ -47,13 +56,13 @@ const Destinations = () => {
                   <div className=" inset-0 flex flex-col items-start justify-start sm:flex-row sm:items-center py-8 px-0 ">
                     <div className="mr-8 flex flex-col items-start">
                       <div className="text-xl md:text-5xl lg:text-7xl font-semibold text-black mb-3">What’s your</div>
-                      <div className="text-3xl md:text-6xl lg:text-8xl font-bold text-white mb-8 max-w-1rem break-all md:break-words uppercase">
+                      <div className="text-3xl md:text-6xl lg:text-7xl font-bold text-white mb-8 max-w-1rem break-all md:break-words uppercase">
                         Destination?
                       </div>
                     </div>
                     <div className="mt-0  md:mt-12 flex items-center">
                       <div className="text-sm md:text-xl text-white max-w-lg">
-                        We are bringing the world closer to you through global access!
+                        We are  <a href="https://www.swiftwingsjet.com/" className="text-white font-bold hover:underline">bringing the world closer to you</a>  through global access!
                       </div>
                       <div className="ml-4 text-2xl text-white">
                         <FaChevronDown className="text-white" />
@@ -61,13 +70,15 @@ const Destinations = () => {
                     </div>
                   </div>
                 </div>
-                <div class="mt-8 -mx-6 px-8 overflow-x-auto md:overflow-x-hidden">
-                  <div class="w-full flex justify-center flex-wrap items-center gap-4 md:w-auto md:gap-6 lg:gap-8">
-                    <Button
-                      label="Book A jet"
-                      bgColor="bg-white text-gray-900 font-bold "
-                      endIcon={<SWTButtoncircleIcon size={32} />}
-                    />
+                <div className="mt-8 -mx-6 px-8 overflow-x-auto md:overflow-x-hidden">
+                  <div className="w-full flex justify-center flex-wrap items-center gap-4 md:w-auto md:gap-6 lg:gap-8">
+                    <Link href="/">
+                        <Button
+                          label="Book A Jet"
+                          bgColor="bg-white text-gray-900 font-bold"
+                          endIcon={<SWTButtoncircleIcon size={32} />}
+                        />   
+                    </Link>
                   </div>
                 </div>
               </div>

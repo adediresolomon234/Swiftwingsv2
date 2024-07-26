@@ -21,19 +21,8 @@ const Footer = () => {
           Let’s work together
         </h2>
         <p className="text-white p-8 mt-8 text-md text-center">
-          <span
-            className={`${libre_baskerville.className} no-text-shadow font-bold`}
-          >
-            Swift<i className="font-normal">Wings</i>
-          </span>{" "}
-          Ltd offers an exclusive Jet Card Membership, providing discerning
-          travelers with unparalleled access to private jet charter services. As
-          a Jet Card member, you enjoy priority booking and seamless travel
-          experiences tailored to your preferences.
+           Let's bring the world closer to you with Swiftwingsjet's private jet charter services. Experience the convenience and luxury of flying on your terms. Reach out today, and let's work together to make your travel dreams a reality.
         </p>
-      </div>
-      <div className="flex justify-center mt-12">
-        <Button label="Contact Us" textColor={"text-gray-700"} />
       </div>
       <div className="w-full md:w-3/4 lg:w-4/5 mx-auto px-4 sm:px-8 lg:px-16 xl:px-32 m-20">
         <div className="newsletter w-full relative rounded-2xl bg-white overflow-hidden flex flex-col items-start justify-start p-6 md:p-8 lg:p-12 xl:p-10 gap-4 md:gap-6 text-left text-lg lg:text-xl text-swGray800 font-semibold">
@@ -77,115 +66,105 @@ const Footer = () => {
                   />
                 </a>
               </div>
-              <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:flex sm:flex-row flex-wrap gap-5 justify-between w-3/5">
+              <div className="w-full grid grid-cols-2 sm:grid-cols-2 md:flex sm:flex-row flex-wrap gap-3 md:gap-5 justify-between">
                 <div>
-                  <h2 className="mb-4 text-md font-medium text-white">
-                    Service
-                  </h2>
-                  <ul className="text-white ">
+                  <h2 className="mb-4 text-md font-medium text-white">Service</h2>
+                  <ul className="text-white">
                     <li className="mb-4">
-                      <a href="#" className="hover:underline text-xs">
-                        Luxurious trips
+                      <a href="services" className="hover:underline text-sm">
+                      Air Ambulance
                       </a>
                     </li>
                     <li className="mb-4">
-                      <a href="#" className="hover:underline text-xs">
+                      <a href="services" className="hover:underline text-sm">
                         Inflight catering
                       </a>
                     </li>
                     <li className="mb-4">
-                      <a href="#" className="hover:underline text-xs">
-                        Air ambulance
+                      <a href="services" className="hover:underline text-sm">
+                      Concierge
+                      </a>
+                    </li>
+                    <li className="mb-4">
+                      <a href="services" className="hover:underline text-sm">
+                      Group/Corporate Charter 
                       </a>
                     </li>
                   </ul>
                 </div>
                 <div>
-                  <h2 className="mb-4 text-md font-medium text-white">
-                    Company
-                  </h2>
-                  <ul className="text-white ">
+                  <h2 className="mb-4 text-md font-medium text-white">Company</h2>
+                  <ul className="text-white">
                     <li className="mb-4">
-                      <a href="#" className="hover:underline text-xs">
+                      <a href="/about-us" className="hover:underline text-sm">
                         About Us
                       </a>
                     </li>
                     <li className="mb-4">
-                      <a href="#" className="hover:underline text-xs">
+                      <a href="/contact-us" className="hover:underline text-sm">
                         Contact Us
                       </a>
                     </li>
                     <li className="mb-4">
-                      <a href="#" className="hover:underline text-xs">
+                      <a href="#" className="hover:underline text-sm">
                         Career
                       </a>
                     </li>
                     <li className="mb-4">
-                      <a href="#" className="hover:underline text-xs">
-                        Outreach
+                      <a href="#" className="hover:underline text-sm">
+                      Membership 
                       </a>
                     </li>
                   </ul>
                 </div>
                 <div>
-                  <h2 className="mb-4 text-md font-medium text-white">Legal</h2>
-                  <ul className="text-white ">
+                  <h2 className="mb-4 text-md font-medium text-white">Platform</h2>
+                  <ul className="text-white">
                     <li className="mb-4">
-                      <a href="#" className="hover:underline text-xs">
+                      <a href="#" className="hover:underline text-sm">
                         Privacy Policy
                       </a>
                     </li>
                     <li className="mb-4">
-                      <a href="#" className="hover:underline text-xs">
+                      <a href="#" className="hover:underline text-sm">
                         Terms & Conditions
                       </a>
                     </li>
                     <li className="mb-4">
-                      <a href="#" className="hover:underline text-xs">
-                        Usage rights
+                      <a href="#" className="hover:underline text-sm">
+                      FAQ
                       </a>
                     </li>
                   </ul>
                 </div>
                 <div>
-                  <h2 className="mb-4 text-md font-medium text-white">
-                    Contact
-                  </h2>
-                  <ul className="text-white ">
+                  <h2 className="mb-4 text-md font-medium text-white">Contact</h2>
+                  <ul className="text-white">
                     <li className="flex items-center mb-4 text-xs">
                       <div className="flex justify-center mr-3">
                         <CiMail />
                       </div>
-                      <a
-                        href="mailto:charter@swiftwingsjet.com"
-                        className="hover:underline"
-                      >
+                      <a href="mailto:charter@swiftwingsjet.com" className="hover:underline">
                         charter@swiftwingsjet.com
                       </a>
                     </li>
-                    <li className="flex items-center mb-4 text-xs">
+                    <li className="flex items-center mb-4 text-sm">
                       <div className="flex justify-center mr-3">
                         <FaInstagram />
                       </div>
-                      <a
-                        href="https://www.instagram.com/swiftwingsjet"
-                        className="hover:underline"
-                      >
+                      <a href="https://www.instagram.com/swiftwingsjet" className="hover:underline">
                         swiftwingsjet
                       </a>
                     </li>
-                    <li className="flex items-center mb-4 text-xs">
+                    <li className="flex items-center mb-4 text-sm">
                       <div className="flex justify-center mr-3">
                         <FaXTwitter />
                       </div>
-                      <a
-                        href="https://www.twitter.com/swiftwingsjet"
-                        className="hover:underline"
-                      >
+                      <a href="https://www.twitter.com/swiftwingsjet" className="hover:underline">
                         swiftwingsjet
                       </a>
                     </li>
-                    <li className="flex items-center mb-4 text-xs">
+                    <li className="flex items-center mb-4 text-sm">
                       <div className="flex justify-center mr-3">
                         <FaPhoneAlt />
                       </div>
@@ -196,6 +175,7 @@ const Footer = () => {
                   </ul>
                 </div>
               </div>
+
             </div>
             <hr className="my-6 border-gray-200 sm:mx-auto lg:my-8" />
             <div className="sm:flex sm:items-center sm:justify-between">

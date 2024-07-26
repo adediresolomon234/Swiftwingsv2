@@ -3,7 +3,7 @@ import React from "react";
 
 const FooterHero = () => {
   return (
-    <div className="mx-auto bg-floralwhite overflow-hidden mt-8 -mb-40">
+    <div className="mx-auto bg-floralwhite overflow-hidden mt-8 -mb-16">
       <div className="grid grid-cols-1 sm:grid-cols-2 items-center gap-8 lg:gap-96 relative ">
         <div className="relative font-semibold inline-block shrink-0 w-full z-[2]">
           <div className="relative z-10 p-5 max-w-[350px] sm:mx-auto">
