@@ -18,10 +18,10 @@ const Footer = () => {
     <footer className="w-full sm:rounded-t-[4rem] bg-swPrimary500 relative flex flex-col items-center overflow-hidden py-12 md:py-12">
       <div className="mb-16 sm:mx-auto w-full sm:w-5/4 md:w-1/2">
         <h2 className="mb-4 text-center text-xl text-white md:text-3xl md:text-center">
-          Let’s work together
+          Let&apos;s work together
         </h2>
         <p className="text-white p-8 mt-8 text-md text-center">
-           Let's bring the world closer to you with Swiftwingsjet's private jet charter services. Experience the convenience and luxury of flying on your terms. Reach out today, and let's work together to make your travel dreams a reality.
+           Let&apos;s bring the world closer to you with Swiftwingsjet&apos;s private jet charter services. Experience the convenience and luxury of flying on your terms. Reach out today, and let&apos;s work together to make your travel dreams a reality.
         </p>
       </div>
       <div className="w-full md:w-3/4 lg:w-4/5 mx-auto px-4 sm:px-8 lg:px-16 xl:px-32 m-20">

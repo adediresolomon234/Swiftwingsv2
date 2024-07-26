@@ -99,7 +99,7 @@ const Service = () => {
               {/* </div> */}
               <div className="w-full">
                 <div className="relative">
-                  <Image className=" w-full h-full" src={Inflightcatering2} />
+                  <Image className=" w-full h-full" src={Inflightcatering2} alt="inflight catering" />
                 </div>
               </div>
               <div className="py-16">
@@ -161,6 +161,7 @@ const Service = () => {
                   <Image
                     className=" w-full h-full lg:px-20 "
                     src={MedicalEvacuation}
+                    alt="Medical Evacuation"
                   />
                 </div>
               </div>
@@ -230,6 +231,7 @@ const Service = () => {
                   <Image
                     className=" w-full h-full lg:px-20 "
                     src={ChauffeurServices}
+                    alt="Chauffeur Services"
                   />
                 </div>
               </div>
