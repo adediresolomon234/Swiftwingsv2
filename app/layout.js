@@ -53,6 +53,7 @@ const RootLayout = ({ children }) => {
           <title>
             Enjoy the latest and finest Private Jets in the market, Top-tier concierge services and exclusive empty legs deal.
           </title>
+          <meta name="google-site-verification" content="DTMaKYVmj2GFgTUwq63iVoDfAEWOIEM-MvGhViEQebo" />
         </head>
 
         <body>
