@@ -48,7 +48,9 @@ const AboutUs = () => {
                                     Our Mission
                                 </li>
                                 <li className="w-auto text-xl mx-1 p-3 sm: text-md lg:text-lg px-2 sm:w-auto sm:text-start " style={{ fontFamily: "auto" }}>
-                                    To be the leading private jet charter company
+                                    To be the leading <a href="https://www.swiftwingsjet.com/services" className=" font-bold hover:underline">
+                                        private jet charter company
+                                    </a>
                                     in the industry, renowned for our commitment
                                     to excellence, innovation, and personalised
                                     service.
@@ -63,7 +65,9 @@ const AboutUs = () => {
                         <div className="max-w-5xl mx-auto text-justify lg:text-center">
                             <ul className="p-2 mb-3 flex flex-col-reverse sm:flex-row overflow-x-auto no-scrollbar">
                                 <li className="text-xl w-auto mx-1 p-3 sm:text-lg lg:text-lg px-2  sm:w-auto sm:text-justify lg:text-end" style={{ fontFamily: "auto" }}>
-                                    We aim to provide seamless, personalised experiences that exceed your expectations every time you fly with us. Our mission is to ensure your journey is safe, comfortable,
+                                    We aim to provide seamless, personalised experiences that exceed your expectations every time you <a href="https://www.swiftwingsjet.com/services" className=" font-bold hover:underline">
+                                        fly with us
+                                    </a>. Our mission is to ensure your journey is safe, comfortable,
                                     and unforgettable, no matter where you&apos;re headed
 
                                 </li>
@@ -96,7 +100,9 @@ const AboutUs = () => {
                                     Service Excellence
                                 </p>
                                 <div className="text-sm">
-                                    Service excellence is ingrained in our DNA. From the moment you book your flight to the second you touch down at your destination, our team of dedicated professionals is committed to delivering unparalleled service that caters to your every need.
+                                    Service excellence is ingrained in our DNA. From the moment you <a href="https://www.swiftwingsjet.com/services" className="font-bold hover:underline">
+                                        book your flight
+                                    </a> to the second you touch down at your destination, our team of dedicated professionals is committed to delivering unparalleled service that caters to your every need.
                                 </div>
                             </div>
                             <Image
@@ -147,7 +153,7 @@ const AboutUs = () => {
                                 <div class="md:7/12 lg:w-4/5">
                                     <p class="my-8 text-swGray800">
                                         Choosing SwiftWings means choosing quality, reliability, and unparalleled luxury.
-                                         With our commitment to excellence, passion for innovation, and customer-centric approach,
+                                        With our commitment to excellence, passion for innovation, and customer-centric approach,
                                         we offer a level of service that goes above and beyond your expectations.
                                     </p>
                                 </div>
@@ -156,120 +162,137 @@ const AboutUs = () => {
                     </div>
                 </section>
                 <section className="">
-                  
-                        <div class="xl:container m-auto px-0 text-gray-600 md:px-12">
-                            <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-                                <div class="group p-6 sm:p-8 rounded-3xl bg-white ">
-                                    <div class="mt-6 relative">
-                                        <h3 class="text-2xl font-semibold text-gray-800 ">
-                                            Global coverage
-                                        </h3>
-                                        <p class="mt-6 mb-8 text-swGray800">
-                                            Swift Wings offers extensive global coverage to meet the travel needs of our clients, seamlessly connecting them to destinations worldwide, including Europe, North America, South America, and beyond. With a network of trusted partners and affiliates, we ensure convenience and flexibility in air travel on a global scale, even to the most remote corners of the world.
-                                        </p>
-                                    </div>
+
+                    <div class="2xl:container m-auto px-0 text-gray-600 md:px-12">
+                        <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                            <div class="group p-6 sm:p-8 rounded-3xl bg-white ">
+                                <div class="mt-6 relative">
+                                    <h3 class="text-2xl font-semibold text-gray-800 ">
+                                        Global coverage
+                                    </h3>
+                                    <p class="mt-6 mb-8 text-swGray800">
+                                        Swift Wings offers extensive <a href="https://www.swiftwingsjet.com/destinations" className="font-bold hover:underline">
+                                            global coverage
+                                        </a> to meet the travel needs of our clients, seamlessly connecting them to destinations worldwide, including  <a href="https://www.swiftwingsjet.com/destinations" className=" font-bold hover:underline">
+                                            Europe
+                                        </a>,<a href="https://www.swiftwingsjet.com/destinationss" className=" font-bold hover:underline">
+                                            North America
+                                        </a> , <a href="https://www.swiftwingsjet.com/destinations" className=" font-bold hover:underline">
+                                            South America
+                                        </a>, and beyond. With a network of trusted partners and affiliates, we ensure convenience and flexibility in air travel on a <a href="https://www.swiftwingsjet.com/destinations" className=" font-bold hover:underline">
+                                            global scale
+                                        </a> , even to the most remote corners of the world.
+                                    </p>
                                 </div>
-                                <div className="group p-6 sm:p-8 rounded-3xl bg-white ">
-                                    <div className="mt-6 relative">
-                                        <h3 className="text-2xl font-semibold text-gray-800 ">
-                                            World-class experience
-                                        </h3>
-                                        <p className="mt-6 mb-8 text-swGray800">
-                                            At Swift Wings, we ensure every journey is a remarkable experience by maintaining a tailored fleet of private jets that epitomize luxury, comfort, and convenience. From the moment you step on board, you will experience an unparalleled level of service that stands unrivaled in the industry. Our aviation experts are dedicated to customizing every aspect of your journey to align with your preferences and needs, ensuring a truly unforgettable experience.
-                                        </p>
-                                    </div>
+                            </div>
+                            <div className="group p-6 sm:p-8 rounded-3xl bg-white ">
+                                <div className="mt-6 relative">
+                                    <h3 className="text-2xl font-semibold text-gray-800 ">
+                                        World-class experience
+                                    </h3>
+                                    <p className="mt-6 mb-8 text-swGray800">
+                                        At Swift Wings, we believe that every journey should be a remarkable experience. To achieve this, we maintain a tailored <a href="https://www.swiftwingsjet.com/fleet-page" className=" font-bold hover:underline">
+                                            fleet of private jets
+                                        </a>  that reflects luxury, comfort and convenience. As soon as you step on board one of our lavish <a href="https://www.swiftwingsjet.com/fleet-page" className=" font-bold hover:underline">
+                                            private aircrafts
+                                        </a> you’ll be immersed in a peculiar level of service that stands unrivalled in the industry. Our aviation experts are committed to personalise every aspect of your journey to align with your specific needs.
+
+                                    </p>
                                 </div>
-                                <div className="group p-6 sm:p-8 rounded-3xl bg-white  ">
-                                    <div className="mt-6 relative">
-                                        <h3 className="text-2xl font-semibold text-gray-800 ">
-                                            Private jets supremacy
-                                        </h3>
-                                        <p className="mt-6 mb-8 text-swGray800">
-                                            At Swift Wings, we prioritize accessibility in private jet travel with our diverse fleet, accommodating various budgets and travel needs. Whether it is a short trip on a light jet or a long-haul journey on a spacious cabin jet, our advanced aircraft, such as the Hawker 850xp and Bombardier Challenger 604, ensure unparalleled comfort, luxury, and reliability for every passenger.
-                                        </p>
-                                    </div>
+                            </div>
+                            <div className="group p-6 sm:p-8 rounded-3xl bg-white  ">
+                                <div className="mt-6 relative">
+                                    <h3 className="text-2xl font-semibold text-gray-800 ">
+                                        Private jets supremacy
+                                    </h3>
+                                    <p className="mt-6 mb-8 text-swGray800">
+                                        Our dedication to making private jets accessible to all is reflected in our extensive range of <a href="https://www.swiftwingsjet.com/fleet-page" className=" font-bold hover:underline">
+                                            fleet of private jets
+                                        </a> . Our fleet handles a wide range of budgets and travel requirements, ensuring that our clients can choose the ideal private jet for their journey. Even if it’s a short trip on a light jet or a long-haul flight on a large cabinet jet, Swift Wings’ fleet comprises some of the most advanced private jets in the industry, including the Hawker 850xp, Learjet, Hawker Hs25, Embraer Legacy 600, Bombardier Global 6000, Bombardier Challenger 604), and many more.
+                                    </p>
                                 </div>
                             </div>
                         </div>
-             
+                    </div>
+
 
                 </section>
-            
-                    {/* <div class="xl:container mx-auto md:px-12">
-                        <div class="mb-16 md:w-2/3 lg:w-1/2">
-                            <h2 class="mb-4 text-2xl font-bold text-gray-800 dark:text-white md:text-4xl">
-                                Our Team
-                            </h2>
 
-                        </div>
-                        <div class="grid gap-6 px-4 sm:px-0 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                            <div className="group relative rounded-3xl space-y-6 overflow-hidden">
-                                <Image
-                                    className="mx-auto h-[26rem] w-full object-cover object-top transition duration-500 group-hover:scale-105 group-hover:grayscale-0"
-                                    src={team}
-                                    alt="woman"
-                                    loading="lazy"
-                                    width="640"
-                                    height="805"
-                                />
-                                <div className="absolute inset-x-0 bottom-10 flex justify-center">
-                                    <div className="w-auto rounded-2xl  px-4 py-2  bg-white bg-opacity-20 backdrop-filter backdrop-blur text-start">
-                                        <h4 className="text-md font-semibold text-swPrimary500">FirstName & LastName</h4>
-                                        <span className="block text-sm text-gray-500">Position</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="group relative rounded-3xl space-y-6 overflow-hidden">
-                                <Image
-                                    className="mx-auto h-[26rem] w-full object-cover object-top transition duration-500 group-hover:scale-105 group-hover:grayscale-0"
-                                    src={team}
-                                    alt="woman"
-                                    loading="lazy"
-                                    width="640"
-                                    height="805"
-                                />
-                                <div className="absolute inset-x-0 bottom-10 flex justify-center">
-                                    <div className="w-auto rounded-2xl  px-4 py-2  bg-white bg-opacity-20 backdrop-filter backdrop-blur text-start">
-                                        <h4 className="text-md font-semibold text-swPrimary500">FirstName & LastName</h4>
-                                        <span className="block text-sm text-gray-500">Position</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="group relative rounded-3xl space-y-6 overflow-hidden">
-                                <Image
-                                    className="mx-auto h-[26rem] w-full object-cover object-top transition duration-500 group-hover:scale-105 group-hover:grayscale-0"
-                                    src={team}
-                                    alt="woman"
-                                    loading="lazy"
-                                    width="640"
-                                    height="805"
-                                />
-                                <div className="absolute inset-x-0 bottom-10 flex justify-center">
-                                    <div className="w-auto rounded-2xl px-4 py-2 bg-white bg-opacity-20 backdrop-filter backdrop-blur text-start">
-                                        <h4 className="text-md font-semibold text-swPrimary500">FirstName & LastName</h4>
-                                        <span className="block text-sm text-gray-500">Position</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="group relative rounded-3xl space-y-6 overflow-hidden">
-                                <Image
-                                    className="mx-auto h-[26rem] w-full object-cover object-top transition duration-500 group-hover:scale-105 group-hover:grayscale-0"
-                                    src={team}
-                                    alt="woman"
-                                    loading="lazy"
-                                    width="640"
-                                    height="805"
-                                />
-                                <div className="absolute inset-x-0 bottom-10 flex justify-center">
-                                    <div className="w-auto rounded-2xl  px-4 py-2  bg-white bg-opacity-20 backdrop-filter backdrop-blur text-start">
-                                        <h4 className="text-md font-semibold text-swPrimary500">FirstName & LastName</h4>
-                                        <span className="block text-sm text-gray-500">Position</span>
-                                    </div>
+                <div class="xl:container mx-auto md:px-12">
+                    <div class="mb-16 md:w-2/3 lg:w-1/2">
+                        <h2 class="mb-4 text-2xl font-bold text-gray-800 dark:text-white md:text-4xl">
+                            Our Team
+                        </h2>
+
+                    </div>
+                    <div class="grid gap-6 px-4 sm:px-0 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                        <div className="group relative rounded-3xl space-y-6 overflow-hidden">
+                            <Image
+                                className="mx-auto h-[26rem] w-full object-cover object-top transition duration-500 group-hover:scale-105 group-hover:grayscale-0"
+                                src={team}
+                                alt="woman"
+                                loading="lazy"
+                                width="640"
+                                height="805"
+                            />
+                            <div className="absolute inset-x-0 bottom-10 flex justify-center">
+                                <div className="w-auto rounded-2xl  px-4 py-2  bg-white bg-opacity-20 backdrop-filter backdrop-blur text-start">
+                                    <h4 className="text-md font-semibold text-swPrimary500">FirstName & LastName</h4>
+                                    <span className="block text-sm text-gray-500">Position</span>
                                 </div>
                             </div>
                         </div>
-                    </div> */}
-            
+                        <div className="group relative rounded-3xl space-y-6 overflow-hidden">
+                            <Image
+                                className="mx-auto h-[26rem] w-full object-cover object-top transition duration-500 group-hover:scale-105 group-hover:grayscale-0"
+                                src={team}
+                                alt="woman"
+                                loading="lazy"
+                                width="640"
+                                height="805"
+                            />
+                            <div className="absolute inset-x-0 bottom-10 flex justify-center">
+                                <div className="w-auto rounded-2xl  px-4 py-2  bg-white bg-opacity-20 backdrop-filter backdrop-blur text-start">
+                                    <h4 className="text-md font-semibold text-swPrimary500">FirstName & LastName</h4>
+                                    <span className="block text-sm text-gray-500">Position</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="group relative rounded-3xl space-y-6 overflow-hidden">
+                            <Image
+                                className="mx-auto h-[26rem] w-full object-cover object-top transition duration-500 group-hover:scale-105 group-hover:grayscale-0"
+                                src={team}
+                                alt="woman"
+                                loading="lazy"
+                                width="640"
+                                height="805"
+                            />
+                            <div className="absolute inset-x-0 bottom-10 flex justify-center">
+                                <div className="w-auto rounded-2xl px-4 py-2 bg-white bg-opacity-20 backdrop-filter backdrop-blur text-start">
+                                    <h4 className="text-md font-semibold text-swPrimary500">FirstName & LastName</h4>
+                                    <span className="block text-sm text-gray-500">Position</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="group relative rounded-3xl space-y-6 overflow-hidden">
+                            <Image
+                                className="mx-auto h-[26rem] w-full object-cover object-top transition duration-500 group-hover:scale-105 group-hover:grayscale-0"
+                                src={team}
+                                alt="woman"
+                                loading="lazy"
+                                width="640"
+                                height="805"
+                            />
+                            <div className="absolute inset-x-0 bottom-10 flex justify-center">
+                                <div className="w-auto rounded-2xl  px-4 py-2  bg-white bg-opacity-20 backdrop-filter backdrop-blur text-start">
+                                    <h4 className="text-md font-semibold text-swPrimary500">FirstName & LastName</h4>
+                                    <span className="block text-sm text-gray-500">Position</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
 
                 <section className="">
                     <div className="xl:container m-auto px-6 text-gray-600 md:px-12 xl:px-16">
