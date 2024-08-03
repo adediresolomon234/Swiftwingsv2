@@ -20,6 +20,7 @@ import { useRouter } from "next/navigation";
 import { fetchAircrafts } from "@/redux/slices/aircraftdetails";
 import { mdiCarSeat, mdiSpeedometer, mdiArrowLeftRight } from "@mdi/js";
 import BookingEngine from "./components/bookingEngine/bookingEngine";
+import Head from "next/head"; 
 import {
   SWTStarBlackIcon,
   SWTAddPersonBlackIcon,
@@ -86,13 +87,19 @@ export default function Home() {
   }
 
   return (
-    <>
-      <main className="relative bg-swLightBgGray overflow-x-hidden">
-        <NavAndFooter Nav={true}>
-          <section className="w-full p-5 md:10 pt-48 text-white relative pb-10">
-            <div className="absolute h-full w-full top-0 left-0">
-              {/* {isMobile ? ( */}
-              <div className="relative md:hidden h-full w-full">
+    <main className="relative bg-swLightBgGray overflow-x-hidden">
+       <Head>
+        <title>Best Private in Nigeria | Private Jet Fastest Flight | On Demand Private Jet Charter</title>
+        <meta
+          name="description"
+          content="Enjoy the latest and finest Private Jets in the market, Top-tier concierge services and exclusive empty legs deal." />
+      </Head>
+      <NavAndFooter Nav={true}>
+        <section className="w-full p-5 md:10 pt-48 text-white relative pb-10">
+      
+          <div className="absolute h-full w-full top-0 left-0">
+            {isMobile ? (
+              <div className="relative h-full w-full">
                 <Image
                   src={MbheroBgImg}
                   alt="aiplane"
@@ -100,8 +107,8 @@ export default function Home() {
                 />
                 <div className="absolute top-0 left-0 w-full h-full"></div>
               </div>
-              {/* ) : ( */}
-              <div className="relative hidden md:block h-full w-full">
+            ) : (
+              <div className="relative h-full w-full">
                 <Image
                   src={heroBgImg}
                   alt="aiplane"
@@ -109,8 +116,8 @@ export default function Home() {
                 />
                 <div className="absolute top-0 left-0 w-full h-full"></div>
               </div>
-              {/* )} */}
-            </div>
+            )}
+          </div>
 
             <div className="max-w-7xl mx-auto mb-10 relative text-center mt-40">
               <div className="pt-20 z-50">
@@ -150,70 +157,69 @@ export default function Home() {
                 </span>
               </p>
 
-              <div className="md:container m-auto px-0 text-gray-500">
-                <div className="grid gap-6 md:mx-auto sm:grid-cols-2 lg:w-full xl:grid-cols-4">
-                  <div className="group space-y-6 rounded-3xl border border-gray-100 bg-swSecondary300 px-8 py-12 text-center">
-                    <SWTStarBlackIcon className="mx-auto svgIcon" />
-                    <h3 className="text-xl font-semibold text-swPrimary500 bg-swSecondary500  rounded-full p-3">
-                      VIP Treatment
-                    </h3>
-                    <p>
-                      Enjoy luxurious comfort, in-flight catering customised to
-                      your taste. Get entertained by favourite shows or stay
-                      connected with work using free Wi-Fi. Arrive refreshed &
-                      ready for your destination. Fly on a private flight
-                      schedule
-                    </p>
-                  </div>
-                  <div className="group space-y-6 rounded-3xl border border-gray-100 bg-swSecondary300 px-4 py-6 md:px-8 md:py-12 text-center">
-                    <SWTGalaglobeIcon className="mx-auto svgIcon" />
-                    <h3 className="text-xl font-semibold text-swPrimary500 bg-swSecondary500 rounded-full p-3">
-                      Global Access
-                    </h3>
-                    <p>
-                      <span
-                        className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
-                      >
-                        Swift<i className="font-normal">Wings</i>
-                      </span>{" "}
-                      grants you exclusive access to private jets for seamless
-                      travel anywhere in the globe. Remember, we bring the world
-                      closer to you!
-                    </p>
-                  </div>
-                  <div className="group space-y-6 rounded-3xl border border-gray-100 bg-swSecondary300 px-8 py-12 text-center">
-                    <SWTSandClockBlackIcon className="mx-auto svgIcon" />
-                    <h3 className="text-xl font-semibold text-swPrimary500 bg-swSecondary500 rounded-full p-3">
-                      Save Time
-                    </h3>
-                    <p>
-                      Skip the crowds & time wasters! Time is a precious
-                      commodity not to be wasted. Fly private, fast and secure
-                      with{" "}
-                      <span
-                        className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
-                      >
-                        Swift<i className="font-normal">Wings</i>
-                      </span>{" "}
-                      private jet charter services.
-                    </p>
-                  </div>
-                  <div className="group space-y-6 rounded-3xl border border-gray-100 bg-swSecondary200 px-8 py-12 text-center ">
-                    <SWTAddPersonBlackIcon className="mx-auto svgIcon" />
-                    <h3 className="text-xl font-semibold text-swPrimary500 bg-swSecondary500 rounded-full p-3">
-                      Membership
-                    </h3>
-                    <p>
-                      Network with high profile individuals like you and strike
-                      a deeper connection and get access to premium services
-                      like: unlimited private jet access, highly personalised
-                      travel experience, priority scheduling, empty leg prior
-                      notification, etc
-                    </p>
-                  </div>
+            <div className="max-w-8xl mx-auto px-0 text-gray-500">
+        
+              <div className="grid gap-4 md:mx-auto sm:grid-cols-2 lg:w-full xl:grid-cols-4">
+                <div className="group space-y-6 rounded-3xl border border-gray-100 bg-swSecondary300 px-8 py-12 text-center">
+                  <SWTStarBlackIcon className="mx-auto svgIcon" />
+                  <h3 className="text-xl font-semibold text-swPrimary500 bg-swSecondary500  rounded-full p-3">
+                    VIP Treatment
+                  </h3>
+                  <p>
+                    Enjoy luxurious comfort, in-flight catering customised to
+                    your taste. Get entertained by favourite shows or stay
+                    connected with work using free Wi-Fi. Arrive refreshed &
+                    ready for your destination. Fly on a private flight schedule
+                  </p>
+                </div>
+                <div className="group space-y-6 rounded-3xl border border-gray-100 bg-swSecondary300 px-4 py-6 md:px-8 md:py-12 text-center">
+                  <SWTGalaglobeIcon className="mx-auto svgIcon" />
+                  <h3 className="text-xl font-semibold text-swPrimary500 bg-swSecondary500 rounded-full p-3">
+                    Global Access
+                  </h3>
+                  <p>
+                    <span
+                      className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
+                    >
+                      Swift<i className="font-normal">Wings</i>
+                    </span>{" "}
+                    grants you exclusive access to private jets for seamless
+                    travel anywhere in the globe. Remember, we bring the world
+                    closer to you!
+                  </p>
+                </div>
+                <div className="group space-y-6 rounded-3xl border border-gray-100 bg-swSecondary300 px-8 py-12 text-center">
+                  <SWTSandClockBlackIcon className="mx-auto svgIcon" />
+                  <h3 className="text-xl font-semibold text-swPrimary500 bg-swSecondary500 rounded-full p-3">
+                    Save Time
+                  </h3>
+                  <p>
+                    Skip the crowds & time wasters! Time is a precious commodity
+                    not to be wasted. Fly private, fast and secure with{" "}
+                    <span
+                      className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
+                    >
+                      Swift<i className="font-normal">Wings</i>
+                    </span>{" "}
+                    private jet charter services.
+                  </p>
+                </div>
+                <div className="group space-y-6 rounded-3xl border border-gray-100 bg-swSecondary200 px-8 py-12 text-center ">
+                  <SWTAddPersonBlackIcon className="mx-auto svgIcon" />
+                  <h3 className="text-xl font-semibold text-swPrimary500 bg-swSecondary500 rounded-full p-3">
+                    Membership
+                  </h3>
+                  <p>
+                    Network with high profile individuals like you and strike a
+                    deeper connection and get access to premium services like:
+                    unlimited private jet access, highly personalised travel
+                    experience, priority scheduling, empty leg prior
+                    notification, etc
+                  </p>
                 </div>
               </div>
             </div>
+          </div>
 
           </section>
           <section className="max-w-7xl mx-auto pt-10">
@@ -370,113 +376,111 @@ export default function Home() {
                 >
                   Swift<i className="font-normal">Wings</i>
                 </span>{" "} */}
-                  Enjoy the benefits of{" "}
-                  <span
-                    className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
-                  >
-                    Swift<i className="font-normal">Wings</i>
-                  </span>{" "}
-                  Network with high profile individuals like you, strike a
-                  deeper connection, and get access to premium services like:
-                  unlimited private jet access, highly personalised travel
-                  experience, priority scheduling, empty leg prior notification,
-                  etc
-                </p>
-              </div>
-            </div>
-            <div className="mb-16">
-              <h2 className="mb-8 text-center text-[18px]  text-gray-700 md:text-[18px] ">
-                Membership Features
-              </h2>
-              <div
-                style={{ display: "flex", justifyContent: "center" }}
-                className="px-4 md:px-0"
-              >
-                <div className="max-w-full grid gap-8 md:grid-cols-2 sm:grid-cols-2 xs:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 grid-rows-2 gap-y-8 justify-center items-center relative">
-                  {textAreas.map((area, index) => (
-                    <div
-                      key={index}
-                      style={{
-                        width: "100%",
-                        maxWidth: "270px",
-                        height: "180px",
-                      }}
-                      className={`bg-swSecondary200 outline-none features-card flex flex-col justify-center items-center py-6 px-4 md:px-6 text-lg md:text-xl text-swGray600 text-center`}
-                    >
-                      {area.description}
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div className="flex justify-center text-lg mt-24">
-                <Button
-                  label="Become a member"
-                  bgColor={"bg-swPrimary500"}
-                  textColor={"text-white"}
-                  endIcon={<CiStar size={20} />}
-                />
-              </div>
-            </div>
-          </section>
-          <section className="px-4 md:px-16 ">
-            <div className="text-start md:text-center md:px-12">
-              <div className="">
-                <h2 className="mb-4 text-start md:text-center text-[18px] font-semibold  text-swPrimary500 md:text-[18px]">
-                  Customer Testimonials
-                </h2>
-                <p className="text-swGray800 mt-8 sm:mx-auto max-w-4xl md:text-lg md:text-center text-start text-md">
-                  <span
-                    className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
-                  >
-                    Swift<i className="font-normal">Wings</i>
-                  </span>{" "}
-                  Ltd offers an exclusive Jet Card Membership, providing
-                  discerning travelers with unparalleled access to private jet
-                  charter services. As a Jet Card member, you enjoy priority
-                  booking and seamless travel experiences tailored to your
-                  preferences.
-                </p>
-              </div>
-            </div>
-            <div className="mb-16">
-              <div className="relative mt-32">
-                <div
-                  className="container-snap mt-10 pb-8 flex gap-4 sm:gap-8 md:gap-32 snap-x overflow-x-auto self-center slider"
-                  style={{ scrollSnapAlign: "start" }}
+                Enjoy the benefits of{" "}
+                <span
+                  className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
                 >
-                  <Marquee pauseOnHover={true} speed={60}>
-                    {testimonial.map((item) => (
-                      <div
-                        key={item.id}
-                        className={`scroll-ml-6 snap-start ml-16 'blur' : ''`}
-                        onMouseEnter={() => handleMouseEnter(item.id)}
-                        onMouseLeave={handleMouseLeave}
-                      >
-                        <div className="relative flex-shrink-0 max-w-[95vw] md:max-w-[768px] overflow-hidden Testimonial-card">
-                          <div className="absolute inset-0 w-full h-full bg-swSecondary400 "></div>
-                          <div className="relative h-65 md:h-65 w-full p-3 md:p-8 flex flex-col justify-between items-center">
-                            <div className="py-4 md:py-8 px-2 md:px-4">
-                              <p className="font-bold text-swGray900 text-lg md:text-xl text-center">
-                                {item.name}
-                              </p>
-                              <h2 className="text-gray-700 mt-4 md:mt-8 text-base md:text-base text-center">
-                                {item.testimonial}
-                              </h2>
-                              <div className="flex justify-center mt-4 md:mt-8">
-                                <FaXTwitter />
-                              </div>
+                  Swift<i className="font-normal">Wings</i>
+                </span>{" "}
+                Network with high profile individuals like you, strike a deeper
+                connection, and get access to premium services like: unlimited
+                private jet access, highly personalised travel experience,
+                priority scheduling, <a href="https://www.swiftwingsjet.com/services" className="text-swGray800 font-bold hover:underline">empty leg prior notification </a> , etc
+              </p>
+            </div>
+          </div>
+          <div className="mb-16">
+            <h2 className="mb-8 text-center text-[18px]  text-gray-700 md:text-[18px] ">
+              Membership Features
+            </h2>
+            <div
+              style={{ display: "flex", justifyContent: "center" }}
+              className="px-4 md:px-0"
+            >
+              <div className="max-w-full grid gap-8 md:grid-cols-2 sm:grid-cols-2 xs:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 grid-rows-2 gap-y-8 justify-center items-center relative">
+                {textAreas.map((area, index) => (
+                  <div
+                    key={index}
+                    style={{
+                      width: "100%",
+                      maxWidth: "270px",
+                      height: "180px",
+                    }}
+                    className={`bg-swSecondary200 outline-none features-card flex flex-col justify-center items-center py-6 px-4 md:px-6 text-lg md:text-xl text-swGray600 text-center`}
+                  >
+                    {area.description}
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="flex justify-center text-lg mt-24">
+              <Button
+                label="Become a member"
+                bgColor={"bg-swPrimary500"}
+                textColor={"text-white"}
+                endIcon={<CiStar size={20} />}
+              />
+            </div>
+          </div>
+        </section>
+        <section className="px-4 md:px-16 ">
+          <div className="text-start md:text-center md:px-12">
+            <div className="">
+              <h2 className="mb-4 text-start md:text-center text-[18px] font-semibold  text-swPrimary500 md:text-[18px]">
+                Customer Testimonials
+              </h2>
+              <p className="text-swGray800 mt-8 sm:mx-auto max-w-4xl md:text-lg md:text-center text-start text-md">
+                <span
+                  className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
+                >
+                  Swift<i className="font-normal">Wings</i>
+                </span>{" "}
+                Ltd offers an exclusive Jet Card Membership, providing
+                discerning travelers with unparalleled access to private jet
+                charter services. As a Jet Card member, you enjoy priority
+                booking and seamless travel experiences tailored to your
+                preferences.
+              </p>
+            </div>
+          </div>
+          <div className="mb-16">
+            <div className="relative mt-32">
+              <div
+                className="container-snap mt-10 pb-8 flex gap-4 sm:gap-8 md:gap-32 snap-x overflow-x-auto self-center slider"
+                style={{ scrollSnapAlign: "start" }}
+              >
+                <Marquee pauseOnHover={true} speed={60}>
+                  {testimonial.map((item) => (
+                    <div
+                      key={item.id}
+                      className={`scroll-ml-6 snap-start ml-16 'blur' : ''`}
+                      onMouseEnter={() => handleMouseEnter(item.id)}
+                      onMouseLeave={handleMouseLeave}
+                    >
+                      <div className="relative flex-shrink-0 max-w-[95vw] md:max-w-[768px] overflow-hidden Testimonial-card">
+                        <div className="absolute inset-0 w-full h-full bg-swSecondary400 "></div>
+                        <div className="relative h-65 md:h-65 w-full p-3 md:p-8 flex flex-col justify-between items-center">
+                          <div className="py-4 md:py-8 px-2 md:px-4">
+                            <p className="font-bold text-swGray900 text-lg md:text-xl text-center">
+                              {item.name}
+                            </p>
+                            <h2 className="text-gray-700 mt-4 md:mt-8 text-base md:text-base text-center">
+                              {item.testimonial}
+                            </h2>
+                            <div className="flex justify-center mt-4 md:mt-8">
+                              <FaXTwitter />
                             </div>
                           </div>
                         </div>
                       </div>
-                    ))}
-                  </Marquee>
-                </div>
+                    </div>
+                  ))}
+                </Marquee>
               </div>
             </div>
-          </section>
-        </NavAndFooter>
-      </main>
-    </>
+          </div>
+        </section>
+      </NavAndFooter>
+    </main>
   );
 }

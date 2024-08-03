@@ -51,8 +51,10 @@ const RootLayout = ({ children }) => {
       <html>
         <head>
           <title>
-            Enjoy the latest and finest Private Jets in the market, Top-tier concierge services and exclusive empty legs deal.
+          Best Private Jet in Nigeria | Private Jet Fastest Flights | On Demand Private Jets
           </title>
+          <meta name="google-site-verification" content="DTMaKYVmj2GFgTUwq63iVoDfAEWOIEM-MvGhViEQebo" />
+          <meta name="description" content="Enjoy the latest and finest Private Jets in the market, Top-tier concierge services and exclusive empty legs deal." />
         </head>
 
         <body>

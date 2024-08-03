@@ -14,15 +14,15 @@ const AircraftCard = ({aircraft}) => {
     // }, [dispatch]);
 
 
-    const handleCardClick = () => {
-        router.push(`/fleet-specification/${aircraft.id}`);
-    };
+    // const handleCardClick = () => {
+    //     router.push(`/fleet-specification/${aircraft.id}`);
+    // };
     const { model, image, speed, feet, features } = aircraft;
     console.log(model);
 
     return (
         <div className="flex flex-col items-center justify-center pt-2 px-2 pb-[width] box-border gap-2 text-center text-base text-black font-body-xs-regular">
-            <div className="relative h-full" onClick={handleCardClick}>
+            <div className="relative h-full" >
                 {image ? (
                     <img
                         className="w-full rounded-xl h-full object-cover image-container"

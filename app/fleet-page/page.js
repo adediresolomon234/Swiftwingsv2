@@ -15,6 +15,7 @@ import FooterHero from "../components/shared/footerHero";
 import { useRouter } from "next/navigation";
 import { PuffLoader } from "react-spinners";
 import { Libre_Baskerville } from "next/font/google";
+import Head from "next/head"; 
 import Loading from "../components/Loading";
 
 const libre_baskerville = Libre_Baskerville({
@@ -48,6 +49,12 @@ const FleetPage = () => {
 
   return (
     <main className="relative bg-swLightBgGray">
+      <Head>
+        <title>Private Jet Fleet</title>
+        <meta
+          name="description"
+          content="Avoid commercial crowds. Swift Wings' private jets fleets offer the ultimate getaway, combining luxury, speed and safety." />
+      </Head>
       <NavAndFooter Nav={true}>
         <section className="relative pt-24 md:pt-48 pb-10 text-white">
           <div className="absolute inset-0 flex flex-col items-start justify-start">
@@ -115,8 +122,8 @@ const FleetPage = () => {
             )}
           </div>
         </section>
-        <section className=" py-3">
-          <div className="xl:container m-auto px-2 text-gray-600 md:px-12 xl:px-16">
+        <section className="">
+          <div className="xl:container m-auto px-6 text-gray-600 md:px-12 xl:px-16">
             <FooterHero />
           </div>
         </section>
