@@ -19,6 +19,7 @@ import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import NavBar from "../components/shared/NavBar";
+import Loading from "../components/Loading";
 
 const CompleteProfile = () => {
   const dispatch = useDispatch();
@@ -29,6 +30,7 @@ const CompleteProfile = () => {
   const [reenterPasswordError, setReenterPasswordError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showReenterPassword, setShowReenterPassword] = useState(false);
+  const [loader, setLoading] = useState(true);
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
@@ -109,7 +111,7 @@ const CompleteProfile = () => {
   useEffect(() => {
     if (data && !data?.message) {
       // router.push("/");
-      toast.error(data);  
+      toast.error(data);
       // alert(data?.message);
     }
     if (data && data?.message) {
@@ -121,6 +123,14 @@ const CompleteProfile = () => {
     // console.log(data);
     if (error) toast.error(error);
   }, [data, error]);
+
+  useEffect(() => {
+    setLoading(false);
+  }, []);
+
+  if (loader) {
+    return <Loading />;
+  }
 
   return (
     <main className="flex justify-center items-center min-h-screen mt-10 bg-swSecondary50">

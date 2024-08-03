@@ -8,6 +8,7 @@ import { SWGlobeIcon, SwSeatIcon, SwMeterIcon } from "../../components/svgs";
 import FleetSpecSlider from "../../components/shared/Fleetspec/FleetSpecSlider";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import Loading from "@/app/components/Loading";
 
 
 
@@ -16,6 +17,7 @@ const FleetSpec = () => {
     const id = router.query?.id; // Use optional chaining to safely access 'id'
 
     const [aircraftDetails, setAircraftDetails] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         if (id) {
@@ -27,17 +29,13 @@ const FleetSpec = () => {
         }
     }, [id]);
 
-    // if (!router.isReady) {
-    //     return null;
-    // }
-
-    // if (!id) {
-    //     return (
-    //         <div>
-    //             No aircraft ID provided.
-    //         </div>
-    //     );
-    // }
+    useEffect(() => {
+        setLoading(false);
+      }, []);
+    
+      if (loading) {
+        return <Loading />;
+      }
 
     return (
         <main className="relative bg-swLightBgGray ">

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionActions from "@mui/material/AccordionActions";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -26,13 +26,23 @@ import InputField from "../components/shared/InputField";
 import Button from "../components/Button";
 import { accordions } from "../components/helpers/FrequentlyQuestions";
 import FooterHero from "../components/shared/footerHero";
+import Loading from "../components/Loading";
 
 const ContactUs = () => {
   const [activeAccordion, setActiveAccordion] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const toggleAccordion = (index) => {
     setActiveAccordion(activeAccordion === index ? null : index);
   };
+
+  useEffect(() => {
+    setLoading(false);
+  }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <main className="relative bg-swLightBgGray">
@@ -115,7 +125,7 @@ const ContactUs = () => {
           </div>
         </section>
         <section className="py-3">
-          <div className="m-auto px-6 text-gray-600 md:px-12 xl:px-16">
+          <div className="m-auto px-10 text-gray-600 md:px-12 xl:px-16">
             <div className="text-container">
               <div className=" inset-0 flex flex-col items-start justify-start sm:flex-row sm:items-center py-8 px-4 ">
                 <div className="mr-8 flex flex-col items-start">
@@ -171,11 +181,11 @@ const ContactUs = () => {
             </div>
           </div>
         </section>
-        <section className="py-3">
-          <div className="m-auto px-6 text-gray-600 md:px-12 xl:px-16">
+        <section className="py-3 w=full">
+          <div className="px-6 text-gray-600 md:px-12 xl:px-16 w-full">
             <div className="text-container">
-              <div className=" inset-0  items-start justify-start sm:flex-row sm:items-center py-8 px-0 ">
-                <div className="mr-8  items-start">
+              <div className=" inset-0 py-8 px-0 w-full">
+                <div className="mr-8 flex flex-col items-center w-full">
                   <div className="text-xl md:text-md font-semibold text-black mb-3">
                     Inquiry Form
                   </div>
@@ -206,26 +216,29 @@ const ContactUs = () => {
                       placeholder={"Enter Subject"}
                     />
                   </div>
-                  <div className="mt-5 flex flex-col lg:flex-row lg:items-center">
-                    <div className="w-full lg:w-1/2  lg:mb-0">
+                  <div className="mt-5 flex flex-col w-full lg:w-1/2">
+                    <div className="w-full lg:mb-0">
                       <label
                         for="message"
-                        className="block text-xl mb-2  text-gray-700"
+                        className="block text-sm mb-2  text-gray-700"
                       >
                         Message
                       </label>
                       <textarea
                         id="message"
                         rows="4"
-                        className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300"
+                        className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:outline-none hover:border-swPrimary500"
                       ></textarea>
                     </div>
+                    {/* <div className="w-full md:w-1/2"> */}
                     <Button
                       label={"Send"}
+                      className="w-full md:w-1/2 mx-auto"
                       bgColor={
-                        "bg-swPrimary500 block w-1/2 mt-0 lg:w-auto  text-sm text-white rounded-lg shadow-md lg:ml-4 mt-24"
+                        "bg-swPrimary500 block mt-0  text-sm text-white rounded-lg shadow-md mt-10"
                       }
                     />
+                    {/* </div> */}
                   </div>
                 </div>
               </div>

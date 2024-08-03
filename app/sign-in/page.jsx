@@ -25,6 +25,7 @@ import NavAndFooter from "../components/shared/NavAndFooter";
 import axios from "axios";
 import Image from "next/image";
 import { API_URL } from "@/constant";
+import Loading from "../components/Loading";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -47,6 +48,7 @@ const SignIn = () => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [loader, setLoader] = useState(false);
   // const { loading, error, data } = useSelector((state) => state.auth);
 
   const togglePasswordVisibility = () => {
@@ -65,10 +67,10 @@ const SignIn = () => {
 
   const signIn = async () => {
     try {
-      const response = await axios.post(
-        `${API_URL}/user/login`,
-        { email, password }
-      );
+      const response = await axios.post(`${API_URL}/user/login`, {
+        email,
+        password,
+      });
       setData(response?.data);
       let user = response?.data?.data;
       user = { ...user, isLoggedIn: true };
@@ -125,6 +127,14 @@ const SignIn = () => {
   //     toast.error(error);
   //   }
   // }, [data, error]);
+
+  useEffect(() => {
+    setLoader(false);
+  }, []);
+
+  if (loader) {
+    return <Loading />;
+  }
 
   return (
     <main className="flex justify-center items-center z-50 bg-gray-100">

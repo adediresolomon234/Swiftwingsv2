@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InputField from "../components/shared/InputField";
 import { FiMail, FiPhone } from "react-icons/fi";
 import { SWLogo, SwUserIcon } from "../components/svgs";
@@ -12,11 +12,12 @@ import { ToastContainer, toast } from "react-toastify";
 import NavAndFooter from "../components/shared/NavAndFooter";
 import Button from "../components/Button";
 import { TbRuler3 } from "react-icons/tb";
+import Loading from "../components/Loading";
 
 const EmptyLegPage = () => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(false);
+  const [loader, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: ``,
     name: ``,
@@ -50,6 +51,14 @@ const EmptyLegPage = () => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
+
+  useEffect(() => {
+    setLoading(false);
+  }, []);
+
+  if (loader) {
+    return <Loading />;
+  }
 
   return (
     <NavAndFooter Nav={true}>

@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import Button from "../components/Button";
 import NavBar from "../components/shared/NavBar";
 import { Libre_Baskerville } from "next/font/google";
+import Loading from "../components/Loading";
 
 const libre_baskerville = Libre_Baskerville({
   subsets: ["latin"],
@@ -11,6 +12,7 @@ const libre_baskerville = Libre_Baskerville({
 
 const VerifyPage = () => {
   const [inputNum, setInputNum] = useState(1);
+  const [loading, setLoading] = useState(true);
   const [verifyCode, setVerifyCode] = useState([0, 0, 0, 0, 0]);
   const firstInput = useRef(null);
   const secondInput = useRef(null);
@@ -21,16 +23,23 @@ const VerifyPage = () => {
 
   useEffect(() => {
     inputNum === 1
-      ? firstInput.current.focus()
+      ? firstInput?.current?.focus()
       : inputNum === 2
-      ? secondInput.current.focus()
+      ? secondInput?.current?.focus()
       : inputNum === 3
-      ? thirdInput.current.focus()
+      ? thirdInput?.current?.focus()
       : inputNum === 4
-      ? fourthInput.current.focus()
-      : fifthInput.current.focus();
+      ? fourthInput?.current?.focus()
+      : fifthInput?.current?.focus();
   }, [inputNum]);
 
+  useEffect(() => {
+    setLoading(false);
+  }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
   return (
     <main className="flex justify-center items-center min-h-[100vh] bg-swSecondary50">
       <NavBar Nav={false} />

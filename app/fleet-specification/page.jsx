@@ -8,6 +8,7 @@ import { SWGlobeIcon, SwSeatIcon, SwMeterIcon } from "../components/svgs";
 import FleetSpecSlider from "../components/shared/Fleetspec/FleetSpecSlider";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import Loading from "../components/Loading";
 
 const spaceGrotesk = Space_Grotesk({
     subsets: ["latin"],
@@ -17,6 +18,7 @@ const spaceGrotesk = Space_Grotesk({
 const FleetSpec = () => {
     const router = useRouter();
     const id = router.query?.id;
+    const [loading, setLoading] = useState(true);
 
     const [aircraftDetails, setAircraftDetails] = useState(null);
 
@@ -29,6 +31,14 @@ const FleetSpec = () => {
             });
         }
     }, [id]);
+
+    useEffect(() => {
+        setLoading(false);
+      }, []);
+    
+      if (loading) {
+        return <Loading />;
+      }
 
     if (!router.isReady) {
         return null;

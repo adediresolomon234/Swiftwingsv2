@@ -24,6 +24,8 @@ import {
 } from "../components/svgs";
 import Button from "../components/Button";
 import FooterHero from "../components/shared/footerHero";
+import Loading from "../components/Loading";
+import { useEffect, useState } from "react";
 
 const libre_baskerville = Libre_Baskerville({
   subsets: ["latin"],
@@ -31,6 +33,15 @@ const libre_baskerville = Libre_Baskerville({
 });
 
 const Service = () => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(false);
+  }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
   return (
     <main className="relative bg-swLightBgGray">
       <NavAndFooter Nav={true}>

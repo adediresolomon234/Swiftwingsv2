@@ -1,44 +1,65 @@
 "use client";
 
 import DestinationSliders from "../components/shared/DestionationSlider";
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import Swiftwings from "../../public/images/Swiftwings.png";
 import DestinationList from "../components/helpers/DestinationList";
 import NavAndFooter from "../components/shared/NavAndFooter";
 import FooterHero from "../components/shared/footerHero";
 import Image from "next/image";
-import Destinationsection from "../../public/images/Destinationsection.png"
+import Destinationsection from "../../public/images/Destinationsection.png";
 import { FaChevronDown } from "react-icons/fa";
 import Button from "../components/Button";
-import { SWTButtoncircleIcon,SWTEllipse9Icon } from "../components/svgs"
-
+import { SWTButtoncircleIcon, SWTEllipse9Icon } from "../components/svgs";
+import Loading from "../components/Loading";
 
 const Destinations = () => {
   const [isBrowser, setIsBrowser] = useState(false);
+  const [loading, setLoading] = useState(true);
+  
   useEffect(() => {
     setIsBrowser(true);
   }, []);
-  const [location, setLocation] = useState({ city: "San Francisco", state: "California" });
+  const [location, setLocation] = useState({
+    city: "San Francisco",
+    state: "California",
+  });
+
+  useEffect(() => {
+    setLoading(false);
+  }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <main className="relative bg-swLightBgGray">
       <NavAndFooter Nav={true}>
         <div class="relative">
-          <Image class="absolute inset-0 w-full h-full object-cover object-top" src={Destinationsection} width="400" height="500" alt="hero background image" />
-          <div aria-hidden="true" class="absolute inset-0 w-full h-full bg-gray-900 bg-opacity-30 backdrop-blur-sm"></div>
+          <Image
+            class="absolute inset-0 w-full h-full object-cover object-top"
+            src={Destinationsection}
+            width="400"
+            height="500"
+            alt="hero background image"
+          />
+          <div
+            aria-hidden="true"
+            class="absolute inset-0 w-full h-full bg-gray-900 bg-opacity-30 backdrop-blur-sm"
+          ></div>
           <div class="relative container m-auto px-6 md:px-12 lg:px-6">
             <div class="mb-12 pt-40 space-y-16 md:mb-20 md:pt-56 lg:w-8/12 lg:mx-auto">
               <div className="location-info flex items-center justify-center mb-8">
                 <div className="location-marker w-3 h-3 bg-primary-500 rounded-full mr-2" />
                 <div className="location-details text-white max-w-lg bg-gray-200 bg-opacity-30 backdrop-blur-sm rounded-t-3xl rounded-br-none rounded-bl-3xl overflow-hidden shrink-0 flex flex-col items-start justify-start py-2 px-8 box-border">
                   <div className="flex items-center">
-                    <SWTEllipse9Icon className="w-2"/>
+                    <SWTEllipse9Icon className="w-2" />
                     <h2 className="font-semibold ml-2">{location.city}</h2>
                   </div>
                   <p className="text-sm ml-4">{location.state}</p>
                 </div>
               </div>
-
             </div>
 
             <div class="pb-16">
@@ -46,14 +67,17 @@ const Destinations = () => {
                 <div className="text-container">
                   <div className=" inset-0 flex flex-col items-start justify-start sm:flex-row sm:items-center py-8 px-0 ">
                     <div className="mr-8 flex flex-col items-start">
-                      <div className="text-xl md:text-5xl lg:text-7xl font-semibold text-black mb-3">What’s your</div>
+                      <div className="text-xl md:text-5xl lg:text-7xl font-semibold text-black mb-3">
+                        What’s your
+                      </div>
                       <div className="text-3xl md:text-6xl lg:text-8xl font-bold text-white mb-8 max-w-1rem break-all md:break-words uppercase">
                         Destination?
                       </div>
                     </div>
                     <div className="mt-0  md:mt-12 flex items-center">
                       <div className="text-sm md:text-xl text-white max-w-lg">
-                        We are bringing the world closer to you through global access!
+                        We are bringing the world closer to you through global
+                        access!
                       </div>
                       <div className="ml-4 text-2xl text-white">
                         <FaChevronDown className="text-white" />
