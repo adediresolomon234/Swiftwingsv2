@@ -22,6 +22,8 @@ import NavAndFooter from "../components/shared/NavAndFooter";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import bgImg from "../../public/images/nologgedInImg.png";
+import { IoClose } from "react-icons/io5";
+import Loading from "../components/Loading";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -42,7 +44,9 @@ const SignUp = () => {
   const [reenterPasswordError, setReenterPasswordError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [popup, setPopup] = useState(false);
   const [showReenterPassword, setShowReenterPassword] = useState(false);
+  const [loader, setLoader] = useState(true);
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
@@ -165,172 +169,26 @@ const SignUp = () => {
   //   }
   // }, [isSubmitted]);
 
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setPopup(true);
+    }, 5000);
+    return () => clearTimeout(timeoutId); // Cleanup the timeout
+  }, []);
+
+  useEffect(() => {
+    setLoader(false);
+  }, []);
+
+  if (loader) {
+    return <Loading />;
+  }
+
   return (
-    // <NavAndFooter Nav={false}>
-    //   <main className="flex justify-center items-center min-h-screen bg-swSecondary50 pt-3">
-    //     <ToastContainer />
-    //     <div className="max-w-lg w-full p-4 mt-20">
-    //       <p className="text-center text-2xl font-semibold text-swGray800">
-    //         Create a new account
-    //       </p>
-    //       <p className="text-center mt-2 mb-8 text-md md:text-lg text-swGRay800">
-    //         Join{" "}
-    //         <span
-    //           className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
-    //         >
-    //           Swift<i className="font-normal">Wings</i>
-    //         </span>
-    //         , book a jet, Enjoy premium membership offers and privileges
-    //       </p>
-    //       <div className="w-full mt-5">
-    //         <InputField
-    //           label={"Email"}
-    //           name={"email"}
-    //           placeholder={"Enter email address"}
-    //           startIcon={<SwMailIcon className="text-xl" />}
-    //           value={formData.email}
-    //           onChange={handleInputChange}
-    //           className={emailError ? "error" : ""}
-    //         />
-    //         {emailError && <p className="text-red-500">{emailError}</p>}
-    //       </div>
-    //       {/* <div className="w-full mt-5">
-    //       <CustomSelect />
-    //     </div> */}
-    //       <div className="flex flex-col sm:flex-row justify-between mt-5">
-    //         <div className="w-full sm:w-1/2 pr-0 sm:pr-2">
-    //           <InputField
-    //             label={"First Name"}
-    //             placeholder={"Enter first name"}
-    //             name="first_name"
-    //             value={formData.first_name}
-    //             onChange={handleInputChange}
-    //             // className={emailError ? "error" : ""}
-    //           />
-    //         </div>
-
-    //         <div className="w-full sm:w-1/2 pl-0 sm:pl-2 mt-5 sm:mt-0">
-    //           <InputField
-    //             label={"Last Name"}
-    //             placeholder={"Enter last name"}
-    //             name="last_name"
-    //             value={formData.last_name}
-    //             onChange={handleInputChange}
-    //             // className={emailError ? "error" : ""}
-    //           />
-    //         </div>
-    //       </div>
-    //       <div className="w-full mt-5">
-    //         <InputField
-    //           label={"Phone"}
-    //           placeholder={"Enter Phone No"}
-    //           name="phone_number"
-    //           value={formData.phone_number}
-    //           onChange={handleInputChange}
-    //           // className={emailError ? "error" : ""}
-    //         />
-    //       </div>
-
-    //       <div className="w-full mt-5">
-    //         <InputField
-    //           label={"Password"}
-    //           name={"password"}
-    //           value={formData.password}
-    //           placeholder={"Enter password"}
-    //           startIcon={<SwKeyIcon className="text-xl" />}
-    //           endIcon={
-    //             showPassword ? (
-    //               <SwOpenEyeIcon
-    //                 className="text-xl"
-    //                 onClick={togglePasswordVisibility}
-    //               />
-    //             ) : (
-    //               <TbEyeClosed
-    //                 className="text-xl"
-    //                 onClick={togglePasswordVisibility}
-    //               />
-    //             )
-    //           }
-    //           inputType={showPassword ? "text" : "password"}
-    //           onChange={handleInputChange}
-    //           className={passwordError ? "error" : ""}
-    //         />
-    //         {passwordError && <p className="text-red-500">{passwordError}</p>}
-    //       </div>
-    //       <div className="w-full mt-5">
-    //         <InputField
-    //           label={"Re-enter password"}
-    //           placeholder={"Re-enter password"}
-    //           value={reenterPassword}
-    //           startIcon={<SwKeyIcon className="text-xl" />}
-    //           endIcon={
-    //             showReenterPassword ? (
-    //               <SwOpenEyeIcon
-    //                 className="text-xl"
-    //                 onClick={toggleReenterPasswordVisibility}
-    //               />
-    //             ) : (
-    //               <TbEyeClosed
-    //                 className="text-xl"
-    //                 onClick={toggleReenterPasswordVisibility}
-    //               />
-    //             )
-    //           }
-    //           inputType={showReenterPassword ? "text" : "password"}
-    //           onChange={(e) => setReenterPassword(e.target.value)}
-    //           className={reenterPasswordError ? "error" : ""}
-    //         />
-    //         {reenterPasswordError && (
-    //           <p className="text-red-500">{reenterPasswordError}</p>
-    //         )}
-    //       </div>
-    //       <div className="my-7 flex flex-col gap-3">
-    //         {/* <Button
-    //         label={"Sign Up"}
-    //         bgColor={"bg-swPrimary500 text-white w-full"}
-    //         onClick={registerHandle}
-    //       /> */}
-    //         <Button
-    //           label={`${loading === "pending" ? "Signing Up" : "Sign Up"}`}
-    //           bgColor={"bg-swPrimary500 text-white w-full"}
-    //           onClick={registerHandle}
-    //           loader={loading === "pending" ? true : false}
-    //           disabled={loading === "pending" ? true : false}
-    //         />
-    //       </div>
-    //       <div className="my-4 mt-2 flex items-center before:mt-0.1 before:flex-1 before:border-t before:border-neutral-200 after:mt-0.1 after:flex-1 after:border-t after:border-neutral-200">
-    //         <p className="mx-4 mb-0 text-center font-medium text-swGray700">
-    //           Or
-    //         </p>
-    //       </div>
-    //       <div className="my-7 flex flex-col gap-3">
-    //         <Button
-    //           startIcon={<SwGoogleColoredIcon className="text-xl" />}
-    //           label={"Google sign up"}
-    //           textColor={"font-semibold text-swGray800 border border-swGray100"}
-    //         />
-    //       </div>
-    //       <p className="text-swGray800 text-center">
-    //         Already have an account ?
-    //       </p>
-    //       <div className="w-full flex justify-center mt-4 font-medium">
-    //         <Button
-    //           label={"Login"}
-    //           textColor={
-    //             "font-semibold text-swGray800 border border-swGray100 max-w-lg"
-    //           }
-    //           onClick={() => {
-    //             router.push("/sign-in");
-    //           }}
-    //         />
-    //       </div>
-    //     </div>
-    //   </main>
-    // </NavAndFooter>
     <main className="flex justify-center items-center z-50 bg-gray-100">
       <ToastContainer />
       <div className="w-full bg-white h-full flex overflow-hidden relative">
-        <div className="flex justify-center items-center mmin-h-screen bg-swSecondary50 pt-3 w-full sm:w-1/2">
+        <div className="relative flex justify-center items-center min-h-screen px-5 bg-swSecondary50 pt-3 w-full sm:w-1/2">
           <div className="max-w-md p-4">
             <p className="text-center text-2xl font-semibold text-swGray800">
               Create a new account
@@ -475,7 +333,7 @@ const SignUp = () => {
               />
             </div> */}
             <p className="text-swGray800 text-center">
-              Already have an account ?
+              Already have an account?
             </p>
             <div className="w-full flex justify-center mt-4 font-medium">
               <Button
@@ -489,6 +347,25 @@ const SignUp = () => {
               />
             </div>
           </div>
+          {/* {popup && ( */}
+          <div
+            className={`absolute ${
+              popup ? "left-0" : "-left-full"
+            } duration-500 top-0  p-5 flex justify-center items-center w-full`}
+          >
+            <div className="max-w-sm p-3 rounded-xl bg-white border-2 border-swPrimary500 text-center">
+              <div className="flex justify-end mb-3">
+                <IoClose
+                  size={20}
+                  className="cursor-pointer text-swPrimary500"
+                  onClick={() => setPopup(false)}
+                />
+              </div>
+              Kindly provide us with your correct phone number so we can serve
+              you better.
+            </div>
+          </div>
+          {/* )} */}
         </div>
         <div className="hidden sm:block w-1/2 bg-cover bg-center bg-no-repeat relative">
           <Image

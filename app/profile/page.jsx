@@ -14,6 +14,8 @@ import {
   SwPlusIcon,
   SWArrowsChevron,
 } from "../components/svgs";
+import Loading from "../components/Loading";
+import { useEffect, useState } from "react";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -26,6 +28,15 @@ const libre_baskerville = Libre_Baskerville({
 });
 
 const ProfilePage = () => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(false);
+  }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
   return (
     <main className="flex justify-center items-center min-h-screen">
       <div className="max-w-md w-full p-2 mt-20">

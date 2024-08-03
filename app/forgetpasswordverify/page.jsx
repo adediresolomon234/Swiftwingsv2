@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import Button from "../components/Button";
 import NavBar from "../components/shared/NavBar";
 import { useRouter } from "next/navigation";
+import Loading from "../components/Loading";
 
 const VerifyPage = () => {
   const [inputNum, setInputNum] = useState(1);
@@ -16,22 +17,22 @@ const VerifyPage = () => {
   const router = useRouter();
   const mockCode = [1, 2, 3, 4, 5];
   const [loading, setLoading] = useState(false);
+  const [loader, setLoader] = useState(true);
   useEffect(() => {
     inputNum === 1
-      ? firstInput.current.focus()
+      ? firstInput?.current?.focus()
       : inputNum === 2
-        ? secondInput.current.focus()
-        : inputNum === 3
-          ? thirdInput.current.focus()
-          : inputNum === 4
-            ? fourthInput.current.focus()
-            : fifthInput.current.focus();
+      ? secondInput?.current?.focus()
+      : inputNum === 3
+      ? thirdInput?.current?.focus()
+      : inputNum === 4
+      ? fourthInput?.current?.focus()
+      : fifthInput?.current?.focus();
   }, [inputNum]);
-
 
   const handleVerify = () => {
     setLoading(true);
-    if (!verifyCode.every(num => num !== 0)) {
+    if (!verifyCode.every((num) => num !== 0)) {
       setShowWarning(true);
       setLoading(false);
     } else if (!verifyCode.every((num, index) => num == mockCode[index])) {
@@ -42,6 +43,14 @@ const VerifyPage = () => {
       router.push("/");
       setLoading(false);
     }
+  };
+
+  useEffect(() => {
+    setLoader(false);
+  }, []);
+
+  if (loader) {
+    return <Loading />;
   }
 
   return (
@@ -53,7 +62,8 @@ const VerifyPage = () => {
         </p>
         <p className="text-center mt-5 mb-8 text-[0.96rem] flex items-center justify-between">
           <span className="text-start">
-            Enter the 5 digit code sent to ...ehy@gmail.com to verify your account
+            Enter the 5 digit code sent to ...ehy@gmail.com to verify your
+            account
           </span>
           <span className="text-swPrimary500 ml-3 font-bold">Change</span>
         </p>
@@ -181,9 +191,7 @@ const VerifyPage = () => {
             />
           </div>
         </div>
-        <div className="flex gap-3 justify-center">
-
-        </div>
+        <div className="flex gap-3 justify-center"></div>
         {showWarning && (
           <p className="text-center text-red-500 mb-8 mt-6">
             Please enter the complete verification code.
@@ -199,9 +207,13 @@ const VerifyPage = () => {
         </div>
         <div className="max-w-sm w-full p-2">
           <p className="text-center mt-5 mb-8 text-[0.95rem] flex justify-center items-center">
-            If you did not receive the email within the next 5 minutes, use the button below to resend verification email.
+            If you did not receive the email within the next 5 minutes, use the
+            button below to resend verification email.
           </p>
-          <a href="#" className="block text-center text-swPrimary600 font-bold mt-5 mb-8 text-[0.95rem] flex justify-center items-center">
+          <a
+            href="#"
+            className="block text-center text-swPrimary600 font-bold mt-5 mb-8 text-[0.95rem] flex justify-center items-center"
+          >
             Resend Verification Email
           </a>
         </div>

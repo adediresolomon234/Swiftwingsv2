@@ -5,33 +5,29 @@ import "../../styles.css";
 import Button from "../components/Button";
 import InputField from "../components/shared/InputField";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  SwMailIcon
-} from "../components/svgs";
+import { SwMailIcon } from "../components/svgs";
 import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import NavBar from "../components/shared/NavBar";
 import { API_URL } from "@/constant";
-
-
+import Loading from "../components/Loading";
 
 const ForgotPassword = () => {
   const dispatch = useDispatch();
+  const [loader, setLoader] = useState(true);
   const [emailError, setEmailError] = useState("");
   const [formData, setFormData] = useState({
     email: "",
   });
-  const router = useRouter(); 
+  const router = useRouter();
   const { loading, error, data } = useSelector((state) => state.auth);
-
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
     setFormData({ ...formData, [name]: value });
   };
-  
 
   const isValidEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -40,23 +36,22 @@ const ForgotPassword = () => {
 
   const sendVerificationCode = async (email) => {
     try {
-
       const response = await fetch(`${API_URL}/user/forgot-password`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ email }),
       });
-  
+
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error("Network response was not ok");
       }
-  
+
       const data = await response.json();
       return data;
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
     }
   };
 
@@ -66,7 +61,7 @@ const ForgotPassword = () => {
         await sendVerificationCode(formData.email);
         router.push("/forgetpasswordverify");
       } catch (error) {
-        console.error('Error:', error);
+        console.error("Error:", error);
       }
     } else {
       setEmailError("Please enter a valid email address");
@@ -88,12 +83,20 @@ const ForgotPassword = () => {
     if (error) toast.error(error);
   }, [data, error]);
 
+  useEffect(() => {
+    setLoader(false);
+  }, []);
+
+  if (loader) {
+    return <Loading />;
+  }
+
   return (
     <>
       <main className="flex justify-center min-h-screen pt-20">
         <NavBar Nav={false} />
         <ToastContainer />
-        <div className="max-w-lg w-full p-2 mt-20">
+        <div className="max-w-lg w-full p-8 mt-20">
           <p className="text-center text-2xl font-medium">
             Forgot your password
           </p>
@@ -117,7 +120,7 @@ const ForgotPassword = () => {
 
           <div className="my-7 flex justify-center">
             <Button
-              label={`${loading === "pending" ? "Sending" : "Send mail"}`}
+              label={`${loading === "pending" ? "Submitting..." : "Submit"}`}
               bgColor={"bg-swPrimary500 text-white"}
               onClick={handleForgotPassword}
               loader={loading === "pending" ? true : false}

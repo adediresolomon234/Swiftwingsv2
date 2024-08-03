@@ -23,18 +23,39 @@ const AllBookings = () => {
   const getAllBookings = () => {
     const user = JSON.parse(localStorage.getItem("user"));
 
-    dispatch(getAllBooking(user.email))
-      .unwrap()
-      .then((res) => {
-        if (res.success == true) {
-          setData(res?.data);
-
-        } else {
-          toast.error(res.message);
-        }
-      })
-      .catch((error) => console.log(error));
+    if (user) {
+      dispatch(getAllBooking(user?.email))
+        .unwrap()
+        .then((res) => {
+          if (res.success == true) {
+            setData(res?.data);
+          } else {
+            toast.error(res.message);
+          }
+        })
+        .catch((error) => console.log(error));
+    }
   };
+
+  const filteredData = data
+    .filter(
+      (item) => item?.status?.toLowerCase() === filter.toLocaleLowerCase()
+    )
+    .filter(
+      (item) =>
+        item?.booking_details?.formData[0]?.destination?.country
+          .toLowerCase()
+          .includes(search.toLocaleLowerCase()) ||
+        item?.booking_details?.formData[0]?.source?.country
+          .toLowerCase()
+          .includes(search.toLocaleLowerCase()) ||
+        item?.booking_number
+          .toLowerCase()
+          .includes(search.toLocaleLowerCase()) ||
+        item?.booking_details?.tripType
+          .toLowerCase()
+          .includes(search.toLocaleLowerCase())
+    );
 
   useEffect(() => {
     getAllBookings();
@@ -121,31 +142,18 @@ const AllBookings = () => {
           </div>
         </div>
       </div>
-      <div className="overflow-x-auto">
+      <div className="hidden sm:block overflow-x-auto">
         <table className="mt-5 w-full">
           <tbody className="w-full">
             {data.length > 0 ? (
-              data
-                .filter(
-                  (item) =>
-                    item?.status?.toLowerCase() === filter.toLocaleLowerCase()
-                )
-                .filter(
-                  (item) =>
-                    item?.booking_details?.formData[0]?.destination?.country
-                      .toLowerCase()
-                      .includes(search.toLocaleLowerCase()) ||
-                    item?.booking_details?.formData[0]?.source?.country
-                      .toLowerCase()
-                      .includes(search.toLocaleLowerCase()) ||
-                    item?.booking_number
-                      .toLowerCase()
-                      .includes(search.toLocaleLowerCase()) ||
-                    item?.booking_details?.tripType
-                      .toLowerCase()
-                      .includes(search.toLocaleLowerCase())
-                )
-                .map((item) => (
+              filteredData.length === 0 ? (
+                <tr>
+                  <td colSpan={5} className="text-center p-5">
+                    No bookings found
+                  </td>
+                </tr>
+              ) : (
+                filteredData.map((item) => (
                   <tr
                     onClick={() =>
                       router.push(
@@ -217,6 +225,7 @@ const AllBookings = () => {
                     </td>
                   </tr>
                 ))
+              )
             ) : (
               <tr>
                 <td colSpan={5} className="text-center p-5">
@@ -226,6 +235,98 @@ const AllBookings = () => {
             )}
           </tbody>
         </table>
+      </div>
+      <div className="sm:hidden flex flex-col gap-5 mt-10">
+        {data.length > 0 ? (
+          filteredData.length === 0 ? (
+            <div className="text-center">No bookings found</div>
+          ) : (
+            filteredData.map((item) => (
+              <div
+                onClick={() =>
+                  router.push(
+                    `/user-dashboard?page=bookings&id=${item?.booking_number}`
+                  )
+                }
+                key={item?.booking_number}
+                className="border rounded-md p-5"
+              >
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-swGray600">Booking ID</p>
+                    <p>{item?.booking_number}</p>
+                  </div>
+
+                  <div
+                    className={`text-white text-xs rounded-full w-fit ml-auto mb-3 py-2 px-4 ${
+                      item?.status === "New"
+                        ? "bg-[rgb(203,196,25)]"
+                        : item.status === "Processing"
+                        ? "bg-[#196BCB]"
+                        : item.status === "Completed"
+                        ? "bg-[#33CB19]"
+                        : "bg-[#CB2419]"
+                    }`}
+                  >
+                    {item?.status}
+                  </div>
+                </div>
+                <div className="flex justify-between gap-3">
+                  <div className="flex flex-col mt-3 gap-3 flex-wrap">
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="">
+                        <p>From</p>
+                        <p>
+                          {
+                            item?.booking_details?.formData[0]?.source
+                              ?.iata_code
+                          }{" "}
+                          -{" "}
+                          {item?.booking_details?.formData[0]?.source?.country}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="">
+                        <p>To</p>
+                        <p>
+                          {
+                            item?.booking_details?.formData[0]?.destination
+                              ?.iata_code
+                          }{" "}
+                          -{" "}
+                          {
+                            item?.booking_details?.formData[0]?.destination
+                              ?.country
+                          }
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div className="flex flex-col gap-3">
+                      <div className="w-28 mt-3">
+                        <p className=" text-swGray600">Trip Type</p>
+                        <p>{item?.booking_details?.tripType}</p>
+                      </div>
+                      <div className="max-w-28">
+                        <p className="text-swGray600">
+                          {dayjs(item?.created_date).format("h:mm a")}
+                          {/* {format(item?.created_date, "h:mm a")} */}
+                        </p>
+                        <p className="md:text-lg  font-medium">
+                          {dayjs(item?.created_date).format("D MMM, YYYY")}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))
+          )
+        ) : (
+          <div className="text-center">No bookings found</div>
+        )}
       </div>
     </main>
   );

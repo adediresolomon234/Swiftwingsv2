@@ -16,11 +16,11 @@ const Button = ({
     <button
       onClick={onClick}
       disabled={disabled}
-      className={`${className} ${bgColor ? bgColor : "bg-white"} ${
+      className={` ${bgColor ? bgColor : "bg-white"} ${
         textColor ? textColor : "text-gray-400"
       } py-3 px-6 rounded-full flex justify-center items-center gap-2 relative overflow-hidden ${
         disabled && "cursor-not-allowed"
-      }`}
+      } ${className}`}
     >
       {startIcon && <span>{startIcon}</span>}
       {loader && (

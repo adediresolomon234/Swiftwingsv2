@@ -16,6 +16,7 @@ import { useRouter } from "next/navigation";
 import { PuffLoader } from "react-spinners";
 import { Libre_Baskerville } from "next/font/google";
 import Head from "next/head"; 
+import Loading from "../components/Loading";
 
 const libre_baskerville = Libre_Baskerville({
   subsets: ["latin"],
@@ -28,10 +29,19 @@ const FleetPage = () => {
   const status = useSelector((state) => state.aircrafts.status);
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     dispatch(fetchAircrafts());
   }, [dispatch]);
+
+  useEffect(() => {
+    setLoading(false);
+  }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   const filteredAircrafts = aircrafts.filter((aircraft) => {
     return aircraft.name.toLowerCase().includes(searchQuery.toLowerCase());
@@ -63,12 +73,11 @@ const FleetPage = () => {
               </p>
               <div className="flex justify-center mt-1 lg:mt-4">
                 <p className="max-w-lg text-xs md:text-md lg:text-lg mt-8 py-3 px-6 rounded-full bg-swPrimary600 ">
-                  We’re Showcasing a collection of fleets that delivers in speed, capacity and distance needs.
+                  We’re Showcasing a collection of fleets that delivers in
+                  speed, capacity and distance needs.
                 </p>
               </div>
-
             </div>
-
           </div>
         </section>
         <section className="py-16">
