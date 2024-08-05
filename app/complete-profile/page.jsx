@@ -40,8 +40,7 @@ const CompleteProfile = () => {
   });
 
   const { loading, error, data } = useSelector((state) => state.auth);
-  // console.log(error);
-  console.log({ data });
+
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -120,7 +119,6 @@ const CompleteProfile = () => {
       router.push("/verify");
       // alert(data?.message);
     }
-    // console.log(data);
     if (error) toast.error(error);
   }, [data, error]);
 

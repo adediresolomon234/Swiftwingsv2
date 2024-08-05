@@ -113,6 +113,7 @@ const BookingPageInformation = () => {
             uncheckBoxes();
             resetBookingState();
             setSuccess(true);
+            console.log("done");
           }
         })
         .catch((error) => {
@@ -136,7 +137,6 @@ const BookingPageInformation = () => {
           bookingDetails?.additional_quote?.length < 1;
   };
 
-  console.log({ jetData });
 
   useEffect(() => {
     dispatch(fetchAircrafts());
@@ -147,7 +147,6 @@ const BookingPageInformation = () => {
         : null;
 
     if (userDetails) {
-      console.log({ userDetails });
       setLoggedInUser(userDetails);
       delete userDetails.token;
       delete userDetails.isLoggedIn;
@@ -159,7 +158,6 @@ const BookingPageInformation = () => {
 
     setHydrated(true);
   }, []);
-  console.log(bookingDetails?.additional_quote);
 
   useEffect(() => {
     const formData = bookingDetails?.booking_details?.formData?.[0];
