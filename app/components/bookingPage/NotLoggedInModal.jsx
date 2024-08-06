@@ -35,7 +35,6 @@ function NotLoggedInModal({
       bookingDetails.status = "New";
       bookingDetails.user = formData;
       bookingDetails.email = formData.email;
-      dispatch(addBooking(bookingDetails));
       dispatch(addBooking(bookingDetails))
         .unwrap()
         .then((response) => {
