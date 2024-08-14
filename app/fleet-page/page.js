@@ -15,8 +15,9 @@ import FooterHero from "../components/shared/footerHero";
 import { useRouter } from "next/navigation";
 import { PuffLoader } from "react-spinners";
 import { Libre_Baskerville } from "next/font/google";
-import Head from "next/head"; 
+import Head from "next/head";
 import Loading from "../components/Loading";
+import { fleetPageKeywords } from "../components/helpers/relatedKeywords";
 
 const libre_baskerville = Libre_Baskerville({
   subsets: ["latin"],
@@ -53,7 +54,9 @@ const FleetPage = () => {
         <title>Private Jet Fleet</title>
         <meta
           name="description"
-          content="Avoid commercial crowds. Swift Wings' private jets fleets offer the ultimate getaway, combining luxury, speed and safety." />
+          content="Avoid commercial crowds. Swift Wings' private jets fleets offer the ultimate getaway, combining luxury, speed and safety."
+        />
+        <meta name="keywords" content={fleetPageKeywords} />
       </Head>
       <NavAndFooter Nav={true}>
         <section className="relative pt-24 md:pt-48 pb-10 text-white">
