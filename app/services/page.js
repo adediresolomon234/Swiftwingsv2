@@ -27,6 +27,7 @@ import FooterHero from "../components/shared/footerHero";
 import Head from "next/head";
 import Loading from "../components/Loading";
 import { useEffect, useState } from "react";
+import { servicesPageKeywords } from "../components/helpers/relatedKeywords";
 
 const libre_baskerville = Libre_Baskerville({
   subsets: ["latin"],
@@ -50,7 +51,9 @@ const Service = () => {
         <meta
           name="description"
           content="Swiftwings provides services like private jet charter, empty leg flights, group/corporate flights, medical evacuation, helicopters, etc
-          " />
+          "
+        />
+        <meta name="keywords" content={servicesPageKeywords} />
       </Head>
       <NavAndFooter Nav={true}>
         <div className="relative">
@@ -69,7 +72,12 @@ const Service = () => {
                 <span className="text-swPrimary500">Services</span>
               </h1>
               <p className="px-2 sm:text-md lg:text-lg max-w-lg mx-auto">
-                Our services are designed to give you a first class experience in <a href="https://www.swiftwingsjet.com/services" className="font-bold hover:underline">
+                Our services are designed to give you a first class experience
+                in{" "}
+                <a
+                  href="https://www.swiftwingsjet.com/services"
+                  className="font-bold hover:underline"
+                >
                   private jet charters services
                 </a>
               </p>
@@ -92,8 +100,11 @@ const Service = () => {
                       >
                         Swift<i className="font-normal">Wings</i>
                       </span>
-                      &apos; provides flyers with a customised in-flight catering service. Passengers can choose from a wide selection of meals to suit their dietary needs and taste preferences. This allows them to enjoy a delicious and satisfying meal during their flight.
-
+                      &apos; provides flyers with a customised in-flight
+                      catering service. Passengers can choose from a wide
+                      selection of meals to suit their dietary needs and taste
+                      preferences. This allows them to enjoy a delicious and
+                      satisfying meal during their flight.
                     </p>
                     <p className=" sm:text-md lg:text-lg max-w-2xl">
                       Whether you&apos;re hosting a business meeting or
@@ -110,7 +121,11 @@ const Service = () => {
               {/* </div> */}
               <div className="w-full">
                 <div className="relative">
-                  <Image className=" w-full h-full" src={Inflightcatering2} alt="inflight catering" />
+                  <Image
+                    className=" w-full h-full"
+                    src={Inflightcatering2}
+                    alt="inflight catering"
+                  />
                 </div>
               </div>
               <div className="py-16">
@@ -150,13 +165,28 @@ const Service = () => {
                   </div>
                   <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-10">
                     <p className="sm:text-md lg:text-lg max-w-2xl">
-                      Swift Wings is your trusted partner for <a href="https://www.swiftwingsjet.com/" className="font-bold hover:underline">air ambulance medical evacuation flights
-                      </a>.Our dedicated team understands the critical nature of medical emergencies, and we are here to provide swift and reliable air ambulance services when you need them the most
+                      Swift Wings is your trusted partner for{" "}
+                      <a
+                        href="https://www.swiftwingsjet.com/"
+                        className="font-bold hover:underline"
+                      >
+                        air ambulance medical evacuation flights
+                      </a>
+                      .Our dedicated team understands the critical nature of
+                      medical emergencies, and we are here to provide swift and
+                      reliable air ambulance services when you need them the
+                      most
                     </p>
                     <p className=" sm:text-md lg:text-lg max-w-2xl">
-                      With a commitment to safety, efficiency, and patient care, we ensure that your <a href="https://www.swiftwingsjet.com" className="font-bold hover:underline">
+                      With a commitment to safety, efficiency, and patient care,
+                      we ensure that your{" "}
+                      <a
+                        href="https://www.swiftwingsjet.com"
+                        className="font-bold hover:underline"
+                      >
                         medical evacuation flight
-                      </a> is conducted with the utmost professionalism and urgency.
+                      </a>{" "}
+                      is conducted with the utmost professionalism and urgency.
                     </p>
                   </div>
                 </div>
