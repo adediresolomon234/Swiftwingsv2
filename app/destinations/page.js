@@ -1,6 +1,6 @@
 "use client";
 
-import DestinationSliders from "../components/shared/DestionationSlider";
+
 import { useEffect, useState } from "react";
 import Swiftwings from "../../public/images/Swiftwings.png";
 import DestinationList from "../components/helpers/DestinationList";

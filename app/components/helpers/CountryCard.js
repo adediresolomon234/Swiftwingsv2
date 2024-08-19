@@ -17,7 +17,8 @@ const CountryCard = ({ country }) => {
   <div className="relative w-full sm:w-2/5 ">
     <img
       src={country.image}
-      alt={country.name}
+      name={country.name}
+      alt= {country.alt}
       className="w-full object-cover rounded-2xl"
        width="200"
         height="400"
@@ -52,7 +53,7 @@ const CountryCard = ({ country }) => {
         {country.description}
       </div>
       <div className="w-full flex justify-start mt-10">
-        <Link href="/">
+        <Link href="https://swiftwingsjet.com/">
             <Button
               label="Book A Jet"
               bgColor=" bg-swPrimary500 text-white font-bold"
