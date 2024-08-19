@@ -10,16 +10,16 @@ import Image from "next/image";
 import Destinationsection from "../../public/images/Destinationsection.png";
 import { FaChevronDown } from "react-icons/fa";
 import Button from "../components/Button";
-import { SWTButtoncircleIcon,  SWTEllipse9Icon } from "../components/svgs";
-import Loading from "../components/Loading";import Link from 'next/link';
-import Head from "next/head"; 
-
-
+import { SWTButtoncircleIcon, SWTEllipse9Icon } from "../components/svgs";
+import Loading from "../components/Loading";
+import Link from "next/link";
+import Head from "next/head";
+import { destinationsPageKeywords } from "../components/helpers/relatedKeywords";
 
 const Destinations = () => {
   const [isBrowser, setIsBrowser] = useState(false);
   const [loading, setLoading] = useState(true);
-  
+
   useEffect(() => {
     setIsBrowser(true);
   }, []);
@@ -39,10 +39,14 @@ const Destinations = () => {
   return (
     <main className="relative bg-swLightBgGray">
       <Head>
-        <title>Private Jet Destinations | Local and International Flights</title>
+        <title>
+          Private Jet Destinations | Local and International Flights
+        </title>
         <meta
           name="description"
-          content="Our Private Jet destinations span across Lagos, Abuja, Port Harcourt, Ghana, South Africa, USA, Japan, Australia, France, Italy, Spain, etc." />
+          content="Our Private Jet destinations span across Lagos, Abuja, Port Harcourt, Ghana, South Africa, USA, Japan, Australia, France, Italy, Spain, etc."
+        />
+        <meta name="keywords" content={destinationsPageKeywords} />
       </Head>
       <NavAndFooter Nav={true}>
         <div class="relative">
@@ -85,8 +89,14 @@ const Destinations = () => {
                     </div>
                     <div className="mt-0  md:mt-12 flex items-center">
                       <div className="text-sm md:text-xl text-white max-w-lg">
-                        We are  <a href="https://www.swiftwingsjet.com/" className="text-white font-bold hover:underline">bringing the world closer to you</a>  through global
-                        access!
+                        We are{" "}
+                        <a
+                          href="https://www.swiftwingsjet.com/"
+                          className="text-white font-bold hover:underline"
+                        >
+                          bringing the world closer to you
+                        </a>{" "}
+                        through global access!
                       </div>
                       <div className="ml-4 text-2xl text-white">
                         <FaChevronDown className="text-white" />
@@ -96,12 +106,12 @@ const Destinations = () => {
                 </div>
                 <div className="mt-8 -mx-6 px-8 overflow-x-auto md:overflow-x-hidden">
                   <div className="w-full flex justify-center flex-wrap items-center gap-4 md:w-auto md:gap-6 lg:gap-8">
-                    <Link href="https://swiftwingsjet.com/">
-                        <Button
-                          label="Book A Jet"
-                          bgColor="bg-white text-gray-900 font-bold"
-                          endIcon={<SWTButtoncircleIcon size={32} />}
-                        />   
+                    <Link href="/">
+                      <Button
+                        label="Book A Jet"
+                        bgColor="bg-white text-gray-900 font-bold"
+                        endIcon={<SWTButtoncircleIcon size={32} />}
+                      />
                     </Link>
                   </div>
                 </div>
