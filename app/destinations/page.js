@@ -1,6 +1,6 @@
 "use client";
 
-import DestinationSliders from "../components/shared/DestionationSlider";
+
 import { useEffect, useState } from "react";
 import Swiftwings from "../../public/images/Swiftwings.png";
 import DestinationList from "../components/helpers/DestinationList";
@@ -96,7 +96,7 @@ const Destinations = () => {
                 </div>
                 <div className="mt-8 -mx-6 px-8 overflow-x-auto md:overflow-x-hidden">
                   <div className="w-full flex justify-center flex-wrap items-center gap-4 md:w-auto md:gap-6 lg:gap-8">
-                    <Link href="/">
+                    <Link href="https://swiftwingsjet.com/">
                         <Button
                           label="Book A Jet"
                           bgColor="bg-white text-gray-900 font-bold"

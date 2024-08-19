@@ -59,7 +59,7 @@ const Service = () => {
             src={Serivcepage}
             width="400"
             height="500"
-            alt="hero background image"
+            alt="services"
           />
           {/* <div aria-hidden="true" class="absolute inset-0 w-full h-full bg-gray-900 bg-opacity-30 backdrop-blur-sm"></div> */}
           <div className="relative mx-auto max-w-screen-full px-4 py-28 sm:px-6 lg:flex lg:h-[70vh]  lg:items-center lg:px-8">
@@ -76,7 +76,7 @@ const Service = () => {
             </div>
           </div>
         </div>
-        <section className="py-5">
+        <section  id="inflight-catering-section" className="py-5">
           <div className="m-auto text-gray-600 md:px-12 xl:px-16">
             <div className="">
               {/* <div className="flex"> */}
@@ -110,7 +110,7 @@ const Service = () => {
               {/* </div> */}
               <div className="w-full">
                 <div className="relative">
-                  <Image className=" w-full h-full" src={Inflightcatering2} alt="inflight catering" />
+                  <Image className=" w-full h-full" src={Inflightcatering2} alt="Inflight catering services" />
                 </div>
               </div>
               <div className="py-16">
@@ -138,7 +138,7 @@ const Service = () => {
             </div>
           </div>
         </section>
-        <section className="py-5">
+        <section  id="medical-evacuation-section" className="py-5">
           <div className="m-auto text-gray-600 md:px-12 xl:px-16">
             <div className="w-full mx-auto text-justify lg:text-center">
               <div className="p-5">
@@ -201,7 +201,7 @@ const Service = () => {
             </div>
           </div>
         </section>
-        <section className="py-5">
+        <section  id="#concierge-section" className="py-5">
           <div className="m-auto text-gray-600 md:px-12 xl:px-16">
             <div className="w-full mx-auto text-justify lg:text-center">
               <div className="flex flex-col gap-8 lg:flex-row">

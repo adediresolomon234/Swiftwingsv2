@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { SWToggleIcon, SwUserIcon } from "../svgs";
 import Image from "next/image";
 import Link from "next/link";
-import logo from "../../../public/images/fullLogo.png";
+import SWheader from "../../../public/images/SWheader.png";
 import { IoPersonCircleOutline } from "react-icons/io5";
 import { usePathname, useRouter } from "next/navigation";
 import { FaChevronDown } from "react-icons/fa";
@@ -177,7 +177,7 @@ const NavBar = ({ Nav }) => {
       >
         <div className="flex items-center justify-between max-w-screen-full mx-auto py-4 px-2 sm:px-10">
           <Link href={"/"} className="flex items-center">
-            <Image src={logo} alt="Logo" className="w-40 h-12" />
+            <Image src={SWheader} alt="Logo" className="w-60 " />
           </Link>
 
           <div className="hidden lg:flex gap-3 items-center">

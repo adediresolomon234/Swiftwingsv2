@@ -1,11 +1,13 @@
+import React, { useState, useEffect } from "react";
 import Button from "../Button";
-import React from "react";
-import logo from "../../../public/images/fullLogo.png";
+import SWheader from "../../../public/images/SWheader.png"
+import SWFooter from "../../../public/images/SWFooter.png";
 import Image from "next/image";
 import { FaXTwitter } from "react-icons/fa6";
 import { FaInstagram, FaPhoneAlt } from "react-icons/fa";
 import { CiMail } from "react-icons/ci";
 import { Libre_Baskerville } from "next/font/google";
+import Link from "next/link";
 
 const currentYear = new Date().getFullYear();
 const libre_baskerville = Libre_Baskerville({
@@ -14,6 +16,20 @@ const libre_baskerville = Libre_Baskerville({
 });
 
 const Footer = () => {
+  const [selectedSection, setSelectedSection] = useState(null);
+
+  const scrollToSection = (sectionId) => {
+    setSelectedSection(sectionId);
+    const element = document.getElementById(sectionId);
+    element?.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
+
+  useEffect(() => {
+    if (selectedSection) {
+      scrollToSection(selectedSection);
+    }
+  }, [selectedSection]);
+
   return (
     <footer className="w-full sm:rounded-t-[4rem] bg-swPrimary500 relative flex flex-col items-center overflow-hidden py-12 md:py-12">
       <div className="mb-16 sm:mx-auto w-full sm:w-5/4 md:w-1/2">
@@ -21,7 +37,7 @@ const Footer = () => {
           Let&apos;s work together
         </h2>
         <p className="text-white p-8 mt-8 text-md text-center">
-           Let&apos;s bring the world closer to you with Swiftwingsjet&apos;s private jet charter services. Experience the convenience and luxury of flying on your terms. Reach out today, and let&apos;s work together to make your travel dreams a reality.
+          Let&apos;s bring the world closer to you with Swiftwingsjet&apos;s private jet charter services. Experience the convenience and luxury of flying on your terms. Reach out today, and let&apos;s work together to make your travel dreams a reality.
         </p>
       </div>
       <div className="w-full md:w-3/4 lg:w-4/5 mx-auto px-4 sm:px-8 lg:px-16 xl:px-32 m-20">
@@ -59,8 +75,8 @@ const Footer = () => {
               <div className="mb-6 md:mb-0 w-2/5">
                 <a href="https://swiftwings.com/" className="flex items-center">
                   <Image
-                    src={logo}
-                    className="text-white"
+                   className="text-white w-60 "
+                    src={SWFooter}
                     alt="swiftwings Logo"
                     style={{ filter: "brightness(0) invert(1)" }}
                   />
@@ -71,24 +87,24 @@ const Footer = () => {
                   <h2 className="mb-4 text-md font-medium text-white">Service</h2>
                   <ul className="text-white">
                     <li className="mb-4">
-                      <a href="services" className="hover:underline text-sm">
-                      Air Ambulance
-                      </a>
+                      <Link href="/services#medical-evacuation">
+                        <p className="hover:underline text-sm" onClick={() => scrollToSection("service-section")}>Air Ambulance</p>
+                      </Link>
                     </li>
                     <li className="mb-4">
-                      <a href="services" className="hover:underline text-sm">
-                        Inflight catering
-                      </a>
+                      <Link href="/services#inflight-catering">
+                        <p className="hover:underline text-sm" onClick={() => scrollToSection("service-section")}>Inflight catering</p>
+                      </Link>
                     </li>
                     <li className="mb-4">
-                      <a href="services" className="hover:underline text-sm">
-                      Concierge
-                      </a>
+                      <Link href="/services#concierge">
+                        <p className="hover:underline text-sm" onClick={() => scrollToSection("service-section")}>Concierge</p>
+                      </Link>
                     </li>
                     <li className="mb-4">
-                      <a href="services" className="hover:underline text-sm">
-                      Group/Corporate Charter 
-                      </a>
+                      <Link href="/services#group-charter">
+                        <p className="hover:underline text-sm" onClick={() => scrollToSection("service-section")}>Group/Corporate Charter</p>
+                      </Link>
                     </li>
                   </ul>
                 </div>
@@ -112,7 +128,7 @@ const Footer = () => {
                     </li>
                     <li className="mb-4">
                       <a href="#" className="hover:underline text-sm">
-                      Membership 
+                        Membership
                       </a>
                     </li>
                   </ul>
@@ -132,7 +148,7 @@ const Footer = () => {
                     </li>
                     <li className="mb-4">
                       <a href="#" className="hover:underline text-sm">
-                      FAQ
+                        FAQ
                       </a>
                     </li>
                   </ul>
@@ -185,7 +201,7 @@ const Footer = () => {
               <div className="flex mt-4 sm:justify-center sm:mt-0">
                 <span className="text-sm text-white sm:text-center">
                   {currentYear}{" "}
-                  <a href="https://swiftwings.com" className="hover:underline">
+                  <a href="https://swiftwingsjet.com/" className="hover:underline">
                     <span
                       className={`${libre_baskerville.className} no-text-shadow font-bold`}
                     >

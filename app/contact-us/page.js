@@ -147,36 +147,46 @@ const ContactUs = () => {
           <div class="py-12">
             <div class="xl:container m-auto px-6 text-gray-600 md:px-12 xl:px-6">
               <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-5">
+              <a href="https://www.instagram.com/swiftwingsjet" target="_blank" rel="noopener noreferrer">
                 <div class="group p-6 sm:p-8 rounded-3xl bg-white ">
                   <div class="px-12 py-6 flex flex-col items-center text-center bg-gray-100">
                     <SWTInstagramIcon className="w-12 h-12 mb-6" />
                     <p className="text-gray-600 text-base">@swiftwingsjet</p>
                   </div>
                 </div>
+              </a>
+              <a href="https://www.twitter.com/swiftwingsjet" target="_blank" rel="noopener noreferrer">
                 <div className="group p-6 sm:p-8 rounded-3xl bg-white ">
                   <div class="px-12 py-6 flex flex-col items-center text-center bg-gray-100">
                     <SWTTwitterIcon className="w-12 h-12 mb-6" />
                     <p className="text-gray-600 text-base">@swiftwingsjet</p>
                   </div>
                 </div>
+              </a>
+              <a href="https://www.facebook.com/swiftwingsjet" target="_blank" rel="noopener noreferrer">
                 <div className="group p-6 sm:p-8 rounded-3xl bg-white  ">
                   <div class="px-12 py-6 flex flex-col items-center text-center bg-gray-100">
                     <SWTFacebookIcon className="w-12 h-12 mb-6" />
                     <p className="text-gray-600 text-base">@swiftwingsjet</p>
                   </div>
                 </div>
+              </a>
+              <a href="https://www.linkedin.com/swiftwingsjet" target="_blank" rel="noopener noreferrer">
                 <div className="group p-6 sm:p-8 rounded-3xl bg-white  ">
                   <div class="px-12 py-6 flex flex-col items-center text-center bg-gray-100">
                     <SWTLinkedInIcon className="w-12 h-12 mb-6" />
                     <p className="text-gray-600 text-base">@swiftwingsjet</p>
                   </div>
                 </div>
+              </a>
+              <a href="https://www.tiktok.com/swiftwingsjet" target="_blank" rel="noopener noreferrer">
                 <div className="group p-6 sm:p-8 rounded-3xl bg-white  ">
                   <div class="px-12 py-6 flex flex-col items-center text-center bg-gray-100">
                     <SWTTikTokIcon className="w-12 h-12 mb-6" />
                     <p className="text-gray-600 text-base">@swiftwingsjet</p>
                   </div>
                 </div>
+              </a>
               </div>
             </div>
           </div>

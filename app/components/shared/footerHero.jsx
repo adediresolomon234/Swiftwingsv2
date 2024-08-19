@@ -1,4 +1,5 @@
 import Button from "../Button";
+import Link from 'next/link';
 import React from "react";
 
 const FooterHero = () => {
@@ -23,14 +24,15 @@ const FooterHero = () => {
             alt=""
             src="/images/Circles.png"
           />
-
-          <div className="absolute top-1/2 ">
-            <Button
-              label="Book a jet"
-              bgColor="bg-swPrimary500"
-              textColor="text-white"
-              className="h-12 px-6 text-base"
-            />
+          <div className="absolute top-1/2">
+            <Link href="https://swiftwingsjet.com/" >
+              <Button
+                label="Book a jet"
+                bgColor="bg-swPrimary500"
+                textColor="text-white"
+                className="h-12 px-6 text-base"
+              />
+            </Link>
           </div>
         </div>
       </div>
