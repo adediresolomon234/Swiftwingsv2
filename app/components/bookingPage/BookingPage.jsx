@@ -112,6 +112,7 @@ const BookingPageInformation = () => {
             setAdditionalNote("");
             uncheckBoxes();
             resetBookingState();
+            localStorage.removeItem("bookingDetails");
             setSuccess(true);
             console.log("done");
           }
@@ -136,7 +137,6 @@ const BookingPageInformation = () => {
           bookingDetails?.booking_details?.formData[0]?.passengers.adults < 1 ||
           bookingDetails?.additional_quote?.length < 1;
   };
-
 
   useEffect(() => {
     dispatch(fetchAircrafts());
@@ -411,7 +411,8 @@ const BookingPageInformation = () => {
             firstBtnText={"Go home"}
             firstBtnClick={() => {
               setSuccess(false);
-              router.push("/");
+              // router.push("/");
+              window.location.href = "/";
             }}
             secondBtnText={"View Profile"}
             secondBtnClick={() => {
@@ -430,7 +431,8 @@ const BookingPageInformation = () => {
             firstBtnText={"Go home"}
             firstBtnClick={() => {
               setNotLoggedInSuccess(false);
-              router.push("/");
+              window.location.href = "/";
+              // router.push("/");
             }}
           />
           <AdditionalNoteModal

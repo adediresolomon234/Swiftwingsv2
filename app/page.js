@@ -30,6 +30,7 @@ import {
 import { homePageKeywords } from "./components/helpers/relatedKeywords";
 
 import Loading from "./components/Loading";
+import Link from "next/link";
 
 const space_grotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -282,7 +283,10 @@ export default function Home() {
                       onMouseEnter={() => handleMouseEnter(index)}
                       onMouseLeave={handleMouseLeave}
                     >
-                      <div className="lg:p-2 grid grid-cols-1 gap-2 lg:grid-cols-3 lg:gap-8 border-gray-200 rounded duration-300 hover:bg-swBgGray">
+                      <Link
+                        href={`/fleet-specification/${item.id}`}
+                        className="lg:p-2 grid grid-cols-1 gap-2 lg:grid-cols-3 lg:gap-8 border-gray-200 rounded duration-300 hover:bg-swBgGray"
+                      >
                         <div className="flex items-start sm:items-center fleet-item space-y-2 sm:space-y-0">
                           <a aria-label="icon" className="block">
                             <p className="font-medium md:block text-[18px] text-swGray600">
@@ -325,7 +329,7 @@ export default function Home() {
                             </div> */}
                           </div>
                         </div>
-                      </div>
+                      </Link>
                       <hr className="w-full border-gray-200 mb-3 sm:mb-0" />
                     </div>
                   ))}

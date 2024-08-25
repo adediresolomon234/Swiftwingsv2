@@ -6,14 +6,20 @@ export const fetchAircrafts = createAsyncThunk(
   "aircrafts/fetchAircrafts",
   async () => {
     try {
-      const response = await axios.get(
-        `${API_URL}/aircraft/all`
-      );
+      const response = await axios.get(`${API_URL}/aircraft/all`);
+
+      console.log({ response });
 
       const aircraftsData = response.data.data.map((aircraft) => ({
         id: aircraft._id,
         name: aircraft.model,
         image: aircraft.image_url || "/default-image-url.png",
+        images: [
+          aircraft.image_url,
+          aircraft.image_url_2,
+          aircraft.image_url_3,
+          aircraft.image_url_4,
+        ],
         speed: aircraft.speed,
         kilometer: aircraft.range,
         feet: aircraft.luggage_capacity,
