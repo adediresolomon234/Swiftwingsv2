@@ -114,7 +114,6 @@ const BookingPageInformation = () => {
             resetBookingState();
             localStorage.removeItem("bookingDetails");
             setSuccess(true);
-            console.log("done");
           }
         })
         .catch((error) => {
@@ -135,8 +134,11 @@ const BookingPageInformation = () => {
           !bookingDetails?.booking_details?.formData[0]?.destination ||
           !bookingDetails?.booking_details?.formData[0]?.depatureDate ||
           bookingDetails?.booking_details?.formData[0]?.passengers.adults < 1 ||
+          !bookingDetails?.additional_quote ||
           bookingDetails?.additional_quote?.length < 1;
   };
+
+  console.log("quote", bookingDetails?.additional_quote);
 
   useEffect(() => {
     dispatch(fetchAircrafts());
@@ -378,14 +380,12 @@ const BookingPageInformation = () => {
                     )}
                     <div className="flex flex-col gap-3">
                       <Button
-                        label={"Additional note"}
+                        label={"Additional Note"}
                         bgColor={"bg-swPrimary500 hover:bg-swPrimary600"}
                         className="w-full text-white text-center"
                         onClick={() =>
                           setOpenAdditionalNote(!openAdditionalNote)
                         }
-                        loader={loading === "pending" ? true : false}
-                        disabled={loading === "pending" ? true : false}
                       />
                       <Button
                         label={"Request Quote"}
