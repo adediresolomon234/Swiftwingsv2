@@ -58,7 +58,6 @@ module.exports = {
         swWarning400: "#f9a63a",
         swWarning500: "#f79009",
         swWarning600: "#e18308",
-        swWarning600: "#e18308",
         swWarning700: "#af6606",
         swWarning800: "#884f05",
         swWarning900: "#683c04",

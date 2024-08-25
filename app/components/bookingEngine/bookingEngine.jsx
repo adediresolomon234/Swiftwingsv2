@@ -246,12 +246,14 @@ const BookingEngine = ({ setBookingDetails }) => {
       },
       additional_quote: [],
     };
-
     if (typeof self !== "undefined") {
       localStorage.setItem("bookingDetails", JSON.stringify(booking));
     }
+
+    // setTimeout(() => {
     setLoading(true);
     router.push("/booking");
+    // }, 1000);
   };
 
   useEffect(() => {
@@ -275,16 +277,24 @@ const BookingEngine = ({ setBookingDetails }) => {
   });
 
   useEffect(() => {
-    const booking = JSON.parse(localStorage.getItem("bookingDetails"));
-    console.log({ booking });
     if (pathname === "/booking") {
-      if (booking) {
-        setBookingType(booking?.booking_details?.tripType);
-        setBookingState(booking?.booking_details?.formData);
-        setBookingDetails(booking);
+      const booking = JSON.parse(localStorage.getItem("bookingDetails"));
+      console.log({ booking });
+      if (booking !== null) {
+        const tripType = booking?.booking_details?.tripType;
+        const formData = booking?.booking_details?.formData;
+        setBookingType(tripType);
+        setBookingState(formData);
+        setBookingDetails((prev) => ({
+          ...prev,
+          booking_details: {
+            tripType,
+            formData,
+          },
+        }));
       }
     }
-  }, []);
+  }, [pathname]);
 
   useEffect(() => {
     if (setBookingDetails) {
@@ -762,10 +772,16 @@ const BookingEngine = ({ setBookingDetails }) => {
                           }`}
                         >
                           <span className="block whitespace-nowrap">
-                            {item?.passengers?.adults} {item?.passengers?.adults === 1 ? "Adult" : "Adults"}
+                            {item?.passengers?.adults}{" "}
+                            {item?.passengers?.adults === 1
+                              ? "Adult"
+                              : "Adults"}
                           </span>
                           <span className="block whitespace-nowrap">
-                            {item?.passengers?.children} {item?.passengers?.children === 1 ? "Child" : "Children"}
+                            {item?.passengers?.children}{" "}
+                            {item?.passengers?.children === 1
+                              ? "Child"
+                              : "Children"}
                           </span>
                           {/* -{" "}{item?.passengers?.pets} */}
                         </p>
@@ -864,7 +880,9 @@ const BookingEngine = ({ setBookingDetails }) => {
                               </div>
                             </div>
                           </div> */}
-                                                        <p className="text-swGray500 text-xs italics">Please specify at least One adult</p>
+                          <p className="text-swGray500 text-xs italics">
+                            Please specify at least One adult
+                          </p>
 
                           <div className="flex items-center justify-between">
                             <p>Done?</p>
