@@ -293,7 +293,10 @@ const BookingEngine = ({ setBookingDetails }) => {
           },
         }));
       }
-    }
+    } 
+    // else {
+    //   localStorage.removeItem("bookingDetails");
+    // }
   }, [pathname]);
 
   useEffect(() => {

@@ -207,11 +207,11 @@ const FleetSpec = () => {
             </div>
           </div>
         </section>
-        <section className="py-16 flex justify-center items-center">
+        {/* <section className="py-16 flex justify-center items-center">
           <div className="max-w-[70%] w-full">
             <FleetSpecSlider aircraft={aircraftDetails} />
           </div>
-        </section>
+        </section> */}
 
         <section className="py-16">
           <div className="xl:container m-auto px-6 text-gray-600 md:px-12 xl:px-16">
