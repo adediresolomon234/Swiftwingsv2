@@ -16,7 +16,7 @@ const AircraftCard = ({ aircraft }) => {
   // const handleCardClick = () => {
   //     router.push(`/fleet-specification/${aircraft.id}`);
   // };
-  const { model, image, speed, feet, features, id } = aircraft;
+  const { model, image, speed, feet, name, features, id } = aircraft;
   console.log({ aircraft });
   // console.log(model);
 
@@ -39,7 +39,7 @@ const AircraftCard = ({ aircraft }) => {
         )}
       </div>
       <div className="self-stretch relative leading-6 font-medium mt-3 text-xl mb-3">
-        {features.manufacturer}
+        {name}
       </div>
       <div className="self-stretch flex justify-center gap-4 py-3 px-1 text-center text-sm text-gray-800">
         <div className="flex items-center">
