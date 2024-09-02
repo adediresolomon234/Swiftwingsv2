@@ -54,7 +54,8 @@ const Privacy = () => {
                                 We keep Personal Information for the shortest time necessary to
                                 provide you with Services and to meet all our legal and compliance
                                 obligations. To determine this retention period, we take into account
-                                (i) the nature of the Personal Information gathered; and (ii) the
+                                (i) the nature of the Personal Information gathered; and 
+                                (ii) the
                                 nature of our legal and compliance obligations. All Personal
                                 Information no longer required by us is destroyed and/or erased.
                             </p>
@@ -118,11 +119,10 @@ const Privacy = () => {
                             </p>
                             <h3 className="font-bold mb-8">Minors</h3>
                             <p className="mb-8">
-                                We do not knowingly collect information on children under the age of
-                                16 (“Child”). If you become aware that a Child has provided us with
+                               If you become aware that a Child has provided us with
                                 Personal Information, please contact us. If we become aware that we
                                 have collected Personal Information from a Child without their
-                                parent's verifiable authorization to access our Services, we will take
+                                parents verifiable authorization to access our Services, we will take
                                 steps to remove that information from our servers.
                             </p>
                             <h3 className="font-bold mb-8">Third Party Links</h3>
