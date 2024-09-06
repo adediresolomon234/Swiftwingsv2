@@ -164,7 +164,7 @@ const AllBookings = () => {
                     className=" text-swGray800 hover:bg-swGray50 cursor-pointer rounded w-full"
                   >
                     <td className="whitespace-nowrap p-5">
-                      <p className="md:text-lg text-sm font-medium">
+                      <p className="md:text-sm text-sm font-medium">
                         {dayjs(item?.created_date).format("D MMM, YYYY")}
                       </p>
                       <p className="text-swGray600 text-xs">
@@ -174,12 +174,12 @@ const AllBookings = () => {
                     </td>
                     <td className="whitespace-nowrap p-5">
                       <p className="text-sm text-swGray600">Trip Type</p>
-                      <p className="md:text-lg text-xs font-medium">
+                      <p className="md:text-sm text-xs font-medium">
                         {item?.booking_details?.tripType}
                       </p>
                     </td>
                     <td className="whitespace-nowrap p-5">
-                      <p className="md:text-lg text-xs  font-medium">
+                      <p className="md:text-sm text-xs  font-medium">
                         {item?.booking_details?.formData[0]?.source?.country} -{" "}
                         {
                           item?.booking_details?.formData[0]?.destination
@@ -204,7 +204,7 @@ const AllBookings = () => {
                     </td>
                     <td className="whitespace-nowrap p-5">
                       <p className="text-sm text-swGray600">Booking ID</p>
-                      <p className="md:text-lg text-xs font-medium">
+                      <p className="md:text-sm text-xs font-medium">
                         {item?.booking_number}
                       </p>
                     </td>
