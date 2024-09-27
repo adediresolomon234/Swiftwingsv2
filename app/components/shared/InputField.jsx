@@ -17,7 +17,7 @@ const InputField = ({
   return (
     <div className="">
       {label && (
-        <label htmlFor={name} className=" text-swGray800 mb-2 text-sm mb-2">
+        <label htmlFor={name} className=" text-swGray800 text-sm mb-2">
           {label}
         </label>
       )}

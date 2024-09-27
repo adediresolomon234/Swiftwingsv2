@@ -24,6 +24,7 @@ import Image from "next/image";
 import bgImg from "../../public/images/nologgedInImg.png";
 import { IoClose } from "react-icons/io5";
 import Loading from "../components/Loading";
+import PhoneNumberValidation from "../components/shared/PhoneNumberValidation";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -56,8 +57,6 @@ const SignUp = () => {
   });
 
   const { loading, error, data } = useSelector((state) => state.auth);
-  // console.log(error);
-  console.log({ data });
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -241,13 +240,20 @@ const SignUp = () => {
               </div>
             </div>
             <div className="w-full mt-5">
-              <InputField
+              {/* <InputField
                 label={"Phone"}
                 placeholder={"Enter Phone No"}
                 name="phone_number"
                 value={formData.phone_number}
                 onChange={handleInputChange}
                 // className={emailError ? "error" : ""}
+              /> */}
+              <PhoneNumberValidation
+                label={"Enter Phone No"}
+                inputValue={formData.phone_number}
+                onChange={(val) =>
+                  setFormData((prev) => ({ ...prev, phone_number: val }))
+                }
               />
             </div>
 

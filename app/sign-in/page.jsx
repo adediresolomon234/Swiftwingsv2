@@ -130,7 +130,7 @@ const SignIn = () => {
 
   useEffect(() => {
     setLoader(false);
-  }, []); 
+  }, []);
 
   if (loader) {
     return <Loading />;

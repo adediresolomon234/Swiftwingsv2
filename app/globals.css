@@ -56,3 +56,10 @@ fieldset.MuiOutlinedInput-notchedOutline {
 .pulsate {
   animation: pulsate 2s infinite ease-in-out;
 }
+
+/* .PhoneInputInput {
+  height: 50px;
+} */
+.PhoneInputInput:focus {
+  outline: none;
+}
