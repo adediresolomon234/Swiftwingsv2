@@ -29,7 +29,7 @@ const EmptyLegPage = () => {
     dispatch(addEmptyLeg(formData))
       .unwrap()
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         if (response?.response?.data?.error) {
           toast.error(response?.response?.data?.error);
           setLoading(false);

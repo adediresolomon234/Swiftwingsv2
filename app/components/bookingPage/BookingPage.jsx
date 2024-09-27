@@ -138,7 +138,7 @@ const BookingPageInformation = () => {
           bookingDetails?.additional_quote?.length < 1;
   };
 
-  console.log("quote", bookingDetails?.additional_quote);
+  // console.log("quote", bookingDetails?.additional_quote);
 
   useEffect(() => {
     dispatch(fetchAircrafts());

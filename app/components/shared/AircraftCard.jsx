@@ -17,7 +17,7 @@ const AircraftCard = ({ aircraft }) => {
   //     router.push(`/fleet-specification/${aircraft.id}`);
   // };
   const { model, image, speed, feet, name, features, id } = aircraft;
-  console.log({ aircraft });
+  // console.log({ aircraft });
   // console.log(model);
 
   return (

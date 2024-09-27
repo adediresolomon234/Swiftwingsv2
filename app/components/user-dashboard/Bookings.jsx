@@ -8,7 +8,7 @@ import EachBooking from "./EachBooking";
 const Bookings = () => {
   const [pageState, setPageState] = useState("all-bookings");
   const searchParams = useSearchParams();
-  console.log("router", searchParams.get("id"));
+  // console.log("router", searchParams.get("id"));
   return (
     <div>
       {searchParams.get("id") && <EachBooking />}

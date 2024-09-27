@@ -191,7 +191,7 @@ export const destinationsPageKeywords = [
   "private air charter",
 ].join(", ");
 
-const servicesPageKeywords = [
+export const servicesPageKeywords = [
   "Swiftwings private jet charter",
   "private jet rental Swiftwings",
   "Swiftwings private jet cost",

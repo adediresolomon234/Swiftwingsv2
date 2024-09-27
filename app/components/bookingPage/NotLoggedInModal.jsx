@@ -59,7 +59,7 @@ function NotLoggedInModal({
     }
   };
 
-  console.log(formData);
+  // console.log(formData);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
