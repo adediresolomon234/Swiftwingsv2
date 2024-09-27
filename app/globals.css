@@ -57,9 +57,15 @@ fieldset.MuiOutlinedInput-notchedOutline {
   animation: pulsate 2s infinite ease-in-out;
 }
 
-/* .PhoneInputInput {
-  height: 50px;
-} */
 .PhoneInputInput:focus {
   outline: none;
+}
+
+.PhoneInputCountrySelect option:checked {
+  background-color: #5c0632 !important; /* Background color for the selected option */
+  color: white !important; /* Text color for the selected option */
+}
+.PhoneInputCountrySelect option:hover {
+  background-color: #b48ca1 !important; /* Background color for the selected option */
+  color: white !important; /* Text color for the selected option */
 }
