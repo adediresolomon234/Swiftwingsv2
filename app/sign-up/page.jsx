@@ -188,10 +188,11 @@ const SignUp = () => {
       <ToastContainer />
       <div className="w-full bg-white h-full flex overflow-hidden relative">
         <div className="relative flex justify-center items-center min-h-screen px-5 bg-swSecondary50 pt-3 w-full sm:w-1/2">
-          <div className="max-w-md p-4">
+          <div className="max-w-md p-4  overflow-x-hidden">
             <p className="text-center text-2xl font-semibold text-swGray800">
               Create a new account
             </p>
+
             <p className="text-center mt-2 mb-8 text-md md:text-lg text-swGRay800">
               Join{" "}
               <span
