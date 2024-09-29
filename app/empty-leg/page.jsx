@@ -22,7 +22,7 @@ const EmptyLegPage = () => {
   const [formData, setFormData] = useState({
     email: ``,
     name: ``,
-    phone_number: "",
+    phone: "",
   });
   const handleEpmtyLegSubcription = () => {
     setLoading(TbRuler3);
@@ -38,7 +38,7 @@ const EmptyLegPage = () => {
           setFormData({
             email: ``,
             name: ``,
-            phone_number: "",
+            phone: "",
           });
           setLoading(false);
         }
@@ -95,16 +95,16 @@ const EmptyLegPage = () => {
               {/* <InputField
                 label={"Phone Number"}
                 placeholder={"Enter phone number"}
-                name={"phone_number"}
+                name={"phone"}
                 startIcon={<FiPhone size={25} />}
-                value={formData.phone_number}
+                value={formData.phone}
                 onChange={handleInputChange}
               /> */}
               <PhoneNumberValidation
                 label={"Enter Phone No"}
-                inputValue={formData.phone_number}
+                inputValue={formData.phone}
                 onChange={(val) =>
-                  setFormData((prev) => ({ ...prev, phone_number: val }))
+                  setFormData((prev) => ({ ...prev, phone: val }))
                 }
               />
               <Button

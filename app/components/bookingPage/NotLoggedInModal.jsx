@@ -29,6 +29,7 @@ function NotLoggedInModal({
     lastName: ``,
     phone: "",
   });
+  
   const handleQuote = () => {
     if (Object.values(formData).some((e) => e === "")) {
       alert("input all");
@@ -117,9 +118,9 @@ function NotLoggedInModal({
               /> */}
               <PhoneNumberValidation
                 label={"Enter Phone No"}
-                inputValue={formData.phone_number}
+                inputValue={formData.phone}
                 onChange={(val) => {
-                  setFormData((prev) => ({ ...prev, phone_number: val }));
+                  setFormData((prev) => ({ ...prev, phone: val }));
                 }}
               />
             </div>

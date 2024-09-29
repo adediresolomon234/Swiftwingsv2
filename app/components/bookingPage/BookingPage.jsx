@@ -102,6 +102,7 @@ const BookingPageInformation = () => {
       bookingDetails.user = loggedInUser;
       bookingDetails.email = loggedInUser.email;
       bookingDetails.additional_note = additionalNote;
+
       dispatch(addBooking(bookingDetails))
         .unwrap()
         .then((response) => {
