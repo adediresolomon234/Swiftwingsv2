@@ -44,7 +44,7 @@ const NavBar = ({ Nav }) => {
         }
       }
     }
-    console.log(user);
+    // console.log(user);
   }, []);
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);

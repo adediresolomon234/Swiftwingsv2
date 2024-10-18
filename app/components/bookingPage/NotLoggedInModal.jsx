@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addBooking } from "@/redux/slices/bookingSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import PhoneNumberValidation from "../shared/PhoneNumberValidation";
 
 function NotLoggedInModal({
   open,
@@ -28,6 +29,7 @@ function NotLoggedInModal({
     lastName: ``,
     phone: "",
   });
+  
   const handleQuote = () => {
     if (Object.values(formData).some((e) => e === "")) {
       alert("input all");
@@ -57,6 +59,8 @@ function NotLoggedInModal({
         });
     }
   };
+
+  // console.log(formData);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -102,14 +106,24 @@ function NotLoggedInModal({
               value={formData.lastName}
               onChange={handleInputChange}
             />
-            <InputField
+
+            <div>
+              {/* <InputField
               label={"Phone Number"}
               placeholder={"Enter phone number"}
               name={"phone"}
               startIcon={<FiPhone size={25} />}
               value={formData.phone}
               onChange={handleInputChange}
-            />
+              /> */}
+              <PhoneNumberValidation
+                label={"Enter Phone No"}
+                inputValue={formData.phone}
+                onChange={(val) => {
+                  setFormData((prev) => ({ ...prev, phone: val }));
+                }}
+              />
+            </div>
             <Button
               label="Submit"
               bgColor={"bg-swPrimary500 hover:bg-swPrimary600"}

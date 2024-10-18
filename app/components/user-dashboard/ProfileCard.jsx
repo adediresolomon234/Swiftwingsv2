@@ -19,7 +19,7 @@ const ProfileCard = () => {
   }, []);
 
  
-  console.log(pageState);
+  // console.log(pageState);
   return (
     <div>
       {pageState === "profile" && (

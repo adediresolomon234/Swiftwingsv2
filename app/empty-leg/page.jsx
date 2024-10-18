@@ -13,6 +13,7 @@ import NavAndFooter from "../components/shared/NavAndFooter";
 import Button from "../components/Button";
 import { TbRuler3 } from "react-icons/tb";
 import Loading from "../components/Loading";
+import PhoneNumberValidation from "../components/shared/PhoneNumberValidation";
 
 const EmptyLegPage = () => {
   const router = useRouter();
@@ -21,14 +22,14 @@ const EmptyLegPage = () => {
   const [formData, setFormData] = useState({
     email: ``,
     name: ``,
-    phoneNumber: "",
+    phone: "",
   });
   const handleEpmtyLegSubcription = () => {
     setLoading(TbRuler3);
     dispatch(addEmptyLeg(formData))
       .unwrap()
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         if (response?.response?.data?.error) {
           toast.error(response?.response?.data?.error);
           setLoading(false);
@@ -37,7 +38,7 @@ const EmptyLegPage = () => {
           setFormData({
             email: ``,
             name: ``,
-            phoneNumber: "",
+            phone: "",
           });
           setLoading(false);
         }
@@ -90,13 +91,21 @@ const EmptyLegPage = () => {
                 value={formData.name}
                 onChange={handleInputChange}
               />
-              <InputField
+
+              {/* <InputField
                 label={"Phone Number"}
                 placeholder={"Enter phone number"}
-                name={"phoneNumber"}
+                name={"phone"}
                 startIcon={<FiPhone size={25} />}
-                value={formData.phoneNumber}
+                value={formData.phone}
                 onChange={handleInputChange}
+              /> */}
+              <PhoneNumberValidation
+                label={"Enter Phone No"}
+                inputValue={formData.phone}
+                onChange={(val) =>
+                  setFormData((prev) => ({ ...prev, phone: val }))
+                }
               />
               <Button
                 label="Submit"
