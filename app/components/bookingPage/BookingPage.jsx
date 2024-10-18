@@ -50,6 +50,8 @@ const BookingPageInformation = () => {
     aircrafts: jetData,
   } = useSelector((state) => state.aircrafts);
 
+  // console.log({ jetData });
+
   const resetBookingState = () => {
     setBookingDetails([
       {
