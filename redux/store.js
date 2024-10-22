@@ -3,6 +3,7 @@ import authReducer from "../redux/slices/authSlice";
 import aviPagesReducer from "./slices/aviPagesSlice";
 import bookingReducer from "./slices/bookingSlice";
 import aircraftsSlice from "./slices/aircraftdetails";
+import enquirySlice from "./slices/enquirySlice";
 
 export const store = configureStore({
   reducer: {
@@ -10,5 +11,6 @@ export const store = configureStore({
     auth: authReducer,
     booking: bookingReducer,
     aircrafts: aircraftsSlice,
+    enquiry: enquirySlice,
   },
 });
