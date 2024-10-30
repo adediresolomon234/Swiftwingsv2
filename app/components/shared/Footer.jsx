@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Button from "../Button";
-import SWheader from "../../../public/images/SWheader.png"
+import SWheader from "../../../public/images/SWheader.png";
 import SWFooter from "../../../public/images/SWFooter.png";
 import Image from "next/image";
 import { FaXTwitter } from "react-icons/fa6";
@@ -37,7 +37,10 @@ const Footer = () => {
           Let&apos;s work together
         </h2>
         <p className="text-white p-8 mt-8 text-md text-center">
-          Let&apos;s bring the world closer to you with Swiftwingsjet&apos;s private jet charter services. Experience the convenience and luxury of flying on your terms. Reach out today, and let&apos;s work together to make your travel dreams a reality.
+          Let&apos;s bring the world closer to you with Swiftwingsjet&apos;s
+          private jet charter services. Experience the convenience and luxury of
+          flying on your terms. Reach out today, and let&apos;s work together to
+          make your travel dreams a reality.
         </p>
       </div>
       <div className="w-full md:w-3/4 lg:w-4/5 mx-auto px-4 sm:px-8 lg:px-16 xl:px-32 m-20">
@@ -75,7 +78,7 @@ const Footer = () => {
               <div className="mb-6 md:mb-0 w-2/5">
                 <a href="https://swiftwings.com/" className="flex items-center">
                   <Image
-                   className="text-white w-60 "
+                    className="text-white w-60 "
                     src={SWFooter}
                     alt="swiftwings Logo"
                     style={{ filter: "brightness(0) invert(1)" }}
@@ -84,32 +87,56 @@ const Footer = () => {
               </div>
               <div className="w-full grid grid-cols-2 sm:grid-cols-2 md:flex sm:flex-row flex-wrap gap-3 md:gap-5 justify-between">
                 <div>
-                  <h2 className="mb-4 text-md font-medium text-white">Service</h2>
+                  <h2 className="mb-4 text-md font-medium text-white">
+                    Service
+                  </h2>
                   <ul className="text-white">
                     <li className="mb-4">
                       <Link href="/services#medical-evacuation">
-                        <p className="hover:underline text-sm" onClick={() => scrollToSection("service-section")}>Air Ambulance</p>
+                        <p
+                          className="hover:underline text-sm"
+                          onClick={() => scrollToSection("service-section")}
+                        >
+                          Air Ambulance
+                        </p>
                       </Link>
                     </li>
                     <li className="mb-4">
                       <Link href="/services#inflight-catering">
-                        <p className="hover:underline text-sm" onClick={() => scrollToSection("service-section")}>Inflight catering</p>
+                        <p
+                          className="hover:underline text-sm"
+                          onClick={() => scrollToSection("service-section")}
+                        >
+                          Inflight catering
+                        </p>
                       </Link>
                     </li>
                     <li className="mb-4">
                       <Link href="/services#concierge">
-                        <p className="hover:underline text-sm" onClick={() => scrollToSection("service-section")}>Concierge</p>
+                        <p
+                          className="hover:underline text-sm"
+                          onClick={() => scrollToSection("service-section")}
+                        >
+                          Concierge
+                        </p>
                       </Link>
                     </li>
                     <li className="mb-4">
                       <Link href="/services#group-charter">
-                        <p className="hover:underline text-sm" onClick={() => scrollToSection("service-section")}>Group/Corporate Charter</p>
+                        <p
+                          className="hover:underline text-sm"
+                          onClick={() => scrollToSection("service-section")}
+                        >
+                          Group/Corporate Charter
+                        </p>
                       </Link>
                     </li>
                   </ul>
                 </div>
                 <div>
-                  <h2 className="mb-4 text-md font-medium text-white">Company</h2>
+                  <h2 className="mb-4 text-md font-medium text-white">
+                    Company
+                  </h2>
                   <ul className="text-white">
                     <li className="mb-4">
                       <a href="/about-us" className="hover:underline text-sm">
@@ -134,7 +161,9 @@ const Footer = () => {
                   </ul>
                 </div>
                 <div>
-                  <h2 className="mb-4 text-md font-medium text-white">Platform</h2>
+                  <h2 className="mb-4 text-md font-medium text-white">
+                    Platform
+                  </h2>
                   <ul className="text-white">
                     <li className="mb-4">
                       <a href="/privacy" className="hover:underline text-sm">
@@ -154,13 +183,18 @@ const Footer = () => {
                   </ul>
                 </div>
                 <div>
-                  <h2 className="mb-4 text-md font-medium text-white">Contact</h2>
+                  <h2 className="mb-4 text-md font-medium text-white">
+                    Contact
+                  </h2>
                   <ul className="text-white">
                     <li className="flex items-center mb-4 text-xs">
                       <div className="flex justify-center mr-3">
                         <CiMail />
                       </div>
-                      <a href="mailto:charter@swiftwingsjet.com" className="hover:underline">
+                      <a
+                        href="mailto:charter@swiftwingsjet.com"
+                        className="hover:underline"
+                      >
                         charter@swiftwingsjet.com
                       </a>
                     </li>
@@ -168,7 +202,10 @@ const Footer = () => {
                       <div className="flex justify-center mr-3">
                         <FaInstagram />
                       </div>
-                      <a href="https://www.instagram.com/swiftwingsjet" className="hover:underline">
+                      <a
+                        href="https://www.instagram.com/swiftwingsjet"
+                        className="hover:underline"
+                      >
                         swiftwingsjet
                       </a>
                     </li>
@@ -176,7 +213,10 @@ const Footer = () => {
                       <div className="flex justify-center mr-3">
                         <FaXTwitter />
                       </div>
-                      <a href="https://www.twitter.com/swiftwingsjet" className="hover:underline">
+                      <a
+                        href="https://www.twitter.com/swiftwingsjet"
+                        className="hover:underline"
+                      >
                         swiftwingsjet
                       </a>
                     </li>
@@ -187,11 +227,14 @@ const Footer = () => {
                       <a href="tel:09028792910" className="hover:underline">
                         09028792910
                       </a>
+                      <span className="mx-2">|</span>
+                      <a href="tel:09117204129" className="hover:underline">
+                        09117204129
+                      </a>
                     </li>
                   </ul>
                 </div>
               </div>
-
             </div>
             <hr className="my-6 border-gray-200 sm:mx-auto lg:my-8" />
             <div className="sm:flex sm:items-center sm:justify-between">
@@ -201,7 +244,10 @@ const Footer = () => {
               <div className="flex mt-4 sm:justify-center sm:mt-0">
                 <span className="text-sm text-white sm:text-center">
                   {currentYear}{" "}
-                  <a href="https://swiftwingsjet.com/" className="hover:underline">
+                  <a
+                    href="https://swiftwingsjet.com/"
+                    className="hover:underline"
+                  >
                     <span
                       className={`${libre_baskerville.className} no-text-shadow font-bold`}
                     >
