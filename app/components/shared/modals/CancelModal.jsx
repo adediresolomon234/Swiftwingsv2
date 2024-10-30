@@ -10,6 +10,7 @@ const CancelModal = ({
   headingText,
   text,
   singleBtn,
+  noInput,
   firstBtnText,
   firstBtnClick,
   secondBtnText,
@@ -30,15 +31,16 @@ const CancelModal = ({
           <Image src={CancelSign} alt="cancel" />
           <p className="font-semibold text-2xl mt-10">{headingText}</p>
           <p className="text-sm mt-5 text-center">{text}</p>
-
-          <div className="w-full">
-            <InputField
-              label={"Cancel reason"}
-              placeholder={"Enter reason for cancel (optional)"}
-              value={reasonForCancel}
-              onChange={(e) => setReasonForCancel(e.target.value)}
-            />
-          </div>
+          {!noInput && (
+            <div className="w-full">
+              <InputField
+                label={"Cancel reason"}
+                placeholder={"Enter reason for cancel (optional)"}
+                value={reasonForCancel}
+                onChange={(e) => setReasonForCancel(e.target.value)}
+              />
+            </div>
+          )}
 
           {singleBtn ? (
             <div className="flex gap-5 flex-wrap mt-10 mb-6 w-full">

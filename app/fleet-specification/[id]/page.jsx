@@ -30,7 +30,7 @@ const FleetSpec = () => {
   //     }
   // }, [id]);
 
-  console.log(aircraftDetails);
+  // console.log(aircraftDetails);
 
   useEffect(() => {
     setLoading(false);

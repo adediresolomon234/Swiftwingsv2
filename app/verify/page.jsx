@@ -19,7 +19,7 @@ const VerifyPage = () => {
   const thirdInput = useRef(null);
   const fourthInput = useRef(null);
   const fifthInput = useRef(null);
-  console.log(verifyCode);
+  // console.log(verifyCode);
 
   useEffect(() => {
     inputNum === 1
@@ -66,7 +66,7 @@ const VerifyPage = () => {
               ref={firstInput}
               onChange={(e) => {
                 if (e.target.value.length > 0) {
-                  console.log();
+                  // console.log();
                   setInputNum(2);
                   setVerifyCode((prevArray) =>
                     prevArray.map((item, index) =>

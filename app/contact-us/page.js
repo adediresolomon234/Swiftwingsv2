@@ -1,9 +1,5 @@
 "use client";
 import React, { useEffect } from "react";
-import Accordion from "@mui/material/Accordion";
-import AccordionActions from "@mui/material/AccordionActions";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
 import { useState } from "react";
 import "../../styles.css";
 import Image from "next/image";
@@ -14,8 +10,6 @@ import {
   SWTCallPhoneIcon,
   SwMailIcon,
   SWTFacebookIcon,
-  SWTAccordionsOpenIcon,
-  SWTAccordionsCloseIcon,
   SWTInstagramIcon,
   SWTLinkedInIcon,
   SWTTikTokIcon,
@@ -27,14 +21,57 @@ import Button from "../components/Button";
 import { accordions } from "../components/helpers/FrequentlyQuestions";
 import FooterHero from "../components/shared/footerHero";
 import Loading from "../components/Loading";
+import { useDispatch, useSelector } from "react-redux";
+import { addEnquiry } from "@/redux/slices/enquirySlice";
+import SuccessModal from "../components/shared/modals/SuccessModal";
+import CancelModal from "../components/shared/modals/CancelModal";
 
 const ContactUs = () => {
+  const dispatch = useDispatch();
   const [activeAccordion, setActiveAccordion] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [loadingEnquiry, setLoadingEnquiry] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [failed, setFailed] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    enquiry: "",
+  });
 
   const toggleAccordion = (index) => {
     setActiveAccordion(activeAccordion === index ? null : index);
   };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = async () => {
+    setLoadingEnquiry(true);
+    dispatch(addEnquiry(formData))
+      .unwrap()
+      .then((res) => {
+        if (res?.success === true) {
+          setSuccess(true);
+          setFormData({
+            name: "",
+            email: "",
+            enquiry: "",
+          });
+          setLoadingEnquiry(false);
+        } else {
+          setFailed(true);
+          setLoadingEnquiry(false);
+        }
+      })
+      .catch((err) => {
+        setFailed(true);
+        setLoadingEnquiry(false);
+      });
+  };
+  console.log(formData);
 
   useEffect(() => {
     setLoading(false);
@@ -43,6 +80,8 @@ const ContactUs = () => {
   if (loading) {
     return <Loading />;
   }
+
+  // console.log(data);
 
   return (
     <main className="relative bg-swLightBgGray">
@@ -148,46 +187,66 @@ const ContactUs = () => {
           <div class="py-12">
             <div class="xl:container m-auto px-6 text-gray-600 md:px-12 xl:px-6">
               <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-5">
-              <a href="https://www.instagram.com/swiftwingsjet" target="_blank" rel="noopener noreferrer">
-                <div class="group p-6 sm:p-8 rounded-3xl bg-white ">
-                  <div class="px-12 py-6 flex flex-col items-center text-center bg-gray-100">
-                    <SWTInstagramIcon className="w-12 h-12 mb-6" />
-                    <p className="text-gray-600 text-base">@swiftwingsjet</p>
+                <a
+                  href="https://www.instagram.com/swiftwingsjet"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <div class="group p-6 sm:p-8 rounded-3xl bg-white ">
+                    <div class="px-12 py-6 flex flex-col items-center text-center bg-gray-100">
+                      <SWTInstagramIcon className="w-12 h-12 mb-6" />
+                      <p className="text-gray-600 text-base">@swiftwingsjet</p>
+                    </div>
                   </div>
-                </div>
-              </a>
-              <a href="https://www.twitter.com/swiftwingsjet" target="_blank" rel="noopener noreferrer">
-                <div className="group p-6 sm:p-8 rounded-3xl bg-white ">
-                  <div class="px-12 py-6 flex flex-col items-center text-center bg-gray-100">
-                    <SWTTwitterIcon className="w-12 h-12 mb-6" />
-                    <p className="text-gray-600 text-base">@swiftwingsjet</p>
+                </a>
+                <a
+                  href="https://www.twitter.com/swiftwingsjet"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <div className="group p-6 sm:p-8 rounded-3xl bg-white ">
+                    <div class="px-12 py-6 flex flex-col items-center text-center bg-gray-100">
+                      <SWTTwitterIcon className="w-12 h-12 mb-6" />
+                      <p className="text-gray-600 text-base">@swiftwingsjet</p>
+                    </div>
                   </div>
-                </div>
-              </a>
-              <a href="https://www.facebook.com/swiftwingsjet" target="_blank" rel="noopener noreferrer">
-                <div className="group p-6 sm:p-8 rounded-3xl bg-white  ">
-                  <div class="px-12 py-6 flex flex-col items-center text-center bg-gray-100">
-                    <SWTFacebookIcon className="w-12 h-12 mb-6" />
-                    <p className="text-gray-600 text-base">@swiftwingsjet</p>
+                </a>
+                <a
+                  href="https://www.facebook.com/swiftwingsjet"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <div className="group p-6 sm:p-8 rounded-3xl bg-white  ">
+                    <div class="px-12 py-6 flex flex-col items-center text-center bg-gray-100">
+                      <SWTFacebookIcon className="w-12 h-12 mb-6" />
+                      <p className="text-gray-600 text-base">@swiftwingsjet</p>
+                    </div>
                   </div>
-                </div>
-              </a>
-              <a href="https://www.linkedin.com/swiftwingsjet" target="_blank" rel="noopener noreferrer">
-                <div className="group p-6 sm:p-8 rounded-3xl bg-white  ">
-                  <div class="px-12 py-6 flex flex-col items-center text-center bg-gray-100">
-                    <SWTLinkedInIcon className="w-12 h-12 mb-6" />
-                    <p className="text-gray-600 text-base">@swiftwingsjet</p>
+                </a>
+                <a
+                  href="https://www.linkedin.com/swiftwingsjet"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <div className="group p-6 sm:p-8 rounded-3xl bg-white  ">
+                    <div class="px-12 py-6 flex flex-col items-center text-center bg-gray-100">
+                      <SWTLinkedInIcon className="w-12 h-12 mb-6" />
+                      <p className="text-gray-600 text-base">@swiftwingsjet</p>
+                    </div>
                   </div>
-                </div>
-              </a>
-              <a href="https://www.tiktok.com/swiftwingsjet" target="_blank" rel="noopener noreferrer">
-                <div className="group p-6 sm:p-8 rounded-3xl bg-white  ">
-                  <div class="px-12 py-6 flex flex-col items-center text-center bg-gray-100">
-                    <SWTTikTokIcon className="w-12 h-12 mb-6" />
-                    <p className="text-gray-600 text-base">@swiftwingsjet</p>
+                </a>
+                <a
+                  href="https://www.tiktok.com/swiftwingsjet"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <div className="group p-6 sm:p-8 rounded-3xl bg-white  ">
+                    <div class="px-12 py-6 flex flex-col items-center text-center bg-gray-100">
+                      <SWTTikTokIcon className="w-12 h-12 mb-6" />
+                      <p className="text-gray-600 text-base">@swiftwingsjet</p>
+                    </div>
                   </div>
-                </div>
-              </a>
+                </a>
               </div>
             </div>
           </div>
@@ -203,30 +262,36 @@ const ContactUs = () => {
                   <div className="w-full lg:w-1/2 mt-5">
                     <InputField
                       label={"Full Name"}
+                      value={formData.name}
+                      name={"name"}
                       placeholder={"Full Name"}
+                      onChange={handleChange}
                       startIcon={<SwUserIcon className="text-xl" />}
                     />
                   </div>
                   <div className="w-full lg:w-1/2 mt-5">
                     <InputField
                       label={"Email"}
+                      value={formData.email}
+                      name={"email"}
+                      onChange={handleChange}
                       placeholder={"Enter email address"}
                       startIcon={<SwMailIcon className="text-xl" />}
                     />
                   </div>
-                  <div className="w-full lg:w-1/2 mt-5">
+                  {/* <div className="w-full lg:w-1/2 mt-5">
                     <InputField
                       label={"Phone"}
                       placeholder={"Phone number"}
                       startIcon={<SWTCallPhoneIcon className="text-xl" />}
                     />
-                  </div>
-                  <div className="w-full lg:w-1/2 mt-5">
+                  </div> */}
+                  {/* <div className="w-full lg:w-1/2 mt-5">
                     <InputField
                       label={"Subject"}
                       placeholder={"Enter Subject"}
                     />
-                  </div>
+                  </div> */}
                   <div className="mt-5 flex flex-col w-full lg:w-1/2">
                     <div className="w-full lg:mb-0">
                       <label
@@ -237,14 +302,27 @@ const ContactUs = () => {
                       </label>
                       <textarea
                         id="message"
+                        name="enquiry"
                         rows="4"
+                        value={formData.enquiry}
+                        onChange={handleChange}
                         className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:outline-none hover:border-swPrimary500"
                       ></textarea>
                     </div>
                     {/* <div className="w-full md:w-1/2"> */}
                     <Button
                       label={"Send"}
-                      className="w-full md:w-1/2 mx-auto"
+                      className={`${
+                        loadingEnquiry ||
+                        Object.values(formData).some((value) => value === "")
+                          ? "cursor-not-allowed"
+                          : "cursor-pointer"
+                      } w-full md:w-1/2 mx-auto`}
+                      disabled={
+                        loadingEnquiry ||
+                        Object.values(formData).some((value) => value === "")
+                      }
+                      onClick={handleSubmit}
                       bgColor={
                         "bg-swPrimary500 block mt-0  text-sm text-white rounded-lg shadow-md mt-10"
                       }
@@ -262,6 +340,25 @@ const ContactUs = () => {
           </div>
         </section>
       </NavAndFooter>
+      <SuccessModal
+        open={success}
+        onClose={setSuccess}
+        singleBtn={true}
+        firstBtnText={"Done"}
+        firstBtnClick={() => setSuccess(false)}
+        headingText={"Enquiry Sent"}
+        text={"Yor enquiry has been sent successfully"}
+      />
+      <CancelModal
+        open={failed}
+        onClose={setFailed}
+        singleBtn={true}
+        noInput={true}
+        firstBtnText={"Ok"}
+        firstBtnClick={() => setFailed(false)}
+        headingText={"Enquiry Failed"}
+        text={"Yor enquiry could not be sent. Please try again"}
+      />
     </main>
   );
 };

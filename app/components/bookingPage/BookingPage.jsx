@@ -50,6 +50,8 @@ const BookingPageInformation = () => {
     aircrafts: jetData,
   } = useSelector((state) => state.aircrafts);
 
+  // console.log({ jetData });
+
   const resetBookingState = () => {
     setBookingDetails([
       {
@@ -102,6 +104,7 @@ const BookingPageInformation = () => {
       bookingDetails.user = loggedInUser;
       bookingDetails.email = loggedInUser.email;
       bookingDetails.additional_note = additionalNote;
+
       dispatch(addBooking(bookingDetails))
         .unwrap()
         .then((response) => {
@@ -138,7 +141,7 @@ const BookingPageInformation = () => {
           bookingDetails?.additional_quote?.length < 1;
   };
 
-  console.log("quote", bookingDetails?.additional_quote);
+  // console.log("quote", bookingDetails?.additional_quote);
 
   useEffect(() => {
     dispatch(fetchAircrafts());

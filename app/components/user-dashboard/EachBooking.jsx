@@ -37,7 +37,7 @@ const EachBooking = () => {
       })
       .catch((error) => console.log(error));
   };
-  console.log("data", data);
+  // console.log("data", data);
 
   useEffect(() => {
     getAllBookings();

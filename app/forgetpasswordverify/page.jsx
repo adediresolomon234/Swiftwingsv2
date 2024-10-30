@@ -77,7 +77,7 @@ const VerifyPage = () => {
               ref={firstInput}
               onChange={(e) => {
                 if (e.target.value.length > 0) {
-                  console.log();
+                  // console.log();
                   setInputNum(2);
                   setVerifyCode((prevArray) =>
                     prevArray.map((item, index) =>

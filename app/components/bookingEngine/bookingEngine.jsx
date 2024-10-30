@@ -93,7 +93,7 @@ const BookingEngine = ({ setBookingDetails }) => {
           return booking; // Return original state for other indices
         }
       });
-      console.log({ newState });
+      // console.log({ newState });
       return newState;
     });
   };
@@ -279,7 +279,7 @@ const BookingEngine = ({ setBookingDetails }) => {
   useEffect(() => {
     if (pathname === "/booking") {
       const booking = JSON.parse(localStorage.getItem("bookingDetails"));
-      console.log({ booking });
+      // console.log({ booking });
       if (booking !== null) {
         const tripType = booking?.booking_details?.tripType;
         const formData = booking?.booking_details?.formData;

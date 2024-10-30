@@ -12,7 +12,7 @@ export const getAviAircraft = createAsyncThunk("aircrafts/all", async () => {
         Authorization: "Token WJUeXU8O6sj9YLoYJX7zeV4w92u2OAnkMqDy",
       },
     });
-    console.log({ response });
+    // console.log({ response });
     return response.data;
   } catch (error) {
     if (error.response.data.error) {
@@ -34,7 +34,7 @@ export const getAviAirPort = createAsyncThunk(
           },
         }
       );
-      console.log({ response });
+      // console.log({ response });
       return response.data;
     } catch (error) {
       if (error.response.data.error) {

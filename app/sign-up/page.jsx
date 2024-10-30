@@ -24,6 +24,7 @@ import Image from "next/image";
 import bgImg from "../../public/images/nologgedInImg.png";
 import { IoClose } from "react-icons/io5";
 import Loading from "../components/Loading";
+import PhoneNumberValidation from "../components/shared/PhoneNumberValidation";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -56,8 +57,6 @@ const SignUp = () => {
   });
 
   const { loading, error, data } = useSelector((state) => state.auth);
-  // console.log(error);
-  console.log({ data });
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -189,10 +188,11 @@ const SignUp = () => {
       <ToastContainer />
       <div className="w-full bg-white h-full flex overflow-hidden relative">
         <div className="relative flex justify-center items-center min-h-screen px-5 bg-swSecondary50 pt-3 w-full sm:w-1/2">
-          <div className="max-w-md p-4">
+          <div className="max-w-md p-4  overflow-x-hidden">
             <p className="text-center text-2xl font-semibold text-swGray800">
               Create a new account
             </p>
+
             <p className="text-center mt-2 mb-8 text-md md:text-lg text-swGRay800">
               Join{" "}
               <span
@@ -241,13 +241,20 @@ const SignUp = () => {
               </div>
             </div>
             <div className="w-full mt-5">
-              <InputField
+              {/* <InputField
                 label={"Phone"}
                 placeholder={"Enter Phone No"}
                 name="phone_number"
                 value={formData.phone_number}
                 onChange={handleInputChange}
                 // className={emailError ? "error" : ""}
+              /> */}
+              <PhoneNumberValidation
+                label={"Enter Phone No"}
+                inputValue={formData.phone_number}
+                onChange={(val) =>
+                  setFormData((prev) => ({ ...prev, phone_number: val }))
+                }
               />
             </div>
 

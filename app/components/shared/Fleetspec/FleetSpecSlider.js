@@ -16,7 +16,7 @@ import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 const FleetSpecSlider = ({ aircraft }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
-  console.log({ aircraft });
+  // console.log({ aircraft });
   return (
     <div className>
       <Swiper

@@ -111,7 +111,7 @@ const SignIn = () => {
     // dispatch(signInUser({ email, password }));
     signIn();
   };
-  console.log({ loading });
+  // console.log({ loading });
 
   // useEffect(() => {
   //   if (data && data?.message) {
@@ -130,7 +130,7 @@ const SignIn = () => {
 
   useEffect(() => {
     setLoader(false);
-  }, []); 
+  }, []);
 
   if (loader) {
     return <Loading />;
