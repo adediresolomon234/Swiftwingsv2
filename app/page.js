@@ -374,7 +374,7 @@ export default function Home() {
         <section className="max-w-7xl mx-auto pt-10">
           <div className="px-4 md:px-6 text-start md:text-center">
             <div className="mb-16">
-              <h2 className="mb-4 text-start md:text-center text-[18px] font-semibold text-swPrimary500  md:text-[18px] ">
+              <h2 className="mb-4 text-start m d:text-center text-[18px] font-semibold text-swPrimary500  md:text-[18px] ">
                 Membership
               </h2>
               <p className="text-swGray800 max-w-4xl mt-8 sm:mx-auto md:text-lg text-start md:text-center text-md ">
@@ -396,7 +396,7 @@ export default function Home() {
                 <a
                   href="https://www.swiftwingsjet.com/services"
                   className="text-swGray800 font-bold hover:underline"
-                >
+                 >
                   empty leg prior notification{" "}
                 </a>{" "}
                 , etc

@@ -139,6 +139,7 @@ const ContactUs = () => {
                         <div class="ml-6 grow">
                           <p class="mb-2 font-bold ">Phone Number</p>
                           <p class="text-neutral-500 ">+234 902 879 2910</p>
+                          <p class="text-neutral-500 ">+234 911 720 4129</p>
                         </div>
                       </div>
                     </div>

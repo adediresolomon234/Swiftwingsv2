@@ -237,10 +237,6 @@ const FQR = () => {
                                         <strong>Website:</strong>Use our contact form to submit questions or request more information <a href="https://www.swiftwingsjet.com/contact-us" class="text-blue-600 underline">here</a>
 
                                     </li>
-                                    <p>We work with leading caterers to make sure you have a memorable dining experience during
-                                        your flight.
-
-                                    </p>
                                 </ul>
                             </div>
                         </div>
