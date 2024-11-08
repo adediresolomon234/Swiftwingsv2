@@ -6,7 +6,7 @@ import { SWClose, SWLogo, SwUserIcon } from "../svgs";
 import Button from "../Button";
 import bgImg from "../../../public/images/nologgedInImg.png";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { addBooking } from "@/redux/slices/bookingSlice";
 import { ToastContainer, toast } from "react-toastify";
@@ -22,6 +22,7 @@ function NotLoggedInModal({
 }) {
   const router = useRouter();
   const dispatch = useDispatch();
+  const params = useSearchParams();
   const { loading, error, data } = useSelector((state) => state.booking);
   const [formData, setFormData] = useState({
     email: ``,
@@ -29,6 +30,7 @@ function NotLoggedInModal({
     lastName: ``,
     phone: "",
   });
+  const source = params.get("source")
   
   const handleQuote = () => {
     if (Object.values(formData).some((e) => e === "")) {
@@ -37,6 +39,7 @@ function NotLoggedInModal({
       bookingDetails.status = "New";
       bookingDetails.user = formData;
       bookingDetails.email = formData.email;
+      bookingDetails.source = source ? source : "web";
       dispatch(addBooking(bookingDetails))
         .unwrap()
         .then((response) => {

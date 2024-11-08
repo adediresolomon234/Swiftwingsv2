@@ -11,15 +11,14 @@ import {
   SwTopBottomArrowIcon,
   SwWeightIcon,
 } from "@/app/components/svgs";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import dayjs from "dayjs";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { addBooking } from "@/redux/slices/bookingSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import BookingEngine from "../../components/bookingEngine/bookingEngine";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import SuccessModal from "../shared/modals/SuccessModal";
 import Image from "next/image";
 import loadingGif from "../../../public/images/loading.gif";
@@ -29,6 +28,7 @@ import AdditionalNoteModal from "./AdditionalNoteModal";
 
 const BookingPageInformation = () => {
   const pathname = usePathname();
+  const params = useSearchParams();
   const dispatch = useDispatch();
   const router = useRouter();
   const [dateValue, setDateValue] = useState(dayjs());
@@ -42,6 +42,9 @@ const BookingPageInformation = () => {
   const [hydrated, setHydrated] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [notLoggedInModal, setNotLoggedInModal] = useState(false);
+  const source = params.get("source")
+
+  console.log(source);
 
   const { loading, error, data } = useSelector((state) => state.booking);
   const {
@@ -104,6 +107,7 @@ const BookingPageInformation = () => {
       bookingDetails.user = loggedInUser;
       bookingDetails.email = loggedInUser.email;
       bookingDetails.additional_note = additionalNote;
+      bookingDetails.source = source ? source : "web";
 
       dispatch(addBooking(bookingDetails))
         .unwrap()
@@ -123,8 +127,6 @@ const BookingPageInformation = () => {
           console.log(error);
         });
     } else {
-      // localStorage.setItem("bookingInComplete", true);
-      // router.push("/sign-in");
       setNotLoggedInModal(true);
     }
   };
