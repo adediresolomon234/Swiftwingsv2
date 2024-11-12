@@ -26,9 +26,21 @@ import {
   SWTAddPersonBlackIcon,
   SWTSandClockBlackIcon,
   SWTGalaglobeIcon,
+  SWTNeveah,
+  SWTPolarisbank,
+  SWTCenturygroup,
+  SWTdelborough,
 } from "./components/svgs";
 import { homePageKeywords } from "./components/helpers/relatedKeywords";
-
+import Cubana from "../public/images/cubana.jpg";
+import Polaris from "../public/images/polaris-bank.png";
+import Odu from "../public/images/Odu'aInvestment.jpg";
+import Neveah from "../public/images/Neveah_Home_Assets-01.png";
+import Aella from "../public/images/aella.gif";
+import Century from "../public/images/century-group.png";
+import Gluwa from "../public/images/gluwa.png";
+import Zenco from "../public/images/ZencoLogo.jpg";
+import Delborough from "../public/images/delborough.png"
 import Loading from "./components/Loading";
 import Link from "next/link";
 
@@ -163,7 +175,7 @@ export default function Home() {
               </span>
             </p>
 
-            <div className="max-w-8xl mx-auto px-0 text-gray-500">
+            <div className="max-w-screen-2xl mx-auto px-0 text-gray-500">
               <div className="grid gap-4 md:mx-auto sm:grid-cols-2 lg:w-full xl:grid-cols-4">
                 <div className="group space-y-6 rounded-3xl border border-gray-100 bg-swSecondary300 px-8 py-12 text-center">
                   <SWTStarBlackIcon className="mx-auto svgIcon" />
@@ -226,7 +238,7 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className="max-w-7xl mx-auto pt-10">
+        <section className="max-w-screen-2xl mx-auto pt-10">
           <div className="px-6 text-center md:px-12">
             <div className="mb-16">
               <h2 className="mb-4 md:text-center text-start text-[18px] font-semibold  text-swPrimary500  md:text-[18px] ">
@@ -265,7 +277,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="max-w-7xl mx-auto pt-10 px-4 lg:px-8">
+        <section className="max-w-screen-2xl  mx-auto pt-10 px-4 lg:px-8">
           <div className="relative lg:pt-44">
             <div className="">
               <p className="sm:mx-auto sm:w-10/12 md:w-2/3 p-1 text-swPrimary500 font-semibold md:text-center text-start sm:text-[18px] md:text-[18px] lg:text-[18px] lg:w-auto lg:text-left">
@@ -371,7 +383,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="max-w-7xl mx-auto pt-10">
+        <section className="max-w-screen-2xl mx-auto pt-10">
           <div className="px-4 md:px-6 text-start md:text-center">
             <div className="mb-16">
               <h2 className="mb-4 text-start m d:text-center text-[18px] font-semibold text-swPrimary500  md:text-[18px] ">
@@ -396,7 +408,7 @@ export default function Home() {
                 <a
                   href="https://www.swiftwingsjet.com/services"
                   className="text-swGray800 font-bold hover:underline"
-                 >
+                >
                   empty leg prior notification{" "}
                 </a>{" "}
                 , etc
@@ -437,60 +449,134 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className="px-4 md:px-16 ">
-          <div className="text-start md:text-center md:px-12">
-            <div className="">
-              <h2 className="mb-4 text-start md:text-center text-[18px] font-semibold  text-swPrimary500 md:text-[18px]">
-                Customer Testimonials
-              </h2>
-              <p className="text-swGray800 mt-8 sm:mx-auto max-w-4xl md:text-lg md:text-center text-start text-md">
-                <span
-                  className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
-                >
-                  Swift<i className="font-normal">Wings</i>
-                </span>{" "}
-                Ltd offers an exclusive Jet Card Membership, providing
-                discerning travelers with unparalleled access to private jet
-                charter services. As a Jet Card member, you enjoy priority
-                booking and seamless travel experiences tailored to your
-                preferences.
-              </p>
-            </div>
-          </div>
-          <div className="mb-16">
-            <div className="relative mt-32">
-              <div
-                className="container-snap mt-10 pb-8 flex gap-4 sm:gap-8 md:gap-32 snap-x overflow-x-auto self-center slider"
-                style={{ scrollSnapAlign: "start" }}
+        <section className="max-w-screen-2xl bg-white w-full flex justify-center items-center dark:bg-gray-900 p-8">
+          <div className="max-w-screen-xl px-4 pb-8 mx-auto lg:pb-16">
+            <div className="grid grid-cols-2 gap-4 text-gray-500 sm:gap-12 sm:grid-cols-3 lg:grid-cols-6 dark:text-gray-400">
+              <a
+                className="flex items-center lg:justify-center"
+                target="_blank"
               >
-                <Marquee pauseOnHover={true} speed={60}>
-                  {testimonial.map((item) => (
-                    <div
-                      key={item.id}
-                      className={`scroll-ml-6 snap-start ml-16 'blur' : ''`}
-                      onMouseEnter={() => handleMouseEnter(item.id)}
-                      onMouseLeave={handleMouseLeave}
-                    >
-                      <div className="relative flex-shrink-0 max-w-[95vw] md:max-w-[768px] overflow-hidden Testimonial-card">
-                        <div className="absolute inset-0 w-full h-full bg-swSecondary400 "></div>
-                        <div className="relative h-65 md:h-65 w-full p-3 md:p-8 flex flex-col justify-between items-center">
-                          <div className="py-4 md:py-8 px-2 md:px-4">
-                            <p className="font-bold text-swGray900 text-lg md:text-xl text-center">
-                              {item.name}
-                            </p>
-                            <h2 className="text-gray-700 mt-4 md:mt-8 text-base md:text-base text-center">
-                              {item.testimonial}
-                            </h2>
-                            <div className="flex justify-center mt-4 md:mt-8">
-                              <FaXTwitter />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </Marquee>
-              </div>
+                <Image
+                  className="w-[9.25rem] h-[6.25rem] filter grayscale transition transform hover:scale-110 hover:grayscale-0  dark:hover:text-white"
+                  src={Cubana}
+                  alt="illustration"
+                  loading="lazy"
+                  layout="fixed"
+                  width={100}
+                  height={100}
+                />
+              </a>
+              <a
+                className="flex items-center lg:justify-center"
+                target="_blank"
+              >
+                <Image
+                  className="w-[6.25rem] h-[6.25rem] filter grayscale transition transform hover:scale-110 hover:grayscale-0  dark:hover:textw-hite"
+                  src={Polaris}
+                  alt="illustration"
+                  loading="lazy"
+                  layout="fixed"
+                  width={100}
+                  height={100}
+                />
+              </a>
+              <a
+                className="flex items-center lg:justify-center"
+                target="_blank"
+              >
+                <Image
+                  className="h-[5.25rem] w-[5.25rem] filter grayscale transition transform hover:scale-110 hover:grayscale-0 "
+                  src={Odu}
+                  alt="illustration"
+                  loading="lazy"
+                  layout="responsive"
+                  width={100}
+                  height={100}
+                />
+              </a>
+              <a
+                className="flex items-center lg:justify-center"
+                target="_blank"
+              >
+                <Image
+                  className="h-[5.25rem] w-[5.25rem] filter grayscale transition transform hover:scale-110 hover:grayscale-0 "
+                  src={Neveah}
+                  alt="illustration"
+                  loading="lazy"
+                  layout="responsive"
+                  width={100}
+                  height={100}
+                />
+              </a>
+              <a
+                className="flex items-center lg:justify-center"
+                target="_blank"
+              >
+                <Image
+                  className="h-[5.25rem] w-[5.25rem] filter grayscale transition transform hover:scale-110 hover:grayscale-0  "
+                  src={Aella}
+                  alt="illustration"
+                  loading="lazy"
+                  layout="responsive"
+                  width={100}
+                  height={100}
+                />
+              </a>
+              <a
+                className="flex items-center lg:justify-center"
+                target="_blank"
+              >
+                <Image
+                  className="h-[5.25rem] w-[5.25rem] filter grayscale transition transform hover:scale-110 hover:grayscale-0"
+                  src={Gluwa}
+                  alt="illustration"
+                  loading="lazy"
+                  layout="responsive"
+                  width={100}
+                  height={100}
+                />
+              </a>
+              <a
+                className="flex items-center lg:justify-center"
+                target="_blank"
+              >
+                <Image
+                  className="h-[5.25rem] w-[5.25rem] filter grayscale transition transform hover:scale-110 hover:grayscale-0 "
+                  src={Century}
+                  alt="illustration"
+                  loading="lazy"
+                  layout="responsive"
+                  width={100}
+                  height={100}
+                />
+              </a>
+              <a
+                className="flex items-center lg:justify-center"
+                target="_blank"
+              >
+                <Image
+                  className="h-[5.25rem] w-[5.25rem] filter grayscale transition transform hover:scale-110 hover:grayscale-0 "
+                  src={Zenco}
+                  alt="illustration"
+                  loading="lazy"
+                  layout="responsive"
+                  width={100}
+                  height={100}
+                />
+              </a>       <a
+                className="flex items-center lg:justify-center"
+                target="_blank"
+              >
+                <Image
+                  className="h-[8.25rem] w-[5.25rem] filter grayscale transition transform hover:scale-110 hover:grayscale-0 "
+                  src={Delborough}
+                  alt="illustration"
+                  loading="lazy"
+                  layout="responsive"
+                  width={100}
+                  height={100}
+                />
+              </a>
             </div>
           </div>
         </section>

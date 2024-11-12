@@ -60,3 +60,7 @@ export { default as SWTStarBlack2Icon } from "./StarBlack2.svg";
 export { default as SWTLuxuryFleetIcon } from "./LuxuryFleet.svg";
 export { default as SWTDoortoDoorIcon } from "./DoortoDoorIcon.svg";
 export { default as SWTEllipse9Icon } from "./Ellipse9.svg";
+export { default as SWTNeveah } from "./Neveah..svg";
+export { default as SWTPolarisbank } from "./polarisbank.svg";
+export { default as SWTCenturygroup} from "./centurygroup.svg";
+export { default as SWTdelborough} from "./delborough.svg";
