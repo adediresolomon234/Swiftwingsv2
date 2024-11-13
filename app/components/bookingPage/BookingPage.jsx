@@ -44,8 +44,6 @@ const BookingPageInformation = () => {
   const [notLoggedInModal, setNotLoggedInModal] = useState(false);
   const source = params.get("source")
 
-  console.log(source);
-
   const { loading, error, data } = useSelector((state) => state.booking);
   const {
     status: jetLoading,

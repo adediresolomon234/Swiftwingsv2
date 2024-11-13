@@ -28,8 +28,9 @@ const EachBooking = () => {
       .unwrap()
       .then((res) => {
         if (res.success == true) {
-          setData(res?.data?.find((item) => item?.booking_number === id));
-          console.log(res.data);
+          setData(
+            res?.data?.bookings?.find((item) => item?.booking_number === id)
+          );
           setLoading(false);
         } else {
           toast.error(res.message);
@@ -37,7 +38,6 @@ const EachBooking = () => {
       })
       .catch((error) => console.log(error));
   };
-  // console.log("data", data);
 
   useEffect(() => {
     getAllBookings();
