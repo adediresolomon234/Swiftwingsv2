@@ -40,7 +40,7 @@ import Aella from "../public/images/aella.gif";
 import Century from "../public/images/century-group.png";
 import Gluwa from "../public/images/gluwa.png";
 import Zenco from "../public/images/ZencoLogo.jpg";
-import Delborough from "../public/images/delborough.png"
+import Delborough from "../public/images/delborough.png";
 import Loading from "./components/Loading";
 import Link from "next/link";
 
@@ -449,134 +449,137 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className="max-w-screen-2xl bg-white w-full flex justify-center items-center dark:bg-gray-900 p-8">
-          <div className="max-w-screen-xl px-4 pb-8 mx-auto lg:pb-16">
-            <div className="grid grid-cols-2 gap-4 text-gray-500 sm:gap-12 sm:grid-cols-3 lg:grid-cols-6 dark:text-gray-400">
-              <a
-                className="flex items-center lg:justify-center"
-                target="_blank"
-              >
-                <Image
-                  className="w-[9.25rem] h-[6.25rem] filter grayscale transition transform hover:scale-110 hover:grayscale-0  dark:hover:text-white"
-                  src={Cubana}
-                  alt="illustration"
-                  loading="lazy"
-                  layout="fixed"
-                  width={100}
-                  height={100}
-                />
-              </a>
-              <a
-                className="flex items-center lg:justify-center"
-                target="_blank"
-              >
-                <Image
-                  className="w-[6.25rem] h-[6.25rem] filter grayscale transition transform hover:scale-110 hover:grayscale-0  dark:hover:textw-hite"
-                  src={Polaris}
-                  alt="illustration"
-                  loading="lazy"
-                  layout="fixed"
-                  width={100}
-                  height={100}
-                />
-              </a>
-              <a
-                className="flex items-center lg:justify-center"
-                target="_blank"
-              >
-                <Image
-                  className="h-[5.25rem] w-[5.25rem] filter grayscale transition transform hover:scale-110 hover:grayscale-0 "
-                  src={Odu}
-                  alt="illustration"
-                  loading="lazy"
-                  layout="responsive"
-                  width={100}
-                  height={100}
-                />
-              </a>
-              <a
-                className="flex items-center lg:justify-center"
-                target="_blank"
-              >
-                <Image
-                  className="h-[5.25rem] w-[5.25rem] filter grayscale transition transform hover:scale-110 hover:grayscale-0 "
-                  src={Neveah}
-                  alt="illustration"
-                  loading="lazy"
-                  layout="responsive"
-                  width={100}
-                  height={100}
-                />
-              </a>
-              <a
-                className="flex items-center lg:justify-center"
-                target="_blank"
-              >
-                <Image
-                  className="h-[5.25rem] w-[5.25rem] filter grayscale transition transform hover:scale-110 hover:grayscale-0  "
-                  src={Aella}
-                  alt="illustration"
-                  loading="lazy"
-                  layout="responsive"
-                  width={100}
-                  height={100}
-                />
-              </a>
-              <a
-                className="flex items-center lg:justify-center"
-                target="_blank"
-              >
-                <Image
-                  className="h-[5.25rem] w-[5.25rem] filter grayscale transition transform hover:scale-110 hover:grayscale-0"
-                  src={Gluwa}
-                  alt="illustration"
-                  loading="lazy"
-                  layout="responsive"
-                  width={100}
-                  height={100}
-                />
-              </a>
-              <a
-                className="flex items-center lg:justify-center"
-                target="_blank"
-              >
-                <Image
-                  className="h-[5.25rem] w-[5.25rem] filter grayscale transition transform hover:scale-110 hover:grayscale-0 "
-                  src={Century}
-                  alt="illustration"
-                  loading="lazy"
-                  layout="responsive"
-                  width={100}
-                  height={100}
-                />
-              </a>
-              <a
-                className="flex items-center lg:justify-center"
-                target="_blank"
-              >
-                <Image
-                  className="h-[5.25rem] w-[5.25rem] filter grayscale transition transform hover:scale-110 hover:grayscale-0 "
-                  src={Zenco}
-                  alt="illustration"
-                  loading="lazy"
-                  layout="responsive"
-                  width={100}
-                  height={100}
-                />
-              </a>       <a
-                className="flex items-center lg:justify-center"
-                target="_blank"
-              >
-                <Image
-                  className="h-[8.25rem] w-[5.25rem] filter grayscale transition transform hover:scale-110 hover:grayscale-0 "
-                  src={Delborough}
-                  alt="illustration"
-                  loading="lazy"
-                  layout="responsive"
-                  width={100}
-                  height={100}
-                />
-              </a>
+        <section className="p-5 md:p-10 pb-10">
+          <div className="max-w-screen-2xl mx-auto bg-white w-full flex justify-center items-center dark:bg-gray-900 rounded-3xl p-8">
+            <div className="max-w-screen-xl px-4 pb-8 mx-auto lg:pb-16">
+              <div className="grid grid-cols-2 gap-4 text-gray-500 sm:gap-12 sm:grid-cols-3 lg:grid-cols-6 dark:text-gray-400">
+                <a
+                  className="flex items-center lg:justify-center"
+                  target="_blank"
+                >
+                  <Image
+                    className="w-[9.25rem] h-[6.25rem] filter grayscale transition transform hover:scale-110 hover:grayscale-0 "
+                    src={Cubana}
+                    alt="illustration"
+                    loading="lazy"
+                    layout="fixed"
+                    width={100}
+                    height={100}
+                  />
+                </a>
+                <a
+                  className="flex items-center lg:justify-center"
+                  target="_blank"
+                >
+                  <Image
+                    className="w-[6.25rem] h-[6.25rem] filter grayscale transition transform hover:scale-110 hover:grayscale-0 "
+                    src={Polaris}
+                    alt="illustration"
+                    loading="lazy"
+                    layout="fixed"
+                    width={100}
+                    height={100}
+                  />
+                </a>
+                <a
+                  className="flex items-center lg:justify-center"
+                  target="_blank"
+                >
+                  <Image
+                    className="h-[5.25rem] w-[5.25rem] filter grayscale transition transform hover:scale-110 hover:grayscale-0 "
+                    src={Odu}
+                    alt="illustration"
+                    loading="lazy"
+                    layout="responsive"
+                    width={100}
+                    height={100}
+                  />
+                </a>
+                <a
+                  className="flex items-center lg:justify-center"
+                  target="_blank"
+                >
+                  <Image
+                    className="h-[5.25rem] w-[5.25rem] filter grayscale transition transform hover:scale-110 hover:grayscale-0 "
+                    src={Neveah}
+                    alt="illustration"
+                    loading="lazy"
+                    layout="responsive"
+                    width={100}
+                    height={100}
+                  />
+                </a>
+                <a
+                  className="flex items-center lg:justify-center"
+                  target="_blank"
+                >
+                  <Image
+                    className="h-[5.25rem] w-[5.25rem] filter grayscale transition transform hover:scale-110 hover:grayscale-0  "
+                    src={Aella}
+                    alt="illustration"
+                    loading="lazy"
+                    layout="responsive"
+                    width={100}
+                    height={100}
+                  />
+                </a>
+                <a
+                  className="flex items-center lg:justify-center"
+                  target="_blank"
+                >
+                  <Image
+                    className="h-[5.25rem] w-[5.25rem] filter grayscale transition transform hover:scale-110 hover:grayscale-0"
+                    src={Gluwa}
+                    alt="illustration"
+                    loading="lazy"
+                    layout="responsive"
+                    width={100}
+                    height={100}
+                  />
+                </a>
+                <a
+                  className="flex items-center lg:justify-center"
+                  target="_blank"
+                >
+                  <Image
+                    className="h-[5.25rem] w-[5.25rem] filter grayscale transition transform hover:scale-110 hover:grayscale-0 "
+                    src={Century}
+                    alt="illustration"
+                    loading="lazy"
+                    layout="responsive"
+                    width={100}
+                    height={100}
+                  />
+                </a>
+                <a
+                  className="flex items-center lg:justify-center"
+                  target="_blank"
+                >
+                  <Image
+                    className="h-[5.25rem] w-[5.25rem] filter grayscale transition transform hover:scale-110 hover:grayscale-0 "
+                    src={Zenco}
+                    alt="illustration"
+                    loading="lazy"
+                    layout="responsive"
+                    width={100}
+                    height={100}
+                  />
+                </a>{" "}
+                <a
+                  className="flex items-center lg:justify-center"
+                  target="_blank"
+                >
+                  <Image
+                    className="h-[8.25rem] w-[5.25rem] filter grayscale transition transform hover:scale-110 hover:grayscale-0 "
+                    src={Delborough}
+                    alt="illustration"
+                    loading="lazy"
+                    layout="responsive"
+                    width={100}
+                    height={100}
+                  />
+                </a>
+              </div>
             </div>
           </div>
         </section>

@@ -37,25 +37,27 @@ const AllBookings = () => {
     }
   };
 
-  const filteredData = data
-    .filter(
-      (item) => item?.status?.toLowerCase() === filter.toLocaleLowerCase()
-    )
-    .filter(
-      (item) =>
-        item?.booking_details?.formData[0]?.destination?.country
-          .toLowerCase()
-          .includes(search.toLocaleLowerCase()) ||
-        item?.booking_details?.formData[0]?.source?.country
-          .toLowerCase()
-          .includes(search.toLocaleLowerCase()) ||
-        item?.booking_number
-          .toLowerCase()
-          .includes(search.toLocaleLowerCase()) ||
-        item?.booking_details?.tripType
-          .toLowerCase()
-          .includes(search.toLocaleLowerCase())
-    );
+  const filteredData = data?.bookings
+    ? data?.bookings
+        .filter(
+          (item) => item?.status?.toLowerCase() === filter.toLocaleLowerCase()
+        )
+        .filter(
+          (item) =>
+            item?.booking_details?.formData[0]?.destination?.country
+              .toLowerCase()
+              .includes(search.toLocaleLowerCase()) ||
+            item?.booking_details?.formData[0]?.source?.country
+              .toLowerCase()
+              .includes(search.toLocaleLowerCase()) ||
+            item?.booking_number
+              .toLowerCase()
+              .includes(search.toLocaleLowerCase()) ||
+            item?.booking_details?.tripType
+              .toLowerCase()
+              .includes(search.toLocaleLowerCase())
+        )
+    : [];
 
   useEffect(() => {
     getAllBookings();
@@ -145,7 +147,7 @@ const AllBookings = () => {
       <div className="hidden sm:block overflow-x-auto">
         <table className="mt-5 w-full">
           <tbody className="w-full">
-            {data.length > 0 ? (
+            {data?.bookings?.length > 0 ? (
               filteredData.length === 0 ? (
                 <tr>
                   <td colSpan={5} className="text-center p-5">
@@ -169,7 +171,6 @@ const AllBookings = () => {
                       </p>
                       <p className="text-swGray600 text-xs">
                         {dayjs(item?.created_date).format("h:mm a")}
-                        {/* {format(item?.created_date, "h:mm a")} */}
                       </p>
                     </td>
                     <td className="whitespace-nowrap p-5">
