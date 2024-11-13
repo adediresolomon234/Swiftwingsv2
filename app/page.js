@@ -457,7 +457,7 @@ export default function Home() {
                 target="_blank"
               >
                 <Image
-                  className="w-[9.25rem] h-[6.25rem] filter grayscale transition transform hover:scale-110 hover:grayscale-0  dark:hover:text-white"
+                  className="w-[9.25rem] h-[6.25rem] filter grayscale transition transform hover:scale-110 hover:grayscale-0 "
                   src={Cubana}
                   alt="illustration"
                   loading="lazy"
@@ -471,7 +471,7 @@ export default function Home() {
                 target="_blank"
               >
                 <Image
-                  className="w-[6.25rem] h-[6.25rem] filter grayscale transition transform hover:scale-110 hover:grayscale-0  dark:hover:textw-hite"
+                  className="w-[6.25rem] h-[6.25rem] filter grayscale transition transform hover:scale-110 hover:grayscale-0 "
                   src={Polaris}
                   alt="illustration"
                   loading="lazy"
