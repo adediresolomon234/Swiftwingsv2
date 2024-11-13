@@ -171,7 +171,6 @@ const AllBookings = () => {
                       </p>
                       <p className="text-swGray600 text-xs">
                         {dayjs(item?.created_date).format("h:mm a")}
-                        {/* {format(item?.created_date, "h:mm a")} */}
                       </p>
                     </td>
                     <td className="whitespace-nowrap p-5">
