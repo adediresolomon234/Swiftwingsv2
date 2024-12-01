@@ -733,61 +733,6 @@ const BookingEngine = ({ setBookingDetails }) => {
                         `${item.returningDate} ${item.returningTime}`
                       )}
                     />
-                    {isDateOpen === index && (
-                      <div
-                        className={`absolute ${
-                          bookingType === "Round Trip" && "-ml-5"
-                        }`}
-                      >
-                        {/* <ThemeProvider theme={customTheme}>
-                          <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <div
-                              className={`flex ${
-                                pathname === "/" ? "indexDate" : "bookingDate"
-                              }`}
-                            >
-                              <DateTimePicker
-                                defaultValue={dayjs()}
-                                value={dayjs(
-                                  `${item.depatureDate} ${item.depatureTime}`
-                                )}
-                                onOpen={() => setDateOpen(index)}
-                                onClose={() => setDateOpen(null)}
-                                onChange={(value) =>
-                                  updateBookingState(value, index, "departure")
-                                }
-                                slots={{
-                                  textField: () => (
-                                    <div style={{ display: "none" }} />
-                                  ), // Hide the default text field
-                                }}
-                              />
-                              {bookingType === "Round Trip" && (
-                                <DateTimePicker
-                                  defaultValue={dayjs()}
-                                  value={dayjs(
-                                    `${item.returningDate} ${item.returningTime}`
-                                  )}
-                                  onChange={(value) =>
-                                    updateBookingState(
-                                      value,
-                                      index,
-                                      "returning"
-                                    )
-                                  }
-                                  slots={{
-                                    textField: () => (
-                                      <div style={{ display: "none" }} />
-                                    ), // Hide the default text field
-                                  }}
-                                  onClose={() => setDateOpen(null)}
-                                />
-                              )}
-                            </div>
-                          </LocalizationProvider>
-                        </ThemeProvider> */}
-                      </div>
-                    )}
                   </div>
                   <div className="relative w-full">
                     <div
