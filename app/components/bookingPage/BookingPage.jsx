@@ -31,6 +31,7 @@ const BookingPageInformation = () => {
   const params = useSearchParams();
   const dispatch = useDispatch();
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const [dateValue, setDateValue] = useState(dayjs());
   const [additionalNote, setAdditionalNote] = useState("");
   const [openAdditionalNote, setOpenAdditionalNote] = useState(false);
@@ -42,9 +43,9 @@ const BookingPageInformation = () => {
   const [hydrated, setHydrated] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [notLoggedInModal, setNotLoggedInModal] = useState(false);
-  const source = params.get("source")
+  const source = params.get("source");
 
-  const { loading, error, data } = useSelector((state) => state.booking);
+  const { error, data } = useSelector((state) => state.booking);
   const {
     status: jetLoading,
     error: jetError,
@@ -101,6 +102,7 @@ const BookingPageInformation = () => {
 
   const handleQuote = () => {
     if (loggedInUser) {
+      setLoading(true);
       bookingDetails.status = "New";
       bookingDetails.user = loggedInUser;
       bookingDetails.email = loggedInUser.email;
@@ -123,22 +125,23 @@ const BookingPageInformation = () => {
         })
         .catch((error) => {
           console.log(error);
-        });
+        })
+        .finally(() => setLoading(false));
     } else {
       setNotLoggedInModal(true);
     }
   };
 
   const handleQuoteDisable = () => {
-    return loading === "pending"
-      ? true
-      : false ||
-          !bookingDetails?.booking_details?.formData[0]?.source ||
-          !bookingDetails?.booking_details?.formData[0]?.destination ||
-          !bookingDetails?.booking_details?.formData[0]?.depatureDate ||
-          bookingDetails?.booking_details?.formData[0]?.passengers.adults < 1 ||
-          !bookingDetails?.additional_quote ||
-          bookingDetails?.additional_quote?.length < 1;
+    return (
+      loading ||
+      !bookingDetails?.booking_details?.formData[0]?.source ||
+      !bookingDetails?.booking_details?.formData[0]?.destination ||
+      !bookingDetails?.booking_details?.formData[0]?.depatureDate ||
+      bookingDetails?.booking_details?.formData[0]?.passengers.adults < 1 ||
+      !bookingDetails?.additional_quote ||
+      bookingDetails?.additional_quote?.length < 1
+    );
   };
 
   // console.log("quote", bookingDetails?.additional_quote);
