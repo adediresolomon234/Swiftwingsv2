@@ -10,20 +10,16 @@ import {
   SwUserIcon,
 } from "../svgs";
 import Select from "react-select";
-import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { FiMinus, FiPlus } from "react-icons/fi";
 import Button from "../Button";
 import { IoCheckmark } from "react-icons/io5";
 import { useEffect, useRef, useState } from "react";
 import airportsData from "../helpers/airportsData.json";
 import dayjs from "dayjs";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { HiArrowRight } from "react-icons/hi";
 import { FaSearch } from "react-icons/fa";
 import { usePathname, useRouter } from "next/navigation";
-import { ThemeProvider, createTheme } from "@mui/material";
 import { useSelector } from "react-redux";
-import SelectDateTime from "@/utils/SelectDateTime";
 import SelectDate from "@/utils/SelectDate";
 
 const space_grotesk = Space_Grotesk({
