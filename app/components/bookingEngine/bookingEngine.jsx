@@ -203,13 +203,6 @@ const BookingEngine = ({ setBookingDetails }) => {
     option: (styles) => ({ ...styles, backgroundColor: "white" }),
   };
 
-  const customTheme = createTheme({
-    palette: {
-      primary: {
-        main: "#5c0632", // Change to your desired primary color
-      },
-    },
-  });
 
   const handleRemoveTrip = (index) => {
     const updatedFormData = bookingState.filter((_, idx) => idx !== index);
@@ -519,7 +512,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                   {openDeparture === index && (
                     <div
                       ref={departureRef}
-                      className="absolute text-swGray800 top-[5.5rem] md:top-full mt-1 w-full z-10"
+                      className="absolute text-swGray800 top-[5.5rem] md:top-full mt-1 w-full z-20"
                     >
                       <Select
                         styles={colourStyles}
@@ -537,7 +530,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                               pointerEvents: "none",
                               display: "flex",
                               alignItems: "center",
-                              fontWeight: "lighter",
+                              fontWeight: "lighter"
                             }}
                           >
                             <FaSearch
@@ -563,7 +556,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                     <div
                       id="arrive"
                       ref={arrivalRef}
-                      className="absolute text-swGray800 top-full mt-1 w-full z-10"
+                      className="absolute text-swGray800 top-full mt-1 w-full z-20"
                     >
                       <Select
                         styles={colourStyles}

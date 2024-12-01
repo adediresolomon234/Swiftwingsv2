@@ -398,7 +398,7 @@ const BookingPageInformation = () => {
                         bgColor={"bg-swPrimary500 hover:bg-swPrimary600"}
                         className="w-full text-white text-center"
                         onClick={handleQuote}
-                        loader={loading === "pending" ? true : false}
+                        loader={loading}
                         disabled={handleQuoteDisable()}
                       />
                     </div>
