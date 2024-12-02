@@ -10,19 +10,17 @@ import {
   SwUserIcon,
 } from "../svgs";
 import Select from "react-select";
-import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { FiMinus, FiPlus } from "react-icons/fi";
 import Button from "../Button";
 import { IoCheckmark } from "react-icons/io5";
 import { useEffect, useRef, useState } from "react";
 import airportsData from "../helpers/airportsData.json";
 import dayjs from "dayjs";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { HiArrowRight } from "react-icons/hi";
 import { FaSearch } from "react-icons/fa";
 import { usePathname, useRouter } from "next/navigation";
-import { ThemeProvider, createTheme } from "@mui/material";
 import { useSelector } from "react-redux";
+import SelectDate from "@/utils/SelectDate";
 
 const space_grotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -35,6 +33,7 @@ const BookingEngine = ({ setBookingDetails }) => {
   const [openDeparture, setOpenDeparture] = useState(null);
   const [openArrival, setOpenArrival] = useState(null);
   const [isDateOpen, setDateOpen] = useState(null);
+  const [isArrivalDateOpen, setArrivalDateOpen] = useState(false);
   const [openPassangers, setOpenPassageners] = useState(null);
   const [selectedOption, setSelectedOption] = useState("");
   const [airports, setAirports] = useState(airportsData || []);
@@ -204,13 +203,6 @@ const BookingEngine = ({ setBookingDetails }) => {
     option: (styles) => ({ ...styles, backgroundColor: "white" }),
   };
 
-  const customTheme = createTheme({
-    palette: {
-      primary: {
-        main: "#5c0632", // Change to your desired primary color
-      },
-    },
-  });
 
   const handleRemoveTrip = (index) => {
     const updatedFormData = bookingState.filter((_, idx) => idx !== index);
@@ -293,7 +285,7 @@ const BookingEngine = ({ setBookingDetails }) => {
           },
         }));
       }
-    } 
+    }
     // else {
     //   localStorage.removeItem("bookingDetails");
     // }
@@ -316,6 +308,8 @@ const BookingEngine = ({ setBookingDetails }) => {
       resetBookingState();
     }
   }, [data]);
+
+  console.log({ isArrivalDateOpen, isDateOpen });
 
   return (
     <main>
@@ -518,7 +512,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                   {openDeparture === index && (
                     <div
                       ref={departureRef}
-                      className="absolute text-swGray800 top-[5.5rem] md:top-full mt-1 w-full z-10"
+                      className="absolute text-swGray800 top-[5.5rem] md:top-full mt-1 w-full z-20"
                     >
                       <Select
                         styles={colourStyles}
@@ -536,7 +530,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                               pointerEvents: "none",
                               display: "flex",
                               alignItems: "center",
-                              fontWeight: "lighter",
+                              fontWeight: "lighter"
                             }}
                           >
                             <FaSearch
@@ -562,7 +556,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                     <div
                       id="arrive"
                       ref={arrivalRef}
-                      className="absolute text-swGray800 top-full mt-1 w-full z-10"
+                      className="absolute text-swGray800 top-full mt-1 w-full z-20"
                     >
                       <Select
                         styles={colourStyles}
@@ -607,7 +601,6 @@ const BookingEngine = ({ setBookingDetails }) => {
                 </div>
                 <div className="grid grid-cols-1 grid-rows-2 md:grid-rows-1 md:grid-cols-2 w-full gap-5">
                   <div
-                    onClick={() => setDateOpen(index)}
                     className={`relative p-5 flex h-[5.5rem] w-full items-center gap-5 ${
                       pathname === "/"
                         ? " border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/40"
@@ -615,23 +608,23 @@ const BookingEngine = ({ setBookingDetails }) => {
                     } border rounded-2xl cursor-pointer`}
                     // ref={dateRef}
                   >
-                    {isDateOpen !== index ? (
-                      <div
-                        className={`p-2 rounded-full border ${
-                          pathname === "/" ? "text-white" : "text-swGray900"
-                        }`}
-                      >
-                        <SwCalendarIcon className="text-xl" />
-                      </div>
-                    ) : (
+                    {/* {isDateOpen !== index ? ( */}
+                    <div
+                      className={`p-2 rounded-full border ${
+                        pathname === "/" ? "text-white" : "text-swGray900"
+                      }`}
+                    >
+                      <SwCalendarIcon className="text-xl" />
+                    </div>
+                    {/* ) : (
                       ""
-                    )}
+                    )} */}
 
-                    <div className="w-full">
+                    <div className="w-full h-full ">
                       {bookingType === "Round Trip" ? (
-                        <div className="w-full">
+                        <div className="w-full h-full">
                           {!isDateOpen === index ? (
-                            <>
+                            <div onClick={() => setDateOpen(index)}>
                               <p className="text-swGray500 text-sm">
                                 Departure and arrival date
                               </p>
@@ -654,11 +647,12 @@ const BookingEngine = ({ setBookingDetails }) => {
                                     ).format("D MMM HH:mm")
                                   : "Select Arrival"}
                               </p>
-                            </>
+                            </div>
                           ) : (
-                            <div className="w-full flex">
+                            <div className="w-full flex h-full">
                               <div
-                                className={`text-sm w-full ${
+                                onClick={() => setDateOpen(index)}
+                                className={`text-sm w-full h-full flex items-center justify-center ${
                                   pathname === "/"
                                     ? "text-white"
                                     : "text-swGray900"
@@ -671,11 +665,15 @@ const BookingEngine = ({ setBookingDetails }) => {
                                   : "Deptarture"}
                               </div>
                               <div
-                                className={`text-sm ml-5 w-full ${
+                                className={`text-sm ml-5 w-full h-full flex items-center justify-center ${
                                   pathname === "/"
                                     ? "text-white"
                                     : "text-swGray900"
                                 }`}
+                                onClick={() => {
+                                  setArrivalDateOpen(true);
+                                  console.log("huuu");
+                                }}
                               >
                                 {item.depatureDate
                                   ? dayjs(
@@ -687,8 +685,8 @@ const BookingEngine = ({ setBookingDetails }) => {
                           )}
                         </div>
                       ) : (
-                        <div>
-                          <p className="text-swGray500 text-sm">
+                        <div onClick={() => setDateOpen(index)}>
+                          <p className="text-swGray500 text-sm h-full">
                             Departure date
                           </p>
                           <p
@@ -705,51 +703,25 @@ const BookingEngine = ({ setBookingDetails }) => {
                         </div>
                       )}
                     </div>
-                    {isDateOpen === index && (
-                      <div
-                        className={`absolute ${
-                          bookingType === "Round Trip" && "-ml-5"
-                        }`}
-                      >
-                        <ThemeProvider theme={customTheme}>
-                          <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <div
-                              className={`flex ${
-                                pathname === "/" ? "indexDate" : "bookingDate"
-                              }`}
-                            >
-                              <DateTimePicker
-                                defaultValue={dayjs()}
-                                value={dayjs(
-                                  `${item.depatureDate} ${item.depatureTime}`
-                                )}
-                                onOpen={() => setDateOpen(index)}
-                                onClose={() => setDateOpen(null)}
-                                onChange={(value) =>
-                                  updateBookingState(value, index, "departure")
-                                }
-                              />
-                              {bookingType === "Round Trip" && (
-                                <DateTimePicker
-                                  defaultValue={dayjs()}
-                                  value={dayjs(
-                                    `${item.returningDate} ${item.returningTime}`
-                                  )}
-                                  onChange={(value) =>
-                                    updateBookingState(
-                                      value,
-                                      index,
-                                      "returning"
-                                    )
-                                  }
-                                  onClose={() => setDateOpen(null)}
-                                />
-                              )}
-                            </div>
-                          </LocalizationProvider>
-                        </ThemeProvider>
-                      </div>
-                    )}
+                    <SelectDate
+                      isOpen={isDateOpen === index}
+                      onChange={(value) =>
+                        updateBookingState(value, index, "departure")
+                      }
+                      onAccept={() => setDateOpen(null)}
+                      onClose={() => setDateOpen(null)}
+                      value={dayjs(`${item.depatureDate} ${item.depatureTime}`)}
+                    />
+                    <SelectDate
+                      isOpen={isArrivalDateOpen}
+                      onChange={(value) =>
+                        updateBookingState(value, index, "returning")
+                      }
+                      onClose={() => setArrivalDateOpen(false)}
+                      value={dayjs(
+                        `${item.returningDate} ${item.returningTime}`
+                      )}
+                    />
                   </div>
                   <div className="relative w-full">
                     <div
