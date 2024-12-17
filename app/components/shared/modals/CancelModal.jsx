@@ -30,7 +30,7 @@ const CancelModal = ({
         <div className="flex flex-col items-center p-5">
           <Image src={CancelSign} alt="cancel" />
           <p className="font-semibold text-2xl mt-10">{headingText}</p>
-          <p className="text-sm mt-5 text-center">{text}</p>
+          <div className="text-sm mt-5 text-center">{text}</div>
           {!noInput && (
             <div className="w-full">
               <InputField

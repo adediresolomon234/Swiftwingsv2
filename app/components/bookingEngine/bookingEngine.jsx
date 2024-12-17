@@ -443,7 +443,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                   <SWMinusRoundBorderIcon
                     className={`${
                       pathname === "/" ? "text-white" : "text-swPrimary500"
-                    } text-2xl cursor-pointer`}
+                    } text-2xl cursor-pointer mt-1`}
                     onClick={() => handleRemoveTrip(index)}
                   />
                 ) : null}
