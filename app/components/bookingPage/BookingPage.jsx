@@ -25,6 +25,8 @@ import loadingGif from "../../../public/images/loading.gif";
 import { fetchAircrafts } from "@/redux/slices/aircraftdetails";
 import NotLoggedInModal from "./NotLoggedInModal";
 import AdditionalNoteModal from "./AdditionalNoteModal";
+import { validatePassengersAgainstLowestSeats } from "../helpers/utils";
+import CancelModal from "../shared/modals/CancelModal";
 
 const BookingPageInformation = () => {
   const pathname = usePathname();
@@ -43,6 +45,8 @@ const BookingPageInformation = () => {
   const [hydrated, setHydrated] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [notLoggedInModal, setNotLoggedInModal] = useState(false);
+  const [isPassengerError, setPassengerError] = useState(false);
+  const [passengersErrors, setPassengersErrors] = useState([]);
   const source = params.get("source");
 
   const { error, data } = useSelector((state) => state.booking);
@@ -51,8 +55,6 @@ const BookingPageInformation = () => {
     error: jetError,
     aircrafts: jetData,
   } = useSelector((state) => state.aircrafts);
-
-  // console.log({ jetData });
 
   const resetBookingState = () => {
     setBookingDetails([
@@ -101,6 +103,16 @@ const BookingPageInformation = () => {
   };
 
   const handleQuote = () => {
+    setPassengersErrors([]);
+    const errors = validatePassengersAgainstLowestSeats(
+      bookingDetails?.additional_quote,
+      bookingDetails?.booking_details?.formData
+    );
+    if (errors?.length > 0) {
+      setPassengerError(true);
+      setPassengersErrors(errors);
+      return;
+    }
     if (loggedInUser) {
       setLoading(true);
       bookingDetails.status = "New";
@@ -446,6 +458,20 @@ const BookingPageInformation = () => {
             onClose={setOpenAdditionalNote}
             // additionalNote={additionalNote}
             setAdditionalNote={setAdditionalNote}
+          />
+          <CancelModal
+            open={isPassengerError}
+            onClose={setPassengerError}
+            singleBtn={true}
+            noInput={true}
+            firstBtnText={"Ok"}
+            firstBtnClick={() => setPassengerError(false)}
+            headingText={"Booking Failed"}
+            text={passengersErrors.map((error, i) => (
+              <p key={i} className="mt-1">
+                {error}
+              </p>
+            ))}
           />
         </main>
       ) : (

@@ -8,30 +8,30 @@ export const fetchAircrafts = createAsyncThunk(
     try {
       const response = await axios.get(`${API_URL}/aircraft/all`);
 
-      const aircraftsData = response?.data?.data?.aircrafts?.map((aircraft) => ({
-        id: aircraft._id,
-        name: aircraft.model,
-        image: aircraft.image_url || "/default-image-url.png",
-        images: [
-          aircraft.image_url,
-          aircraft.image_url_2,
-          aircraft.image_url_3,
-          aircraft.image_url_4,
-        ],
-        speed: aircraft.speed,
-        kilometer: aircraft.range,
-        feet: aircraft.luggage_capacity,
-        features: {
-          manufacturer: aircraft.manufacturer,
-          classification: aircraft.classification,
-          no_of_seats: aircraft.no_of_seats,
-          interior_height: aircraft.interior_height,
-          interior_width: aircraft.interior_width,
-          overview_summary: aircraft.overview_summary,
-        },
-      }));
-      console.log("aircraftsData", aircraftsData);
-
+      const aircraftsData = response?.data?.data?.aircrafts?.map(
+        (aircraft) => ({
+          id: aircraft._id,
+          name: aircraft.model,
+          image: aircraft.image_url || "/default-image-url.png",
+          images: [
+            aircraft.image_url,
+            aircraft.image_url_2,
+            aircraft.image_url_3,
+            aircraft.image_url_4,
+          ],
+          speed: aircraft.speed,
+          kilometer: aircraft.range,
+          feet: aircraft.luggage_capacity,
+          features: {
+            manufacturer: aircraft.manufacturer,
+            classification: aircraft.classification,
+            no_of_seats: aircraft.no_of_seats,
+            interior_height: aircraft.interior_height,
+            interior_width: aircraft.interior_width,
+            overview_summary: aircraft.overview_summary,
+          },
+        })
+      );
       return aircraftsData;
     } catch (error) {
       console.log(error);
