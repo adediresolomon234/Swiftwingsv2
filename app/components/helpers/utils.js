@@ -28,3 +28,14 @@ export const validatePassengersAgainstLowestSeats = (jetData, formData) => {
 
   return errors;
 };
+
+export const formatThousand = (num) => {
+  if (num >= 1000000) {
+    if (num % 1000000 === 0) return (num / 1000000).toFixed(0) + "M";
+    return (num / 1000000).toFixed(1) + "M";
+  } else if (num >= 1000) {
+    if (num % 1000 === 0) return (num / 1000).toFixed(0) + "k";
+    return (num / 1000).toFixed(1) + "k";
+  }
+  return num.toString();
+};

@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Space_Grotesk, Libre_Baskerville } from "next/font/google";
 import Image from "next/image";
 import { GoArrowRight } from "react-icons/go";
@@ -43,6 +43,8 @@ import Zenco from "../public/images/ZencoLogo.jpg";
 import Delborough from "../public/images/delborough.png";
 import Loading from "./components/Loading";
 import Link from "next/link";
+import { getHomeData } from "@/redux/slices/aviPagesSlice";
+import { formatThousand } from "./components/helpers/utils";
 
 const space_grotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -60,6 +62,13 @@ export default function Home() {
   const [fleet, setFleet] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
+  const { data: homeData } = useSelector((state) => state.aviPages);
+  const [rangeValue, setRangeValue] = useState({
+    no_bookings: 0,
+    no_users: 0,
+    no_aircrafts: 0,
+  });
+  const sectionRef = useRef(null);
 
   useEffect(() => {
     const handleResize = () => {
@@ -72,6 +81,7 @@ export default function Home() {
 
   useEffect(() => {
     dispatch(fetchAircrafts());
+    dispatch(getHomeData());
   }, [dispatch]);
 
   useEffect(() => {
@@ -95,6 +105,55 @@ export default function Home() {
   useEffect(() => {
     setLoading(false);
   }, []);
+
+  useEffect(() => {
+    if (homeData?.data) {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            Object.keys(homeData?.data).forEach((key) => {
+              let start = 0;
+              const duration = 2000; // Duration of the animation in milliseconds
+              const targetValue = homeData?.data[key];
+
+              const animate = (timestamp) => {
+                if (!start) start = timestamp;
+                const progress = timestamp - start;
+                const value = Math.min(
+                  (progress / duration) * targetValue,
+                  targetValue
+                );
+                // console.log(key, value);
+                setRangeValue((prev) => ({
+                  ...prev,
+                  [key]: value.toFixed(0),
+                }));
+
+                if (progress < duration) {
+                  requestAnimationFrame(animate);
+                }
+              };
+
+              requestAnimationFrame(animate);
+            });
+          }
+        },
+        {
+          threshold: 0.1, // Adjust the threshold as needed
+        }
+      );
+
+      if (sectionRef.current) {
+        observer.observe(sectionRef.current);
+      }
+
+      return () => {
+        if (sectionRef.current) {
+          observer.unobserve(sectionRef.current);
+        }
+      };
+    }
+  }, [homeData]);
 
   if (loading) {
     return <Loading />;
@@ -144,18 +203,27 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="flex gap-10 justify-center text-center mt-6">
+            <div
+              ref={sectionRef}
+              className="flex gap-10 justify-center text-center mt-6"
+            >
               <div>
-                <p className="font-semibold text-2xl">10k</p>
-                <p className="text-xs">Flights</p>
-              </div>
-              <div>
-                <p className="font-semibold text-2xl">6k</p>
+                <p className="font-semibold text-2xl">
+                  {formatThousand(rangeValue?.no_users ?? 0)}
+                </p>
                 <p className="text-xs">Clients</p>
               </div>
               <div>
-                <p className="font-semibold text-2xl">97</p>
-                <p className="text-xs">Countries</p>
+                <p className="font-semibold text-2xl">
+                  {formatThousand(rangeValue?.no_aircrafts ?? 0)}
+                </p>
+                <p className="text-xs">Aircrafts</p>
+              </div>
+              <div>
+                <p className="font-semibold text-2xl">
+                  {formatThousand(rangeValue?.no_bookings ?? 0)}
+                </p>
+                <p className="text-xs">Bookings</p>
               </div>
             </div>
           </div>
