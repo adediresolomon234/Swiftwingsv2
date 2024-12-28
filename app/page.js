@@ -66,7 +66,7 @@ export default function Home() {
   const [rangeValue, setRangeValue] = useState({
     no_bookings: 0,
     no_users: 0,
-    no_aircrafts: 0,
+    no_aircraft: 0,
   });
   const sectionRef = useRef(null);
 
@@ -123,7 +123,6 @@ export default function Home() {
                   (progress / duration) * targetValue,
                   targetValue
                 );
-                // console.log(key, value);
                 setRangeValue((prev) => ({
                   ...prev,
                   [key]: value.toFixed(0),
@@ -155,7 +154,7 @@ export default function Home() {
     }
   }, [homeData]);
 
-  if (loading) {
+  if (loading || !homeData?.data) {
     return <Loading />;
   }
 
@@ -215,7 +214,7 @@ export default function Home() {
               </div>
               <div>
                 <p className="font-semibold text-2xl">
-                  {formatThousand(rangeValue?.no_aircrafts ?? 0)}
+                  {formatThousand(rangeValue?.no_aircraft ?? 0)}
                 </p>
                 <p className="text-xs">Aircrafts</p>
               </div>
