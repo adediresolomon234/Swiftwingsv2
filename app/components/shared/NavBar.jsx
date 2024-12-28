@@ -51,7 +51,6 @@ const NavBar = ({ Nav }) => {
   };
 
   const renderNavLink = (link, name, hasDropDown, dropDownLinks) => {
-
     return (
       <div className="relative inline-block text-left group">
         <div className="flex flex-col lg:items-center">
@@ -255,7 +254,7 @@ const NavBar = ({ Nav }) => {
                   </Link>
                   <Link
                     href="/sign-up"
-                    className="py-2 px-4 rounded-full text-sm md:text-lg text-white bg-swPrimary500 hover:bg-swPrimary600 "
+                    className="py-2 px-4 rounded-full text-xs md:text-lg text-white bg-swPrimary500 hover:bg-swPrimary600 "
                   >
                     Sign Up
                   </Link>
