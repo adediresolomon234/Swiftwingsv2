@@ -199,7 +199,10 @@ const NavBar = ({ Nav }) => {
                   <div
                     className="text-jsPrimary100 cursor-pointer flex items-center gap-2 py-2 px-4 rounded-full hover:bg-white"
                     // ref={toggleButtonRef}
-                    onClick={() => setOpenUserDropDown(!openUserDropDown)}
+                    onClick={() => {
+                      setOpenUserDropDown(!openUserDropDown);
+                      setIsMobileMenuOpen(false);
+                    }}
                   >
                     <SwUserIcon />
                     <p>
@@ -217,7 +220,7 @@ const NavBar = ({ Nav }) => {
                   {openUserDropDown && (
                     <div
                       ref={toggleButtonRef}
-                      className={`absolute w-[15rem] sm:-m-16 -m-36 top-full mt-3 sm:mt-3 p-3 bg-white rounded-lg border ${
+                      className={`absolute w-[15rem] sm:-m-16 -m-36 top-full mt-3 sm:mt-3 p-3 bg-white z-20 rounded-lg border ${
                         openUserDropDown ? "min-h-10" : "h-0"
                       }`}
                     >
