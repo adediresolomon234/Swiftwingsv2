@@ -238,11 +238,11 @@ const AllBookings = () => {
         </table>
       </div>
       <div className="sm:hidden flex flex-col gap-5 mt-10">
-        {data.length > 0 ? (
-          filteredData.length === 0 ? (
+        {data?.bookings?.length > 0 ? (
+          filteredData?.length === 0 ? (
             <div className="text-center">No bookings found</div>
           ) : (
-            filteredData.map((item) => (
+            filteredData?.map((item) => (
               <div
                 onClick={() =>
                   router.push(
