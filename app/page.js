@@ -66,7 +66,7 @@ export default function Home() {
   const [rangeValue, setRangeValue] = useState({
     no_bookings: 0,
     no_users: 0,
-    no_aircraft: 0,
+    no_aircraft: 11,
   });
   const sectionRef = useRef(null);
 
@@ -214,7 +214,7 @@ export default function Home() {
               </div>
               <div>
                 <p className="font-semibold text-2xl">
-                  {formatThousand(rangeValue?.no_aircraft ?? 0)}
+                  {formatThousand( 11)}
                 </p>
                 <p className="text-xs">Aircrafts</p>
               </div>
