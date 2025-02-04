@@ -1,8 +1,10 @@
-import { mdiCarSeat, mdiSpeedometer, mdiArrowLeftRight } from "@mdi/js";
+import { mdiCarSeat, mdiSpeedometer, mdiArrowLeftRight,mdiMapMarker} from "@mdi/js";
+import { SWTLiveLocation } from "../../components/svgs";
 import { useRouter } from "next/navigation";
 import "../shared/Fleetspec/fleetspec.css";
 import Image from "next/image";
 import Link from "next/link";
+import redCircle from "../svgs/Redcircle.gif";
 
 const AircraftCard = ({ aircraft }) => {
   // const dispatch = useDispatch();
@@ -16,7 +18,7 @@ const AircraftCard = ({ aircraft }) => {
   // const handleCardClick = () => {
   //     router.push(`/fleet-specification/${aircraft.id}`);
   // };
-  const { model, image, speed, feet, name, features, id } = aircraft;
+  const { model, image, speed, feet, name, features,location, id } = aircraft;
   // console.log({ aircraft });
   // console.log(model);
 
@@ -61,6 +63,14 @@ const AircraftCard = ({ aircraft }) => {
             <path fill="currentColor" d={mdiArrowLeftRight} />
           </svg>
           <div className="relative leading-4.5 ml-3 ">{feet}</div>
+        </div>
+        <div className="flex items-center">
+       <Image 
+            src={redCircle}
+            alt={`Image of ${model}`}
+            width={20}
+            height={20} />
+          <div className="relative leading-4.5 ml-3  ">{location}</div>
         </div>
       </div>
     </Link>

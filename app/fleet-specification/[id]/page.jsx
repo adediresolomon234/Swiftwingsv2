@@ -4,7 +4,7 @@ import Image from "next/image";
 import FleetImage234 from "../../../public/images/FleetImage234.png";
 import NavAndFooter from "../../components/shared/NavAndFooter";
 import FooterHero from "../../components/shared/footerHero";
-import { SWGlobeIcon, SwSeatIcon, SwMeterIcon } from "../../components/svgs";
+import { SWGlobeIcon, SwSeatIcon, SwMeterIcon,SWTLocationIcon } from "../../components/svgs";
 import FleetSpecSlider from "../../components/shared/Fleetspec/FleetSpecSlider";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -80,39 +80,55 @@ const FleetSpec = () => {
                       </p>
                     </div>
                     <div className="mt-20">
-                      <div className="ml-10">
-                        <div className="grid grid-cols-3 gap-4 w-full max-w-lg rounded-xl bg-white border border-gray-200 overflow-hidden">
-                          <div className="flex flex-col items-center justify-center py-6 px-8">
+                      <div className="lg:ml-10">
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-4 w-full  rounded-xl bg-white border border-gray-200 overflow-hidden">
+                          <div className="flex flex-col items-center justify-center py-4 md:py-6 px-2 md:px-4">
                             <div className="flex items-center justify-center mb-2 text-swPrimary600">
-                              <SWGlobeIcon className="text-swPrimary600 text-2xl" />
+                              <SWGlobeIcon className="text-swPrimary600 text-xl md:text-2xl" />
                             </div>
-                            <div className="text-center text-sm font-semibold text-swGray700">
+                            <div className="text-center text-xs md:text-sm font-semibold text-swGray700">
                               Range
                             </div>
-                            <div className="text-center text-sm text-swGray500">
+                            <div className="text-center text-xs md:text-sm text-swGray500">
                               {aircraftDetails?.kilometer}
                             </div>
                           </div>
-                          <div className="flex flex-col items-center justify-center py-6 px-6">
-                            <div className="flex items-center justify-center mb-3 text-swPrimary600">
-                              <SwSeatIcon className="text-swPrimary600 text-xl" />
+
+                         
+                          <div className="flex flex-col items-center justify-center py-4 md:py-6 px-2 md:px-4">
+                            <div className="flex items-center justify-center mb-2 md:mb-3 text-swPrimary600">
+                              <SwSeatIcon className="text-swPrimary600 text-lg md:text-xl" />
                             </div>
-                            <div className="text-center text-sm font-semibold text-swGray700">
+                            <div className="text-center text-xs md:text-sm font-semibold text-swGray700">
                               Passengers
                             </div>
-                            <div className="text-center text-sm text-swGray500">
+                            <div className="text-center text-xs md:text-sm text-swGray500">
                               {aircraftDetails?.features?.no_of_seats}
                             </div>
                           </div>
-                          <div className="flex flex-col items-center justify-center py-6 px-4">
-                            <div className="flex items-center justify-center mb-3 text-swPrimary600">
-                              <SwMeterIcon className="text-swPrimary600 text-xl" />
+
+                          <div className="flex flex-col items-center justify-center py-4 md:py-6 px-2 md:px-4">
+                            <div className="flex items-center justify-center mb-2 md:mb-3 text-swPrimary600">
+                              <SwMeterIcon className="text-swPrimary600 text-lg md:text-xl" />
                             </div>
-                            <div className="text-center text-sm font-semibold text-swGray700">
+                            <div className="text-center text-xs md:text-sm font-semibold text-swGray700">
                               Speed
                             </div>
-                            <div className="text-center text-sm text-swGray500">
+                            <div className="text-center text-xs md:text-sm text-swGray500">
                               {aircraftDetails?.speed}
+                            </div>
+                          </div>
+
+                          {/* Location Card */}
+                          <div className="flex flex-col items-center justify-center py-4 md:py-6 px-2 md:px-4">
+                            <div className="flex items-center justify-center mb-2 md:mb-3 text-swPrimary600">
+                              <SWTLocationIcon className="text-swPrimary600 text-lg md:text-xl" />
+                            </div>
+                            <div className="text-center text-xs md:text-sm font-semibold text-swGray700">
+                              Location
+                            </div>
+                            <div className="text-center text-xs md:text-sm text-swGray500">
+                              {aircraftDetails?.location}
                             </div>
                           </div>
                         </div>
