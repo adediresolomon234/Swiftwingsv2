@@ -22,6 +22,7 @@ export const fetchAircrafts = createAsyncThunk(
           speed: aircraft.speed,
           kilometer: aircraft.range,
           feet: aircraft.luggage_capacity,
+          location: aircraft.location,
           features: {
             manufacturer: aircraft.manufacturer,
             classification: aircraft.classification,
@@ -29,6 +30,7 @@ export const fetchAircrafts = createAsyncThunk(
             interior_height: aircraft.interior_height,
             interior_width: aircraft.interior_width,
             overview_summary: aircraft.overview_summary,
+           
           },
         })
       );

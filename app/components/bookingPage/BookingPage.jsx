@@ -10,7 +10,9 @@ import {
   SwSeatIcon,
   SwTopBottomArrowIcon,
   SwWeightIcon,
+  SWMeterIconNew,
 } from "@/app/components/svgs";
+import redCircle from "../svgs/Redcircle.gif";
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import { useDispatch, useSelector } from "react-redux";
@@ -201,9 +203,9 @@ const BookingPageInformation = () => {
                   <p className="text-xl font-medium mb-5">Select Private Jet</p>
                   <div className="w-full rounded-2xl border md:p-5 p-0 bg-white">
                     {jetData?.map((item, index) => (
-                      <div key={item?.id} className="">
-                        <div className="transition ease-in-out delay-100 duration-1000 flex flex-col md:flex-row gap-5 justify-between items-center hover:bg-swLighterBgGray p-5 rounded-xl cursor-pointer focus:border focus:outline-swPrimary500">
-                          <div className="w-full w-1/3 flex gap-5 items-center whitespace-nowrap">
+                      <div key={item?.id} className="mb-8">
+                        <div className="transition ease-in-out delay-100 duration-1000 flex flex-col md:flex-row gap-6  justify-between items-center hover:bg-swLighterBgGray p-5 rounded-xl cursor-pointer focus:border focus:outline-swPrimary500">
+                          <div className="w-full lg:w-[37rem] flex gap-5 items-center whitespace-nowrap">
                             <input
                               type="checkbox"
                               onChange={(e) =>
@@ -220,69 +222,83 @@ const BookingPageInformation = () => {
                               </p>
                             </div>
                           </div>
-                          <div className="lg:max-w-xl w-full text-swGray800 gap-5 flex flex-col sm:flex-row sm:justify-around">
-                            <div className="w-full sm:w-auto flex justify-between gap-5">
-                              <div className="flex flex-col gap-2">
-                                <div className="flex items-center gap-2">
-                                  <SwSeatIcon className="text-lg" />
-                                  <p className="text-xs">
-                                    {item?.features?.no_of_seats}
-                                  </p>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                  <SwLuggageIcon className="text-lg" />
-                                  <p className="text-xs">{item?.feet}</p>
-                                </div>
-                              </div>
 
-                              <div className="flex flex-col gap-2">
-                                <div className="flex items-center gap-2">
-                                  <SwMeterIcon className="text-lg" />
-                                  <p className="text-xs">{item?.speed}</p>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                  <SwMeterIcon className="text-lg" />
-                                  <p className="text-xs">{item?.kilometer}</p>
-                                </div>
+                          <div className="w-full text-swGray800 grid grid-cols-3 gap-x-3 gap-y-8 sm:grid-cols-2">
+                          
+                            <div className="flex flex-col gap-4">
+                              <div className="flex items-center gap-2">
+                                <SwSeatIcon className="text-lg" />
+                                <p className="text-xs">
+                                  {item?.features?.no_of_seats} Seats
+                                </p>
                               </div>
-
-                              <div className="flex flex-col gap-2">
-                                <div className="flex items-center gap-2">
-                                  <SwLeftRightArrowIcon className="text-lg" />
-                                  <p className="text-xs">
-                                    {item?.features?.interior_width}
-                                  </p>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                  <SwTopBottomArrowIcon className="text-lg" />
-                                  <p className="text-xs">
-                                    {item?.features?.interior_height}
-                                  </p>
-                                </div>
+                              <div className="flex items-center gap-2">
+                                <SwLuggageIcon className="text-lg" />
+                                <p className="text-xs">
+                                  {item?.feet} ft³ Luggage
+                                </p>
                               </div>
                             </div>
 
-                            {pathname === "/user-booking" ? (
-                              <SwArrowRightIcon className="text-2xl" />
-                            ) : (
-                              <div className="flex items-center gap-3 py-2 px-4 rounded-full hover:bg-white">
-                                <p className="font-medium whitespace-nowrap">
-                                  View Jet
-                                </p>
-                                <SwArrowRightIcon className="text-sm" />
+                           
+                            <div className="flex flex-col gap-4">
+                              <div className="flex items-center gap-2">
+                                <SwMeterIcon className="text-lg" />
+                                <p className="text-xs">{item?.speed} mph</p>
                               </div>
-                            )}
+                              <div className="flex items-center gap-2">
+                              <SWMeterIconNew className="text-lg" /> 
+                                <p className="text-xs">
+                                  {item?.kilometer} km Range
+                                </p>
+                              </div>
+                            </div>
+
+                            {/* Third Column: Dimensions */}
+                            <div className="flex flex-col gap-2">
+                              <div className="flex items-center gap-2">
+                                <SwLeftRightArrowIcon className="text-lg" />
+                                <p className="text-xs">
+                                  {item?.features?.interior_width} ft Width
+                                </p>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <SwTopBottomArrowIcon className="text-lg" />
+                                <p className="text-xs">
+                                  {item?.features?.interior_height} ft Height
+                                </p>
+                              </div>
+                            </div>
+                            <div className="flex flex-col gap-2">
+                              <div className="flex items-center gap-2">
+                                <Image
+                                  src={redCircle}
+                                  alt= {location}
+                                  width={20}
+                                  height={20}
+                                />
+                                <p className="text-xs">{item?.location}</p>
+                              </div>
+                            </div>
                           </div>
+
+                          {/* View Jet Button */}
+                          {pathname === "/user-booking" ? (
+                            <SwArrowRightIcon className="text-2xl" />
+                          ) : (
+                            <div className="flex items-center gap-3 py-2 px-4 rounded-full hover:bg-white">
+                              <p className="font-medium whitespace-nowrap">
+                                View Jet
+                              </p>
+                              <SwArrowRightIcon className="text-sm" />
+                            </div>
+                          )}
                         </div>
                       </div>
                     ))}
-                    {/* <Button
-                        label={"Add to quote"}
-                        className="border mt-5 text-swGray800 font-semibold"
-                        bgColor={"bg-white hover:bg-swLightBgGray"}
-                      /> */}
                   </div>
                 </div>
+
                 <div className="md:w-1/3 w-full">
                   <p className="text-xl font-medium mb-5 ">Flight Summary</p>
                   <div className="w-full rounded-2xl border p-5 p-0 bg-white">

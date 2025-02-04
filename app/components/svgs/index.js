@@ -30,6 +30,7 @@ export { default as SWNotificationIcon } from "./notificationIcon.svg";
 export { default as SWEditIcon } from "./EditIcon.svg";
 export { default as SWLeftArrowIcon } from "./LeftArrowIcon.svg";
 export { default as SWMarkIcon } from "./MarkIcon.svg";
+export { default as SWMeterIconNew } from "./MeterIcon2.svg";
 export { default as SWToggleIcon } from "./toggleIcon.svg";
 export { default as SwSortIcon } from "./SortIcon.svg";
 export { default as SWTFacebookIcon } from "./Facebook.svg";
@@ -64,3 +65,4 @@ export { default as SWTNeveah } from "./Neveah..svg";
 export { default as SWTPolarisbank } from "./polarisbank.svg";
 export { default as SWTCenturygroup} from "./centurygroup.svg";
 export { default as SWTdelborough} from "./delborough.svg";
+
