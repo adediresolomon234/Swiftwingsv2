@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import NavBar from "../components/shared/NavBar";
-import { API_URL } from "@/constant";
+import { API_URL } from "../../constant";
 import Loading from "../components/Loading";
 
 const ForgotPassword = () => {

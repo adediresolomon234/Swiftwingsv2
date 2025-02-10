@@ -12,7 +12,7 @@ import { MdArrowForwardIos } from "react-icons/md";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { getAllBooking } from "@/redux/slices/bookingSlice";
+import { getAllBooking } from "../../../redux/slices/bookingSlice";
 
 const EachBooking = () => {
   const router = useRouter();

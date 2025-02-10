@@ -4,7 +4,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import "react-toastify/dist/ReactToastify.css";
 import { Provider } from "react-redux";
-import { store } from "@/redux/store";
+import { store } from "../redux/store";
 
 
 const poppins = Poppins({
@@ -51,10 +51,10 @@ const RootLayout = ({ children }) => {
       <html>
         <head>
           <title>
-          Best Private Jet in Nigeria | Private Jet Fastest Flights | On Demand Private Jets
+          Best Private Jet Charter in Nigeria | Private Jet Fastest Flights | On Demand Private Jets Africa
           </title>
           <meta name="google-site-verification" content="DTMaKYVmj2GFgTUwq63iVoDfAEWOIEM-MvGhViEQebo" />
-          <meta name="description" content="Enjoy the latest and finest Private Jets in the market, Top-tier concierge services and exclusive empty legs deal." />
+          <meta name="description" content="Enjoy the latest and finest Private Jet Charter in the market, Top-tier concierge services and exclusive empty legs deal." />
         </head>
 
         <body>

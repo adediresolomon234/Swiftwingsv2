@@ -22,7 +22,7 @@ import { accordions } from "../components/helpers/FrequentlyQuestions";
 import FooterHero from "../components/shared/footerHero";
 import Loading from "../components/Loading";
 import { useDispatch, useSelector } from "react-redux";
-import { addEnquiry } from "@/redux/slices/enquirySlice";
+import { addEnquiry } from "../../redux/slices/enquirySlice"
 import SuccessModal from "../components/shared/modals/SuccessModal";
 import CancelModal from "../components/shared/modals/CancelModal";
 

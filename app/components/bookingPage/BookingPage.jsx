@@ -1,6 +1,6 @@
 "use client";
 
-import Button from "@/app/components/Button";
+import Button from "../../components/Button";
 import {
   SwArrowRightIcon,
   SwLeftRightArrowIcon,
@@ -11,12 +11,12 @@ import {
   SwTopBottomArrowIcon,
   SwWeightIcon,
   SWMeterIconNew,
-} from "@/app/components/svgs";
+} from "../../components/svgs";
 import redCircle from "../svgs/Redcircle.gif";
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import { useDispatch, useSelector } from "react-redux";
-import { addBooking } from "@/redux/slices/bookingSlice";
+import { addBooking } from "../../../redux/slices/bookingSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import BookingEngine from "../../components/bookingEngine/bookingEngine";
@@ -24,7 +24,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import SuccessModal from "../shared/modals/SuccessModal";
 import Image from "next/image";
 import loadingGif from "../../../public/images/loading.gif";
-import { fetchAircrafts } from "@/redux/slices/aircraftdetails";
+import { fetchAircrafts } from "../../../redux/slices/aircraftdetails";
 import NotLoggedInModal from "./NotLoggedInModal";
 import AdditionalNoteModal from "./AdditionalNoteModal";
 import { validatePassengersAgainstLowestSeats } from "../helpers/utils";

@@ -8,8 +8,8 @@ import { SWGlobeIcon, SwSeatIcon, SwMeterIcon,SWTLocationIcon } from "../../comp
 import FleetSpecSlider from "../../components/shared/Fleetspec/FleetSpecSlider";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import Loading from "@/app/components/Loading";
-import { fetchAircrafts } from "@/redux/slices/aircraftdetails";
+import Loading from "../../../app/components/Loading";
+import { fetchAircrafts } from "../../../redux/slices/aircraftdetails";
 import { useDispatch } from "react-redux";
 
 const FleetSpec = () => {

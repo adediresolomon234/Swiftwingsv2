@@ -1,5 +1,5 @@
 import Image from "next/image";
-import SWheader from "@/public/images/SWheader.png";
+import SWheader from "../../public/images/SWheader.png";
 
 const Loading = () => {
   return (

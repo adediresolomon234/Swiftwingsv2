@@ -24,7 +24,7 @@ import Link from "next/link";
 import NavAndFooter from "../components/shared/NavAndFooter";
 import axios from "axios";
 import Image from "next/image";
-import { API_URL } from "@/constant";
+import { API_URL } from "../../constant";
 import Loading from "../components/Loading";
 
 const spaceGrotesk = Space_Grotesk({

@@ -1,5 +1,5 @@
 "use client";
-import NavAndFooter from "@/app/components/shared/NavAndFooter";
+import NavAndFooter from "../components/shared/NavAndFooter";
 import BookingPageInformation from "../components/bookingPage/BookingPage";
 import { useEffect, useState } from "react";
 import Loading from "../components/Loading";

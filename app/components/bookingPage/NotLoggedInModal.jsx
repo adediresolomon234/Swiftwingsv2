@@ -8,7 +8,7 @@ import bgImg from "../../../public/images/nologgedInImg.png";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
-import { addBooking } from "@/redux/slices/bookingSlice";
+import { addBooking } from "../../../redux/slices/bookingSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PhoneNumberValidation from "../shared/PhoneNumberValidation";

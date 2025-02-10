@@ -17,7 +17,7 @@ import heroBgImg from "../public/images/heroBackgroundImage.png";
 import MbheroBgImg from "../public/images/Hero-Section-Mobile[1].jpg";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
-import { fetchAircrafts } from "@/redux/slices/aircraftdetails";
+import { fetchAircrafts } from "../redux/slices/aircraftdetails";
 import { mdiCarSeat, mdiSpeedometer, mdiArrowLeftRight } from "@mdi/js";
 import BookingEngine from "./components/bookingEngine/bookingEngine";
 import Head from "next/head";
@@ -43,7 +43,7 @@ import Zenco from "../public/images/ZencoLogo.jpg";
 import Delborough from "../public/images/delborough.png";
 import Loading from "./components/Loading";
 import Link from "next/link";
-import { getHomeData } from "@/redux/slices/aviPagesSlice";
+import { getHomeData } from "../redux/slices/aviPagesSlice";
 import { formatThousand } from "./components/helpers/utils";
 
 const space_grotesk = Space_Grotesk({
@@ -162,8 +162,7 @@ export default function Home() {
     <main className="relative bg-swLightBgGray overflow-x-hidden">
       <Head>
         <title>
-          Best Private in Nigeria | Private Jet Fastest Flight | On Demand
-          Private Jet Charter
+        Best Private Jet Charter in Nigeria | Private Jet Fastest Flights | On Demand Private Jets Africa
         </title>
         <meta
           name="description"
@@ -519,6 +518,9 @@ export default function Home() {
         <section className="p-5 md:p-10 pb-10">
           <div className="max-w-screen-2xl mx-auto bg-white w-full flex justify-center items-center dark:bg-gray-900 rounded-3xl p-8">
             <div className="max-w-screen-xl px-4 pb-8 mx-auto lg:pb-16">
+            <h2 className="mb-24 text-center md:text-center text-[18px] font-semibold text-swPrimary500  md:text-[18px] ">
+               Our Clients
+              </h2>
               <div className="grid grid-cols-2 gap-4 text-gray-500 sm:gap-12 sm:grid-cols-3 lg:grid-cols-6 dark:text-gray-400">
                 <a
                   className="flex items-center lg:justify-center"
