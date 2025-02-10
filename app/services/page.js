@@ -6,6 +6,9 @@ import Serivcepage from "../../public/images/Serivcepage.png";
 import Inflightcatering2 from "../../public/images/Inflightcatering2.png";
 import ChauffeurServices from "../../public/images/ChauffeurServices.png";
 import MedicalEvacuation from "../../public/images/MedicalEvacuation.png";
+import GroupFlight from "../../public/images/Groupflight.jpg"
+import EmptyLegs from "../../public/images/emeptylegs.jpg"
+import HeliServices from "../../public/images/HeliServices.jpg"
 import team from "../../public/images/team.png";
 import { Libre_Baskerville } from "next/font/google";
 import {
@@ -28,6 +31,7 @@ import Head from "next/head";
 import Loading from "../components/Loading";
 import { useEffect, useState } from "react";
 import { servicesPageKeywords } from "../components/helpers/relatedKeywords";
+import {useScrollToHash} from "../components/shared/ScrollHook"
 
 const libre_baskerville = Libre_Baskerville({
   subsets: ["latin"],
@@ -36,6 +40,7 @@ const libre_baskerville = Libre_Baskerville({
 
 const Service = () => {
   const [loading, setLoading] = useState(true);
+  useScrollToHash(); 
 
   useEffect(() => {
     setLoading(false);
@@ -149,6 +154,61 @@ const Service = () => {
             </div>
           </div>
         </section>
+        <section  id="helicopter-services-section" className="py-5">
+          <div className="m-auto text-gray-600 md:px-12 xl:px-16">
+            <div className="">
+              {/* <div className="flex"> */}
+              <div className="p-5">
+                <div className="text-start">
+                  <h1 className="text-xl font-semibold sm:text-3xl capitalize mb-4 text-black">
+                  Helicopter Services
+                  </h1>
+                  <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-10">
+                    <p className="sm:text-md lg:text-lg max-w-2xl">
+                    Swiftwings no longer only deals with private jets. We are excited to announce our elite helicopter services that are meant to take you away to amazing hidden places and experiences in unique ways. 
+
+                    </p>
+                    <p className=" sm:text-md lg:text-lg max-w-2xl">
+                    Move from the familiarity of conventional trips and discover flight liberty. In addition to providing luxurious helicopter flight services, we’ve made sure they are comfortable by operating at high speed within distant areas as well as sightseeing over mountainsides
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* <div class="basis-1/2 mx-8  ">
+                  <div className="max-w-xl mx-auto text-start"></div>
+                </div> */}
+              {/* </div> */}
+              <div className="w-full">
+                <div className="relative">
+                  <Image className=" w-full h-full" src={HeliServices} alt="Inflight catering services" />
+                </div>
+              </div>
+              {/* <div className="py-16">
+                <div className="px-2 space-y-8">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 text-swPrimary500">
+                    <div className="p-2 flex items-center">
+                      <SWTBespokeIcon className="mr-4" />
+                      <p>Bespoke Menus</p>
+                    </div>
+                    <div className="p-2 flex items-center">
+                      <SWTCustomizatioIconIcon className="mr-4" />
+                      <p>Customization Options</p>
+                    </div>
+                    <div className="p-2 flex items-center">
+                      <SWTStarIconIcon className="mr-4" />
+                      <p>Premium Selections</p>
+                    </div>
+                    <div className="p-2 flex items-center">
+                      <SWTDietaryIconIcon className="mr-4" />
+                      <p>Dietary Accommodations</p>
+                    </div>
+                  </div>
+                </div>
+              </div> */}
+            </div>
+          </div>
+        </section>
         <section  id="medical-evacuation-section" className="py-5">
           <div className="m-auto text-gray-600 md:px-12 xl:px-16">
             <div className="w-full mx-auto text-justify lg:text-center">
@@ -156,7 +216,7 @@ const Service = () => {
                 <div className="text-start">
                   <div className="flex justify-between items-center">
                     <h1 className="text-xl font-semibold sm:text-3xl capitalize mb-4 text-black">
-                      Medical Evacuation
+                    Air Ambulance
                     </h1>
                   </div>
                   <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-10">
@@ -227,7 +287,68 @@ const Service = () => {
             </div>
           </div>
         </section>
-        <section  id="#concierge-section" className="py-5">
+        <section  id="empty-leg-section" className="py-5">
+          <div className="m-auto text-gray-600 md:px-12 xl:px-16">
+            <div className="w-full mx-auto text-justify lg:text-center">
+              <div className="p-5">
+                <div className="text-start">
+                  <div className="flex justify-between items-center">
+                    <h1 className="text-xl font-semibold sm:text-3xl capitalize mb-4 text-black">
+                    Empty Leg Services
+                    </h1>
+                  </div>
+                  <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-10">
+                    <p className="sm:text-md lg:text-lg max-w-2xl">
+                    Empty legs occur when our private jets need to reposition between destinations without passengers. Instead of letting these flights burn fuel empty, Swiftwings offers them to discerning travellers like you. You will enjoy the same luxurious amenities, spacious cabins, and personalised service that define every Swiftwings flight, all at a significantly reduced price.
+                    </p>
+                    <p className=" sm:text-md lg:text-lg max-w-2xl">
+                    Imagine soaring through the clouds on a private jet, indulging in unmatched comfort and privacy. 
+                    Now imagine achieving this dream at a fraction of the usual cost. Thats the magic of Swiftwings empty leg flights
+                    </p>
+                  </div>
+                </div>
+              </div>
+              {/* <div className="my-7 px-6 lg:hidden">
+                <Button
+                  label={"Request quote"}
+                  bgColor={"bg-swPrimary500 text-white w-md"}
+                />
+              </div> */}
+              <div className="w-full mt-8">
+                <div className="relative">
+                  <Image
+                    className=" w-full h-full lg:px-20 "
+                    src={EmptyLegs}
+                    alt="Empty Legs"
+                  />
+                </div>
+              </div>
+              {/* <div className="py-16">
+                <div className="px-2 space-y-8">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 text-swPrimary500">
+                    <div className="p-2 flex items-center">
+                      <SWTClockBlackIcon className="mr-4" />
+                      <p>Available 24/7</p>
+                    </div>
+                    <div className="p-2 flex items-center">
+                      <SWTTwoPersonBlackIcon className="mr-4" />
+                      <p>Emergency Response Team</p>
+                    </div>
+                    <div className="p-2 flex items-center">
+                      <SWTGlobalCoverageIcon className="mr-4" />
+                      <p>Global Coverage</p>
+                    </div>
+                    <div className="p-2 flex items-center">
+                      <SWTAdvancedMedicalIcon className="mr-4" />
+                      <p>Advanced Medical Equipment</p>
+                    </div>
+                  </div>
+                </div>
+              </div> */}
+            </div>
+          </div>
+        </section>
+        <section  id="concierge-section" className="py-5">
           <div className="m-auto text-gray-600 md:px-12 xl:px-16">
             <div className="w-full mx-auto text-justify lg:text-center">
               <div className="flex flex-col gap-8 lg:flex-row">
@@ -297,7 +418,70 @@ const Service = () => {
             </div>
           </div>
         </section>
-        <section className="py-5">
+        <section  id="group-corporate-section" className="py-5">
+          <div className="m-auto text-gray-600 md:px-12 xl:px-16">
+            <div className="w-full mx-auto text-justify lg:text-center">
+              <div className="p-5">
+                <div className="text-start">
+                  <div className="flex justify-between items-center">
+                    <h1 className="text-xl font-semibold sm:text-3xl capitalize mb-4 text-black">
+                    Group/Corporate Flights
+
+                    </h1>
+                  </div>
+                  <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-10">
+                    <p className="sm:text-md lg:text-lg max-w-2xl">
+                    Are you planning for training, seminar, tourism etc as a group or company? Swiftwings takes your entire team to their destination directly, on their schedule.Imagine no more scrambling through terminals or waiting for delayed flights
+
+                    </p>
+                    <p className=" sm:text-md lg:text-lg max-w-2xl">
+                    Instead, board a luxurious private jet together, use the in-flight workspace for strategic planning, or simply relax and arrive focused. Swiftwings guarantee a smooth, efficient journey that sets the stage for success.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              {/* <div className="my-7 px-6 lg:hidden">
+                <Button
+                  label={"Request quote"}
+                  bgColor={"bg-swPrimary500 text-white w-md"}
+                />
+              </div> */}
+              <div className="w-full mt-8">
+                <div className="relative">
+                  <Image
+                    className=" w-full h-full lg:px-20 "
+                    src={GroupFlight}
+                    alt=" Group/Corporate Flights"
+                  />
+                </div>
+              </div>
+              {/* <div className="py-16">
+                <div className="px-2 space-y-8">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 text-swPrimary500">
+                    <div className="p-2 flex items-center">
+                      <SWTClockBlackIcon className="mr-4" />
+                      <p>Available 24/7</p>
+                    </div>
+                    <div className="p-2 flex items-center">
+                      <SWTTwoPersonBlackIcon className="mr-4" />
+                      <p>Emergency Response Team</p>
+                    </div>
+                    <div className="p-2 flex items-center">
+                      <SWTGlobalCoverageIcon className="mr-4" />
+                      <p>Global Coverage</p>
+                    </div>
+                    <div className="p-2 flex items-center">
+                      <SWTAdvancedMedicalIcon className="mr-4" />
+                      <p>Advanced Medical Equipment</p>
+                    </div>
+                  </div>
+                </div>
+              </div> */}
+            </div>
+          </div>
+        </section>
+       
+        <section className="py-24">
           <div className="mx-auto text-gray-600 md:px-12 xl:px-16">
             <div className="flex flex-col justify-between md:flex-row items-start gap-8 px-8">
               <div className="max-w-md">
@@ -374,6 +558,7 @@ const Service = () => {
             </div>
           </div>
         </section>
+       
 
         {/* <section className="py-16">
                     <div className="m-auto px-6 text-gray-600 md:px-12 xl:px-16">
