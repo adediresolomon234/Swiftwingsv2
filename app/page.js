@@ -17,7 +17,7 @@ import heroBgImg from "../public/images/heroBackgroundImage.png";
 import MbheroBgImg from "../public/images/Hero-Section-Mobile[1].jpg";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
-import { fetchAircrafts } from "@/redux/slices/aircraftdetails";
+import { fetchAircrafts } from "../redux/slices/aircraftdetails";
 import { mdiCarSeat, mdiSpeedometer, mdiArrowLeftRight } from "@mdi/js";
 import BookingEngine from "./components/bookingEngine/bookingEngine";
 import Head from "next/head";
@@ -43,7 +43,7 @@ import Zenco from "../public/images/ZencoLogo.jpg";
 import Delborough from "../public/images/delborough.png";
 import Loading from "./components/Loading";
 import Link from "next/link";
-import { getHomeData } from "@/redux/slices/aviPagesSlice";
+import { getHomeData } from "../redux/slices/aviPagesSlice";
 import { formatThousand } from "./components/helpers/utils";
 
 const space_grotesk = Space_Grotesk({

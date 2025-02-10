@@ -7,7 +7,7 @@ import bgImg from "../../public/images/nologgedInImg.png";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
-import { addEmptyLeg } from "@/redux/slices/bookingSlice";
+import { addEmptyLeg } from "../../redux/slices/bookingSlice";
 import { ToastContainer, toast } from "react-toastify";
 import NavAndFooter from "../components/shared/NavAndFooter";
 import Button from "../components/Button";
@@ -29,7 +29,6 @@ const EmptyLegPage = () => {
     dispatch(addEmptyLeg(formData))
       .unwrap()
       .then((response) => {
-        // console.log(response);
         if (response?.response?.data?.error) {
           toast.error(response?.response?.data?.error);
           setLoading(false);

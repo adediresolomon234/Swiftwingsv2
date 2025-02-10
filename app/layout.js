@@ -4,7 +4,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import "react-toastify/dist/ReactToastify.css";
 import { Provider } from "react-redux";
-import { store } from "@/redux/store";
+import { store } from "../redux/store";
 
 
 const poppins = Poppins({
