@@ -2,7 +2,7 @@ export const countries = [
     {
         name: 'ABIJAN',
         location: 'Côte d’Ivoire',
-        description: 'Paris, often referred to as the ‘City of Light’, is renowned for its Eiffel Tower, delightful sidewalk cafes, world-class art galleries such as the Louvre, and the enchanting romantic atmosphere that envelopes the Seine River',
+        description: 'Abidjan, the vibrant economic capital of Côte d’Ivoire, is a bustling metropolis known for its dynamic energy and cultural diversity. Though Yamoussoukro serves as the political capital, Abidjan remains the country’s financial and commercial heart, home to major businesses, a sprawling port, and a skyline dotted with modern skyscrapers like the iconic St. Paul’s Cathedral. Nestled along the Ébrié Lagoon, the city blends coastal charm with urban sophistication.',
         image: 'images/Abidjan-Cote-Ivoire.jpg',
         alt:""
 
@@ -45,7 +45,7 @@ export const countries = [
     {
         name: 'Sydney',
         location: 'Australia',
-        description: 'Cape Town, a scenic city, is renowned for its iconic Table Mountain, breathtaking beaches, varied wildlife and a fusion of African and European influences',
+        description: 'Nestled around the sparkling Port Jackson (Sydney Harbour), the city boasts beautiful beaches such as Bondi Beach and Manly Beach, offering a perfect blend of urban life and coastal relaxation. The Royal Botanic Garden and nearby Darling Harbour provide green spaces and entertainment, while neighborhoods like The Rocks and Surry Hills showcase Sydney’s rich history and thriving arts scene.',
         image: 'images/Sydney.jpg',
         alt:'The great Barrier Reef, Australia'
     },

@@ -8,6 +8,7 @@ import { FaInstagram, FaPhoneAlt } from "react-icons/fa";
 import { CiMail } from "react-icons/ci";
 import { Libre_Baskerville } from "next/font/google";
 import Link from "next/link";
+import { usePathname } from 'next/navigation';
 
 const currentYear = new Date().getFullYear();
 const libre_baskerville = Libre_Baskerville({
@@ -17,18 +18,32 @@ const libre_baskerville = Libre_Baskerville({
 
 const Footer = () => {
   const [selectedSection, setSelectedSection] = useState(null);
+  const pathname = usePathname();
+  
+  const handleNavigation = (hash) => {
+    if (pathname === '/services') {
 
-  const scrollToSection = (sectionId) => {
-    setSelectedSection(sectionId);
-    const element = document.getElementById(sectionId);
-    element?.scrollIntoView({ behavior: "smooth", block: "center" });
+      const element = document.getElementById(hash.replace('#', ''));
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    } else {
+      // Navigate to services page with the hash
+      window.location.href = `/services${hash}`;
+    }
   };
 
-  useEffect(() => {
-    if (selectedSection) {
-      scrollToSection(selectedSection);
-    }
-  }, [selectedSection]);
+  // const scrollToSection = (sectionId) => {
+  //   setSelectedSection(sectionId);
+  //   const element = document.getElementById(sectionId);
+  //   element?.scrollIntoView({ behavior: "smooth", block: "center" });
+  // };
+
+  // useEffect(() => {
+  //   if (selectedSection) {
+  //     scrollToSection(selectedSection);
+  //   }
+  // }, [selectedSection]);
 
   return (
     <footer className="w-full sm:rounded-t-[4rem] bg-swPrimary500 relative flex flex-col items-center overflow-hidden py-12 md:py-12">
@@ -92,44 +107,76 @@ const Footer = () => {
                   </h2>
                   <ul className="text-white">
                     <li className="mb-4">
-                      <Link href="/services#medical-evacuation">
-                        <p
-                          className="hover:underline text-sm"
-                          onClick={() => scrollToSection("service-section")}
-                        >
-                          Air Ambulance
-                        </p>
-                      </Link>
+                      <a
+                        href="#"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleNavigation("#medical-evacuation-section");
+                        }}
+                        className="hover:underline text-sm"
+                      >
+                        Air Ambulance
+                      </a>
                     </li>
                     <li className="mb-4">
-                      <Link href="/services#inflight-catering">
-                        <p
-                          className="hover:underline text-sm"
-                          onClick={() => scrollToSection("service-section")}
-                        >
-                          Inflight catering
-                        </p>
-                      </Link>
+                      <a
+                        href="#"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleNavigation("#inflight-catering-section");
+                        }}
+                        className="hover:underline text-sm"
+                      >
+                        Inflight Catering
+                      </a>
                     </li>
                     <li className="mb-4">
-                      <Link href="/services#concierge">
-                        <p
-                          className="hover:underline text-sm"
-                          onClick={() => scrollToSection("service-section")}
-                        >
-                          Concierge
-                        </p>
-                      </Link>
+                      <a
+                        href="#"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleNavigation("#helicopter-services-section");
+                        }}
+                        className="hover:underline text-sm"
+                      >
+                        Helicopter Services
+                      </a>
                     </li>
                     <li className="mb-4">
-                      <Link href="/services#group-charter">
-                        <p
-                          className="hover:underline text-sm"
-                          onClick={() => scrollToSection("service-section")}
-                        >
-                          Group/Corporate Charter
-                        </p>
-                      </Link>
+                      <a
+                        href="#"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleNavigation("#empty-leg-section");
+                        }}
+                        className="hover:underline text-sm"
+                      >
+                        Empty Leg Services
+                      </a>
+                    </li>
+                    <li className="mb-4">
+                      <a
+                        href="#"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleNavigation("#group-corporate-section");
+                        }}
+                        className="hover:underline text-sm"
+                      >
+                        Group/Corporate Charter
+                      </a>
+                    </li>
+                    <li className="mb-4">
+                      <a
+                        href="#"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleNavigation("#concierge-section");
+                        }}
+                        className="hover:underline text-sm"
+                      >
+                        Concierge
+                      </a>
                     </li>
                   </ul>
                 </div>
@@ -148,16 +195,16 @@ const Footer = () => {
                         Contact Us
                       </a>
                     </li>
-                    <li className="mb-4">
+                    {/* <li className="mb-4">
                       <a href="#" className="hover:underline text-sm">
                         Career
                       </a>
-                    </li>
-                    <li className="mb-4">
+                    </li> */}
+                    {/* <li className="mb-4">
                       <a href="#" className="hover:underline text-sm">
                         Membership
                       </a>
-                    </li>
+                    </li> */}
                   </ul>
                 </div>
                 <div>
@@ -170,11 +217,11 @@ const Footer = () => {
                         Privacy Policy
                       </a>
                     </li>
-                    <li className="mb-4">
+                    {/* <li className="mb-4">
                       <a href="#" className="hover:underline text-sm">
                         Terms & Conditions
                       </a>
-                    </li>
+                    </li> */}
                     <li className="mb-4">
                       <a href="/fqrpage" className="hover:underline text-sm">
                         FAQ
