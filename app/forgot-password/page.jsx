@@ -98,7 +98,7 @@ const ForgotPassword = () => {
         <ToastContainer />
         <div className="max-w-lg w-full p-8 mt-20">
           <p className="text-center text-2xl font-medium">
-            Forgot your password
+            Forgot your password ?
           </p>
           <p className="text-center mt-2 mb-8 text-[0.95rem]">
             Let’s help you reset your password. Provide your email address,
