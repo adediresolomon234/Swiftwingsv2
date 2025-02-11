@@ -6,14 +6,14 @@ import { useRouter } from "next/navigation";
 import Loading from "../components/Loading";
 
 const VerifyPage = () => {
-  const [verifyCode, setVerifyCode] = useState(Array(5).fill(""));
+  const [verifyCode, setVerifyCode] = useState(Array(6).fill(""));
   const [inputIndex, setInputIndex] = useState(0);
   const [showWarning, setShowWarning] = useState(false);
   const [loading, setLoading] = useState(false);
   const [loader, setLoader] = useState(true);
   const inputRefs = useRef(Array(5).fill(null));
   const router = useRouter();
-  const mockCode = ["1", "2", "3", "4", "5"];
+  const mockCode = ["1", "2", "3", "4", "5", "6"];
 
   useEffect(() => {
     if (inputRefs.current[inputIndex]) {
@@ -30,10 +30,7 @@ const VerifyPage = () => {
     if (verifyCode.includes("")) {
       setShowWarning(true);
       setLoading(false);
-    } else if (!verifyCode.every((num, index) => num === mockCode[index])) {
-      alert("The verification code is incorrect. Please try again.");
-      setLoading(false);
-    } else {
+    }  else {
       setShowWarning(false);
       router.push("/");
       setLoading(false);
@@ -45,7 +42,7 @@ const VerifyPage = () => {
     updatedCode[index] = value;
     setVerifyCode(updatedCode);
 
-    if (value && index < 4) {
+    if (value && index < 5) {
       setInputIndex(index + 1);
     } else if (!value && index > 0) {
       setInputIndex(index - 1);
@@ -61,7 +58,7 @@ const VerifyPage = () => {
       <NavBar Nav={false} />
       <div className="max-w-sm w-full p-4">
         <p className="text-center text-2xl font-semibold text-swGray800">
-          Check your Email
+          Check your Email 
         </p>
         <p className="text-center mt-5 mb-8 text-sm">
           Enter the 5 digit code sent to ...ehy@gmail.com to verify your account
