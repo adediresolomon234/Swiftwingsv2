@@ -17,7 +17,7 @@ import heroBgImg from "../public/images/heroBackgroundImage.png";
 import MbheroBgImg from "../public/images/Hero-Section-Mobile[1].jpg";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
-import { fetchAircrafts } from "@/redux/slices/aircraftdetails";
+import { fetchAircrafts } from "../redux/slices/aircraftdetails";
 import { mdiCarSeat, mdiSpeedometer, mdiArrowLeftRight } from "@mdi/js";
 import BookingEngine from "./components/bookingEngine/bookingEngine";
 import Head from "next/head";
@@ -43,7 +43,7 @@ import Zenco from "../public/images/ZencoLogo.jpg";
 import Delborough from "../public/images/delborough.png";
 import Loading from "./components/Loading";
 import Link from "next/link";
-import { getHomeData } from "@/redux/slices/aviPagesSlice";
+import { getHomeData } from "../redux/slices/aviPagesSlice";
 import { formatThousand } from "./components/helpers/utils";
 
 const space_grotesk = Space_Grotesk({
@@ -62,10 +62,11 @@ export default function Home() {
   const [fleet, setFleet] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
-  const { data: homeData } = useSelector((state) => state.aviPages);
+  //const { data: homeData } = useSelector((state) => state.aviPages);
+
   const [rangeValue, setRangeValue] = useState({
-    no_bookings: 0,
-    no_users: 0,
+    no_bookings: "2000+",
+    no_users: "1500+",
     no_aircraft: 11,
   });
   const sectionRef = useRef(null);
@@ -105,56 +106,27 @@ export default function Home() {
   useEffect(() => {
     setLoading(false);
   }, []);
+  // useEffect(() => {
+  //   if (!homeData?.data) return;
 
-  useEffect(() => {
-    if (homeData?.data) {
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            Object.keys(homeData?.data).forEach((key) => {
-              let start = 0;
-              const duration = 2000; // Duration of the animation in milliseconds
-              const targetValue = homeData?.data[key];
+  //   const observer = new IntersectionObserver(
+  //     ([entry]) => {
+  //       if (entry.isIntersecting) {
+  //         animateValues(homeData.data); // Trigger animation when in view
+  //         observer.disconnect(); // Disconnect the observer to avoid multiple triggers
+  //       }
+  //     },
+  //     { threshold: 0.1 } // Trigger when 10% of the section is visible
+  //   );
 
-              const animate = (timestamp) => {
-                if (!start) start = timestamp;
-                const progress = timestamp - start;
-                const value = Math.min(
-                  (progress / duration) * targetValue,
-                  targetValue
-                );
-                setRangeValue((prev) => ({
-                  ...prev,
-                  [key]: value.toFixed(0),
-                }));
+  //   if (sectionRef.current) {
+  //     observer.observe(sectionRef.current);
+  //   }
 
-                if (progress < duration) {
-                  requestAnimationFrame(animate);
-                }
-              };
+  //   return () => observer.disconnect();
+  // }, [homeData]);
 
-              requestAnimationFrame(animate);
-            });
-          }
-        },
-        {
-          threshold: 0.1, // Adjust the threshold as needed
-        }
-      );
-
-      if (sectionRef.current) {
-        observer.observe(sectionRef.current);
-      }
-
-      return () => {
-        if (sectionRef.current) {
-          observer.unobserve(sectionRef.current);
-        }
-      };
-    }
-  }, [homeData]);
-
-  if (loading || !homeData?.data) {
+  if (loading) {
     return <Loading />;
   }
 

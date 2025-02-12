@@ -6,7 +6,7 @@ import Serivcepage from "../../public/images/Serivcepage.png";
 import Inflightcatering2 from "../../public/images/Inflightcatering2.png";
 import ChauffeurServices from "../../public/images/ChauffeurServices.png";
 import MedicalEvacuation from "../../public/images/MedicalEvacuation.png";
-import GroupFlight from "../../public/images/Groupflight.jpg"
+import GroupFlight from "../../public/images/GroupFlight.jpg"
 import EmptyLegs from "../../public/images/emeptylegs.jpg"
 import HeliServices from "../../public/images/HeliServices.jpg"
 import team from "../../public/images/team.png";

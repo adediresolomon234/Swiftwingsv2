@@ -1,4 +1,4 @@
-import { API_URL } from "@/constant";
+import { API_URL } from "../../constant";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 

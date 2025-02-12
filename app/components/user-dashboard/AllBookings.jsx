@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { SwSearchIcon, SwSortIcon } from "../svgs";
 import dayjs from "dayjs";
 import { useDispatch } from "react-redux";
-import { getAllBooking } from "@/redux/slices/bookingSlice";
+import { getAllBooking } from "../../../redux/slices/bookingSlice";
 import { ToastContainer, toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 

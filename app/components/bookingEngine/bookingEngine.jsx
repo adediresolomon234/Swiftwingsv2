@@ -20,7 +20,7 @@ import { HiArrowRight } from "react-icons/hi";
 import { FaSearch } from "react-icons/fa";
 import { usePathname, useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
-import SelectDate from "@/utils/SelectDate";
+import SelectDate from "../../../utils/SelectDate";
 
 const space_grotesk = Space_Grotesk({
   subsets: ["latin"],
