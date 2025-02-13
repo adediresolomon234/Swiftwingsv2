@@ -189,7 +189,11 @@ const VerifyPage = () => {
                   use the button below to resend verification email.
                 </p>
                 {requestOtpLoad ? (
-                  <PuffLoader size={4} color="#5c0632" className="mx-auto mt-2" />
+                  <PuffLoader
+                    size={4}
+                    color="#5c0632"
+                    className="mx-auto mt-2"
+                  />
                 ) : (
                   <button
                     onClick={handleForgotPassword}
@@ -213,6 +217,7 @@ const VerifyPage = () => {
                     label={"Password"}
                     placeholder={"Enter password"}
                     startIcon={<SwKeyIcon className="text-xl" />}
+                    name={"password"}
                     value={password}
                     endIcon={viewPassword}
                     inputType={showPassword ? "text" : "password"}
@@ -230,6 +235,7 @@ const VerifyPage = () => {
                     label={"Confirm Password"}
                     placeholder={"Enter password"}
                     startIcon={<SwKeyIcon className="text-xl" />}
+                    name={"confirmPassword"}
                     value={confirmPassword}
                     endIcon={viewPassword}
                     inputType={showPassword ? "text" : "password"}
