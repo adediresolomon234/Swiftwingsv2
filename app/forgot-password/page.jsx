@@ -12,16 +12,20 @@ import "react-toastify/dist/ReactToastify.css";
 import NavBar from "../components/shared/NavBar";
 import { API_URL } from "../../constant";
 import Loading from "../components/Loading";
+import Link from "next/link";
+import Image from "next/image";
+import SWheader from "../../public/images/SWheader.png";
 
 const ForgotPassword = () => {
   const dispatch = useDispatch();
   const [loader, setLoader] = useState(true);
   const [emailError, setEmailError] = useState("");
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
   });
   const router = useRouter();
-  const { loading, error, data } = useSelector((state) => state.auth);
+  const { error, data } = useSelector((state) => state.auth);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -43,25 +47,30 @@ const ForgotPassword = () => {
         },
         body: JSON.stringify({ email }),
       });
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
       const data = await response.json();
       return data;
     } catch (error) {
-      console.error("Error:", error);
+      console.log(error);
     }
   };
 
   const handleForgotPassword = async () => {
+    setEmailError("");
     if (isValidEmail(formData.email)) {
+      setLoading(true);
       try {
-        await sendVerificationCode(formData.email);
-        router.push("/forgetpasswordverify");
+        const res = await sendVerificationCode(formData.email);
+
+        if (!res?.success) {
+          toast.error(res?.error);
+        } else {
+          localStorage.setItem("4gtPwdEmail", formData.email);
+          router.push("/forgetpasswordverify");
+        }
       } catch (error) {
         console.error("Error:", error);
+      } finally {
+        setLoading(false);
       }
     } else {
       setEmailError("Please enter a valid email address");
@@ -96,7 +105,10 @@ const ForgotPassword = () => {
       <main className="flex justify-center min-h-screen pt-20">
         <NavBar Nav={false} />
         <ToastContainer />
-        <div className="max-w-lg w-full p-8 mt-20">
+        <div className="max-w-lg w-full p-8 mt-20 flex flex-col items-center">
+          <Link href={"/"} className="mb-5">
+            <Image src={SWheader} alt="Logo" className="w-60 " />
+          </Link>
           <p className="text-center text-2xl font-medium">
             Forgot your password ?
           </p>
@@ -120,11 +132,11 @@ const ForgotPassword = () => {
 
           <div className="my-7 flex justify-center">
             <Button
-              label={`${loading === "pending" ? "Submitting..." : "Submit"}`}
+              label={`${loading ? "Submitting..." : "Submit"}`}
               bgColor={"bg-swPrimary500 text-white"}
               onClick={handleForgotPassword}
-              loader={loading === "pending" ? true : false}
-              disabled={loading === "pending" ? true : false}
+              loader={loading}
+              disabled={loading}
             />
           </div>
         </div>
