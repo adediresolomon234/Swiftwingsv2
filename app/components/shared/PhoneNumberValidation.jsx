@@ -6,7 +6,6 @@ const PhoneNumberValidation = ({ label, inputValue, onChange }) => {
   const [error, setError] = useState("");
 
   const handleChange = (value, countryData) => {
-    console.log("countryData", countryData);
     const dialCode = countryData?.dialCode;
     const localNumber = value.slice(dialCode?.length);
     const cleanedLocalNumber = localNumber.startsWith("0")
@@ -14,7 +13,6 @@ const PhoneNumberValidation = ({ label, inputValue, onChange }) => {
       : localNumber;
 
     const formattedPhone = `+${dialCode}${cleanedLocalNumber}`;
-    console.log(formattedPhone);
 
     onChange(formattedPhone);
   };
