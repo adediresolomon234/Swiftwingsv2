@@ -17,8 +17,7 @@ const TokenInput = ({
   const router = useRouter();
   const [otp, setOtp] = useState("");
   const [requestOtpLoad, setRequestOtpLoad] = useState(false);
-
-  console.log(requestOtpLoad);
+  
   const sendVerificationCode = async (email) => {
     try {
       const response = await fetch(`${API_URL}/user/forgot-password`, {

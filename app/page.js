@@ -45,6 +45,8 @@ import Loading from "./components/Loading";
 import Link from "next/link";
 import { getHomeData } from "../redux/slices/aviPagesSlice";
 import { formatThousand } from "./components/helpers/utils";
+import CountUp from 'react-countup';
+
 
 const space_grotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -62,13 +64,8 @@ export default function Home() {
   const [fleet, setFleet] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
-  //const { data: homeData } = useSelector((state) => state.aviPages);
+  const { data: homeData } = useSelector((state) => state.aviPages);
 
-  const [rangeValue, setRangeValue] = useState({
-    no_bookings: "2000+",
-    no_users: "1500+",
-    no_aircraft: 11,
-  });
   const sectionRef = useRef(null);
 
   useEffect(() => {
@@ -106,25 +103,6 @@ export default function Home() {
   useEffect(() => {
     setLoading(false);
   }, []);
-  // useEffect(() => {
-  //   if (!homeData?.data) return;
-
-  //   const observer = new IntersectionObserver(
-  //     ([entry]) => {
-  //       if (entry.isIntersecting) {
-  //         animateValues(homeData.data); // Trigger animation when in view
-  //         observer.disconnect(); // Disconnect the observer to avoid multiple triggers
-  //       }
-  //     },
-  //     { threshold: 0.1 } // Trigger when 10% of the section is visible
-  //   );
-
-  //   if (sectionRef.current) {
-  //     observer.observe(sectionRef.current);
-  //   }
-
-  //   return () => observer.disconnect();
-  // }, [homeData]);
 
   if (loading) {
     return <Loading />;
@@ -134,7 +112,8 @@ export default function Home() {
     <main className="relative bg-swLightBgGray overflow-x-hidden">
       <Head>
         <title>
-        Best Private Jet Charter in Nigeria | Private Jet Fastest Flights | On Demand Private Jets Africa
+          Best Private Jet Charter in Nigeria | Private Jet Fastest Flights | On
+          Demand Private Jets Africa
         </title>
         <meta
           name="description"
@@ -179,19 +158,19 @@ export default function Home() {
             >
               <div>
                 <p className="font-semibold text-2xl">
-                  {formatThousand(rangeValue?.no_users ?? 0)}
+                  <CountUp end={homeData?.data?.no_users} duration={2} formattingFn={formatThousand} />
                 </p>
                 <p className="text-xs">Clients</p>
               </div>
               <div>
                 <p className="font-semibold text-2xl">
-                  {formatThousand( 11)}
+                  <CountUp end={homeData?.data?.no_aircraft?.data} duration={2} formattingFn={formatThousand} />
                 </p>
                 <p className="text-xs">Aircrafts</p>
               </div>
               <div>
                 <p className="font-semibold text-2xl">
-                  {formatThousand(rangeValue?.no_bookings ?? 0)}
+                  <CountUp end={homeData?.data?.no_bookings} duration={2} formattingFn={formatThousand} />
                 </p>
                 <p className="text-xs">Bookings</p>
               </div>
@@ -374,9 +353,6 @@ export default function Home() {
                                 <span className="ml-3">{item.feet}</span>
                               </div>
                             </div>
-                            {/* <div className="self-stretch relative leading-[18px] px-3 text-swGray600 text-left">
-                              {item.name}
-                            </div> */}
                           </div>
                         </div>
                       </Link>
@@ -428,11 +404,6 @@ export default function Home() {
                 Membership
               </h2>
               <p className="text-swGray800 max-w-4xl mt-8 sm:mx-auto md:text-lg text-start md:text-center text-md ">
-                {/* <span
-                  className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
-                >
-                  Swift<i className="font-normal">Wings</i>
-                </span>{" "} */}
                 Enjoy the benefits of{" "}
                 <span
                   className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
@@ -490,8 +461,8 @@ export default function Home() {
         <section className="p-5 md:p-10 pb-10">
           <div className="max-w-screen-2xl mx-auto bg-white w-full flex justify-center items-center dark:bg-gray-900 rounded-3xl p-8">
             <div className="max-w-screen-xl px-4 pb-8 mx-auto lg:pb-16">
-            <h2 className="mb-24 text-center md:text-center text-[18px] font-semibold text-swPrimary500  md:text-[18px] ">
-               Our Clients
+              <h2 className="mb-24 text-center md:text-center text-[18px] font-semibold text-swPrimary500  md:text-[18px] ">
+                Our Clients
               </h2>
               <div className="grid grid-cols-2 gap-4 text-gray-500 sm:gap-12 sm:grid-cols-3 lg:grid-cols-6 dark:text-gray-400">
                 <a

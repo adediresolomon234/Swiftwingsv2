@@ -19,8 +19,6 @@ const PasswordVerifyPage = () => {
     token: "",
   });
 
-  console.log({ formData });
-
   useEffect(() => {
     if (window !== "undefined") {
       const email = localStorage.getItem("4gtPwdEmail") ?? "";
