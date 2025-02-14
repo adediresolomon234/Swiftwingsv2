@@ -6,13 +6,26 @@ export const signUpUser = createAsyncThunk(
   "auth/signUpUser",
   async (payload, { rejectWithValue }) => {
     try {
+      const response = await axios.post(`${API_URL}/user/add`, payload);
+      return response.data;
+    } catch (error) {
+      return error?.response?.data?.error;
+    }
+  }
+);
+
+export const resetPassword = createAsyncThunk(
+  "auth/resetPassword",
+  async (payload) => {
+    try {
       const response = await axios.post(
-        `${API_URL}/user/add`,
+        `${API_URL}/user/reset-password`,
         payload
       );
       return response.data;
     } catch (error) {
-      return error?.response?.data?.error;
+      // console.log("errrrrr0r", error?.response?.data?.message);
+      return error?.response?.data;
     }
   }
 );
@@ -21,10 +34,7 @@ export const signInUser = createAsyncThunk(
   "auth/signInUser",
   async (userData, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        `${API_URL}/user/login`,
-        userData
-      );
+      const response = await axios.post(`${API_URL}/user/login`, userData);
       return response.data;
     } catch (error) {
       if (!error.response) {
@@ -81,9 +91,7 @@ export const fetchAllUsers = createAsyncThunk(
   "auth/fetchAllUsers",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(
-        `${API_URL}/user/all`
-      );
+      const response = await axios.get(`${API_URL}/user/all`);
       return response.data;
     } catch (error) {
       if (!error.response) {
