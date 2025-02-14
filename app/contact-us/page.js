@@ -71,7 +71,6 @@ const ContactUs = () => {
         setLoadingEnquiry(false);
       });
   };
-  console.log(formData);
 
   useEffect(() => {
     setLoading(false);

@@ -87,7 +87,6 @@ const ForgotPasswordPage = () => {
       toast.success(data?.message);
       // alert(data?.message);
     }
-    // console.log(data);
     if (error) toast.error(error);
   }, [data, error]);
 
