@@ -195,11 +195,16 @@ const Footer = () => {
                         Contact Us
                       </a>
                     </li>
-                    {/* <li className="mb-4">
+                    <li className="mb-4">
                       <a href="#" className="hover:underline text-sm">
                         Career
                       </a>
-                    </li> */}
+                    </li>
+                    <li className="mb-4">
+                      <a href="/terms" className="hover:underline text-sm">
+                        Terms Of Use
+                      </a>
+                    </li>
                     {/* <li className="mb-4">
                       <a href="#" className="hover:underline text-sm">
                         Membership
