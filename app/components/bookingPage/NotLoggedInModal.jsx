@@ -30,53 +30,70 @@ function NotLoggedInModal({
     lastName: ``,
     phone: "",
   });
-  const source = params.get("source")
-  
+  const source = params.get("source");
+
+  useEffect(() => {
+    // Keep booking details persisted even after an error.
+    const persistedDetails = JSON.parse(localStorage.getItem("bookingDetails"));
+    if (persistedDetails) {
+      setFormData(persistedDetails);
+    }
+  }, []);
+
   const handleQuote = () => {
     if (Object.values(formData).some((e) => e === "")) {
-      alert("input all");
+      alert("Please fill in all fields.");
     } else {
+      // Persist booking details in case of an error
+      localStorage.setItem("bookingDetails", JSON.stringify(formData));
+
       bookingDetails.status = "New";
-      bookingDetails.user = formData;
+      bookingDetails.user = {
+        first_name: formData.firstName,
+        last_name: formData.lastName,
+        email: formData.email,
+        phone_number: formData.phone,
+      };
       bookingDetails.email = formData.email;
-      bookingDetails.source = source ? source : "web";
+      bookingDetails.source = source || "web";
+
       dispatch(addBooking(bookingDetails))
         .unwrap()
         .then((response) => {
           if (response?.message === "Booking created successfully") {
             unCheckAllBoxes();
             setFormData({
-              email: ``,
-              firstName: ``,
-              lastName: ``,
+              email: "",
+              firstName: "",
+              lastName: "",
               phone: "",
             });
             setSuccess(true);
+            localStorage.removeItem("bookingDetails"); // Clear persisted details on success
             onClick(false);
           } else {
             toast.error(response?.message);
           }
         })
         .catch((error) => {
-          console.log(error);
+          console.error(error);
+          toast.error("Error occurred while submitting booking.");
         });
     }
   };
 
-  // console.log(formData);
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    // setFormData({ ...formData, [e.target.name]: e.target.value });
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  if (!open) return;
+  if (!open) return null;
+
   return (
     <main className="fixed w-screen h-screen top-0 left-0 bg-black bg-opacity-25 flex justify-center items-center p-5 z-50">
       <ToastContainer />
       <div className="max-w-4xl w-full rounded-3xl bg-white flex overflow-hidden relative">
-        <div className="absolute right-5 top-5 p-2 rounded-full  cursor-pointer border sm:hidden">
+        <div className="absolute right-5 top-5 p-2 rounded-full cursor-pointer border sm:hidden">
           <SWClose className="text-2xl" onClick={() => onClick(false)} />
         </div>
         <div className="px-5 py-10 w-full sm:w-[45%]">
@@ -84,7 +101,7 @@ function NotLoggedInModal({
           <p className="text-center text-sm max-w-72 mx-auto text-swGray900 my-5">
             Provide the following details to complete booking or sign in
           </p>
-          <div className="flex flex-col gap-5 ">
+          <div className="flex flex-col gap-5">
             <InputField
               label={"Email"}
               placeholder={"Enter email address"}
@@ -111,14 +128,6 @@ function NotLoggedInModal({
             />
 
             <div>
-              {/* <InputField
-              label={"Phone Number"}
-              placeholder={"Enter phone number"}
-              name={"phone"}
-              startIcon={<FiPhone size={25} />}
-              value={formData.phone}
-              onChange={handleInputChange}
-              /> */}
               <PhoneNumberValidation
                 label={"Enter Phone No"}
                 inputValue={formData.phone}
@@ -131,17 +140,14 @@ function NotLoggedInModal({
               label="Submit"
               bgColor={"bg-swPrimary500 hover:bg-swPrimary600"}
               textColor={"text-white"}
-              // endIcon={<HiArrowRight size={20} />}
               disabled={
-                Object.values(formData).some((e) => e === "") ||
-                loading === "pending"
+                Object.values(formData).some((e) => e === "") || loading === "pending"
               }
               onClick={handleQuote}
             />
 
             <p className="text-swGray900 text-sm">
-              Save and use your previously entered information when you are
-              signed in.
+              Save and use your previously entered information when you are signed in.
             </p>
             <Button
               label="Sign in"
@@ -156,7 +162,7 @@ function NotLoggedInModal({
         </div>
         <div className="hidden sm:block w-[55%] bg-cover bg-center bg-no-repeat relative">
           <Image
-            src={bgImg} // Adjust the path according to where you placed the image
+            src={bgImg}
             layout="fill"
             objectFit="cover"
             quality={100}

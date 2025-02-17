@@ -1,0 +1,143 @@
+"use client";
+import { useEffect, useState } from "react";
+import "../../../styles.css";
+import Button from "../../components/Button";
+import InputField from "../../components/shared/InputField";
+import { useDispatch, useSelector } from "react-redux";
+import { SwMailIcon } from "../../components/svgs";
+import { useRouter } from "next/navigation";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import NavBar from "../../components/shared/NavBar";
+import { API_URL } from "../../../constant";
+import Loading from "../../components/Loading";
+import Link from "next/link";
+import Image from "next/image";
+import SWheader from "../../../public/images/SWheader.png";
+
+const ForgotPasswordPage = () => {
+  const dispatch = useDispatch();
+  const [loader, setLoader] = useState(true);
+  const [emailError, setEmailError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    email: "",
+  });
+  const router = useRouter();
+  const { error, data } = useSelector((state) => state.auth);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const isValidEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const sendVerificationCode = async (email) => {
+    try {
+      const response = await fetch(`${API_URL}/user/forgot-password`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleForgotPassword = async () => {
+    setEmailError("");
+    if (isValidEmail(formData.email)) {
+      setLoading(true);
+      try {
+        const res = await sendVerificationCode(formData.email);
+
+        if (!res?.success) {
+          toast.error(res?.error);
+        } else {
+          localStorage.setItem("4gtPwdEmail", formData.email);
+          router.push("/forgetpasswordverify");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      setEmailError("Please enter a valid email address");
+    }
+  };
+
+  useEffect(() => {
+    if (data && !data?.message) {
+      // router.push("/");
+      toast.success(data);
+      // alert(data?.message);
+    }
+    if (data && data?.message) {
+      // router.push("/");
+      toast.success(data?.message);
+      // alert(data?.message);
+    }
+    if (error) toast.error(error);
+  }, [data, error]);
+
+  useEffect(() => {
+    setLoader(false);
+  }, []);
+
+  if (loader) {
+    return <Loading />;
+  }
+  return (
+    <main className="flex justify-center min-h-screen pt-20">
+      <NavBar Nav={false} />
+      <ToastContainer />
+      <div className="max-w-lg w-full p-8 mt-20 flex flex-col items-center">
+        <Link href={"/"} className="mb-5">
+          <Image src={SWheader} alt="Logo" className="w-60 " />
+        </Link>
+        <p className="text-center text-2xl font-medium">
+          Forgot your password ?
+        </p>
+        <p className="text-center mt-2 mb-8 text-[0.95rem]">
+          Let’s help you reset your password. Provide your email address, We’ll
+          send a reset link.
+        </p>
+
+        <div className="w-full">
+          <InputField
+            label={"Email"}
+            name={"email"}
+            placeholder={"Enter email address"}
+            startIcon={<SwMailIcon className="text-xl" />}
+            // value={email}
+            onChange={handleInputChange}
+            className={emailError ? "error" : ""}
+          />
+          {emailError && <p className="text-red-500">{emailError}</p>}
+        </div>
+
+        <div className="my-7 flex justify-center">
+          <Button
+            label={`${loading ? "Submitting..." : "Submit"}`}
+            bgColor={"bg-swPrimary500 text-white"}
+            onClick={handleForgotPassword}
+            loader={loading}
+            disabled={loading}
+          />
+        </div>
+      </div>
+    </main>
+  );
+};
+
+export default ForgotPasswordPage;
