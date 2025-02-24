@@ -237,7 +237,7 @@ export default function Home() {
                     </span>{" "}
                     private jet charter services.
                   </p>
-                </div>
+                </div> 
                 <div className="group space-y-6 rounded-3xl border border-gray-100 bg-swSecondary200 px-8 py-12 text-center ">
                   <SWTAddPersonBlackIcon className="mx-auto svgIcon" />
                   <h3 className="text-xl font-semibold text-swPrimary500 bg-swSecondary500 rounded-full p-3">
@@ -448,14 +448,14 @@ export default function Home() {
                 ))}
               </div>
             </div>
-            <div className="flex justify-center text-lg mt-24">
+            {/* <div className="flex justify-center text-lg mt-24">
               <Button
                 label="Become a member"
                 bgColor={"bg-swPrimary500"}
                 textColor={"text-white"}
                 endIcon={<CiStar size={20} />}
               />
-            </div>
+            </div> */}
           </div>
         </section>
         <section className="p-5 md:p-10 pb-10">

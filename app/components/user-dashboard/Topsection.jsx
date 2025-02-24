@@ -43,10 +43,10 @@ const TopSectionPage = () => {
         </div>
       </div>
 
-      <div className="hidden md:flex justify-center gap-3 bg-swGray50 max-w-md w-full p-2 rounded-md">
+      {/* <div className="hidden md:flex justify-center gap-3 bg-swGray50 max-w-md w-full p-2 rounded-md">
         <SWStarIcon className="text-2xl" />
         <p>Become a member</p>
-      </div>
+      </div> */}
 
       <div className="flex flex-col items-center justify-center">
         <div className="flex flex-row items-center justify-center gap-8">
