@@ -21,15 +21,15 @@ const Career = () => {
         className="bg-cover bg-top py-20 min-h-[80vh] flex flex-col items-center justify-center text-white relative"
         style={{ backgroundImage: `url(${CareerImage.src})` }}
       >
-        <div className="absolute inset-0 bg-black/50 z-0"></div>
+        <div className="absolute inset-0 bg-white/70 z-0"></div>
 
         <div className="relative z-10 flex flex-col items-center">
-          <h1 className="text-6xl mb-8 font-bold text-swLightBgGray text-center">
+          <h1 className=" text-2xl lg:text-6xl mb-0 lg:mb-8 font-bold text-swPrimary500 text-center">
             Find Your Next
             <br />
             Dream Job
           </h1>
-          <p className="text-center font-bold max-w-xl mx-auto mb-8">
+          <p className="text-center text-swPrimary500 max-w-xl mx-auto mb-8 p-8">
             Swiftwings thrives on a spirit of agility and youthful enthusiasm,
             leveraging our technological prowess to swiftly adapt to market
             conditions and customer demands.

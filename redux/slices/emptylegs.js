@@ -1,0 +1,49 @@
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+export const fetchEmptyLegs = createAsyncThunk(
+  "emptylegs/fetchEmptyLegs",
+  async ({ page = 1, limit = 10, search = "" } = {}, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(`${API_URL}/emptylegs`, {
+        params: { page, limit, search },
+      });
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+const emptyLegsSlice = createSlice({
+  name: "emptylegs",
+  initialState: {
+    data: [],
+    isLoading: false,
+    error: null,
+  },
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchEmptyLegs.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(fetchEmptyLegs.fulfilled, (state, action) => {
+        state.isLoading = false;
+        if (Array.isArray(action.payload?.emptyLegs)) {
+          state.data = action.payload.emptyLegs;
+        } else {
+          state.data = [];
+        }
+      })
+      .addCase(fetchEmptyLegs.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload || "Failed to fetch empty legs.";
+      });
+  },
+});
+
+export default emptyLegsSlice.reducer;
