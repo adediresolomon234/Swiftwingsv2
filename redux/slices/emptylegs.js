@@ -33,11 +33,10 @@ const emptyLegsSlice = createSlice({
       })
       .addCase(fetchEmptyLegs.fulfilled, (state, action) => {
         state.isLoading = false;
-        if (Array.isArray(action.payload?.emptyLegs)) {
-          state.data = action.payload.emptyLegs;
-        } else {
-          state.data = [];
-        }
+        state.data = action.payload.data.emptyLegs;
+        console.log({ state , x: action.payload});
+
+
       })
       .addCase(fetchEmptyLegs.rejected, (state, action) => {
         state.isLoading = false;
