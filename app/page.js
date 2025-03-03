@@ -45,8 +45,8 @@ import Loading from "./components/Loading";
 import Link from "next/link";
 import { getHomeData } from "../redux/slices/aviPagesSlice";
 import { formatThousand } from "./components/helpers/utils";
-import CountUp from 'react-countup';
-
+import CountUp from "react-countup";
+import EmptyLegs from "./components/shared/EmptyLegs";
 
 const space_grotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -158,19 +158,31 @@ export default function Home() {
             >
               <div>
                 <p className="font-semibold text-2xl">
-                  <CountUp end={homeData?.data?.no_users} duration={2} formattingFn={formatThousand} />
+                  <CountUp
+                    end={homeData?.data?.no_users}
+                    duration={2}
+                    formattingFn={formatThousand}
+                  />
                 </p>
                 <p className="text-xs">Clients</p>
               </div>
               <div>
                 <p className="font-semibold text-2xl">
-                  <CountUp end={homeData?.data?.no_aircraft?.data} duration={2} formattingFn={formatThousand} />
+                  <CountUp
+                    end={homeData?.data?.no_aircraft?.data}
+                    duration={2}
+                    formattingFn={formatThousand}
+                  />
                 </p>
                 <p className="text-xs">Aircrafts</p>
               </div>
               <div>
                 <p className="font-semibold text-2xl">
-                  <CountUp end={homeData?.data?.no_bookings} duration={2} formattingFn={formatThousand} />
+                  <CountUp
+                    end={homeData?.data?.no_bookings}
+                    duration={2}
+                    formattingFn={formatThousand}
+                  />
                 </p>
                 <p className="text-xs">Bookings</p>
               </div>
@@ -181,6 +193,9 @@ export default function Home() {
             <BookingEngine />
           </section>
         </section>
+        <section className="max-w-7xl mx-auto w-full relative">
+              <EmptyLegs />
+          </section>
         <section className="mt-30 py-16 px-5 text-swGray900 ">
           <div className=" py-6">
             <p className="text-lg text-swPrimary500 text-center mb-20 font-medium">
@@ -191,7 +206,7 @@ export default function Home() {
                 Swift<i className="font-normal">Wings</i>
               </span>
             </p>
-
+           
             <div className="max-w-screen-2xl mx-auto px-0 text-gray-500">
               <div className="grid gap-4 md:mx-auto sm:grid-cols-2 lg:w-full xl:grid-cols-4">
                 <div className="group space-y-6 rounded-3xl border border-gray-100 bg-swSecondary300 px-8 py-12 text-center">
