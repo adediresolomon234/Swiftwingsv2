@@ -193,7 +193,7 @@ export default function Home() {
             <BookingEngine />
           </section>
         </section>
-        <section className="max-w-7xl mx-auto w-full relative">
+        B<section className="mt-30 py-16 px-5 text-swGray900 ">
               <EmptyLegs />
           </section>
         <section className="mt-30 py-16 px-5 text-swGray900 ">
