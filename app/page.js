@@ -45,8 +45,8 @@ import Loading from "./components/Loading";
 import Link from "next/link";
 import { getHomeData } from "../redux/slices/aviPagesSlice";
 import { formatThousand } from "./components/helpers/utils";
-import CountUp from 'react-countup';
-
+import CountUp from "react-countup";
+import EmptyLegsSlider from "./components/empty-leg/EmptyLegs";
 
 const space_grotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -158,19 +158,31 @@ export default function Home() {
             >
               <div>
                 <p className="font-semibold text-2xl">
-                  <CountUp end={homeData?.data?.no_users} duration={2} formattingFn={formatThousand} />
+                  <CountUp
+                    end={homeData?.data?.no_users}
+                    duration={2}
+                    formattingFn={formatThousand}
+                  />
                 </p>
                 <p className="text-xs">Clients</p>
               </div>
               <div>
                 <p className="font-semibold text-2xl">
-                  <CountUp end={homeData?.data?.no_aircraft?.data} duration={2} formattingFn={formatThousand} />
+                  <CountUp
+                    end={homeData?.data?.no_aircraft?.data}
+                    duration={2}
+                    formattingFn={formatThousand}
+                  />
                 </p>
                 <p className="text-xs">Aircrafts</p>
               </div>
               <div>
                 <p className="font-semibold text-2xl">
-                  <CountUp end={homeData?.data?.no_bookings} duration={2} formattingFn={formatThousand} />
+                  <CountUp
+                    end={homeData?.data?.no_bookings}
+                    duration={2}
+                    formattingFn={formatThousand}
+                  />
                 </p>
                 <p className="text-xs">Bookings</p>
               </div>
@@ -180,6 +192,9 @@ export default function Home() {
           <section className="max-w-7xl mx-auto w-full relative">
             <BookingEngine />
           </section>
+        </section>
+        <section className="mt-10">
+          <EmptyLegsSlider />
         </section>
         <section className="mt-30 py-16 px-5 text-swGray900 ">
           <div className=" py-6">
@@ -237,7 +252,7 @@ export default function Home() {
                     </span>{" "}
                     private jet charter services.
                   </p>
-                </div> 
+                </div>
                 <div className="group space-y-6 rounded-3xl border border-gray-100 bg-swSecondary200 px-8 py-12 text-center ">
                   <SWTAddPersonBlackIcon className="mx-auto svgIcon" />
                   <h3 className="text-xl font-semibold text-swPrimary500 bg-swSecondary500 rounded-full p-3">
