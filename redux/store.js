@@ -4,6 +4,7 @@ import aviPagesReducer from "./slices/aviPagesSlice";
 import bookingReducer from "./slices/bookingSlice";
 import aircraftsSlice from "./slices/aircraftdetails";
 import enquirySlice from "./slices/enquirySlice";
+import emptylegsReducer from "./slices/emptylegs";
 
 export const store = configureStore({
   reducer: {
@@ -12,5 +13,7 @@ export const store = configureStore({
     booking: bookingReducer,
     aircrafts: aircraftsSlice,
     enquiry: enquirySlice,
+    emptylegs: emptylegsReducer,
   },
 });
+
