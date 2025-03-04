@@ -67,11 +67,11 @@ const EmptyLegPage = () => {
         <div className="max-w-4xl w-full rounded-3xl bg-white flex overflow-hidden relative">
           <div className="px-5 py-10 w-full sm:w-[45%]">
             <p className="text-center text-2xl font-semibold">
-              Empty Leg Subscription
+              Empty Leg Booking
             </p>
             <p className="text-center text-sm max-w-72 mx-auto text-swGray900 my-5">
               Provide the following details to subscribe to our empty leg
-              waitlist
+              Booking
             </p>
             <div className="flex flex-col gap-5 ">
               <InputField
