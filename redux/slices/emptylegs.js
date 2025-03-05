@@ -33,7 +33,7 @@ const emptyLegsSlice = createSlice({
       })
       .addCase(fetchEmptyLegs.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.data = action.payload.data.emptyLegs;
+        state.data = action.payload.data;
         console.log({ state , x: action.payload});
 
 
