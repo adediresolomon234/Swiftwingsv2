@@ -70,7 +70,7 @@ const EmptyLegsSlider = () => {
     );
   }
 
-  if (!availableLegs.length) {
+  if (!availableLegs?.length) {
     return (
       <div className="flex flex-col items-center justify-center py-20">
         <p className="text-lg text-gray-600">
@@ -80,7 +80,7 @@ const EmptyLegsSlider = () => {
     );
   }
 
-  const visibleLegs = availableLegs.slice(
+  const visibleLegs = availableLegs?.slice(
     currentIndex * itemsPerPage,
     currentIndex * itemsPerPage + itemsPerPage
   );
@@ -145,7 +145,7 @@ const EmptyLegsSlider = () => {
                 </p>
 
                 <EmptyLegBookingModal
-                  open={bookLeg === leg._id}
+                  open={bookLeg === leg?._id}
                   leg={leg}
                   onClose={handleModalClose}
                 />
@@ -155,7 +155,7 @@ const EmptyLegsSlider = () => {
                     label="Book Now"
                     bgColor="bg-swPrimary500 hover:bg-swPrimary600"
                     textColor="text-white"
-                    onClick={() => setBookLeg(leg._id)}
+                    onClick={() => setBookLeg(leg?._id)}
                     className="w-full px-6 py-3 rounded-lg shadow-md transition-all duration-300 text-lg font-semibold"
                   />
                 </div>
@@ -167,7 +167,7 @@ const EmptyLegsSlider = () => {
 
       <div className="flex justify-center mt-4 space-x-2">
         {Array.from({
-          length: Math.ceil(availableLegs.length / itemsPerPage),
+          length: Math.ceil(availableLegs?.length / itemsPerPage),
         }).map((_, index) => (
           <button
             key={index}
