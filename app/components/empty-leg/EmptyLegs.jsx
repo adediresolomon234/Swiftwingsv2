@@ -39,8 +39,6 @@ const EmptyLegsSlider = () => {
     setBookLeg("");
   };
 
-  console.log({ availableLegs });
-
   useEffect(() => {
     fetchData();
   }, []);
@@ -89,7 +87,7 @@ const EmptyLegsSlider = () => {
 
   return (
     <div className="max-w-screen-2xl mx-auto px-0 text-gray-500">
-      <div className="flex items-center justify-between mb-20 max-w-[85rem] mx-auto">
+      <div className="flex items-center justify-between mb-20 max-w-[85rem] mx-auto px-5">
         <h2 className="text-lg text-swPrimary500 text-center  font-medium">
           Available Empty Legs
         </h2>
