@@ -28,22 +28,23 @@ const EmptyLegsSlider = () => {
     setBookLeg("");
   };
 
-  // useEffect(() => {
-  //   fetchData();
+  useEffect(() => {
+    fetchData();
 
-  //   const rotateInterval = setInterval(() => {
-  //     setCurrentIndex((prev) =>
-  //       (prev + 1) * itemsPerPage < availableLegs?.length ? prev + 1 : 0
-  //     );
-  //   }, 10000);
+    const rotateInterval = setInterval(() => {
+      setCurrentIndex((prev) =>
+        (prev + 1) * itemsPerPage < availableLegs?.length ? prev + 1 : 0
+      );
+    }, 10000);
 
-  //   const refreshInterval = setInterval(fetchData, 60000);
+    const refreshInterval = setInterval(fetchData, 300000); // 5 minutes (300,000ms)
 
-  //   return () => {
-  //     clearInterval(rotateInterval);
-  //     clearInterval(refreshInterval);
-  //   };
-  // }, [availableLegs?.length, fetchData]);
+    return () => {
+      clearInterval(rotateInterval);
+      clearInterval(refreshInterval);
+    };
+  }, [availableLegs?.length, fetchData]);
+
 
   useEffect(() => {
     fetchData();
@@ -70,7 +71,7 @@ const EmptyLegsSlider = () => {
     );
   }
 
-  if (!availableLegs.length) {
+  if (!availableLegs || availableLegs.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-20">
         <p className="text-lg text-gray-600">
@@ -101,7 +102,6 @@ const EmptyLegsSlider = () => {
                 {leg?.aircraft_name}
               </h5>
               <div className="space-y-8 bg-white shadow-lg rounded-lg p-6">
-                {/* SVG Image */}
                 <div className="w-full h-40 flex justify-center items-center bg-gray-100 rounded-lg">
                   <img
                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLsQGGfvuHNbBk-49d3RDBcjP4uyZmCjiMgA&s"
