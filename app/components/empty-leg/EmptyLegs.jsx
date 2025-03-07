@@ -8,6 +8,14 @@ import { isValidEmail } from "../helpers/emailValidation";
 import { SWClose, SwPlaneIcon } from "../svgs";
 import EmptyLegBookingModal from "./EmptyLegBookingModal";
 import Image from "next/image";
+import cardImg1 from "../../../public/images/empty-legs/img1.jpg";
+import cardImg2 from "../../../public/images/empty-legs/img2.jpg";
+import cardImg3 from "../../../public/images/empty-legs/img3.jpg";
+import cardImg4 from "../../../public/images/empty-legs/img4.jpg";
+import cardImg5 from "../../../public/images/empty-legs/img5.jpg";
+import cardImg6 from "../../../public/images/empty-legs/img6.jpg";
+import cardImg7 from "../../../public/images/empty-legs/img7.jpg";
+import cardImg8 from "../../../public/images/empty-legs/img8.jpg";
 
 const EmptyLegsSlider = () => {
   const dispatch = useDispatch();
@@ -21,14 +29,14 @@ const EmptyLegsSlider = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const itemsPerPage = 8;
   const imgs = [
-    "/images/empty-legs/img1.jpg",
-    "/images/empty-legs/img2.jpg",
-    "/images/empty-legs/img3.jpg",
-    "/images/empty-legs/img4.jpg",
-    "/images/empty-legs/img5.jpg",
-    "/images/empty-legs/img6.jpg",
-    "/images/empty-legs/img7.jpg",
-    "/images/empty-legs/img8.jpg",
+    cardImg1,
+    cardImg2,
+    cardImg3,
+    cardImg4,
+    cardImg5,
+    cardImg6,
+    cardImg7,
+    cardImg8,
   ];
 
   const fetchData = useCallback(() => {
