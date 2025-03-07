@@ -1,42 +1,34 @@
 import React, { useEffect, useCallback, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchEmptyLegs } from "../../../redux/slices/emptylegs";
-import Button from "../Button";
-import { IoAirplaneOutline } from "react-icons/io5";
-import InputField from "../shared/InputField";
-import { isValidEmail } from "../helpers/emailValidation";
-import { SWClose, SwPlaneIcon } from "../svgs";
+import { SwPlaneIcon } from "../svgs";
 import EmptyLegBookingModal from "./EmptyLegBookingModal";
 import Image from "next/image";
-import cardImg1 from "../../../public/images/empty-legs/img1.jpg";
-import cardImg2 from "../../../public/images/empty-legs/img2.jpg";
-import cardImg3 from "../../../public/images/empty-legs/img3.jpg";
-import cardImg4 from "../../../public/images/empty-legs/img4.jpg";
-import cardImg5 from "../../../public/images/empty-legs/img5.jpg";
-import cardImg6 from "../../../public/images/empty-legs/img6.jpg";
-import cardImg7 from "../../../public/images/empty-legs/img7.jpg";
-import cardImg8 from "../../../public/images/empty-legs/img8.jpg";
+import Button from "../Button";
+import { useRouter } from "next/navigation";
 
 const EmptyLegsSlider = () => {
+  const router = useRouter();
   const dispatch = useDispatch();
   const {
     data: availableLegs,
     isLoading,
     error,
   } = useSelector((state) => state.emptylegs);
+  const [loading, setLoading] = useState(false);
   const [bookLeg, setBookLeg] = useState("");
   const [isHovered, setIsHovered] = useState(-1);
   const [currentIndex, setCurrentIndex] = useState(0);
   const itemsPerPage = 8;
   const imgs = [
-    cardImg1,
-    cardImg2,
-    cardImg3,
-    cardImg4,
-    cardImg5,
-    cardImg6,
-    cardImg7,
-    cardImg8,
+    "https://images.unsplash.com/photo-1517505964376-f1d72fcd566b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Njh8fGJlYXV0aWZ1bCUyMHBsYWNlc3xlbnwwfHwwfHx8MA%3D%3D",
+    "https://images.unsplash.com/photo-1551749005-6b94ff060954?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YmVhdXRpZnVsJTIwcGxhY2VzfGVufDB8fDB8fHww",
+    "https://images.unsplash.com/photo-1499678329028-101435549a4e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8YmVhdXRpZnVsJTIwcGxhY2VzfGVufDB8fDB8fHww",
+    "https://images.unsplash.com/photo-1598901627264-c1d0c98a61f1?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTU2fHxiZWF1dGlmdWwlMjBwbGFjZXN8ZW58MHx8MHx8fDA%3D",
+    "https://images.unsplash.com/photo-1453747063559-36695c8771bd?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGJlYXV0aWZ1bCUyMHBsYWNlc3xlbnwwfHwwfHx8MA%3D%3D",
+    "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGJlYXV0aWZ1bCUyMHBsYWNlc3xlbnwwfHwwfHx8MA%3D%3D",
+    "https://images.unsplash.com/photo-1461598198498-686a2c168484?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTB8fGJlYXV0aWZ1bCUyMHBsYWNlc3xlbnwwfHwwfHx8MA%3D%3D",
+    "https://images.unsplash.com/photo-1611392229396-dc86a663928e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTR8fGJlYXV0aWZ1bCUyMHBsYWNlc3xlbnwwfHwwfHx8MA%3D%3D",
   ];
 
   const fetchData = useCallback(() => {
@@ -97,11 +89,26 @@ const EmptyLegsSlider = () => {
 
   return (
     <div className="max-w-screen-2xl mx-auto px-0 text-gray-500">
-      <h2 className="text-lg text-swPrimary500 text-center mb-20 font-medium">
-        Available Empty Legs
-      </h2>
+      <div className="flex items-center justify-between mb-20 max-w-[85rem] mx-auto">
+        <h2 className="text-lg text-swPrimary500 text-center  font-medium">
+          Available Empty Legs
+        </h2>
+        {visibleLegs && visibleLegs?.length > 0 && (
+          <Button
+            label="View All"
+            textColor="text-white"
+            bgColor={"bg-swPrimary500"}
+            onClick={() => {
+              setLoading(true);
+              router.push("/empty-legs");
+            }}
+            loader={loading}
+            className="transition-all duration-300"
+          />
+        )}
+      </div>
 
-      <div className="grid gap-4 md:mx-auto sm:grid-cols-2 lg:grid-cols-4  lg:w-full mx-auto my-auto p-5 md:p-10">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4  lg:w-full mx-auto my-auto p-5 md:p-10">
         {visibleLegs.map((leg, index) => (
           <div
             key={index}
@@ -180,13 +187,6 @@ const EmptyLegsSlider = () => {
               />
             </div>
             <div className="absolute top-2 right-2">
-              {/* <Button
-                label="Request Quote"
-                bgColor="bg-white"
-                textColor="text-black"
-                onClick={() => setBookLeg(leg?._id)}
-                className="w-full  transition-all duration-300"
-              /> */}
               <button
                 onClick={() => setBookLeg(leg?._id)}
                 className="py-1 px-2 rounded-full text-xs font-medium bg-white text-black"
