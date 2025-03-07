@@ -71,7 +71,7 @@ function EmptyLegBookingModal({ open, onClose, leg }) {
       year: "numeric",
       month: "long",
       day: "numeric",
-    })} for $${leg?.price}.
+    })}.
 Name: ${formData.name}
 Email: ${formData.email}
 Phone Number: ${formData.phone}
