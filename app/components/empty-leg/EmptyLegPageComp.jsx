@@ -80,7 +80,7 @@ const EmptyLegPageComp = () => {
       </h2>
       {availableLegs && availableLegs?.emptyLegs?.length > 0 ? (
         <div className="max-w-[85rem] mx-auto">
-          <div className="max-w-[77rem] mx-auto">
+          {/* <div className="max-w-[77rem] mx-auto">
             <div className="rounded-full p-2 px-4 border border-swPrimary500 flex items-center gap-2 w-full sm:w-3/4 md:w-1/2 lg:w-1/3">
               <SwSearchIcon className="text-xl text-swPrimary500" />
               <input
@@ -93,7 +93,7 @@ const EmptyLegPageComp = () => {
                 className="focus:outline-none p-1 text-sm w-full"
               />
             </div>
-          </div>
+          </div> */}
 
           {isLoading ? (
             <div className="flex flex-col items-center justify-center py-20">
