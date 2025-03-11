@@ -7,16 +7,7 @@ import dayjs from "dayjs";
 import { useDispatch } from "react-redux";
 import { fetchPaginatedEmptyLegs } from "../../../redux/slices/emptylegs";
 
-const EmptyLegDateFilter = (
-  {
-    // isOpen,
-    // onClose,
-    // startDate,
-    // setStartDate,
-    // endDate,
-    // setEndDate,
-  }
-) => {
+const EmptyLegDateFilter = () => {
   const dispatch = useDispatch();
   const [startDateOpen, setStartDateOpen] = useState(false);
   const [endDateOpen, setEndDateOpen] = useState(false);
@@ -25,8 +16,6 @@ const EmptyLegDateFilter = (
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClose = () => {
-    // setStartDateOpen(false);
-    // setEndDateOpen(false);
     setIsOpen(false);
     setStartDate("");
     setEndDate("");
@@ -79,33 +68,33 @@ const EmptyLegDateFilter = (
               <div className="flex flex-col gap-5 mt-5 w-full">
                 <div>
                   <label className="text-sm">Start Date</label>
-                  <div className="p-2 border border-swPrimary500 w-full rounded-md flex items-center">
+                  <div
+                    onClick={() => setStartDateOpen(true)}
+                    className="p-2 border border-swPrimary500 w-full rounded-md flex items-center cursor-pointer"
+                  >
                     <input
                       type="text"
                       disabled={true}
                       value={startDate}
-                      className="focus:outline-none w-full bg-transparent disabled:bg-tranparent"
+                      className="focus:outline-none w-full bg-transparent cursor-pointer pointer-events-none"
                     />
-                    <div
-                      className="w-fit"
-                      onClick={() => setStartDateOpen(true)}
-                    >
-                      <CalendarIcon className="text-swPrimary500 cursor-pointer" />
-                    </div>
+                    <CalendarIcon className="text-swPrimary500" />
                   </div>
                 </div>
                 <div>
                   <label className="text-sm">End Date</label>
-                  <div className="p-2 border border-swPrimary500 w-full rounded-md flex items-center">
+                  <div
+                    onClick={() => setEndDateOpen(true)}
+                    className="p-2 border border-swPrimary500 w-full rounded-md flex items-center cursor-pointer"
+                  >
                     <input
                       type="text"
                       disabled={true}
                       value={endDate}
-                      className="focus:outline-none w-full bg-transparent disabled:bg-tranparent"
+                      className="focus:outline-none w-full bg-transparent cursor-pointer pointer-events-none"
                     />
-                    <div className="w-fit" onClick={() => setEndDateOpen(true)}>
-                      <CalendarIcon className="text-swPrimary500 cursor-pointer" />
-                    </div>
+
+                    <CalendarIcon className="text-swPrimary500" />
                   </div>
                 </div>
               </div>
