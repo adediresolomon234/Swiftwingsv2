@@ -19,12 +19,15 @@ export const fetchEmptyLegs = createAsyncThunk(
 
 export const fetchPaginatedEmptyLegs = createAsyncThunk(
   "emptylegs/fetchPaginatedEmptyLegs",
-  async ({ page = 1, limit = 10, search = "" } = {}, { rejectWithValue }) => {
+  async (
+    { page = 1, limit = 10, search = "", startDate = "", endDate = "" } = {},
+    { rejectWithValue }
+  ) => {
     try {
       const response = await axios.get(
         `${API_URL}/emptylegs/emptylegs?status=active`,
         {
-          params: { page, limit, search },
+          params: { page, limit, search, startDate, endDate },
         }
       );
       return response.data;

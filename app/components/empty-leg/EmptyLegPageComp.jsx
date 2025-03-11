@@ -5,12 +5,14 @@ import { fetchPaginatedEmptyLegs } from "../../../redux/slices/emptylegs";
 import { SwPlaneIcon, SwSearchIcon } from "../svgs";
 import EmptyLegBookingModal from "./EmptyLegBookingModal";
 import Image from "next/image";
+import EmptyLegDateFilter from "./EmptyLegDateFilter";
 
 const EmptyLegPageComp = () => {
   const dispatch = useDispatch();
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(12);
-  const [search, setSearch] = useState("");
+  // const [search, setSearch] = useState("");
+  // const [startDate, setStartDa] = useState("");
   const [bookLeg, setBookLeg] = useState("");
   const [isHovered, setIsHovered] = useState(-1);
 
@@ -71,30 +73,26 @@ const EmptyLegPageComp = () => {
   const pageNumbers = generatePageNumbers();
 
   useEffect(() => {
-    dispatch(fetchPaginatedEmptyLegs({ page, limit, search }));
-  }, [page, limit, search, dispatch]);
+    dispatch(
+      fetchPaginatedEmptyLegs({
+        page,
+        limit,
+        search: "",
+        startDate: "",
+        endDate: "",
+      })
+    );
+  }, [page, limit, dispatch]);
   return (
     <div>
-      <h2 className="text-lg text-swPrimary500 text-center mb-10 font-medium">
-        Available Empty Legs
-      </h2>
+      <div className="flex justify-between items-center gap-5 max-w-[85rem] mx-auto mb-10 px-5 md:px-10">
+        <h2 className="text-lg text-swPrimary500 text-center font-medium">
+          Available Empty Legs
+        </h2>
+        <EmptyLegDateFilter />
+      </div>
       {availableLegs && availableLegs?.emptyLegs?.length > 0 ? (
         <div className="max-w-[85rem] mx-auto">
-          {/* <div className="max-w-[77rem] mx-auto">
-            <div className="rounded-full p-2 px-4 border border-swPrimary500 flex items-center gap-2 w-full sm:w-3/4 md:w-1/2 lg:w-1/3">
-              <SwSearchIcon className="text-xl text-swPrimary500" />
-              <input
-                type="text"
-                value={search}
-                placeholder="Search"
-                onChange={(e) => {
-                  setSearch(e.target.value);
-                }}
-                className="focus:outline-none p-1 text-sm w-full"
-              />
-            </div>
-          </div> */}
-
           {isLoading ? (
             <div className="flex flex-col items-center justify-center py-20">
               <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-swPrimary500 border-opacity-70 mb-4"></div>
