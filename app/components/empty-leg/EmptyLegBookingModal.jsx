@@ -35,12 +35,12 @@ function EmptyLegBookingModal({ open, onClose, leg, setBookingSuccess }) {
     }));
   };
 
-  const shareOnWhatsApp = async (phoneNumber, message) => {
-    const url = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(
-      message
-    )}`;
-    window.open(url, "_blank");
-  };
+  // const shareOnWhatsApp = async (phoneNumber, message) => {
+  //   const url = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(
+  //     message
+  //   )}`;
+  //   window.open(url, "_blank");
+  // };
 
   const closeModal = () => {
     setFormData(initialState);
