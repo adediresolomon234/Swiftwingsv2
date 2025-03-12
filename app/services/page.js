@@ -90,10 +90,10 @@ const Service = () => {
           </div>
         </div>
         <section  id="inflight-catering-section" className="py-5">
-          <div className="m-auto text-gray-600 md:px-12 xl:px-16">
+          <div className="m-auto text-gray-600 md:px-12 xl:px-16  ">
             <div className="">
               {/* <div className="flex"> */}
-              <div className="p-5">
+              <div className="p-5 mt-32 " >
                 <div className="text-start">
                   <h1 className="text-xl font-semibold sm:text-3xl capitalize mb-4 text-black">
                     Inflight Catering
