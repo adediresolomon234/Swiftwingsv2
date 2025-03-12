@@ -88,6 +88,7 @@ function EmptyLegBookingModal({ open, onClose, leg, setBookingSuccess }) {
       aircraft: leg.aircraft,
       departure: leg.departure,
       arrival: leg.arrival,
+      dates: leg.dates,
       customer: {
         name: formData.name,
         email: formData.email,
