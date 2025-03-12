@@ -37,6 +37,18 @@ export const fetchPaginatedEmptyLegs = createAsyncThunk(
   }
 );
 
+export const bookEmptyLeg = createAsyncThunk(
+  "booking/book-empty-leg",
+  async (payload) => {
+    try {
+      const response = await axios.post(`${API_URL}/emptylegbook/add`, payload);
+      return response.data;
+    } catch (error) {
+      return error;
+    }
+  }
+);
+
 const emptyLegsSlice = createSlice({
   name: "emptylegs",
   initialState: {

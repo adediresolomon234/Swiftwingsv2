@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InputField from "../shared/InputField";
 import { SWClose, SWLogo, SwUserIcon } from "../svgs";
 import Button from "../Button";
@@ -7,6 +7,8 @@ import Image from "next/image";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { isValidEmail } from "../helpers/emailValidation";
+import { useDispatch } from "react-redux";
+import { bookEmptyLeg } from "../../../redux/slices/emptylegs";
 
 const initialState = {
   name: ``,
@@ -14,9 +16,11 @@ const initialState = {
   phone: "",
 };
 
-function EmptyLegBookingModal({ open, onClose, leg }) {
+function EmptyLegBookingModal({ open, onClose, leg, setBookingSuccess }) {
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState(initialState);
   const [errors, setErrors] = useState(initialState);
+  const [loading, setLoading] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -44,7 +48,7 @@ function EmptyLegBookingModal({ open, onClose, leg }) {
     onClose();
   };
 
-  const handleBook = () => {
+  const handleBook = async () => {
     if (!formData.name || !formData.email || !formData.phone) {
       if (!formData.name) {
         setErrors((prev) => ({ ...prev, name: "Name is required" }));
@@ -61,25 +65,67 @@ function EmptyLegBookingModal({ open, onClose, leg }) {
       setErrors((prev) => ({ ...prev, email: "Invalid email format" }));
       return;
     }
-    const message = `
-    Hello, I would like to book the empty leg from '${leg?.departure}' to '${
-      leg?.arrival
-    }' with the aircraft ${leg.aircraft} on ${new Date(
-      leg?.dates
-    ).toLocaleDateString("en-US", {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    })}.
-Name: ${formData.name}
-Email: ${formData.email}
-Phone Number: ${formData.phone}
-    `;
+    //     const message = `
+    //     Hello, I would like to book the empty leg from '${leg?.departure}' to '${
+    //       leg?.arrival
+    //     }' with the aircraft ${leg.aircraft} on ${new Date(
+    //       leg?.dates
+    //     ).toLocaleDateString("en-US", {
+    //       weekday: "long",
+    //       year: "numeric",
+    //       month: "long",
+    //       day: "numeric",
+    //     })}.
+    // Name: ${formData.name}
+    // Email: ${formData.email}
+    // Phone Number: ${formData.phone}
+    //     `;
 
-    shareOnWhatsApp(`+2349076850024`, message);
-    closeModal();
+    //     shareOnWhatsApp(`+2349076850024`, message);
+
+    setLoading(true);
+    const payload = {
+      aircraft: leg.aircraft,
+      departure: leg.departure,
+      arrival: leg.arrival,
+      customer: {
+        name: formData.name,
+        email: formData.email,
+        phone_number: formData.phone,
+      },
+    };
+
+    try {
+      const response = await dispatch(bookEmptyLeg(payload));
+      if (response?.payload?.success) {
+        setBookingSuccess(true);
+        closeModal();
+      } else {
+        toast?.error(
+          response?.payload?.response?.data?.error ||
+            "An error occurred, please try again"
+        );
+      }
+    } catch (error) {
+      toast.error("An error occurred, please try again");
+    } finally {
+      setLoading(false);
+    }
   };
+
+  useEffect(() => {
+    const user = localStorage.getItem("user")
+      ? JSON.parse(localStorage.getItem("user"))
+      : null;
+    if (open && user) {
+      setFormData((prev) => ({
+        ...prev,
+        name: `${user?.first_name} ${user?.last_name}`,
+        email: user?.email,
+        phone: user?.phone_number,
+      }));
+    }
+  }, [open]);
 
   if (!open) return null;
 
@@ -130,6 +176,8 @@ Phone Number: ${formData.phone}
             label="Book Now"
             bgColor={"border-2 hover:bg-swGray50 w-full mt-10"}
             textColor={"text-swGray800"}
+            loader={loading}
+            disabled={loading}
             onClick={handleBook}
           />
         </div>
