@@ -9,7 +9,6 @@ import EmptyLegPageComp from "./EmptyLegPageComp";
 const EmptyLegPage = () => {
   return (
     <div>
-      {" "}
       <Head>
         <title>Empty Legs</title>
         <meta
