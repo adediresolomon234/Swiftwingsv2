@@ -6,6 +6,7 @@ import EmptyLegBookingModal from "./EmptyLegBookingModal";
 import Image from "next/image";
 import Button from "../Button";
 import { useRouter } from "next/navigation";
+import SuccessModal from "../shared/modals/SuccessModal";
 
 const EmptyLegsSlider = () => {
   const router = useRouter();
@@ -19,6 +20,7 @@ const EmptyLegsSlider = () => {
   const [bookLeg, setBookLeg] = useState("");
   const [isHovered, setIsHovered] = useState(-1);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [bookingSuccess, setBookingSuccess] = useState(false);
   const itemsPerPage = 8;
   const imgs = [
     "https://images.unsplash.com/photo-1517505964376-f1d72fcd566b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Njh8fGJlYXV0aWZ1bCUyMHBsYWNlc3xlbnwwfHwwfHx8MA%3D%3D",
@@ -182,6 +184,7 @@ const EmptyLegsSlider = () => {
                 open={bookLeg === leg?._id}
                 leg={leg}
                 onClose={handleModalClose}
+                setBookingSuccess={setBookingSuccess}
               />
             </div>
             <div className="absolute top-2 right-2">
@@ -209,6 +212,19 @@ const EmptyLegsSlider = () => {
           ></button>
         ))}
       </div> */}
+      <SuccessModal
+        open={bookingSuccess}
+        singleBtn={true}
+        headingText={"Empty Leg Quote Requsted Successfully"}
+        text={
+          "Your Emtpty Leg quote request has been successfully submitted. Our team will get back to you shortly."
+        }
+        onClose={setBookingSuccess}
+        firstBtnText={"Ok"}
+        firstBtnClick={() => {
+          setBookingSuccess(false);
+        }}
+      />
     </div>
   );
 };
