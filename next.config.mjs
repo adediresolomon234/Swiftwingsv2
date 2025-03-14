@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: false,
   experimental: {
-    appDir: true
+    appDir: true,
   },
   webpack(config) {
     config.module.rules.push({
@@ -13,7 +13,12 @@ const nextConfig = {
     return config;
   },
   images: {
-    domains: ["cdn-icons-png.flaticon.com", "res.cloudinary.com"],
+    domains: [
+      "cdn-icons-png.flaticon.com",
+      "res.cloudinary.com",
+      "unsplash.com",
+      "images.unsplash.com",
+    ],
   },
 };
 

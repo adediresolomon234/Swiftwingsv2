@@ -26,7 +26,7 @@ const SuccessModal = ({
         </div>
         <div className="flex flex-col items-center p-5">
           <Image src={successCheck} alt="success check" />
-          <p className="font-semibold text-2xl mt-10">{headingText}</p>
+          <p className="font-semibold text-2xl mt-10 text-center">{headingText}</p>
           <p className="text-sm mt-5 text-center">{text}</p>
 
           {singleBtn ? (
