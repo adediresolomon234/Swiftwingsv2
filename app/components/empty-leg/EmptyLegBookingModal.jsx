@@ -9,11 +9,18 @@ import "react-toastify/dist/ReactToastify.css";
 import { isValidEmail } from "../helpers/emailValidation";
 import { useDispatch } from "react-redux";
 import { bookEmptyLeg } from "../../../redux/slices/emptylegs";
+import { FiDollarSign } from "react-icons/fi";
+import { IoInformationCircleOutline } from "react-icons/io5";
+import {
+  handleInputChangeWithComma,
+  preventNonNumeric,
+} from "../../../utils/utils";
 
 const initialState = {
-  name: ``,
-  email: ``,
+  name: "",
+  email: "",
   phone: "",
+  offer: 0,
 };
 
 function EmptyLegBookingModal({ open, onClose, leg, setBookingSuccess }) {
@@ -59,6 +66,14 @@ function EmptyLegBookingModal({ open, onClose, leg, setBookingSuccess }) {
       if (!formData.phone) {
         setErrors((prev) => ({ ...prev, phone: "Phone number is required" }));
       }
+      if (!formData.offer || formData.offer < 4000) {
+        if (!formData.offer) {
+          setErrors((prev) => ({ ...prev, offer: "Offer is required" }));
+        }
+        if (formData.offer < 4000) {
+          setErrors((prev) => ({ ...prev, offer: "Minimum offer is $4,000" }));
+        }
+      }
       return;
     }
     if (formData.email && !isValidEmail(formData.email)) {
@@ -89,6 +104,7 @@ function EmptyLegBookingModal({ open, onClose, leg, setBookingSuccess }) {
       departure: leg.departure,
       arrival: leg.arrival,
       dates: leg.dates,
+      offer: formData.offer,
       customer: {
         name: formData.name,
         email: formData.email,
@@ -128,19 +144,21 @@ function EmptyLegBookingModal({ open, onClose, leg, setBookingSuccess }) {
     }
   }, [open]);
 
+  console.log(formData);
+
   if (!open) return null;
 
   return (
-    <main className="fixed w-screen h-screen -top-8 left-0 bg-black bg-opacity-25 flex justify-center items-center p-5 z-50">
+    <main className="fixed w-screen h-screen top-0 left-0 bg-black bg-opacity-25 flex justify-center items-center p-5 z-50">
       <ToastContainer />
       <div className="max-w-4xl w-full rounded-3xl bg-white flex overflow-hidden relative">
         <div className="absolute right-5 top-5 p-2 rounded-full cursor-pointer border sm:hidden">
           <SWClose className="text-2xl" onClick={() => closeModal()} />
         </div>
         <div className="px-5 py-10 w-full sm:w-[45%]">
-          <p className="text-center text-2xl font-semibold">Book Empty Leg</p>
-          <p className="text-center text-sm max-w-72 mx-auto text-swGray900 my-5">
-            Provide the following details to complete booking
+          <p className="text-center text-2xl font-semibold">Make An Offer</p>
+          <p className="text-center text-sm max-w-72 mx-auto text-swGray900">
+            Provide the following details to make an offer
           </p>
           <div className="flex flex-col gap-3">
             <InputField
@@ -172,6 +190,35 @@ function EmptyLegBookingModal({ open, onClose, leg, setBookingSuccess }) {
             {errors.phone && (
               <p className="text-red-500 text-xs -mt-3">{errors.phone}</p>
             )}
+            <InputField
+              label="Offer"
+              value={Number(formData?.offer)?.toLocaleString()}
+              name="offer"
+              startIcon={<FiDollarSign size={15} />}
+              onKeyDown={preventNonNumeric}
+              onChange={(e) => {
+                handleInputChangeWithComma(e, setFormData);
+                setErrors((prev) => ({
+                  ...prev,
+                  [e.target.name]: "",
+                }));
+              }}
+            />
+            {errors.offer ? (
+              <p className="text-red-500 text-xs -mt-3">{errors.offer}</p>
+            ) : (
+              <p className="text-red-500 text-xs -mt-3">Min offer $4,000</p>
+            )}
+
+            <div className="text-xs">
+              <IoInformationCircleOutline
+                size={20}
+                color="orange"
+                className="inline"
+              />{" "}
+              The minimum price for an empty leg flight is $4,000, but it may
+              vary based on route, aircraft and availability.
+            </div>
           </div>
           <Button
             label="Book Now"
