@@ -221,7 +221,7 @@ function EmptyLegBookingModal({ open, onClose, leg, setBookingSuccess }) {
             </div>
           </div>
           <Button
-            label="Book Now"
+            label="Make Offer"
             bgColor={"border-2 hover:bg-swGray50 w-full mt-10"}
             textColor={"text-swGray800"}
             loader={loading}
