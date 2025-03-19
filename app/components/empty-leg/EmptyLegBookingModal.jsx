@@ -66,14 +66,15 @@ function EmptyLegBookingModal({ open, onClose, leg, setBookingSuccess }) {
       if (!formData.phone) {
         setErrors((prev) => ({ ...prev, phone: "Phone number is required" }));
       }
-      if (!formData.offer || formData.offer < 4000) {
+      if (!formData.offer) {
         if (!formData.offer) {
           setErrors((prev) => ({ ...prev, offer: "Offer is required" }));
         }
-        if (formData.offer < 4000) {
-          setErrors((prev) => ({ ...prev, offer: "Minimum offer is $4,000" }));
-        }
       }
+      return;
+    }
+    if (formData.offer < 4000) {
+      setErrors((prev) => ({ ...prev, offer: "Minimum offer is $4,000" }));
       return;
     }
     if (formData.email && !isValidEmail(formData.email)) {
