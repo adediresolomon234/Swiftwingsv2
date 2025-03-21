@@ -20,6 +20,12 @@ export const navItems = [
   },
   {
     id: 3,
+    name: "EmptyLegs",
+    icon: <SWBookingIcon className="text-xl" />,
+    state: "emptylegs",
+  },
+  {
+    id: 4,
     name: "User",
     icon: <SwUserIcon className="text-xl" />,
     state: "profile",
