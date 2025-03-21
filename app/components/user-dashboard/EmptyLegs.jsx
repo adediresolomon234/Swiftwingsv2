@@ -150,10 +150,10 @@ const EmptyLegsBookings = () => {
                   >
                     <td className="whitespace-nowrap p-5">
                       <p className="md:text-sm text-sm font-medium">
-                        {dayjs(item?.created_date).format("D MMM, YYYY")}
+                        {dayjs(item?.createdAt).format("D MMM, YYYY")}
                       </p>
                       <p className="text-swGray600 text-xs">
-                        {dayjs(item?.created_date).format("h:mm a")}
+                        {dayjs(item?.createdAt).format("h:mm a")}
                       </p>
                     </td>
                     <td className="whitespace-nowrap p-5">
