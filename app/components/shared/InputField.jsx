@@ -8,6 +8,7 @@ const InputField = ({
   inputType,
   borderColor,
   onChange,
+  onKeyDown,
   value,
   name,
   endIcon,
@@ -38,6 +39,7 @@ const InputField = ({
           id={name}
           name={name}
           placeholder={placeholder}
+          onKeyDown={onKeyDown ? onKeyDown : () => {}}
           className={`w-full h-11 px-3 py-2 font-light cursor-pointer focus:outline-none`}
           onChange={onChange}
           value={value}

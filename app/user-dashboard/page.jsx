@@ -6,6 +6,7 @@ import TopSectionPage from "../components/user-dashboard/Topsection";
 import BookingPageInformation from "../components/bookingPage/BookingPage";
 import ProfileCard from "../components/user-dashboard/ProfileCard";
 import Bookings from "../components/user-dashboard/Bookings";
+import EmptyLegsBookings from "../components/user-dashboard/EmptyLegs";
 import UserDashBoardNav from "../components/user-dashboard/userDashBoardNav";
 import { useSearchParams } from "next/navigation";
 import Loading from "../components/Loading";
@@ -33,6 +34,7 @@ const UserBookingPage = () => {
             <BookingPageInformation />
           )}
           {searchParams.get("page") === "bookings" && <Bookings />}
+          {searchParams.get("page") === "emptylegs" && <EmptyLegsBookings />}
           {searchParams.get("page") === "profile" && <ProfileCard />}
         </div>
       </section>

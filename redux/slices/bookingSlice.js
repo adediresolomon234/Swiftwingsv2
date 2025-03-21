@@ -23,6 +23,20 @@ export const getAllBooking = createAsyncThunk(
   }
 );
 
+export const getEmptyLegsBooking = createAsyncThunk(
+  "emptylegbook/bookings/email/:email",
+  async (email) => {
+    try {
+      const response = await axios.get(
+        `${API_URL}/emptylegbook/bookings/email/${email}`
+      );
+      return response.data;
+    } catch (error) {
+      return error;
+    }
+  }
+);
+
 export const addEmptyLeg = createAsyncThunk(
   "booking/add-empty-leg",
   async (payload) => {
