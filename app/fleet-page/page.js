@@ -18,6 +18,7 @@ import { Libre_Baskerville } from "next/font/google";
 import Head from "next/head";
 import Loading from "../components/Loading";
 import { fleetPageKeywords } from "../components/helpers/relatedKeywords";
+import { BsInfoCircle } from "react-icons/bs";
 
 const libre_baskerville = Libre_Baskerville({
   subsets: ["latin"],
@@ -102,6 +103,14 @@ const FleetPage = () => {
                             </div>
                         </div>
                     </div> */}
+          <div className="flex justify-center items-start gap-1 mt-12 px-5 md:px-10 text-swPrimary500 text-sm ">
+            <BsInfoCircle className="h-4 w-4 min-h-4 min-w-4" />{" "}
+            <i>
+              Please note that the images displayed on this page are for
+              illustrative purposes only. They may depict similar aircraft or
+              placeholders due to private ownership considerations
+            </i>
+          </div>
           <div className="mt-12 md:mt-16">
             {status === "loading" ? (
               <div className="flex justify-center">
@@ -117,7 +126,7 @@ const FleetPage = () => {
                 Error: Failed to fetch aircrafts
               </p>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12 px-6 md:px-12">
+              <div className="flex flex-wrap justify-center gap-8 md:gap-12 px-6 md:px-12">
                 {filteredAircrafts.map((aircraft) => (
                   <AircraftCard key={aircraft.id} aircraft={aircraft} />
                 ))}
