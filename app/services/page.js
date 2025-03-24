@@ -1,4 +1,5 @@
 "use client";
+import React, { useState, useEffect } from "react";
 import "../../styles.css";
 import Image from "next/image";
 import NavAndFooter from "../components/shared/NavAndFooter";
@@ -9,7 +10,6 @@ import MedicalEvacuation from "../../public/images/MedicalEvacuation.png";
 import GroupFlight from "../../public/images/GroupFlight.jpg";
 import EmptyLegs from "../../public/images/emeptylegs.jpg";
 import HeliServices from "../../public/images/HeliServices.jpg";
-import team from "../../public/images/team.png";
 import { Libre_Baskerville } from "next/font/google";
 import {
   SWTBespokeIcon,
@@ -29,9 +29,14 @@ import Button from "../components/Button";
 import FooterHero from "../components/shared/footerHero";
 import Head from "next/head";
 import Loading from "../components/Loading";
-import { useEffect, useState } from "react";
 import { servicesPageKeywords } from "../components/helpers/relatedKeywords";
 import { useScrollToHash } from "../components/shared/ScrollHook";
+import InputField from "../components/shared/InputField";
+import { useDispatch, useSelector } from "react-redux";
+import { SwUserIcon, SwMailIcon } from "../components/svgs";
+import SuccessModal from "../components/shared/modals/SuccessModal";
+import CancelModal from "../components/shared/modals/CancelModal";
+import { addEnquiry } from "../../redux/slices/enquirySlice";
 
 const libre_baskerville = Libre_Baskerville({
   subsets: ["latin"],
@@ -39,46 +44,89 @@ const libre_baskerville = Libre_Baskerville({
 });
 
 const Service = () => {
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
+  const [selectedService, setSelectedService] = useState(""); // State for selected service
+  const [loadingEnquiry, setLoadingEnquiry] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [failed, setFailed] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    service: "",
+    enquiry: "",
+  });
+
   useScrollToHash();
 
   useEffect(() => {
     setLoading(false);
   }, []);
 
+  const handleMakeEnquiriesClick = (service) => {
+    setSelectedService(service); // Set the selected service
+    setIsModalOpen(true); // Open the modal
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = async () => {
+    setLoadingEnquiry(true);
+    try {
+      const result = await dispatch(addEnquiry(formData)).unwrap();
+      if (result.success) {
+        setSuccess(true); // Show success modal
+        setIsModalOpen(false); // Close the inquiry modal
+        setFormData({
+          name: "",
+          email: "",
+          service: "",
+          enquiry: "",
+        });
+      }
+    } catch (error) {
+      setFailed(true); // Show failure modal
+    } finally {
+      setLoadingEnquiry(false);
+    }
+  };
+
   if (loading) {
     return <Loading />;
   }
+
   return (
     <main className="relative bg-swLightBgGray">
       <Head>
         <title>Services</title>
         <meta
           name="description"
-          content="Swiftwings provides services like private jet charter, empty leg flights, group/corporate flights, medical evacuation, helicopters, etc
-          "
+          content="Swiftwings provides services like private jet charter, empty leg flights, group/corporate flights, medical evacuation, helicopters, etc"
         />
         <meta name="keywords" content={servicesPageKeywords} />
       </Head>
       <NavAndFooter Nav={true}>
+        {/* Hero Section */}
         <div className="relative">
           <Image
-            className="absolute inset-0 w-full  h-full  object-top"
+            className="absolute inset-0 w-full h-full object-top"
             src={Serivcepage}
-            width="400"
-            height="500"
+            width={1200}
+            height={300}
             alt="services"
           />
-          {/* <div aria-hidden="true" class="absolute inset-0 w-full h-full bg-gray-900 bg-opacity-30 backdrop-blur-sm"></div> */}
-          <div className="relative mx-auto max-w-screen-full px-4 py-28 sm:px-6 lg:flex lg:h-[70vh]  lg:items-center lg:px-8">
+          <div className="relative mx-auto max-w-screen-full px-4 py-28 sm:px-6 lg:flex lg:h-[70vh] lg:items-center lg:px-8">
             <div className="max-w-5xl mx-auto text-center">
               <h1 className="text-3xl font-bold sm:text-4xl lg:text-6xl capitalize mb-3">
                 Swift wings Sets the Standard in Aviation{" "}
                 <span className="text-swPrimary500">Services</span>
               </h1>
               <p className="px-2 sm:text-md lg:text-lg max-w-lg mx-auto">
-                Our services are designed to give you a first class experience
-                in{" "}
+                Our services are designed to give you a first class experience in{" "}
                 <a
                   href="https://www.swiftwingsjet.com/services"
                   className="font-bold hover:underline"
@@ -89,78 +137,76 @@ const Service = () => {
             </div>
           </div>
         </div>
+
+        {/* Inflight Catering Section */}
         <section id="inflight-catering-section" className="py-5">
           <div className="m-auto text-gray-600 md:px-12 xl:px-16">
-            <div className="">
-              <div className="p-5 mt-32">
-                <div className="text-start">
-                  <h1 className="text-xl font-semibold sm:text-3xl capitalize mb-4 text-black">
-                    Inflight Catering
-                  </h1>
-                  <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-10">
-                    <p className="sm:text-md lg:text-lg max-w-2xl">
-                      <span
-                        className={`${libre_baskerville.className} no-text-shadow font-bold`}
-                      >
-                        Swift<i className="font-normal">Wings</i>
-                      </span>
-                      &apos; provides flyers with a customized in-flight
-                      catering service. Passengers can choose from a wide
-                      selection of meals to suit their dietary needs and taste
-                      preferences. This allows them to enjoy a delicious and
-                      satisfying meal during their flight.
-                    </p>
-                    <p className="sm:text-md lg:text-lg max-w-2xl">
-                      Whether you&apos;re hosting a business meeting or
-                      celebrating a special occasion, savor every moment with
-                      our exquisite inflight dining experience.
-                    </p>
-                  </div>
+            <div className="p-5 mt-32">
+              <div className="text-start">
+                <h1 className="text-xl font-semibold sm:text-3xl capitalize mb-4 text-black">
+                  Inflight Catering
+                </h1>
+                <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-10">
+                  <p className="sm:text-md lg:text-lg max-w-2xl">
+                    <span
+                      className={`${libre_baskerville.className} no-text-shadow font-bold`}
+                    >
+                      Swift<i className="font-normal">Wings</i>
+                    </span>
+                    &apos; provides flyers with a customized in-flight catering
+                    service. Passengers can choose from a wide selection of meals
+                    to suit their dietary needs and taste preferences.
+                  </p>
+                  <p className="sm:text-md lg:text-lg max-w-2xl">
+                    Whether you&apos;re hosting a business meeting or celebrating
+                    a special occasion, savor every moment with our exquisite
+                    inflight dining experience.
+                  </p>
                 </div>
               </div>
+            </div>
 
-              {/* Image with Hover Effect */}
-              <div className="w-full">
-                <div className="relative group w-full h-full">
+            {/* Image with Hover Effect */}
+            <div className="w-full">
+              <div className="relative group w-full">
+                <div className="aspect-video w-full">
                   <Image
                     className="w-full h-full object-cover"
                     src={Inflightcatering2}
+                    width={1200}
+                    height={600}
                     alt="Inflight catering services"
                   />
-
-                  {/* Book Now Button */}
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black bg-opacity-50">
-                    <Button
-                      label={"Booking Now"}
-                      bgColor={"bg-swPrimary500 text-white "}
-                      // onClick={registerHandle}
-                      // loader={loading === "pending" ? true : false}
-                      // disabled={loading === "pending" ? true : false}
-                    />
-                  </div>
+                </div>
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black bg-opacity-50">
+                  <Button
+                    label={"Make Enquires"}
+                    bgColor={"bg-swPrimary500 text-white"}
+                    onClick={() => handleMakeEnquiriesClick("Inflight Catering")}
+                  />
                 </div>
               </div>
+            </div>
 
-              {/* Catering Features */}
-              <div className="py-16">
-                <div className="px-2 space-y-8">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 text-swPrimary500">
-                    <div className="p-2 flex items-center">
-                      <SWTBespokeIcon className="mr-4" />
-                      <p>Bespoke Menus</p>
-                    </div>
-                    <div className="p-2 flex items-center">
-                      <SWTCustomizatioIconIcon className="mr-4" />
-                      <p>Customization Options</p>
-                    </div>
-                    <div className="p-2 flex items-center">
-                      <SWTStarIconIcon className="mr-4" />
-                      <p>Premium Selections</p>
-                    </div>
-                    <div className="p-2 flex items-center">
-                      <SWTDietaryIconIcon className="mr-4" />
-                      <p>Dietary Accommodations</p>
-                    </div>
+            {/* Catering Features */}
+            <div className="py-16">
+              <div className="px-2 space-y-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 text-swPrimary500">
+                  <div className="p-2 flex items-center">
+                    <SWTBespokeIcon className="mr-4" />
+                    <p>Bespoke Menus</p>
+                  </div>
+                  <div className="p-2 flex items-center">
+                    <SWTCustomizatioIconIcon className="mr-4" />
+                    <p>Customization Options</p>
+                  </div>
+                  <div className="p-2 flex items-center">
+                    <SWTStarIconIcon className="mr-4" />
+                    <p>Premium Selections</p>
+                  </div>
+                  <div className="p-2 flex items-center">
+                    <SWTDietaryIconIcon className="mr-4" />
+                    <p>Dietary Accommodations</p>
                   </div>
                 </div>
               </div>
@@ -168,53 +214,57 @@ const Service = () => {
           </div>
         </section>
 
+        {/* Helicopter Services Section */}
         <section id="helicopter-services-section" className="py-5">
           <div className="m-auto text-gray-600 md:px-12 xl:px-16">
-            <div className="">
-              <div className="p-5">
-                <div className="text-start">
-                  <h1 className="text-xl font-semibold sm:text-3xl capitalize mb-4 text-black">
-                    Helicopter Services
-                  </h1>
-                  <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-10">
-                    <p className="sm:text-md lg:text-lg max-w-2xl">
-                      Swiftwings no longer only deals with private jets. We are
-                      excited to announce our elite helicopter services that are
-                      meant to take you away to amazing hidden places and
-                      experiences in unique ways.
-                    </p>
-                    <p className="sm:text-md lg:text-lg max-w-2xl">
-                      Move from the familiarity of conventional trips and
-                      discover flight liberty. In addition to providing
-                      luxurious helicopter flight services, we’ve made sure they
-                      are comfortable by operating at high speed within distant
-                      areas as well as sightseeing over mountainsides.
-                    </p>
-                  </div>
+            <div className="p-5">
+              <div className="text-start">
+                <h1 className="text-xl font-semibold sm:text-3xl capitalize mb-4 text-black">
+                  Helicopter Services
+                </h1>
+                <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-10">
+                  <p className="sm:text-md lg:text-lg max-w-2xl">
+                    Swiftwings no longer only deals with private jets. We are
+                    excited to announce our elite helicopter services that are
+                    meant to take you away to amazing hidden places and
+                    experiences in unique ways.
+                  </p>
+                  <p className="sm:text-md lg:text-lg max-w-2xl">
+                    Move from the familiarity of conventional trips and discover
+                    flight liberty. In addition to providing luxurious helicopter
+                    flight services, we’ve made sure they are comfortable by
+                    operating at high speed within distant areas as well as
+                    sightseeing over mountainsides.
+                  </p>
                 </div>
               </div>
+            </div>
 
-              {/* Image with Hover Effect */}
-              <div className="w-full">
-                <div className="relative group w-full h-full">
+            {/* Image with Hover Effect */}
+            <div className="w-full">
+              <div className="relative group w-full">
+                <div className="aspect-video w-full">
                   <Image
                     className="w-full h-full object-cover"
                     src={HeliServices}
+                    width={1200}
+                    height={600}
                     alt="Helicopter services"
                   />
-                  {/* Book Now Button */}
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black bg-opacity-50">
-                    <Button
-                      label={"Booking Now"}
-                      bgColor={"bg-swPrimary500 text-white"}
-                    />
-                  </div>
+                </div>
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black bg-opacity-50">
+                  <Button
+                    label={"Make Enquires"}
+                    bgColor={"bg-swPrimary500 text-white"}
+                    onClick={() => handleMakeEnquiriesClick("Helicopter Services")}
+                  />
                 </div>
               </div>
             </div>
           </div>
         </section>
 
+        {/* Medical Evacuation Section */}
         <section id="medical-evacuation-section" className="py-5">
           <div className="m-auto text-gray-600 md:px-12 xl:px-16">
             <div className="w-full mx-auto text-justify lg:text-center">
@@ -256,17 +306,21 @@ const Service = () => {
 
               {/* Image with Hover Effect */}
               <div className="w-full mt-8">
-                <div className="relative group w-full h-full">
-                  <Image
-                    className="w-full h-full lg:px-20 object-cover"
-                    src={MedicalEvacuation}
-                    alt="Medical Evacuation"
-                  />
-                  {/* Book Now Button */}
+                <div className="relative group w-full">
+                  <div className="aspect-video w-full">
+                    <Image
+                      className="w-full h-full object-cover"
+                      src={MedicalEvacuation}
+                      width={1200}
+                      height={600}
+                      alt="Medical Evacuation"
+                    />
+                  </div>
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black bg-opacity-50">
                     <Button
-                      label={"Booking Now"}
+                      label={"Make Enquires"}
                       bgColor={"bg-swPrimary500 text-white"}
+                      onClick={() => handleMakeEnquiriesClick("Air Ambulance")}
                     />
                   </div>
                 </div>
@@ -298,6 +352,7 @@ const Service = () => {
           </div>
         </section>
 
+        {/* Empty Leg Services Section */}
         <section id="empty-leg-section" className="py-5">
           <div className="m-auto text-gray-600 md:px-12 xl:px-16">
             <div className="w-full mx-auto text-justify lg:text-center">
@@ -311,12 +366,12 @@ const Service = () => {
                   <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-10">
                     <p className="sm:text-md lg:text-lg max-w-2xl">
                       Empty legs occur when our private jets need to reposition
-                      between destinations without passengers. Instead of
-                      letting these flights burn fuel empty, Swiftwings offers
-                      them to discerning travelers like you. You will enjoy the
-                      same luxurious amenities, spacious cabins, and
-                      personalized service that define every Swiftwings flight,
-                      all at a significantly reduced price.
+                      between destinations without passengers. Instead of letting
+                      these flights burn fuel empty, Swiftwings offers them to
+                      discerning travelers like you. You will enjoy the same
+                      luxurious amenities, spacious cabins, and personalized
+                      service that define every Swiftwings flight, all at a
+                      significantly reduced price.
                     </p>
                     <p className="sm:text-md lg:text-lg max-w-2xl">
                       Imagine soaring through the clouds on a private jet,
@@ -330,17 +385,21 @@ const Service = () => {
 
               {/* Image with Hover Effect */}
               <div className="w-full mt-8">
-                <div className="relative group w-full h-full">
-                  <Image
-                    className="w-full h-full lg:px-20 object-cover"
-                    src={EmptyLegs}
-                    alt="Empty Legs"
-                  />
-                  {/* Book Now Button */}
+                <div className="relative group w-full">
+                  <div className="aspect-video w-full">
+                    <Image
+                      className="w-full h-full object-cover"
+                      src={EmptyLegs}
+                      width={1200}
+                      height={600}
+                      alt="Empty Legs"
+                    />
+                  </div>
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black bg-opacity-50">
                     <Button
-                      label={"Booking Now"}
+                      label={"Make Enquires"}
                       bgColor={"bg-swPrimary500 text-white"}
+                      onClick={() => handleMakeEnquiriesClick("Empty Leg Services")}
                     />
                   </div>
                 </div>
@@ -349,6 +408,7 @@ const Service = () => {
           </div>
         </section>
 
+        {/* Chauffeur Services Section */}
         <section id="concierge-section" className="py-5">
           <div className="m-auto text-gray-600 md:px-12 xl:px-16">
             <div className="w-full mx-auto text-justify lg:text-center">
@@ -382,17 +442,21 @@ const Service = () => {
 
               {/* Image with Hover Effect */}
               <div className="w-full mt-8">
-                <div className="relative group w-full h-full">
-                  <Image
-                    className="w-full h-full lg:px-20 object-cover"
-                    src={ChauffeurServices}
-                    alt="Chauffeur Services"
-                  />
-                  {/* Book Now Button */}
+                <div className="relative group w-full">
+                  <div className="aspect-video w-full">
+                    <Image
+                      className="w-full h-full object-cover"
+                      src={ChauffeurServices}
+                      width={1200}
+                      height={600}
+                      alt="Chauffeur Services"
+                    />
+                  </div>
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black bg-opacity-50">
                     <Button
-                      label={"Booking Now"}
+                      label={"Make Enquires"}
                       bgColor={"bg-swPrimary500 text-white"}
+                      onClick={() => handleMakeEnquiriesClick("Chauffeur Services")}
                     />
                   </div>
                 </div>
@@ -424,6 +488,7 @@ const Service = () => {
           </div>
         </section>
 
+        {/* Group/Corporate Flights Section */}
         <section id="group-corporate-section" className="py-5">
           <div className="m-auto text-gray-600 md:px-12 xl:px-16">
             <div className="w-full mx-auto text-justify lg:text-center">
@@ -436,35 +501,37 @@ const Service = () => {
                   </div>
                   <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-10">
                     <p className="sm:text-md lg:text-lg max-w-2xl">
-                      Are you planning for training, seminar, tourism, etc., as
-                      a group or company? Swiftwings takes your entire team to
+                      Are you planning for training, seminar, tourism, etc., as a
+                      group or company? Swiftwings takes your entire team to
                       their destination directly, on their schedule. Imagine no
                       more scrambling through terminals or waiting for delayed
                       flights.
                     </p>
                     <p className="sm:text-md lg:text-lg max-w-2xl">
                       Instead, board a luxurious private jet together, use the
-                      in-flight workspace for strategic planning, or simply
-                      relax and arrive focused. Swiftwings guarantees a smooth,
+                      in-flight workspace for strategic planning, or simply relax
+                      and arrive focused. Swiftwings guarantees a smooth,
                       efficient journey that sets the stage for success.
                     </p>
                   </div>
                 </div>
               </div>
-
-              {/* Image with Hover Effect */}
               <div className="w-full mt-8">
-                <div className="relative group w-full h-full">
-                  <Image
-                    className="w-full h-full lg:px-20 object-cover"
-                    src={GroupFlight}
-                    alt="Group/Corporate Flights"
-                  />
-                  {/* Book Now Button */}
+                <div className="relative group w-full">
+                  <div className="aspect-video w-full">
+                    <Image
+                      className="w-full h-full object-cover"
+                      src={GroupFlight}
+                      width={1200}
+                      height={600}
+                      alt="Group/Corporate Flights"
+                    />
+                  </div>
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black bg-opacity-50">
                     <Button
-                      label={"Booking Now"}
+                      label={"Make Enquires"}
                       bgColor={"bg-swPrimary500 text-white"}
+                      onClick={() => handleMakeEnquiriesClick("Group/Corporate Flights")}
                     />
                   </div>
                 </div>
@@ -473,6 +540,7 @@ const Service = () => {
           </div>
         </section>
 
+        {/* Why Choose Us Section */}
         <section className="py-24">
           <div className="mx-auto text-gray-600 md:px-12 xl:px-16">
             <div className="flex flex-col justify-between md:flex-row items-start gap-8 px-8">
@@ -505,286 +573,117 @@ const Service = () => {
             </div>
           </div>
         </section>
-        <section>
-          <div className="relative py-16">
-            <div className="container relative m-auto px-6 text-gray-500 md:px-12 bg-swSecondary400">
-              <div className="grid gap-6 md:mx-auto md:w-8/12 lg:w-full lg:grid-cols-3">
-                <div className="group space-y-6  px-8 py-12 text-center">
-                  <h3 className="text-xl font-semibold text-gray-800 p-3">
-                    Exceptional Quality
-                  </h3>
-                  <p className="text-md">
-                    From gourmet catering to medical evacuation, we uphold the
-                    highest standards of quality and professionalism in every
-                    service we offer.
-                  </p>
-                </div>
-                <div className="group space-y-6  px-8 py-12 text-center">
-                  <h3 className="text-xl font-semibold text-gray-800   p-3">
-                    Personalized Solutions
-                  </h3>
-                  <p className="text-md">
-                    Whether it&lsquo;s catering to dietary restrictions or
-                    arranging urgent medical transport, we tailor our services
-                    to meet your individual needs and preferences.
-                  </p>
-                </div>
-                <div className="group space-y-6  px-8 py-12 text-center">
-                  <h3 className="text-xl font-semibold text-gray-800   p-3">
-                    Reliability and Efficiency
-                  </h3>
-                  <p className="text-md">
-                    With{" "}
-                    <span
-                      className={`${libre_baskerville.className} no-text-shadow font-bold`}
-                    >
-                      Swift<i className="font-normal">Wings</i>
-                    </span>
-                    , you can trust that your needs will be met promptly and
-                    efficiently, allowing you to focus on what matters most –
-                    your journey.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
 
-        {/* <section className="py-16">
-                    <div className="m-auto px-6 text-gray-600 md:px-12 xl:px-16">
-                        <div className="max-w-5xl mx-auto text-justify lg:text-center">
-                            <ul className="p-2 mb-12 flex flex-col sm:flex-row overflow-x-auto no-scrollbar">
-                                <li className="w-full mx-2 p-3 px-2 sm: text-xl lg:text-2xl border-gray-200 font-bold sm:w-auto sm:text-start  whitespace-nowrap">
-                                    Our Mission
-                                </li>
-                                <li className="w-auto mx-1 p-3 sm: text-md lg:text-lg px-2 border-gray-200 sm:w-auto sm:text-start ">
-                                    At SwiftWings, our mission is simple yet profound: to offer exceptional aviation services that redefine luxury, reliability, and safety. We aim to exceed the expectations of our clients by providing unparalleled experiences with every flight.
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </section> */}
-        {/* <section className="py-16">
-                    <div className="m-auto px-6 text-gray-600 md:px-12 xl:px-16">
-                        <div className="max-w-5xl mx-auto text-justify lg:text-center">
-                            <ul className="p-2 mb-12 flex flex-col-reverse sm:flex-row overflow-x-auto no-scrollbar">
-                                <li className="w-auto mx-1 p-3 sm:text-md lg:text-lg px-2 border-gray-200 sm:w-auto sm:text-justify lg:text-end sm:order-2 lg:order-1 ">
-                                    At SwiftWings, our mission is simple yet profound: to offer exceptional aviation services that redefine luxury, reliability, and safety. We aim to exceed the expectations of our clients by providing unparalleled experiences with every flight.
-                                </li>
-                                <li className="w-full mx-2 p-3 px-2 sm:text-xl lg:text-2xl border-gray-200 font-bold sm:w-auto sm:text-start whitespace-nowrap sm:order-1 lg:order-2">
-                                    Our Vision
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </section> */}
-        {/* <section className="py-16">
-                    <div className="w-full relative h-[1033px] text-left text-5xl text-gray-900 font-body-md-regular hidden sm:block">
-                        <Image
-                            className="absolute top-[0px] left-[calc(50%_+_7px)] w-[677px] h-[664px] object-cover"
-                            alt=""
-                            src={Serviceexecllence}
-                        />
-                        <div className="absolute top-[66px] left-[calc(50%_-_684px)] w-[634px] flex flex-col items-start justify-start gap-[26px]">
-                            <b className="self-stretch relative tracking-[-0.02em] leading-[32px]">
-                                Safety First
-                            </b>
-                            <div className="self-stretch relative text-xl leading-[30px] text-gray-800">
-                                Safety is the cornerstone of our operations. At SwiftWings, we
-                                prioritize the safety and well-being of our passengers above all else.
-                                With rigorous safety standards and meticulous attention to detail, we
-                                ensure every journey with us is secure and stress-free.
-                            </div>
-                        </div>
-                        <div className="relative text-left text-5xl text-gray-900 font-body-md-regular">
-                            <div className="absolute top-[825px] left-[calc(50%_-_138px)] w-[634px] flex flex-col items-start justify-start gap-[26px]">
-                                <b className="self-stretch relative tracking-[-0.02em] leading-[32px]">
-                                    Service Excellence
-                                </b>
-                                <div className="self-stretch relative text-xl leading-[30px] text-gray-800">
-                                    Service excellence is ingrained in our DNA. From the moment you book your flight to the second you touch down at your destination, our team of dedicated professionals is committed to delivering unparalleled service that caters to your every need.
-                                </div>
-                            </div>
-                            <Image
-                                className="absolute top-[352px] left-[calc(45%_-_605px)] w-[467px] h-[681px] object-cover mt-16" // Added mt-16 for margin-top
-                                alt=""
-                                src={Safetyfirst}
-                            />
-                        </div>
-                    </div>
-                    <div className="w-full relative text-left text-5xl text-gray-900 font-body-md-regular">
-                        <div className="sm:hidden">
-                            <div className="">
-                                <Image
-                                    className="w-full h-auto mb-8"
-                                    alt=""
-                                    src={Serviceexecllence}
-                                />
-                                <div className="text-lg text-gray-800 p-6">
-                                    <p className="text-2xl font-semibold mb-3">Safety First</p>
-                                    <p className="text-md lg:text-lg">Safety is the cornerstone of our operations. At SwiftWings, we prioritize the safety and well-being of our passengers above all else. With rigorous safety standards and meticulous attention to detail, we ensure every journey with us is secure and stress-free.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="sm:hidden mt-8">
-                            <div className="">
-                                <Image
-                                    className="w-full h-auto mb-8"
-                                    alt=""
-                                    src={Safetyfirst}
-                                />
-                                <div className="text-lg text-gray-800 p-6">
-                                    <p className="text-2xl font-semibold mb-3">Safety First</p>
-                                    <p className="text-md lg:text-lg">Safety is the cornerstone of our operations. At SwiftWings, we prioritize the safety and well-being of our passengers above all else. With rigorous safety standards and meticulous attention to detail, we ensure every journey with us is secure and stress-free.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section> */}
-        {/* <section className="py-16">
-                    <div class="py-16 bg-gray-100">
-                        <div class="xl:container m-auto px-6 text-gray-600 md:px-12 xl:px-16 ">
-                            <div class="lg:bg-gray-50 dark:lg:bg-darker lg:p-16 rounded-[4rem] space-y-6 md:flex md:gap-6 justify-center md:space-y-0 lg:items-center">
-                                <div class="md:5/12 lg:w-1/2">
-                                    <h2 class="text-4xl font-bold text-gray-900 md:text-8xl dark:text-white">
-                                        WHY CHOOSE US?
-                                    </h2>
-                                </div>
-                                <div class="md:7/12 lg:w-4/5">
-                                    <p class="my-8 text-gray-600 dark:text-gray-300">
-                                        Choosing SwiftWings means choosing quality, reliability, and unparalleled luxury.
-                                        With our commitment to excellence, passion for innovation, and customer-centric approach,
-                                        we offer a level of service that goes above and beyond your expectations.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section> */}
-        {/* <section className="py-16">
-                    <div class="py-12">
-                        <div class="xl:container m-auto px-6 text-gray-600 md:px-12 xl:px-6">
-                            <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-                                <div class="group p-6 sm:p-8 rounded-3xl bg-white ">
-                                    <div class="mt-6 relative">
-                                        <h3 class="text-2xl font-semibold text-gray-800 dark:text-white">
-                                            Global coverage
-                                        </h3>
-                                        <p class="mt-6 mb-8 text-gray-600 dark:text-gray-300">
-                                            Swift Wings offers extensive global coverage to meet the travel needs of our clients, seamlessly connecting them to destinations worldwide, including Europe, North America, South America, and beyond. With a network of trusted partners and affiliates, we ensure convenience and flexibility in air travel on a global scale, even to the most remote corners of the world.
-                                        </p>
-                                    </div>
-                                </div>
-                                <div className="group p-6 sm:p-8 rounded-3xl bg-white ">
-                                    <div className="mt-6 relative">
-                                        <h3 className="text-2xl font-semibold text-gray-800 dark:text-white">
-                                            World-class experience
-                                        </h3>
-                                        <p className="mt-6 mb-8 text-gray-600 dark:text-gray-300">
-                                            At Swift Wings, we ensure every journey is a remarkable experience by maintaining a tailored fleet of private jets that epitomize luxury, comfort, and convenience. From the moment you step on board, you will experience an unparalleled level of service that stands unrivaled in the industry. Our aviation experts are dedicated to customizing every aspect of your journey to align with your preferences and needs, ensuring a truly unforgettable experience.
-                                        </p>
-                                    </div>
-                                </div>
-                                <div className="group p-6 sm:p-8 rounded-3xl bg-white  ">
-                                    <div className="mt-6 relative">
-                                        <h3 className="text-2xl font-semibold text-gray-800 dark:text-white">
-                                            Private jets supremacy
-                                        </h3>
-                                        <p className="mt-6 mb-8 text-gray-600 dark:text-gray-300">
-                                            At Swift Wings, we prioritize accessibility in private jet travel with our diverse fleet, accommodating various budgets and travel needs. Whether it is a short trip on a light jet or a long-haul journey on a spacious cabin jet, our advanced aircraft, such as the Hawker 850xp and Bombardier Challenger 604, ensure unparalleled comfort, luxury, and reliability for every passenger.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </section> */}
-        {/* <section className="py-16">
-
-                    <div class="py-20">
-                        <div class="xl:container mx-auto px-6 md:px-12">
-                            <div class="mb-16 md:w-2/3 lg:w-1/2">
-                                <h2 class="mb-4 text-2xl font-bold text-gray-800 dark:text-white md:text-4xl">
-                                    Our Team
-                                </h2>
-
-                            </div>
-                            <div class="grid gap-6 px-4 sm:px-0 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                                <div className="group relative rounded-3xl space-y-6 overflow-hidden">
-                                    <Image
-                                        className="mx-auto h-[26rem] w-full object-cover object-top transition duration-500 group-hover:scale-105 group-hover:grayscale-0"
-                                        src={team}
-                                        alt="woman"
-                                        loading="lazy"
-                                        width="640"
-                                        height="805"
-                                    />
-                                    <div className="absolute inset-x-0 bottom-10 flex justify-center">
-                                        <div className="w-auto rounded-2xl  px-4 py-2  bg-white bg-opacity-20 backdrop-filter backdrop-blur text-start">
-                                            <h4 className="text-md font-semibold text-swPrimary500">FirstName & LastName</h4>
-                                            <span className="block text-sm text-gray-500">Position</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="group relative rounded-3xl space-y-6 overflow-hidden">
-                                    <Image
-                                        className="mx-auto h-[26rem] w-full object-cover object-top transition duration-500 group-hover:scale-105 group-hover:grayscale-0"
-                                        src={team}
-                                        alt="woman"
-                                        loading="lazy"
-                                        width="640"
-                                        height="805"
-                                    />
-                                    <div className="absolute inset-x-0 bottom-10 flex justify-center">
-                                        <div className="w-auto rounded-2xl  px-4 py-2  bg-white bg-opacity-20 backdrop-filter backdrop-blur text-start">
-                                            <h4 className="text-md font-semibold text-swPrimary500">FirstName & LastName</h4>
-                                            <span className="block text-sm text-gray-500">Position</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="group relative rounded-3xl space-y-6 overflow-hidden">
-                                    <Image
-                                        className="mx-auto h-[26rem] w-full object-cover object-top transition duration-500 group-hover:scale-105 group-hover:grayscale-0"
-                                        src={team}
-                                        alt="woman"
-                                        loading="lazy"
-                                        width="640"
-                                        height="805"
-                                    />
-                                    <div className="absolute inset-x-0 bottom-10 flex justify-center">
-                                        <div className="w-auto rounded-2xl px-4 py-2 bg-white bg-opacity-20 backdrop-filter backdrop-blur text-start">
-                                            <h4 className="text-md font-semibold text-swPrimary500">FirstName & LastName</h4>
-                                            <span className="block text-sm text-gray-500">Position</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="group relative rounded-3xl space-y-6 overflow-hidden">
-                                    <Image
-                                        className="mx-auto h-[26rem] w-full object-cover object-top transition duration-500 group-hover:scale-105 group-hover:grayscale-0"
-                                        src={team}
-                                        alt="woman"
-                                        loading="lazy"
-                                        width="640"
-                                        height="805"
-                                    />
-                                    <div className="absolute inset-x-0 bottom-10 flex justify-center">
-                                        <div className="w-auto rounded-2xl  px-4 py-2  bg-white bg-opacity-20 backdrop-filter backdrop-blur text-start">
-                                            <h4 className="text-md font-semibold text-swPrimary500">FirstName & LastName</h4>
-                                            <span className="block text-sm text-gray-500">Position</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section> */}
-
+        {/* Footer Hero Section */}
         <section className="">
           <div className="xl:container m-auto px-6 text-gray-600 md:px-12 xl:px-16">
             <FooterHero />
           </div>
         </section>
+
+        {/* Inquiry Modal */}
+        {isModalOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+            <div className="bg-white p-8 rounded-lg w-full max-w-2xl">
+              <h2 className="text-xl font-semibold mb-4">Inquiry Form</h2>
+              <div className="w-full mt-5">
+                <InputField
+                  label={"Full Name"}
+                  value={formData.name}
+                  name={"name"}
+                  placeholder={"Full Name"}
+                  onChange={handleChange}
+                  startIcon={<SwUserIcon className="text-xl" />}
+                />
+              </div>
+              <div className="w-full mt-5">
+                <InputField
+                  label={"Email"}
+                  value={formData.email}
+                  name={"email"}
+                  onChange={handleChange}
+                  placeholder={"Enter email address"}
+                  startIcon={<SwMailIcon className="text-xl" />}
+                />
+              </div>
+              <div className="w-full mt-5">
+                <label
+                  htmlFor="service"
+                  className="block text-sm mb-2 text-gray-700"
+                >
+                  Select Service
+                </label>
+                <select
+                  id="service"
+                  name="service"
+                  value={formData.service || selectedService}
+                  onChange={handleChange}
+                  className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:outline-none hover:border-swPrimary500"
+                >
+                  <option value="">Select a service</option>
+                  <option value="Inflight Catering">Inflight Catering</option>
+                  <option value="Helicopter Services">Helicopter Services</option>
+                  <option value="Air Ambulance">Air Ambulance</option>
+                  <option value="Empty Leg Services">Empty Leg Services</option>
+                  <option value="Chauffeur Services">Chauffeur Services</option>
+                  <option value="Group/Corporate Flights">
+                    Group/Corporate Flights
+                  </option>
+                </select>
+              </div>
+              <div className="mt-5">
+                <label
+                  htmlFor="message"
+                  className="block text-sm mb-2 text-gray-700"
+                >
+                  Message
+                </label>
+                <textarea
+                  id="message"
+                  name="enquiry"
+                  rows="4"
+                  value={formData.enquiry}
+                  onChange={handleChange}
+                  className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:outline-none hover:border-swPrimary500"
+                ></textarea>
+              </div>
+              <div className="mt-6 flex justify-end">
+                <Button
+                  label={"Send"}
+                  onClick={handleSubmit}
+                  bgColor={"bg-swPrimary500 text-white"}
+                  disabled={loadingEnquiry}
+                />
+                <Button
+                  label={"Close"}
+                  onClick={() => setIsModalOpen(false)}
+                  bgColor={"bg-gray-500 text-white ml-2"}
+                />
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Success and Failure Modals */}
+        <SuccessModal
+          open={success}
+          onClose={setSuccess}
+          singleBtn={true}
+          firstBtnText={"Done"}
+          firstBtnClick={() => setSuccess(false)}
+          headingText={"Enquiry Sent"}
+          text={"Your enquiry has been sent successfully"}
+        />
+        <CancelModal
+          open={failed}
+          onClose={setFailed}
+          singleBtn={true}
+          noInput={true}
+          firstBtnText={"Ok"}
+          firstBtnClick={() => setFailed(false)}
+          headingText={"Enquiry Failed"}
+          text={"Your enquiry could not be sent. Please try again"}
+        />
       </NavAndFooter>
     </main>
   );
