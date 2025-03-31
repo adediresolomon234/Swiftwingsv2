@@ -202,7 +202,6 @@ const BookingEngine = ({ setBookingDetails }) => {
     option: (styles) => ({ ...styles, backgroundColor: "white" }),
   };
 
-
   const handleRemoveTrip = (index) => {
     const updatedFormData = bookingState.filter((_, idx) => idx !== index);
     setBookingState(updatedFormData);
@@ -388,25 +387,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                 >
                   Multi-city Trip
                 </button>
-              </div>
-              {/* <div
-                className={`sm:hidden w-full self-stretch rounded-lg overflow-hidden flex flex-row items-center justify-center p-2 gap-4 text-grey-grey-500  border-solid border-gray-900 ${
-                  pathname === "/" ? "text-white" : "text-swPrimary500"
-                }`}
-              >
-                <div className="flex-1 flex flex-row items-center justify-center">
-                  <div className="flex-1 relative leading-8">
-                    <select
-                      className="backdrop-blur bg-swBlack/50 text-white text-sm rounded-lg block w-full p-3 focus:ring-white focus:border-white p-4 focus:outline-none"
-                      onChange={(e) => setBookingType(e.target.value)}
-                    >
-                      <option value="One way Trip">One Way Trip</option>
-                      <option value="Round Trip">Round Trip</option>
-                      <option value="Multi-city Trip">Multi-city Trip</option>
-                    </select>
-                  </div>
-                </div>
-              </div> */}
+              </div>{" "}
             </div>
             {pathname === "/" ? (
               <div
@@ -526,7 +507,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                               pointerEvents: "none",
                               display: "flex",
                               alignItems: "center",
-                              fontWeight: "lighter"
+                              fontWeight: "lighter",
                             }}
                           >
                             <FaSearch
