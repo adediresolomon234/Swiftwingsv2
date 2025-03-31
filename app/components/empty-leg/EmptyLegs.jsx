@@ -58,11 +58,11 @@ const EmptyLegsSlider = () => {
 
   if (error) {
     return (
-      <div className="flex flex-col items-center justify-center pt-10 pb-20">
+      <div className="flex flex-col items-center justify-center pt-10 pb-20 px-5 md:px-10">
         <h2 className="text-lg text-swPrimary500 text-center mb-20 font-medium">
           Available Empty Legs
         </h2>
-        <p className="text-lg text-red-500 font-semibold">
+        <p className="text-lg text-red-500 font-semibold text-center">
           Oops! Something went wrong. Please try again later.
         </p>
       </div>
