@@ -474,138 +474,43 @@ export default function Home() {
           </div>
         </section>
         <section className="p-5 md:p-10 pb-10">
-          <div className="max-w-screen-2xl mx-auto bg-white w-full flex justify-center items-center dark:bg-gray-900 rounded-3xl p-8">
-            <div className="max-w-screen-xl px-4 pb-8 mx-auto lg:pb-16">
-              <h2 className="mb-24 text-center md:text-center text-[18px] font-semibold text-swPrimary500  md:text-[18px] ">
+          <div className="max-w-screen-3xl mx-auto bg-white w-full flex justify-center items-center p-8">
+            <div className="max-w-screen-3xl px-4 pb-8 mx-auto lg:pb-16">
+              <h2 className="mb-16 text-center text-[18px] font-semibold text-swPrimary500 md:text-[18px]">
                 Our Clients
               </h2>
-              <div className="grid grid-cols-2 gap-4 text-gray-500 sm:gap-12 sm:grid-cols-3 lg:grid-cols-6 dark:text-gray-400">
-                <a
-                  className="flex items-center lg:justify-center"
-                  target="_blank"
-                >
-                  <Image
-                    className="w-[9.25rem] h-[6.25rem] filter grayscale transition transform hover:scale-110 hover:grayscale-0 "
-                    src={Cubana}
-                    alt="illustration"
-                    loading="lazy"
-                    layout="fixed"
-                    width={100}
-                    height={100}
-                  />
-                </a>
-                <a
-                  className="flex items-center lg:justify-center"
-                  target="_blank"
-                >
-                  <Image
-                    className="w-[6.25rem] h-[6.25rem] filter grayscale transition transform hover:scale-110 hover:grayscale-0 "
-                    src={Polaris}
-                    alt="illustration"
-                    loading="lazy"
-                    layout="fixed"
-                    width={100}
-                    height={100}
-                  />
-                </a>
-                <a
-                  className="flex items-center lg:justify-center"
-                  target="_blank"
-                >
-                  <Image
-                    className="h-[5.25rem] w-[5.25rem] filter grayscale transition transform hover:scale-110 hover:grayscale-0 "
-                    src={Odu}
-                    alt="illustration"
-                    loading="lazy"
-                    layout="responsive"
-                    width={100}
-                    height={100}
-                  />
-                </a>
-                <a
-                  className="flex items-center lg:justify-center"
-                  target="_blank"
-                >
-                  <Image
-                    className="h-[5.25rem] w-[5.25rem] filter grayscale transition transform hover:scale-110 hover:grayscale-0 "
-                    src={Neveah}
-                    alt="illustration"
-                    loading="lazy"
-                    layout="responsive"
-                    width={100}
-                    height={100}
-                  />
-                </a>
-                <a
-                  className="flex items-center lg:justify-center"
-                  target="_blank"
-                >
-                  <Image
-                    className="h-[5.25rem] w-[5.25rem] filter grayscale transition transform hover:scale-110 hover:grayscale-0  "
-                    src={Aella}
-                    alt="illustration"
-                    loading="lazy"
-                    layout="responsive"
-                    width={100}
-                    height={100}
-                  />
-                </a>
-                <a
-                  className="flex items-center lg:justify-center"
-                  target="_blank"
-                >
-                  <Image
-                    className="h-[5.25rem] w-[5.25rem] filter grayscale transition transform hover:scale-110 hover:grayscale-0"
-                    src={Gluwa}
-                    alt="illustration"
-                    loading="lazy"
-                    layout="responsive"
-                    width={100}
-                    height={100}
-                  />
-                </a>
-                <a
-                  className="flex items-center lg:justify-center"
-                  target="_blank"
-                >
-                  <Image
-                    className="h-[5.25rem] w-[5.25rem] filter grayscale transition transform hover:scale-110 hover:grayscale-0 "
-                    src={Century}
-                    alt="illustration"
-                    loading="lazy"
-                    layout="responsive"
-                    width={100}
-                    height={100}
-                  />
-                </a>
-                <a
-                  className="flex items-center lg:justify-center"
-                  target="_blank"
-                >
-                  <Image
-                    className="h-[5.25rem] w-[5.25rem] filter grayscale transition transform hover:scale-110 hover:grayscale-0 "
-                    src={Zenco}
-                    alt="illustration"
-                    loading="lazy"
-                    layout="responsive"
-                    width={100}
-                    height={100}
-                  />
-                </a>{" "}
-                <a
-                  className="flex items-center lg:justify-center"
-                  target="_blank"
-                >
-                  <Image
-                    className="h-[8.25rem] w-[5.25rem] filter grayscale transition transform hover:scale-110 hover:grayscale-0 "
-                    src={Delborough}
-                    alt="illustration"
-                    loading="lazy"
-                    layout="responsive"
-                    width={100}
-                    height={100}
-                  />
-                </a>
+              <p className="text-swGray800  font-semibold max-w-2xl mb-16 sm:mx-auto text-xl md:text-center text-start sm:text-5xl">
+                Trusted by top brands, we offer a world-class exotic experience.
+              </p>
+              <div className="flex justify-center mt-5">
+                <div className="flex flex-wrap justify-center gap-4 sm:gap-12 max-w-screen-xl">
+                  {[
+                    Cubana,
+                    Polaris,
+                    Odu,
+                    Neveah,
+                    Aella,
+                    Gluwa,
+                    Century,
+                    Zenco,
+                    Delborough,
+                  ].map((logo, index) => (
+                    <a
+                      key={index}
+                      className="flex justify-center items-center w-32 h-32"
+                    >
+                      <Image
+                        className="w-full h-full object-contain filter grayscale transition transform hover:scale-110 hover:grayscale-0"
+                        src={logo}
+                        alt="Client Logo"
+                        loading="lazy"
+                        layout="fixed"
+                        width={96}
+                        height={96}
+                      />
+                    </a>
+                  ))}
+                </div>
               </div>
             </div>
           </div>

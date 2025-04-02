@@ -24,7 +24,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import SuccessModal from "../shared/modals/SuccessModal";
 import Image from "next/image";
 import loadingGif from "../../../public/images/loading.gif";
-import { fetchAircrafts } from "../../../redux/slices/aircraftdetails";
+import { fetchAircrafts, fetchRankedAircrafts } from "../../../redux/slices/aircraftdetails";
 import NotLoggedInModal from "./NotLoggedInModal";
 import AdditionalNoteModal from "./AdditionalNoteModal";
 import { validatePassengersAgainstLowestSeats } from "../helpers/utils";
@@ -158,7 +158,7 @@ const BookingPageInformation = () => {
   };
 
   useEffect(() => {
-    dispatch(fetchAircrafts());
+    dispatch(fetchRankedAircrafts("Jet"));
 
     const userDetails =
       localStorage.getItem("user") !== (null || undefined)
@@ -221,7 +221,6 @@ const BookingPageInformation = () => {
                           </div>
 
                           <div className="w-full text-swGray800 grid grid-cols-3 gap-x-3 gap-y-8 sm:grid-cols-2">
-                          
                             <div className="flex flex-col gap-4">
                               <div className="flex items-center gap-2">
                                 <SwSeatIcon className="text-lg" />
@@ -237,14 +236,13 @@ const BookingPageInformation = () => {
                               </div>
                             </div>
 
-                           
                             <div className="flex flex-col gap-4">
                               <div className="flex items-center gap-2">
                                 <SwMeterIcon className="text-lg" />
                                 <p className="text-xs">{item?.speed} mph</p>
                               </div>
                               <div className="flex items-center gap-2">
-                              <SWMeterIconNew className="text-lg" /> 
+                                <SWMeterIconNew className="text-lg" />
                                 <p className="text-xs">
                                   {item?.kilometer} km Range
                                 </p>
@@ -270,7 +268,7 @@ const BookingPageInformation = () => {
                               <div className="flex items-center gap-2">
                                 <Image
                                   src={redCircle}
-                                  alt= {location}
+                                  alt={location}
                                   width={20}
                                   height={20}
                                 />
