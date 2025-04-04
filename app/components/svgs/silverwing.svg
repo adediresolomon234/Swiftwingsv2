@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 244.34 132">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#linear-gradient-2);
+      }
+
+      .cls-1, .cls-2 {
+        fill-rule: evenodd;
+      }
+
+      .cls-2 {
+        fill: url(#linear-gradient);
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="107.69" y1="41.37" x2="136.65" y2="41.37" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#e5e2df"/>
+      <stop offset="0" stop-color="#ded9d6"/>
+      <stop offset=".05" stop-color="#cfcac8"/>
+      <stop offset=".14" stop-color="#a8a4a6"/>
+      <stop offset=".2" stop-color="#8b878d"/>
+      <stop offset=".52" stop-color="#f3f4f4"/>
+      <stop offset=".57" stop-color="#e4e5e5"/>
+      <stop offset=".66" stop-color="#bfbec0"/>
+      <stop offset=".79" stop-color="#847f84"/>
+      <stop offset=".8" stop-color="#807b80"/>
+      <stop offset="1" stop-color="#d1d3d4"/>
+      <stop offset="1" stop-color="#a7a9ac"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="0" y1="66" x2="244.34" y2="66" xlink:href="#linear-gradient"/>
+  </defs>
+  <g id="Layer_2-2" data-name="Layer 2">
+    <g id="Silver_Wings" data-name="Silver Wings">
+      <polygon class="cls-2" points="107.98 34.69 109.9 26.87 111.15 21.76 115 25.31 122.17 31.92 129.34 25.31 133.19 21.76 134.44 26.87 136.36 34.69 136.65 35.89 136.03 36.97 124.85 56.33 122.17 60.97 119.49 56.33 108.31 36.97 107.69 35.89 107.98 34.69"/>
+      <polygon class="cls-1" points="244.34 0 233.36 10.06 206.43 33.99 175.85 40.83 200.98 39.71 182.19 56.18 161.43 54.97 177.91 60.83 166.83 70.97 152.64 65.88 163.95 73.57 148.53 87.69 135.89 81.24 143.48 105.54 143.75 106.99 142.78 108.12 140.02 111.31 137.01 105.31 137.21 114.57 132.92 119.54 129.36 112.5 129.19 123.86 124.51 129.29 122.17 132 119.83 129.29 115.15 123.86 114.98 112.5 111.42 119.54 107.13 114.57 107.33 105.31 104.32 111.31 101.57 108.12 100.59 106.99 100.86 105.54 108.45 81.24 95.81 87.69 80.39 73.57 91.7 65.88 77.51 70.97 66.43 60.83 82.91 54.97 62.15 56.18 43.36 39.71 68.49 40.83 37.91 33.99 10.98 10.06 0 0 14.07 4.85 104.86 36.13 105.96 36.5 106.54 37.51 122.17 64.58 137.8 37.51 138.38 36.5 139.48 36.13 230.27 4.85 244.34 0"/>
+    </g>
+  </g>
+</svg>
