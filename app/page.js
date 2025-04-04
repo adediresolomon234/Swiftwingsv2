@@ -47,6 +47,7 @@ import { getHomeData } from "../redux/slices/aviPagesSlice";
 import { formatThousand } from "./components/helpers/utils";
 import CountUp from "react-countup";
 import EmptyLegsSlider from "./components/empty-leg/EmptyLegs";
+import Whatsapp from "./components/shared/Whatsapp"
 
 const space_grotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -514,7 +515,9 @@ export default function Home() {
               </div>
             </div>
           </div>
+          
         </section>
+        <Whatsapp/>
       </NavAndFooter>
     </main>
   );
