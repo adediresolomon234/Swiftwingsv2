@@ -131,7 +131,7 @@ const FleetPage = () => {
             ) : (
               <div className="flex flex-wrap justify-center gap-8 md:gap-12 px-6 md:px-12">
                 {filteredAircrafts.map((aircraft) => (
-                  <AircraftCard key={aircraft.id} aircraft={aircraft} />
+                  <AircraftCard key={aircraft?.id} aircraft={aircraft} />
                 ))}
               </div>
             )}
