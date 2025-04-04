@@ -65,4 +65,5 @@ export { default as SWTNeveah } from "./Neveah..svg";
 export { default as SWTPolarisbank } from "./polarisbank.svg";
 export { default as SWTCenturygroup} from "./centurygroup.svg";
 export { default as SWTdelborough} from "./delborough.svg";
+export { default as SWTwhatsapp} from "./whatsapp.svg";
 
