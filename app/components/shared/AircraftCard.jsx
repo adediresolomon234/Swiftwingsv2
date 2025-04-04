@@ -1,9 +1,4 @@
-import {
-  mdiCarSeat,
-  mdiSpeedometer,
-  mdiArrowLeftRight,
-  mdiMapMarker,
-} from "@mdi/js";
+import { mdiCarSeat, mdiSpeedometer, mdiArrowLeftRight } from "@mdi/js";
 import {
   BronzeWing,
   GoldWing,
@@ -15,16 +10,29 @@ import "../shared/Fleetspec/fleetspec.css";
 import Image from "next/image";
 import Link from "next/link";
 import redCircle from "../svgs/Redcircle.gif";
+import Loading from "../Loading";
+import { useEffect, useState } from "react";
 
 const AircraftCard = ({ aircraft }) => {
   const router = useRouter();
+  const [loading, setLoading] = useState(true);
 
   const { model, image, speed, feet, name, features, location, id, rank } =
     aircraft;
 
+  useEffect(() => {
+    if (aircraft) {
+      setLoading(false);
+    }
+  }, [aircraft]);
+
+  if (loading) {
+    <Loading />;
+  }
+
   return (
     <Link
-      href={`/fleet-specification/${aircraft.id}`}
+      href={`/fleet-specification/${aircraft?.id}`}
       className="flex flex-col items-center justify-center pt-2 px-2 pb-[width] box-border gap-2 text-center text-base text-black font-body-xs-regular"
     >
       <div className="relative h-full">
@@ -52,7 +60,7 @@ const AircraftCard = ({ aircraft }) => {
             <path fill="currentColor" d={mdiCarSeat} />
           </svg>
           <div className="relative leading-4.5 ml-3 ">
-            {features.no_of_seats} seats
+            {features?.no_of_seats} seats
           </div>
         </div>
         <div className="flex items-center">
