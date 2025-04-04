@@ -46,33 +46,31 @@ export const fetchRankedAircrafts = createAsyncThunk(
   async (type) => {
     try {
       const response = await axios.get(`${API_URL}/aircraft/aircrafts/${type}`);
-      console.log("aircraft res", response);
-
-      const aircraftsData = response?.data?.data?.map(
-        (aircraft) => ({
-          id: aircraft._id,
-          name: aircraft.model,
-          image: aircraft.image_url || "/default-image-url.png",
-          images: [
-            aircraft.image_url,
-            aircraft.image_url_2,
-            aircraft.image_url_3,
-            aircraft.image_url_4,
-          ],
-          speed: aircraft.speed,
-          kilometer: aircraft.range,
-          feet: aircraft.luggage_capacity,
-          location: aircraft.location,
-          features: {
-            manufacturer: aircraft.manufacturer,
-            classification: aircraft.classification,
-            no_of_seats: aircraft.no_of_seats,
-            interior_height: aircraft.interior_height,
-            interior_width: aircraft.interior_width,
-            overview_summary: aircraft.overview_summary,
-          },
-        })
-      );
+      const aircraftsData = response?.data?.data?.map((aircraft) => ({
+        id: aircraft._id,
+        name: aircraft.model,
+        image: aircraft.image_url || "/default-image-url.png",
+        images: [
+          aircraft.image_url,
+          aircraft.image_url_2,
+          aircraft.image_url_3,
+          aircraft.image_url_4,
+        ],
+        rank: aircraft.rank,
+        type: aircraft.type,
+        speed: aircraft.speed,
+        kilometer: aircraft.range,
+        feet: aircraft.luggage_capacity,
+        location: aircraft.location,
+        features: {
+          manufacturer: aircraft.manufacturer,
+          classification: aircraft.classification,
+          no_of_seats: aircraft.no_of_seats,
+          interior_height: aircraft.interior_height,
+          interior_width: aircraft.interior_width,
+          overview_summary: aircraft.overview_summary,
+        },
+      }));
       return aircraftsData;
     } catch (error) {
       console.log(error);

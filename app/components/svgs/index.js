@@ -67,3 +67,8 @@ export { default as SWTCenturygroup} from "./centurygroup.svg";
 export { default as SWTdelborough} from "./delborough.svg";
 export { default as SWTwhatsapp} from "./whatsapp.svg";
 
+export { default as SWTCenturygroup } from "./centurygroup.svg";
+export { default as SWTdelborough } from "./delborough.svg";
+export { default as GoldWing } from "./goldwing.svg";
+export { default as SilverWing } from "./silverwing.svg";
+export { default as BronzeWing } from "./bronzewing.svg";
