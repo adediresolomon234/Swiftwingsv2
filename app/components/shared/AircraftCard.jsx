@@ -1,10 +1,4 @@
 import { mdiCarSeat, mdiSpeedometer, mdiArrowLeftRight } from "@mdi/js";
-import {
-  BronzeWing,
-  GoldWing,
-  SilverWing,
-  SWTLiveLocation,
-} from "../../components/svgs";
 import { useRouter } from "next/navigation";
 import "../shared/Fleetspec/fleetspec.css";
 import Image from "next/image";
@@ -12,6 +6,7 @@ import Link from "next/link";
 import redCircle from "../svgs/Redcircle.gif";
 import Loading from "../Loading";
 import { useEffect, useState } from "react";
+import { GoldWing, SilverWing, BronzeWing } from "../svgs";
 
 const AircraftCard = ({ aircraft }) => {
   const router = useRouter();
