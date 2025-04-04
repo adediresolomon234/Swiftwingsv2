@@ -11,6 +11,9 @@ import {
   SwTopBottomArrowIcon,
   SwWeightIcon,
   SWMeterIconNew,
+  GoldWing,
+  SilverWing,
+  BronzeWing,
 } from "../../components/svgs";
 import redCircle from "../svgs/Redcircle.gif";
 import { useEffect, useState } from "react";
@@ -24,7 +27,10 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import SuccessModal from "../shared/modals/SuccessModal";
 import Image from "next/image";
 import loadingGif from "../../../public/images/loading.gif";
-import { fetchAircrafts, fetchRankedAircrafts } from "../../../redux/slices/aircraftdetails";
+import {
+  fetchAircrafts,
+  fetchRankedAircrafts,
+} from "../../../redux/slices/aircraftdetails";
 import NotLoggedInModal from "./NotLoggedInModal";
 import AdditionalNoteModal from "./AdditionalNoteModal";
 import { validatePassengersAgainstLowestSeats } from "../helpers/utils";
@@ -211,8 +217,17 @@ const BookingPageInformation = () => {
                               className="h-6 w-6 accent-swPrimary500"
                             />
                             <div className="text-swLightGray">
-                              <p className="text-lg font-medium">
+                              <p className="text-lg font-medium flex items-center gap-3">
                                 {item?.name}
+                                {item?.rank && item?.rank === 3 && (
+                                  <GoldWing className="h-5 w-10" />
+                                )}
+                                {item?.rank && item?.rank === 2 && (
+                                  <SilverWing className="h-5 w-10" />
+                                )}
+                                {item?.rank && item?.rank === 1 && (
+                                  <BronzeWing className="h-5 w-10" />
+                                )}
                               </p>
                               <p className="text-sm">
                                 {item?.features?.classification}
