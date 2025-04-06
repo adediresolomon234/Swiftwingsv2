@@ -2,7 +2,10 @@
 
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchAircrafts } from "../../redux/slices/aircraftdetails";
+import {
+  fetchAircrafts,
+  fetchRankedAircrafts,
+} from "../../redux/slices/aircraftdetails";
 import { SwSearchIcon } from "../components/svgs";
 import AircraftCard from "../components/shared/AircraftCard";
 import InputField from "../components/shared/InputField";
@@ -34,7 +37,7 @@ const FleetPage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    dispatch(fetchAircrafts());
+    dispatch(fetchRankedAircrafts("all"));
   }, [dispatch]);
 
   useEffect(() => {
@@ -128,7 +131,7 @@ const FleetPage = () => {
             ) : (
               <div className="flex flex-wrap justify-center gap-8 md:gap-12 px-6 md:px-12">
                 {filteredAircrafts.map((aircraft) => (
-                  <AircraftCard key={aircraft.id} aircraft={aircraft} />
+                  <AircraftCard key={aircraft?.id} aircraft={aircraft} />
                 ))}
               </div>
             )}
