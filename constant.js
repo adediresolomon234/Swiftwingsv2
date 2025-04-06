@@ -1,2 +1,2 @@
-export const API_URL = `https://swiftwings-mw.onrender.com/api/v1`;
-export const BASE_URL = `https://swiftwings-mw.onrender.com`;
+export const API_URL = process.env.NEXT_PUBLIC_API_URL;
+export const BASE_URL = process.env.NEXT_PUBLIC_BASE_API_URL;
