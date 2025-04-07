@@ -22,19 +22,19 @@ const WhatsAppFloat = () => {
       return;
     }
 
-    const message = `Hello Swift Wings Jet,\n\nI'm ${formData.name} (${formData.email}). I would like to get more information about your services.`;
+    const message = `✈️ Swift Wings Jet Inquiry ✈️\n\nName: ${formData.name}\nEmail: ${formData.email}\n\nI'm interested in your private jet services. Please contact me with more information.`;
     const encodedMessage = encodeURIComponent(message);
     
     setIsOpen(false);
-    window.open(`https://wa.me/?text=${encodedMessage}`, '_blank');
+    window.open(`https://wa.link/qt71nz?text=${encodedMessage}`, '_blank');
   };
 
   return (
     <>
       <div className="fixed bottom-5 right-5 z-50 flex flex-col items-center group">
-        <div className="absolute right-16 mb-2 px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+        <div className="absolute right-16 mb-2 px-3 py-2 text-sm font-medium text-white bg-gray-600 rounded-lg shadow-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
           Chat with us!
-          <div className="absolute right-[-4px] top-1/2 transform -translate-y-1/2 w-2 h-2 bg-gray-900 rotate-45"></div>
+          <div className="absolute right-[-4px] top-1/2 transform -translate-y-1/2 w-2 h-2 bg-gray-600 rotate-45"></div>
         </div>
         <div className="w-14 h-14 bg-[#25D366] rounded-full shadow-lg flex items-center justify-center hover:scale-110 hover:shadow-xl transition-all duration-300">
           <button 
@@ -52,6 +52,8 @@ const WhatsAppFloat = () => {
           </button>
         </div>
       </div>
+
+     
       {isOpen && (
         <div 
           className="fixed inset-0 bg-black bg-opacity-50 z-[60] flex items-center justify-center p-4"

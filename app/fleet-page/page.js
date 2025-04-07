@@ -37,7 +37,7 @@ const FleetPage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    dispatch(fetchRankedAircrafts("all"));
+    dispatch(fetchAircrafts());
   }, [dispatch]);
 
   useEffect(() => {
