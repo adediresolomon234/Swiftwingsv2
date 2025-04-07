@@ -57,6 +57,8 @@ const BookingPageInformation = () => {
   const [passengersErrors, setPassengersErrors] = useState([]);
   const source = params.get("source");
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedAircrafts, setSelectedAircrafts] = useState([]);
   const { error, data } = useSelector((state) => state.booking);
   const {
     status: jetLoading,
@@ -82,23 +84,21 @@ const BookingPageInformation = () => {
       },
     ]);
   };
+  const saveSelectedAircrafts = () => {
+    setBookingDetails((prev) => ({
+      ...prev,
+      additional_quote: [...selectedAircrafts],
+    }));
+    setIsModalOpen(false);
+  };
 
-  const handleAircraftSelect = (e, aircraftDetails, index) => {
+  const handleAircraftSelect = (e, aircraftDetails) => {
     const isChecked = e.target.checked;
-    setBookingDetails((prevState) => {
-      const additional_quote = prevState?.additional_quote || [];
+    setSelectedAircrafts((prev) => {
       if (isChecked) {
-        return {
-          ...prevState,
-          additional_quote: [...additional_quote, aircraftDetails],
-        };
+        return [...prev, aircraftDetails];
       } else {
-        return {
-          ...prevState,
-          additional_quote: additional_quote.filter(
-            (aircraft) => aircraft !== aircraftDetails
-          ),
-        };
+        return prev.filter((aircraft) => aircraft.id !== aircraftDetails.id);
       }
     });
   };
@@ -108,6 +108,15 @@ const BookingPageInformation = () => {
     checkboxes.forEach((checkbox) => {
       checkbox.checked = false;
     });
+    setSelectedAircrafts([]);
+  };
+  const handleModalOpen = () => {
+    setSelectedAircrafts(bookingDetails?.additional_quote || []);
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
   };
 
   const handleQuote = () => {
@@ -204,111 +213,207 @@ const BookingPageInformation = () => {
               <div className="lg:flex block md:gap-10 text-swGray800 mt-10">
                 <div className="w-full">
                   <p className="text-xl font-medium mb-5">Select Private Jet</p>
-                  <div className="w-full rounded-2xl border md:p-5 p-0 bg-white">
-                    {jetData?.map((item, index) => (
-                      <div key={item?.id} className="mb-8">
-                        <div className="transition ease-in-out delay-100 duration-1000 flex flex-col md:flex-row gap-6  justify-between items-center hover:bg-swLighterBgGray p-5 rounded-xl cursor-pointer focus:border focus:outline-swPrimary500">
-                          <div className="w-full lg:w-[37rem] flex gap-5 items-center whitespace-nowrap">
-                            <input
-                              type="checkbox"
-                              onChange={(e) =>
-                                handleAircraftSelect(e, item, index)
-                              }
-                              className="h-6 w-6 accent-swPrimary500"
-                            />
-                            <div className="text-swLightGray">
-                              <p className="text-lg font-medium flex items-center gap-3">
-                                {item?.name}
-                                {item?.rank && item?.rank === 3 && (
-                                  <GoldWing className="h-5 w-10" />
-                                )}
-                                {item?.rank && item?.rank === 2 && (
-                                  <SilverWing className="h-5 w-10" />
-                                )}
-                                {item?.rank && item?.rank === 1 && (
-                                  <BronzeWing className="h-5 w-10" />
-                                )}
-                              </p>
-                              <p className="text-sm">
-                                {item?.features?.classification}
-                              </p>
-                            </div>
+
+                  <button
+                    onClick={handleModalOpen}
+                    className="mb-4 bg-swPrimary500 text-white py-2 px-4 rounded-lg hover:bg-swPrimary600 transition"
+                  >
+                    Browse Aircraft
+                  </button>
+                  {bookingDetails?.additional_quote?.length > 0 && (
+                 <div className="mb-6">
+                 <h3 className="font-medium mb-2">Selected Aircraft:</h3>
+                 <div className="flex flex-col gap-3">
+                   {bookingDetails.additional_quote.map((aircraft) => (
+                     <div
+                       key={aircraft.id}
+                       className="flex flex-col sm:flex-row items-start sm:items-center gap-3 p-3 bg-gray-50 rounded-lg"
+                     >
+                       <div className="flex items-start sm:items-center w-full">
+                         <input
+                           type="checkbox"
+                           checked={true}
+                           readOnly
+                           className="h-5 w-5 accent-swPrimary500 flex-shrink-0"
+                         />
+                         <div className="ml-2 sm:ml-3 flex-1 min-w-0">
+                           <p className="font-medium truncate">{aircraft.name}</p>
+                           <p className="text-sm text-gray-600 truncate">
+                             {aircraft.features?.classification} • {aircraft.location}
+                           </p>
+                         </div>
+                       </div>
+                       <button
+                         onClick={() => {
+                           setBookingDetails((prev) => ({
+                             ...prev,
+                             additional_quote: prev.additional_quote.filter(
+                               (a) => a.id !== aircraft.id
+                             ),
+                           }));
+                           setSelectedAircrafts((prev) =>
+                             prev.filter((a) => a.id !== aircraft.id)
+                           );
+                         }}
+                         className="text-red-500 hover:text-red-700 text-sm sm:text-base px-2 py-1 sm:px-3 sm:py-1.5 border border-red-300 hover:border-red-400 rounded-md self-end sm:self-auto"
+                       >
+                         Remove
+                       </button>
+                     </div>
+                   ))}
+                 </div>
+               </div>
+               
+                  )}
+
+                  {isModalOpen && (
+                    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+                      <div className="bg-white rounded-2xl w-full max-w-6xl max-h-[80vh] flex flex-col">
+                        <div className="p-6 flex-shrink-0">
+                          <div className="flex justify-between items-center mb-4">
+                            <h3 className="text-xl font-medium">
+                              Select Aircraft
+                            </h3>
+                            <button
+                              onClick={handleModalClose}
+                              className="text-gray-500 hover:text-gray-700"
+                            >
+                              ✕
+                            </button>
                           </div>
+                        </div>
+                        <div className="overflow-y-auto px-6">
+                          <div className="space-y-4">
+                            {jetData?.map((item, index) => (
+                              <div key={item?.id} className="mb-8">
+                                <div className="transition ease-in-out delay-100 duration-1000 flex flex-col md:flex-row gap-6  justify-between items-center hover:bg-swLighterBgGray p-5 rounded-xl cursor-pointer focus:border focus:outline-swPrimary500">
+                                  <div className="w-full lg:w-[37rem] flex gap-5 items-center whitespace-nowrap">
+                                    <input
+                                      type="checkbox"
+                                      onChange={(e) =>
+                                        handleAircraftSelect(e, item, index)
+                                      }
+                                      className="h-6 w-6 accent-swPrimary500"
+                                    />
+                                    <div className="text-swLightGray">
+                                      <p className="text-lg font-medium flex items-center gap-3">
+                                        {item?.name}
+                                        {item?.rank && item?.rank === 3 && (
+                                          <GoldWing className="h-5 w-10" />
+                                        )}
+                                        {item?.rank && item?.rank === 2 && (
+                                          <SilverWing className="h-5 w-10" />
+                                        )}
+                                        {item?.rank && item?.rank === 1 && (
+                                          <BronzeWing className="h-5 w-10" />
+                                        )}
+                                      </p>
+                                      <p className="text-sm">
+                                        {item?.features?.classification}
+                                      </p>
+                                    </div>
+                                  </div>
 
-                          <div className="w-full text-swGray800 grid grid-cols-3 gap-x-3 gap-y-8 sm:grid-cols-2">
-                            <div className="flex flex-col gap-4">
-                              <div className="flex items-center gap-2">
-                                <SwSeatIcon className="text-lg" />
-                                <p className="text-xs">
-                                  {item?.features?.no_of_seats} Seats
-                                </p>
-                              </div>
-                              <div className="flex items-center gap-2">
-                                <SwLuggageIcon className="text-lg" />
-                                <p className="text-xs">
-                                  {item?.feet} ft³ Luggage
-                                </p>
-                              </div>
-                            </div>
+                                  <div className="w-full text-swGray800 grid grid-cols-3 gap-x-3 gap-y-8 sm:grid-cols-2">
+                                    <div className="flex flex-col gap-4">
+                                      <div className="flex items-center gap-2">
+                                        <SwSeatIcon className="text-lg" />
+                                        <p className="text-xs">
+                                          {item?.features?.no_of_seats} Seats
+                                        </p>
+                                      </div>
+                                      <div className="flex items-center gap-2">
+                                        <SwLuggageIcon className="text-lg" />
+                                        <p className="text-xs">
+                                          {item?.feet} ft³ Luggage
+                                        </p>
+                                      </div>
+                                    </div>
 
-                            <div className="flex flex-col gap-4">
-                              <div className="flex items-center gap-2">
-                                <SwMeterIcon className="text-lg" />
-                                <p className="text-xs">{item?.speed} mph</p>
-                              </div>
-                              <div className="flex items-center gap-2">
-                                <SWMeterIconNew className="text-lg" />
-                                <p className="text-xs">
-                                  {item?.kilometer} km Range
-                                </p>
-                              </div>
-                            </div>
+                                    <div className="flex flex-col gap-4">
+                                      <div className="flex items-center gap-2">
+                                        <SwMeterIcon className="text-lg" />
+                                        <p className="text-xs">
+                                          {item?.speed} mph
+                                        </p>
+                                      </div>
+                                      <div className="flex items-center gap-2">
+                                        <SWMeterIconNew className="text-lg" />
+                                        <p className="text-xs">
+                                          {item?.kilometer} km Range
+                                        </p>
+                                      </div>
+                                    </div>
 
-                            {/* Third Column: Dimensions */}
-                            <div className="flex flex-col gap-2">
-                              <div className="flex items-center gap-2">
-                                <SwLeftRightArrowIcon className="text-lg" />
-                                <p className="text-xs">
-                                  {item?.features?.interior_width} ft Width
-                                </p>
+                                    {/* Third Column: Dimensions */}
+                                    <div className="flex flex-col gap-2">
+                                      <div className="flex items-center gap-2">
+                                        <SwLeftRightArrowIcon className="text-lg" />
+                                        <p className="text-xs">
+                                          {item?.features?.interior_width} ft
+                                          Width
+                                        </p>
+                                      </div>
+                                      <div className="flex items-center gap-2">
+                                        <SwTopBottomArrowIcon className="text-lg" />
+                                        <p className="text-xs">
+                                          {item?.features?.interior_height} ft
+                                          Height
+                                        </p>
+                                      </div>
+                                    </div>
+                                    <div className="flex flex-col gap-2">
+                                      <div className="flex items-center gap-2">
+                                        <Image
+                                          src={redCircle}
+                                          alt={location}
+                                          width={20}
+                                          height={20}
+                                        />
+                                        <p className="text-xs">
+                                          {item?.location}
+                                        </p>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  {pathname === "/user-booking" ? (
+                                    <SwArrowRightIcon className="text-2xl" />
+                                  ) : (
+                                    <div className="flex items-center gap-3 py-2 px-4 rounded-full hover:bg-white">
+                                      <p className="font-medium whitespace-nowrap">
+                                        View Jet
+                                      </p>
+                                      <SwArrowRightIcon className="text-sm" />
+                                    </div>
+                                  )}
+                                </div>
                               </div>
-                              <div className="flex items-center gap-2">
-                                <SwTopBottomArrowIcon className="text-lg" />
-                                <p className="text-xs">
-                                  {item?.features?.interior_height} ft Height
-                                </p>
-                              </div>
-                            </div>
-                            <div className="flex flex-col gap-2">
-                              <div className="flex items-center gap-2">
-                                <Image
-                                  src={redCircle}
-                                  alt={location}
-                                  width={20}
-                                  height={20}
-                                />
-                                <p className="text-xs">{item?.location}</p>
-                              </div>
-                            </div>
+                            ))}
                           </div>
-
-                          {/* View Jet Button */}
-                          {pathname === "/user-booking" ? (
-                            <SwArrowRightIcon className="text-2xl" />
-                          ) : (
-                            <div className="flex items-center gap-3 py-2 px-4 rounded-full hover:bg-white">
-                              <p className="font-medium whitespace-nowrap">
-                                View Jet
-                              </p>
-                              <SwArrowRightIcon className="text-sm" />
-                            </div>
-                          )}
+                        </div>
+                        <div className="p-4 border-t bg-white sticky bottom-0 rounded-b-2xl">
+                          <div className="flex justify-end gap-3">
+                            <button
+                              onClick={() => {
+                                setSelectedAircrafts([]);
+                                handleModalClose();
+                              }}
+                              className="px-4 py-2 border rounded-lg hover:bg-gray-100"
+                            >
+                              Cancel
+                            </button>
+                            <button
+                              onClick={saveSelectedAircrafts}
+                              className="px-4 py-2 rounded-lg bg-swPrimary500 text-white hover:bg-swPrimary600"
+                            >
+                              Save Selection
+                            </button>
+                          </div>
                         </div>
                       </div>
-                    ))}
-                  </div>
+                    </div>
+                  )}
                 </div>
-
                 <div className="md:w-1/3 w-full">
                   <p className="text-xl font-medium mb-5 ">Flight Summary</p>
                   <div className="w-full rounded-2xl border p-5 p-0 bg-white">
