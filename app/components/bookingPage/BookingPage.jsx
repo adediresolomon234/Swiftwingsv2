@@ -203,7 +203,28 @@ const BookingPageInformation = () => {
               <BookingEngine setBookingDetails={setBookingDetails} />
               <div className="lg:flex block md:gap-10 text-swGray800 mt-10">
                 <div className="w-full">
-                  <p className="text-xl font-medium mb-5">Select Private Jet</p>
+                  <div className="flex items-center justify-between flex-wrap gap-3 mb-5">
+                    <p className="text-xl font-medium">Select Private Jet</p>
+                    {/* <p className="text-xl font-medium mb-5 ">Flight Summary</p> */}
+                    <div className="flex items-center justify-between gap-3">
+                      <Button
+                        label={"Additional Note"}
+                        bgColor={"bg-swPrimary500 hover:bg-swPrimary600"}
+                        className="text-white text-center text-sm"
+                        onClick={() =>
+                          setOpenAdditionalNote(!openAdditionalNote)
+                        }
+                      />
+                      <Button
+                        label={"Request Quote"}
+                        bgColor={"bg-swPrimary500 hover:bg-swPrimary600"}
+                        className="text-white text-center text-sm"
+                        onClick={handleQuote}
+                        loader={loading}
+                        disabled={handleQuoteDisable()}
+                      />
+                    </div>
+                  </div>
                   <div className="w-full rounded-2xl border md:p-5 p-0 bg-white">
                     {jetData?.map((item, index) => (
                       <div key={item?.id} className="mb-8">
@@ -423,7 +444,7 @@ const BookingPageInformation = () => {
                       </div>
                     )}
                     <div className="flex flex-col gap-3">
-                      <Button
+                      {/* <Button
                         label={"Additional Note"}
                         bgColor={"bg-swPrimary500 hover:bg-swPrimary600"}
                         className="w-full text-white text-center"
@@ -438,7 +459,7 @@ const BookingPageInformation = () => {
                         onClick={handleQuote}
                         loader={loading}
                         disabled={handleQuoteDisable()}
-                      />
+                      /> */}
                     </div>
                   </div>
                 </div>
