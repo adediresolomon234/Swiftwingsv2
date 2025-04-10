@@ -21,6 +21,7 @@ import { FaSearch } from "react-icons/fa";
 import { usePathname, useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 import SelectDate from "../../../utils/SelectDate";
+import { toast, ToastContainer } from "react-toastify";
 
 const space_grotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -308,6 +309,7 @@ const BookingEngine = ({ setBookingDetails }) => {
 
   return (
     <main>
+      <ToastContainer />
       <div className="w-full rounded-3xl  ">
         <div
           className={`p-0 rounded-3xl  ${
@@ -655,7 +657,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                                   ? dayjs(
                                       `${item.returningDate} ${item.returningTime}`
                                     ).format("D MMM HH:mm")
-                                  : "Arrival"}
+                                  : "Return"}
                               </div>
                             </div>
                           )}
@@ -681,18 +683,58 @@ const BookingEngine = ({ setBookingDetails }) => {
                     </div>
                     <SelectDate
                       isOpen={isDateOpen === index}
-                      onChange={(value) =>
-                        updateBookingState(value, index, "departure")
-                      }
+                      onChange={(value) => {
+                        const selectedDate = dayjs(value);
+                        const today = dayjs();
+
+                        // Check if the selected date is before today
+                        if (selectedDate.isBefore(today, "day")) {
+                          toast.error("Departure date must be at least today");
+                          return;
+                        }
+
+                        // If the selected date is today, check if the time is in the past
+                        if (
+                          selectedDate.isSame(today, "day") &&
+                          selectedDate.isBefore(today)
+                        ) {
+                          toast.error("Departure time cannot be in the past");
+                          return;
+                        }
+
+                        updateBookingState(value, index, "departure");
+                      }}
                       onAccept={() => setDateOpen(null)}
                       onClose={() => setDateOpen(null)}
                       value={dayjs(`${item.depatureDate} ${item.depatureTime}`)}
                     />
                     <SelectDate
                       isOpen={isArrivalDateOpen}
-                      onChange={(value) =>
-                        updateBookingState(value, index, "returning")
-                      }
+                      onChange={(value) => {
+                        const selectedArrivalDate = dayjs(value);
+                        const departureDateTime = dayjs(
+                          `${item.depatureDate} ${item.depatureTime}`
+                        );
+                        if (
+                          selectedArrivalDate.diff(departureDateTime, "hour") <
+                          3
+                        ) {
+                          toast.error(
+                            "Arrival/Return date must be at least 3 hours later than the departure date",
+                            {
+                              style: { width: "auto", whiteSpace: "pre-wrap" },
+                            }
+                          );
+                          return;
+                        }
+
+                        if (!item.depatureDate || !item.depatureTime) {
+                          toast.error("Invalid departure date/time");
+                          return;
+                        }
+
+                        updateBookingState(value, index, "returning");
+                      }}
                       onClose={() => setArrivalDateOpen(false)}
                       value={dayjs(
                         `${item.returningDate} ${item.returningTime}`
