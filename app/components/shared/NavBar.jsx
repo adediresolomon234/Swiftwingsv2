@@ -179,7 +179,7 @@ const NavBar = ({ Nav }) => {
             <Image src={SWheader} alt="Logo" className="w-60 " />
           </Link>
 
-          <div className="hidden lg:flex gap-3 items-center">
+          <div className="hidden lg:flex gap-3 items-center text-sm xl:text-base">
             {navLinks.map((item, i) => (
               <div key={i}>
                 {renderNavLink(
@@ -193,7 +193,7 @@ const NavBar = ({ Nav }) => {
           </div>
 
           <div className="flex items-center">
-            <div className="text-sm lg:text-lg">
+            <div className="text-sm lg:text-base">
               {user?.isLoggedIn ? (
                 <div className="relative">
                   <div
@@ -206,9 +206,9 @@ const NavBar = ({ Nav }) => {
                   >
                     <SwUserIcon />
                     <p>
-                      <span className="hidden sm:inline">
+                      {/* <span className="hidden sm:inline">
                         {user?.last_name}
-                      </span>{" "}
+                      </span>{" "} */}
                       {user?.first_name}
                     </p>
                     <FaChevronDown />
@@ -248,16 +248,16 @@ const NavBar = ({ Nav }) => {
                   )}
                 </div>
               ) : (
-                <div className="flex gap-5 items-center">
+                <div className="flex gap-5 items-center text-sm lg:text-base">
                   <Link
                     href="/sign-in"
-                    className="py-2 px-4 rounded-full hover:bg-white text-lg hidden lg:flex"
+                    className="py-2 px-4 rounded-full hover:bg-white text-sm text-l hidden lg:flex"
                   >
                     Sign In
                   </Link>
                   <Link
                     href="/sign-up"
-                    className="py-2 px-4 rounded-full text-xs md:text-lg text-white bg-swPrimary500 hover:bg-swPrimary600 "
+                    className="py-2 px-4 rounded-full text-xs md:text-l text-white bg-swPrimary500 hover:bg-swPrimary600 "
                   >
                     Sign Up
                   </Link>
