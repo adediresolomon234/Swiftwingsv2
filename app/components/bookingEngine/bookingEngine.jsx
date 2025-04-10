@@ -489,7 +489,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                   {openDeparture === index && (
                     <div
                       ref={departureRef}
-                      className="absolute text-swGray800 top-[5.5rem] md:top-full mt-1 w-full z-20"
+                      className="absolute text-swGray800 top-[5.5rem] md:top-full mt-1 w-full z-50"
                     >
                       <Select
                         styles={colourStyles}
@@ -533,7 +533,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                     <div
                       id="arrive"
                       ref={arrivalRef}
-                      className="absolute text-swGray800 top-full mt-1 w-full z-20"
+                      className="absolute text-swGray800 top-full mt-1 w-full z-50"
                     >
                       <Select
                         styles={colourStyles}

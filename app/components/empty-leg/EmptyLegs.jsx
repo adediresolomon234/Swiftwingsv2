@@ -88,7 +88,7 @@ const EmptyLegsSlider = () => {
   );
 
   return (
-    <div className="max-w-screen-2xl mx-auto px-0 text-gray-500">
+    <div className="max-w-screen-2xl mx-auto px-0 text-gray-500 relative -z-10">
       <div className="flex items-center justify-between mb-20 max-w-[85rem] mx-auto px-5">
         <h2 className="text-lg text-swPrimary500 text-center  font-medium">
           Available Empty Legs
@@ -130,7 +130,7 @@ const EmptyLegsSlider = () => {
                 />
               </div>
               <div className="absolute inset-0 bg-gradient-to-t from-black/45 to-transparent"></div>
-              <div className="absolute left-3 bottom-2 text-xs text-white font-medium z-20">
+              <div className="absolute left-3 bottom-2 text-xs text-white font-medium">
                 <p>
                   {new Date(leg?.dates).toLocaleDateString("en-US", {
                     weekday: "long",
