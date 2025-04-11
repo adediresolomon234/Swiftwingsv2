@@ -15,6 +15,7 @@ import Loading from "../components/Loading";
 import Link from "next/link";
 import Head from "next/head";
 import { destinationsPageKeywords } from "../components/helpers/relatedKeywords";
+import Whatsapp from "../components/shared/Whatsapp"
 
 const Destinations = () => {
   const [isBrowser, setIsBrowser] = useState(false);
@@ -129,6 +130,7 @@ const Destinations = () => {
             <FooterHero />
           </div>
         </section>
+        <Whatsapp/>
       </NavAndFooter>
     </main>
   );

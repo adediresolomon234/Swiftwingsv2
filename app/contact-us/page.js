@@ -25,6 +25,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addEnquiry } from "../../redux/slices/enquirySlice";
 import SuccessModal from "../components/shared/modals/SuccessModal";
 import CancelModal from "../components/shared/modals/CancelModal";
+import Whatsapp from "../components/shared/Whatsapp"
 
 const ContactUs = () => {
   const dispatch = useDispatch();
@@ -368,6 +369,7 @@ const ContactUs = () => {
             <FooterHero />
           </div>
         </section>
+        <Whatsapp/>
       </NavAndFooter>
 
       {/* Success and Failure Modals */}

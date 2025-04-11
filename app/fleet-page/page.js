@@ -22,6 +22,7 @@ import Head from "next/head";
 import Loading from "../components/Loading";
 import { fleetPageKeywords } from "../components/helpers/relatedKeywords";
 import { BsInfoCircle } from "react-icons/bs";
+import Whatsapp from "../components/shared/Whatsapp"
 
 const libre_baskerville = Libre_Baskerville({
   subsets: ["latin"],
@@ -142,6 +143,7 @@ const FleetPage = () => {
             <FooterHero />
           </div>
         </section>
+        <Whatsapp/>
       </NavAndFooter>
     </main>
   );

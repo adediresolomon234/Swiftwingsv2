@@ -517,7 +517,7 @@ export default function Home() {
           </div>
           
         </section>
-        {/* <Whatsapp/> */}
+        <Whatsapp/>
       </NavAndFooter>
     </main>
   );
