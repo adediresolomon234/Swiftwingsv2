@@ -37,6 +37,7 @@ import { SwUserIcon, SwMailIcon } from "../components/svgs";
 import SuccessModal from "../components/shared/modals/SuccessModal";
 import CancelModal from "../components/shared/modals/CancelModal";
 import { addEnquiry } from "../../redux/slices/enquirySlice";
+import Whatsapp from "../components/shared/Whatsapp"
 
 const libre_baskerville = Libre_Baskerville({
   subsets: ["latin"],
@@ -684,6 +685,7 @@ const Service = () => {
           headingText={"Enquiry Failed"}
           text={"Your enquiry could not be sent. Please try again"}
         />
+        <Whatsapp/>
       </NavAndFooter>
     </main>
   );

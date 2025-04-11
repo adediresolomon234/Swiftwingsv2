@@ -5,7 +5,7 @@ import { BASE_URL } from "../../constant";
 
 export const getHomeData = createAsyncThunk("home", async () => {
   try {
-    const response = await axios.get(`${BASE_URL}/home`);
+    const response = await axios.get(`${API_URL}/home`);
     // console.log({ response });
     return response.data;
   } catch (error) {

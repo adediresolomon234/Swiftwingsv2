@@ -26,7 +26,7 @@ const WhatsAppFloat = () => {
     const encodedMessage = encodeURIComponent(message);
     
     setIsOpen(false);
-    window.open(`https://wa.link/qt71nz?text=${encodedMessage}`, '_blank');
+    window.open(`https://wa.link/2uccut?text=${encodedMessage}`, '_blank');
   };
 
   return (

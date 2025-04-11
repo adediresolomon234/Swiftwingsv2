@@ -28,9 +28,9 @@ const AircraftCard = ({ aircraft }) => {
   return (
     <Link
       href={`/fleet-specification/${aircraft?.id}`}
-      className="flex flex-col items-center justify-center pt-2 px-2 pb-[width] box-border gap-2 text-center text-base text-black font-body-xs-regular"
+      className="flex flex-col items-center justify-center pt-2 px-2 pb-[width] box-border gap-2 text-center text-base text-black font-body-xs-regular w-[300px]"
     >
-      <div className="relative h-full">
+      <div className="relative h-full w-fit">
         {image ? (
           <img
             className="w-full rounded-xl h-full object-cover image-container"
@@ -49,7 +49,7 @@ const AircraftCard = ({ aircraft }) => {
         {rank && rank === 2 && <SilverWing className="h-5 w-10" />}
         {rank && rank === 1 && <BronzeWing className="h-5 w-10" />}
       </div>
-      <div className="self-stretch flex justify-center gap-4 py-3 px-1 text-center text-sm text-gray-800">
+      <div className="self-stretch flex justify-center gap-4 py-3 px-1 text-center text-sm text-gray-800 flex-wrap">
         <div className="flex items-center">
           <svg className="w-6 h-6" viewBox="0 0 24 24">
             <path fill="currentColor" d={mdiCarSeat} />
@@ -65,12 +65,6 @@ const AircraftCard = ({ aircraft }) => {
           <div className="relative leading-4 ml-3">{speed}</div>
         </div>
         <div className="flex items-center">
-          <svg className="w-6 h-6" viewBox="0 0 24 24">
-            <path fill="currentColor" d={mdiArrowLeftRight} />
-          </svg>
-          <div className="relative leading-4.5 ml-3 ">{feet}</div>
-        </div>
-        <div className="flex items-center">
           <Image
             src={redCircle}
             alt={`Image of ${model}`}
@@ -78,6 +72,12 @@ const AircraftCard = ({ aircraft }) => {
             height={20}
           />
           <div className="relative leading-4.5 ml-3  ">{location}</div>
+        </div>
+        <div className="flex items-center">
+          <svg className="w-6 h-6" viewBox="0 0 24 24">
+            <path fill="currentColor" d={mdiArrowLeftRight} />
+          </svg>
+          <div className="relative leading-4.5 ml-3 ">{feet}</div>
         </div>
       </div>
     </Link>
