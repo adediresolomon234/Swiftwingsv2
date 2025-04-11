@@ -12,6 +12,7 @@ import Loading from "../components/Loading";
 import { useEffect, useState } from "react";
 import Head from "next/head";
 import { aboutUsPageKeywords } from "../components/helpers/relatedKeywords";
+import Whatsapp from "../components/shared/Whatsapp"
 
 const libre_baskerville = Libre_Baskerville({
   subsets: ["latin"],
@@ -349,6 +350,7 @@ const AboutUs = () => {
               <FooterHero />
             </div>
           </section>
+          <Whatsapp/>
         </NavAndFooter>
       </main>
     </>
