@@ -35,6 +35,7 @@ import NotLoggedInModal from "./NotLoggedInModal";
 import AdditionalNoteModal from "./AdditionalNoteModal";
 import { validatePassengersAgainstLowestSeats } from "../helpers/utils";
 import CancelModal from "../shared/modals/CancelModal";
+import PremiumRideModal from "./PremiumRideModal";
 
 const BookingPageInformation = () => {
   const pathname = usePathname();
@@ -55,6 +56,7 @@ const BookingPageInformation = () => {
   const [notLoggedInModal, setNotLoggedInModal] = useState(false);
   const [isPassengerError, setPassengerError] = useState(false);
   const [passengersErrors, setPassengersErrors] = useState([]);
+  const [openPremiumRideModal, setOpenPremiumModal] = useState(false);
   const source = params.get("source");
 
   const { error, data } = useSelector((state) => state.booking);
@@ -219,7 +221,8 @@ const BookingPageInformation = () => {
                         label={"Request Quote"}
                         bgColor={"bg-swPrimary500 hover:bg-swPrimary600"}
                         className="text-white text-center text-sm"
-                        onClick={handleQuote}
+                        // onClick={handleQuote}
+                        onClick={() => setOpenPremiumModal(true)}
                         loader={loading}
                         disabled={handleQuoteDisable()}
                       />
@@ -535,6 +538,13 @@ const BookingPageInformation = () => {
         bookingDetails={bookingDetails}
         unCheckAllBoxes={uncheckBoxes}
         setSuccess={setNotLoggedInSuccess}
+      />
+      <PremiumRideModal
+        bookingDetails={bookingDetails}
+        setBookingDetails={setBookingDetails}
+        open={openPremiumRideModal}
+        setOpen={setOpenPremiumModal}
+        isSubmitting={handleQuote}
       />
     </>
   );
