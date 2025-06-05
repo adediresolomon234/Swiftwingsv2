@@ -27,7 +27,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-, "app/components/empty-leg/EmptyLegPageComp.jsx"  ],
+, "app/components/empty-leg/EmptyLegPageComp.jsx", "app/components/shared/ReusableSelect.jsx"  ],
   "exclude": [
     "node_modules"
   ]
