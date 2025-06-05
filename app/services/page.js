@@ -37,7 +37,7 @@ import { SwUserIcon, SwMailIcon } from "../components/svgs";
 import SuccessModal from "../components/shared/modals/SuccessModal";
 import CancelModal from "../components/shared/modals/CancelModal";
 import { addEnquiry } from "../../redux/slices/enquirySlice";
-import Whatsapp from "../components/shared/Whatsapp"
+import Whatsapp from "../components/shared/Whatsapp";
 
 const libre_baskerville = Libre_Baskerville({
   subsets: ["latin"],
@@ -47,8 +47,8 @@ const libre_baskerville = Libre_Baskerville({
 const Service = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
-  const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
-  const [selectedService, setSelectedService] = useState(""); // State for selected service
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedService, setSelectedService] = useState("");
   const [loadingEnquiry, setLoadingEnquiry] = useState(false);
   const [success, setSuccess] = useState(false);
   const [failed, setFailed] = useState(false);
@@ -58,16 +58,30 @@ const Service = () => {
     service: "",
     enquiry: "",
   });
+  const [showEnquiryButton, setShowEnquiryButton] = useState(false); // New state for button visibility
 
   useScrollToHash();
 
   useEffect(() => {
     setLoading(false);
+    const handleScroll = () => {
+      if (window.innerWidth < 640) {
+        if (window.scrollY > 200) {
+          setShowEnquiryButton(true);
+        } else {
+          setShowEnquiryButton(false);
+        }
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   const handleMakeEnquiriesClick = (service) => {
-    setSelectedService(service); // Set the selected service
-    setIsModalOpen(true); // Open the modal
+    setSelectedService(service);
+    setIsModalOpen(true);
   };
 
   const handleChange = (e) => {
@@ -80,8 +94,8 @@ const Service = () => {
     try {
       const result = await dispatch(addEnquiry(formData)).unwrap();
       if (result.success) {
-        setSuccess(true); // Show success modal
-        setIsModalOpen(false); // Close the inquiry modal
+        setSuccess(true);
+        setIsModalOpen(false);
         setFormData({
           name: "",
           email: "",
@@ -90,7 +104,7 @@ const Service = () => {
         });
       }
     } catch (error) {
-      setFailed(true); // Show failure modal
+      setFailed(true);
     } finally {
       setLoadingEnquiry(false);
     }
@@ -111,7 +125,6 @@ const Service = () => {
         <meta name="keywords" content={servicesPageKeywords} />
       </Head>
       <NavAndFooter Nav={true}>
-        {/* Hero Section */}
         <div className="relative">
           <Image
             className="absolute inset-0 w-full h-full object-top"
@@ -138,8 +151,6 @@ const Service = () => {
             </div>
           </div>
         </div>
-
-        {/* Inflight Catering Section */}
         <section id="inflight-catering-section" className="py-5">
           <div className="m-auto text-gray-600 md:px-12 xl:px-16">
             <div className="p-5 mt-32">
@@ -154,20 +165,18 @@ const Service = () => {
                     >
                       Swift<i className="font-normal">Wings</i>
                     </span>
-                    &apos; provides flyers with a customized in-flight catering
+                    provides flyers with a customized in-flight catering
                     service. Passengers can choose from a wide selection of meals
                     to suit their dietary needs and taste preferences.
                   </p>
                   <p className="sm:text-md lg:text-lg max-w-2xl">
-                    Whether you&apos;re hosting a business meeting or celebrating
+                    Whether you re hosting a business meeting or celebrating
                     a special occasion, savor every moment with our exquisite
                     inflight dining experience.
                   </p>
                 </div>
               </div>
             </div>
-
-            {/* Image with Hover Effect */}
             <div className="w-full">
               <div className="relative group w-full">
                 <div className="aspect-video w-full">
@@ -179,17 +188,19 @@ const Service = () => {
                     alt="Inflight catering services"
                   />
                 </div>
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black bg-opacity-50">
+                <div
+                  className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 bg-black bg-opacity-50 sm:opacity-0 sm:group-hover:opacity-100 ${
+                    showEnquiryButton ? "opacity-100" : "opacity-0"
+                  } sm:opacity-0`}
+                >
                   <Button
-                    label={"Make Enquires"}
+                    label={"Make Enquiries"}
                     bgColor={"bg-swPrimary500 text-white"}
                     onClick={() => handleMakeEnquiriesClick("Inflight Catering")}
                   />
                 </div>
               </div>
             </div>
-
-            {/* Catering Features */}
             <div className="py-16">
               <div className="px-2 space-y-8">
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 text-swPrimary500">
@@ -214,8 +225,6 @@ const Service = () => {
             </div>
           </div>
         </section>
-
-        {/* Helicopter Services Section */}
         <section id="helicopter-services-section" className="py-5">
           <div className="m-auto text-gray-600 md:px-12 xl:px-16">
             <div className="p-5">
@@ -240,8 +249,6 @@ const Service = () => {
                 </div>
               </div>
             </div>
-
-            {/* Image with Hover Effect */}
             <div className="w-full">
               <div className="relative group w-full">
                 <div className="aspect-video w-full">
@@ -253,9 +260,13 @@ const Service = () => {
                     alt="Helicopter services"
                   />
                 </div>
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black bg-opacity-50">
+                <div
+                  className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 bg-black bg-opacity-50 sm:opacity-0 sm:group-hover:opacity-100 ${
+                    showEnquiryButton ? "opacity-100" : "opacity-0"
+                  } sm:opacity-0`}
+                >
                   <Button
-                    label={"Make Enquires"}
+                    label={"Make Enquiries"}
                     bgColor={"bg-swPrimary500 text-white"}
                     onClick={() => handleMakeEnquiriesClick("Helicopter Services")}
                   />
@@ -264,8 +275,6 @@ const Service = () => {
             </div>
           </div>
         </section>
-
-        {/* Medical Evacuation Section */}
         <section id="medical-evacuation-section" className="py-5">
           <div className="m-auto text-gray-600 md:px-12 xl:px-16">
             <div className="w-full mx-auto text-justify lg:text-center">
@@ -304,8 +313,6 @@ const Service = () => {
                   </div>
                 </div>
               </div>
-
-              {/* Image with Hover Effect */}
               <div className="w-full mt-8">
                 <div className="relative group w-full">
                   <div className="aspect-video w-full">
@@ -317,9 +324,13 @@ const Service = () => {
                       alt="Medical Evacuation"
                     />
                   </div>
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black bg-opacity-50">
+                  <div
+                    className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 bg-black bg-opacity-50 sm:opacity-0 sm:group-hover:opacity-100 ${
+                      showEnquiryButton ? "opacity-100" : "opacity-0"
+                    } sm:opacity-0`}
+                  >
                     <Button
-                      label={"Make Enquires"}
+                      label={"Make Enquiries"}
                       bgColor={"bg-swPrimary500 text-white"}
                       onClick={() => handleMakeEnquiriesClick("Air Ambulance")}
                     />
@@ -352,8 +363,6 @@ const Service = () => {
             </div>
           </div>
         </section>
-
-        {/* Empty Leg Services Section */}
         <section id="empty-leg-section" className="py-5">
           <div className="m-auto text-gray-600 md:px-12 xl:px-16">
             <div className="w-full mx-auto text-justify lg:text-center">
@@ -383,8 +392,6 @@ const Service = () => {
                   </div>
                 </div>
               </div>
-
-              {/* Image with Hover Effect */}
               <div className="w-full mt-8">
                 <div className="relative group w-full">
                   <div className="aspect-video w-full">
@@ -396,9 +403,13 @@ const Service = () => {
                       alt="Empty Legs"
                     />
                   </div>
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black bg-opacity-50">
+                  <div
+                    className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 bg-black bg-opacity-50 sm:opacity-0 sm:group-hover:opacity-100 ${
+                      showEnquiryButton ? "opacity-100" : "opacity-0"
+                    } sm:opacity-0`}
+                  >
                     <Button
-                      label={"Make Enquires"}
+                      label={"Make Enquiries"}
                       bgColor={"bg-swPrimary500 text-white"}
                       onClick={() => handleMakeEnquiriesClick("Empty Leg Services")}
                     />
@@ -408,8 +419,6 @@ const Service = () => {
             </div>
           </div>
         </section>
-
-        {/* Chauffeur Services Section */}
         <section id="concierge-section" className="py-5">
           <div className="m-auto text-gray-600 md:px-12 xl:px-16">
             <div className="w-full mx-auto text-justify lg:text-center">
@@ -427,7 +436,7 @@ const Service = () => {
                         >
                           Swift<i className="font-normal">Wings</i>
                         </span>
-                        &apos; chauffeur services. Whether you need
+                        chauffeur services. Whether you need
                         transportation to and from the airport or prefer a
                         chauffeured car during your stay, our professional
                         drivers are at your service.
@@ -440,8 +449,6 @@ const Service = () => {
                   </div>
                 </div>
               </div>
-
-              {/* Image with Hover Effect */}
               <div className="w-full mt-8">
                 <div className="relative group w-full">
                   <div className="aspect-video w-full">
@@ -453,9 +460,13 @@ const Service = () => {
                       alt="Chauffeur Services"
                     />
                   </div>
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black bg-opacity-50">
+                  <div
+                    className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 bg-black bg-opacity-50 sm:opacity-0 sm:group-hover:opacity-100 ${
+                      showEnquiryButton ? "opacity-100" : "opacity-0"
+                    } sm:opacity-0`}
+                  >
                     <Button
-                      label={"Make Enquires"}
+                      label={"Make Enquiries"}
                       bgColor={"bg-swPrimary500 text-white"}
                       onClick={() => handleMakeEnquiriesClick("Chauffeur Services")}
                     />
@@ -528,9 +539,13 @@ const Service = () => {
                       alt="Group/Corporate Flights"
                     />
                   </div>
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black bg-opacity-50">
+                  <div
+                    className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 bg-black bg-opacity-50 sm:opacity-0 sm:group-hover:opacity-100 ${
+                      showEnquiryButton ? "opacity-100" : "opacity-0"
+                    } sm:opacity-0`}
+                  >
                     <Button
-                      label={"Make Enquires"}
+                      label={"Make Enquiries"}
                       bgColor={"bg-swPrimary500 text-white"}
                       onClick={() => handleMakeEnquiriesClick("Group/Corporate Flights")}
                     />
@@ -685,7 +700,7 @@ const Service = () => {
           headingText={"Enquiry Failed"}
           text={"Your enquiry could not be sent. Please try again"}
         />
-        <Whatsapp/>
+        <Whatsapp />
       </NavAndFooter>
     </main>
   );
