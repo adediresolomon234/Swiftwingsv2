@@ -1,10 +1,6 @@
 {
   "compilerOptions": {
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -26,9 +22,10 @@
     "next-env.d.ts",
     ".next/types/**/*.ts",
     "**/*.ts",
-    "**/*.tsx"
-, "app/components/empty-leg/EmptyLegPageComp.jsx", "app/components/shared/ReusableSelect.jsx"  ],
-  "exclude": [
-    "node_modules"
-  ]
+    "**/*.tsx",
+    "app/components/empty-leg/EmptyLegPageComp.jsx",
+    "app/components/shared/ReusableSelect.jsx",
+    "app/components/elite-client/FlightBriefPageComp.jsx"
+, "hooks/useForm.jsx", "app/(customer-information)/elite-client/page.jsx", "app/(customer-information)/flight-brief/page.jsx", "app/components/flight-brief/FlightBriefPageComp.jsx"  ],
+  "exclude": ["node_modules"]
 }
