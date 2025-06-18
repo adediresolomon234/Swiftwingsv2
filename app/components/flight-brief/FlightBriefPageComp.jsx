@@ -24,8 +24,8 @@ const initialState = {
     flightDate: "",
     departureAirportTime: "",
     arrivalAirportTime: "",
-    flightNumberBookingCode: "",
-    numberOfPassengers: 1,
+    // flightNumberBookingCode: "",
+    numberOfPassengers: "",
   },
   onboardPreferences: {
     drinkOfChoice: "",
@@ -63,7 +63,7 @@ const FlightBriefPageComp = () => {
     "flightDetails.flightDate",
     "flightDetails.departureAirportTime",
     "flightDetails.arrivalAirportTime",
-    "flightDetails.flightNumberBookingCode",
+    // "flightDetails.flightNumberBookingCode",
     "flightDetails.numberOfPassengers",
     "postFlightFollowUp.preferredFollowUpChannel",
   ];
@@ -252,7 +252,7 @@ const FlightBriefPageComp = () => {
                 <div className="space-y-2">
                   <InputField
                     name="numberOfPassengers"
-                    placeholder="1"
+                    placeholder="10"
                     label="Number of Passengers"
                     type="number"
                     error={errors.flightDetails?.numberOfPassengers}
@@ -261,7 +261,7 @@ const FlightBriefPageComp = () => {
                     onChange={(e) =>
                       handleInputChange(
                         "flightDetails.numberOfPassengers",
-                        Number.parseInt(e.target.value) || 1
+                        Number.parseInt(e.target.value) || ""
                       )
                     }
                     required
@@ -304,7 +304,7 @@ const FlightBriefPageComp = () => {
                 </div>
               </div>
 
-              <div className="space-y-2">
+              {/* <div className="space-y-2">
                 <InputField
                   name="flightNumberBookingCode"
                   placeholder="SW123"
@@ -318,7 +318,7 @@ const FlightBriefPageComp = () => {
                     )
                   }
                 />
-              </div>
+              </div> */}
             </div>
           </div>
 

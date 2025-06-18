@@ -36,7 +36,7 @@ const initialState = {
     knownAllergies: "",
     petOnboard: false,
     petType: "",
-    typicalLuggageQuantity: 1,
+    typicalLuggageQuantity: "",
     musicPreference: "",
     preferredCabinAmbiance: "",
   },
@@ -166,6 +166,7 @@ const EliteClientPageComp = () => {
                   <div className="relative rounded-lg border border-swGray300 hover:border-swPrimary500">
                     <PhoneInput
                       country={"ng"}
+                      autoFormat={false}
                       value={formData.phoneNumber}
                       onChange={(phone) => {
                         handleInputChange("phoneNumber", phone);
@@ -385,13 +386,13 @@ const EliteClientPageComp = () => {
                 <div className="space-y-2">
                   <InputField
                     name="typicalLuggageQuantity"
-                    placeholder="1"
+                    placeholder="10"
                     label="Typical Luggage Quantity"
                     value={formData.lifestyleTravelStyle.typicalLuggageQuantity}
                     onChange={(e) =>
                       handleInputChange(
                         "lifestyleTravelStyle.typicalLuggageQuantity",
-                        e.target.value
+                        e.target.value || ""
                       )
                     }
                   />

@@ -22,7 +22,7 @@ const PhoneNumberValidation = ({ label, inputValue, onChange }) => {
       {label && <p className="text-swGray800 text-sm mb-2">Enter Phone No</p>}
       <div className="border border-swGray100 cursor-pointer text-swGray800 hover:border-swPrimary500 rounded-lg mt-2 p-2">
         <PhoneInput
-          country={"ng"}
+          autoFormat={false}
           value={inputValue}
           defaultCountry="NG"
           onChange={(value, countryData) => handleChange(value, countryData)}

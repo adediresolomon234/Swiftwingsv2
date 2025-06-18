@@ -23,7 +23,7 @@ const initialState = {
   flightDate: "",
   departureCity: "",
   destination: "",
-  numberOfPassengers: 1,
+  numberOfPassengers: "",
   additionalVIPGuests: [],
   tripMoodPurpose: {
     mood: "",
@@ -199,14 +199,14 @@ const VIPFlightBookingComp = () => {
               <div className="space-y-2">
                 <InputField
                   name="numberOfPassengers"
-                  placeholder="2"
+                  placeholder="10"
                   label="Number of Passengers "
                   error={errors.numberOfPassengers}
                   value={formData.numberOfPassengers.toString()}
                   onChange={(e) =>
                     handleInputChange(
                       "numberOfPassengers",
-                      Number.parseInt(e.target.value) || 0
+                      Number.parseInt(e.target.value) || ""
                     )
                   }
                 />
