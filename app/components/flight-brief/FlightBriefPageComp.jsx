@@ -97,6 +97,29 @@ const FlightBriefPageComp = () => {
     }
   };
 
+  const titleSalutationOptions = [
+    { label: "Mr.", value: "Mr." },
+    { label: "Ms.", value: "Ms." },
+    { label: "Mrs.", value: "Mrs." },
+    { label: "Dr.", value: "Dr." },
+    { label: "Prof.", value: "Prof." },
+  ];
+
+  const preferredFollowUpChannelOptions = [
+    { label: "Email", value: "Email" },
+    { label: "Phone Call", value: "Phone Call" },
+    { label: "WhatsApp", value: "WhatsApp" },
+    { label: "SMS", value: "SMS" },
+  ];
+
+  const vehicleTypeOptions = [
+    { label: "Luxury Sedan", value: "Luxury Sedan" },
+    { label: "SUV", value: "SUV" },
+    { label: "Limousine", value: "Limousine" },
+    { label: "Van", value: "Van" },
+    { label: "Other", value: "Other" },
+  ];
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate(requiredFields)) {
@@ -144,13 +167,10 @@ const FlightBriefPageComp = () => {
                 <div className="space-y-2">
                   <ReusableDropDown
                     label="Title/Salutation"
-                    options={[
-                      { label: "Mr.", value: "Mr." },
-                      { label: "Ms.", value: "Ms." },
-                      { label: "Mrs.", value: "Mrs." },
-                      { label: "Dr.", value: "Dr." },
-                      { label: "Prof.", value: "Prof." },
-                    ]}
+                    options={titleSalutationOptions}
+                    value={titleSalutationOptions.find(
+                      (option) => option.value === formData.titleSalutation
+                    ) || { label: "Select Title", value: "" }}
                     onChange={(value) =>
                       handleInputChange("titleSalutation", value.value)
                     }
@@ -236,15 +256,15 @@ const FlightBriefPageComp = () => {
                     name="flightDate"
                     placeholder="YYYY-MM-DD"
                     label="Flight Date"
-                    error={errors.flightDetails?.flightDate}
-                    value={formData.flightDetails.flightDate}
+                    error={errors?.flightDetails?.flightDate}
+                    value={formData?.flightDetails?.flightDate}
                     onClick={() => setOpenDateComp(true)}
-                    onChange={(e) =>
-                      handleInputChange(
-                        "flightDetails.flightDate",
-                        e.target.value
-                      )
-                    }
+                    // onChange={(e) =>
+                    //   handleInputChange(
+                    //     "flightDetails.flightDate",
+                    //     e.target.value
+                    //   )
+                    // }
                     readOnly
                     required
                   />
@@ -530,13 +550,12 @@ const FlightBriefPageComp = () => {
                   <div className="space-y-2 ml-6">
                     <ReusableDropDown
                       label="Vehicle Type Requested"
-                      options={[
-                        { label: "Luxury Sedan", value: "Luxury Sedan" },
-                        { label: "SUV", value: "SUV" },
-                        { label: "Limousine", value: "Limousine" },
-                        { label: "Van", value: "Van" },
-                        { label: "Other", value: "Other" },
-                      ]}
+                      options={vehicleTypeOptions}
+                      value={vehicleTypeOptions.find(
+                        (option) =>
+                          option.value ===
+                          formData.groundCoordination.vehicleTypeRequested
+                      ) || { label: "Select Vehicle Type", value: "" }}
                       onChange={(value) =>
                         handleInputChange(
                           "groundCoordination.vehicleTypeRequested",
@@ -650,12 +669,12 @@ const FlightBriefPageComp = () => {
               <div className="space-y-2">
                 <ReusableDropDown
                   label="Preferred Follow Up Channel"
-                  options={[
-                    { label: "Email", value: "Email" },
-                    { label: "Phone Call", value: "Phone Call" },
-                    { label: "WhatsApp", value: "WhatsApp" },
-                    { label: "SMS", value: "SMS" },
-                  ]}
+                  options={preferredFollowUpChannelOptions}
+                  value={preferredFollowUpChannelOptions.find(
+                    (option) =>
+                      option.value ===
+                      formData.postFlightFollowUp.preferredFollowUpChannel
+                  ) || { label: "Select Channel", value: "" }}
                   onChange={(value) => {
                     handleInputChange(
                       "postFlightFollowUp.preferredFollowUpChannel",
@@ -696,9 +715,10 @@ const FlightBriefPageComp = () => {
         onClose={setOpenDateComp}
         value={formData.flightDetails.flightDate}
         onChange={(val) => {
+          // console.log("Selected date:", new Date(val));
           handleInputChange(
             "flightDetails.flightDate",
-            format(val, "yyyy-MM-dd")
+            format(new Date(val), "yyyy-MM-dd")
           );
         }}
       />

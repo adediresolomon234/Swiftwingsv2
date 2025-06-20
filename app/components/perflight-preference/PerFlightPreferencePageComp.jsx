@@ -61,6 +61,56 @@ const VIPFlightBookingComp = () => {
     "onboardPreferences.mealRequest",
   ];
 
+  const tripMoodOptions = [
+    { label: "Business", value: "Business" },
+    { label: "Celebration", value: "Celebration" },
+    { label: "Quiet Recharge", value: "Quiet Recharge" },
+    { label: "Medical", value: "Medical" },
+    { label: "Family Time", value: "Family Time" },
+  ];
+
+  const preferredAmbianceOptions = [
+    { label: "Quiet", value: "Quiet" },
+    {
+      label: "Light Conversation",
+      value: "Light Conversation",
+    },
+    { label: "Mood Music", value: "Mood Music" },
+    { label: "Complete Silence", value: "Complete Silence" },
+    { label: "Other", value: "Other" },
+  ];
+
+  const onboardExtrasOptions = [
+    "Cold Towel",
+    "Fragrance-Free",
+    "Reading Materials",
+    "Fruit Basket",
+    "Branded Gift",
+  ];
+
+  const onboardMealRequestOptions = [
+    { label: "Light Snacks", value: "Light Snacks" },
+    { label: "Full Meal", value: "Full Meal" },
+    { label: "Fruits Only", value: "Fruits Only" },
+    { label: "No Food", value: "No Food" },
+    { label: "Other", value: "Other" },
+  ];
+
+  const vehicleTypeOptions = [
+    { label: "SUV", value: "SUV" },
+    { label: "Luxury Sedan", value: "Luxury Sedan" },
+    { label: "Bulletproof", value: "Bulletproof" },
+    { label: "Other", value: "Other" },
+  ];
+
+  const hotelStatusOptions = [
+    { label: "Booked already", value: "Booked already" },
+    {
+      label: "Need recommendations",
+      value: "Need recommendations",
+    },
+  ];
+
   const handleInputChange = (field, value) => {
     if (field.includes(".")) {
       const [section, subField] = field.split(".");
@@ -164,9 +214,9 @@ const VIPFlightBookingComp = () => {
                     value={formData.flightDate}
                     error={errors.flightDate}
                     onClick={() => setOpenDateComp(true)}
-                    onChange={(e) =>
-                      handleInputChange("flightDate", e.target.value)
-                    }
+                    // onChange={(e) =>
+                    //   handleInputChange("flightDate", e.target.value)
+                    // }
                     readOnly
                   />
                 </div>
@@ -241,13 +291,13 @@ const VIPFlightBookingComp = () => {
                 <div className="space-y-2">
                   <ReusableDropDown
                     label="Trip Mood "
-                    options={[
-                      { label: "Business", value: "Business" },
-                      { label: "Celebration", value: "Celebration" },
-                      { label: "Quiet Recharge", value: "Quiet Recharge" },
-                      { label: "Medical", value: "Medical" },
-                      { label: "Family Time", value: "Family Time" },
-                    ]}
+                    options={tripMoodOptions}
+                    value={
+                      tripMoodOptions.find(
+                        (option) =>
+                          option.value === formData.tripMoodPurpose.mood
+                      ) || { label: "Select Mood", value: "" }
+                    }
                     onChange={(value) =>
                       handleInputChange("tripMoodPurpose.mood", value.value)
                     }
@@ -261,16 +311,14 @@ const VIPFlightBookingComp = () => {
                 <div className="space-y-2">
                   <ReusableDropDown
                     label="Preferred Ambiance "
-                    options={[
-                      { label: "Quiet", value: "Quiet" },
-                      {
-                        label: "Light Conversation",
-                        value: "Light Conversation",
-                      },
-                      { label: "Mood Music", value: "Mood Music" },
-                      { label: "Complete Silence", value: "Complete Silence" },
-                      { label: "Other", value: "Other" },
-                    ]}
+                    options={preferredAmbianceOptions}
+                    value={
+                      preferredAmbianceOptions.find(
+                        (option) =>
+                          option.value ===
+                          formData.tripMoodPurpose.preferredAmbiance
+                      ) || { label: "Select Ambiance", value: "" }
+                    }
                     onChange={(value) => {
                       handleInputChange(
                         "tripMoodPurpose.preferredAmbiance",
@@ -304,13 +352,7 @@ const VIPFlightBookingComp = () => {
             <div className="space-y-6">
               <MultiSelectCheckbox
                 label="Extras"
-                options={[
-                  "Cold Towel",
-                  "Fragrance-Free",
-                  "Reading Materials",
-                  "Fruit Basket",
-                  "Branded Gift",
-                ]}
+                options={onboardExtrasOptions}
                 selectedValues={formData.onboardPreferences.extras}
                 onChange={(values) =>
                   handleInputChange("onboardPreferences.extras", values)
@@ -321,13 +363,14 @@ const VIPFlightBookingComp = () => {
                 <div className="space-y-2">
                   <ReusableDropDown
                     label="Meal Request "
-                    options={[
-                      { label: "Light Snacks", value: "Light Snacks" },
-                      { label: "Full Meal", value: "Full Meal" },
-                      { label: "Fruits Only", value: "Fruits Only" },
-                      { label: "No Food", value: "No Food" },
-                      { label: "Other", value: "Other" },
-                    ]}
+                    options={onboardMealRequestOptions}
+                    value={
+                      onboardMealRequestOptions.find(
+                        (option) =>
+                          option.value ===
+                          formData.onboardPreferences.mealRequest
+                      ) || { label: "Select Meal Request", value: "" }
+                    }
                     onChange={(value) => {
                       handleInputChange(
                         "onboardPreferences.mealRequest",
@@ -422,12 +465,13 @@ const VIPFlightBookingComp = () => {
                   <div className="space-y-2 ml-6">
                     <ReusableDropDown
                       label="Vehicle Type"
-                      options={[
-                        { label: "SUV", value: "SUV" },
-                        { label: "Luxury Sedan", value: "Luxury Sedan" },
-                        { label: "Bulletproof", value: "Bulletproof" },
-                        { label: "Other", value: "Other" },
-                      ]}
+                      options={vehicleTypeOptions}
+                      value={
+                        vehicleTypeOptions.find(
+                          (option) =>
+                            option.value === formData.onGroundNeeds.vehicleType
+                        ) || { label: "Select Vehicle Type", value: "" }
+                      }
                       onChange={(value) =>
                         handleInputChange(
                           "onGroundNeeds.vehicleType",
@@ -466,13 +510,13 @@ const VIPFlightBookingComp = () => {
                   <div className="space-y-2 ml-6">
                     <ReusableDropDown
                       label="Hotel Status"
-                      options={[
-                        { label: "Booked already", value: "Booked already" },
-                        {
-                          label: "Need recommendations",
-                          value: "Need recommendations",
-                        },
-                      ]}
+                      options={hotelStatusOptions}
+                      value={
+                        hotelStatusOptions.find(
+                          (option) =>
+                            option.value === formData.onGroundNeeds.hotelStatus
+                        ) || { label: "Select Hotel Status", value: "" }
+                      }
                       onChange={(value) => {
                         handleInputChange(
                           "onGroundNeeds.hotelStatus",
@@ -529,7 +573,7 @@ const VIPFlightBookingComp = () => {
         onClose={setOpenDateComp}
         value={formData.flightDate}
         onChange={(val) => {
-          handleInputChange("flightDate", format(val, "yyyy-MM-dd"));
+          handleInputChange("flightDate", format(new Date(val), "yyyy-MM-dd"));
           setError("flightDate", undefined);
         }}
       />

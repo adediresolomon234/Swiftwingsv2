@@ -91,6 +91,19 @@ const EliteClientPageComp = () => {
     }
   };
 
+  const preferedContactOptions = [
+    { label: "WhatsApp", value: "WhatsApp" },
+    { label: "Phone Call", value: "Phone Call" },
+    { label: "Email", value: "Email" },
+  ];
+
+  const dietaryPreferenceOptions = [
+    { label: "Vegan", value: "Vegan" },
+    { label: "Halal", value: "Halal" },
+    { label: "Keto", value: "Keto" },
+    { label: "Others", value: "Others" },
+  ];
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate(requiredFields)) {
@@ -102,7 +115,7 @@ const EliteClientPageComp = () => {
       const response = await dispatch(
         postFirstTimeEliteClients(formData)
       ).unwrap();
-      toast.success(response?.message || "Form submitted successfully!");
+      toast.success("Your message has been sent to our admin successfully!");
       setFormData(initialState);
     } catch (error) {
       toast.error(error?.message);
@@ -198,11 +211,13 @@ const EliteClientPageComp = () => {
                 <div className="space-y-2">
                   <ReusableDropDown
                     label="Preferred Contact Method "
-                    options={[
-                      { label: "WhatsApp", value: "WhatsApp" },
-                      { label: "Phone Call", value: "Phone Call" },
-                      { label: "Email", value: "Email" },
-                    ]}
+                    options={preferedContactOptions}
+                    value={
+                      preferedContactOptions.find(
+                        (option) =>
+                          option.value === formData.preferredContactMethod
+                      ) || { label: "Select Method", value: "" }
+                    }
                     onChange={(value) =>
                       handleInputChange("preferredContactMethod", value.value)
                     }
@@ -218,7 +233,7 @@ const EliteClientPageComp = () => {
                     name="assistantOrPAContact"
                     placeholder="assistant@email.com"
                     label="Assistant/PA Contact"
-                    value={formData.emailAddress}
+                    value={formData.assistantOrPAContact}
                     onChange={(e) =>
                       handleInputChange("assistantOrPAContact", e.target.value)
                     }
@@ -234,9 +249,9 @@ const EliteClientPageComp = () => {
                     label="Date Of Birth "
                     value={formData.dateOfBirth}
                     onClick={() => setOpenDateComp(true)}
-                    onChange={(e) =>
-                      handleInputChange("dateOfBirth", e.target.value)
-                    }
+                    // onChange={(e) =>
+                    //   handleInputChange("dateOfBirth", e.target.value)
+                    // }
                     readOnly
                   />
                   {/* </div> */}
@@ -315,12 +330,14 @@ const EliteClientPageComp = () => {
                 <div className="space-y-2">
                   <ReusableDropDown
                     label="Dietary Preference "
-                    options={[
-                      { label: "Vegan", value: "Vegan" },
-                      { label: "Halal", value: "Halal" },
-                      { label: "Keto", value: "Keto" },
-                      { label: "Others", value: "Others" },
-                    ]}
+                    options={dietaryPreferenceOptions}
+                    value={
+                      dietaryPreferenceOptions.find(
+                        (option) =>
+                          option.value ===
+                          formData.lifestyleTravelStyle.dietaryPreference
+                      ) || { label: "Select Preference", value: "" }
+                    }
                     onChange={(value) =>
                       handleInputChange(
                         "lifestyleTravelStyle.dietaryPreference",
@@ -516,7 +533,7 @@ const EliteClientPageComp = () => {
         onClose={setOpenDateComp}
         value={formData.dateOfBirth}
         onChange={(val) => {
-          handleInputChange("dateOfBirth", format(val, "yyyy-MM-dd"));
+          handleInputChange("dateOfBirth", format(new Date(val), "yyyy-MM-dd"));
         }}
       />
     </div>
