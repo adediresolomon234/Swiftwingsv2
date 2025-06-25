@@ -1,4 +1,4 @@
-const InputField = ({
+const TextAreaField = ({
   css,
   label,
   placeholder,
@@ -10,7 +10,6 @@ const InputField = ({
   onKeyDown,
   value,
   name,
-  error,
   endIcon,
   startIcon,
   disabled,
@@ -37,20 +36,21 @@ const InputField = ({
           </div>
         )}
 
-        <input
+        <textarea
+          rows={3}
           type={inputType ? inputType : "text"}
           id={name}
           name={name}
           checked={checked}
           placeholder={placeholder}
           onKeyDown={onKeyDown ? onKeyDown : () => {}}
-          className={`w-full h-11 px-3 py-2 font-light cursor-pointer focus:outline-none`}
+          className={`w-full px-3 py-2 font-light cursor-pointer focus:outline-none`}
           onChange={onChange}
           onClick={onClick}
           value={value}
           disabled={disabled}
           readOnly={readOnly}
-        />
+        ></textarea>
 
         {endIcon && (
           <div className="absolute inset-y-0 right-0 pr-3 pt-5 pb-5 flex items-center">
@@ -58,9 +58,8 @@ const InputField = ({
           </div>
         )}
       </div>
-      {error && <p className="text-red-500 text-xs">{error}</p>}
     </div>
   );
 };
 
-export default InputField;
+export default TextAreaField;
