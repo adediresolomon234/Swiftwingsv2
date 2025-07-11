@@ -85,7 +85,7 @@ const VIPFlightBookingComp = () => {
     "Fragrance-Free",
     "Reading Materials",
     "Fruit Basket",
-    "Branded Gift",
+    // "Branded Gift",
   ];
 
   const onboardMealRequestOptions = [
@@ -106,8 +106,8 @@ const VIPFlightBookingComp = () => {
   const hotelStatusOptions = [
     { label: "Booked already", value: "Booked already" },
     {
-      label: "Need recommendations",
-      value: "Need recommendations",
+      label: "Assist with booking",
+      value: "Assist with booking",
     },
   ];
 
