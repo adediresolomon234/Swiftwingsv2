@@ -95,7 +95,16 @@ fieldset.MuiOutlinedInput-notchedOutline {
   color: white !important; /* Text color on hover */
 }
 
-.country-list{
+.country-list {
   margin-left: -5px !important;
   margin-bottom: -10px !important;
+}
+
+.form-control,
+.flag-dropdown .selected-flag {
+  /* border-radius:40px !important; */
+  border-radius: 10px !important;
+}
+.form-control {
+  font-weight: normal !important;
 }
