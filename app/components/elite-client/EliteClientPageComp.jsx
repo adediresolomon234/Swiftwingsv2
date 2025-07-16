@@ -15,6 +15,7 @@ import { useForm } from "../../../hooks/useForm";
 import { useDispatch } from "react-redux";
 import { postFirstTimeEliteClients } from "../../../redux/slices/enquirySlice";
 import { toast } from "react-toastify";
+import PhoneNumberValidation from "../shared/PhoneNumberValidation";
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600"] });
 
@@ -42,6 +43,7 @@ const initialState = {
   additionalServices: {
     handleHotelBookings: false,
     receiveDeals: false,
+    groundTransportation: false,
     specialNotes: "",
   },
 };
@@ -50,7 +52,7 @@ const EliteClientPageComp = () => {
   const dispatch = useDispatch();
   const [openDateComp, setOpenDateComp] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { formData, setFormData, errors, setErrors, validate } =
+  const { formData, setFormData, errors, setErrors, setError, validate } =
     useForm(initialState);
   const requiredFields = [
     "fullName",
@@ -59,6 +61,8 @@ const EliteClientPageComp = () => {
     "preferredContactMethod",
     "nationality",
     "cityOfResidence",
+    "dateOfBirth",
+    // "lifestyleTravelStyle.dietaryPreference"
   ];
 
   const handleInputChange = (field, value) => {
@@ -131,7 +135,7 @@ const EliteClientPageComp = () => {
             First Time Elite Client Form
           </h1>
           <p className="mt-2 text-gray-600">
-            Help us personalize your travel experience
+            Welcome onboard, Let&apos;s craft your perfect journey
           </p>
         </div>
         <form onSubmit={handleSubmit} method="post" className="space-y-6">
@@ -173,12 +177,13 @@ const EliteClientPageComp = () => {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-2">
+                {/* <div className="space-y-2">
                   <div className={`text-sm text-swGray800 mb-3`}>Phone *</div>
                   <div className="relative rounded-lg border border-swGray300 hover:border-swPrimary500">
                     <PhoneInput
                       country={"ng"}
                       autoFormat={false}
+                      disableCountryCode={true}
                       value={formData.phoneNumber}
                       onChange={(phone) => {
                         handleInputChange("phoneNumber", phone);
@@ -191,7 +196,14 @@ const EliteClientPageComp = () => {
                   {errors.phoneNumber && (
                     <p className="text-red-500 text-xs">{errors.phoneNumber}</p>
                   )}
-                </div>
+                </div> */}
+                <PhoneNumberValidation
+                  value={formData.phoneNumber}
+                  onChange={(phone) => {
+                    handleInputChange("phoneNumber", phone);
+                  }}
+                  error={errors.phoneNumber}
+                />
                 <div className="space-y-2">
                   <InputField
                     name="email"
@@ -207,7 +219,7 @@ const EliteClientPageComp = () => {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-2">
+                <div className="">
                   <ReusableDropDown
                     label="Preferred Contact Method "
                     options={preferedContactOptions}
@@ -251,6 +263,7 @@ const EliteClientPageComp = () => {
                     // onChange={(e) =>
                     //   handleInputChange("dateOfBirth", e.target.value)
                     // }
+                    error={errors.dateOfBirth}
                     readOnly
                   />
                   {/* </div> */}
@@ -326,7 +339,7 @@ const EliteClientPageComp = () => {
                 </div>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-2">
+                {/* <div className="space-y-2">
                   <ReusableDropDown
                     label="Dietary Preference "
                     options={dietaryPreferenceOptions}
@@ -337,10 +350,26 @@ const EliteClientPageComp = () => {
                           formData.lifestyleTravelStyle.dietaryPreference
                       ) || { label: "Select Preference", value: "" }
                     }
-                    onChange={(value) =>
+                    onChange={(value) =>{
                       handleInputChange(
                         "lifestyleTravelStyle.dietaryPreference",
                         value.value
+                      )
+                      setError("lifestyleTravelStyle.dietaryPreference", "")
+                    }}
+                    error={errors.lifestyleTravelStyle?.dietaryPreference}
+                  />
+                </div> */}
+                <div className="space-y-2">
+                  <InputField
+                    name="dietaryPreference"
+                    placeholder="Vegan, Keto, Halal, etc."
+                    label="Dietary Preference"
+                    value={formData.lifestyleTravelStyle.dietaryPreference}
+                    onChange={(e) =>
+                      handleInputChange(
+                        "lifestyleTravelStyle.dietaryPreference",
+                        e.target.value
                       )
                     }
                   />
@@ -403,7 +432,7 @@ const EliteClientPageComp = () => {
                   <InputField
                     name="typicalLuggageQuantity"
                     placeholder="10"
-                    label="Typical Luggage Quantity"
+                    label="Luggage Weight (Kg)"
                     value={formData.lifestyleTravelStyle.typicalLuggageQuantity}
                     onChange={(e) =>
                       handleInputChange(
@@ -480,6 +509,26 @@ const EliteClientPageComp = () => {
                 </div>
                 <div className="space-y-2">
                   <label
+                    htmlFor="groundTransportation"
+                    className="text-swGray800 text-sm flex gap-2 items-center cursor-pointer"
+                  >
+                    <input
+                      id="groundTransportation"
+                      type="checkbox"
+                      checked={formData.additionalServices.groundTransportation}
+                      className="h-4 w-4 text-swPrimary500 border-gray-300 rounded focus:ring-swPrimary500 accent-swPrimary500"
+                      onChange={(e) =>
+                        handleInputChange(
+                          "additionalServices.groundTransportation",
+                          e.target.checked
+                        )
+                      }
+                    />{" "}
+                    <p>Ground Transportation</p>
+                  </label>
+                </div>
+                <div className="space-y-2">
+                  <label
                     htmlFor="receiveDeals"
                     className="text-swGray800 text-sm flex gap-2 items-center cursor-pointer"
                   >
@@ -533,6 +582,7 @@ const EliteClientPageComp = () => {
         value={formData.dateOfBirth}
         onChange={(val) => {
           handleInputChange("dateOfBirth", format(new Date(val), "yyyy-MM-dd"));
+          setError("dateOfBirth", "");
         }}
       />
     </div>

@@ -251,7 +251,7 @@ const SignUp = () => {
               /> */}
               <PhoneNumberValidation
                 label={"Enter Phone No"}
-                inputValue={formData.phone_number}
+                value={formData.phone_number}
                 onChange={(val) =>
                   setFormData((prev) => ({ ...prev, phone_number: val }))
                 }
