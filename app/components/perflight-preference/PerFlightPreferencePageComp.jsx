@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { format } from "date-fns";
 import InputField from "../shared/InputField";
 import TextAreaField from "../shared/TextAreaField";
@@ -17,6 +17,8 @@ import { IoCarSportOutline } from "react-icons/io5";
 import { toast } from "react-toastify";
 import { postPerFlightPreferences } from "../../../redux/slices/enquirySlice";
 import { useDispatch } from "react-redux";
+import ReusableSelect from "../shared/ReusableSelect";
+import airportsData from "../helpers/airportsData.json";
 
 const initialState = {
   fullName: "",
@@ -28,25 +30,35 @@ const initialState = {
   tripMoodPurpose: {
     mood: "",
     preferredAmbiance: "",
+    // Add custom input fields
+    customMood: "",
+    customAmbiance: "",
   },
   onboardPreferences: {
     extras: [],
     mealRequest: "",
     allergiesOrDietaryRestrictions: "",
     drinks: [],
+    // Add custom input fields
+    customMealRequest: "",
+    customDrinks: "",
   },
   onGroundNeeds: {
     groundTransportation: false,
     vehicleType: "",
     hotelConcierge: false,
     hotelStatus: "",
+    // Add custom input fields
+    customVehicleType: "",
   },
   finalNotes: "",
 };
 
 const VIPFlightBookingComp = () => {
   const dispatch = useDispatch();
+  const airports = airportsData || [];
   const [openDateComp, setOpenDateComp] = useState(false);
+  const [openAirports, setOpenAirports] = useState({ state: false, type: "" });
   const { formData, setFormData, errors, setErrors, setError, validate } =
     useForm(initialState);
   const [loading, setLoading] = useState(false);
@@ -67,6 +79,7 @@ const VIPFlightBookingComp = () => {
     { label: "Quiet Recharge", value: "Quiet Recharge" },
     { label: "Medical", value: "Medical" },
     { label: "Family Time", value: "Family Time" },
+    { label: "Other", value: "Other" },
   ];
 
   const preferredAmbianceOptions = [
@@ -110,6 +123,27 @@ const VIPFlightBookingComp = () => {
       value: "Assist with booking",
     },
   ];
+
+  const options = useMemo(() => {
+    return airports.map((item) => ({
+      label: (
+        <div className="flex justify-between hover:rounded-lg py-4 px-2">
+          <div className="flex gap-1">
+            <p className="text-[14px]">
+              {item.city}
+              {item.city && ", "}
+              {item.country}
+            </p>
+            <p className="font-light italic text-sm text-swGray pl-1 text-[14px]">
+              {item.name}
+            </p>
+          </div>
+          <p className="text-swGray700">{item.iata_code}</p>
+        </div>
+      ),
+      value: item,
+    }));
+  }, []);
 
   const handleInputChange = (field, value) => {
     if (field.includes(".")) {
@@ -198,7 +232,7 @@ const VIPFlightBookingComp = () => {
                   placeholder="Thread Miller"
                   label="Full Name "
                   value={formData.fullName}
-                  error={errors.fullName}
+                  error={errors?.fullName}
                   onChange={(e) =>
                     handleInputChange("fullName", e.target.value)
                   }
@@ -212,7 +246,7 @@ const VIPFlightBookingComp = () => {
                     placeholder="YYYY-MM-DD"
                     label="Flight Date "
                     value={formData.flightDate}
-                    error={errors.flightDate}
+                    error={errors?.flightDate}
                     onClick={() => setOpenDateComp(true)}
                     // onChange={(e) =>
                     //   handleInputChange("flightDate", e.target.value)
@@ -225,10 +259,23 @@ const VIPFlightBookingComp = () => {
                     name="departureCity"
                     placeholder="London"
                     label="Departure City "
-                    error={errors.departureCity}
-                    value={formData.departureCity}
-                    onChange={(e) =>
-                      handleInputChange("departureCity", e.target.value)
+                    error={errors?.departureCity}
+                    title={
+                      formData?.departureCity
+                        ? `${formData?.departureCity?.city} / ${formData?.departureCity?.name}`
+                        : ""
+                    }
+                    value={
+                      formData?.departureCity
+                        ? `${formData?.departureCity?.city} / ${formData?.departureCity?.name}`
+                        : ""
+                    }
+                    readOnly
+                    // onChange={(e) =>
+                    //   handleInputChange("departureCity", e.target.value)
+                    // }
+                    onClick={() =>
+                      setOpenAirports({ state: true, type: "departure" })
                     }
                   />
                 </div>
@@ -236,11 +283,20 @@ const VIPFlightBookingComp = () => {
                   <InputField
                     name="destination"
                     placeholder="Paris"
-                    label="Destination "
-                    error={errors.destination}
-                    value={formData.destination}
-                    onChange={(e) =>
-                      handleInputChange("destination", e.target.value)
+                    label="Destination City"
+                    error={errors?.destination}
+                    title={formData?.destination
+                        ? `${formData?.destination?.city} / ${formData?.destination?.name}`
+                        : ""}
+                    value={formData?.destination
+                        ? `${formData?.destination?.city} / ${formData?.destination?.name}`
+                        : ""}
+                    readOnly
+                    // onChange={(e) =>
+                    //   handleInputChange("destination", e.target.value)
+                    // }
+                    onClick={() =>
+                      setOpenAirports({ state: true, type: "destination" })
                     }
                   />
                 </div>
@@ -251,7 +307,7 @@ const VIPFlightBookingComp = () => {
                   name="numberOfPassengers"
                   placeholder="10"
                   label="Number of Passengers "
-                  error={errors.numberOfPassengers}
+                  error={errors?.numberOfPassengers}
                   value={formData.numberOfPassengers.toString()}
                   onChange={(e) =>
                     handleInputChange(
@@ -298,16 +354,34 @@ const VIPFlightBookingComp = () => {
                           option.value === formData.tripMoodPurpose.mood
                       ) || { label: "Select Mood", value: "" }
                     }
-                    onChange={(value) =>
-                      handleInputChange("tripMoodPurpose.mood", value.value)
-                    }
+                    onChange={(value) => {
+                      handleInputChange("tripMoodPurpose.mood", value.value);
+                      if (value.value !== "Other") {
+                        handleInputChange("tripMoodPurpose.customMood", "");
+                      }
+                    }}
+                    error={errors?.tripMoodPurpose?.mood}
                   />
-                  {errors.tripMoodPurpose?.mood && (
-                    <p className="text-red-500 text-xs">
-                      {errors.tripMoodPurpose.mood}
-                    </p>
+
+                  {/* Custom mood input when "Other" is selected */}
+                  {formData?.tripMoodPurpose?.mood === "Other" && (
+                    <div className="mt-2">
+                      <InputField
+                        name="customMood"
+                        placeholder="Please specify your mood"
+                        label="Custom Mood"
+                        value={formData?.tripMoodPurpose?.customMood}
+                        onChange={(e) =>
+                          handleInputChange(
+                            "tripMoodPurpose.customMood",
+                            e.target.value
+                          )
+                        }
+                      />
+                    </div>
                   )}
                 </div>
+
                 <div className="space-y-2">
                   <ReusableDropDown
                     label="Preferred Ambiance "
@@ -325,12 +399,32 @@ const VIPFlightBookingComp = () => {
                         value.value
                       );
                       setError("tripMoodPurpose.preferredAmbiance", undefined);
+                      if (value.value !== "Other") {
+                        handleInputChange(
+                          "tripMoodPurpose.preferredAmbiance",
+                          ""
+                        );
+                      }
                     }}
+                    error={errors?.tripMoodPurpose?.preferredAmbiance}
                   />
-                  {errors.tripMoodPurpose?.preferredAmbiance && (
-                    <p className="text-red-500 text-xs">
-                      {errors.tripMoodPurpose.preferredAmbiance}
-                    </p>
+
+                  {/* Custom ambiance input when "Other" is selected */}
+                  {formData.tripMoodPurpose.preferredAmbiance === "Other" && (
+                    <div className="mt-2">
+                      <InputField
+                        name="customAmbiance"
+                        placeholder="Please specify your preferred ambiance"
+                        label="Custom Ambiance"
+                        value={formData.tripMoodPurpose.customAmbiance}
+                        onChange={(e) =>
+                          handleInputChange(
+                            "tripMoodPurpose.customAmbiance",
+                            e.target.value
+                          )
+                        }
+                      />
+                    </div>
                   )}
                 </div>
               </div>
@@ -377,14 +471,36 @@ const VIPFlightBookingComp = () => {
                         value.value
                       );
                       setError("onboardPreferences.mealRequest", undefined);
+                      if (value.value !== "Other") {
+                        handleInputChange(
+                          "onboardPreferences.customMealRequest",
+                          ""
+                        );
+                      }
                     }}
+                    error={errors?.onboardPreferences?.mealRequest}
+                    
                   />
-                  {errors.onboardPreferences?.mealRequest && (
-                    <p className="text-red-500 text-xs">
-                      {errors.onboardPreferences.mealRequest}
-                    </p>
+
+                  {/* Custom meal request input when "Other" is selected */}
+                  {formData.onboardPreferences.mealRequest === "Other" && (
+                    <div className="mt-2">
+                      <InputField
+                        name="customMealRequest"
+                        placeholder="Please specify your meal request"
+                        label="Custom Meal Request"
+                        value={formData.onboardPreferences.customMealRequest}
+                        onChange={(e) =>
+                          handleInputChange(
+                            "onboardPreferences.customMealRequest",
+                            e.target.value
+                          )
+                        }
+                      />
+                    </div>
                   )}
                 </div>
+
                 <div className="space-y-2">
                   <InputField
                     name="allergiesOrDietaryRestrictions"
@@ -416,10 +532,29 @@ const VIPFlightBookingComp = () => {
                   "Other",
                 ]}
                 selectedValues={formData.onboardPreferences.drinks}
-                onChange={(values) =>
-                  handleInputChange("onboardPreferences.drinks", values)
-                }
+                onChange={(values) => {
+                  handleInputChange("onboardPreferences.drinks", values);
+                  if (!values.includes("Other")) {
+                    handleInputChange("onboardPreferences.customDrinks", "");
+                  }
+                }}
               />
+              {formData.onboardPreferences.drinks.includes("Other") && (
+                <div className="mt-2">
+                  <InputField
+                    name="customDrinks"
+                    placeholder="Please specify your drink preference"
+                    label="Custom Drink"
+                    value={formData.onboardPreferences.customDrinks}
+                    onChange={(e) =>
+                      handleInputChange(
+                        "onboardPreferences.customDrinks",
+                        e.target.value
+                      )
+                    }
+                  />
+                </div>
+              )}
             </div>
           </div>
 
@@ -454,6 +589,10 @@ const VIPFlightBookingComp = () => {
                         );
                         if (!e.target.checked) {
                           handleInputChange("onGroundNeeds.vehicleType", "");
+                          handleInputChange(
+                            "onGroundNeeds.customVehicleType",
+                            ""
+                          );
                         }
                       }}
                     />
@@ -472,13 +611,37 @@ const VIPFlightBookingComp = () => {
                             option.value === formData.onGroundNeeds.vehicleType
                         ) || { label: "Select Vehicle Type", value: "" }
                       }
-                      onChange={(value) =>
+                      onChange={(value) => {
                         handleInputChange(
                           "onGroundNeeds.vehicleType",
                           value.value
-                        )
-                      }
+                        );
+                        if (value.value !== "Other") {
+                          handleInputChange(
+                            "onGroundNeeds.customVehicleType",
+                            ""
+                          );
+                        }
+                      }}
                     />
+
+                    {/* Custom vehicle type input when "Other" is selected */}
+                    {formData.onGroundNeeds.vehicleType === "Other" && (
+                      <div className="mt-2">
+                        <InputField
+                          name="customVehicleType"
+                          placeholder="Please specify vehicle type"
+                          label="Custom Vehicle Type"
+                          value={formData.onGroundNeeds.customVehicleType}
+                          onChange={(e) =>
+                            handleInputChange(
+                              "onGroundNeeds.customVehicleType",
+                              e.target.value
+                            )
+                          }
+                        />
+                      </div>
+                    )}
                   </div>
                 )}
 
@@ -572,9 +735,38 @@ const VIPFlightBookingComp = () => {
         isOpen={openDateComp}
         onClose={setOpenDateComp}
         value={formData.flightDate}
+        disablePast={true}
         onChange={(val) => {
           handleInputChange("flightDate", format(new Date(val), "yyyy-MM-dd"));
           setError("flightDate", undefined);
+        }}
+      />
+      <ReusableSelect
+        isOpen={openAirports.state}
+        placeholder={
+          openAirports.type === "departure"
+            ? "Search Departure City"
+            : "Search Destination City"
+        }
+        searchable={true}
+        onClose={() => setOpenAirports({ state: false, type: "" })}
+        format={options}
+        setValue={(selectedOption) => {
+          console.log({ selectedOption });
+          // updateBookingState({ source: selectedOption }, index);
+          if (openAirports.type === "departure") {
+            setFormData((prev) => ({
+              ...prev,
+              departureCity: selectedOption,
+            }));
+          } else {
+            setFormData((prev) => ({
+              ...prev,
+              destination: selectedOption,
+            }));
+          }
+
+          setOpenAirports({ state: false, type: "" });
         }}
       />
     </div>
