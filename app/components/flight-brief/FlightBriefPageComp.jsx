@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import TextAreaField from "../shared/TextAreaField";
 import ReusableDropDown from "../shared/ReusableDropdown";
 import { format } from "date-fns";
 import InputField from "../shared/InputField";
-import SelectOnlyDate from "../../../utils/SelectOnlyDate";
+import SelectDate from "../../../utils/SelectDate";
 import { FiPhone, FiUser } from "react-icons/fi";
 import { PiAirplaneInFlight, PiCoffeeBold, PiGift } from "react-icons/pi";
 import { IoCarSportOutline } from "react-icons/io5";
@@ -13,6 +13,8 @@ import { useForm } from "../../../hooks/useForm";
 import { postFlightBriefSheets } from "../../../redux/slices/enquirySlice";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
+import ReusableSelect from "../shared/ReusableSelect";
+import airportsData from "../helpers/airportsData.json";
 
 const initialState = {
   fullName: "",
@@ -22,8 +24,8 @@ const initialState = {
   specialNotes: "",
   flightDetails: {
     flightDate: "",
-    departureAirportTime: "",
-    arrivalAirportTime: "",
+    departureAirportDetails: null,
+    arrivalAirportDetails: null,
     // flightNumberBookingCode: "",
     numberOfPassengers: "",
   },
@@ -44,6 +46,8 @@ const initialState = {
     vehicleTypeRequested: "",
     hotelConciergeArranged: false,
     contactOfGroundHandler: "",
+    // Custom vehicle
+    customVehicleType: "",
   },
   postFlightFollowUp: {
     contactWithin24hrs: false,
@@ -52,21 +56,25 @@ const initialState = {
   },
 };
 
+
 const FlightBriefPageComp = () => {
   const dispatch = useDispatch();
   const [openDateComp, setOpenDateComp] = useState(false);
   const [loading, setLoading] = useState(false);
+  const airports = airportsData || [];
+  const [openAirports, setOpenAirports] = useState({ state: false, type: "" });
   const { formData, setFormData, errors, setError, setErrors, validate } =
     useForm(initialState);
   const requiredFields = [
     "fullName",
     "flightDetails.flightDate",
-    "flightDetails.departureAirportTime",
-    "flightDetails.arrivalAirportTime",
+    "flightDetails.departureAirportDetails",
+    "flightDetails.arrivalAirportDetails",
     // "flightDetails.flightNumberBookingCode",
     "flightDetails.numberOfPassengers",
     "postFlightFollowUp.preferredFollowUpChannel",
   ];
+
 
   const handleInputChange = (field, value) => {
     if (field.includes(".")) {
@@ -96,6 +104,27 @@ const FlightBriefPageComp = () => {
       }));
     }
   };
+
+  const options = useMemo(() => {
+    return airports.map((item) => ({
+      label: (
+        <div className="flex justify-between hover:rounded-lg py-4 px-2">
+          <div className="flex gap-1">
+            <p className="text-[14px]">
+              {item.city}
+              {item.city && ", "}
+              {item.country}
+            </p>
+            <p className="font-light italic text-sm text-swGray pl-1 text-[14px]">
+              {item.name}
+            </p>
+          </div>
+          <p className="text-swGray700">{item.iata_code}</p>
+        </div>
+      ),
+      value: item,
+    }));
+  }, []);
 
   const titleSalutationOptions = [
     { label: "Mr.", value: "Mr." },
@@ -168,9 +197,11 @@ const FlightBriefPageComp = () => {
                   <ReusableDropDown
                     label="Title/Salutation"
                     options={titleSalutationOptions}
-                    value={titleSalutationOptions.find(
-                      (option) => option.value === formData.titleSalutation
-                    ) || { label: "Select Title", value: "" }}
+                    value={
+                      titleSalutationOptions.find(
+                        (option) => option.value === formData?.titleSalutation
+                      ) || { label: "Select Title", value: "" }
+                    }
                     onChange={(value) =>
                       handleInputChange("titleSalutation", value.value)
                     }
@@ -181,8 +212,8 @@ const FlightBriefPageComp = () => {
                     name="fullName"
                     placeholder="Alice Johnson"
                     label="Full Name"
-                    error={errors.fullName}
-                    value={formData.fullName}
+                    error={errors?.fullName}
+                    value={formData?.fullName}
                     onChange={(e) =>
                       handleInputChange("fullName", e.target.value)
                     }
@@ -254,17 +285,32 @@ const FlightBriefPageComp = () => {
                 <div className="space-y-2">
                   <InputField
                     name="flightDate"
-                    placeholder="YYYY-MM-DD"
-                    label="Flight Date"
+                    placeholder="YYYY-MM-DD / HH:MM"
+                    label="Flight Date/Time"
                     error={errors?.flightDetails?.flightDate}
-                    value={formData?.flightDetails?.flightDate}
+                    title={
+                      formData?.flightDetails?.flightDate
+                        ? `${format(
+                            new Date(formData?.flightDetails?.flightDate),
+                            "yyyy-MM-dd"
+                          )} / ${format(
+                            new Date(formData?.flightDetails?.flightDate),
+                            "hh:mm a"
+                          )}`
+                        : ""
+                    }
+                    value={
+                      formData?.flightDetails?.flightDate
+                        ? `${format(
+                            new Date(formData?.flightDetails?.flightDate),
+                            "yyyy-MM-dd"
+                          )} / ${format(
+                            new Date(formData?.flightDetails?.flightDate),
+                            "hh:mm a"
+                          )}`
+                        : ""
+                    }
                     onClick={() => setOpenDateComp(true)}
-                    // onChange={(e) =>
-                    //   handleInputChange(
-                    //     "flightDetails.flightDate",
-                    //     e.target.value
-                    //   )
-                    // }
                     readOnly
                     required
                   />
@@ -275,9 +321,9 @@ const FlightBriefPageComp = () => {
                     placeholder="10"
                     label="Number of Passengers"
                     type="number"
-                    error={errors.flightDetails?.numberOfPassengers}
+                    error={errors?.flightDetails?.numberOfPassengers}
                     min="1"
-                    value={formData.flightDetails.numberOfPassengers}
+                    value={formData?.flightDetails?.numberOfPassengers}
                     onChange={(e) =>
                       handleInputChange(
                         "flightDetails.numberOfPassengers",
@@ -292,53 +338,56 @@ const FlightBriefPageComp = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <InputField
-                    name="departureAirportTime"
-                    placeholder="LHR / 10:00"
-                    label="Departure Airport/Time"
-                    error={errors.flightDetails?.departureAirportTime}
-                    value={formData.flightDetails.departureAirportTime}
-                    onChange={(e) =>
-                      handleInputChange(
-                        "flightDetails.departureAirportTime",
-                        e.target.value
-                      )
+                    name="departureAirportDetails"
+                    placeholder="Paris"
+                    label="Departure City/Airport"
+                    error={errors?.flightDetails?.departureAirportDetails}
+                    title={
+                      formData?.flightDetails?.departureAirportDetails?.city
+                        ? `${formData?.flightDetails.departureAirportDetails?.city} / ${formData?.flightDetails?.departureAirportDetails?.name}`
+                        : ""
                     }
-                    required
+                    value={
+                      formData?.flightDetails?.departureAirportDetails?.city
+                        ? `${formData?.flightDetails?.departureAirportDetails?.city} / ${formData.flightDetails.departureAirportDetails?.name}`
+                        : ""
+                    }
+                    readOnly
+                    // onChange={(e) =>
+                    //   handleInputChange("destination", e.target.value)
+                    // }
+                    onClick={() =>
+                      setOpenAirports({ state: true, type: "departure" })
+                    }
                   />
                 </div>
+
                 <div className="space-y-2">
                   <InputField
-                    name="arrivalAirportTime"
-                    placeholder="CDG / 12:00"
-                    label="Arrival Airport/Time"
-                    error={errors.flightDetails?.arrivalAirportTime}
-                    value={formData.flightDetails.arrivalAirportTime}
-                    onChange={(e) =>
-                      handleInputChange(
-                        "flightDetails.arrivalAirportTime",
-                        e.target.value
-                      )
+                    name="arrivalAirportDetails"
+                    placeholder="Abuja"
+                    label="Destination City/Airport"
+                    error={errors?.flightDetails?.arrivalAirportDetails}
+                    title={
+                      formData?.flightDetails?.arrivalAirportDetails?.city
+                        ? `${formData?.flightDetails?.arrivalAirportDetails?.city} / ${formData?.flightDetails?.arrivalAirportDetails?.name}`
+                        : ""
                     }
-                    required
+                    value={
+                      formData?.flightDetails?.arrivalAirportDetails?.city
+                        ? `${formData?.flightDetails?.arrivalAirportDetails?.city} / ${formData?.flightDetails?.arrivalAirportDetails?.name}`
+                        : ""
+                    }
+                    readOnly
+                    // onChange={(e) =>
+                    //   handleInputChange("destination", e.target.value)
+                    // }
+                    onClick={() =>
+                      setOpenAirports({ state: true, type: "destination" })
+                    }
                   />
                 </div>
               </div>
-
-              {/* <div className="space-y-2">
-                <InputField
-                  name="flightNumberBookingCode"
-                  placeholder="SW123"
-                  label="Flight Number/Booking Code"
-                  error={errors.flightDetails?.flightNumberBookingCode}
-                  value={formData.flightDetails.flightNumberBookingCode}
-                  onChange={(e) =>
-                    handleInputChange(
-                      "flightDetails.flightNumberBookingCode",
-                      e.target.value
-                    )
-                  }
-                />
-              </div> */}
             </div>
           </div>
 
@@ -551,18 +600,41 @@ const FlightBriefPageComp = () => {
                     <ReusableDropDown
                       label="Vehicle Type Requested"
                       options={vehicleTypeOptions}
-                      value={vehicleTypeOptions.find(
-                        (option) =>
-                          option.value ===
-                          formData.groundCoordination.vehicleTypeRequested
-                      ) || { label: "Select Vehicle Type", value: "" }}
-                      onChange={(value) =>
+                      value={
+                        vehicleTypeOptions.find(
+                          (option) =>
+                            option.value ===
+                            formData.groundCoordination.vehicleTypeRequested
+                        ) || { label: "Select Vehicle Type", value: "" }
+                      }
+                      onChange={(value) => {
                         handleInputChange(
                           "groundCoordination.vehicleTypeRequested",
                           value.value
-                        )
-                      }
+                        );
+                        if (value.value !== "Other") {
+                          handleInputChange(
+                            "groundCoordination.customVehicleType",
+                            ""
+                          );
+                        }
+                      }}
                     />
+                    {formData.groundCoordination.vehicleTypeRequested ===
+                      "Other" && (
+                      <InputField
+                        name="customVehicleType"
+                        placeholder="Custom Vehicle Type"
+                        label="Custom Vehicle Type"
+                        value={formData.groundCoordination.customVehicleType}
+                        onChange={(e) =>
+                          handleInputChange(
+                            "groundCoordination.customVehicleType",
+                            e.target.value
+                          )
+                        }
+                      />
+                    )}
                   </div>
                 )}
 
@@ -670,11 +742,13 @@ const FlightBriefPageComp = () => {
                 <ReusableDropDown
                   label="Preferred Follow Up Channel"
                   options={preferredFollowUpChannelOptions}
-                  value={preferredFollowUpChannelOptions.find(
-                    (option) =>
-                      option.value ===
-                      formData.postFlightFollowUp.preferredFollowUpChannel
-                  ) || { label: "Select Channel", value: "" }}
+                  value={
+                    preferredFollowUpChannelOptions.find(
+                      (option) =>
+                        option.value ===
+                        formData?.postFlightFollowUp?.preferredFollowUpChannel
+                    ) || { label: "Select Channel", value: "" }
+                  }
                   onChange={(value) => {
                     handleInputChange(
                       "postFlightFollowUp.preferredFollowUpChannel",
@@ -685,12 +759,8 @@ const FlightBriefPageComp = () => {
                       undefined
                     );
                   }}
+                  error={errors?.postFlightFollowUp?.preferredFollowUpChannel}
                 />
-                {errors.postFlightFollowUp?.preferredFollowUpChannel && (
-                  <p className="text-red-500 text-sm">
-                    {errors.postFlightFollowUp.preferredFollowUpChannel}
-                  </p>
-                )}
               </div>
             </div>
           </div>
@@ -710,16 +780,47 @@ const FlightBriefPageComp = () => {
         </form>
       </div>
 
-      <SelectOnlyDate
+      <SelectDate
         isOpen={openDateComp}
         onClose={setOpenDateComp}
         value={formData.flightDetails.flightDate}
+        disablePast={true}
         onChange={(val) => {
-          // console.log("Selected date:", new Date(val));
-          handleInputChange(
-            "flightDetails.flightDate",
-            format(new Date(val), "yyyy-MM-dd")
-          );
+          handleInputChange("flightDetails.flightDate", new Date(val));
+        }}
+      />
+      <ReusableSelect
+        isOpen={openAirports.state}
+        placeholder={
+          openAirports.type === "departure"
+            ? "Search Departure City"
+            : "Search Destination City"
+        }
+        searchable={true}
+        onClose={() => setOpenAirports({ state: false, type: "" })}
+        format={options}
+        setValue={(selectedOption) => {
+          console.log({ selectedOption });
+          // updateBookingState({ source: selectedOption }, index);
+          if (openAirports.type === "departure") {
+            setFormData((prev) => ({
+              ...prev,
+              flightDetails: {
+                ...prev.flightDetails,
+                departureAirportDetails: selectedOption,
+              },
+            }));
+          } else {
+            setFormData((prev) => ({
+              ...prev,
+              flightDetails: {
+                ...prev.flightDetails,
+                arrivalAirportDetails: selectedOption,
+              },
+            }));
+          }
+
+          setOpenAirports({ state: false, type: "" });
         }}
       />
     </div>
