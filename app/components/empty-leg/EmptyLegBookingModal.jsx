@@ -153,7 +153,7 @@ function EmptyLegBookingModal({ open, onClose, leg, setBookingSuccess }) {
   return (
     <main className="fixed w-screen h-screen top-0 left-0 bg-black bg-opacity-25 flex justify-center items-center p-5 z-50">
       <ToastContainer />
-      <div className="max-w-4xl h-[95vh] w-full rounded-3xl bg-white flex overflow-hidden relative">
+      <div className="max-w-4xl max-h-[95vh] w-full rounded-3xl bg-white flex overflow-hidden relative">
         <div className="absolute right-5 top-5 p-2 rounded-full cursor-pointer border sm:hidden">
           <SWClose className="text-2xl" onClick={() => closeModal()} />
         </div>
