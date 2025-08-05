@@ -15,9 +15,10 @@ const InputField = ({
   startIcon,
   disabled,
   readOnly,
+  title
 }) => {
   return (
-    <div className="">
+    <div className="" title={title}>
       {label && (
         <label htmlFor={name} className=" text-swGray800 text-sm mb-2">
           {label}

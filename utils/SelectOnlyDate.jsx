@@ -19,7 +19,7 @@ import { ThemeProvider, createTheme } from "@mui/material";
 //   onClose?: (state: boolean) => void;
 // }
 
-const SelectOnlyDate = ({ isOpen, value, onChange, onClose }) => {
+const SelectOnlyDate = ({ isOpen, value, onChange, onClose, disablePast }) => {
   const [selected, setSelected] = useState(null);
 
   const customTheme = createTheme({
@@ -53,6 +53,7 @@ const SelectOnlyDate = ({ isOpen, value, onChange, onClose }) => {
             onChange && onChange(selected);
             setSelected(null);
           }}
+          disablePast={disablePast}
           onChange={setSelected}
           slots={{
             textField: (textFieldProps) => <div style={{ display: "none" }} />,

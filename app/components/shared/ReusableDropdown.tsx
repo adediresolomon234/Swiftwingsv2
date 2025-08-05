@@ -11,6 +11,7 @@ interface DropdownProps {
   textColor?: string;
   borderColor?: string;
   onChange?: (option: { label: string; value: string }) => void;
+  error?: string;
 }
 
 const ReusableDropDown = ({
@@ -22,6 +23,7 @@ const ReusableDropDown = ({
   borderColor,
   value,
   onChange,
+  error
 }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState<{
@@ -109,6 +111,7 @@ const ReusableDropDown = ({
           </div>
         )}
       </div>
+      {error && <p className="text-xs text-red-500" >{error}</p>}
     </div>
   );
 };

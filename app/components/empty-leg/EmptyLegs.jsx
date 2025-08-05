@@ -7,6 +7,8 @@ import Image from "next/image";
 import Button from "../Button";
 import { useRouter } from "next/navigation";
 import SuccessModal from "../shared/modals/SuccessModal";
+import { PuffLoader } from "react-spinners";
+import Link from "next/link";
 
 const EmptyLegsSlider = () => {
   const router = useRouter();
@@ -88,23 +90,34 @@ const EmptyLegsSlider = () => {
   );
 
   return (
-    <div className="max-w-screen-2xl mx-auto px-0 text-gray-500 relative -z-10">
-      <div className="flex items-center justify-between mb-20 max-w-[85rem] mx-auto px-5">
+    <div className="max-w-screen-2xl mx-auto px-0 text-gray-500 relative">
+      <div className="flex items-center justify-between mb-3 flex-wrap gap-5 max-w-[85rem] mx-auto px-5">
         <h2 className="text-lg text-swPrimary500 text-center  font-medium">
           Available Empty Legs
         </h2>
-        {visibleLegs && visibleLegs?.length > 0 && (
-          <Button
-            label="View All"
-            textColor="text-white"
-            bgColor={"bg-swPrimary500"}
-            onClick={() => {
-              setLoading(true);
-              router.push("/empty-legs");
-            }}
-            loader={loading}
-            className="transition-all duration-300"
-          />
+        {visibleLegs &&
+        visibleLegs?.length > 0 &&
+        // <Button
+        //   label={<p className="underline">View All</p>}
+        //   textColor="text-swPrimary500"
+        //   bgColor={"bg-transparent"}
+        //   onClick={() => {
+        //     setLoading(true);
+        //     router.push("/empty-legs");
+        //   }}
+        //   loader={loading}
+        //   className="transition-all duration-300"
+        // />
+        loading ? (
+          <PuffLoader size={10} color="#5c0632" />
+        ) : (
+          <Link
+            href="/empty-legs"
+            onClick={() => setLoading(true)}
+            className="underline text-swPrimary500"
+          >
+            View All
+          </Link>
         )}
       </div>
 

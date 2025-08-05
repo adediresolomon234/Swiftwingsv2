@@ -15,6 +15,7 @@ import {
   handleInputChangeWithComma,
   preventNonNumeric,
 } from "../../../utils/utils";
+import PhoneNumberValidation from "../shared/PhoneNumberValidation";
 
 const initialState = {
   name: "",
@@ -152,11 +153,11 @@ function EmptyLegBookingModal({ open, onClose, leg, setBookingSuccess }) {
   return (
     <main className="fixed w-screen h-screen top-0 left-0 bg-black bg-opacity-25 flex justify-center items-center p-5 z-50">
       <ToastContainer />
-      <div className="max-w-4xl w-full rounded-3xl bg-white flex overflow-hidden relative">
+      <div className="max-w-4xl max-h-[95vh] w-full rounded-3xl bg-white flex overflow-hidden relative">
         <div className="absolute right-5 top-5 p-2 rounded-full cursor-pointer border sm:hidden">
           <SWClose className="text-2xl" onClick={() => closeModal()} />
         </div>
-        <div className="px-5 py-10 w-full sm:w-[45%]">
+        <div className="px-5 py-10 w-full sm:w-[45%] overflow-y-auto">
           <p className="text-center text-2xl font-semibold">Make An Offer</p>
           <p className="text-center text-sm max-w-72 mx-auto text-swGray900">
             Provide the following details to make an offer
@@ -182,7 +183,7 @@ function EmptyLegBookingModal({ open, onClose, leg, setBookingSuccess }) {
               <p className="text-red-500 text-xs -mt-3">{errors.email}</p>
             )}
 
-            <InputField
+            {/* <InputField
               label="Phone Number"
               value={formData.phone}
               name="phone"
@@ -190,7 +191,17 @@ function EmptyLegBookingModal({ open, onClose, leg, setBookingSuccess }) {
             />
             {errors.phone && (
               <p className="text-red-500 text-xs -mt-3">{errors.phone}</p>
-            )}
+            )} */}
+            <PhoneNumberValidation
+              value={formData.phone}
+              onChange={(phone) => {
+                handleInputChange({
+                  target: { name: "phone", value: phone },
+                });
+              }}
+              error={errors.phone}
+            />
+
             <InputField
               label="Offer"
               value={Number(formData?.offer)?.toLocaleString()}
@@ -223,8 +234,10 @@ function EmptyLegBookingModal({ open, onClose, leg, setBookingSuccess }) {
           </div>
           <Button
             label="Make Offer"
-            bgColor={"border-2 hover:bg-swGray50 w-full mt-10"}
-            textColor={"text-swGray800"}
+            bgColor={
+              "border-2 border-swPrimary500 hover:bg-swPrimary300 w-full mt-10"
+            }
+            textColor={"text-swGray800 hover:text-white"}
             loader={loading}
             disabled={loading}
             onClick={handleBook}
