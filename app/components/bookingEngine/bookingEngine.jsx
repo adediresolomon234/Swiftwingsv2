@@ -458,6 +458,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                   )}
                   <SelectDate
                     isOpen={isDateOpen === index}
+                    disablePast={true}
                     onChange={(value) => {
                       const selectedDate = dayjs(value);
                       const today = dayjs();
@@ -485,6 +486,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                   />
                   <SelectDate
                     isOpen={isArrivalDateOpen === index}
+                    disablePast={true}
                     onChange={(value) => {
                       const selectedArrivalDate = dayjs(value);
                       const departureDateTime = dayjs(
