@@ -59,7 +59,7 @@ const FleetSpec = () => {
   return (
     <main className="relative bg-swLightBgGray ">
       <NavAndFooter Nav={true}>
-        <section className="w-full h-full p-10 pt-48 text-white relative pb-10  ">
+        <section className="w-full h-full p-5 md:p-10 pt-32 md:pt-40 text-white relative pb-10  ">
           {aircraftDetails && (
             <>
               <div className="absolute h-full w-full top-0 left-0 overflow-hidden ">
@@ -72,20 +72,20 @@ const FleetSpec = () => {
                   className="h-full w-full object-cover"
                 />
               </div>
-              <div className="h-full w-full bg-swBlack absolute top-0 left-0 bg-opacity-15" />
+              <div className="h-full w-full absolute top-0 left-0 md:bg-swBlack md:bg-opacity-15" />
               <div className="max-w-7xl mx-auto mb-10 relative text-center">
                 <div className="pt-8 z-50">
                   <p className="text-4xl font-bold leading-snug text-swPrimary700">
                     {aircraftDetails?.name}
                   </p>
-                  <div className="grid md:grid-cols-2 gap-28 pt-[16rem]">
-                    <div className="mt-20 flex items-center">
-                      <p className="text-lg text-swPrimary600 font-medium  text-start">
+                  <div className="grid md:grid-cols-2 gap-10 md:gap-28 md:pt-[10rem]">
+                    <div className="mt-20 flex items-center rounded-xl bg-white border border-gray-200 p-4 bg-opacity-50">
+                      <p className="text-lg text-swPrimary500 font-medium  text-start">
                         {aircraftDetails?.features.overview_summary}
                       </p>
                     </div>
-                    <div className="mt-20">
-                      <div className="lg:ml-10">
+                    <div className="md:mt-20 flex items-center w-full">
+                      <div className="w-full">
                         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-4 w-full  rounded-xl bg-white border border-gray-200 overflow-hidden">
                           <div className="flex flex-col items-center justify-center py-4 md:py-6 px-2 md:px-4">
                             <div className="flex items-center justify-center mb-2 text-swPrimary600">
@@ -162,7 +162,7 @@ const FleetSpec = () => {
                   />
                 </div>
                 <div className="flex flex-col sm:text-center">
-                  <p className="inline-block px-0 py-3 mb-6 text-xs font-semibold tracking-wider text-swGray800 uppercase rounded-full bg-swGray100">
+                  <p className="inline-block px-3 py-3 mb-6 text-xs font-semibold tracking-wider text-swGray800 uppercase rounded-full bg-swGray100">
                     Supersonic luxury
                   </p>
                   {/* <p className="mb-5 text-sm text-gray-800 leading-6">
@@ -188,7 +188,7 @@ const FleetSpec = () => {
                   />
                 </div>
                 <div className="flex flex-col sm:text-center">
-                  <p className="inline-block px-1 py-3 mb-6 text-xs font-semibold tracking-wider text-swGray800 uppercase rounded-full bg-swGray100">
+                  <p className="inline-block px-3 py-3 mb-6 text-xs font-semibold tracking-wider text-swGray800 uppercase rounded-full bg-swGray100">
                     Ultra-long rang
                   </p>
                   {/* <p className="mb-5 text-sm text-gray-800 leading-6">
@@ -211,7 +211,7 @@ const FleetSpec = () => {
                   />
                 </div>
                 <div className="flex flex-col sm:text-center">
-                  <p className="inline-block px-1 py-3 mb-6 text-xs font-semibold tracking-wider text-swGray800 uppercase rounded-full bg-swGray100">
+                  <p className="inline-block px-3 py-3 mb-6 text-xs font-semibold tracking-wider text-swGray800 uppercase rounded-full bg-swGray100">
                     Exotic Internal beauty
                   </p>
                   {/* <p className="mb-5 text-sm text-gray-800 leading-6">

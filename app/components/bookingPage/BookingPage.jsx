@@ -20,7 +20,7 @@ import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import { useDispatch, useSelector } from "react-redux";
 import { addBooking } from "../../../redux/slices/bookingSlice";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import BookingEngine from "../../components/bookingEngine/bookingEngine";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -113,17 +113,17 @@ const BookingPageInformation = () => {
   };
 
   const handleQuote = () => {
-    setPassengersErrors([]);
-    const errors = validatePassengersAgainstLowestSeats(
-      bookingDetails?.additional_quote,
-      bookingDetails?.booking_details?.formData
-    );
-    if (errors?.length > 0) {
-      setPassengerError(true);
-      setPassengersErrors(errors);
-      return;
-    }
     if (loggedInUser) {
+      setPassengersErrors([]);
+      const errors = validatePassengersAgainstLowestSeats(
+        bookingDetails?.additional_quote,
+        bookingDetails?.booking_details?.formData
+      );
+      if (errors?.length > 0) {
+        setPassengerError(true);
+        setPassengersErrors(errors);
+        return;
+      }
       setLoading(true);
       bookingDetails.status = "New";
       bookingDetails.user = loggedInUser;
@@ -149,7 +149,10 @@ const BookingPageInformation = () => {
         })
         .finally(() => setLoading(false));
     } else {
-      setNotLoggedInModal(true);
+      // setNotLoggedInModal(true);
+      localStorage.setItem("bookingInComplete", true);
+      toast.error("You are not logged in. Kindly login to continue")
+      router.push("/sign-in");
     }
   };
 
@@ -199,7 +202,7 @@ const BookingPageInformation = () => {
     <>
       {hydrated ? (
         <main>
-          <ToastContainer />
+          {/* <ToastContainer /> */}
           <div className="bg-swLightBgGray z-10">
             <div className="m-5 mx-auto max-w-[90rem] z-10">
               <BookingEngine setBookingDetails={setBookingDetails} />
