@@ -17,7 +17,7 @@ import { HiArrowRight } from "react-icons/hi";
 import { usePathname, useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 import SelectDate from "../../../utils/SelectDate";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import TripTypeButton from "./TripTypeButton";
 import DetailCard from "./DetailCard";
 import PassengerSelector from "./PassengerSelect";
@@ -265,7 +265,7 @@ const BookingEngine = ({ setBookingDetails }) => {
 
   return (
     <main>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
       <div className="w-full rounded-3xl  ">
         <div
           className={`p-0 rounded-3xl  ${
@@ -458,6 +458,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                   )}
                   <SelectDate
                     isOpen={isDateOpen === index}
+                    disablePast={true}
                     onChange={(value) => {
                       const selectedDate = dayjs(value);
                       const today = dayjs();
@@ -485,6 +486,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                   />
                   <SelectDate
                     isOpen={isArrivalDateOpen === index}
+                    disablePast={true}
                     onChange={(value) => {
                       const selectedArrivalDate = dayjs(value);
                       const departureDateTime = dayjs(
