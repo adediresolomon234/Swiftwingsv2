@@ -308,13 +308,15 @@ export default function Home() {
                         fill
                         sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
                     </div>
                     <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                      <h4 className="text-xl font-bold mb-2">{service.title}</h4>
-                      <p className="text-sm text-gray-200 leading-relaxed">
-                        {service.description}
-                      </p>
+                      <div className="bg-black/40 backdrop-blur-sm rounded-t-2xl p-4 -mt-4">
+                        <h4 className="text-xl font-bold mb-2 text-white">{service.title}</h4>
+                        <p className="text-sm text-gray-100 leading-relaxed">
+                          {service.description}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
