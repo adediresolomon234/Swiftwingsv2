@@ -266,31 +266,32 @@ const BookingEngine = ({ setBookingDetails }) => {
   return (
     <main>
       {/* <ToastContainer /> */}
-      <div className="w-full rounded-3xl  ">
+      <div className="w-full rounded-3xl">
         <div
-          className={`p-0 rounded-3xl  ${
+          className={`rounded-3xl shadow-lg ${
             pathname === "/"
-              ? "backdrop-blur bg-black/25 border border-swGray900"
-              : "bg-white border"
-          } p-5 `}
+              ? "backdrop-blur-md bg-black/30 border border-white/20"
+              : "bg-white border border-gray-200"
+          } p-6`}
         >
-          <div
-            className={`flex flex-wrap sm:justify-between sm:items-center mb-5 ${
-              pathname === "/" ? "flex-col sm:flex-row" : "flex-col sm:flex-row"
-            }`}
-          >
-            <p
-              className={`font-me ${
-                pathname === "/" ? "text-white" : "text-swGray800"
-              } ml-2 text-lg mt-5 md:mt-0`}
-            >
-              Book your flight!
-            </p>
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-8 gap-4">
+            <div className="flex items-center gap-3">
+              <div className={`w-2 h-8 rounded-full ${
+                pathname === "/" ? "bg-white/30" : "bg-swPrimary500"
+              }`}></div>
+              <h2
+                className={`font-bold text-xl md:text-2xl ${
+                  pathname === "/" ? "text-white" : "text-slate-800"
+                }`}
+              >
+                Book your flight!
+              </h2>
+            </div>
             <div
-              className={`p-1 text-xl rounded-full flex gap-5 font-medium ${
+              className={`p-2 rounded-2xl flex gap-1 font-medium shadow-lg ${
                 pathname === "/"
-                  ? "sm:backdrop-blur sm:bg-white/25"
-                  : "bg-white sm:bg-swGray50"
+                  ? "backdrop-blur-md bg-white/20 border border-white/30"
+                  : "bg-white border border-gray-200"
               }`}
             >
               <div className="flex">
@@ -311,16 +312,17 @@ const BookingEngine = ({ setBookingDetails }) => {
             </div>
             {pathname === "/" ? (
               <div
-                className={`${space_grotesk.className} hidden md:block  w-fit text-lg`}
+                className={`${space_grotesk.className} hidden md:block w-fit`}
                 onClick={handleBookJet}
               >
                 <Button
                   label="Book Jet"
-                  bgColor={"bg-swPrimary500 hover:bg-swPrimary600"}
+                  bgColor={"bg-gradient-to-r from-swPrimary500 to-swPrimary600 hover:from-swPrimary600 hover:to-swPrimary700"}
                   textColor={"text-white"}
                   endIcon={<HiArrowRight size={20} />}
                   loader={loading}
                   disabled={loading || bookingBtnDisable()}
+                  className="shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5"
                 />
               </div>
             ) : (
@@ -345,12 +347,12 @@ const BookingEngine = ({ setBookingDetails }) => {
                   />
                 ) : null}
               </div>
-              <div className="grid items-center gap-5 mx-auto grid-cols-1 md:grid-cols-2 md:grid-rows-1 w-full">
-                <div className="mx-auto grid-cols-1 md:grid-rows-1 md:grid-cols-2 grid relative w-full">
+              <div className="grid items-start gap-6 mx-auto grid-cols-1 lg:grid-cols-2 w-full">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 relative w-full">
                   <DetailCard
                     onClick={() => setOpenDeparture(index)}
                     headerText="Departure city"
-                    icon={<SwDeparturePlaneIcon className="text-[1.6rem]" />}
+                    icon={<SwDeparturePlaneIcon className="text-xl" />}
                     icon_bg={true}
                     rounded_css="rounded-tl-2xl rounded-tr-2xl md:rounded-tr-none md:rounded-l-none md:rounded-tl-2xl md:rounded-bl-2xl"
                   >
@@ -363,7 +365,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                   <DetailCard
                     onClick={() => setOpenArrival(index)}
                     headerText="Arrival city"
-                    icon={<SwArrivalPlaneIcon className="text-[1.6rem]" />}
+                    icon={<SwArrivalPlaneIcon className="text-xl" />}
                     icon_bg={true}
                     rounded_css="rounded-bl-2xl rounded-br-2xl md:rounded-l-none md:rounded-tr-2xl md:rounded-br-2xl"
                   >
@@ -374,10 +376,9 @@ const BookingEngine = ({ setBookingDetails }) => {
                     </p>
                   </DetailCard>
 
-                  <div className="absolute h-full w-full top-0 left-0 flex justify-center items-center">
-                    <div className="hidden sm:block p-1 rounded-full border border-swGray900 text-swBlack bg-white z-10">
-                      <GoArrowRight size={15} className="-mb-2 ml-1" />
-                      <GoArrowLeft size={15} className="-mt-2 mr-1" />
+                  <div className="absolute h-full w-full top-0 left-0 flex justify-center items-center pointer-events-none">
+                    <div className="hidden sm:block p-2 rounded-full bg-white/90 backdrop-blur-sm border border-white/50 shadow-lg z-10">
+                      <GoArrowRight size={16} className="text-slate-700" />
                     </div>
                   </div>
                   {openDeparture === index && (
@@ -411,9 +412,9 @@ const BookingEngine = ({ setBookingDetails }) => {
                     />
                   )}
                 </div>
-                <div className="grid grid-cols-1 grid-rows-2 md:grid-rows-1 md:grid-cols-2 w-full gap-5">
+                <div className="grid grid-cols-1 md:grid-cols-2 w-full gap-4">
                   {bookingType === "Round Trip" ? (
-                    <div className="relative grid grid-cols-1 grid-rows-2 md:grid-rows-1 md:grid-cols-2 h-[5.5rem] gap-4 ">
+                    <div className="relative grid grid-cols-1 grid-rows-2 md:grid-rows-1 md:grid-cols-2 gap-4">
                       <DetailCard
                         onClick={() => setDateOpen(index)}
                         headerText="Departure date"
@@ -441,9 +442,6 @@ const BookingEngine = ({ setBookingDetails }) => {
                     </div>
                   ) : (
                     <DetailCard
-                      icon={
-                        <SwCalendarIcon className="text-xl text-swGray500" />
-                      }
                       onClick={() => setDateOpen(index)}
                       headerText="Departure date"
                     >
@@ -519,6 +517,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                   <div className="relative w-full">
                     <DetailCard
                       icon={<SwUserIcon className="text-xl" />}
+                      icon_bg={true}
                       onClick={() => setOpenPassageners(index)}
                       headerText="Passengers"
                     >

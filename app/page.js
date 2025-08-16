@@ -153,36 +153,36 @@ export default function Home() {
               </h1>
               
                              {/* Stats Section */}
-               <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 md:gap-16 justify-center text-center mb-12 max-w-5xl mx-auto">
-                 <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300">
-                   <p className="font-bold text-3xl md:text-4xl mb-2">
+               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 md:gap-8 justify-center text-center mb-8 max-w-4xl mx-auto">
+                 <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20 hover:bg-white/20 transition-all duration-300">
+                   <p className="font-bold text-2xl md:text-3xl mb-1">
                      <CountUp
                        end={homeData?.data?.no_users}
                        duration={2}
                        formattingFn={formatThousand}
                      />
                    </p>
-                   <p className="text-sm md:text-base text-gray-200">Happy Clients</p>
+                   <p className="text-xs md:text-sm text-gray-200">Happy Clients</p>
                  </div>
-                 <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300">
-                   <p className="font-bold text-3xl md:text-4xl mb-2">
+                 <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20 hover:bg-white/20 transition-all duration-300">
+                   <p className="font-bold text-2xl md:text-3xl mb-1">
                      <CountUp
                        end={homeData?.data?.no_aircraft?.data}
                        duration={2}
                        formattingFn={formatThousand}
                      />
                    </p>
-                   <p className="text-sm md:text-base text-gray-200">Aircraft</p>
+                   <p className="text-xs md:text-sm text-gray-200">Aircraft</p>
                  </div>
-                 <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300">
-                   <p className="font-bold text-3xl md:text-4xl mb-2">
+                 <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20 hover:bg-white/20 transition-all duration-300">
+                   <p className="font-bold text-2xl md:text-3xl mb-1">
                      <CountUp
                        end={homeData?.data?.no_bookings}
                        duration={2}
                        formattingFn={formatThousand}
                      />
                    </p>
-                   <p className="text-sm md:text-base text-gray-200">Bookings</p>
+                   <p className="text-xs md:text-sm text-gray-200">Bookings</p>
                  </div>
                </div>
             </div>
