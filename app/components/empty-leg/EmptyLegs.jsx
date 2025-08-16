@@ -90,147 +90,145 @@ const EmptyLegsSlider = () => {
   );
 
   return (
-    <div className="max-w-screen-2xl mx-auto px-0 text-gray-500 relative">
-      <div className="flex items-center justify-between mb-3 flex-wrap gap-5 max-w-[85rem] mx-auto px-5">
-        <h2 className="text-lg text-swPrimary500 text-center  font-medium">
+    <div className="max-w-7xl mx-auto px-6">
+      {/* Header Section */}
+      <div className="text-center mb-12">
+        <h2 className="text-3xl md:text-4xl font-bold text-swPrimary700 mb-4">
           Available Empty Legs
         </h2>
-        {visibleLegs &&
-        visibleLegs?.length > 0 &&
-        // <Button
-        //   label={<p className="underline">View All</p>}
-        //   textColor="text-swPrimary500"
-        //   bgColor={"bg-transparent"}
-        //   onClick={() => {
-        //     setLoading(true);
-        //     router.push("/empty-legs");
-        //   }}
-        //   loader={loading}
-        //   className="transition-all duration-300"
-        // />
-        loading ? (
-          <PuffLoader size={10} color="#5c0632" />
+        <p className="text-lg text-slate-600 max-w-2xl mx-auto mb-6">
+          Discover exclusive deals on one-way flights and maximize your travel savings
+        </p>
+        <div className="w-24 h-1 bg-swPrimary500 mx-auto rounded-full"></div>
+      </div>
+
+      {/* View All Link */}
+      <div className="flex justify-center mb-8">
+        {loading ? (
+          <PuffLoader size={20} color="#5c0632" />
         ) : (
           <Link
             href="/empty-legs"
             onClick={() => setLoading(true)}
-            className="underline text-swPrimary500"
+            className="inline-flex items-center gap-2 text-swPrimary500 hover:text-swPrimary600 font-medium transition-colors duration-300"
           >
-            View All
+            <span>View All Empty Legs</span>
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
           </Link>
         )}
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4  lg:w-full mx-auto my-auto p-5 md:p-10">
+      {/* Empty Legs Grid */}
+      <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {visibleLegs.map((leg, index) => (
           <div
             key={index}
-            className="relative w-full max-w-[250px] overflow-hidden border-none transition-all duration-300 mx-auto"
+            className="group relative bg-gradient-to-br from-white via-slate-50 to-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:shadow-[0_8px_40px_rgb(0,0,0,0.16)] transition-all duration-700 hover:-translate-y-3 border border-slate-100/50 overflow-hidden backdrop-blur-sm"
             onMouseEnter={() => setIsHovered(index)}
             onMouseLeave={() => setIsHovered(-1)}
           >
-            <div className="relative h-[250px] w-[250px] w-full overflow-hidden rounded-md">
-              <div
-                className={`absolute inset-0 flex items-center justify-center transition-transform duration-500 ${
-                  isHovered === index ? "scale-110" : "scale-100"
+            {/* Glow Effect */}
+            <div className="absolute inset-0 bg-gradient-to-r from-swPrimary500/5 via-transparent to-swPrimary500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-3xl" />
+            
+            {/* Image Section */}
+            <div className="relative h-52 overflow-hidden rounded-t-3xl">
+              <Image
+                src={imgs[index]}
+                alt={leg?.aircraft_name}
+                fill
+                className={`object-cover transition-all duration-700 ${
+                  isHovered === index ? "scale-110 rotate-1" : "scale-100 rotate-0"
                 }`}
-              >
-                <Image
-                  src={imgs[index]}
-                  alt={leg?.aircraft_name}
-                  fill
-                  className="h-full w-full object-cover"
-                />
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/45 to-transparent"></div>
-              <div className="absolute left-3 bottom-2 text-xs text-white font-medium">
-                <p>
-                  {new Date(leg?.dates).toLocaleDateString("en-US", {
-                    weekday: "long",
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })}
-                </p>
-                <p className="mt-1 font-medium">{leg?.aircraft}</p>
-              </div>
-              <div className="absolute bottom-3 left-4 flex items-center gap-2 text-white">
-                <span className="font-medium">{leg?.aircraft_name}</span>
-              </div>
-            </div>
-
-            <div className="max-w-[250px] w-full mt-3">
-              <div className="flex flex-col gap-2">
-                <div className="">
-                  <div className="flex items-center gap-1 text-muted-foreground">
-                    {/* <span className="text-xs">DEPARTURE</span> */}
-                  </div>
-                  <div>
-                    <p className="text-sm text-black font-light">
-                      {leg?.departure}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex flex-col items-center justify-start w-fit gap-1 -my-2">
-                  <div className="p-1 w-fit bg-swError500 rounded-full" />
-                  <div className="h-2 w-fit border border-r border-dashed" />
-                  <div className="w-fit h-fit">
-                    <SwPlaneIcon className="text-base" />
-                  </div>
-                  <div className="h-2 w-fit border border-r border-dashed" />
-                  <div className="p-1 w-fit bg-swSuccess500 rounded-full" />
-                </div>
-
-                <div className="">
-                  <div className="flex items-center justify-end gap-1">
-                    {/* <span className="text-xs">ARRIVAL</span> */}
-                  </div>
-                  <div>
-                    <p className="text-sm font-light text-black">
-                      {leg?.arrival}
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <EmptyLegBookingModal
-                open={bookLeg === leg?._id}
-                leg={leg}
-                onClose={handleModalClose}
-                setBookingSuccess={setBookingSuccess}
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
               />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+
+              {/* Date and Aircraft Info */}
+              <div className="absolute bottom-4 left-4 right-4">
+                <div className="bg-white/95 backdrop-blur-md rounded-2xl p-4 shadow-lg">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-xs text-slate-500 font-medium mb-1">
+                        {new Date(leg?.dates).toLocaleDateString("en-US", {
+                          weekday: "short",
+                          month: "short",
+                          day: "numeric",
+                        })}
+                      </p>
+                      <p className="text-sm font-bold text-slate-800">
+                        {leg?.aircraft_name || leg?.aircraft}
+                      </p>
+                    </div>
+                    <div className="bg-swPrimary500/10 p-2 rounded-full">
+                      <svg className="w-4 h-4 text-swPrimary500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="absolute top-2 right-2">
-              <button
-                onClick={() => setBookLeg(leg?._id)}
-                className="py-1 px-2 rounded-full text-xs font-medium bg-white text-black"
-              >
-                Request Quote
-              </button>
+
+            {/* Route Information */}
+            <div className="p-6">
+              {/* Route Display */}
+              <div className="flex items-center justify-between mb-4">
+                <div className="text-center flex-1">
+                  <p className="text-xs text-slate-400 font-medium mb-1 tracking-wider">DEPARTURE</p>
+                  <p className="text-xs font-normal text-slate-800 leading-tight">
+                    {leg?.departure}
+                  </p>
+                </div>
+
+                {/* Route Line */}
+                <div className="flex items-center mx-3 flex-shrink-0">
+                  <div className="w-2 h-2 bg-red-500 rounded-full" />
+
+              
+                  <div className="w-6 h-px bg-slate-300 border-dashed border-t border-slate-200" />
+                  <div className="w-2 h-2 bg-green-500 rounded-full" />
+                </div>
+
+                <div className="text-center flex-1">
+                  <p className="text-xs text-slate-400 font-medium mb-1 tracking-wider">ARRIVAL</p>
+                  <p className="text-xs font-normal text-slate-800 leading-tight">
+                    {leg?.arrival}
+                  </p>
+                </div>
+              </div>
+
+              {/* Additional Details */}
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-slate-300 rounded-full"></div>
+                  <span className="text-xs text-slate-500 font-medium">One-way flight</span>
+                </div>
+                <div className="bg-gradient-to-r from-swPrimary500 to-swPrimary600 text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-md">
+                  Special rate
+                </div>
+              </div>
             </div>
+
+            {/* Modal */}
+            <EmptyLegBookingModal
+              open={bookLeg === leg?._id}
+              leg={leg}
+              onClose={handleModalClose}
+              setBookingSuccess={setBookingSuccess}
+            />
           </div>
         ))}
       </div>
 
-      {/* <div className="flex justify-center mt-4 space-x-2">
-        {Array.from({
-          length: Math.ceil(availableLegs?.length / itemsPerPage),
-        }).map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrentIndex(index)}
-            className={`w-3 h-3 rounded-full ${
-              index === currentIndex ? "bg-swPrimary500" : "bg-gray-300"
-            }`}
-          ></button>
-        ))}
-      </div> */}
+      {/* Success Modal */}
       <SuccessModal
         open={bookingSuccess}
         singleBtn={true}
-        headingText={"Empty Leg Quote Requsted Successfully"}
+        headingText={"Empty Leg Quote Requested Successfully"}
         text={
-          "Your Emtpty Leg quote request has been successfully submitted. Our team will get back to you shortly."
+          "Your Empty Leg quote request has been successfully submitted. Our team will get back to you shortly."
         }
         onClose={setBookingSuccess}
         firstBtnText={"Ok"}

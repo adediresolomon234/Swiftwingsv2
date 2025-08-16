@@ -85,7 +85,7 @@ export default function Home() {
 
   useEffect(() => {
     if (aircrafts.length > 0) {
-      setFleet(aircrafts.slice(0, 5));
+      setFleet(aircrafts.slice(0, 3));
     }
   }, [aircrafts]);
 
@@ -110,7 +110,7 @@ export default function Home() {
   }
 
   return (
-    <main className="relative bg-swLightBgGray overflow-x-hidden">
+    <main className="relative bg-white overflow-x-hidden">
       <Head>
         <title>
           Best Private Jet Charter in Nigeria | Private Jet Fastest Flights | On
@@ -123,183 +123,196 @@ export default function Home() {
         <meta name="keywords" content={homePageKeywords} />
       </Head>
       <NavAndFooter Nav={true}>
-        <section className="w-full p-5 md:10 pt-48 text-white relative pb-10">
-          <div className="absolute h-full w-full top-0 left-0">
+        {/* Hero Section */}
+        <section className="relative w-full min-h-screen flex items-center justify-center">
+          <div className="absolute inset-0 w-full h-full">
             {isMobile ? (
-              <div className="relative h-full w-full">
-                <Image
-                  src={MbheroBgImg}
-                  alt="aiplane"
-                  className="h-full w-full object-cover"
-                />
-                <div className="absolute top-0 left-0 w-full h-full"></div>
-              </div>
+              <Image
+                src={MbheroBgImg}
+                alt="Private Jet Hero"
+                fill
+                className="object-cover"
+                priority
+              />
             ) : (
-              <div className="relative h-full w-full">
-                <Image
-                  src={heroBgImg}
-                  alt="aiplane"
-                  className="h-full w-full object-cover"
-                />
-                <div className="absolute top-0 left-0 w-full h-full"></div>
-              </div>
+              <Image
+                src={heroBgImg}
+                alt="Private Jet Hero"
+                fill
+                className="object-cover"
+                priority
+              />
             )}
+            <div className="absolute inset-0 bg-black/50" />
           </div>
 
-          <div className="max-w-7xl mx-auto mb-10 relative text-center mt-40">
-            <div className="pt-20 z-50">
-              <p className="3xl:text-6xl 2xl:text-6xl lg:text-5xl md:text-4xl sm:text-4xl xs:text-4xl  max-w-4xl mx-auto w-full font-bold leading-snug z-50">
+          <div className="relative z-10 text-center text-white max-w-7xl mx-auto px-6 pt-20">
+            <div className="mb-12">
+              <h1 className="text-5xl md:text-7xl font-bold mb-8 leading-tight text-shadow animate-fade-in">
                 The World is Closer to You
-              </p>
+              </h1>
+              
+                             {/* Stats Section */}
+               <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 md:gap-16 justify-center text-center mb-12 max-w-5xl mx-auto">
+                 <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300">
+                   <p className="font-bold text-3xl md:text-4xl mb-2">
+                     <CountUp
+                       end={homeData?.data?.no_users}
+                       duration={2}
+                       formattingFn={formatThousand}
+                     />
+                   </p>
+                   <p className="text-sm md:text-base text-gray-200">Happy Clients</p>
+                 </div>
+                 <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300">
+                   <p className="font-bold text-3xl md:text-4xl mb-2">
+                     <CountUp
+                       end={homeData?.data?.no_aircraft?.data}
+                       duration={2}
+                       formattingFn={formatThousand}
+                     />
+                   </p>
+                   <p className="text-sm md:text-base text-gray-200">Aircraft</p>
+                 </div>
+                 <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300">
+                   <p className="font-bold text-3xl md:text-4xl mb-2">
+                     <CountUp
+                       end={homeData?.data?.no_bookings}
+                       duration={2}
+                       formattingFn={formatThousand}
+                     />
+                   </p>
+                   <p className="text-sm md:text-base text-gray-200">Bookings</p>
+                 </div>
+               </div>
             </div>
 
-            <div
-              ref={sectionRef}
-              className="flex gap-10 justify-center text-center mt-6"
-            >
-              <div>
-                <p className="font-semibold text-2xl">
-                  <CountUp
-                    end={homeData?.data?.no_users}
-                    duration={2}
-                    formattingFn={formatThousand}
-                  />
-                </p>
-                <p className="text-xs">Clients</p>
-              </div>
-              <div>
-                <p className="font-semibold text-2xl">
-                  <CountUp
-                    end={homeData?.data?.no_aircraft?.data}
-                    duration={2}
-                    formattingFn={formatThousand}
-                  />
-                </p>
-                <p className="text-xs">Aircrafts</p>
-              </div>
-              <div>
-                <p className="font-semibold text-2xl">
-                  <CountUp
-                    end={homeData?.data?.no_bookings}
-                    duration={2}
-                    formattingFn={formatThousand}
-                  />
-                </p>
-                <p className="text-xs">Bookings</p>
-              </div>
+            {/* Booking Engine */}
+            <div className="max-w-4xl mx-auto">
+              <BookingEngine />
             </div>
           </div>
-
-          <section className="max-w-7xl mx-auto w-full relative">
-            <BookingEngine />
-          </section>
         </section>
-        <section className="mt-10">
+
+        {/* Empty Legs Section */}
+        <section className="py-20 bg-white">
           <EmptyLegsSlider />
         </section>
-        <section className="mt-30 py-16 px-5 text-swGray900 ">
-          <div className=" py-6">
-            <p className="text-lg text-swPrimary500 text-center mb-20 font-medium">
-              Why Choose{" "}
-              <span
-                className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
-              >
-                Swift<i className="font-normal">Wings</i>
-              </span>
-            </p>
 
-            <div className="max-w-screen-2xl mx-auto px-0 text-gray-500">
-              <div className="grid gap-4 md:mx-auto sm:grid-cols-2 lg:w-full xl:grid-cols-4">
-                <div className="group space-y-6 rounded-3xl border border-gray-100 bg-swSecondary300 px-8 py-12 text-center">
-                  <SWTStarBlackIcon className="mx-auto svgIcon" />
-                  <h3 className="text-xl font-semibold text-swPrimary500 bg-swSecondary500  rounded-full p-3">
-                    VIP Treatment
-                  </h3>
-                  <p>
-                    Enjoy luxurious comfort, in-flight catering customised to
-                    your taste. Get entertained by favourite shows or stay
-                    connected with work using free Wi-Fi. Arrive refreshed &
-                    ready for your destination. Fly on a private flight schedule
-                  </p>
+        {/* Why Choose SwiftWings Section */}
+        <section className="py-20 bg-gradient-to-br from-slate-50 to-slate-100">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold text-swPrimary700 mb-6">
+                Why Choose{" "}
+                <span className={`${libre_baskerville.className} text-swPrimary500 font-bold`}>
+                  Swift<i className="font-normal">Wings</i>
+                </span>
+              </h2>
+              <p className="text-xl text-slate-600 max-w-3xl mx-auto mb-8">
+                Experience luxury, convenience, and excellence in every flight
+              </p>
+              <div className="w-24 h-1 bg-swPrimary500 mx-auto rounded-full"></div>
+            </div>
+
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+              <div className="group bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-slate-200">
+                <div className="flex items-center justify-center mb-6">
+                  <div className="bg-swPrimary100 p-4 rounded-full group-hover:bg-swPrimary200 transition-colors duration-300">
+                    <SWTStarBlackIcon className="text-3xl text-swPrimary600" />
+                  </div>
                 </div>
-                <div className="group space-y-6 rounded-3xl border border-gray-100 bg-swSecondary300 px-4 py-6 md:px-8 md:py-12 text-center">
-                  <SWTGalaglobeIcon className="mx-auto svgIcon" />
-                  <h3 className="text-xl font-semibold text-swPrimary500 bg-swSecondary500 rounded-full p-3">
-                    Global Access
-                  </h3>
-                  <p>
-                    <span
-                      className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
-                    >
-                      Swift<i className="font-normal">Wings</i>
-                    </span>{" "}
-                    grants you exclusive access to private jets for seamless
-                    travel anywhere in the globe. Remember, we bring the world
-                    closer to you!
-                  </p>
+                <h3 className="text-xl font-bold text-swPrimary700 mb-4 text-center">
+                  VIP Treatment
+                </h3>
+                <p className="text-slate-600 text-center leading-relaxed">
+                  Enjoy luxurious comfort, in-flight catering customized to your taste. 
+                  Get entertained by favorite shows or stay connected with work using free Wi-Fi.
+                </p>
+              </div>
+
+              <div className="group bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-slate-200">
+                <div className="flex items-center justify-center mb-6">
+                  <div className="bg-swPrimary100 p-4 rounded-full group-hover:bg-swPrimary200 transition-colors duration-300">
+                    <SWTGalaglobeIcon className="text-3xl text-swPrimary600" />
+                  </div>
                 </div>
-                <div className="group space-y-6 rounded-3xl border border-gray-100 bg-swSecondary300 px-8 py-12 text-center">
-                  <SWTSandClockBlackIcon className="mx-auto svgIcon" />
-                  <h3 className="text-xl font-semibold text-swPrimary500 bg-swSecondary500 rounded-full p-3">
-                    Save Time
-                  </h3>
-                  <p>
-                    Skip the crowds & time wasters! Time is a precious commodity
-                    not to be wasted. Fly private, fast and secure with{" "}
-                    <span
-                      className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
-                    >
-                      Swift<i className="font-normal">Wings</i>
-                    </span>{" "}
-                    private jet charter services.
-                  </p>
+                <h3 className="text-xl font-bold text-swPrimary700 mb-4 text-center">
+                  Global Access
+                </h3>
+                <p className="text-slate-600 text-center leading-relaxed">
+                  <span className={`${libre_baskerville.className} text-swPrimary500 font-bold`}>
+                    Swift<i className="font-normal">Wings</i>
+                  </span>{" "}
+                  grants you exclusive access to private jets for seamless travel anywhere in the globe.
+                </p>
+              </div>
+
+              <div className="group bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-slate-200">
+                <div className="flex items-center justify-center mb-6">
+                  <div className="bg-swPrimary100 p-4 rounded-full group-hover:bg-swPrimary200 transition-colors duration-300">
+                    <SWTSandClockBlackIcon className="text-3xl text-swPrimary600" />
+                  </div>
                 </div>
-                <div className="group space-y-6 rounded-3xl border border-gray-100 bg-swSecondary200 px-8 py-12 text-center ">
-                  <SWTAddPersonBlackIcon className="mx-auto svgIcon" />
-                  <h3 className="text-xl font-semibold text-swPrimary500 bg-swSecondary500 rounded-full p-3">
-                    Membership
-                  </h3>
-                  <p>
-                    Network with high profile individuals like you and strike a
-                    deeper connection and get access to premium services like:
-                    unlimited private jet access, highly personalised travel
-                    experience, priority scheduling, empty leg prior
-                    notification, etc
-                  </p>
+                <h3 className="text-xl font-bold text-swPrimary700 mb-4 text-center">
+                  Save Time
+                </h3>
+                <p className="text-slate-600 text-center leading-relaxed">
+                  Skip the crowds & time wasters! Time is precious. Fly private, fast and secure with{" "}
+                  <span className={`${libre_baskerville.className} text-swPrimary500 font-bold`}>
+                    Swift<i className="font-normal">Wings</i>
+                  </span>.
+                </p>
+              </div>
+
+              <div className="group bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-slate-200">
+                <div className="flex items-center justify-center mb-6">
+                  <div className="bg-swPrimary100 p-4 rounded-full group-hover:bg-swPrimary200 transition-colors duration-300">
+                    <SWTAddPersonBlackIcon className="text-3xl text-swPrimary600" />
+                  </div>
                 </div>
+                <h3 className="text-xl font-bold text-swPrimary700 mb-4 text-center">
+                  Membership
+                </h3>
+                <p className="text-slate-600 text-center leading-relaxed">
+                  Network with high profile individuals and get access to premium services: 
+                  unlimited private jet access, personalized travel experience, priority scheduling.
+                </p>
               </div>
             </div>
           </div>
         </section>
-        <section className="max-w-screen-2xl mx-auto pt-10">
-          <div className="px-6 text-center md:px-12">
-            <div className="mb-16">
-              <h2 className="mb-4 md:text-center text-start text-[18px] font-semibold  text-swPrimary500  md:text-[18px] ">
+
+        {/* Services Section */}
+        <section className="py-20 bg-white">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold text-swPrimary700 mb-6">
                 Our Services
               </h2>
-              <p className="text-swGray800  font-semibold max-w-2xl mt-8 sm:mx-auto text-3xl md:text-center text-start sm:text-5xl">
-                We offer world a class exotic experience
+              <p className="text-xl md:text-2xl text-slate-600 max-w-3xl mx-auto leading-relaxed mb-8">
+                We offer world-class exotic experience
               </p>
+              <div className="w-24 h-1 bg-swPrimary500 mx-auto rounded-full"></div>
             </div>
-            <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
               {services.map((service, index) => (
-                <div className="w-full" key={index}>
-                  <div className="overflow-hidden w-full h-full rounded-2xl">
-                    <img
-                      className="object-cover w-full rounded-t-2xl"
-                      src={service.imageSrc}
-                      alt={service.title}
-                      loading="lazy"
-                      width="640"
-                      height="805"
-                    />
-                    <div className="p-6 bg-gradient-to-r from-neutral-400 to-stone-500/90 text-left h-full">
-                      <div className="justify-start items-start">
-                        <h4 className="mb-2 text-2xl font-bold tracking-tight text-white">
-                          {service.title}
-                        </h4>
-                      </div>
-                      <p className="mb-3 font-normal text-white text-sm">
+                <div key={index} className="group">
+                  <div className="relative overflow-hidden rounded-2xl shadow-lg group-hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 h-full">
+                    <div className="aspect-[4/5] relative">
+                      <Image
+                        className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700"
+                        src={service.imageSrc}
+                        alt={service.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+                    </div>
+                    <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                      <h4 className="text-xl font-bold mb-2">{service.title}</h4>
+                      <p className="text-sm text-gray-200 leading-relaxed">
                         {service.description}
                       </p>
                     </div>
@@ -310,214 +323,242 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="max-w-screen-2xl  mx-auto pt-10 px-4 lg:px-8">
-          <div className="relative lg:pt-44">
-            <div className="">
-              <p className="sm:mx-auto sm:w-10/12 md:w-2/3 p-1 text-swPrimary500 font-semibold md:text-center text-start sm:text-[18px] md:text-[18px] lg:text-[18px] lg:w-auto lg:text-left">
-                Fleet Showcase
+        {/* Fleet Showcase Section */}
+        <section className="py-20 bg-gradient-to-br from-slate-50 to-slate-100">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold text-swPrimary700 mb-6">
+                Our Premium Fleet
+              </h2>
+              <p className="text-xl text-slate-600 max-w-3xl mx-auto mb-8">
+                Discover our exclusive collection of luxury aircraft, each designed for unparalleled comfort and performance
               </p>
-              <h1 className="mt-8 sm:mx-auto sm:w-10/12 md:w-2/3 text-swGray800 text-3xl font-semibold md:text-center text-start sm:text-5xl md:text-5xl lg:w-auto lg:text-left">
-                Our Fleets.
-              </h1>
-              <div className="flex  gap-8 mt-12 items-center">
-                <div className="w-full md:w-1/2">
-                  {fleet.map((item, index) => (
-                    <div
-                      key={item.id}
-                      className="relative"
-                      onMouseEnter={() => handleMouseEnter(index)}
-                      onMouseLeave={handleMouseLeave}
-                    >
-                      <Link
-                        href={`/fleet-specification/${item.id}`}
-                        className="lg:p-2 grid grid-cols-1 gap-2 lg:grid-cols-3 lg:gap-8 border-gray-200 rounded duration-300 hover:bg-swBgGray"
-                      >
-                        <div className="flex items-start sm:items-center fleet-item space-y-2 sm:space-y-0">
-                          <a aria-label="icon" className="block">
-                            <p className="font-medium md:block text-[18px] text-swGray600">
-                              {item.name}
-                            </p>
-                          </a>
+              <div className="w-24 h-1 bg-swPrimary500 mx-auto rounded-full"></div>
+            </div>
+
+            {/* Featured Aircraft Display */}
+            <div className="mb-16">
+              {hoveredIndex >= 0 && fleet[hoveredIndex]?.image && (
+                <div className="relative rounded-3xl overflow-hidden shadow-2xl bg-white">
+                  <div className="aspect-[16/9] relative">
+                    <Image
+                      className="w-full h-full object-cover"
+                      src={fleet[hoveredIndex].image}
+                      alt={`${fleet[hoveredIndex].name} aircraft`}
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 1200px"
+                      priority
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <h3 className="text-3xl md:text-4xl font-bold mb-2">
+                            {fleet[hoveredIndex].name}
+                          </h3>
+                          <p className="text-lg text-gray-200 opacity-90">
+                            {fleet[hoveredIndex].features?.classification || 'Premium Aircraft'}
+                          </p>
                         </div>
-                        <div className="flex items-start justify-between text-xs text-swGray800 px-1 py-3 lg:col-span-2">
-                          <div className="flex flex-col gap-4 w-full">
-                            <div className="flex justify-between gap-8 font-normal sm:mt-0 mt-[-10px]">
-                              <div className="flex items-center">
-                                <svg className="w-6 h-6" viewBox="0 0 24 24">
-                                  <path fill="currentColor" d={mdiCarSeat} />
-                                </svg>
-                                <span className="ml-3">
-                                  {item.features.no_of_seats} seats
-                                </span>
-                              </div>
-                              <div className="flex items-center">
-                                <svg className="w-6 h-6" viewBox="0 0 24 24">
-                                  <path
-                                    fill="currentColor"
-                                    d={mdiSpeedometer}
-                                  />
-                                </svg>
-                                <span className="ml-3">{item.speed}</span>
-                              </div>
-                              <div className="flex items-center">
-                                <svg className="w-6 h-6" viewBox="0 0 24 24">
-                                  <path
-                                    fill="currentColor"
-                                    d={mdiArrowLeftRight}
-                                  />
-                                </svg>
-                                <span className="ml-3">{item.feet}</span>
-                              </div>
-                            </div>
+                        <div className="text-right">
+                          <div className="bg-white/20 backdrop-blur-sm rounded-full px-4 py-2">
+                            <span className="text-sm font-medium">Featured</span>
                           </div>
                         </div>
-                      </Link>
-                      <hr className="w-full border-gray-200 mb-3 sm:mb-0" />
-                    </div>
-                  ))}
-                </div>
-                <div className="hidden md:flex md:w-1/2 justify-center items-center">
-                  <div className="">
-                    {hoveredIndex >= 0 && fleet[hoveredIndex]?.image && (
-                      <div
-                        key={fleet[hoveredIndex].id}
-                        className={`relative fleet-image show`}
-                      >
-                        <Image
-                          className="image-class"
-                          src={fleet[hoveredIndex].image}
-                          alt="illustration"
-                          loading="lazy"
-                          layout="responsive"
-                          width={780}
-                          height={492}
-                        />
                       </div>
-                    )}
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
+            </div>
 
-              <div
-                className={`${space_grotesk.className} flex justify-end text-xl py-8 lg:p-0 mt-10`}
-              >
-                <Button
-                  label="See all"
+            {/* Fleet Grid */}
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mb-12">
+              {fleet.map((item, index) => (
+                <div
+                  key={item.id}
+                  className="group cursor-pointer"
+                  onMouseEnter={() => handleMouseEnter(index)}
+                  onMouseLeave={handleMouseLeave}
+                >
+                  <Link
+                    href={`/fleet-specification/${item.id}`}
+                    className="block bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-slate-200 overflow-hidden"
+                  >
+                    {/* Aircraft Image */}
+                    <div className="aspect-[4/3] relative overflow-hidden">
+                      <Image
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                        src={item.image}
+                        alt={`${item.name} aircraft`}
+                        width={400}
+                        height={300}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <div className="absolute top-4 right-4 bg-swPrimary500 text-white rounded-full px-3 py-1 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        {index + 1}
+                      </div>
+                    </div>
+
+                    {/* Aircraft Details */}
+                    <div className="p-6">
+                      <h3 className="text-xl font-bold text-slate-800 mb-3 group-hover:text-swPrimary600 transition-colors duration-300">
+                        {item.name}
+                      </h3>
+                      
+                      {/* Specs Grid */}
+                      <div className="grid grid-cols-3 gap-3 mb-4">
+                        <div className="text-center p-3 bg-slate-50 rounded-lg">
+                          <div className="flex justify-center mb-2">
+                            <svg className="w-5 h-5 text-swPrimary500" viewBox="0 0 24 24">
+                              <path fill="currentColor" d={mdiCarSeat} />
+                            </svg>
+                          </div>
+                          <p className="text-sm font-semibold text-slate-700">{item.features.no_of_seats}</p>
+                          <p className="text-xs text-slate-500">Seats</p>
+                        </div>
+                        <div className="text-center p-3 bg-slate-50 rounded-lg">
+                          <div className="flex justify-center mb-2">
+                            <svg className="w-5 h-5 text-swPrimary500" viewBox="0 0 24 24">
+                              <path fill="currentColor" d={mdiSpeedometer} />
+                            </svg>
+                          </div>
+                          <p className="text-sm font-semibold text-slate-700">{item.speed}</p>
+                          <p className="text-xs text-slate-500">Speed</p>
+                        </div>
+                        <div className="text-center p-3 bg-slate-50 rounded-lg">
+                          <div className="flex justify-center mb-2">
+                            <svg className="w-5 h-5 text-swPrimary500" viewBox="0 0 24 24">
+                              <path fill="currentColor" d={mdiArrowLeftRight} />
+                            </svg>
+                          </div>
+                          <p className="text-sm font-semibold text-slate-700">{item.feet}</p>
+                          <p className="text-xs text-slate-500">Range</p>
+                        </div>
+                      </div>
+
+                      {/* View Details Button */}
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm text-slate-500">Click to view details</span>
+                        <div className="bg-swPrimary500 text-white rounded-full p-2 group-hover:bg-swPrimary600 transition-colors duration-300">
+                          <HiArrowRight className="w-4 h-4" />
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                </div>
+              ))}
+            </div>
+
+            {/* Call to Action */}
+            <div className="text-center">
+              <div className="bg-white rounded-3xl p-8 shadow-lg border border-slate-200 max-w-2xl mx-auto text-center">
+                <h3 className="text-2xl font-bold text-slate-800 mb-4">
+                  Ready to Experience Luxury in the Sky?
+                </h3>
+                <p className="text-slate-600 mb-6">
+                  Explore our complete fleet and find the perfect aircraft for your next journey
+                </p>
+     <div className="flex justify-center"> 
+     <Button
+                  label="View Complete Fleet"
                   bgColor={"bg-swPrimary500"}
                   textColor={"text-white"}
-                  endIcon={<HiArrowRight size={15} />}
+                  endIcon={<HiArrowRight size={20} />}
                   onClick={handleSeeAllClick}
+                  className="px-8 py-4 text-lg font-semibold rounded-full hover:bg-swPrimary600 transition-colors duration-300 shadow-lg hover:shadow-xl"
                 />
+     </div>
               </div>
             </div>
           </div>
         </section>
 
-        <section className="max-w-screen-2xl mx-auto pt-10">
-          <div className="px-4 md:px-6 text-start md:text-center">
-            <div className="mb-16">
-              <h2 className="mb-4 text-start m d:text-center text-[18px] font-semibold text-swPrimary500  md:text-[18px] ">
+        {/* Membership Section */}
+        <section className="py-20 bg-white">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold text-swPrimary700 mb-6">
                 Membership
               </h2>
-              <p className="text-swGray800 max-w-4xl mt-8 sm:mx-auto md:text-lg text-start md:text-center text-md ">
+              <p className="text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed mb-8">
                 Enjoy the benefits of{" "}
-                <span
-                  className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
-                >
+                <span className={`${libre_baskerville.className} text-swPrimary500 font-bold`}>
                   Swift<i className="font-normal">Wings</i>
                 </span>{" "}
-                Network with high profile individuals like you, strike a deeper
-                connection, and get access to premium services like: unlimited
-                private jet access, highly personalised travel experience,
-                priority scheduling,{" "}
+                Network with high profile individuals like you, strike a deeper connection, 
+                and get access to premium services like: unlimited private jet access, 
+                highly personalized travel experience, priority scheduling,{" "}
                 <a
                   href="https://www.swiftwingsjet.com/services"
-                  className="text-swGray800 font-bold hover:underline"
+                  className="text-swPrimary500 font-bold hover:underline"
                 >
-                  empty leg prior notification{" "}
+                  empty leg prior notification
                 </a>{" "}
                 , etc
               </p>
+              <div className="w-24 h-1 bg-swPrimary500 mx-auto rounded-full"></div>
             </div>
-          </div>
-          <div className="mb-16">
-            <h2 className="mb-8 text-center text-[18px]  text-gray-700 md:text-[18px] ">
-              Membership Features
-            </h2>
-            <div
-              style={{ display: "flex", justifyContent: "center" }}
-              className="px-4 md:px-0"
-            >
-              <div className="max-w-full grid gap-8 md:grid-cols-2 sm:grid-cols-2 xs:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 grid-rows-2 gap-y-8 justify-center items-center relative">
+
+            <div className="mb-16">
+              <h3 className="text-2xl font-bold text-slate-800 text-center mb-12">
+                Membership Features
+              </h3>
+              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                 {textAreas.map((area, index) => (
                   <div
                     key={index}
-                    style={{
-                      width: "100%",
-                      maxWidth: "270px",
-                      height: "180px",
-                    }}
-                    className={`bg-swSecondary200 outline-none features-card flex flex-col justify-center items-center py-6 px-4 md:px-6 text-lg md:text-xl text-swGray600 text-center`}
+                    className="bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl p-8 text-center border border-slate-200 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
                   >
-                    {area.description}
+                    <div className="text-slate-700 text-lg leading-relaxed">
+                      {area.description}
+                    </div>
                   </div>
                 ))}
               </div>
             </div>
-            {/* <div className="flex justify-center text-lg mt-24">
-              <Button
-                label="Become a member"
-                bgColor={"bg-swPrimary500"}
-                textColor={"text-white"}
-                endIcon={<CiStar size={20} />}
-              />
-            </div> */}
           </div>
         </section>
-        <section className="p-5 md:p-10 pb-10">
-          <div className="max-w-screen-3xl mx-auto bg-white w-full flex justify-center items-center p-8">
-            <div className="max-w-screen-3xl px-4 pb-8 mx-auto lg:pb-16">
-              <h2 className="mb-16 text-center text-[18px] font-semibold text-swPrimary500 md:text-[18px]">
+
+        {/* Clients Section */}
+        <section className="py-20 bg-gradient-to-br from-slate-50 to-slate-100">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold text-swPrimary700 mb-6">
                 Our Clients
               </h2>
-              <p className="text-swGray800  font-semibold max-w-2xl mb-16 sm:mx-auto text-xl md:text-center text-start sm:text-5xl">
+              <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed mb-8">
                 Trusted by top brands, we offer a world-class exotic experience.
               </p>
-              <div className="flex justify-center mt-5">
-                <div className="flex flex-wrap justify-center gap-4 sm:gap-12 max-w-screen-xl">
-                  {[
-                    Cubana,
-                    Polaris,
-                    Odu,
-                    Neveah,
-                    Aella,
-                    Gluwa,
-                    Century,
-                    Zenco,
-                    Delborough,
-                  ].map((logo, index) => (
-                    <a
-                      key={index}
-                      className="flex justify-center items-center w-32 h-32"
-                    >
-                      <Image
-                        className="w-full h-full object-contain filter grayscale transition transform hover:scale-110 hover:grayscale-0"
-                        src={logo}
-                        alt="Client Logo"
-                        loading="lazy"
-                        layout="fixed"
-                        width={96}
-                        height={96}
-                      />
-                    </a>
-                  ))}
+              <div className="w-24 h-1 bg-swPrimary500 mx-auto rounded-full"></div>
+            </div>
+
+            <div className="grid grid-cols-3 md:grid-cols-5 gap-8 md:gap-12">
+              {[
+                Cubana, Polaris, Odu, Neveah, Aella,
+                Gluwa, Century, Zenco, Delborough,
+              ].map((logo, index) => (
+                <div
+                  key={index}
+                  className="flex justify-center items-center group"
+                >
+                  <div className="w-24 h-24 md:w-32 md:h-32 bg-white rounded-2xl p-4 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+                    <Image
+                      className="w-full h-full object-contain filter grayscale transition-all duration-300 group-hover:grayscale-0 group-hover:scale-110"
+                      src={logo}
+                      alt="Client Logo"
+                      width={96}
+                      height={96}
+                    />
+                  </div>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
-          
         </section>
-        <Whatsapp/>
+
+        <Whatsapp />
       </NavAndFooter>
     </main>
   );

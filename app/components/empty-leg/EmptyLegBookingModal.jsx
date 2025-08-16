@@ -151,13 +151,13 @@ function EmptyLegBookingModal({ open, onClose, leg, setBookingSuccess }) {
   if (!open) return null;
 
   return (
-    <main className="fixed w-screen h-screen top-0 left-0 bg-black bg-opacity-25 flex justify-center items-center p-5 z-50">
+    <main className="fixed w-screen h-screen top-0 left-0 bg-black/50 backdrop-blur-sm flex justify-center items-center p-4 z-[9999]">
       <ToastContainer />
-      <div className="max-w-4xl max-h-[95vh] w-full rounded-3xl bg-white flex overflow-hidden relative">
-        <div className="absolute right-5 top-5 p-2 rounded-full cursor-pointer border sm:hidden">
+      <div className="max-w-4xl w-full max-h-[90vh] rounded-3xl bg-white flex overflow-hidden relative shadow-2xl">
+        <div className="absolute right-5 top-5 p-2 rounded-full cursor-pointer border bg-white/80 backdrop-blur-sm sm:hidden z-10">
           <SWClose className="text-2xl" onClick={() => closeModal()} />
         </div>
-        <div className="px-5 py-10 w-full sm:w-[45%] overflow-y-auto">
+        <div className="px-6 py-8 w-full sm:w-[45%] overflow-y-auto">
           <p className="text-center text-2xl font-semibold">Make An Offer</p>
           <p className="text-center text-sm max-w-72 mx-auto text-swGray900">
             Provide the following details to make an offer
@@ -251,7 +251,7 @@ function EmptyLegBookingModal({ open, onClose, leg, setBookingSuccess }) {
             quality={100}
             alt="Background Image"
           />
-          <div className="absolute right-5 top-5 p-2 rounded-full bg-white cursor-pointer">
+          <div className="absolute right-5 top-5 p-2 rounded-full bg-white/90 backdrop-blur-sm cursor-pointer shadow-lg hover:bg-white transition-colors duration-200 z-10">
             <SWClose className="text-2xl" onClick={() => closeModal()} />
           </div>
           <div className="absolute right-5 -bottom-10 text-white cursor-pointer">
