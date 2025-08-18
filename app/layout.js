@@ -5,6 +5,7 @@ import "./globals.css";
 import "react-toastify/dist/ReactToastify.css";
 import { Provider } from "react-redux";
 import { store } from "../redux/store";
+import { ToastContainer } from "react-toastify";
 
 
 const poppins = Poppins({
@@ -58,7 +59,7 @@ const RootLayout = ({ children }) => {
         </head>
 
         <body>
-
+          <ToastContainer />
           <div className={poppins.className}>
 
             {children}

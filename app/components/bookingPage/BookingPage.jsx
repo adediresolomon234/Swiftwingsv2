@@ -20,7 +20,7 @@ import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import { useDispatch, useSelector } from "react-redux";
 import { addBooking } from "../../../redux/slices/bookingSlice";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import BookingEngine from "../../components/bookingEngine/bookingEngine";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -35,6 +35,7 @@ import NotLoggedInModal from "./NotLoggedInModal";
 import AdditionalNoteModal from "./AdditionalNoteModal";
 import { validatePassengersAgainstLowestSeats } from "../helpers/utils";
 import CancelModal from "../shared/modals/CancelModal";
+import PremiumRideModal from "./PremiumRideModal";
 
 const BookingPageInformation = () => {
   const pathname = usePathname();
@@ -55,6 +56,7 @@ const BookingPageInformation = () => {
   const [notLoggedInModal, setNotLoggedInModal] = useState(false);
   const [isPassengerError, setPassengerError] = useState(false);
   const [passengersErrors, setPassengersErrors] = useState([]);
+  const [openPremiumRideModal, setOpenPremiumModal] = useState(false);
   const source = params.get("source");
 
   const { error, data } = useSelector((state) => state.booking);
@@ -111,17 +113,17 @@ const BookingPageInformation = () => {
   };
 
   const handleQuote = () => {
-    setPassengersErrors([]);
-    const errors = validatePassengersAgainstLowestSeats(
-      bookingDetails?.additional_quote,
-      bookingDetails?.booking_details?.formData
-    );
-    if (errors?.length > 0) {
-      setPassengerError(true);
-      setPassengersErrors(errors);
-      return;
-    }
     if (loggedInUser) {
+      setPassengersErrors([]);
+      const errors = validatePassengersAgainstLowestSeats(
+        bookingDetails?.additional_quote,
+        bookingDetails?.booking_details?.formData
+      );
+      if (errors?.length > 0) {
+        setPassengerError(true);
+        setPassengersErrors(errors);
+        return;
+      }
       setLoading(true);
       bookingDetails.status = "New";
       bookingDetails.user = loggedInUser;
@@ -147,7 +149,10 @@ const BookingPageInformation = () => {
         })
         .finally(() => setLoading(false));
     } else {
-      setNotLoggedInModal(true);
+      // setNotLoggedInModal(true);
+      localStorage.setItem("bookingInComplete", true);
+      toast.error("You are not logged in. Kindly login to continue")
+      router.push("/sign-in");
     }
   };
 
@@ -197,20 +202,25 @@ const BookingPageInformation = () => {
     <>
       {hydrated ? (
         <main>
-          <ToastContainer />
+          {/* <ToastContainer /> */}
           <div className="bg-swLightBgGray z-10">
             <div className="m-5 mx-auto max-w-[90rem] z-10">
               <BookingEngine setBookingDetails={setBookingDetails} />
               <div className="lg:flex block md:gap-10 text-swGray800 mt-10">
                 <div className="w-full">
-                  <div className="flex items-center justify-between flex-wrap gap-3 mb-5">
-                    <p className="text-xl font-medium">Select Private Jet</p>
-                    {/* <p className="text-xl font-medium mb-5 ">Flight Summary</p> */}
-                    <div className="flex items-center justify-between gap-3">
+                  <div className="flex items-center justify-between flex-wrap gap-3 mb-6">
+                    <div className="flex items-center gap-2">
+                      <div className="w-1 h-6 bg-gradient-to-b from-swPrimary500 to-swPrimary600 rounded-full"></div>
+                      <div>
+                        <h2 className="text-lg font-bold text-slate-800">Select Private Jet</h2>
+                        <p className="text-xs text-slate-500">Choose from our premium fleet</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
                       <Button
                         label={"Additional Note"}
-                        bgColor={"bg-swPrimary500 hover:bg-swPrimary600"}
-                        className="text-white text-center text-sm"
+                        bgColor={"bg-white hover:bg-gray-50"}
+                        className="text-slate-700 text-center text-xs border border-slate-200 hover:border-slate-300 px-3 py-2"
                         onClick={() =>
                           setOpenAdditionalNote(!openAdditionalNote)
                         }
@@ -218,127 +228,121 @@ const BookingPageInformation = () => {
                       <Button
                         label={"Request Quote"}
                         bgColor={"bg-swPrimary500 hover:bg-swPrimary600"}
-                        className="text-white text-center text-sm"
-                        onClick={handleQuote}
+                        className="text-white text-center text-xs shadow-md hover:shadow-lg px-3 py-2"
+                        // onClick={handleQuote}
+                        onClick={() => setOpenPremiumModal(true)}
                         loader={loading}
                         disabled={handleQuoteDisable()}
                       />
                     </div>
                   </div>
-                  <div className="w-full rounded-2xl border md:p-5 p-0 bg-white">
-                    {jetData?.map((item, index) => (
-                      <div key={item?.id} className="mb-8">
-                        <div className="transition ease-in-out delay-100 duration-1000 flex flex-col md:flex-row gap-6  justify-between items-center hover:bg-swLighterBgGray p-5 rounded-xl cursor-pointer focus:border focus:outline-swPrimary500">
-                          <div className="w-full lg:w-[37rem] flex gap-5 items-center whitespace-nowrap">
-                            <input
-                              type="checkbox"
-                              onChange={(e) =>
-                                handleAircraftSelect(e, item, index)
-                              }
-                              className="h-6 w-6 accent-swPrimary500"
-                            />
-                            <div className="text-swLightGray">
-                              <p className="text-lg font-medium flex items-center gap-3">
-                                {item?.name}
-                                {item?.rank && item?.rank === 3 && (
-                                  <GoldWing className="h-5 w-10" />
-                                )}
-                                {item?.rank && item?.rank === 2 && (
-                                  <SilverWing className="h-5 w-10" />
-                                )}
-                                {item?.rank && item?.rank === 1 && (
-                                  <BronzeWing className="h-5 w-10" />
-                                )}
-                              </p>
-                              <p className="text-sm">
-                                {item?.features?.classification}
-                              </p>
+                  <div className="w-full max-h-96 overflow-y-auto border border-slate-200 rounded-lg bg-white">
+                    <div className="p-2">
+                      {jetData?.map((item, index) => (
+                        <div key={item?.id} className="mb-2 last:mb-0">
+                          <div className="bg-white border border-slate-200 rounded-lg p-3 hover:shadow-md transition-all duration-200 group">
+                            <div className="flex items-center gap-4">
+                              {/* Checkbox */}
+                              <input
+                                type="checkbox"
+                                onChange={(e) =>
+                                  handleAircraftSelect(e, item, index)
+                                }
+                                className="h-4 w-4 accent-swPrimary500 rounded border border-slate-300 hover:border-swPrimary500 transition-colors duration-200"
+                              />
+                              
+                              {/* Aircraft Info */}
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-center gap-2 mb-1">
+                                  <h3 className="text-sm font-semibold text-slate-800 truncate">
+                                    {item?.name}
+                                  </h3>
+                                  {item?.rank && item?.rank === 3 && (
+                                    <GoldWing className="h-4 w-8" />
+                                  )}
+                                  {item?.rank && item?.rank === 2 && (
+                                    <SilverWing className="h-4 w-8" />
+                                  )}
+                                  {item?.rank && item?.rank === 1 && (
+                                    <BronzeWing className="h-4 w-8" />
+                                  )}
+                                </div>
+                                <p className="text-xs text-slate-500 mb-2">
+                                  {item?.features?.classification}
+                                </p>
+                                
+                                {/* Location */}
+                                <div className="flex items-center gap-1">
+                                  <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                                  <p className="text-xs text-slate-600 font-medium">
+                                    {item?.location}
+                                  </p>
+                                </div>
+                              </div>
+
+                              {/* Specs Grid */}
+                              <div className="hidden md:grid grid-cols-4 gap-3 text-center">
+                                <div className="flex flex-col items-center">
+                                  <SwSeatIcon className="text-sm text-swPrimary600 mb-1" />
+                                  <p className="text-xs font-semibold text-slate-800">
+                                    {item?.features?.no_of_seats}
+                                  </p>
+                                  <p className="text-xs text-slate-500">Seats</p>
+                                </div>
+                                <div className="flex flex-col items-center">
+                                  <SwLuggageIcon className="text-sm text-swPrimary600 mb-1" />
+                                  <p className="text-xs font-semibold text-slate-800">
+                                    {item?.feet}
+                                  </p>
+                                  <p className="text-xs text-slate-500">ft³</p>
+                                </div>
+                                <div className="flex flex-col items-center">
+                                  <SwMeterIcon className="text-sm text-swPrimary600 mb-1" />
+                                  <p className="text-xs font-semibold text-slate-800">
+                                    {item?.speed}
+                                  </p>
+                                  <p className="text-xs text-slate-500">Speed</p>
+                                </div>
+                                <div className="flex flex-col items-center">
+                                  <SWMeterIconNew className="text-sm text-swPrimary600 mb-1" />
+                                  <p className="text-xs font-semibold text-slate-800">
+                                    {item?.kilometer}
+                                  </p>
+                                  <p className="text-xs text-slate-500">Range</p>
+                                </div>
+                              </div>
+
+                              {/* Action Button */}
+                              {pathname === "/user-booking" ? (
+                                <div className="w-8 h-8 bg-slate-100 rounded-full flex items-center justify-center group-hover:bg-slate-200 transition-colors duration-200">
+                                  <SwArrowRightIcon className="text-sm text-slate-600" />
+                                </div>
+                              ) : (
+                                <div className="flex items-center gap-2 py-2 px-3 rounded-full bg-slate-100 hover:bg-slate-200 transition-all duration-200">
+                                  <p className="text-xs font-medium text-slate-700 whitespace-nowrap">
+                                    View Jet
+                                  </p>
+                                  <SwArrowRightIcon className="text-xs text-slate-600" />
+                                </div>
+                              )}
                             </div>
                           </div>
-
-                          <div className="w-full text-swGray800 grid grid-cols-3 gap-x-3 gap-y-8 sm:grid-cols-2">
-                            <div className="flex flex-col gap-4">
-                              <div className="flex items-center gap-2">
-                                <SwSeatIcon className="text-lg" />
-                                <p className="text-xs">
-                                  {item?.features?.no_of_seats} Seats
-                                </p>
-                              </div>
-                              <div className="flex items-center gap-2">
-                                <SwLuggageIcon className="text-lg" />
-                                <p className="text-xs">
-                                  {item?.feet} ft³ Luggage
-                                </p>
-                              </div>
-                            </div>
-
-                            <div className="flex flex-col gap-4">
-                              <div className="flex items-center gap-2">
-                                <SwMeterIcon className="text-lg" />
-                                <p className="text-xs">{item?.speed} mph</p>
-                              </div>
-                              <div className="flex items-center gap-2">
-                                <SWMeterIconNew className="text-lg" />
-                                <p className="text-xs">
-                                  {item?.kilometer} km Range
-                                </p>
-                              </div>
-                            </div>
-
-                            {/* Third Column: Dimensions */}
-                            <div className="flex flex-col gap-2">
-                              <div className="flex items-center gap-2">
-                                <SwLeftRightArrowIcon className="text-lg" />
-                                <p className="text-xs">
-                                  {item?.features?.interior_width} ft Width
-                                </p>
-                              </div>
-                              <div className="flex items-center gap-2">
-                                <SwTopBottomArrowIcon className="text-lg" />
-                                <p className="text-xs">
-                                  {item?.features?.interior_height} ft Height
-                                </p>
-                              </div>
-                            </div>
-                            <div className="flex flex-col gap-2">
-                              <div className="flex items-center gap-2">
-                                <Image
-                                  src={redCircle}
-                                  alt={location}
-                                  width={20}
-                                  height={20}
-                                />
-                                <p className="text-xs">{item?.location}</p>
-                              </div>
-                            </div>
-                          </div>
-
-                          {/* View Jet Button */}
-                          {pathname === "/user-booking" ? (
-                            <SwArrowRightIcon className="text-2xl" />
-                          ) : (
-                            <div className="flex items-center gap-3 py-2 px-4 rounded-full hover:bg-white">
-                              <p className="font-medium whitespace-nowrap">
-                                View Jet
-                              </p>
-                              <SwArrowRightIcon className="text-sm" />
-                            </div>
-                          )}
                         </div>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
                   </div>
                 </div>
 
                 <div className="md:w-1/3 w-full">
-                  <p className="text-xl font-medium mb-5 ">Flight Summary</p>
-                  <div className="w-full rounded-2xl border p-5 p-0 bg-white">
-                    <p className="font-semibold text-lg">
-                      Flight from {sourceDetails?.city || "Select city"} ,{" "}
-                      {sourceDetails?.country} -{" "}
-                      {destinationDetails?.city || "Select city"},{" "}
-                      {destinationDetails?.country}
-                    </p>
+                  <div className="flex items-center gap-2 mb-6">
+                    <div className="w-1 h-6 bg-gradient-to-b from-swPrimary500 to-swPrimary600 rounded-full"></div>
+                    <div>
+                      <h2 className="text-lg font-bold text-slate-800">Flight Summary</h2>
+                      <p className="text-xs text-slate-500">Your journey details</p>
+                    </div>
+                  </div>
+                  <div className="w-full rounded-2xl border border-slate-200 p-6 bg-white shadow-sm">
+            
 
                     {bookingDetails?.booking_details?.formData.map(
                       (item, index) => (
@@ -422,25 +426,21 @@ const BookingPageInformation = () => {
                         </div>
                       )
                     )}
-
-                    <div className="p-3 bg-swLighterBgGray rounded-xl my-7">
-                      <p className="text-sm">
-                        Include free Baggage & Cabin in capacity Per person
-                      </p>
-                      <div className="flex gap-5 mt-2">
-                        <div className="flex gap-2 items-center">
-                          <SwLuggageIcon className="text-lg" />
-                          <p>40 Kg</p>
-                        </div>
-                        <div className="flex gap-2 items-center">
-                          <SwWeightIcon className="text-lg" />
-                          <p>10 Kg</p>
-                        </div>
-                      </div>
-                    </div>
                     {additionalNote && (
-                      <div className="p-5 text-sm bg-gray-100 mb-5 rounded-md">
-                        {additionalNote}
+                      <div className="mb-6">
+                        <h3 className="text-base font-semibold text-slate-800 mb-3">
+                          Additional Notes
+                        </h3>
+                        <div className="p-4 bg-amber-50 rounded-xl border border-amber-200">
+                          <div className="flex items-start gap-3">
+                            <div className="w-6 h-6 bg-amber-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                              <span className="text-amber-600 text-xs font-bold">!</span>
+                            </div>
+                            <p className="text-sm text-slate-700 leading-relaxed">
+                              {additionalNote}
+                            </p>
+                          </div>
+                        </div>
                       </div>
                     )}
                     <div className="flex flex-col gap-3">
@@ -535,6 +535,13 @@ const BookingPageInformation = () => {
         bookingDetails={bookingDetails}
         unCheckAllBoxes={uncheckBoxes}
         setSuccess={setNotLoggedInSuccess}
+      />
+      <PremiumRideModal
+        bookingDetails={bookingDetails}
+        setBookingDetails={setBookingDetails}
+        open={openPremiumRideModal}
+        setOpen={setOpenPremiumModal}
+        isSubmitting={handleQuote}
       />
     </>
   );

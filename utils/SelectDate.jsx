@@ -19,7 +19,7 @@ import { ThemeProvider, createTheme } from "@mui/material";
 //   onClose?: (state: boolean) => void;
 // }
 
-const SelectDate = ({ isOpen, value, onChange, onClose }) => {
+const SelectDate = ({ isOpen, value, onChange, onClose, disablePast }) => {
   const [selected, setSelected] = useState(null);
 
   const customTheme = createTheme({
@@ -49,6 +49,7 @@ const SelectDate = ({ isOpen, value, onChange, onClose }) => {
           open={isOpen}
           onClose={() => onClose && onClose(null)}
           value={selected}
+          disablePast={disablePast}
           onAccept={() => {
             onChange && onChange(selected);
             setSelected(null);

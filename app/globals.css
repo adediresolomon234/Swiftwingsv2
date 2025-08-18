@@ -57,19 +57,86 @@ fieldset.MuiOutlinedInput-notchedOutline {
   animation: pulsate 2s infinite ease-in-out;
 }
 
-/* .PhoneInputInput:focus {
-  outline: none;
+/* Enhanced shadows for the new design */
+.shadow-3xl {
+  box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.25);
 }
 
-.PhoneInputCountrySelect option:checked {
-  background-color: #5c0632 !important;
-  color: white !important;
+/* Smooth transitions */
+.transition-all {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.PhoneInputCountrySelect option:hover {
-  background-color: #b48ca1 !important;
-  color: white !important;
-} */
 
+/* Backdrop blur support */
+.backdrop-blur-sm {
+  backdrop-filter: blur(4px);
+}
+
+.backdrop-blur-md {
+  backdrop-filter: blur(12px);
+}
+
+/* Enhanced gradients */
+.bg-gradient-hero {
+  background: linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.8) 100%);
+}
+
+/* Hover effects */
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Card animations */
+.card-enter {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease;
+}
+
+.card-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsive text utilities */
+.text-responsive-xl {
+  font-size: clamp(1.5rem, 4vw, 3rem);
+}
+
+.text-responsive-2xl {
+  font-size: clamp(2rem, 5vw, 4rem);
+}
+
+.text-responsive-3xl {
+  font-size: clamp(2.5rem, 6vw, 5rem);
+}
+
+/* Custom scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Phone input styles */
 .react-tel-input {
   width: 100% !important;
 }
@@ -95,7 +162,16 @@ fieldset.MuiOutlinedInput-notchedOutline {
   color: white !important; /* Text color on hover */
 }
 
-.country-list{
+.country-list {
   margin-left: -5px !important;
   margin-bottom: -10px !important;
+}
+
+.form-control,
+.flag-dropdown .selected-flag {
+  /* border-radius:40px !important; */
+  border-radius: 10px !important;
+}
+.form-control {
+  font-weight: normal !important;
 }

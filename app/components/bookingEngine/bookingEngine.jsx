@@ -9,19 +9,19 @@ import {
   SwSearchIcon,
   SwUserIcon,
 } from "../svgs";
-import Select from "react-select";
-import { FiMinus, FiPlus } from "react-icons/fi";
 import Button from "../Button";
-import { IoCheckmark } from "react-icons/io5";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import airportsData from "../helpers/airportsData.json";
 import dayjs from "dayjs";
 import { HiArrowRight } from "react-icons/hi";
-import { FaSearch } from "react-icons/fa";
 import { usePathname, useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 import SelectDate from "../../../utils/SelectDate";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
+import TripTypeButton from "./TripTypeButton";
+import DetailCard from "./DetailCard";
+import PassengerSelector from "./PassengerSelect";
+import ReusableSelect from "../shared/ReusableSelect";
 
 const space_grotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -36,13 +36,8 @@ const BookingEngine = ({ setBookingDetails }) => {
   const [isDateOpen, setDateOpen] = useState(null);
   const [isArrivalDateOpen, setArrivalDateOpen] = useState(false);
   const [openPassangers, setOpenPassageners] = useState(null);
-  const [selectedOption, setSelectedOption] = useState("");
   const [airports, setAirports] = useState(airportsData || []);
-  const departureRef = useRef(null);
-  const arrivalRef = useRef(null);
   const [loading, setLoading] = useState(false);
-  // const dateRef = useRef(null);
-  const passengerRef = useRef(null);
   const { data } = useSelector((state) => state.booking);
 
   const [bookingState, setBookingState] = useState([
@@ -54,7 +49,7 @@ const BookingEngine = ({ setBookingDetails }) => {
       returningTime: null,
       returningDate: null,
       passengers: {
-        adults: 0,
+        adults: 1,
         children: 0,
         pets: 0,
       },
@@ -62,6 +57,7 @@ const BookingEngine = ({ setBookingDetails }) => {
   ]);
 
   const updateBookingState = (updatedFields, index, date) => {
+    console.log({ updatedFields });
     setBookingState((prevState) => {
       const newState = prevState.map((booking, idx) => {
         if (idx === index) {
@@ -98,17 +94,20 @@ const BookingEngine = ({ setBookingDetails }) => {
   };
 
   const handlePassangerCalc = (passenger, sign, index) => {
-    setBookingState((prev) => {
-      const updatedPassengers = [...prev];
-      if (sign === "add") {
-        updatedPassengers[index].passengers[passenger] += 1;
-      } else {
-        if (updatedPassengers[index].passengers[passenger] > 0) {
-          updatedPassengers[index].passengers[passenger] -= 1;
+    setBookingState((prev) =>
+      prev.map((booking, idx) => {
+        if (idx === index) {
+          const updatedPassengers = { ...booking.passengers };
+          if (sign === "add") {
+            updatedPassengers[passenger] += 1;
+          } else if (updatedPassengers[passenger] > 1) {
+            updatedPassengers[passenger] -= 1;
+          }
+          return { ...booking, passengers: updatedPassengers };
         }
-      }
-      return updatedPassengers;
-    });
+        return booking;
+      })
+    );
   };
 
   const resetBookingState = () => {
@@ -121,7 +120,7 @@ const BookingEngine = ({ setBookingDetails }) => {
         returningTime: null,
         returningDate: null,
         passengers: {
-          adults: 0,
+          adults: 1,
           children: 0,
           pets: 0,
         },
@@ -129,37 +128,26 @@ const BookingEngine = ({ setBookingDetails }) => {
     ]);
   };
 
-  const options = airports.map((item) => ({
-    label: (
-      <div className="flex justify-between hover:bg-swPrimary100 focus:bg-swPrimary100 hover:rounded-lg hover:border py-4 px-2">
-        <div className="flex gap-1 ">
-          <p className="text-[14px]">
-            {item.city}
-            {item.city && ", "}
-            {item.country}
-          </p>
-          <p className="font-light italic text-sm text-swGray pl-1 text-[14px]">
-            {item.name}
-          </p>
+  const options = useMemo(() => {
+    return airports.map((item) => ({
+      label: (
+        <div className="flex justify-between hover:rounded-lg py-4 px-2">
+          <div className="flex gap-1">
+            <p className="text-[14px]">
+              {item.city}
+              {item.city && ", "}
+              {item.country}
+            </p>
+            <p className="font-light italic text-sm text-swGray pl-1 text-[14px]">
+              {item.name}
+            </p>
+          </div>
+          <p className="text-swGray700">{item.iata_code}</p>
         </div>
-        <p className="text-swGray500">{item.iata_code}</p>
-      </div>
-    ),
-    value: item,
-  }));
-
-  const getOptionLabel = (option) => option?.label;
-
-  const filterOption = (option, inputValue) => {
-    const lowerCaseInput = inputValue.toLowerCase();
-
-    return (
-      option.value.city.toLowerCase().includes(lowerCaseInput) ||
-      option.value.country.toLowerCase().includes(lowerCaseInput) ||
-      option.value.name.toLowerCase().includes(lowerCaseInput) ||
-      option.value.iata_code.toLowerCase().includes(lowerCaseInput)
-    );
-  };
+      ),
+      value: item,
+    }));
+  }, []);
 
   const bookingBtnDisable = () => {
     if (bookingType === "Round Trip") {
@@ -191,18 +179,6 @@ const BookingEngine = ({ setBookingDetails }) => {
     }
   };
 
-  const colourStyles = {
-    control: (styles, { isFocused }) => ({
-      ...styles,
-      backgroundColor: "white",
-      padding: "5px",
-      borderRadius: "5px",
-      outline: isFocused ? "none" : "initial",
-      boxShadow: isFocused ? "none" : "initial",
-    }),
-    option: (styles) => ({ ...styles, backgroundColor: "white" }),
-  };
-
   const handleRemoveTrip = (index) => {
     const updatedFormData = bookingState.filter((_, idx) => idx !== index);
     setBookingState(updatedFormData);
@@ -219,7 +195,7 @@ const BookingEngine = ({ setBookingDetails }) => {
         returningTime: null,
         returningDate: null,
         passengers: {
-          adults: 0,
+          adults: 1,
           children: 0,
           pets: 0,
         },
@@ -246,26 +222,6 @@ const BookingEngine = ({ setBookingDetails }) => {
     router.push("/booking");
     // }, 1000);
   };
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (!departureRef?.current?.contains(event.target)) {
-        setOpenDeparture(null);
-      }
-      if (!arrivalRef?.current?.contains(event.target)) {
-        setOpenArrival(null);
-      }
-      if (!passengerRef?.current?.contains(event.target)) {
-        setOpenPassageners(null);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  });
 
   useEffect(() => {
     if (pathname === "/booking") {
@@ -309,100 +265,64 @@ const BookingEngine = ({ setBookingDetails }) => {
 
   return (
     <main>
-      <ToastContainer />
-      <div className="w-full rounded-3xl  ">
+      {/* <ToastContainer /> */}
+      <div className="w-full rounded-3xl">
         <div
-          className={`p-0 rounded-3xl  ${
+          className={`rounded-3xl shadow-lg ${
             pathname === "/"
-              ? "backdrop-blur bg-black/25 border border-swGray900"
-              : "bg-white border"
-          } p-5 `}
+              ? "backdrop-blur-md bg-black/30 border border-white/20"
+              : "bg-white border border-gray-200"
+          } p-6`}
         >
-          <div
-            className={`flex flex-wrap sm:justify-between sm:items-center mb-5 ${
-              pathname === "/" ? "flex-col sm:flex-row" : "flex-col sm:flex-row"
-            }`}
-          >
-            <p
-              className={`font-me ${
-                pathname === "/" ? "text-white" : "text-swGray800"
-              } ml-2 text-lg mt-5 md:mt-0`}
-            >
-              Book your flight!
-            </p>
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-8 gap-4">
+            <div className="flex items-center gap-3">
+              <div className={`w-2 h-8 rounded-full ${
+                pathname === "/" ? "bg-white/30" : "bg-swPrimary500"
+              }`}></div>
+              <h2
+                className={`font-bold text-xl md:text-2xl ${
+                  pathname === "/" ? "text-white" : "text-slate-800"
+                }`}
+              >
+                Book your flight!
+              </h2>
+            </div>
             <div
-              className={`p-1 text-xl rounded-full flex gap-5 font-medium ${
+              className={`p-2 rounded-2xl flex gap-1 font-medium shadow-lg ${
                 pathname === "/"
-                  ? "sm:backdrop-blur sm:bg-white/25"
-                  : "bg-white sm:bg-swGray50"
+                  ? "backdrop-blur-md bg-white/20 border border-white/30"
+                  : "bg-white border border-gray-200"
               }`}
             >
               <div className="flex">
-                <button
-                  className={`${
-                    bookingType === "One way Trip"
-                      ? `${
-                          pathname === "/"
-                            ? "text-white backdrop-blur bg-none md:bg-swBlack/50"
-                            : "text-swPrimary500 bg-white"
-                        } font-semibold text-sm md:text-lg`
-                      : `text-swGray500 font-medium hover:backdrop-blur hover:bg-white/5 text-sm md:text-lg`
-                  } py-2 px-4 rounded-full`}
-                  onClick={() => {
-                    resetBookingState();
-                    setBookingType("One way Trip");
-                  }}
-                >
-                  One-way Trip
-                </button>
-                <button
-                  className={`${
-                    bookingType === "Round Trip"
-                      ? `${
-                          pathname === "/"
-                            ? "text-white backdrop-blur  bg-none md:bg-swBlack/50"
-                            : "text-swPrimary500 bg-white"
-                        } font-semibold text-sm md:text-lg`
-                      : "text-swGray500 font-medium hover:backdrop-blur hover:bg-white/5 text-sm md:text-lg"
-                  } py-2 px-4 rounded-full`}
-                  onClick={() => {
-                    resetBookingState();
-                    setBookingType("Round Trip");
-                  }}
-                >
-                  Round Trip
-                </button>
-                <button
-                  className={`${
-                    bookingType === "Multi-city Trip"
-                      ? `${
-                          pathname === "/"
-                            ? "text-white backdrop-blur  bg-none md:bg-swBlack/50"
-                            : "text-swPrimary500 bg-white"
-                        } font-semibold text-sm md:text-lg`
-                      : "text-swGray500 font-medium hover:bg-white/5 text-sm md:text-lg"
-                  } py-2 px-4 rounded-full`}
-                  onClick={() => {
-                    resetBookingState();
-                    setBookingType("Multi-city Trip");
-                  }}
-                >
-                  Multi-city Trip
-                </button>
+                {["One way Trip", "Round Trip", "Multi-city Trip"].map(
+                  (trip) => (
+                    <TripTypeButton
+                      key={trip}
+                      type={trip}
+                      isActive={bookingType === trip}
+                      onClick={() => {
+                        resetBookingState();
+                        setBookingType(trip);
+                      }}
+                    />
+                  )
+                )}
               </div>{" "}
             </div>
             {pathname === "/" ? (
               <div
-                className={`${space_grotesk.className} hidden md:block  w-fit text-lg`}
+                className={`${space_grotesk.className} hidden md:block w-fit`}
                 onClick={handleBookJet}
               >
                 <Button
                   label="Book Jet"
-                  bgColor={"bg-swPrimary500 hover:bg-swPrimary600"}
+                  bgColor={"bg-gradient-to-r from-swPrimary500 to-swPrimary600 hover:from-swPrimary600 hover:to-swPrimary700"}
                   textColor={"text-white"}
                   endIcon={<HiArrowRight size={20} />}
                   loader={loading}
                   disabled={loading || bookingBtnDisable()}
+                  className="shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5"
                 />
               </div>
             ) : (
@@ -427,468 +347,206 @@ const BookingEngine = ({ setBookingDetails }) => {
                   />
                 ) : null}
               </div>
-              <div className="grid items-center gap-5 mx-auto grid-cols-1 md:grid-cols-2 md:grid-rows-1 w-full">
-                <div className="mx-auto grid-cols-1 md:grid-rows-1 md:grid-cols-2 grid relative w-full">
-                  <div
-                    className={`flex h-[5.5rem] z-10 pl-5 relative w-full items-center gap-5 border backdrop-blur rounded-tl-2xl rounded-tr-2xl md:rounded-tr-none md:rounded-l-none md:rounded-tl-2xl md:rounded-bl-2xl cursor-pointer  ${
-                      pathname === "/"
-                        ? "border-swGray900 bg-swBlack/40 hover:bg-swBlack/40"
-                        : ""
-                    }`}
+              <div className="grid items-start gap-6 mx-auto grid-cols-1 lg:grid-cols-2 w-full">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 relative w-full">
+                  <DetailCard
                     onClick={() => setOpenDeparture(index)}
+                    headerText="Departure city"
+                    icon={<SwDeparturePlaneIcon className="text-xl" />}
+                    icon_bg={true}
+                    rounded_css="rounded-tl-2xl rounded-tr-2xl md:rounded-tr-none md:rounded-l-none md:rounded-tl-2xl md:rounded-bl-2xl"
                   >
-                    <div className="bg-swPrimary500 p-1 rounded-full text-white">
-                      <div className="h-7 w-7 relative flex justify-center items-center">
-                        <SwDeparturePlaneIcon className="text-[1.6rem]" />
-                      </div>
-                    </div>
-                    <div>
-                      <p className="text-swGray500 text-sm">Departure city</p>
-                      <p
-                        className={`${
-                          pathname == "/" ? "text-white" : "text-swGray900"
-                        }  font-medium`}
-                      >
-                        {!item?.source
-                          ? "Select City"
-                          : `${item?.source?.city} - ${item?.source?.country}`}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="absolute h-full w-full top-0 left-0 flex justify-center items-center">
-                    <div className="hidden sm:block p-1 rounded-full border border-swGray900 text-swBlack bg-white z-10">
-                      <GoArrowRight size={15} className="-mb-2 ml-1" />
-                      <GoArrowLeft size={15} className="-mt-2 mr-1" />
-                    </div>
-                  </div>
-                  <div
-                    className={`p-5 flex h-[5.5rem] relative w-full items-center gap-5 border backdrop-blur rounded-bl-2xl rounded-br-2xl md:mt-0 md:rounded-tr-2xl md:rounded-l-none md:rounded-tr-2xl md:rounded-br-2xl cursor-pointer ${
-                      pathname === "/"
-                        ? "border-swGray900 bg-swBlack/40 hover:bg-swBlack/40"
-                        : ""
-                    }`}
+                    <p>
+                      {!item?.source
+                        ? "Select City"
+                        : `${item?.source?.city} - ${item?.source?.country}`}
+                    </p>
+                  </DetailCard>
+                  <DetailCard
                     onClick={() => setOpenArrival(index)}
+                    headerText="Arrival city"
+                    icon={<SwArrivalPlaneIcon className="text-xl" />}
+                    icon_bg={true}
+                    rounded_css="rounded-bl-2xl rounded-br-2xl md:rounded-l-none md:rounded-tr-2xl md:rounded-br-2xl"
                   >
-                    <div className="bg-swPrimary500 p-1 rounded-full text-white">
-                      <div className="h-7 w-7 relative flex justify-center items-center">
-                        <SwArrivalPlaneIcon className="text-[1.6rem]" />
-                      </div>
-                    </div>
-                    <div>
-                      <p className="text-swGray500 text-sm">Arrival city</p>
-                      <p
-                        className={`${
-                          pathname == "/" ? "text-white" : "text-swGray900"
-                        }  font-medium`}
-                      >
-                        {!item?.destination
-                          ? "Select City"
-                          : `${item?.destination?.city} - ${item?.destination?.country}`}
-                      </p>
+                    <p>
+                      {!item?.destination
+                        ? "Select City"
+                        : `${item?.destination?.city} - ${item?.destination?.country}`}
+                    </p>
+                  </DetailCard>
+
+                  <div className="absolute h-full w-full top-0 left-0 flex justify-center items-center pointer-events-none">
+                    <div className="hidden sm:block p-2 rounded-full bg-white/90 backdrop-blur-sm border border-white/50 shadow-lg z-10">
+                      <GoArrowRight size={16} className="text-slate-700" />
                     </div>
                   </div>
                   {openDeparture === index && (
-                    <div
-                      ref={departureRef}
-                      className="absolute text-swGray800 top-[5.5rem] md:top-full mt-1 w-full z-50"
-                    >
-                      <Select
-                        styles={colourStyles}
-                        getOptionLabel={getOptionLabel}
-                        options={options}
-                        filterOption={filterOption}
-                        placeholder={
-                          <div
-                            style={{
-                              position: "absolute",
-                              left: "10px",
-                              top: "50%",
-                              transform: "translateY(-50%)",
-                              color: "#c2c2c2",
-                              pointerEvents: "none",
-                              display: "flex",
-                              alignItems: "center",
-                              fontWeight: "lighter",
-                            }}
-                          >
-                            <FaSearch
-                              style={{
-                                marginRight: "5px",
-                                fontWeight: "lighter",
-                              }}
-                            />{" "}
-                            Enter Departure city
-                          </div>
-                        }
-                        onChange={(selectedOption) => {
-                          updateBookingState(
-                            { source: selectedOption.value },
-                            index
-                          );
-                          setOpenDeparture(null);
-                        }}
-                      />
-                    </div>
+                    <ReusableSelect
+                      isOpen={openDeparture !== null}
+                      placeholder="Search Departure City"
+                      searchable={true}
+                      onClose={() => setOpenDeparture(null)}
+                      format={options}
+                      setValue={(selectedOption) => {
+                        console.log({ selectedOption });
+                        updateBookingState({ source: selectedOption }, index);
+                        setOpenDeparture(null);
+                      }}
+                    />
                   )}
                   {openArrival === index && (
-                    <div
-                      id="arrive"
-                      ref={arrivalRef}
-                      className="absolute text-swGray800 top-full mt-1 w-full z-50"
-                    >
-                      <Select
-                        styles={colourStyles}
-                        getOptionLabel={getOptionLabel}
-                        options={options}
-                        filterOption={filterOption}
-                        placeholder={
-                          <div
-                            style={{
-                              position: "absolute",
-                              left: "10px",
-                              top: "50%",
-                              transform: "translateY(-50%)",
-                              color: "#c2c2c2",
-                              pointerEvents: "none",
-                              display: "flex",
-                              alignItems: "center",
-                              fontWeight: "lighter",
-                            }}
-                          >
-                            <FaSearch
-                              style={{
-                                marginRight: "5px",
-                                fontWeight: "lighter",
-                              }}
-                            />{" "}
-                            Enter Arrival City
-                          </div>
-                        }
-                        onChange={(selectedOption) => {
-                          updateBookingState(
-                            {
-                              destination: selectedOption.value,
-                            },
-                            index
-                          );
-                          setOpenArrival(null);
-                        }}
-                      />
-                    </div>
+                    <ReusableSelect
+                      isOpen={openArrival !== null}
+                      format={options}
+                      searchable={true}
+                      placeholder="Select Arrival City"
+                      setValue={(selectedOption) => {
+                        updateBookingState(
+                          { destination: selectedOption },
+                          openArrival
+                        );
+                        setOpenArrival(null);
+                      }}
+                      onClose={() => setOpenArrival(null)}
+                    />
                   )}
                 </div>
-                <div className="grid grid-cols-1 grid-rows-2 md:grid-rows-1 md:grid-cols-2 w-full gap-5">
-                  <div
-                    className={`relative p-5 flex h-[5.5rem] w-full items-center gap-5 ${
-                      pathname === "/"
-                        ? " border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/40"
-                        : ""
-                    } border rounded-2xl cursor-pointer`}
-                    // ref={dateRef}
-                  >
-                    {/* {isDateOpen !== index ? ( */}
-                    <div
-                      className={`p-2 rounded-full border ${
-                        pathname === "/" ? "text-white" : "text-swGray900"
-                      }`}
-                    >
-                      <SwCalendarIcon className="text-xl" />
-                    </div>
-                    {/* ) : (
-                      ""
-                    )} */}
-
-                    <div className="w-full h-full ">
-                      {bookingType === "Round Trip" ? (
-                        <div className="w-full h-full">
-                          {!isDateOpen === index ? (
-                            <div onClick={() => setDateOpen(index)}>
-                              <p className="text-swGray500 text-sm">
-                                Departure and arrival date
-                              </p>
-                              <p
-                                className={`${
-                                  pathname === "/"
-                                    ? "text-white"
-                                    : "text-swGray900"
-                                }`}
-                              >
-                                {item.depatureDate
-                                  ? dayjs(
-                                      `${item.depatureDate} ${item.depatureTime}`
-                                    ).format("D MMM HH:mm")
-                                  : "Select Departure"}{" "}
-                                -{" "}
-                                {item.depatureDate
-                                  ? dayjs(
-                                      `${item.returningDate} ${item.returningTime}`
-                                    ).format("D MMM HH:mm")
-                                  : "Select Arrival"}
-                              </p>
-                            </div>
-                          ) : (
-                            <div className="w-full flex h-full">
-                              <div
-                                onClick={() => setDateOpen(index)}
-                                className={`text-sm w-full h-full flex items-center justify-center ${
-                                  pathname === "/"
-                                    ? "text-white"
-                                    : "text-swGray900"
-                                }`}
-                              >
-                                {item.depatureDate
-                                  ? dayjs(
-                                      `${item.depatureDate} ${item.depatureTime}`
-                                    ).format("D MMM HH:mm")
-                                  : "Deptarture"}
-                              </div>
-                              <div
-                                className={`text-sm ml-5 w-full h-full flex items-center justify-center ${
-                                  pathname === "/"
-                                    ? "text-white"
-                                    : "text-swGray900"
-                                }`}
-                                onClick={() => {
-                                  setArrivalDateOpen(true);
-                                }}
-                              >
-                                {item.depatureDate
-                                  ? dayjs(
-                                      `${item.returningDate} ${item.returningTime}`
-                                    ).format("D MMM HH:mm")
-                                  : "Return"}
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      ) : (
-                        <div onClick={() => setDateOpen(index)}>
-                          <p className="text-swGray500 text-sm h-full">
-                            Departure date
-                          </p>
-                          <p
-                            className={`${
-                              pathname == "/" ? "text-white" : "text-swGray900"
-                            } font-medium`}
-                          >
-                            {item?.depatureDate
-                              ? dayjs(
-                                  `${item?.depatureDate} ${item?.depatureTime}`
-                                ).format("D MMM HH:mm")
-                              : "Select Date"}
-                          </p>
-                        </div>
-                      )}
-                    </div>
-                    <SelectDate
-                      isOpen={isDateOpen === index}
-                      onChange={(value) => {
-                        const selectedDate = dayjs(value);
-                        const today = dayjs();
-
-                        // Check if the selected date is before today
-                        if (selectedDate.isBefore(today, "day")) {
-                          toast.error("Departure date must be at least today");
-                          return;
-                        }
-
-                        // If the selected date is today, check if the time is in the past
-                        if (
-                          selectedDate.isSame(today, "day") &&
-                          selectedDate.isBefore(today)
-                        ) {
-                          toast.error("Departure time cannot be in the past");
-                          return;
-                        }
-
-                        updateBookingState(value, index, "departure");
-                      }}
-                      onAccept={() => setDateOpen(null)}
-                      onClose={() => setDateOpen(null)}
-                      value={dayjs(`${item.depatureDate} ${item.depatureTime}`)}
-                    />
-                    <SelectDate
-                      isOpen={isArrivalDateOpen}
-                      onChange={(value) => {
-                        const selectedArrivalDate = dayjs(value);
-                        const departureDateTime = dayjs(
-                          `${item.depatureDate} ${item.depatureTime}`
-                        );
-                        if (
-                          selectedArrivalDate.diff(departureDateTime, "hour") <
-                          3
-                        ) {
-                          toast.error(
-                            "Arrival/Return date must be at least 3 hours later than the departure date",
-                            {
-                              style: { width: "auto", whiteSpace: "pre-wrap" },
-                            }
-                          );
-                          return;
-                        }
-
-                        if (!item.depatureDate || !item.depatureTime) {
-                          toast.error("Invalid departure date/time");
-                          return;
-                        }
-
-                        updateBookingState(value, index, "returning");
-                      }}
-                      onClose={() => setArrivalDateOpen(false)}
-                      value={dayjs(
-                        `${item.returningDate} ${item.returningTime}`
-                      )}
-                    />
-                  </div>
-                  <div className="relative w-full">
-                    <div
-                      className={`p-5 flex items-center h-[5.5rem] w-full gap-5 border ${
-                        pathname === "/"
-                          ? "border-swGray900 backdrop-blur bg-swBlack/40 hover:bg-swBlack/40"
-                          : ""
-                      }  rounded-2xl cursor-pointer`}
-                      onClick={() => setOpenPassageners(index)}
-                    >
-                      <div
-                        className={`p-2 border rounded-full ${
-                          pathname === "/" ? "text-white" : "text-swGray900"
-                        }`}
+                <div className="grid grid-cols-1 md:grid-cols-2 w-full gap-4">
+                  {bookingType === "Round Trip" ? (
+                    <div className="relative grid grid-cols-1 grid-rows-2 md:grid-rows-1 md:grid-cols-2 gap-4">
+                      <DetailCard
+                        onClick={() => setDateOpen(index)}
+                        headerText="Departure date"
                       >
-                        <SwUserIcon className="text-xl" />
-                      </div>
-                      <div>
-                        <p className="text-swGray500 text-sm">Passengers</p>
-                        <p
-                          className={`font-medium ${
-                            pathname === "/" ? "text-white" : "text-swGray900"
-                          }`}
-                        >
-                          <span className="block whitespace-nowrap">
-                            {item?.passengers?.adults}{" "}
-                            {item?.passengers?.adults === 1
-                              ? "Adult"
-                              : "Adults"}
-                          </span>
-                          <span className="block whitespace-nowrap">
-                            {item?.passengers?.children}{" "}
-                            {item?.passengers?.children === 1
-                              ? "Child"
-                              : "Children"}
-                          </span>
-                          {/* -{" "}{item?.passengers?.pets} */}
+                        <p>
+                          {item.depatureDate
+                            ? dayjs(
+                                `${item.depatureDate} ${item.depatureTime}`
+                              ).format("D MMM HH:mm")
+                            : "Select"}
                         </p>
-                      </div>
-                    </div>
-                    {openPassangers === index && (
-                      <div
-                        ref={passengerRef}
-                        className="absolute text-swGray900 top-24 bg-white max-w-[60rem] right-0 shadow-md rounded-md z-20"
+                      </DetailCard>
+                      <DetailCard
+                        onClick={() => setArrivalDateOpen(index)}
+                        headerText="Return date"
                       >
-                        <div className="p-5 flex flex-col gap-5 font-medium">
-                          <p className="font-semibold text-lg">Passengers</p>
-                          <div className="flex flex-col gap-5">
-                            <div className="flex justify-between items-center">
-                              <p className="">Adults</p>
-                              <div className="border hover:border-swPrimary500 rounded-md overflow-hidden flex">
-                                <p
-                                  className="p-2 cursor-pointer hover:bg-swPrimary500 hover:text-white"
-                                  onClick={() =>
-                                    handlePassangerCalc("adults", "sub", index)
-                                  }
-                                >
-                                  <FiMinus size={20} />
-                                </p>
-                                <p className="h-10 w-14 flex justify-center items-center border-x">
-                                  {item?.passengers?.adults}
-                                </p>
-                                <p
-                                  className="p-2 cursor-pointer hover:bg-swPrimary500 hover:text-white"
-                                  onClick={() =>
-                                    handlePassangerCalc("adults", "add", index)
-                                  }
-                                >
-                                  <FiPlus size={20} />
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="flex flex-col gap-5">
-                            <div className="flex justify-between items-center">
-                              <p className="">Children</p>
-                              <div className="border hover:border-swPrimary500 rounded-md overflow-hidden flex">
-                                <p
-                                  className="p-2 cursor-pointer hover:bg-swPrimary500 hover:text-white"
-                                  onClick={() =>
-                                    handlePassangerCalc(
-                                      "children",
-                                      "sub",
-                                      index
-                                    )
-                                  }
-                                >
-                                  <FiMinus size={20} />
-                                </p>
-                                <p className="h-10 w-14 flex justify-center items-center border-x">
-                                  {item?.passengers?.children}
-                                </p>
-                                <p
-                                  className="p-2 cursor-pointer hover:bg-swPrimary500 hover:text-white"
-                                  onClick={() =>
-                                    handlePassangerCalc(
-                                      "children",
-                                      "add",
-                                      index
-                                    )
-                                  }
-                                >
-                                  <FiPlus size={20} />
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-                          {/* <div className="flex flex-col gap-5">
-                            <div className="flex justify-between items-center">
-                              <p className="">Pets</p>
-                              <div className="border hover:border-swPrimary500 rounded-md overflow-hidden flex">
-                                <p
-                                  className="p-2 cursor-pointer hover:bg-swPrimary500 hover:text-white"
-                                  onClick={() =>
-                                    handlePassangerCalc("pets", "sub", index)
-                                  }
-                                >
-                                  <FiMinus size={20} />
-                                </p>
-                                <p className="h-10 w-14 flex justify-center items-center border-x">
-                                  {item.passengers.pets}
-                                </p>
-                                <p
-                                  className="p-2 cursor-pointer hover:bg-swPrimary500 hover:text-white"
-                                  onClick={() =>
-                                    handlePassangerCalc("pets", "add", index)
-                                  }
-                                >
-                                  <FiPlus size={20} />
-                                </p>
-                              </div>
-                            </div>
-                          </div> */}
-                          <p className="text-swGray500 text-xs italics">
-                            Please specify at least One adult
-                          </p>
+                        <p>
+                          {item?.returningDate
+                            ? dayjs(
+                                `${item.returningDate} ${item.returningTime}`
+                              ).format("D MMM HH:mm")
+                            : "Select"}
+                        </p>
+                      </DetailCard>
+                    </div>
+                  ) : (
+                    <DetailCard
+                      onClick={() => setDateOpen(index)}
+                      headerText="Departure date"
+                    >
+                      <p>
+                        {item?.depatureDate
+                          ? dayjs(
+                              `${item?.depatureDate} ${item?.depatureTime}`
+                            ).format("D MMM HH:mm")
+                          : "Select Date"}
+                      </p>
+                    </DetailCard>
+                  )}
+                  <SelectDate
+                    isOpen={isDateOpen === index}
+                    disablePast={true}
+                    onChange={(value) => {
+                      const selectedDate = dayjs(value);
+                      const today = dayjs();
 
-                          <div className="flex items-center justify-between">
-                            <p>Done?</p>
-                            <Button
-                              bgColor={"bg-swPrimary500"}
-                              label={"Save"}
-                              textColor={"text-white"}
-                              endIcon={<IoCheckmark size={20} />}
-                              onClick={() => setOpenPassageners(null)}
-                            />
-                          </div>
-                        </div>
-                      </div>
+                      // Check if the selected date is before today
+                      if (selectedDate.isBefore(today, "day")) {
+                        toast.error("Departure date must be at least today");
+                        return;
+                      }
+
+                      // If the selected date is today, check if the time is in the past
+                      if (
+                        selectedDate.isSame(today, "day") &&
+                        selectedDate.isBefore(today)
+                      ) {
+                        toast.error("Departure time cannot be in the past");
+                        return;
+                      }
+
+                      updateBookingState(value, index, "departure");
+                    }}
+                    onAccept={() => setDateOpen(null)}
+                    onClose={() => setDateOpen(null)}
+                    value={dayjs(`${item.depatureDate} ${item.depatureTime}`)}
+                  />
+                  <SelectDate
+                    isOpen={isArrivalDateOpen === index}
+                    disablePast={true}
+                    onChange={(value) => {
+                      const selectedArrivalDate = dayjs(value);
+                      const departureDateTime = dayjs(
+                        `${item.depatureDate} ${item.depatureTime}`
+                      );
+                      if (
+                        selectedArrivalDate.diff(departureDateTime, "hour") < 3
+                      ) {
+                        toast.error(
+                          "Arrival/Return date must be at least 3 hours later than the departure date",
+                          {
+                            style: { width: "auto", whiteSpace: "pre-wrap" },
+                          }
+                        );
+                        return;
+                      }
+
+                      if (!item.depatureDate || !item.depatureTime) {
+                        toast.error("Select departure date and time first");
+                        return;
+                      }
+
+                      updateBookingState(value, index, "arrival");
+                    }}
+                    onAccept={() => setArrivalDateOpen(false)}
+                    onClose={() => setArrivalDateOpen(false)}
+                    value={dayjs(`${item.returningDate} ${item.returningTime}`)}
+                  />
+
+                  <div className="relative w-full">
+                    <DetailCard
+                      icon={<SwUserIcon className="text-xl" />}
+                      icon_bg={true}
+                      onClick={() => setOpenPassageners(index)}
+                      headerText="Passengers"
+                    >
+                      <p>
+                        <span className="block whitespace-nowrap">
+                          {item?.passengers?.adults}{" "}
+                          {item?.passengers?.adults === 1 ? "Adult" : "Adults"}
+                        </span>
+                        <span className="block whitespace-nowrap">
+                          {item?.passengers?.children}{" "}
+                          {item?.passengers?.children === 1
+                            ? "Child"
+                            : "Children"}
+                        </span>
+                      </p>
+                    </DetailCard>
+                    {openPassangers === index && (
+                      <PassengerSelector
+                        isOpen={openPassangers === index}
+                        onClose={() => setOpenPassageners(null)}
+                        onAdultChange={(action) =>
+                          handlePassangerCalc("adults", action, index)
+                        }
+                        onChildChange={(action) =>
+                          handlePassangerCalc("children", action, index)
+                        }
+                        adults={item.passengers.adults}
+                        childrenprop={item.passengers.children}
+                      />
                     )}
                   </div>
                 </div>

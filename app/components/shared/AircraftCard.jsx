@@ -33,11 +33,10 @@ const AircraftCard = ({ aircraft }) => {
       <div className="relative h-full w-fit">
         {image ? (
           <img
-            className="w-full rounded-xl h-full object-cover image-container"
+            className="rounded-xl object-cover h-64"
             src={image}
             alt={`Image of ${model}`}
             width={300}
-            height={200}
           />
         ) : (
           <p>No image available</p>

@@ -168,7 +168,6 @@ const NavBar = ({ Nav }) => {
 
   return (
     <nav className="w-full fixed z-50 top-0 left-0">
-      {/* <div className="w-full bg-white/40 text-swGray800 border-b-2 backdrop-blur"> */}
       <div
         className={`w-full transition-all ease-in-out bg-white duration-1000  ${
           navBg || isMobileMenuOpen ? "bg-opacity-100" : "bg-opacity-0"
@@ -176,7 +175,7 @@ const NavBar = ({ Nav }) => {
       >
         <div className="flex items-center justify-between max-w-screen-full mx-auto py-4 px-2 sm:px-10">
           <Link href={"/"} className="flex items-center">
-            <Image src={SWheader} alt="Logo" className="w-60 " />
+            <Image src={SWheader} alt="Logo" className="w-48 sm:w-60 " />
           </Link>
 
           <div className="hidden lg:flex gap-3 items-center text-sm xl:text-base">
@@ -198,7 +197,6 @@ const NavBar = ({ Nav }) => {
                 <div className="relative">
                   <div
                     className="text-jsPrimary100 cursor-pointer flex items-center gap-2 py-2 px-4 rounded-full hover:bg-white"
-                    // ref={toggleButtonRef}
                     onClick={() => {
                       setOpenUserDropDown(!openUserDropDown);
                       setIsMobileMenuOpen(false);
@@ -206,9 +204,6 @@ const NavBar = ({ Nav }) => {
                   >
                     <SwUserIcon />
                     <p>
-                      {/* <span className="hidden sm:inline">
-                        {user?.last_name}
-                      </span>{" "} */}
                       {user?.first_name}
                     </p>
                     <FaChevronDown />
@@ -231,12 +226,6 @@ const NavBar = ({ Nav }) => {
                         >
                           <SwUserIcon /> Profile
                         </Link>
-                        {/* <Link
-                          href={"#"}
-                          className="w-full hover:bg-yellow-50 rounded-md p-3"
-                        >
-                          Settings
-                        </Link> */}
                         <div
                           className="w-full hover:bg-yellow-50 rounded-md p-3 cursor-pointer flex items-center gap-3"
                           onClick={handleSignOut}
