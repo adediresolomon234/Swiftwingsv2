@@ -266,7 +266,7 @@ const BookingEngine = ({ setBookingDetails }) => {
   return (
     <main>
       {/* <ToastContainer /> */}
-      <div className="w-full rounded-3xl">
+      <div className="w-full rounded-3xl mb-5">
         <div
           className={`rounded-3xl shadow-lg ${
             pathname === "/"
@@ -276,9 +276,11 @@ const BookingEngine = ({ setBookingDetails }) => {
         >
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-8 gap-4">
             <div className="flex items-center gap-3">
-              <div className={`w-2 h-8 rounded-full ${
-                pathname === "/" ? "bg-white/30" : "bg-swPrimary500"
-              }`}></div>
+              <div
+                className={`w-2 h-8 rounded-full ${
+                  pathname === "/" ? "bg-white/30" : "bg-swPrimary500"
+                }`}
+              ></div>
               <h2
                 className={`font-bold text-xl md:text-2xl ${
                   pathname === "/" ? "text-white" : "text-slate-800"
@@ -317,7 +319,9 @@ const BookingEngine = ({ setBookingDetails }) => {
               >
                 <Button
                   label="Book Jet"
-                  bgColor={"bg-gradient-to-r from-swPrimary500 to-swPrimary600 hover:from-swPrimary600 hover:to-swPrimary700"}
+                  bgColor={
+                    "bg-gradient-to-r from-swPrimary500 to-swPrimary600 hover:from-swPrimary600 hover:to-swPrimary700"
+                  }
                   textColor={"text-white"}
                   endIcon={<HiArrowRight size={20} />}
                   loader={loading}
@@ -574,7 +578,8 @@ const BookingEngine = ({ setBookingDetails }) => {
                   bgColor={"bg-white hover:bg-swPrimary600"}
                   textColor={"hover:text-white text-swGray800"}
                   endIcon={<HiArrowRight size={20} />}
-                  disabled={bookingBtnDisable()}
+                  loader={loading}
+                  disabled={loading || bookingBtnDisable()}
                 />
               </div>
             ) : (

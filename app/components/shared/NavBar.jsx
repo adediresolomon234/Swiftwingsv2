@@ -57,9 +57,9 @@ const NavBar = ({ Nav }) => {
           <Link
             href={hasDropDown ? "javascript:void(0)" : link}
             onClick={hasDropDown ? toggleDropdown : null}
-            className={`flex gap-2 text-gray-700 px-4 ${
-              pathname === link ? "font-medium" : "hover:font-medium"
-            }`}
+            className={`flex gap-2 transition-all ease-in-out duration-1000 ${
+              navBg || isMobileMenuOpen ? "text-gray-700" : "text-white"
+            }  px-4 ${pathname === link ? "font-medium" : "hover:font-medium"}`}
             aria-current="page"
           >
             {name}
@@ -178,7 +178,9 @@ const NavBar = ({ Nav }) => {
             <Image src={SWheader} alt="Logo" className="w-48 sm:w-60 " />
           </Link>
 
-          <div className="hidden lg:flex gap-3 items-center text-sm xl:text-base">
+          <div
+            className={`hidden lg:flex gap-3 items-center text-sm xl:text-base`}
+          >
             {navLinks.map((item, i) => (
               <div key={i}>
                 {renderNavLink(
@@ -203,9 +205,7 @@ const NavBar = ({ Nav }) => {
                     }}
                   >
                     <SwUserIcon />
-                    <p>
-                      {user?.first_name}
-                    </p>
+                    <p>{user?.first_name}</p>
                     <FaChevronDown />
                     {openUserDropDown && (
                       <div className="absolute top-0 left-0 h-full w-full" />
