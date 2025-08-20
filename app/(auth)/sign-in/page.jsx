@@ -72,7 +72,7 @@ const SignIn = () => {
       localStorage.setItem("user", JSON.stringify(user));
       toast.success(response?.data?.message);
       resetInputField();
-      const bookingInComplete = localStorage.getItem("bookingInComplete");
+      const bookingInComplete = localStorage.getItem("bookingInComplete") || false;
       if (bookingInComplete) {
         router.push("/booking");
       } else {
@@ -124,7 +124,7 @@ const SignIn = () => {
   // }, [data, error]);
 
   useEffect(() => {
-    setLoader(false);
+    if (typeof window !== "undefined") setLoader(false);
   }, []);
 
   if (loader) {
