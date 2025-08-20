@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { API_URL } from "../../constant";
-import { BASE_URL } from "../../constant";
+// import { BASE_URL } from "../../constant";
 
 export const getHomeData = createAsyncThunk("home", async () => {
   try {

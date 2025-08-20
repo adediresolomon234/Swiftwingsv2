@@ -1,6 +1,7 @@
 "use client";
 
 import Button from "../../components/Button";
+import JetImagesPopup from "./JetImagesPopup";
 import {
   SwArrowRightIcon,
   SwLeftRightArrowIcon,
@@ -38,6 +39,8 @@ import CancelModal from "../shared/modals/CancelModal";
 import PremiumRideModal from "./PremiumRideModal";
 
 const BookingPageInformation = () => {
+  const [jetImagesOpen, setJetImagesOpen] = useState(false);
+  const [currentJetImages, setCurrentJetImages] = useState([]);
   const pathname = usePathname();
   const params = useSearchParams();
   const dispatch = useDispatch();
@@ -65,6 +68,8 @@ const BookingPageInformation = () => {
     error: jetError,
     aircrafts: jetData,
   } = useSelector((state) => state.aircrafts);
+
+  console.log({ jetData });
 
   const resetBookingState = () => {
     setBookingDetails([
@@ -151,7 +156,7 @@ const BookingPageInformation = () => {
     } else {
       // setNotLoggedInModal(true);
       localStorage.setItem("bookingInComplete", true);
-      toast.error("You are not logged in. Kindly login to continue")
+      toast.error("You are not logged in. Kindly login to continue");
       router.push("/sign-in");
     }
   };
@@ -206,14 +211,18 @@ const BookingPageInformation = () => {
           <div className="bg-swLightBgGray z-10">
             <div className="m-5 mx-auto max-w-[90rem] z-10">
               <BookingEngine setBookingDetails={setBookingDetails} />
-              <div className="lg:flex block md:gap-10 text-swGray800 mt-10">
+              <div className="flex flex-col lg:flex-row gap-10 text-swGray800 mt-10">
                 <div className="w-full">
                   <div className="flex items-center justify-between flex-wrap gap-3 mb-6">
                     <div className="flex items-center gap-2">
                       <div className="w-1 h-6 bg-gradient-to-b from-swPrimary500 to-swPrimary600 rounded-full"></div>
                       <div>
-                        <h2 className="text-lg font-bold text-slate-800">Select Private Jet</h2>
-                        <p className="text-xs text-slate-500">Choose from our premium fleet</p>
+                        <h2 className="text-lg font-bold text-slate-800">
+                          Select Private Jet
+                        </h2>
+                        <p className="text-xs text-slate-500">
+                          Choose from our premium fleet
+                        </p>
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
@@ -250,7 +259,7 @@ const BookingPageInformation = () => {
                                 }
                                 className="h-4 w-4 accent-swPrimary500 rounded border border-slate-300 hover:border-swPrimary500 transition-colors duration-200"
                               />
-                              
+
                               {/* Aircraft Info */}
                               <div className="flex-1 min-w-0">
                                 <div className="flex items-center gap-2 mb-1">
@@ -270,7 +279,7 @@ const BookingPageInformation = () => {
                                 <p className="text-xs text-slate-500 mb-2">
                                   {item?.features?.classification}
                                 </p>
-                                
+
                                 {/* Location */}
                                 <div className="flex items-center gap-1">
                                   <div className="w-2 h-2 bg-red-500 rounded-full"></div>
@@ -287,7 +296,9 @@ const BookingPageInformation = () => {
                                   <p className="text-xs font-semibold text-slate-800">
                                     {item?.features?.no_of_seats}
                                   </p>
-                                  <p className="text-xs text-slate-500">Seats</p>
+                                  <p className="text-xs text-slate-500">
+                                    Seats
+                                  </p>
                                 </div>
                                 <div className="flex flex-col items-center">
                                   <SwLuggageIcon className="text-sm text-swPrimary600 mb-1" />
@@ -301,14 +312,18 @@ const BookingPageInformation = () => {
                                   <p className="text-xs font-semibold text-slate-800">
                                     {item?.speed}
                                   </p>
-                                  <p className="text-xs text-slate-500">Speed</p>
+                                  <p className="text-xs text-slate-500">
+                                    Speed
+                                  </p>
                                 </div>
                                 <div className="flex flex-col items-center">
                                   <SWMeterIconNew className="text-sm text-swPrimary600 mb-1" />
                                   <p className="text-xs font-semibold text-slate-800">
                                     {item?.kilometer}
                                   </p>
-                                  <p className="text-xs text-slate-500">Range</p>
+                                  <p className="text-xs text-slate-500">
+                                    Range
+                                  </p>
                                 </div>
                               </div>
 
@@ -318,13 +333,26 @@ const BookingPageInformation = () => {
                                   <SwArrowRightIcon className="text-sm text-slate-600" />
                                 </div>
                               ) : (
-                                <div className="flex items-center gap-2 py-2 px-3 rounded-full bg-slate-100 hover:bg-slate-200 transition-all duration-200">
+                                <button
+                                  className="flex items-center gap-2 py-2 px-3 rounded-full bg-slate-100 hover:bg-slate-200 transition-all duration-200"
+                                  onClick={() => {
+                                    // Try to get images from item, fallback to []
+                                    setCurrentJetImages(item?.images || []);
+                                    setJetImagesOpen(true);
+                                  }}
+                                >
                                   <p className="text-xs font-medium text-slate-700 whitespace-nowrap">
-                                    View Jet
+                                    View
                                   </p>
                                   <SwArrowRightIcon className="text-xs text-slate-600" />
-                                </div>
+                                </button>
                               )}
+                              <JetImagesPopup
+                                name={item?.name}
+                                images={currentJetImages}
+                                open={jetImagesOpen}
+                                onClose={() => setJetImagesOpen(false)}
+                              />
                             </div>
                           </div>
                         </div>
@@ -337,13 +365,15 @@ const BookingPageInformation = () => {
                   <div className="flex items-center gap-2 mb-6">
                     <div className="w-1 h-6 bg-gradient-to-b from-swPrimary500 to-swPrimary600 rounded-full"></div>
                     <div>
-                      <h2 className="text-lg font-bold text-slate-800">Flight Summary</h2>
-                      <p className="text-xs text-slate-500">Your journey details</p>
+                      <h2 className="text-lg font-bold text-slate-800">
+                        Flight Summary
+                      </h2>
+                      <p className="text-xs text-slate-500">
+                        Your journey details
+                      </p>
                     </div>
                   </div>
                   <div className="w-full rounded-2xl border border-slate-200 p-6 bg-white shadow-sm">
-            
-
                     {bookingDetails?.booking_details?.formData.map(
                       (item, index) => (
                         <div
@@ -434,7 +464,9 @@ const BookingPageInformation = () => {
                         <div className="p-4 bg-amber-50 rounded-xl border border-amber-200">
                           <div className="flex items-start gap-3">
                             <div className="w-6 h-6 bg-amber-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                              <span className="text-amber-600 text-xs font-bold">!</span>
+                              <span className="text-amber-600 text-xs font-bold">
+                                !
+                              </span>
                             </div>
                             <p className="text-sm text-slate-700 leading-relaxed">
                               {additionalNote}
