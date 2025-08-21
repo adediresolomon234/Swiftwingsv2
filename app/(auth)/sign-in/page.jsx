@@ -3,7 +3,6 @@
 import { Space_Grotesk, Libre_Baskerville } from "next/font/google";
 import { useEffect, useState } from "react";
 import Button from "../../components/Button";
-import { signInUser } from "../../../redux/slices/authSlice";
 import InputField from "../../components/shared/InputField";
 import { useDispatch, useSelector } from "react-redux";
 import { TbEyeClosed } from "react-icons/tb";
@@ -11,7 +10,6 @@ import { isValidEmail } from "../../components/helpers/emailValidation";
 import bgImg from "../../../public/images/nologgedInImg.png";
 import {
   SWLogo,
-  SwGoogleColoredIcon,
   SwKeyIcon,
   SwMailIcon,
   SwOpenEyeIcon,
@@ -21,7 +19,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import NavAndFooter from "../../components/shared/NavAndFooter";
 import axios from "axios";
 import Image from "next/image";
 import { API_URL } from "../../../constant";
@@ -49,6 +46,7 @@ const SignIn = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [loader, setLoader] = useState(false);
+  const [bookingInComplete, setBookingInComplete] = useState(false);
   // const { loading, error, data } = useSelector((state) => state.auth);
 
   const togglePasswordVisibility = () => {
@@ -72,7 +70,8 @@ const SignIn = () => {
       localStorage.setItem("user", JSON.stringify(user));
       toast.success(response?.data?.message);
       resetInputField();
-      const bookingInComplete = localStorage.getItem("bookingInComplete") || false;
+      // const bookingInComplete =
+
       if (bookingInComplete) {
         router.push("/booking");
       } else {
@@ -124,7 +123,12 @@ const SignIn = () => {
   // }, [data, error]);
 
   useEffect(() => {
-    if (typeof window !== "undefined") setLoader(false);
+    if (typeof window !== "undefined") {
+      const checkUncompletedBooking =
+        localStorage.getItem("bookingInComplete") || false;
+      setBookingInComplete(checkUncompletedBooking);
+      setLoader(false);
+    }
   }, []);
 
   if (loader) {
@@ -147,7 +151,10 @@ const SignIn = () => {
               >
                 Swift<i className="font-normal">Wings</i>
               </span>{" "}
-              to manage your bookings
+              to{" "}
+              {bookingInComplete
+                ? "continue your booking"
+                : "manage your bookings"}
             </p>
 
             <div className="w-ful mt-5">
