@@ -564,7 +564,7 @@ const BookingPageInformation = () => {
 
       <NotLoggedInModal
         open={notLoggedInModal}
-        onClick={setNotLoggedInModal}
+        onClose={setNotLoggedInModal} 
         bookingDetails={bookingDetails}
         unCheckAllBoxes={uncheckBoxes}
         setSuccess={setNotLoggedInSuccess}
