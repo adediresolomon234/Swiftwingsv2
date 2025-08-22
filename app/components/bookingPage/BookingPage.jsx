@@ -163,8 +163,8 @@ const BookingPageInformation = () => {
       // setNotLoggedInModal(true);
       localStorage.setItem("bookingInComplete", "true");
       toast.error("You are not logged in. Kindly login to continue");
-      // router.push("/sign-in");
-      handleNavigationWithRefresh("/sign-in");
+      router.push("/sign-in");
+      // handleNavigationWithRefresh("/sign-in");
       // window.location.href = "/sign-in";
     }
   };
