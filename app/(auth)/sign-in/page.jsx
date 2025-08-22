@@ -1,13 +1,23 @@
 "use client";
 
+import { useCallback, useEffect, useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import Image from "next/image";
+import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+// Fonts
 import { Space_Grotesk, Libre_Baskerville } from "next/font/google";
-import { useEffect, useState } from "react";
+
+// Components
 import Button from "../../components/Button";
 import InputField from "../../components/shared/InputField";
-import { useDispatch, useSelector } from "react-redux";
+import Loading from "../../components/Loading";
+
+// Icons and Assets
 import { TbEyeClosed } from "react-icons/tb";
-import { isValidEmail } from "../../components/helpers/emailValidation";
-import bgImg from "../../../public/images/nologgedInImg.png";
 import {
   SWLogo,
   SwKeyIcon,
@@ -15,264 +25,382 @@ import {
   SwOpenEyeIcon,
   SwPlusIcon,
 } from "../../components/svgs";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-import axios from "axios";
-import Image from "next/image";
-import { API_URL } from "../../../constant";
-import Loading from "../../components/Loading";
+import bgImg from "../../../public/images/nologgedInImg.png";
 
+// Utils
+import { isValidEmail } from "../../components/helpers/emailValidation";
+import { API_URL } from "../../../constant";
+
+// Font configurations
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
 });
 
-const libre_baskerville = Libre_Baskerville({
+const libreBaskerville = Libre_Baskerville({
   subsets: ["latin"],
   weight: ["400", "700"],
+  display: "swap",
 });
 
+// Constants
+const INITIAL_FORM_STATE = {
+  email: "",
+  password: "",
+};
+
+const INITIAL_ERROR_STATE = {
+  email: "",
+  password: "",
+};
+
 const SignIn = () => {
-  const dispatch = useDispatch();
   const router = useRouter();
-  const [email, setEmail] = useState("");
-  const [emailError, setEmailError] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordError, setPasswordError] = useState("");
+  const [isPending, startTransition] = useTransition();
+
+  // Form state
+  const [formData, setFormData] = useState(INITIAL_FORM_STATE);
+  const [errors, setErrors] = useState(INITIAL_ERROR_STATE);
+
+  // UI state
   const [showPassword, setShowPassword] = useState(false);
-  const [data, setData] = useState(null);
-  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [loader, setLoader] = useState(false);
+  const [initialized, setInitialized] = useState(false);
+
+  // Business logic state
   const [bookingInComplete, setBookingInComplete] = useState(false);
-  // const { loading, error, data } = useSelector((state) => state.auth);
 
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
+  // Memoized values for performance
+  const isFormValid =
+    formData.email && formData.password && !errors.email && !errors.password;
+  const isSubmitDisabled = loading || !isFormValid;
 
-  const resetInputField = () => {
-    setEmail("");
-    setPassword("");
-  };
+  // Toggle password visibility
+  const togglePasswordVisibility = useCallback(() => {
+    setShowPassword((prev) => !prev);
+  }, []);
 
-  const signIn = async () => {
-    try {
-      setLoading(true);
-      const response = await axios.post(`${API_URL}/user/login`, {
-        email,
-        password,
-      });
+  // Reset form to initial state
+  const resetForm = useCallback(() => {
+    setFormData(INITIAL_FORM_STATE);
+    setErrors(INITIAL_ERROR_STATE);
+    setShowPassword(false);
+  }, []);
 
-      if (response?.data?.data) {
-        setData(response.data);
-        let user = response?.data?.data;
-        user = { ...user, isLoggedIn: true };
-        localStorage.setItem("user", JSON.stringify(user));
-        toast.success(response.data.message);
-        resetInputField();
+  // Handle input changes with validation
+  const handleInputChange = useCallback(
+    (field, value) => {
+      setFormData((prev) => ({ ...prev, [field]: value }));
 
-        if (bookingInComplete) {
-          router.push("/booking");
-        } else {
-          router.push("/");
-        }
-        localStorage.removeItem("bookingInComplete");
-      } else {
-        toast.error("Invalid response from server");
+      // Clear error when user starts typing
+      if (errors[field]) {
+        setErrors((prev) => ({ ...prev, [field]: "" }));
       }
-    } catch (error) {
-      toast.error(error?.response?.data?.error || "Login failed");
-    } finally {
-      setLoading(false);
-    }
-  };
+    },
+    [errors]
+  );
 
-  const handleLogin = async () => {
-    setLoading(true);
-    setEmailError("");
-    setPasswordError("");
+  // Validate form fields
+  const validateField = useCallback((field, value) => {
+    switch (field) {
+      case "email":
+        if (!value) return "Email is required";
+        if (!isValidEmail(value)) return "Please enter a valid email address";
+        return "";
 
-    if (!email) {
-      setEmailError("Email is required");
-      setLoading(false); // Also stop loading
-      return;
-    } else if (!isValidEmail(email)) {
-      setEmailError("Invalid email format");
-      setLoading(false);
-      return;
-    }
+      case "password":
+        if (!value) return "Password is required";
+        if (value.length < 6) return "Password must be at least 6 characters";
+        return "";
 
-    if (!password) {
-      setPasswordError("Password is required");
-      setLoading(false);
-      return;
-    }
-
-    await signIn();
-  };
-
-  // console.log({ loading });
-
-  // useEffect(() => {
-  //   if (data && data?.message) {
-  //     let user = data?.data;
-  //     user = { ...user, isLoggedIn: true };
-  //     localStorage.setItem("user", JSON.stringify(user));
-  //     toast.success(data?.message);
-  //     resetInputField();
-  //     router.push("/");
-  //   }
-  //   if (error) {
-  //     console.log(error);
-  //     toast.error(error);
-  //   }
-  // }, [data, error]);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const checkUncompletedBooking =
-        localStorage.getItem("bookingInComplete") === "true";
-
-      setBookingInComplete(checkUncompletedBooking);
-      setLoader(false);
+      default:
+        return "";
     }
   }, []);
 
-  if (loader) {
-    return <Loading />;
+  // Validate entire form
+  const validateForm = useCallback(() => {
+    const newErrors = {
+      email: validateField("email", formData.email),
+      password: validateField("password", formData.password),
+    };
+
+    setErrors(newErrors);
+    return !Object.values(newErrors).some((error) => error);
+  }, [formData, validateField]);
+
+  // Handle form submission
+  const handleSubmit = useCallback(
+    async (e) => {
+      e.preventDefault();
+
+      if (!validateForm()) {
+        return;
+      }
+
+      try {
+        setLoading(true);
+
+        const response = await axios.post(`${API_URL}/user/login`, {
+          email: formData.email.trim(),
+          password: formData.password,
+        });
+
+        if (response?.data?.data) {
+          const userData = response.data.data;
+          const userWithAuth = { ...userData, isLoggedIn: true };
+
+          // Store user data securely
+          localStorage.setItem("user", JSON.stringify(userWithAuth));
+
+          // Show success message
+          toast.success(response.data.message || "Login successful!");
+
+          // Reset form
+          resetForm();
+
+          // Navigate based on booking status
+          startTransition(() => {
+            if (bookingInComplete) {
+              router.push("/booking");
+              localStorage.removeItem("bookingInComplete");
+            } else {
+              router.push("/");
+            }
+          });
+        } else {
+          toast.error("Invalid response from server");
+        }
+      } catch (error) {
+        console.error("Login error:", error);
+
+        // Handle different types of errors
+        if (error.response?.status === 401) {
+          toast.error("Invalid email or password");
+        } else if (error.response?.status === 429) {
+          toast.error("Too many login attempts. Please try again later.");
+        } else if (error.response?.status >= 500) {
+          toast.error("Server error. Please try again later.");
+        } else if (error.code === "NETWORK_ERROR") {
+          toast.error("Network error. Please check your connection.");
+        } else {
+          toast.error(
+            error.response?.data?.error || "Login failed. Please try again."
+          );
+        }
+      } finally {
+        setLoading(false);
+      }
+    },
+    [formData, validateForm, bookingInComplete, router, resetForm]
+  );
+
+  // Handle keyboard navigation
+  const handleKeyPress = useCallback(
+    (e) => {
+      if (e.key === "Enter" && isFormValid) {
+        handleSubmit(e);
+      }
+    },
+    [isFormValid, handleSubmit]
+  );
+
+  // Initialize component
+  useEffect(() => {
+    const initializeComponent = () => {
+      try {
+        // Check for incomplete booking
+        const hasIncompleteBooking =
+          localStorage.getItem("bookingInComplete") === "true";
+        setBookingInComplete(hasIncompleteBooking);
+      } catch (error) {
+        console.error("Error checking localStorage:", error);
+      } finally {
+        setInitialized(true);
+      }
+    };
+
+    initializeComponent();
+  }, []);
+
+  // Loading state
+  if (!initialized) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Loading />
+      </div>
+    );
   }
 
   return (
-    <main className="flex justify-center items-center z-50 bg-gray-100">
-      <ToastContainer />
-      <div className="w-full bg-white h-full flex overflow-hidden relative">
-        <div className="flex justify-center items-center bg-swSecondary50 w-full h-screen sm:w-1/2">
-          <div className="max-w-sm w-full p-4">
-            <p className="text-center text-2xl font-semibold text-black">
-              Sign In
-            </p>
-            <p className="text-center mt-5 mb-8 text-[0.95rem]">
-              Sign in to{" "}
-              <span
-                className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
-              >
-                Swift<i className="font-normal">Wings</i>
-              </span>{" "}
-              to{" "}
-              {bookingInComplete
-                ? "continue your booking"
-                : "manage your bookings"}
-            </p>
+    <>
+      <main className="flex justify-center items-center z-50 bg-gray-100 min-h-screen">
+        <div className="w-full bg-white h-full flex overflow-hidden relative">
+          {/* Left Panel - Sign In Form */}
+          <div className="flex justify-center items-center bg-swSecondary50 w-full h-screen sm:w-1/2">
+            <div className="max-w-sm w-full p-4 sm:p-6">
+              {/* Header */}
+              <div className="text-center mb-8">
+                <h1 className="text-2xl sm:text-3xl font-semibold text-black mb-2">
+                  Welcome Back
+                </h1>
+                <p className="text-[0.95rem] text-gray-600 leading-relaxed">
+                  Sign in to{" "}
+                  <span
+                    className={`${libreBaskerville.className} text-swPrimary500 no-text-shadow font-bold`}
+                  >
+                    Swift<i className="font-normal">Wings</i>
+                  </span>{" "}
+                  to{" "}
+                  {bookingInComplete
+                    ? "continue your booking"
+                    : "manage your bookings"}
+                </p>
+              </div>
 
-            <div className="w-ful mt-5">
-              <InputField
-                label={"Email"}
-                placeholder={"Enter email address"}
-                startIcon={<SwMailIcon className="text-xl" />}
-                value={email}
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                  setEmailError("");
-                }}
-                className={emailError ? "error" : ""}
-              />
-              {emailError && <p className="text-red-500">{emailError}</p>}
-            </div>
-            <div className="w-full mt-5">
-              <InputField
-                label={"Password"}
-                placeholder={"Enter password"}
-                startIcon={<SwKeyIcon className="text-xl" />}
-                value={password}
-                endIcon={
-                  showPassword ? (
-                    <SwOpenEyeIcon
-                      className="text-xl"
-                      onClick={togglePasswordVisibility}
-                    />
-                  ) : (
-                    <TbEyeClosed
-                      className="text-xl"
-                      onClick={togglePasswordVisibility}
-                    />
-                  )
-                }
-                inputType={showPassword ? "text" : "password"}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              {passwordError && <p className="text-red-500">{passwordError}</p>}
-            </div>
+              {/* Sign In Form */}
+              <form onSubmit={handleSubmit} className="space-y-5">
+                {/* Email Field */}
+                <div className="space-y-2">
+                  <InputField
+                    label="Email Address"
+                    placeholder="Enter your email address"
+                    startIcon={<SwMailIcon className="text-xl text-gray-500" />}
+                    value={formData.email}
+                    onChange={(e) => handleInputChange("email", e.target.value)}
+                    onBlur={() => {
+                      const error = validateField("email", formData.email);
+                      setErrors((prev) => ({ ...prev, email: error }));
+                    }}
+                    onKeyPress={handleKeyPress}
+                    className={errors.email ? "error" : ""}
+                    type="email"
+                    autoComplete="email"
+                    required
+                  />
+                  {errors.email && (
+                    <p className="text-red-500 text-sm flex items-center gap-1">
+                      <span className="w-1 h-1 bg-red-500 rounded-full"></span>
+                      {errors.email}
+                    </p>
+                  )}
+                </div>
 
-            <Link
-              href={"/forgot-password"}
-              className="ml-auto italic mt-2 text-sm text-swGray800 cursor-pointer w-fit hover:underline"
-            >
-              Forgot Password?
-            </Link>
+                {/* Password Field */}
+                <div className="space-y-2">
+                  <InputField
+                    label="Password"
+                    placeholder="Enter your password"
+                    startIcon={<SwKeyIcon className="text-xl text-gray-500" />}
+                    value={formData.password}
+                    onChange={(e) =>
+                      handleInputChange("password", e.target.value)
+                    }
+                    onBlur={() => {
+                      const error = validateField(
+                        "password",
+                        formData.password
+                      );
+                      setErrors((prev) => ({ ...prev, password: error }));
+                    }}
+                    onKeyPress={handleKeyPress}
+                    endIcon={
+                      <button
+                        type="button"
+                        onClick={togglePasswordVisibility}
+                        className="p-1 hover:bg-gray-100 rounded transition-colors"
+                        aria-label={
+                          showPassword ? "Hide password" : "Show password"
+                        }
+                      >
+                        {showPassword ? (
+                          <SwOpenEyeIcon className="text-xl text-gray-600" />
+                        ) : (
+                          <TbEyeClosed className="text-xl text-gray-600" />
+                        )}
+                      </button>
+                    }
+                    inputType={showPassword ? "text" : "password"}
+                    autoComplete="current-password"
+                    required
+                  />
+                  {errors.password && (
+                    <p className="text-red-500 text-sm flex items-center gap-1">
+                      <span className="w-1 h-1 bg-red-500 rounded-full"></span>
+                      {errors.password}
+                    </p>
+                  )}
+                </div>
 
-            <div className="my-7 flex flex-col gap-3">
-              <Button
-                label={`${loading === true ? "Signing In" : "Sign In"}`}
-                bgColor={"bg-swPrimary500 text-white w-full"}
-                onClick={handleLogin}
-                loader={loading === true ? true : false}
-                disabled={
-                  loading === true || (!email ? true : !password ? true : false)
-                    ? true
-                    : false
-                }
-              />
-              {/* <Button
-                startIcon={<SwGoogleColoredIcon className="text-xl" />}
-                label={"Google sign up"}
-                textColor={
-                  "font-semibold text-swGray800 border border-swGray100"
-                }
-              /> */}
-            </div>
+                {/* Forgot Password Link */}
+                <div className="text-right">
+                  <Link
+                    href="/forgot-password"
+                    className="text-sm text-swPrimary500 hover:text-swPrimary600 hover:underline transition-colors"
+                  >
+                    Forgot your password?
+                  </Link>
+                </div>
 
-            <p
-              className={`${spaceGrotesk.className} font-semibold text-center`}
-            >
-              Are you new to{" "}
-              <span
-                className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
-              >
-                Swift<i className="font-normal">Wings</i>
-              </span>
-              ?
-            </p>
-            <div className="w-full mt-4 font-medium">
+                {/* Submit Button */}
+                <Button
+                  type="submit"
+                  label={loading ? "Signing In..." : "Sign In"}
+                  bgColor="bg-swPrimary500 hover:bg-swPrimary600 text-white w-full"
+                  onClick={handleSubmit}
+                  loader={loading}
+                  disabled={isSubmitDisabled}
+                  className="transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98]"
+                />
+              </form>
+
+              {/* Divider */}
+              <div className="relative my-8">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-gray-300"></div>
+                </div>
+                <div className="relative flex justify-center text-sm">
+                  <span className="px-2 bg-swSecondary50 text-gray-500">
+                    New to SwiftWings?
+                  </span>
+                </div>
+              </div>
+
+              {/* Create Account Button */}
               <Button
                 startIcon={<SwPlusIcon className="text-xl" />}
-                label={"Create a new account"}
-                textColor={
-                  "font-semibold text-swGray800 border border-swGray100 w-full"
-                }
+                label="Create a new account"
+                textColor="font-semibold text-swGray800 border border-swGray100 w-full hover:border-swGray300 hover:bg-gray-50"
                 onClick={() => {
-                  router.push("sign-up");
+                  startTransition(() => {
+                    router.push("/sign-up");
+                  });
                 }}
+                className="transition-all duration-200"
               />
             </div>
           </div>
-        </div>
-        <div className="hidden sm:block w-1/2 bg-cover bg-center bg-no-repeat relative">
-          <Image
-            src={bgImg} // Adjust the path according to where you placed the image
-            layout="fill"
-            objectFit="cover"
-            quality={100}
-            alt="Background Image"
-          />
-          <div className="absolute right-5 -bottom-10 text-white cursor-pointer">
-            <SWLogo className="text-[10rem]" />
+
+          {/* Right Panel - Background Image */}
+          <div className="hidden sm:block w-1/2 bg-cover bg-center bg-no-repeat relative">
+            <Image
+              src={bgImg}
+              fill
+              sizes="50vw"
+              priority
+              quality={90}
+              alt="Luxury private jet background"
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-black bg-opacity-20"></div>
+            <div className="absolute right-5 -bottom-10 text-white cursor-pointer z-10">
+              <SWLogo className="text-[10rem] drop-shadow-lg" />
+            </div>
           </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </>
   );
 };
 
