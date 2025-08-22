@@ -60,51 +60,60 @@ const SignIn = () => {
 
   const signIn = async () => {
     try {
+      setLoading(true);
       const response = await axios.post(`${API_URL}/user/login`, {
         email,
         password,
       });
-      setData(response?.data);
-      let user = response?.data?.data;
-      user = { ...user, isLoggedIn: true };
-      localStorage.setItem("user", JSON.stringify(user));
-      toast.success(response?.data?.message);
-      resetInputField();
-      // const bookingInComplete =
 
-      if (bookingInComplete) {
-        router.push("/booking");
+      if (response?.data?.data) {
+        setData(response.data);
+        let user = response?.data?.data;
+        user = { ...user, isLoggedIn: true };
+        localStorage.setItem("user", JSON.stringify(user));
+        toast.success(response.data.message);
+        resetInputField();
+
+        if (bookingInComplete) {
+          router.push("/booking");
+        } else {
+          router.push("/");
+        }
+        localStorage.removeItem("bookingInComplete");
       } else {
-        router.push("/");
+        toast.error("Invalid response from server");
       }
-      localStorage.removeItem("bookingInComplete");
     } catch (error) {
-      toast.error(error?.response?.data?.error);
+      toast.error(error?.response?.data?.error || "Login failed");
+    } finally {
       setLoading(false);
     }
   };
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     setLoading(true);
     setEmailError("");
     setPasswordError("");
 
     if (!email) {
       setEmailError("Email is required");
+      setLoading(false); // Also stop loading
       return;
     } else if (!isValidEmail(email)) {
       setEmailError("Invalid email format");
+      setLoading(false);
       return;
     }
 
     if (!password) {
       setPasswordError("Password is required");
+      setLoading(false);
       return;
     }
 
-    // dispatch(signInUser({ email, password }));
-    signIn();
+    await signIn();
   };
+
   // console.log({ loading });
 
   // useEffect(() => {
@@ -125,7 +134,8 @@ const SignIn = () => {
   useEffect(() => {
     if (typeof window !== "undefined") {
       const checkUncompletedBooking =
-        localStorage.getItem("bookingInComplete") || false;
+        localStorage.getItem("bookingInComplete") === "true";
+
       setBookingInComplete(checkUncompletedBooking);
       setLoader(false);
     }
