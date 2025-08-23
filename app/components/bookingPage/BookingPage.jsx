@@ -72,6 +72,7 @@ const BookingPageInformation = () => {
   // State management
   const [jetImagesOpen, setJetImagesOpen] = useState(false);
   const [currentJetImages, setCurrentJetImages] = useState([]);
+  const [currentAircraft, setCurrentAircraft] = useState(null);
   const [loading, setLoading] = useState(false);
   const [dateValue, setDateValue] = useState(dayjs());
   const [additionalNote, setAdditionalNote] = useState("");
@@ -232,8 +233,30 @@ const BookingPageInformation = () => {
 
   // Handle jet images view
   const handleViewJetImages = useCallback((item) => {
-    setCurrentJetImages(item?.images || []);
-    setJetImagesOpen(true);
+    try {
+      console.log('handleViewJetImages called with item:', item);
+      
+      if (!item) {
+        console.error('No aircraft item provided to handleViewJetImages');
+        toast.error('No aircraft data available');
+        return;
+      }
+      
+      if (!item.images || !Array.isArray(item.images)) {
+        console.warn('Aircraft has no images or images is not an array:', item.images);
+        setCurrentJetImages([]);
+      } else {
+        setCurrentJetImages(item.images);
+      }
+      
+      setCurrentAircraft(item);
+      setJetImagesOpen(true);
+      
+      console.log('Successfully set current aircraft and images');
+    } catch (error) {
+      console.error('Error in handleViewJetImages:', error);
+      toast.error('Failed to load aircraft images');
+    }
   }, []);
 
   // Memoized aircraft card component
@@ -619,7 +642,7 @@ const BookingPageInformation = () => {
 
       {/* Jet Images Popup */}
       <JetImagesPopup
-        name={currentJetImages[0]?.name}
+        name={currentAircraft?.name || "Aircraft"}
         images={currentJetImages}
         open={jetImagesOpen}
         onClose={() => setJetImagesOpen(false)}

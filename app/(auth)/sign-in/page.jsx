@@ -177,7 +177,51 @@ const SignIn = () => {
 
         // Handle different types of errors
         if (error.response?.status === 401) {
-          toast.error("Invalid email or password");
+          const errorMessage = error.response?.data?.error || 
+                              error.response?.data?.message || 
+                              "";
+          
+          // Check if it's an email verification error (multiple possible variations)
+          if (errorMessage.includes("Please verify your email address") || 
+              errorMessage.includes("verify your email") ||
+              errorMessage.includes("email verification")) {
+            
+            // Store email for verification page
+            localStorage.setItem("signupEmail", formData.email.trim());
+            
+            // Show info message
+            toast.info("Please verify your email address first");
+            
+            // Redirect to verification page after a short delay
+            setTimeout(() => {
+              router.push(`/verify-email?email=${encodeURIComponent(formData.email.trim())}`);
+            }, 2000);
+          } else {
+            toast.error("Invalid email or password");
+          }
+        } else if (error.response?.status === 403) {
+          // Check for email verification errors in 403 responses as well
+          const errorMessage = error.response?.data?.error || 
+                              error.response?.data?.message || 
+                              "";
+          
+          if (errorMessage.includes("Please verify your email address") || 
+              errorMessage.includes("verify your email") ||
+              errorMessage.includes("email verification")) {
+            
+            // Store email for verification page
+            localStorage.setItem("signupEmail", formData.email.trim());
+            
+            // Show info message
+            toast.info("Please verify your email address first");
+            
+            // Redirect to verification page after a short delay
+            setTimeout(() => {
+              router.push(`/verify-email?email=${encodeURIComponent(formData.email.trim())}`);
+            }, 2000);
+          } else {
+            toast.error("Access denied. Please contact support.");
+          }
         } else if (error.response?.status === 429) {
           toast.error("Too many login attempts. Please try again later.");
         } else if (error.response?.status >= 500) {
@@ -186,7 +230,9 @@ const SignIn = () => {
           toast.error("Network error. Please check your connection.");
         } else {
           toast.error(
-            error.response?.data?.error || "Login failed. Please try again."
+            error.response?.data?.error || 
+            error.response?.data?.message || 
+            "Login failed. Please try again."
           );
         }
       } finally {

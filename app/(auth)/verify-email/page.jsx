@@ -31,6 +31,7 @@ const VerifyEmailContent = () => {
   const [email, setEmail] = useState("");
   const [loader, setLoader] = useState(true);
   const [resendLoading, setResendLoading] = useState(false);
+  const [verifyLoading, setVerifyLoading] = useState(false);
 
   const { loading, error, data } = useSelector((state) => state.auth);
 
@@ -72,17 +73,17 @@ const VerifyEmailContent = () => {
       return;
     }
 
+    setVerifyLoading(true);
+    
     dispatch(verifyEmail({ email, otp }))
       .unwrap()
       .then((res) => {
         if (res.success === true) {
-          toast.success("Email verified successfully!");
+          toast.success("Email verified successfully! Redirecting to login...");
           // Clear email from localStorage
           localStorage.removeItem("signupEmail");
-          // Redirect to sign-in
-          setTimeout(() => {
-            router.push("/sign-in");
-          }, 2000);
+          // Redirect to sign-in immediately
+          router.push("/sign-in");
         } else {
           toast.error(res.message || "Verification failed");
         }
@@ -90,6 +91,9 @@ const VerifyEmailContent = () => {
       .catch((err) => {
         console.log(err);
         toast.error(err.message || "Verification failed");
+      })
+      .finally(() => {
+        setVerifyLoading(false);
       });
   };
 
@@ -139,7 +143,7 @@ const VerifyEmailContent = () => {
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-4">
               <p className="text-sm text-blue-800">
                 <strong>Next step:</strong> Enter the 6-digit verification code sent to your email. 
-                After verification, you&apos;ll be able to sign in to your account.
+                After verification, you&apos;ll be redirected to the login page to access your account.
               </p>
             </div>
 
@@ -159,11 +163,12 @@ const VerifyEmailContent = () => {
 
             <div className="my-7 flex flex-col gap-3">
               <Button
-                label={`${loading === "pending" ? "Verifying..." : "Verify Email"}`}
-                bgColor={"bg-swPrimary500 text-white w-full"}
+                label={verifyLoading ? "Verifying..." : "Verify Email"}
+                bgColor={"bg-swPrimary500 hover:bg-swPrimary600 text-white w-full"}
                 onClick={handleVerifyEmail}
-                loader={loading === "pending" ? true : false}
-                disabled={loading === "pending" ? true : false}
+                loader={verifyLoading}
+                disabled={verifyLoading || !otp || otp.length !== 6}
+                className="transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98]"
               />
             </div>
 
@@ -172,21 +177,24 @@ const VerifyEmailContent = () => {
                 Didn&apos;t receive the code?
               </p>
               <Button
-                label={`${resendLoading ? "Sending..." : "Resend Code"}`}
-                textColor={"font-semibold text-swPrimary500 border border-swPrimary500 max-w-lg"}
+                label={resendLoading ? "Sending..." : "Resend Code"}
+                textColor={"font-semibold text-swPrimary500 border border-swPrimary500 max-w-lg hover:bg-swPrimary50"}
                 onClick={handleResendCode}
-                disabled={resendLoading}
+                disabled={resendLoading || verifyLoading}
                 loader={resendLoading}
+                className="transition-all duration-200"
               />
             </div>
 
             <div className="w-full flex justify-center mt-6 font-medium">
               <Button
                 label={"Back to Sign In"}
-                textColor={"font-semibold text-swGray800 border border-swGray100 max-w-lg"}
+                textColor={"font-semibold text-swGray800 border border-swGray100 max-w-lg hover:bg-gray-50"}
                 onClick={() => {
                   router.push("/sign-in");
                 }}
+                disabled={verifyLoading}
+                className="transition-all duration-200"
               />
             </div>
           </div>
