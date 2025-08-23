@@ -1,3 +1,5 @@
+"use client";
+
 const InputField = ({
   css,
   label,
@@ -15,7 +17,7 @@ const InputField = ({
   startIcon,
   disabled,
   readOnly,
-  title
+  title,
 }) => {
   return (
     <div className="" title={title}>

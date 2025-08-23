@@ -58,7 +58,7 @@ const NavBar = ({ Nav }) => {
             href={hasDropDown ? "javascript:void(0)" : link}
             onClick={hasDropDown ? toggleDropdown : null}
             className={`flex gap-2 transition-all ease-in-out duration-1000 ${
-              navBg || isMobileMenuOpen ? "text-gray-700" : "text-white"
+              navBg || isMobileMenuOpen || pathname === "/booking" ? "text-gray-700" : "text-white"
             }  px-4 ${pathname === link ? "font-medium" : "hover:font-medium"}`}
             aria-current="page"
           >

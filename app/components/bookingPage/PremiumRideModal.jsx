@@ -8,13 +8,13 @@ const PremiumRideModal = ({
   setBookingDetails,
   isSubmitting,
 }) => {
-  const handleRideSelection = (isPremium: boolean) => {
-    setBookingDetails((prevDetails: typeof bookingDetails) => ({
+  const handleRideSelection = (isPremium) => {
+    setBookingDetails((prevDetails) => ({
       ...prevDetails,
       offer_ride: isPremium,
     }));
     isSubmitting();
-    setOpen(false);
+    setOpen?.(false);
   };
 
   if (!open) return null;
@@ -23,7 +23,7 @@ const PremiumRideModal = ({
       <div className="bg-white rounded-xl shadow-lg w-full max-w-md p-6 relative">
         {/* Header */}
         <div className="absolute top-2 right-2 text-gray-400 hover:text-gray-600 cursor-pointer">
-          <IoClose onClick={() => setOpen(false)} size={24} />
+          <IoClose onClick={() => setOpen?.(false)} size={24} />
         </div>
         <div className="mb-4">
           <h2 className="text-xl font-semibold">Premium Ride Experience</h2>

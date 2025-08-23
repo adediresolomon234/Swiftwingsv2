@@ -25,6 +25,7 @@ import bgImg from "../../../public/images/nologgedInImg.png";
 import { IoClose } from "react-icons/io5";
 import Loading from "../../components/Loading";
 import PhoneNumberValidation from "../../components/shared/PhoneNumberValidation";
+import Link from "next/link";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -109,6 +110,9 @@ const SignUp = () => {
         .then((res) => {
           if (res.success === true) {
             toast.success(res.message);
+            // Store email in localStorage for verification page
+            localStorage.setItem("signupEmail", formData.email);
+            // Clear form
             setFormData({
               first_name: "",
               last_name: "",
@@ -117,16 +121,16 @@ const SignUp = () => {
               password: "",
             });
             setReenterPassword("");
-            router.push("/sign-in");
+            // Redirect to email verification page
+            router.push(`/verify-email?email=${encodeURIComponent(formData.email)}`);
           } else {
-            toast.error(res);
+            toast.error(res.message || "Signup failed");
           }
-          // console.log(res);
         })
         .catch((err) => {
           console.log(err);
+          toast.error(err.message || "Signup failed");
         });
-      // setIsSubmitted(true);
     }
   };
 
@@ -325,6 +329,27 @@ const SignUp = () => {
                 disabled={loading === "pending" ? true : false}
               />
             </div>
+
+            <div className="text-center mb-4">
+              <p className="text-sm text-swGray600">
+                By signing up, you agree to our{" "}
+                <a href="/terms" className="text-swPrimary500 hover:underline">
+                  Terms of Service
+                </a>{" "}
+                and{" "}
+                <a href="/privacy" className="text-swPrimary500 hover:underline">
+                  Privacy Policy
+                </a>
+              </p>
+            </div>
+
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-4">
+              <p className="text-sm text-blue-800">
+                <strong>Note:</strong> After signing up, you&apos;ll receive a verification code via email. 
+                Please verify your email address to complete your registration.
+              </p>
+            </div>
+
             {/* <div className="my-4 mt-2 flex items-center before:mt-0.1 before:flex-1 before:border-t before:border-neutral-200 after:mt-0.1 after:flex-1 after:border-t after:border-neutral-200">
               <p className="mx-4 mb-0 text-center font-medium text-swGray700">
                 Or
@@ -340,7 +365,10 @@ const SignUp = () => {
               />
             </div> */}
             <p className="text-swGray800 text-center">
-              Already have an account?
+              Already have an account? Don&apos;t need to sign up?{' '}
+              <Link href="/sign-in" className="text-blue-600 hover:text-blue-800">
+                Sign in here
+              </Link>
             </p>
             <div className="w-full flex justify-center mt-4 font-medium">
               <Button
