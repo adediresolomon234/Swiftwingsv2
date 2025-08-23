@@ -57,7 +57,6 @@ const BookingEngine = ({ setBookingDetails }) => {
   ]);
 
   const updateBookingState = (updatedFields, index, date) => {
-    console.log({ updatedFields });
     setBookingState((prevState) => {
       const newState = prevState.map((booking, idx) => {
         if (idx === index) {
