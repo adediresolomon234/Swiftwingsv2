@@ -10,7 +10,7 @@ import {
   SwUserIcon,
 } from "../svgs";
 import Button from "../Button";
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useCallback } from "react";
 import airportsData from "../helpers/airportsData.json";
 import dayjs from "dayjs";
 import { HiArrowRight } from "react-icons/hi";
@@ -110,7 +110,7 @@ const BookingEngine = ({ setBookingDetails }) => {
     );
   };
 
-  const resetBookingState = () => {
+  const resetBookingState = useCallback(() => {
     setBookingState([
       {
         source: null,
@@ -126,7 +126,7 @@ const BookingEngine = ({ setBookingDetails }) => {
         },
       },
     ]);
-  };
+  }, []);
 
   const options = useMemo(() => {
     return airports.map((item) => ({
@@ -147,7 +147,7 @@ const BookingEngine = ({ setBookingDetails }) => {
       ),
       value: item,
     }));
-  }, []);
+  }, [airports]);
 
   const bookingBtnDisable = () => {
     if (bookingType === "Round Trip") {
@@ -255,13 +255,13 @@ const BookingEngine = ({ setBookingDetails }) => {
         },
       }));
     }
-  }, [bookingType, bookingState]);
+  }, [bookingType, bookingState, setBookingDetails]);
 
   useEffect(() => {
     if (data?.message) {
       resetBookingState();
     }
-  }, [data]);
+  }, [data, resetBookingState]);
 
   return (
     <main>

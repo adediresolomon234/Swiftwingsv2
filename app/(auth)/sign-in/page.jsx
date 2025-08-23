@@ -342,7 +342,7 @@ const SignIn = () => {
 
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mt-3">
               <p className="text-sm text-blue-800">
-                <strong>New user?</strong> After signing up, you'll need to verify your email address before you can log in. 
+                <strong>New user?</strong> After signing up, you&apos;ll need to verify your email address before you can log in. 
                 Check your email for the verification code.
               </p>
             </div>
@@ -366,7 +366,10 @@ const SignIn = () => {
                 </div>
                 <div className="relative flex justify-center text-sm">
                   <span className="px-2 bg-swSecondary50 text-gray-500">
-                    New to SwiftWings?
+                    New to SwiftWings? Don&apos;t have an account?{' '}
+                    <Link href="/sign-up" className="text-blue-600 hover:text-blue-800">
+                      Sign up here
+                    </Link>
                   </span>
                 </div>
               </div>

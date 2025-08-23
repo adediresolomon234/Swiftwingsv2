@@ -119,7 +119,7 @@ const CompleteProfile = () => {
       // alert(data?.message);
     }
     if (error) toast.error(error);
-  }, [data, error]);
+  }, [data, error, router]);
 
   useEffect(() => {
     setLoading(false);

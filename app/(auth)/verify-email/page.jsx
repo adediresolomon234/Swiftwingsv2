@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { Space_Grotesk, Libre_Baskerville } from "next/font/google";
 import "../../../styles.css";
 import Button from "../../components/Button";
@@ -22,7 +22,7 @@ const libre_baskerville = Libre_Baskerville({
   weight: ["400", "700"],
 });
 
-const VerifyEmail = () => {
+const VerifyEmailContent = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -123,19 +123,23 @@ const VerifyEmail = () => {
       <div className="w-full bg-white h-full flex overflow-hidden relative">
         <div className="relative flex justify-center items-center min-h-screen px-5 bg-swSecondary50 pt-3 w-full sm:w-1/2">
           <div className="max-w-md p-4 overflow-x-hidden">
-            <p className="text-center text-2xl font-semibold text-swGray800">
-              Verify Your Email
-            </p>
-
-            <p className="text-center mt-2 mb-8 text-md md:text-lg text-swGRay800">
-              We've sent a verification code to{" "}
-              <span className="font-semibold text-swPrimary500">{email}</span>
-            </p>
+            <div className="text-center mb-6">
+              <h1 className="text-2xl font-bold text-gray-900 mb-2">
+                Verify Your Email
+              </h1>
+              <p className="text-gray-600">
+                We&apos;ve sent a 6-digit verification code to{' '}
+                <span className="font-semibold text-blue-600">{email}</span>
+              </p>
+              <p className="text-sm text-gray-500 mt-2">
+                Next step: Enter the 6-digit verification code we sent to your email address.
+              </p>
+            </div>
 
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-4">
               <p className="text-sm text-blue-800">
                 <strong>Next step:</strong> Enter the 6-digit verification code sent to your email. 
-                After verification, you'll be able to sign in to your account.
+                After verification, you&apos;ll be able to sign in to your account.
               </p>
             </div>
 
@@ -165,7 +169,7 @@ const VerifyEmail = () => {
 
             <div className="text-center">
               <p className="text-swGray600 text-sm mb-3">
-                Didn't receive the code?
+                Didn&apos;t receive the code?
               </p>
               <Button
                 label={`${resendLoading ? "Sending..." : "Resend Code"}`}
@@ -201,6 +205,14 @@ const VerifyEmail = () => {
         </div>
       </div>
     </main>
+  );
+};
+
+const VerifyEmail = () => {
+  return (
+    <Suspense fallback={<Loading />}>
+      <VerifyEmailContent />
+    </Suspense>
   );
 };
 

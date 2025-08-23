@@ -25,6 +25,7 @@ import bgImg from "../../../public/images/nologgedInImg.png";
 import { IoClose } from "react-icons/io5";
 import Loading from "../../components/Loading";
 import PhoneNumberValidation from "../../components/shared/PhoneNumberValidation";
+import Link from "next/link";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -344,7 +345,7 @@ const SignUp = () => {
 
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-4">
               <p className="text-sm text-blue-800">
-                <strong>Note:</strong> After signing up, you'll receive a verification code via email. 
+                <strong>Note:</strong> After signing up, you&apos;ll receive a verification code via email. 
                 Please verify your email address to complete your registration.
               </p>
             </div>
@@ -364,7 +365,10 @@ const SignUp = () => {
               />
             </div> */}
             <p className="text-swGray800 text-center">
-              Already have an account?
+              Already have an account? Don&apos;t need to sign up?{' '}
+              <Link href="/sign-in" className="text-blue-600 hover:text-blue-800">
+                Sign in here
+              </Link>
             </p>
             <div className="w-full flex justify-center mt-4 font-medium">
               <Button
