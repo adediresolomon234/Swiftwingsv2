@@ -333,15 +333,19 @@ const SignIn = () => {
                   )}
                 </div>
 
-                {/* Forgot Password Link */}
-                <div className="text-right">
-                  <Link
-                    href="/forgot-password"
-                    className="text-sm text-swPrimary500 hover:text-swPrimary600 hover:underline transition-colors"
-                  >
-                    Forgot your password?
-                  </Link>
-                </div>
+            <Link
+              href={"/forgot-password"}
+              className="ml-auto italic mt-2 text-sm text-swGray800 cursor-pointer w-fit hover:underline"
+            >
+              Forgot Password?
+            </Link>
+
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mt-3">
+              <p className="text-sm text-blue-800">
+                <strong>New user?</strong> After signing up, you'll need to verify your email address before you can log in. 
+                Check your email for the verification code.
+              </p>
+            </div>
 
                 {/* Submit Button */}
                 <Button

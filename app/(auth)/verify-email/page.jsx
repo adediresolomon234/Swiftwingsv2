@@ -1,0 +1,207 @@
+"use client";
+import { useEffect, useState } from "react";
+import { Space_Grotesk, Libre_Baskerville } from "next/font/google";
+import "../../../styles.css";
+import Button from "../../components/Button";
+import InputField from "../../components/shared/InputField";
+import { useDispatch, useSelector } from "react-redux";
+import { verifyEmail, resendVerification } from "../../../redux/slices/authSlice";
+import { SwMailIcon, SwKeyIcon } from "../../components/svgs";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useRouter, useSearchParams } from "next/navigation";
+import Loading from "../../components/Loading";
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+});
+
+const libre_baskerville = Libre_Baskerville({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+});
+
+const VerifyEmail = () => {
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const [otp, setOtp] = useState("");
+  const [otpError, setOtpError] = useState("");
+  const [email, setEmail] = useState("");
+  const [loader, setLoader] = useState(true);
+  const [resendLoading, setResendLoading] = useState(false);
+
+  const { loading, error, data } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    // Get email from URL params or localStorage
+    const emailFromParams = searchParams.get("email");
+    const emailFromStorage = localStorage.getItem("signupEmail");
+    
+    if (emailFromParams) {
+      setEmail(emailFromParams);
+    } else if (emailFromStorage) {
+      setEmail(emailFromStorage);
+    } else {
+      // Redirect to signup if no email found
+      router.push("/sign-up");
+      return;
+    }
+    
+    setLoader(false);
+  }, [searchParams, router]);
+
+  const handleOtpChange = (e) => {
+    const value = e.target.value;
+    // Only allow numbers and limit to 6 digits
+    if (/^\d{0,6}$/.test(value)) {
+      setOtp(value);
+      setOtpError("");
+    }
+  };
+
+  const handleVerifyEmail = () => {
+    if (!otp) {
+      setOtpError("Please enter the verification code");
+      return;
+    }
+
+    if (otp.length !== 6) {
+      setOtpError("Please enter a valid 6-digit code");
+      return;
+    }
+
+    dispatch(verifyEmail({ email, otp }))
+      .unwrap()
+      .then((res) => {
+        if (res.success === true) {
+          toast.success("Email verified successfully!");
+          // Clear email from localStorage
+          localStorage.removeItem("signupEmail");
+          // Redirect to sign-in
+          setTimeout(() => {
+            router.push("/sign-in");
+          }, 2000);
+        } else {
+          toast.error(res.message || "Verification failed");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error(err.message || "Verification failed");
+      });
+  };
+
+  const handleResendCode = () => {
+    setResendLoading(true);
+    dispatch(resendVerification({ email }))
+      .unwrap()
+      .then((res) => {
+        if (res.success === true) {
+          toast.success("Verification code resent successfully!");
+        } else {
+          toast.error(res.message || "Failed to resend code");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error(err.message || "Failed to resend code");
+      })
+      .finally(() => {
+        setResendLoading(false);
+      });
+  };
+
+  if (loader) {
+    return <Loading />;
+  }
+
+  return (
+    <main className="flex justify-center items-center z-50 bg-gray-100">
+      <ToastContainer />
+      <div className="w-full bg-white h-full flex overflow-hidden relative">
+        <div className="relative flex justify-center items-center min-h-screen px-5 bg-swSecondary50 pt-3 w-full sm:w-1/2">
+          <div className="max-w-md p-4 overflow-x-hidden">
+            <p className="text-center text-2xl font-semibold text-swGray800">
+              Verify Your Email
+            </p>
+
+            <p className="text-center mt-2 mb-8 text-md md:text-lg text-swGRay800">
+              We've sent a verification code to{" "}
+              <span className="font-semibold text-swPrimary500">{email}</span>
+            </p>
+
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-4">
+              <p className="text-sm text-blue-800">
+                <strong>Next step:</strong> Enter the 6-digit verification code sent to your email. 
+                After verification, you'll be able to sign in to your account.
+              </p>
+            </div>
+
+            <div className="w-full mt-5">
+              <InputField
+                label={"Verification Code"}
+                name={"otp"}
+                placeholder={"Enter 6-digit code"}
+                startIcon={<SwKeyIcon className="text-xl" />}
+                value={otp}
+                onChange={handleOtpChange}
+                className={otpError ? "error" : ""}
+                maxLength={6}
+              />
+              {otpError && <p className="text-red-500 text-sm mt-1">{otpError}</p>}
+            </div>
+
+            <div className="my-7 flex flex-col gap-3">
+              <Button
+                label={`${loading === "pending" ? "Verifying..." : "Verify Email"}`}
+                bgColor={"bg-swPrimary500 text-white w-full"}
+                onClick={handleVerifyEmail}
+                loader={loading === "pending" ? true : false}
+                disabled={loading === "pending" ? true : false}
+              />
+            </div>
+
+            <div className="text-center">
+              <p className="text-swGray600 text-sm mb-3">
+                Didn't receive the code?
+              </p>
+              <Button
+                label={`${resendLoading ? "Sending..." : "Resend Code"}`}
+                textColor={"font-semibold text-swPrimary500 border border-swPrimary500 max-w-lg"}
+                onClick={handleResendCode}
+                disabled={resendLoading}
+                loader={resendLoading}
+              />
+            </div>
+
+            <div className="w-full flex justify-center mt-6 font-medium">
+              <Button
+                label={"Back to Sign In"}
+                textColor={"font-semibold text-swGray800 border border-swGray100 max-w-lg"}
+                onClick={() => {
+                  router.push("/sign-in");
+                }}
+              />
+            </div>
+          </div>
+        </div>
+        
+        <div className="hidden sm:block w-1/2 bg-gradient-to-br from-swPrimary500 to-swPrimary600 relative">
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="text-center text-white">
+              <div className="text-6xl mb-4">✉️</div>
+              <h2 className="text-2xl font-bold mb-2">Email Verification</h2>
+              <p className="text-lg opacity-90">
+                Please check your email and enter the verification code to complete your registration.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  );
+};
+
+export default VerifyEmail;
