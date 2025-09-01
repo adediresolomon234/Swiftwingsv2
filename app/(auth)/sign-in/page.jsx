@@ -176,7 +176,7 @@ const SignIn = () => {
         console.error("Login error:", error);
 
         // Handle different types of errors
-        if (error.response?.status === 401) {
+        if (error?.response?.status === 401) {
           const errorMessage = error.response?.data?.error || 
                               error.response?.data?.message || 
                               "";

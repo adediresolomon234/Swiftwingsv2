@@ -100,7 +100,7 @@ const ForgotPasswordPage = () => {
   return (
     <main className="flex justify-center min-h-screen pt-20">
       <NavBar Nav={false} />
-      <ToastContainer />
+      {/* <ToastContainer /> */}
       <div className="max-w-lg w-full p-8 mt-20 flex flex-col items-center">
         <Link href={"/"} className="mb-5">
           <Image src={SWheader} alt="Logo" className="w-60 " />
