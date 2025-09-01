@@ -175,6 +175,8 @@ const BookingPageInformation = () => {
       }
 
       setLoading(true);
+      delete loggedInUser.token;
+      delete loggedInUser.isLoggedIn;
 
       // Prepare booking data
       const bookingPayload = {
@@ -190,6 +192,7 @@ const BookingPageInformation = () => {
 
       if (response?.response?.data?.error) {
         toast.error(response.response.data.error);
+        return;
       } else if (response?.message) {
         // Success handling
         setAdditionalNote("");
@@ -234,28 +237,31 @@ const BookingPageInformation = () => {
   // Handle jet images view
   const handleViewJetImages = useCallback((item) => {
     try {
-      console.log('handleViewJetImages called with item:', item);
-      
+      console.log("handleViewJetImages called with item:", item);
+
       if (!item) {
-        console.error('No aircraft item provided to handleViewJetImages');
-        toast.error('No aircraft data available');
+        console.error("No aircraft item provided to handleViewJetImages");
+        toast.error("No aircraft data available");
         return;
       }
-      
+
       if (!item.images || !Array.isArray(item.images)) {
-        console.warn('Aircraft has no images or images is not an array:', item.images);
+        console.warn(
+          "Aircraft has no images or images is not an array:",
+          item.images
+        );
         setCurrentJetImages([]);
       } else {
         setCurrentJetImages(item.images);
       }
-      
+
       setCurrentAircraft(item);
       setJetImagesOpen(true);
-      
-      console.log('Successfully set current aircraft and images');
+
+      console.log("Successfully set current aircraft and images");
     } catch (error) {
-      console.error('Error in handleViewJetImages:', error);
-      toast.error('Failed to load aircraft images');
+      console.error("Error in handleViewJetImages:", error);
+      toast.error("Failed to load aircraft images");
     }
   }, []);
 
