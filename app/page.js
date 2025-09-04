@@ -160,7 +160,7 @@ export default function Home() {
                 <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20 hover:bg-white/20 transition-all duration-300">
                   <p className="font-bold text-2xl md:text-3xl mb-1">
                     <CountUp
-                      end={homeData?.data?.no_aircraft?.data}
+                      end={homeData?.data?.no_aircraft}
                       duration={2}
                       formattingFn={formatThousand}
                     />
