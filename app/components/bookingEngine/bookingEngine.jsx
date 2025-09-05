@@ -226,17 +226,19 @@ const BookingEngine = ({ setBookingDetails }) => {
     if (pathname === "/booking") {
       const booking = JSON.parse(localStorage.getItem("bookingDetails"));
       if (booking !== null) {
+        // console.log(booking);
         const tripType = booking?.booking_details?.tripType;
         const formData = booking?.booking_details?.formData;
         setBookingType(tripType);
         setBookingState(formData);
-        setBookingDetails((prev) => ({
-          ...prev,
-          booking_details: {
-            tripType,
-            formData,
-          },
-        }));
+        setBookingDetails(booking);
+        // setBookingDetails((prev) => ({
+        //   ...prev,
+        //   booking_details: {
+        //     tripType,
+        //     formData,
+        //   },
+        // }));
       }
     }
     // else {
@@ -392,7 +394,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                       onClose={() => setOpenDeparture(null)}
                       format={options}
                       setValue={(selectedOption) => {
-                        console.log({ selectedOption });
+                        // console.log({ selectedOption });
                         updateBookingState({ source: selectedOption }, index);
                         setOpenDeparture(null);
                       }}

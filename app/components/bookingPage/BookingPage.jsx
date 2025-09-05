@@ -102,7 +102,7 @@ const BookingPageInformation = () => {
     error: jetError,
     aircrafts: jetData,
   } = useSelector((state) => state.aircrafts);
-  console.log("Jet status", jetLoading);
+  // console.log("Jet status", jetLoading);
 
   // Memoized values for performance
   const memoizedJetData = useMemo(() => jetData || [], [jetData]);
@@ -117,27 +117,35 @@ const BookingPageInformation = () => {
   }, []);
 
   // Handle aircraft selection with optimization
-  const handleAircraftSelect = useCallback((e, aircraftDetails, index) => {
-    const isChecked = e.target.checked;
-    setBookingDetails((prevState) => {
-      if (!prevState) return prevState;
+  const handleAircraftSelect = useCallback(
+    (e, aircraftDetails, index) => {
+      setBookingDetails((prevState) => {
+        if (!prevState) return prevState;
+        const additional_quote = prevState.additional_quote || [];
+        const alreadyBooked = additional_quote.some(
+          (a) => a.id === aircraftDetails.id
+        );
+        if (!alreadyBooked) {
+          // Add aircraft
+          return {
+            ...prevState,
+            additional_quote: [...additional_quote, aircraftDetails],
+          };
+        } else {
+          // Remove aircraft
+          return {
+            ...prevState,
+            additional_quote: additional_quote.filter(
+              (aircraft) => aircraft.id !== aircraftDetails.id
+            ),
+          };
+        }
+      });
+    },
+    [bookingDetails]
+  );
 
-      const additional_quote = prevState.additional_quote || [];
-      if (isChecked) {
-        return {
-          ...prevState,
-          additional_quote: [...additional_quote, aircraftDetails],
-        };
-      } else {
-        return {
-          ...prevState,
-          additional_quote: additional_quote.filter(
-            (aircraft) => aircraft !== aircraftDetails
-          ),
-        };
-      }
-    });
-  }, []);
+  console.log("booking", bookingDetails);
 
   // Uncheck all checkboxes
   const uncheckBoxes = useCallback(() => {
@@ -167,6 +175,7 @@ const BookingPageInformation = () => {
       if (!loggedInUser) {
         // setNotLoggedInModal(true);
         localStorage.setItem("bookingInComplete", "true");
+        localStorage.setItem("bookingDetails", JSON.stringify(bookingDetails));
         toast.error("You are not logged in. Kindly login to continue");
         router.push("/sign-in");
         // handleNavigationWithRefresh("/sign-in");
@@ -237,7 +246,7 @@ const BookingPageInformation = () => {
   // Handle jet images view
   const handleViewJetImages = useCallback((item) => {
     try {
-      console.log("handleViewJetImages called with item:", item);
+      // console.log("handleViewJetImages called with item:", item);
 
       if (!item) {
         console.error("No aircraft item provided to handleViewJetImages");
@@ -258,7 +267,7 @@ const BookingPageInformation = () => {
       setCurrentAircraft(item);
       setJetImagesOpen(true);
 
-      console.log("Successfully set current aircraft and images");
+      // console.log("Successfully set current aircraft and images");
     } catch (error) {
       console.error("Error in handleViewJetImages:", error);
       toast.error("Failed to load aircraft images");
@@ -274,6 +283,11 @@ const BookingPageInformation = () => {
             {/* Checkbox */}
             <input
               type="checkbox"
+              checked={
+                bookingDetails?.additional_quote?.some(
+                  (aircraft) => String(aircraft.id) === String(item.id)
+                ) || false
+              }
               onChange={(e) => handleAircraftSelect(e, item, index)}
               className="h-4 w-4 accent-swPrimary500 rounded border border-slate-300 hover:border-swPrimary500 transition-colors duration-200"
             />
@@ -353,7 +367,7 @@ const BookingPageInformation = () => {
         </div>
       </div>
     ),
-    [handleAircraftSelect, handleViewJetImages, pathname]
+    [handleAircraftSelect, handleViewJetImages, bookingDetails, pathname]
   );
 
   // Memoized flight summary component
