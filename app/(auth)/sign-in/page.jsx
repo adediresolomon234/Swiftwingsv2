@@ -7,6 +7,7 @@ import Image from "next/image";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import SWheader from "../../../public/images/SWheader.png";
 
 // Fonts
 import { Space_Grotesk, Libre_Baskerville } from "next/font/google";
@@ -285,9 +286,10 @@ const SignIn = () => {
         <div className="w-full bg-white h-full flex overflow-hidden relative">
           {/* Left Panel - Sign In Form */}
           <div className="flex justify-center items-center bg-swSecondary50 w-full h-screen sm:w-1/2">
-            <div className="max-w-sm w-full p-4 sm:p-6">
+            <div className="max-w-[557px] w-full p-4 sm:p-6 overflow-y-scroll">
               {/* Header */}
               <div className="text-center mb-8">
+                <Image src={SWheader} alt="Logo" className="w-48 sm:w-60 mx-auto mb-5" />
                 <h1 className="text-2xl sm:text-3xl font-semibold text-black mb-2">
                   Welcome Back
                 </h1>
@@ -412,8 +414,8 @@ const SignIn = () => {
                 </div>
                 <div className="relative flex justify-center text-sm">
                   <span className="px-2 bg-swSecondary50 text-gray-500">
-                    New to SwiftWings? Don&apos;t have an account?{' '}
-                    <Link href="/sign-up" className="text-blue-600 hover:text-blue-800">
+                    Don&apos;t have an account?{' '}
+                    <Link href="/sign-up" className="text-swPrimary400 hover:text-swPrimary600">
                       Sign up here
                     </Link>
                   </span>
@@ -421,7 +423,7 @@ const SignIn = () => {
               </div>
 
               {/* Create Account Button */}
-              <Button
+              {/* <Button
                 startIcon={<SwPlusIcon className="text-xl" />}
                 label="Create a new account"
                 textColor="font-semibold text-swGray800 border border-swGray100 w-full hover:border-swGray300 hover:bg-gray-50"
@@ -431,7 +433,7 @@ const SignIn = () => {
                   });
                 }}
                 className="transition-all duration-200"
-              />
+              /> */}
             </div>
           </div>
 
