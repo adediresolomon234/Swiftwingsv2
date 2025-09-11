@@ -384,7 +384,7 @@ const BookingPageInformation = () => {
     };
 
     return (
-      <div key={index} className="flex gap-1 mt-5 justify-center">
+      <div key={index} className={`flex gap-1 mt-5 justify-center`}>
         <div className="flex flex-col justify-between">
           <div>
             <p className="font-semibold text-lg">
@@ -502,7 +502,7 @@ const BookingPageInformation = () => {
   return (
     <>
       <main>
-        <div className="bg-swLightBgGray z-10">
+        <div className={`bg-swLightBgGray z-10 ${pathname !== "/booking" ? "px-4" : ""}`}>
           <div className="m-5 mx-auto max-w-[90rem] z-10">
             <BookingEngine setBookingDetails={setBookingDetails} />
 

@@ -15,6 +15,20 @@ const UserBookingPage = () => {
   const searchParams = useSearchParams();
   const [loading, setLoading] = useState(true);
 
+  const pageDetails = searchParams.get("page") === "book-a-jet" ? {
+    title: "Book a Jet",
+    description: "Book a private jet for your next trip",
+  } : searchParams.get("page") === "bookings" ? {
+    title: "Your Bookings",
+    description: "Manage your existing bookings",
+  } : searchParams.get("page") === "emptylegs" ? {
+    title: "Empty Legs",
+    description: "View your empty leg bookings",
+  } : searchParams.get("page") === "profile" ? {
+    title: "Profile",
+    description: "Manage your bookings, subscriptions, and account settings",
+  } : null;
+
   useEffect(() => {
     setLoading(false);
   }, []);
@@ -23,12 +37,12 @@ const UserBookingPage = () => {
     return <Loading />;
   }
   return (
-    <div className="flex flex-col md:flex-row w-full h-screen overflow-hidden bg-swPrimary50 p-5 ">
-      <div className="w-1/4 hidden xl:block">
+    <div className="flex flex-col md:flex-row w-full h-screen overflow-hidden bg-white">
+      <div className="w-[277px] hidden xl:block">
         <UserDashBoardNav />
       </div>
-      <section className="flex flex-col ml-0 xl:ml-5 gap-5 w-full overflow-auto">
-        <TopSectionPage />
+      <section className="flex flex-col w-full overflow-auto">
+        <TopSectionPage pageDetails={pageDetails} />
         <div className="rounded-xl">
           {searchParams.get("page") === "book-a-jet" && (
             <BookingPageInformation />

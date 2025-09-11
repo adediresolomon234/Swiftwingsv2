@@ -8,6 +8,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["var(--font-poppins)", ...defaultTheme.fontFamily.sans],
+      },
       screens: { xxs: "270px", xs: "350px", ...defaultTheme.screens },
       colors: {
         swGray50: "#F6F6F6",
@@ -22,7 +25,7 @@ module.exports = {
         swGray900: "#454545",
         swPrimary50: "#efe6eb",
         swPrimary100: "#ccb2bf",
-        swPrimary200: "#b48ca1", 
+        swPrimary200: "#b48ca1",
         swPrimary300: "#925876",
         swPrimary400: "#7d385b",
         swPrimary500: "#5c0632",

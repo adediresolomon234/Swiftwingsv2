@@ -5,10 +5,10 @@ const TripTypeButton = ({ type, isActive, onClick }) => {
   const pathname = usePathname();
   const activeClasses =
     pathname === "/"
-      ? "text-black bg-white/20 backdrop-blur-md border border-white/30 shadow-lg"
+      ? "text-white/80 bg-white/20 backdrop-blur-md border border-white/30 shadow-lg"
       : pathname === "/booking"
       ? "text-white bg-swPrimary500 border border-swPrimary600 shadow-md"
-      : "text-black bg-swPrimary500 border border-swPrimary600 shadow-md";
+      : "text-white/80 bg-swPrimary500 border border-swPrimary600 shadow-md";
   const inactiveClasses =
     pathname === "/"
       ? "text-white/80 hover:text-white hover:bg-white/10 transition-all duration-200"

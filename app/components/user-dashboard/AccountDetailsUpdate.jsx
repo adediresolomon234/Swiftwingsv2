@@ -18,6 +18,7 @@ import { TbEyeClosed } from "react-icons/tb";
 import UserProfileModal from "../shared/UserProfileModal";
 import { FaCheck } from "react-icons/fa";
 import SuccessModal from "../shared/modals/SuccessModal";
+import PhoneNumberValidation from "../shared/PhoneNumberValidation";
 
 const AccountDetailsUpdateCard = ({ setPageState }) => {
   const dispatch = useDispatch();
@@ -50,55 +51,60 @@ const AccountDetailsUpdateCard = ({ setPageState }) => {
   }, []);
 
   return (
-    <div className="w-full relative rounded-xl bg-white overflow-hidden flex flex-col items-center justify-center pt-3 px-6 pb-3 text-xl  text-gray-800 font-header-sm-semi-bold">
-      <div className="self-stretch flex flex-row items-center justify-between">
-        <div
-          onClick={() => setPageState("profile")}
-          className="flex items-center gap-8  relative leading-6 font-medium "
-        >
-          <div className="flex items-center gap-1 relative leading-6 font-medium rounded-full border border-swGray200 p-3 cursor-pointer">
-            <SWLeftArrowIcon />
+    <>
+      <div className="w-full pt-3  pb-3 flex flex-col gap-5">
+        <div className="max-w-[350px] w-full">
+          <div className="w-full">
+            <InputField
+              label={"First Name"}
+              placeholder={"Enter first name"}
+              name="first_name"
+              value={formData.first_name}
+              onChange={handleInputChange}
+              // className={emailError ? "error" : ""}
+            />
           </div>
-          <div className="relative leading-8 font-medium">
-            Update Account details
+          <div className="w-full mt-5">
+            <InputField
+              label={"Last Name"}
+              placeholder={"Enter last name"}
+              name="last_name"
+              value={formData.last_name}
+              onChange={handleInputChange}
+              // className={emailError ? "error" : ""}
+            />
+          </div>
+          <div className="w-full mt-5">
+            {/* <InputField
+              label={"Phone"}
+              placeholder={"Enter Phone No"}
+              name="phone_number"
+              value={formData.phone_number}
+              onChange={handleInputChange}
+              // className={emailError ? "error" : ""}
+            /> */}
+            <PhoneNumberValidation
+              label={"Phone"}
+              value={formData.phone_number}
+              onChange={(val) =>
+                setFormData((prev) => ({ ...prev, phone_number: val }))
+              }
+            />
           </div>
         </div>
-        <Button
-          label="Save changes"
-          endIcon={<FaCheck size={20} />}
-          bgColor="bg-swPrimary500 text-white"
-        />
-      </div>
-      <div className="max-w-lg w-full mb-5">
-        <div className="w-full mt-5">
-          <InputField
-            label={"First Name"}
-            placeholder={"Enter first name"}
-            name="first_name"
-            value={formData.first_name}
-            onChange={handleInputChange}
-            // className={emailError ? "error" : ""}
-          />
-        </div>
-        <div className="w-full mt-5">
-          <InputField
-            label={"Last Name"}
-            placeholder={"Enter last name"}
-            name="last_name"
-            value={formData.last_name}
-            onChange={handleInputChange}
-            // className={emailError ? "error" : ""}
-          />
-        </div>
-        <div className="w-full mt-5">
-          <InputField
-            label={"Phone"}
-            placeholder={"Enter Phone No"}
-            name="phone_number"
-            value={formData.phone_number}
-            onChange={handleInputChange}
-            // className={emailError ? "error" : ""}
-          />
+        <div className="self-end flex-1 flex justify-end gap-2 items-end w-full h-full sm:w-auto">
+          <button
+            onClick={() => setPageState("view")}
+            className="flex items-center justify-center h-[36px] w-[84px] gap-2 rounded-full text-base relative font-medium cursor-pointer border"
+          >
+            Cancel
+          </button>
+          <button
+            // onClick={() => setCompState("edit")}
+            className="bg-swPrimary500 text-white flex items-center justify-center gap-2 h-[36px] w-[135px] rounded-full text-base relative font-medium cursor-pointer border"
+          >
+            Save changes <FaCheck size={10} />
+          </button>
         </div>
       </div>
       <SuccessModal
@@ -109,7 +115,8 @@ const AccountDetailsUpdateCard = ({ setPageState }) => {
         headingText={"Account information updated"}
         text={"You've successfully updated your account information."}
       />
-    </div>
+    </>
+    // </div>
   );
 };
 

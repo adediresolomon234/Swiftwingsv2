@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { SWLeftArrowIcon, SWNeedhelpIcon } from "../svgs";
+import { InstructionIcon, SWLeftArrowIcon, SWNeedhelpIcon } from "../svgs";
 import logo from "../../../public/images/fullLogo.png";
 import Button from "../Button";
 import { navItems } from "../NavItems";
@@ -17,7 +17,7 @@ const UserDashBoardNav = ({ setNavToggle }) => {
     router.push("/");
   };
   return (
-    <div className="max-h-screen h-full rounded-xl bg-white flex flex-col justify-between items-between pt-12 px-5 pb-2 gap-8">
+    <div className="max-h-screen h-full border-r border-swGray200 bg-white flex flex-col justify-between items-between pb-2 gap-8 overflow-y-auto">
       <div className="p-5 w-full">
         <div className="flex items-center justify-between mb-8">
           <Link href={"/"}>
@@ -57,25 +57,28 @@ const UserDashBoardNav = ({ setNavToggle }) => {
             </Link>
           ))}
         </nav>
+      </div>
+      <div className="mt-auto p-5 pb-0 rounded-md w-full mb-3">
+        <div className="p-2 text-center border border-swWarning500 rounded-lg">
+          <div className="flex items-center justify-center mb-1">
+            <InstructionIcon color="#F79009" className="text-xl" />
+            <span className="ml-2">Need Help?</span>
+          </div>
+          <p className="text-sm">Contact support for booking issues</p>
+        </div>
+
         <button
-          className="mt-20 flex items-center gap-5"
+          className="mb-5 mt-1 flex items-center gap-5 w-full rounded-full border text-[16px] font-medium border-swGray100 text-swPrimary500 hover:bg-swPrimary500 hover:text-white h-[36px] justify-center"
+          onClick={handleSignOut}
+        >
+          Call support
+        </button>
+        <button
+          className="flex items-center gap-2 text-swError500"
           onClick={handleSignOut}
         >
           <GoSignOut size={20} /> Logout
         </button>
-      </div>
-      <div className="mt-auto p-5 shadow-md rounded-md w-full mb-3">
-        <div className="flex items-center mb-2">
-          <SWNeedhelpIcon className="text-xl" />
-          <span className="ml-2">Need Help?</span>
-        </div>
-        <p className="mb-4 text-xs">We can attend to any booking issues</p>
-        <Button
-          label={"Contact support"}
-          textColor={
-            "w-full text-swPrimary500 border border-swGray100 hover:bg-swPrimary500 hover:text-swSecondary50"
-          }
-        />
       </div>
     </div>
   );
