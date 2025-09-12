@@ -10,7 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import SWheader from "../../../public/images/SWheader.png";
 
 // Fonts
-import { Space_Grotesk, Libre_Baskerville } from "next/font/google";
+import { Libre_Baskerville } from "next/font/google";
 
 // Components
 import Button from "../../components/Button";
@@ -33,12 +33,6 @@ import { isValidEmail } from "../../components/helpers/emailValidation";
 import { API_URL } from "../../../constant";
 
 // Font configurations
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  display: "swap",
-});
-
 const libreBaskerville = Libre_Baskerville({
   subsets: ["latin"],
   weight: ["400", "700"],

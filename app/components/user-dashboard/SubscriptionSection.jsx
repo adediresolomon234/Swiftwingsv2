@@ -23,7 +23,7 @@ const SubscriptionSection = () => {
         </div>
         <div className="">
           <span className="mr-2">Subscription end date:</span>
-          <span className="bg-gray-100 px-2 py-1 rounded text-gray-700">
+          <span className="bg-swPrimary50 px-2 py-1 rounded text-swPrimary500">
             {subscriptionEndDate}
           </span>
         </div>

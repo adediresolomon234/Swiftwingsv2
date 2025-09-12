@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Space_Grotesk } from "next/font/google";
 import "../../../styles.css";
 import Button from "../../components/Button";
 import InputField from "../../components/shared/InputField";
@@ -9,11 +8,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { signUpUser } from "../../../redux/slices/authSlice";
 import { TbEyeClosed } from "react-icons/tb";
 import {
-  SwGoogleColoredIcon,
   SwKeyIcon,
   SwMailIcon,
   SwOpenEyeIcon,
-  SwPlusIcon,
 } from "../../components/svgs";
 import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";

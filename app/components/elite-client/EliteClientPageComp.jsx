@@ -1,10 +1,8 @@
 "use client";
-import { Poppins } from "next/font/google";
 import { useState } from "react";
 import { FiUser } from "react-icons/fi";
 import InputField from "../shared/InputField";
 import TextAreaField from "../shared/TextAreaField";
-import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import ReusableDropDown from "../shared/ReusableDropdown";
 import { format } from "date-fns";
@@ -16,8 +14,6 @@ import { useDispatch } from "react-redux";
 import { postFirstTimeEliteClients } from "../../../redux/slices/enquirySlice";
 import { toast } from "react-toastify";
 import PhoneNumberValidation from "../shared/PhoneNumberValidation";
-
-const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600"] });
 
 const initialState = {
   fullName: "",

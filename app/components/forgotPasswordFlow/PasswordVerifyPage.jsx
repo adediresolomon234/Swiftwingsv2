@@ -5,7 +5,6 @@ import Loading from "../../components/Loading";
 import Link from "next/link";
 import Image from "next/image";
 import SWheader from "../../../public/images/SWheader.png";
-import { ToastContainer } from "react-toastify";
 import { IoArrowBack } from "react-icons/io5";
 import TokenInput from "./TokenInputComp";
 import ChangePasswordComp from "./ChangePasswordComp";

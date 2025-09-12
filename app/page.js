@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
-import { Space_Grotesk, Libre_Baskerville } from "next/font/google";
+import localFont from "next/font/local";
 import Image from "next/image";
 import Button from "./components/Button";
 import { HiArrowRight } from "react-icons/hi";
@@ -40,12 +40,50 @@ import CountUp from "react-countup";
 import EmptyLegsSlider from "./components/empty-leg/EmptyLegs";
 import Whatsapp from "./components/shared/Whatsapp";
 
-const space_grotesk = Space_Grotesk({
-  subsets: ["latin"],
+const space_grotesk = localFont({
+  src: [
+    {
+      path: "../public/fonts/SpaceGrotesk/SpaceGrotesk-Light.woff2",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/SpaceGrotesk/SpaceGrotesk-Regular.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/SpaceGrotesk/SpaceGrotesk-Medium.woff2",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/SpaceGrotesk/SpaceGrotesk-SemiBold.woff2",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/SpaceGrotesk/SpaceGrotesk-Bold.woff2",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  display: "swap",
 });
-const libre_baskerville = Libre_Baskerville({
-  subsets: ["latin"],
-  weight: ["400", "700"],
+const libre_baskerville = localFont({
+  src: [
+    {
+      path: "../public/fonts/LibreBaskerville/LibreBaskerville-Regular.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/LibreBaskerville/LibreBaskerville-Bold.woff2",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  display: "swap",
 });
 
 export default function Home() {

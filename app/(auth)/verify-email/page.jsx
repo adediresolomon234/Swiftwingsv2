@@ -1,26 +1,15 @@
 "use client";
 import { useEffect, useState, Suspense } from "react";
-import { Space_Grotesk, Libre_Baskerville } from "next/font/google";
 import "../../../styles.css";
 import Button from "../../components/Button";
 import InputField from "../../components/shared/InputField";
 import { useDispatch, useSelector } from "react-redux";
 import { verifyEmail, resendVerification } from "../../../redux/slices/authSlice";
-import { SwMailIcon, SwKeyIcon } from "../../components/svgs";
+import { SwKeyIcon } from "../../components/svgs";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter, useSearchParams } from "next/navigation";
 import Loading from "../../components/Loading";
-
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-});
-
-const libre_baskerville = Libre_Baskerville({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-});
 
 const VerifyEmailContent = () => {
   const dispatch = useDispatch();
