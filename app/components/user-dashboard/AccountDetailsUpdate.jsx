@@ -95,15 +95,15 @@ const AccountDetailsUpdateCard = ({ setPageState }) => {
         <div className="self-end flex-1 flex justify-end gap-2 items-end w-full h-full sm:w-auto">
           <button
             onClick={() => setPageState("view")}
-            className="flex items-center justify-center h-[36px] w-[84px] gap-2 rounded-full text-base relative font-medium cursor-pointer border"
+            className="flex items-center justify-center h-[36px] w-[84px] gap-2 rounded-full text-base border border-swPrimary500 hover:bg-swPrimary100 text-swPrimary500"
           >
             Cancel
           </button>
           <button
             // onClick={() => setCompState("edit")}
-            className="bg-swPrimary500 text-white flex items-center justify-center gap-2 h-[36px] w-[135px] rounded-full text-base relative font-medium cursor-pointer border"
+            className="bg-swPrimary500 text-white flex items-center justify-center gap-2 h-[36px] w-[84px] rounded-full text-base border"
           >
-            Save changes <FaCheck size={10} />
+            Save
           </button>
         </div>
       </div>

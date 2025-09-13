@@ -9,10 +9,9 @@ import {
 } from "../svgs";
 import UserDashBoardNav from "./userDashBoardNav";
 
-const TopSectionPage = ({pageDetails}) => {
+const TopSectionPage = ({ pageDetails }) => {
   const [navToggle, setNavToggle] = useState(false);
   const [userData, setUserData] = useState(null);
-
 
   useEffect(() => {
     const userDataString = localStorage.getItem("user");
@@ -40,8 +39,12 @@ const TopSectionPage = ({pageDetails}) => {
           />
         </div>
         <div className="text-black">
-          <p className="text-[36px] font-medium">{pageDetails?.title}</p>
-          <p className="text-base text-swGray600 mt-[12px]">{pageDetails?.description}</p>
+          <p className="text-[18px] md:text-[30px] font-medium">
+            {pageDetails?.title}
+          </p>
+          <p className="text-[14px] md:text-base text-swGray600">
+            {pageDetails?.description}
+          </p>
         </div>
       </div>
 
@@ -51,14 +54,14 @@ const TopSectionPage = ({pageDetails}) => {
       </div> */}
 
       {/* <div className="flex flex-col items-center justify-center"> */}
-        <div className="flex flex-row items-center justify-center gap-8">
-          {/* <div className="h-8 w-12 flex flex-row items-center justify-center py-2 px-3 box-border">
+      <div className="flex flex-row items-center justify-center gap-8">
+        {/* <div className="h-8 w-12 flex flex-row items-center justify-center py-2 px-3 box-border">
             <SWNotificationIcon />
           </div>
           <div className="h-8 w-12 flex flex-row items-center justify-center py-2 px-3 box-border">
             <SwUserIcon />
           </div> */}
-        </div>
+      </div>
       {/* </div> */}
     </div>
   );

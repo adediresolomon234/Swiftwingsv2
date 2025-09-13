@@ -21,27 +21,27 @@ const ProfileCard = () => {
   return (
     <div className="pb-10">
       {pageState === "profile" && (
-        <>
-          <InfoSection
+        <div className="flex flex-col gap-4">
+          {/* <InfoSection
             title="Personal Information"
             description="Manage your personal information"
-          >
-            <PersonalInfoSection
-              userData={userData}
-              onEdit={() => setPageState("update-profile")}
-            />
-          </InfoSection>
-          <InfoSection
+          > */}
+          <PersonalInfoSection
+            userData={userData}
+            onEdit={() => setPageState("update-profile")}
+          />
+          {/* </InfoSection> */}
+          {/* <InfoSection
             title="Password"
             description="Manage your password and security information"
-          >
+          > */}
             <PasswordSection
               // showPassword={showPassword}
               // setShowPassword={setShowPassword}
               onChangePassword={() => setPageState("update-password")}
             />
-          </InfoSection>
-          <InfoSection
+          {/* </InfoSection> */}
+          {/* <InfoSection
             title="Subscription"
             description="Manage your subscription plan"
             titleSide={
@@ -52,10 +52,10 @@ const ProfileCard = () => {
                 Upgrade to Premium
               </button>
             }
-          >
+          > */}
             <SubscriptionSection />
-          </InfoSection>
-        </>
+          {/* </InfoSection> */}
+        </div>
       )}
       {pageState === "update-profile" && (
         <AccountDetailsUpdateCard setPageState={setPageState} />

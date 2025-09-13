@@ -15,19 +15,29 @@ const UserBookingPage = () => {
   const searchParams = useSearchParams();
   const [loading, setLoading] = useState(true);
 
-  const pageDetails = searchParams.get("page") === "book-a-jet" ? {
-    title: "Book a Jet",
-    description: "Book a private jet for your next trip",
-  } : searchParams.get("page") === "bookings" ? {
-    title: "Your Bookings",
-    description: "Manage your existing bookings",
-  } : searchParams.get("page") === "emptylegs" ? {
-    title: "Empty Legs",
-    description: "View your empty leg bookings",
-  } : searchParams.get("page") === "profile" ? {
-    title: "Profile",
-    description: "Manage your bookings, subscriptions, and account settings",
-  } : null;
+  const pageDetails =
+    searchParams.get("page") === "book-a-jet"
+      ? {
+          title: "Book a Jet",
+          description: "Book a private jet for your next trip",
+        }
+      : searchParams.get("page") === "bookings"
+      ? {
+          title: "Your Bookings",
+          description: "Manage your existing bookings",
+        }
+      : searchParams.get("page") === "emptylegs"
+      ? {
+          title: "Empty Legs",
+          description: "View your empty leg bookings",
+        }
+      : searchParams.get("page") === "profile"
+      ? {
+          title: "Profile",
+          description:
+            "Manage account settings",
+        }
+      : null;
 
   useEffect(() => {
     setLoading(false);
@@ -43,7 +53,7 @@ const UserBookingPage = () => {
       </div>
       <section className="flex flex-col w-full overflow-auto">
         <TopSectionPage pageDetails={pageDetails} />
-        <div className="rounded-xl">
+        <div className="p-4 bg-swGray50">
           {searchParams.get("page") === "book-a-jet" && (
             <BookingPageInformation />
           )}
