@@ -1,13 +1,18 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
-import localFont from "next/font/local";
+import { Space_Grotesk, Libre_Baskerville } from "next/font/google";
 import Image from "next/image";
+import { GoArrowRight } from "react-icons/go";
 import Button from "./components/Button";
 import { HiArrowRight } from "react-icons/hi";
 import "../styles.css";
 import { services } from "./components/servicedata";
 import { textAreas } from "./components/servicesgrid";
+import { CiStar } from "react-icons/ci";
 import NavAndFooter from "./components/shared/NavAndFooter";
+import { testimonial } from "./CustomerTestimonial";
+import Marquee from "react-fast-marquee";
+import { FaXTwitter } from "react-icons/fa6";
 import heroBgImg from "../public/images/heroBackgroundImage.png";
 import MbheroBgImg from "../public/images/Hero-Section-Mobile[1].jpg";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,12 +20,18 @@ import { useRouter } from "next/navigation";
 import { fetchAircrafts } from "../redux/slices/aircraftdetails";
 import { mdiCarSeat, mdiSpeedometer, mdiArrowLeftRight } from "@mdi/js";
 import BookingEngine from "./components/bookingEngine/bookingEngine";
+import { Check } from "lucide-react";
+import { motion } from "framer-motion";
 import Head from "next/head";
 import {
   SWTStarBlackIcon,
   SWTAddPersonBlackIcon,
   SWTSandClockBlackIcon,
   SWTGalaglobeIcon,
+  SWTNeveah,
+  SWTPolarisbank,
+  SWTCenturygroup,
+  SWTdelborough,
 } from "./components/svgs";
 import { homePageKeywords } from "./components/helpers/relatedKeywords";
 import Cubana from "../public/images/cubana.jpg";
@@ -40,64 +51,31 @@ import CountUp from "react-countup";
 import EmptyLegsSlider from "./components/empty-leg/EmptyLegs";
 import Whatsapp from "./components/shared/Whatsapp";
 
-const space_grotesk = localFont({
-  src: [
-    {
-      path: "../public/fonts/SpaceGrotesk/SpaceGrotesk-Light.woff2",
-      weight: "300",
-      style: "normal",
-    },
-    {
-      path: "../public/fonts/SpaceGrotesk/SpaceGrotesk-Regular.woff2",
-      weight: "400",
-      style: "normal",
-    },
-    {
-      path: "../public/fonts/SpaceGrotesk/SpaceGrotesk-Medium.woff2",
-      weight: "500",
-      style: "normal",
-    },
-    {
-      path: "../public/fonts/SpaceGrotesk/SpaceGrotesk-SemiBold.woff2",
-      weight: "600",
-      style: "normal",
-    },
-    {
-      path: "../public/fonts/SpaceGrotesk/SpaceGrotesk-Bold.woff2",
-      weight: "700",
-      style: "normal",
-    },
-  ],
-  display: "swap",
+const space_grotesk = Space_Grotesk({
+  subsets: ["latin"],
 });
-const libre_baskerville = localFont({
-  src: [
-    {
-      path: "../public/fonts/LibreBaskerville/LibreBaskerville-Regular.woff2",
-      weight: "400",
-      style: "normal",
-    },
-    {
-      path: "../public/fonts/LibreBaskerville/LibreBaskerville-Bold.woff2",
-      weight: "700",
-      style: "normal",
-    },
-  ],
-  display: "swap",
+const libre_baskerville = Libre_Baskerville({
+  subsets: ["latin"],
+  weight: ["400", "700"],
 });
 
 export default function Home() {
   const router = useRouter();
   const dispatch = useDispatch();
   const [hoveredIndex, setHoveredIndex] = useState(0);
-  const aircrafts = useSelector((state) => state?.aircrafts?.aircrafts);
+  const aircrafts = useSelector((state) => state.aircrafts.aircrafts);
   const [fleet, setFleet] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
-  const { data: homeData } = useSelector((state) => state?.aviPages);
+  const { data: homeData } = useSelector((state) => state.aviPages);
 
-  console.log("homeData", homeData);
   const sectionRef = useRef(null);
+  const primaryColor = "#5c0632";
+  const [showModal, setShowModal] = useState(false);
+
+  useEffect(() => {
+    setShowModal(true);
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -131,8 +109,16 @@ export default function Home() {
     router.push("/fleet-page");
   };
 
+  const handleFreePlanClick = () => {
+    setShowModal(false);
+  };
+
+  const handlePremiumPlanClick = () => {
+    router.push("/payment-portal"); 
+  };
+
   useEffect(() => {
-    if (typeof window !== "undefined") setLoading(false);
+    setLoading(false);
   }, []);
 
   if (loading) {
@@ -199,7 +185,7 @@ export default function Home() {
                 <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20 hover:bg-white/20 transition-all duration-300">
                   <p className="font-bold text-2xl md:text-3xl mb-1">
                     <CountUp
-                      end={homeData?.data?.no_aircrafts}
+                      end={homeData?.data?.no_aircraft?.data}
                       duration={2}
                       formattingFn={formatThousand}
                     />
@@ -238,7 +224,7 @@ export default function Home() {
               <h2 className="text-4xl md:text-5xl font-bold text-swPrimary700 mb-6">
                 Why Choose{" "}
                 <span
-                  className={`${libre_baskerville?.className} text-swPrimary500 font-bold`}
+                  className={`${libre_baskerville.className} text-swPrimary500 font-bold`}
                 >
                   Swift<i className="font-normal">Wings</i>
                 </span>
@@ -277,7 +263,7 @@ export default function Home() {
                 </h3>
                 <p className="text-slate-600 text-center leading-relaxed">
                   <span
-                    className={`${libre_baskerville?.className} text-swPrimary500 font-bold`}
+                    className={`${libre_baskerville.className} text-swPrimary500 font-bold`}
                   >
                     Swift<i className="font-normal">Wings</i>
                   </span>{" "}
@@ -299,7 +285,7 @@ export default function Home() {
                   Skip the crowds & time wasters! Time is precious. Fly private,
                   fast and secure with{" "}
                   <span
-                    className={`${libre_baskerville?.className} text-swPrimary500 font-bold`}
+                    className={`${libre_baskerville.className} text-swPrimary500 font-bold`}
                   >
                     Swift<i className="font-normal">Wings</i>
                   </span>
@@ -340,14 +326,14 @@ export default function Home() {
             </div>
 
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-              {services?.map((service, index) => (
+              {services.map((service, index) => (
                 <div key={index} className="group">
                   <div className="relative overflow-hidden rounded-2xl shadow-lg group-hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 h-full">
                     <div className="aspect-[4/5] relative">
                       <Image
                         className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700"
-                        src={service?.imageSrc}
-                        alt={service?.title}
+                        src={service.imageSrc}
+                        alt={service.title}
                         fill
                         sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
                       />
@@ -356,10 +342,10 @@ export default function Home() {
                     <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
                       <div className="bg-black/40 backdrop-blur-sm rounded-t-2xl p-4 -mt-4">
                         <h4 className="text-xl font-bold mb-2 text-white">
-                          {service?.title}
+                          {service.title}
                         </h4>
                         <p className="text-sm text-gray-100 leading-relaxed">
-                          {service?.description}
+                          {service.description}
                         </p>
                       </div>
                     </div>
@@ -391,8 +377,8 @@ export default function Home() {
                   <div className="aspect-[16/9] relative">
                     <Image
                       className="w-full h-full object-cover"
-                      src={fleet[hoveredIndex]?.image}
-                      alt={`${fleet[hoveredIndex]?.name} aircraft`}
+                      src={fleet[hoveredIndex].image}
+                      alt={`${fleet[hoveredIndex].name} aircraft`}
                       fill
                       sizes="(max-width: 1024px) 100vw, 1200px"
                       priority
@@ -402,10 +388,10 @@ export default function Home() {
                       <div className="flex items-center justify-between">
                         <div>
                           <h3 className="text-3xl md:text-4xl font-bold mb-2">
-                            {fleet[hoveredIndex]?.name}
+                            {fleet[hoveredIndex].name}
                           </h3>
                           <p className="text-lg text-gray-200 opacity-90">
-                            {fleet[hoveredIndex]?.features?.classification ||
+                            {fleet[hoveredIndex].features?.classification ||
                               "Premium Aircraft"}
                           </p>
                         </div>
@@ -425,23 +411,23 @@ export default function Home() {
 
             {/* Fleet Grid */}
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mb-12">
-              {fleet?.map((item, index) => (
+              {fleet.map((item, index) => (
                 <div
-                  key={item?.id}
+                  key={item.id}
                   className="group cursor-pointer"
                   onMouseEnter={() => handleMouseEnter(index)}
                   onMouseLeave={handleMouseLeave}
                 >
                   <Link
-                    href={`/fleet-specification/${item?.id}`}
+                    href={`/fleet-specification/${item.id}`}
                     className="block bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-slate-200 overflow-hidden"
                   >
                     {/* Aircraft Image */}
                     <div className="aspect-[4/3] relative overflow-hidden">
                       <Image
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                        src={item?.image}
-                        alt={`${item?.name} aircraft`}
+                        src={item.image}
+                        alt={`${item.name} aircraft`}
                         width={400}
                         height={300}
                         sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -455,7 +441,7 @@ export default function Home() {
                     {/* Aircraft Details */}
                     <div className="p-6">
                       <h3 className="text-xl font-bold text-slate-800 mb-3 group-hover:text-swPrimary600 transition-colors duration-300">
-                        {item?.name}
+                        {item.name}
                       </h3>
 
                       {/* Specs Grid */}
@@ -470,7 +456,7 @@ export default function Home() {
                             </svg>
                           </div>
                           <p className="text-sm font-semibold text-slate-700">
-                            {item?.features?.no_of_seats}
+                            {item.features.no_of_seats}
                           </p>
                           <p className="text-xs text-slate-500">Seats</p>
                         </div>
@@ -484,7 +470,7 @@ export default function Home() {
                             </svg>
                           </div>
                           <p className="text-sm font-semibold text-slate-700">
-                            {item?.speed}
+                            {item.speed}
                           </p>
                           <p className="text-xs text-slate-500">Speed</p>
                         </div>
@@ -498,7 +484,7 @@ export default function Home() {
                             </svg>
                           </div>
                           <p className="text-sm font-semibold text-slate-700">
-                            {item?.feet}
+                            {item.feet}
                           </p>
                           <p className="text-xs text-slate-500">Range</p>
                         </div>
@@ -536,7 +522,7 @@ export default function Home() {
                     textColor={"text-white"}
                     endIcon={<HiArrowRight size={20} />}
                     onClick={handleSeeAllClick}
-                    className="px-8 py-4 text-base md:text-lg font-semibold rounded-full hover:bg-swPrimary600 transition-colors duration-300 shadow-lg hover:shadow-xl"
+                    className="px-8 py-4 text-lg font-semibold rounded-full hover:bg-swPrimary600 transition-colors duration-300 shadow-lg hover:shadow-xl"
                   />
                 </div>
               </div>
@@ -554,7 +540,7 @@ export default function Home() {
               <p className="text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed mb-8">
                 Enjoy the benefits of{" "}
                 <span
-                  className={`${libre_baskerville?.className} text-swPrimary500 font-bold`}
+                  className={`${libre_baskerville.className} text-swPrimary500 font-bold`}
                 >
                   Swift<i className="font-normal">Wings</i>
                 </span>{" "}
@@ -578,13 +564,13 @@ export default function Home() {
                 Membership Features
               </h3>
               <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                {textAreas?.map((area, index) => (
+                {textAreas.map((area, index) => (
                   <div
                     key={index}
                     className="bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl p-8 text-center border border-slate-200 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
                   >
                     <div className="text-slate-700 text-lg leading-relaxed">
-                      {area?.description}
+                      {area.description}
                     </div>
                   </div>
                 ))}
@@ -617,7 +603,7 @@ export default function Home() {
                 Century,
                 Zenco,
                 Delborough,
-              ]?.map((logo, index) => (
+              ].map((logo, index) => (
                 <div
                   key={index}
                   className="flex justify-center items-center group"
@@ -639,6 +625,116 @@ export default function Home() {
 
         <Whatsapp />
       </NavAndFooter>
+
+      {/* Popup Modal */}
+      {showModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 overflow-y-auto">
+          <div className="bg-white/50 backdrop-blur-sm rounded-2xl shadow-2xl max-w-4xl w-full mx-8 relative">
+            <button
+              onClick={() => setShowModal(false)}
+              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 transition-colors"
+            >
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+            <div className="bg-white mx-auto w-full p-8 sm:px-6 lg:px-8 rounded-2xl">
+              <div className="mb-12">
+                <h2 className="text-5xl text-center font-bold text-swPrimary500 mb-4">
+                  Choose your plan
+                </h2>
+                <p className="text-swPrimary500 text-center leading-6 mb-9">
+                  Free trial. No credit card required.
+                </p>
+              </div>
+              <div className="space-y-8 lg:grid lg:grid-cols-2 sm:gap-6 xl:gap-8 lg:space-y-0 lg:items-center">
+                <motion.div
+                  whileHover={{ scale: 1.03 }}
+                  transition={{ type: "spring", stiffness: 200 }}
+                  initial={{ opacity: 0, x: -50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  className="bg-gray-50 rounded-2xl shadow-lg border border-gray-200 p-6 flex flex-col transition-shadow max-w-sm"
+                  style={{ boxShadow: `0 0 20px ${primaryColor}30` }}
+                >
+                  <h3 className="text-xl font-bold">Free Plan</h3>
+                  <p className="text-gray-500 mt-1 text-sm">
+                    Experience private jet booking basics.
+                  </p>
+                  <p className="mt-4 text-3xl font-extrabold text-gray-900">
+                    $0<span className="text-base font-normal">/mo</span>
+                  </p>
+                  <ul className="mt-6 space-y-3 flex-1">
+                    {[
+                      "Basic booking access",
+                      "Up to 3 flights/month",
+                      "Email support",
+                    ].map((item, idx) => (
+                      <li key={idx} className="flex items-center text-sm">
+                        <Check className="w-4 h-4 mr-2 text-swPrimary500" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                  <button
+                    onClick={handleFreePlanClick}
+                    className="mt-6 bg-swPrimary500 text-white font-bold py-2 rounded-lg transition hover:bg-swPrimary600 text-sm"
+                  >
+                    Get Started
+                  </button>
+                </motion.div>
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ type: "spring", stiffness: 200 }}
+                  initial={{ opacity: 0, x: 50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  className="rounded-2xl shadow-lg p-6 flex flex-col text-white max-w-sm"
+                  style={{
+                    background: `linear-gradient(135deg, ${primaryColor}, ${primaryColor}cc)`,
+                    boxShadow: `0 0 20px ${primaryColor}50`,
+                  }}
+                >
+                  <h3 className="text-xl font-bold">Premium Plan</h3>
+                  <p className="text-gray-100 mt-1 text-sm">
+                    Ultimate VIP travel experience.
+                  </p>
+                  <p className="mt-4 text-3xl font-extrabold">
+                    $999<span className="text-base font-normal">/mo</span>
+                  </p>
+                  <ul className="mt-6 space-y-3 flex-1">
+                    {[
+                      "Unlimited bookings",
+                      "Access to all empty legs",
+                      "24/7 concierge",
+                      "Luxury in-flight dining",
+                    ].map((item, idx) => (
+                      <li key={idx} className="flex items-center text-sm">
+                        <Check className="w-4 h-4 mr-2 text-white" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                  <button
+                    onClick={handlePremiumPlanClick}
+                    className="mt-6 bg-white text-black font-bold py-2 rounded-lg transition hover:bg-gray-100 text-sm"
+                  >
+                    Upgrade Now
+                  </button>
+                </motion.div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   );
 }
