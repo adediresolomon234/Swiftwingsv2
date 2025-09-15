@@ -1,9 +1,8 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { InstructionIcon, SWLeftArrowIcon, SWNeedhelpIcon } from "../svgs";
-import logo from "../../../public/images/fullLogo.png";
-import Button from "../Button";
+import { InstructionIcon, SWLeftArrowIcon } from "../svgs";
+import SWheader from "../../../public/images/SWheader.png";
 import { navItems } from "../NavItems";
 import { useRouter, useSearchParams } from "next/navigation";
 import { GoSignOut } from "react-icons/go";
@@ -21,7 +20,7 @@ const UserDashBoardNav = ({ setNavToggle }) => {
       <div className="p-5 w-full">
         <div className="flex items-center justify-between mb-8">
           <Link href={"/"}>
-            <Image src={logo} alt="" />
+            <Image src={SWheader} alt="Logo" className="w-48 sm:w-60 " />
           </Link>
 
           <div

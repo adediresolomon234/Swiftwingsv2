@@ -95,7 +95,7 @@ const AccountDetailsUpdateCard = ({ setPageState }) => {
         <div className="self-end flex-1 flex justify-end gap-2 items-end w-full h-full sm:w-auto">
           <button
             onClick={() => setPageState("view")}
-            className="flex items-center justify-center h-[36px] w-[84px] gap-2 rounded-full text-base border border-swPrimary500 hover:bg-swPrimary100 text-swPrimary500"
+            className="flex items-center justify-center h-[36px] w-[84px] gap-2 rounded-full text-base text-swGray900 border-swGray900 relative border cursor-pointer"
           >
             Cancel
           </button>

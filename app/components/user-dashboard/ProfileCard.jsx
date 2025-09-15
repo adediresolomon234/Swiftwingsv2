@@ -8,7 +8,7 @@ import PersonalInfoSection from "./PersonalInfoSection";
 import PasswordSection from "./PasswordSection";
 import SubscriptionSection from "./SubscriptionSection";
 
-const ProfileCard = () => {
+const ProfileCard = ({ subscriptionData }) => {
   const [pageState, setPageState] = useState("profile");
   const [userData, setUserData] = useState(null);
   // const [showPassword, setShowPassword] = useState(false);
@@ -22,39 +22,15 @@ const ProfileCard = () => {
     <div className="pb-10">
       {pageState === "profile" && (
         <div className="flex flex-col gap-4">
-          {/* <InfoSection
-            title="Personal Information"
-            description="Manage your personal information"
-          > */}
           <PersonalInfoSection
             userData={userData}
             onEdit={() => setPageState("update-profile")}
           />
-          {/* </InfoSection> */}
-          {/* <InfoSection
-            title="Password"
-            description="Manage your password and security information"
-          > */}
-            <PasswordSection
-              // showPassword={showPassword}
-              // setShowPassword={setShowPassword}
-              onChangePassword={() => setPageState("update-password")}
-            />
-          {/* </InfoSection> */}
-          {/* <InfoSection
-            title="Subscription"
-            description="Manage your subscription plan"
-            titleSide={
-              <button
-                className="text-[18px] text-swPrimary500 hover:underline"
-                // onClick={handleUpgrade}
-              >
-                Upgrade to Premium
-              </button>
-            }
-          > */}
-            <SubscriptionSection />
-          {/* </InfoSection> */}
+          <PasswordSection
+            onChangePassword={() => setPageState("update-password")}
+          />
+
+          <SubscriptionSection subscriptionData={subscriptionData} />
         </div>
       )}
       {pageState === "update-profile" && (
