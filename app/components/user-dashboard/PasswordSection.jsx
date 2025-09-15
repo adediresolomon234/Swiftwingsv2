@@ -18,7 +18,7 @@ const PasswordSection = ({
     confirm_password: "",
   });
   return (
-    <div className="p-4 border border-swPrimary200 rounded-lg bg-white">
+    <div className="p-4 border rounded-lg shadow bg-white">
       <h2 className="text-lg md:text-2xl font-medium mb-5">Password</h2>
       <div className="self-stretch flex flex-col sm:flex-row items-center sm:items-start justify-start gap-5 text-gray-700">
         <div className="w-full">
@@ -116,10 +116,9 @@ const PasswordSection = ({
           <div className="self-end flex-1 flex justify-end items-end w-full h-full sm:w-auto">
             <button
               onClick={() => setCompState("edit")}
-              className="flex items-center justify-center h-[36px] w-[100px] gap-2 rounded-full text-base relative cursor-pointer border text-swPrimary500 border-swPrimary500 hover:bg-swPrimary100"
+              className="flex items-center justify-center h-[36px] w-[84px] gap-2 rounded-full text-base text-swGray900 border-swGray900 relative border cursor-pointer"
             >
               Update
-              {/* <SWEditIcon2 /> */}
             </button>
           </div>
         )}

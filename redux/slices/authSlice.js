@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { API_URL } from "../../constant";
+import { getUser } from "../../utils/utils";
 
 export const signUpUser = createAsyncThunk(
   "auth/signUpUser",
@@ -18,7 +19,10 @@ export const verifyEmail = createAsyncThunk(
   "auth/verifyEmail",
   async (payload, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`${API_URL}/user/verify-email`, payload);
+      const response = await axios.post(
+        `${API_URL}/user/verify-email`,
+        payload
+      );
       return response.data;
     } catch (error) {
       return error?.response?.data;
@@ -30,7 +34,10 @@ export const resendVerification = createAsyncThunk(
   "auth/resendVerification",
   async (payload, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`${API_URL}/user/resend-verification`, payload);
+      const response = await axios.post(
+        `${API_URL}/user/resend-verification`,
+        payload
+      );
       return response.data;
     } catch (error) {
       return error?.response?.data;
@@ -126,6 +133,27 @@ export const fetchAllUsers = createAsyncThunk(
   }
 );
 
+export const getSubscriptionData = createAsyncThunk(
+  "getSubscriptionData",
+  async (userId) => {
+    try {
+      const response = await axios.get(`${API_URL}/user/profile/${userId}`,
+        {
+          headers:{
+            Authorization: `Bearer ${getUser().token}`
+          }
+        }
+      );
+      return response.data;
+    } catch (error) {
+      const message =
+        error?.response?.data?.message ||
+        error?.response?.data?.error ||
+        "An error occurred.";
+    }
+  }
+);
+
 const initialState = {
   user: null,
   token: null,
@@ -193,6 +221,18 @@ const authSlice = createSlice({
       .addCase(fetchAllUsers.rejected, (state, action) => {
         state.loading = "failed";
         state.error = action.action.payload;
+      })
+      .addCase(getSubscriptionData.pending, (state) => {
+        state.loading = "pending";
+        state.error = null;
+      })
+      .addCase(getSubscriptionData.fulfilled, (state, action) => {
+        state.loading = "succeeded";
+        state.data = action.payload;
+      })
+      .addCase(getSubscriptionData.rejected, (state, action) => {
+        state.loading = "failed";
+        state.error = action.payload;
       });
   },
 });
