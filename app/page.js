@@ -20,6 +20,8 @@ import { useRouter } from "next/navigation";
 import { fetchAircrafts } from "../redux/slices/aircraftdetails";
 import { mdiCarSeat, mdiSpeedometer, mdiArrowLeftRight } from "@mdi/js";
 import BookingEngine from "./components/bookingEngine/bookingEngine";
+import { Check } from "lucide-react";
+import { motion } from "framer-motion";
 import Head from "next/head";
 import {
   SWTStarBlackIcon,
@@ -47,7 +49,7 @@ import { getHomeData } from "../redux/slices/aviPagesSlice";
 import { formatThousand } from "./components/helpers/utils";
 import CountUp from "react-countup";
 import EmptyLegsSlider from "./components/empty-leg/EmptyLegs";
-import Whatsapp from "./components/shared/Whatsapp"
+import Whatsapp from "./components/shared/Whatsapp";
 
 const space_grotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -68,6 +70,12 @@ export default function Home() {
   const { data: homeData } = useSelector((state) => state.aviPages);
 
   const sectionRef = useRef(null);
+  const primaryColor = "#5c0632";
+  const [showModal, setShowModal] = useState(false);
+
+  useEffect(() => {
+    setShowModal(true);
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -99,6 +107,14 @@ export default function Home() {
 
   const handleSeeAllClick = () => {
     router.push("/fleet-page");
+  };
+
+  const handleFreePlanClick = () => {
+    setShowModal(false);
+  };
+
+  const handlePremiumPlanClick = () => {
+    router.push("/payment-portal"); 
   };
 
   useEffect(() => {
@@ -151,40 +167,42 @@ export default function Home() {
               <h1 className="text-5xl md:text-7xl font-bold mb-8 leading-tight text-shadow animate-fade-in">
                 The World is Closer to You
               </h1>
-              
-                             {/* Stats Section */}
-               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 md:gap-8 justify-center text-center mb-8 max-w-4xl mx-auto">
-                 <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20 hover:bg-white/20 transition-all duration-300">
-                   <p className="font-bold text-2xl md:text-3xl mb-1">
-                     <CountUp
-                       end={homeData?.data?.no_users}
-                       duration={2}
-                       formattingFn={formatThousand}
-                     />
-                   </p>
-                   <p className="text-xs md:text-sm text-gray-200">Happy Clients</p>
-                 </div>
-                 <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20 hover:bg-white/20 transition-all duration-300">
-                   <p className="font-bold text-2xl md:text-3xl mb-1">
-                     <CountUp
-                       end={homeData?.data?.no_aircraft?.data}
-                       duration={2}
-                       formattingFn={formatThousand}
-                     />
-                   </p>
-                   <p className="text-xs md:text-sm text-gray-200">Aircraft</p>
-                 </div>
-                 <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20 hover:bg-white/20 transition-all duration-300">
-                   <p className="font-bold text-2xl md:text-3xl mb-1">
-                     <CountUp
-                       end={homeData?.data?.no_bookings}
-                       duration={2}
-                       formattingFn={formatThousand}
-                     />
-                   </p>
-                   <p className="text-xs md:text-sm text-gray-200">Bookings</p>
-                 </div>
-               </div>
+
+              {/* Stats Section */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 md:gap-8 justify-center text-center mb-8 max-w-4xl mx-auto">
+                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20 hover:bg-white/20 transition-all duration-300">
+                  <p className="font-bold text-2xl md:text-3xl mb-1">
+                    <CountUp
+                      end={homeData?.data?.no_users}
+                      duration={2}
+                      formattingFn={formatThousand}
+                    />
+                  </p>
+                  <p className="text-xs md:text-sm text-gray-200">
+                    Happy Clients
+                  </p>
+                </div>
+                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20 hover:bg-white/20 transition-all duration-300">
+                  <p className="font-bold text-2xl md:text-3xl mb-1">
+                    <CountUp
+                      end={homeData?.data?.no_aircraft?.data}
+                      duration={2}
+                      formattingFn={formatThousand}
+                    />
+                  </p>
+                  <p className="text-xs md:text-sm text-gray-200">Aircraft</p>
+                </div>
+                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20 hover:bg-white/20 transition-all duration-300">
+                  <p className="font-bold text-2xl md:text-3xl mb-1">
+                    <CountUp
+                      end={homeData?.data?.no_bookings}
+                      duration={2}
+                      formattingFn={formatThousand}
+                    />
+                  </p>
+                  <p className="text-xs md:text-sm text-gray-200">Bookings</p>
+                </div>
+              </div>
             </div>
 
             {/* Booking Engine */}
@@ -205,7 +223,9 @@ export default function Home() {
             <div className="text-center mb-16">
               <h2 className="text-4xl md:text-5xl font-bold text-swPrimary700 mb-6">
                 Why Choose{" "}
-                <span className={`${libre_baskerville.className} text-swPrimary500 font-bold`}>
+                <span
+                  className={`${libre_baskerville.className} text-swPrimary500 font-bold`}
+                >
                   Swift<i className="font-normal">Wings</i>
                 </span>
               </h2>
@@ -226,8 +246,9 @@ export default function Home() {
                   VIP Treatment
                 </h3>
                 <p className="text-slate-600 text-center leading-relaxed">
-                  Enjoy luxurious comfort, in-flight catering customized to your taste. 
-                  Get entertained by favorite shows or stay connected with work using free Wi-Fi.
+                  Enjoy luxurious comfort, in-flight catering customized to your
+                  taste. Get entertained by favorite shows or stay connected
+                  with work using free Wi-Fi.
                 </p>
               </div>
 
@@ -241,10 +262,13 @@ export default function Home() {
                   Global Access
                 </h3>
                 <p className="text-slate-600 text-center leading-relaxed">
-                  <span className={`${libre_baskerville.className} text-swPrimary500 font-bold`}>
+                  <span
+                    className={`${libre_baskerville.className} text-swPrimary500 font-bold`}
+                  >
                     Swift<i className="font-normal">Wings</i>
                   </span>{" "}
-                  grants you exclusive access to private jets for seamless travel anywhere in the globe.
+                  grants you exclusive access to private jets for seamless
+                  travel anywhere in the globe.
                 </p>
               </div>
 
@@ -258,10 +282,14 @@ export default function Home() {
                   Save Time
                 </h3>
                 <p className="text-slate-600 text-center leading-relaxed">
-                  Skip the crowds & time wasters! Time is precious. Fly private, fast and secure with{" "}
-                  <span className={`${libre_baskerville.className} text-swPrimary500 font-bold`}>
+                  Skip the crowds & time wasters! Time is precious. Fly private,
+                  fast and secure with{" "}
+                  <span
+                    className={`${libre_baskerville.className} text-swPrimary500 font-bold`}
+                  >
                     Swift<i className="font-normal">Wings</i>
-                  </span>.
+                  </span>
+                  .
                 </p>
               </div>
 
@@ -275,8 +303,9 @@ export default function Home() {
                   Membership
                 </h3>
                 <p className="text-slate-600 text-center leading-relaxed">
-                  Network with high profile individuals and get access to premium services: 
-                  unlimited private jet access, personalized travel experience, priority scheduling.
+                  Network with high profile individuals and get access to
+                  premium services: unlimited private jet access, personalized
+                  travel experience, priority scheduling.
                 </p>
               </div>
             </div>
@@ -312,7 +341,9 @@ export default function Home() {
                     </div>
                     <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
                       <div className="bg-black/40 backdrop-blur-sm rounded-t-2xl p-4 -mt-4">
-                        <h4 className="text-xl font-bold mb-2 text-white">{service.title}</h4>
+                        <h4 className="text-xl font-bold mb-2 text-white">
+                          {service.title}
+                        </h4>
                         <p className="text-sm text-gray-100 leading-relaxed">
                           {service.description}
                         </p>
@@ -333,7 +364,8 @@ export default function Home() {
                 Our Premium Fleet
               </h2>
               <p className="text-xl text-slate-600 max-w-3xl mx-auto mb-8">
-                Discover our exclusive collection of luxury aircraft, each designed for unparalleled comfort and performance
+                Discover our exclusive collection of luxury aircraft, each
+                designed for unparalleled comfort and performance
               </p>
               <div className="w-24 h-1 bg-swPrimary500 mx-auto rounded-full"></div>
             </div>
@@ -359,12 +391,15 @@ export default function Home() {
                             {fleet[hoveredIndex].name}
                           </h3>
                           <p className="text-lg text-gray-200 opacity-90">
-                            {fleet[hoveredIndex].features?.classification || 'Premium Aircraft'}
+                            {fleet[hoveredIndex].features?.classification ||
+                              "Premium Aircraft"}
                           </p>
                         </div>
                         <div className="text-right">
                           <div className="bg-white/20 backdrop-blur-sm rounded-full px-4 py-2">
-                            <span className="text-sm font-medium">Featured</span>
+                            <span className="text-sm font-medium">
+                              Featured
+                            </span>
                           </div>
                         </div>
                       </div>
@@ -408,41 +443,58 @@ export default function Home() {
                       <h3 className="text-xl font-bold text-slate-800 mb-3 group-hover:text-swPrimary600 transition-colors duration-300">
                         {item.name}
                       </h3>
-                      
+
                       {/* Specs Grid */}
                       <div className="grid grid-cols-3 gap-3 mb-4">
                         <div className="text-center p-3 bg-slate-50 rounded-lg">
                           <div className="flex justify-center mb-2">
-                            <svg className="w-5 h-5 text-swPrimary500" viewBox="0 0 24 24">
+                            <svg
+                              className="w-5 h-5 text-swPrimary500"
+                              viewBox="0 0 24 24"
+                            >
                               <path fill="currentColor" d={mdiCarSeat} />
                             </svg>
                           </div>
-                          <p className="text-sm font-semibold text-slate-700">{item.features.no_of_seats}</p>
+                          <p className="text-sm font-semibold text-slate-700">
+                            {item.features.no_of_seats}
+                          </p>
                           <p className="text-xs text-slate-500">Seats</p>
                         </div>
                         <div className="text-center p-3 bg-slate-50 rounded-lg">
                           <div className="flex justify-center mb-2">
-                            <svg className="w-5 h-5 text-swPrimary500" viewBox="0 0 24 24">
+                            <svg
+                              className="w-5 h-5 text-swPrimary500"
+                              viewBox="0 0 24 24"
+                            >
                               <path fill="currentColor" d={mdiSpeedometer} />
                             </svg>
                           </div>
-                          <p className="text-sm font-semibold text-slate-700">{item.speed}</p>
+                          <p className="text-sm font-semibold text-slate-700">
+                            {item.speed}
+                          </p>
                           <p className="text-xs text-slate-500">Speed</p>
                         </div>
                         <div className="text-center p-3 bg-slate-50 rounded-lg">
                           <div className="flex justify-center mb-2">
-                            <svg className="w-5 h-5 text-swPrimary500" viewBox="0 0 24 24">
+                            <svg
+                              className="w-5 h-5 text-swPrimary500"
+                              viewBox="0 0 24 24"
+                            >
                               <path fill="currentColor" d={mdiArrowLeftRight} />
                             </svg>
                           </div>
-                          <p className="text-sm font-semibold text-slate-700">{item.feet}</p>
+                          <p className="text-sm font-semibold text-slate-700">
+                            {item.feet}
+                          </p>
                           <p className="text-xs text-slate-500">Range</p>
                         </div>
                       </div>
 
                       {/* View Details Button */}
                       <div className="flex items-center justify-between">
-                        <span className="text-sm text-slate-500">Click to view details</span>
+                        <span className="text-sm text-slate-500">
+                          Click to view details
+                        </span>
                         <div className="bg-swPrimary500 text-white rounded-full p-2 group-hover:bg-swPrimary600 transition-colors duration-300">
                           <HiArrowRight className="w-4 h-4" />
                         </div>
@@ -460,18 +512,19 @@ export default function Home() {
                   Ready to Experience Luxury in the Sky?
                 </h3>
                 <p className="text-slate-600 mb-6">
-                  Explore our complete fleet and find the perfect aircraft for your next journey
+                  Explore our complete fleet and find the perfect aircraft for
+                  your next journey
                 </p>
-     <div className="flex justify-center"> 
-     <Button
-                  label="View Complete Fleet"
-                  bgColor={"bg-swPrimary500"}
-                  textColor={"text-white"}
-                  endIcon={<HiArrowRight size={20} />}
-                  onClick={handleSeeAllClick}
-                  className="px-8 py-4 text-lg font-semibold rounded-full hover:bg-swPrimary600 transition-colors duration-300 shadow-lg hover:shadow-xl"
-                />
-     </div>
+                <div className="flex justify-center">
+                  <Button
+                    label="View Complete Fleet"
+                    bgColor={"bg-swPrimary500"}
+                    textColor={"text-white"}
+                    endIcon={<HiArrowRight size={20} />}
+                    onClick={handleSeeAllClick}
+                    className="px-8 py-4 text-lg font-semibold rounded-full hover:bg-swPrimary600 transition-colors duration-300 shadow-lg hover:shadow-xl"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -486,12 +539,15 @@ export default function Home() {
               </h2>
               <p className="text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed mb-8">
                 Enjoy the benefits of{" "}
-                <span className={`${libre_baskerville.className} text-swPrimary500 font-bold`}>
+                <span
+                  className={`${libre_baskerville.className} text-swPrimary500 font-bold`}
+                >
                   Swift<i className="font-normal">Wings</i>
                 </span>{" "}
-                Network with high profile individuals like you, strike a deeper connection, 
-                and get access to premium services like: unlimited private jet access, 
-                highly personalized travel experience, priority scheduling,{" "}
+                Network with high profile individuals like you, strike a deeper
+                connection, and get access to premium services like: unlimited
+                private jet access, highly personalized travel experience,
+                priority scheduling,{" "}
                 <a
                   href="https://www.swiftwingsjet.com/services"
                   className="text-swPrimary500 font-bold hover:underline"
@@ -538,8 +594,15 @@ export default function Home() {
 
             <div className="grid grid-cols-3 md:grid-cols-5 gap-8 md:gap-12">
               {[
-                Cubana, Polaris, Odu, Neveah, Aella,
-                Gluwa, Century, Zenco, Delborough,
+                Cubana,
+                Polaris,
+                Odu,
+                Neveah,
+                Aella,
+                Gluwa,
+                Century,
+                Zenco,
+                Delborough,
               ].map((logo, index) => (
                 <div
                   key={index}
@@ -562,6 +625,116 @@ export default function Home() {
 
         <Whatsapp />
       </NavAndFooter>
+
+      {/* Popup Modal */}
+      {showModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 overflow-y-auto">
+          <div className="bg-white/50 backdrop-blur-sm rounded-2xl shadow-2xl max-w-4xl w-full mx-8 relative">
+            <button
+              onClick={() => setShowModal(false)}
+              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 transition-colors"
+            >
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+            <div className="bg-white mx-auto w-full p-8 sm:px-6 lg:px-8 rounded-2xl">
+              <div className="mb-12">
+                <h2 className="text-5xl text-center font-bold text-swPrimary500 mb-4">
+                  Choose your plan
+                </h2>
+                <p className="text-swPrimary500 text-center leading-6 mb-9">
+                  Free trial. No credit card required.
+                </p>
+              </div>
+              <div className="space-y-8 lg:grid lg:grid-cols-2 sm:gap-6 xl:gap-8 lg:space-y-0 lg:items-center">
+                <motion.div
+                  whileHover={{ scale: 1.03 }}
+                  transition={{ type: "spring", stiffness: 200 }}
+                  initial={{ opacity: 0, x: -50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  className="bg-gray-50 rounded-2xl shadow-lg border border-gray-200 p-6 flex flex-col transition-shadow max-w-sm"
+                  style={{ boxShadow: `0 0 20px ${primaryColor}30` }}
+                >
+                  <h3 className="text-xl font-bold">Free Plan</h3>
+                  <p className="text-gray-500 mt-1 text-sm">
+                    Experience private jet booking basics.
+                  </p>
+                  <p className="mt-4 text-3xl font-extrabold text-gray-900">
+                    $0<span className="text-base font-normal">/mo</span>
+                  </p>
+                  <ul className="mt-6 space-y-3 flex-1">
+                    {[
+                      "Basic booking access",
+                      "Up to 3 flights/month",
+                      "Email support",
+                    ].map((item, idx) => (
+                      <li key={idx} className="flex items-center text-sm">
+                        <Check className="w-4 h-4 mr-2 text-swPrimary500" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                  <button
+                    onClick={handleFreePlanClick}
+                    className="mt-6 bg-swPrimary500 text-white font-bold py-2 rounded-lg transition hover:bg-swPrimary600 text-sm"
+                  >
+                    Get Started
+                  </button>
+                </motion.div>
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ type: "spring", stiffness: 200 }}
+                  initial={{ opacity: 0, x: 50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  className="rounded-2xl shadow-lg p-6 flex flex-col text-white max-w-sm"
+                  style={{
+                    background: `linear-gradient(135deg, ${primaryColor}, ${primaryColor}cc)`,
+                    boxShadow: `0 0 20px ${primaryColor}50`,
+                  }}
+                >
+                  <h3 className="text-xl font-bold">Premium Plan</h3>
+                  <p className="text-gray-100 mt-1 text-sm">
+                    Ultimate VIP travel experience.
+                  </p>
+                  <p className="mt-4 text-3xl font-extrabold">
+                    $999<span className="text-base font-normal">/mo</span>
+                  </p>
+                  <ul className="mt-6 space-y-3 flex-1">
+                    {[
+                      "Unlimited bookings",
+                      "Access to all empty legs",
+                      "24/7 concierge",
+                      "Luxury in-flight dining",
+                    ].map((item, idx) => (
+                      <li key={idx} className="flex items-center text-sm">
+                        <Check className="w-4 h-4 mr-2 text-white" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                  <button
+                    onClick={handlePremiumPlanClick}
+                    className="mt-6 bg-white text-black font-bold py-2 rounded-lg transition hover:bg-gray-100 text-sm"
+                  >
+                    Upgrade Now
+                  </button>
+                </motion.div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   );
 }
