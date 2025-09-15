@@ -14,6 +14,30 @@ export const signUpUser = createAsyncThunk(
   }
 );
 
+export const verifyEmail = createAsyncThunk(
+  "auth/verifyEmail",
+  async (payload, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(`${API_URL}/user/verify-email`, payload);
+      return response.data;
+    } catch (error) {
+      return error?.response?.data;
+    }
+  }
+);
+
+export const resendVerification = createAsyncThunk(
+  "auth/resendVerification",
+  async (payload, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(`${API_URL}/user/resend-verification`, payload);
+      return response.data;
+    } catch (error) {
+      return error?.response?.data;
+    }
+  }
+);
+
 export const resetPassword = createAsyncThunk(
   "auth/resetPassword",
   async (payload) => {

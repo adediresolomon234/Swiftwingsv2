@@ -15,7 +15,7 @@ import PhoneNumberValidation from "../shared/PhoneNumberValidation";
 
 function NotLoggedInModal({
   open,
-  onClick,
+  onClose,
   bookingDetails,
   unCheckAllBoxes,
   setSuccess,
@@ -70,7 +70,7 @@ function NotLoggedInModal({
             });
             setSuccess(true);
             localStorage.removeItem("bookingDetails"); // Clear persisted details on success
-            onClick(false);
+            onClose?.(false);
           } else {
             toast.error(response?.message);
           }
@@ -94,7 +94,7 @@ function NotLoggedInModal({
       <ToastContainer />
       <div className="max-w-4xl w-full rounded-3xl bg-white flex overflow-hidden relative">
         <div className="absolute right-5 top-5 p-2 rounded-full cursor-pointer border sm:hidden">
-          <SWClose className="text-2xl" onClick={() => onClick(false)} />
+          <SWClose className="text-2xl" onClick={() => onClose?.(false)} />
         </div>
         <div className="px-5 py-10 w-full sm:w-[45%]">
           <p className="text-center text-2xl font-semibold">Complete booking</p>
@@ -169,7 +169,7 @@ function NotLoggedInModal({
             alt="Background Image"
           />
           <div className="absolute right-5 top-5 p-2 rounded-full bg-white cursor-pointer">
-            <SWClose className="text-2xl" onClick={() => onClick(false)} />
+            <SWClose className="text-2xl" onClick={() => onClose?.(false)} />
           </div>
           <div className="absolute right-5 -bottom-10 text-white cursor-pointer">
             <SWLogo className="text-[10rem]" />

@@ -76,7 +76,7 @@ const FleetPage = () => {
           <div className=" w-full p-8 lg:w-3/6 mx-auto relative text-center z-10 lg:p-0">
             <div className="pt-48">
               <p className="text-3xl md:text-6xl font-bold leading-10 md:leading-28">
-                Explore the perfect JET for your{" "}
+                Explore the perfect AIRCRAFT for your{" "}
                 <span className="text-white">Journey</span>
               </p>
               <div className="flex justify-center mt-1 lg:mt-4">

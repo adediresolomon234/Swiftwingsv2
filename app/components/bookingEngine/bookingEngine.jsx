@@ -10,7 +10,7 @@ import {
   SwUserIcon,
 } from "../svgs";
 import Button from "../Button";
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useCallback } from "react";
 import airportsData from "../helpers/airportsData.json";
 import dayjs from "dayjs";
 import { HiArrowRight } from "react-icons/hi";
@@ -57,7 +57,6 @@ const BookingEngine = ({ setBookingDetails }) => {
   ]);
 
   const updateBookingState = (updatedFields, index, date) => {
-    console.log({ updatedFields });
     setBookingState((prevState) => {
       const newState = prevState.map((booking, idx) => {
         if (idx === index) {
@@ -110,7 +109,7 @@ const BookingEngine = ({ setBookingDetails }) => {
     );
   };
 
-  const resetBookingState = () => {
+  const resetBookingState = useCallback(() => {
     setBookingState([
       {
         source: null,
@@ -126,7 +125,7 @@ const BookingEngine = ({ setBookingDetails }) => {
         },
       },
     ]);
-  };
+  }, []);
 
   const options = useMemo(() => {
     return airports.map((item) => ({
@@ -147,7 +146,7 @@ const BookingEngine = ({ setBookingDetails }) => {
       ),
       value: item,
     }));
-  }, []);
+  }, [airports]);
 
   const bookingBtnDisable = () => {
     if (bookingType === "Round Trip") {
@@ -227,17 +226,19 @@ const BookingEngine = ({ setBookingDetails }) => {
     if (pathname === "/booking") {
       const booking = JSON.parse(localStorage.getItem("bookingDetails"));
       if (booking !== null) {
+        // console.log(booking);
         const tripType = booking?.booking_details?.tripType;
         const formData = booking?.booking_details?.formData;
         setBookingType(tripType);
         setBookingState(formData);
-        setBookingDetails((prev) => ({
-          ...prev,
-          booking_details: {
-            tripType,
-            formData,
-          },
-        }));
+        setBookingDetails(booking);
+        // setBookingDetails((prev) => ({
+        //   ...prev,
+        //   booking_details: {
+        //     tripType,
+        //     formData,
+        //   },
+        // }));
       }
     }
     // else {
@@ -255,18 +256,18 @@ const BookingEngine = ({ setBookingDetails }) => {
         },
       }));
     }
-  }, [bookingType, bookingState]);
+  }, [bookingType, bookingState, setBookingDetails]);
 
   useEffect(() => {
     if (data?.message) {
       resetBookingState();
     }
-  }, [data]);
+  }, [data, resetBookingState]);
 
   return (
     <main>
       {/* <ToastContainer /> */}
-      <div className="w-full rounded-3xl">
+      <div className="w-full rounded-3xl mb-5">
         <div
           className={`rounded-3xl shadow-lg ${
             pathname === "/"
@@ -276,9 +277,11 @@ const BookingEngine = ({ setBookingDetails }) => {
         >
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-8 gap-4">
             <div className="flex items-center gap-3">
-              <div className={`w-2 h-8 rounded-full ${
-                pathname === "/" ? "bg-white/30" : "bg-swPrimary500"
-              }`}></div>
+              <div
+                className={`w-2 h-8 rounded-full ${
+                  pathname === "/" ? "bg-white/30" : "bg-swPrimary500"
+                }`}
+              ></div>
               <h2
                 className={`font-bold text-xl md:text-2xl ${
                   pathname === "/" ? "text-white" : "text-slate-800"
@@ -317,7 +320,9 @@ const BookingEngine = ({ setBookingDetails }) => {
               >
                 <Button
                   label="Book Jet"
-                  bgColor={"bg-gradient-to-r from-swPrimary500 to-swPrimary600 hover:from-swPrimary600 hover:to-swPrimary700"}
+                  bgColor={
+                    "bg-gradient-to-r from-swPrimary500 to-swPrimary600 hover:from-swPrimary600 hover:to-swPrimary700"
+                  }
                   textColor={"text-white"}
                   endIcon={<HiArrowRight size={20} />}
                   loader={loading}
@@ -389,7 +394,7 @@ const BookingEngine = ({ setBookingDetails }) => {
                       onClose={() => setOpenDeparture(null)}
                       format={options}
                       setValue={(selectedOption) => {
-                        console.log({ selectedOption });
+                        // console.log({ selectedOption });
                         updateBookingState({ source: selectedOption }, index);
                         setOpenDeparture(null);
                       }}
@@ -574,7 +579,8 @@ const BookingEngine = ({ setBookingDetails }) => {
                   bgColor={"bg-white hover:bg-swPrimary600"}
                   textColor={"hover:text-white text-swGray800"}
                   endIcon={<HiArrowRight size={20} />}
-                  disabled={bookingBtnDisable()}
+                  loader={loading}
+                  disabled={loading || bookingBtnDisable()}
                 />
               </div>
             ) : (

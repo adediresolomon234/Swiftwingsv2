@@ -34,7 +34,7 @@
     "app/(customer-information)/flight-brief/page.jsx",
     "app/components/flight-brief/FlightBriefPageComp.jsx",
     ".next/types/**/*.ts"
-  ],
+, "app/components/bookingPage/PremiumRideModal.jsx"  ],
   "exclude": [
     "node_modules"
   ]

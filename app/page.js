@@ -2,17 +2,12 @@
 import { useState, useEffect, useRef } from "react";
 import { Space_Grotesk, Libre_Baskerville } from "next/font/google";
 import Image from "next/image";
-import { GoArrowRight } from "react-icons/go";
 import Button from "./components/Button";
 import { HiArrowRight } from "react-icons/hi";
 import "../styles.css";
 import { services } from "./components/servicedata";
 import { textAreas } from "./components/servicesgrid";
-import { CiStar } from "react-icons/ci";
 import NavAndFooter from "./components/shared/NavAndFooter";
-import { testimonial } from "./CustomerTestimonial";
-import Marquee from "react-fast-marquee";
-import { FaXTwitter } from "react-icons/fa6";
 import heroBgImg from "../public/images/heroBackgroundImage.png";
 import MbheroBgImg from "../public/images/Hero-Section-Mobile[1].jpg";
 import { useDispatch, useSelector } from "react-redux";
@@ -28,10 +23,6 @@ import {
   SWTAddPersonBlackIcon,
   SWTSandClockBlackIcon,
   SWTGalaglobeIcon,
-  SWTNeveah,
-  SWTPolarisbank,
-  SWTCenturygroup,
-  SWTdelborough,
 } from "./components/svgs";
 import { homePageKeywords } from "./components/helpers/relatedKeywords";
 import Cubana from "../public/images/cubana.jpg";
@@ -50,6 +41,7 @@ import { formatThousand } from "./components/helpers/utils";
 import CountUp from "react-countup";
 import EmptyLegsSlider from "./components/empty-leg/EmptyLegs";
 import Whatsapp from "./components/shared/Whatsapp";
+import Whatsapp from "./components/shared/Whatsapp";
 
 const space_grotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -63,12 +55,13 @@ export default function Home() {
   const router = useRouter();
   const dispatch = useDispatch();
   const [hoveredIndex, setHoveredIndex] = useState(0);
-  const aircrafts = useSelector((state) => state.aircrafts.aircrafts);
+  const aircrafts = useSelector((state) => state?.aircrafts?.aircrafts);
   const [fleet, setFleet] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
-  const { data: homeData } = useSelector((state) => state.aviPages);
+  const { data: homeData } = useSelector((state) => state?.aviPages);
 
+  console.log("homeData", homeData);
   const sectionRef = useRef(null);
   const primaryColor = "#5c0632";
   const [showModal, setShowModal] = useState(false);
@@ -118,7 +111,7 @@ export default function Home() {
   };
 
   useEffect(() => {
-    setLoading(false);
+    if (typeof window !== "undefined") setLoading(false);
   }, []);
 
   if (loading) {
@@ -203,6 +196,42 @@ export default function Home() {
                   <p className="text-xs md:text-sm text-gray-200">Bookings</p>
                 </div>
               </div>
+
+              {/* Stats Section */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 md:gap-8 justify-center text-center mb-8 max-w-4xl mx-auto">
+                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20 hover:bg-white/20 transition-all duration-300">
+                  <p className="font-bold text-2xl md:text-3xl mb-1">
+                    <CountUp
+                      end={homeData?.data?.no_users}
+                      duration={2}
+                      formattingFn={formatThousand}
+                    />
+                  </p>
+                  <p className="text-xs md:text-sm text-gray-200">
+                    Happy Clients
+                  </p>
+                </div>
+                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20 hover:bg-white/20 transition-all duration-300">
+                  <p className="font-bold text-2xl md:text-3xl mb-1">
+                    <CountUp
+                      end={homeData?.data?.no_aircrafts}
+                      duration={2}
+                      formattingFn={formatThousand}
+                    />
+                  </p>
+                  <p className="text-xs md:text-sm text-gray-200">Aircraft</p>
+                </div>
+                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20 hover:bg-white/20 transition-all duration-300">
+                  <p className="font-bold text-2xl md:text-3xl mb-1">
+                    <CountUp
+                      end={homeData?.data?.no_bookings}
+                      duration={2}
+                      formattingFn={formatThousand}
+                    />
+                  </p>
+                  <p className="text-xs md:text-sm text-gray-200">Bookings</p>
+                </div>
+              </div>
             </div>
 
             {/* Booking Engine */}
@@ -225,6 +254,9 @@ export default function Home() {
                 Why Choose{" "}
                 <span
                   className={`${libre_baskerville.className} text-swPrimary500 font-bold`}
+                >
+                <span
+                  className={`${libre_baskerville?.className} text-swPrimary500 font-bold`}
                 >
                   Swift<i className="font-normal">Wings</i>
                 </span>
@@ -249,6 +281,9 @@ export default function Home() {
                   Enjoy luxurious comfort, in-flight catering customized to your
                   taste. Get entertained by favorite shows or stay connected
                   with work using free Wi-Fi.
+                  Enjoy luxurious comfort, in-flight catering customized to your
+                  taste. Get entertained by favorite shows or stay connected
+                  with work using free Wi-Fi.
                 </p>
               </div>
 
@@ -265,8 +300,13 @@ export default function Home() {
                   <span
                     className={`${libre_baskerville.className} text-swPrimary500 font-bold`}
                   >
+                  <span
+                    className={`${libre_baskerville?.className} text-swPrimary500 font-bold`}
+                  >
                     Swift<i className="font-normal">Wings</i>
                   </span>{" "}
+                  grants you exclusive access to private jets for seamless
+                  travel anywhere in the globe.
                   grants you exclusive access to private jets for seamless
                   travel anywhere in the globe.
                 </p>
@@ -287,7 +327,14 @@ export default function Home() {
                   <span
                     className={`${libre_baskerville.className} text-swPrimary500 font-bold`}
                   >
+                  Skip the crowds & time wasters! Time is precious. Fly private,
+                  fast and secure with{" "}
+                  <span
+                    className={`${libre_baskerville?.className} text-swPrimary500 font-bold`}
+                  >
                     Swift<i className="font-normal">Wings</i>
+                  </span>
+                  .
                   </span>
                   .
                 </p>
@@ -303,6 +350,9 @@ export default function Home() {
                   Membership
                 </h3>
                 <p className="text-slate-600 text-center leading-relaxed">
+                  Network with high profile individuals and get access to
+                  premium services: unlimited private jet access, personalized
+                  travel experience, priority scheduling.
                   Network with high profile individuals and get access to
                   premium services: unlimited private jet access, personalized
                   travel experience, priority scheduling.
@@ -326,14 +376,14 @@ export default function Home() {
             </div>
 
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-              {services.map((service, index) => (
+              {services?.map((service, index) => (
                 <div key={index} className="group">
                   <div className="relative overflow-hidden rounded-2xl shadow-lg group-hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 h-full">
                     <div className="aspect-[4/5] relative">
                       <Image
                         className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700"
-                        src={service.imageSrc}
-                        alt={service.title}
+                        src={service?.imageSrc}
+                        alt={service?.title}
                         fill
                         sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
                       />
@@ -344,8 +394,11 @@ export default function Home() {
                         <h4 className="text-xl font-bold mb-2 text-white">
                           {service.title}
                         </h4>
+                        <h4 className="text-xl font-bold mb-2 text-white">
+                          {service?.title}
+                        </h4>
                         <p className="text-sm text-gray-100 leading-relaxed">
-                          {service.description}
+                          {service?.description}
                         </p>
                       </div>
                     </div>
@@ -366,6 +419,8 @@ export default function Home() {
               <p className="text-xl text-slate-600 max-w-3xl mx-auto mb-8">
                 Discover our exclusive collection of luxury aircraft, each
                 designed for unparalleled comfort and performance
+                Discover our exclusive collection of luxury aircraft, each
+                designed for unparalleled comfort and performance
               </p>
               <div className="w-24 h-1 bg-swPrimary500 mx-auto rounded-full"></div>
             </div>
@@ -377,8 +432,8 @@ export default function Home() {
                   <div className="aspect-[16/9] relative">
                     <Image
                       className="w-full h-full object-cover"
-                      src={fleet[hoveredIndex].image}
-                      alt={`${fleet[hoveredIndex].name} aircraft`}
+                      src={fleet[hoveredIndex]?.image}
+                      alt={`${fleet[hoveredIndex]?.name} aircraft`}
                       fill
                       sizes="(max-width: 1024px) 100vw, 1200px"
                       priority
@@ -388,15 +443,20 @@ export default function Home() {
                       <div className="flex items-center justify-between">
                         <div>
                           <h3 className="text-3xl md:text-4xl font-bold mb-2">
-                            {fleet[hoveredIndex].name}
+                            {fleet[hoveredIndex]?.name}
                           </h3>
                           <p className="text-lg text-gray-200 opacity-90">
                             {fleet[hoveredIndex].features?.classification ||
+                              "Premium Aircraft"}
+                            {fleet[hoveredIndex]?.features?.classification ||
                               "Premium Aircraft"}
                           </p>
                         </div>
                         <div className="text-right">
                           <div className="bg-white/20 backdrop-blur-sm rounded-full px-4 py-2">
+                            <span className="text-sm font-medium">
+                              Featured
+                            </span>
                             <span className="text-sm font-medium">
                               Featured
                             </span>
@@ -411,23 +471,23 @@ export default function Home() {
 
             {/* Fleet Grid */}
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mb-12">
-              {fleet.map((item, index) => (
+              {fleet?.map((item, index) => (
                 <div
-                  key={item.id}
+                  key={item?.id}
                   className="group cursor-pointer"
                   onMouseEnter={() => handleMouseEnter(index)}
                   onMouseLeave={handleMouseLeave}
                 >
                   <Link
-                    href={`/fleet-specification/${item.id}`}
+                    href={`/fleet-specification/${item?.id}`}
                     className="block bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-slate-200 overflow-hidden"
                   >
                     {/* Aircraft Image */}
                     <div className="aspect-[4/3] relative overflow-hidden">
                       <Image
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                        src={item.image}
-                        alt={`${item.name} aircraft`}
+                        src={item?.image}
+                        alt={`${item?.name} aircraft`}
                         width={400}
                         height={300}
                         sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -441,13 +501,18 @@ export default function Home() {
                     {/* Aircraft Details */}
                     <div className="p-6">
                       <h3 className="text-xl font-bold text-slate-800 mb-3 group-hover:text-swPrimary600 transition-colors duration-300">
-                        {item.name}
+                        {item?.name}
                       </h3>
+
 
                       {/* Specs Grid */}
                       <div className="grid grid-cols-3 gap-3 mb-4">
                         <div className="text-center p-3 bg-slate-50 rounded-lg">
                           <div className="flex justify-center mb-2">
+                            <svg
+                              className="w-5 h-5 text-swPrimary500"
+                              viewBox="0 0 24 24"
+                            >
                             <svg
                               className="w-5 h-5 text-swPrimary500"
                               viewBox="0 0 24 24"
@@ -458,10 +523,17 @@ export default function Home() {
                           <p className="text-sm font-semibold text-slate-700">
                             {item.features.no_of_seats}
                           </p>
+                          <p className="text-sm font-semibold text-slate-700">
+                            {item?.features?.no_of_seats}
+                          </p>
                           <p className="text-xs text-slate-500">Seats</p>
                         </div>
                         <div className="text-center p-3 bg-slate-50 rounded-lg">
                           <div className="flex justify-center mb-2">
+                            <svg
+                              className="w-5 h-5 text-swPrimary500"
+                              viewBox="0 0 24 24"
+                            >
                             <svg
                               className="w-5 h-5 text-swPrimary500"
                               viewBox="0 0 24 24"
@@ -472,10 +544,17 @@ export default function Home() {
                           <p className="text-sm font-semibold text-slate-700">
                             {item.speed}
                           </p>
+                          <p className="text-sm font-semibold text-slate-700">
+                            {item?.speed}
+                          </p>
                           <p className="text-xs text-slate-500">Speed</p>
                         </div>
                         <div className="text-center p-3 bg-slate-50 rounded-lg">
                           <div className="flex justify-center mb-2">
+                            <svg
+                              className="w-5 h-5 text-swPrimary500"
+                              viewBox="0 0 24 24"
+                            >
                             <svg
                               className="w-5 h-5 text-swPrimary500"
                               viewBox="0 0 24 24"
@@ -486,12 +565,18 @@ export default function Home() {
                           <p className="text-sm font-semibold text-slate-700">
                             {item.feet}
                           </p>
+                          <p className="text-sm font-semibold text-slate-700">
+                            {item?.feet}
+                          </p>
                           <p className="text-xs text-slate-500">Range</p>
                         </div>
                       </div>
 
                       {/* View Details Button */}
                       <div className="flex items-center justify-between">
+                        <span className="text-sm text-slate-500">
+                          Click to view details
+                        </span>
                         <span className="text-sm text-slate-500">
                           Click to view details
                         </span>
@@ -514,6 +599,8 @@ export default function Home() {
                 <p className="text-slate-600 mb-6">
                   Explore our complete fleet and find the perfect aircraft for
                   your next journey
+                  Explore our complete fleet and find the perfect aircraft for
+                  your next journey
                 </p>
                 <div className="flex justify-center">
                   <Button
@@ -523,6 +610,16 @@ export default function Home() {
                     endIcon={<HiArrowRight size={20} />}
                     onClick={handleSeeAllClick}
                     className="px-8 py-4 text-lg font-semibold rounded-full hover:bg-swPrimary600 transition-colors duration-300 shadow-lg hover:shadow-xl"
+                  />
+                </div>
+                <div className="flex justify-center">
+                  <Button
+                    label="View Complete Fleet"
+                    bgColor={"bg-swPrimary500"}
+                    textColor={"text-white"}
+                    endIcon={<HiArrowRight size={20} />}
+                    onClick={handleSeeAllClick}
+                    className="px-8 py-4 text-base md:text-lg font-semibold rounded-full hover:bg-swPrimary600 transition-colors duration-300 shadow-lg hover:shadow-xl"
                   />
                 </div>
               </div>
@@ -542,8 +639,15 @@ export default function Home() {
                 <span
                   className={`${libre_baskerville.className} text-swPrimary500 font-bold`}
                 >
+                <span
+                  className={`${libre_baskerville?.className} text-swPrimary500 font-bold`}
+                >
                   Swift<i className="font-normal">Wings</i>
                 </span>{" "}
+                Network with high profile individuals like you, strike a deeper
+                connection, and get access to premium services like: unlimited
+                private jet access, highly personalized travel experience,
+                priority scheduling,{" "}
                 Network with high profile individuals like you, strike a deeper
                 connection, and get access to premium services like: unlimited
                 private jet access, highly personalized travel experience,
@@ -564,13 +668,13 @@ export default function Home() {
                 Membership Features
               </h3>
               <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                {textAreas.map((area, index) => (
+                {textAreas?.map((area, index) => (
                   <div
                     key={index}
                     className="bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl p-8 text-center border border-slate-200 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
                   >
                     <div className="text-slate-700 text-lg leading-relaxed">
-                      {area.description}
+                      {area?.description}
                     </div>
                   </div>
                 ))}
@@ -604,6 +708,16 @@ export default function Home() {
                 Zenco,
                 Delborough,
               ].map((logo, index) => (
+                Cubana,
+                Polaris,
+                Odu,
+                Neveah,
+                Aella,
+                Gluwa,
+                Century,
+                Zenco,
+                Delborough,
+              ]?.map((logo, index) => (
                 <div
                   key={index}
                   className="flex justify-center items-center group"
