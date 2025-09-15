@@ -113,7 +113,7 @@ const SignUp = () => {
           if (res.success === true) {
             toast.success(res.message);
             // Store email in localStorage for verification page
-            localStorage.setItem("signupEmail", formData.email);
+            sessionStorage.setItem("signupEmail", formData.email);
             // Clear form
             setFormData({
               first_name: "",
@@ -194,8 +194,8 @@ const SignUp = () => {
   return (
     <main className="flex justify-center items-center z-50 bg-gray-100">
       <ToastContainer />
-      <div className="w-full bg-white h-full flex overflow-hidden relative">
-        <div className="relative flex justify-center items-center min-h-screen px-5 bg-swSecondary50 pt-3 w-full sm:w-1/2">
+      <div className="w-full bg-white relative">
+        <div className="absolute top-0 left-0 flex justify-center items-center h-screen overflow-y-auto px-5 bg-swSecondary50 pt-3 w-full sm:w-1/2">
           <div className="max-w-[577px] p-4  overflow-x-hidden">
             <p className="text-center text-2xl font-semibold text-swGray800">
               Create a new account
@@ -382,7 +382,7 @@ const SignUp = () => {
               </Link>
             </p>
             <div className="w-full flex justify-center mt-4 font-medium">
-              <Button
+              {/* <Button
                 label={"Login"}
                 textColor={
                   "font-semibold text-swGray800 border border-swGray100 max-w-lg"
@@ -390,7 +390,7 @@ const SignUp = () => {
                 onClick={() => {
                   router.push("/sign-in");
                 }}
-              />
+              /> */}
             </div>
           </div>
           {/* {popup && ( */}
@@ -413,16 +413,18 @@ const SignUp = () => {
           </div>
           {/* )} */}
         </div>
-        <div className="hidden sm:block w-1/2 bg-cover bg-center bg-no-repeat relative">
-          <Image
-            src={bgImg} // Adjust the path according to where you placed the image
-            layout="fill"
-            objectFit="cover"
-            quality={100}
-            alt="Background Image"
-          />
-          <div className="absolute right-5 -bottom-10 text-white cursor-pointer">
-            <SWLogo className="text-[10rem]" />
+        <div className="hidden sm:block w-1/2 h-screen absolute top-0 right-0 overflow-hidden">
+          <div className="w-full h-screen bg-cover bg-center bg-no-repeat relative">
+            <Image
+              src={bgImg} // Adjust the path according to where you placed the image
+              layout="fill"
+              objectFit="cover"
+              quality={100}
+              alt="Background Image"
+            />
+            <div className="absolute right-5 -bottom-10 text-white cursor-pointer">
+              <SWLogo className="text-[10rem]" />
+            </div>
           </div>
         </div>
       </div>

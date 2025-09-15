@@ -40,7 +40,7 @@ const AccountDetailsUpdateCard = ({ setPageState }) => {
   };
 
   useEffect(() => {
-    const userDataString = localStorage.getItem("user");
+    const userDataString = sessionStorage.getItem("user");
     const userData = userDataString ? JSON.parse(userDataString) : null;
     setFormData({
       first_name: userData.first_name,

@@ -175,8 +175,11 @@ const BookingPageInformation = () => {
 
       if (!loggedInUser) {
         // setNotLoggedInModal(true);
-        localStorage.setItem("bookingInComplete", "true");
-        localStorage.setItem("bookingDetails", JSON.stringify(bookingDetails));
+        sessionStorage.setItem("bookingInComplete", "true");
+        sessionStorage.setItem(
+          "bookingDetails",
+          JSON.stringify(bookingDetails)
+        );
         toast.error("You are not logged in. Kindly login to continue");
         router.push("/sign-in");
         // handleNavigationWithRefresh("/sign-in");
@@ -209,7 +212,7 @@ const BookingPageInformation = () => {
         setAdditionalNote("");
         uncheckBoxes();
         resetBookingState();
-        localStorage.removeItem("bookingDetails");
+        sessionStorage.removeItem("bookingDetails");
         setSuccess(true);
         toast.success("Booking submitted successfully!");
       }
@@ -447,7 +450,7 @@ const BookingPageInformation = () => {
         fetchAircrafts();
 
         // Get user details from localStorage
-        const userDetails = localStorage.getItem("user");
+        const userDetails = sessionStorage.getItem("user");
         if (userDetails) {
           const parsedUser = JSON.parse(userDetails);
           setLoggedInUser(parsedUser);

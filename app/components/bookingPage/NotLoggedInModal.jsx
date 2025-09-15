@@ -34,7 +34,9 @@ function NotLoggedInModal({
 
   useEffect(() => {
     // Keep booking details persisted even after an error.
-    const persistedDetails = JSON.parse(localStorage.getItem("bookingDetails"));
+    const persistedDetails = JSON.parse(
+      sessionStorage.getItem("bookingDetails")
+    );
     if (persistedDetails) {
       setFormData(persistedDetails);
     }
@@ -45,7 +47,7 @@ function NotLoggedInModal({
       alert("Please fill in all fields.");
     } else {
       // Persist booking details in case of an error
-      localStorage.setItem("bookingDetails", JSON.stringify(formData));
+      sessionStorage.setItem("bookingDetails", JSON.stringify(formData));
 
       bookingDetails.status = "New";
       bookingDetails.user = {
@@ -69,7 +71,7 @@ function NotLoggedInModal({
               phone: "",
             });
             setSuccess(true);
-            localStorage.removeItem("bookingDetails"); // Clear persisted details on success
+            sessionStorage.removeItem("bookingDetails"); // Clear persisted details on success
             onClose?.(false);
           } else {
             toast.error(response?.message);
@@ -141,20 +143,22 @@ function NotLoggedInModal({
               bgColor={"bg-swPrimary500 hover:bg-swPrimary600"}
               textColor={"text-white"}
               disabled={
-                Object.values(formData).some((e) => e === "") || loading === "pending"
+                Object.values(formData).some((e) => e === "") ||
+                loading === "pending"
               }
               onClick={handleQuote}
             />
 
             <p className="text-swGray900 text-sm">
-              Save and use your previously entered information when you are signed in.
+              Save and use your previously entered information when you are
+              signed in.
             </p>
             <Button
               label="Sign in"
               bgColor={"border-2 hover:bg-swGray50"}
               textColor={"text-swGray800"}
               onClick={() => {
-                localStorage.setItem("bookingInComplete", true);
+                sessionStorage.setItem("bookingInComplete", true);
                 router.push("/sign-in");
               }}
             />

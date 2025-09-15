@@ -23,7 +23,7 @@ const EachBooking = () => {
   const [loading, setLoading] = useState(true);
 
   const getAllBookings = () => {
-    const user = JSON.parse(localStorage.getItem("user"));
+    const user = JSON.parse(sessionStorage.getItem("user"));
     dispatch(getAllBooking(user.email))
       .unwrap()
       .then((res) => {

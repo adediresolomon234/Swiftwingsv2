@@ -32,7 +32,7 @@ export const preventNonNumeric = (e, allowComma) => {
 
 export const getUser = () => {
   // if (typeof window !== "undefined") {
-    const userDetails = localStorage.getItem("user");
-    return userDetails ? JSON.parse(userDetails) : null;
+  const userDetails = sessionStorage.getItem("user");
+  return userDetails ? JSON.parse(userDetails) : null;
   // }
 };

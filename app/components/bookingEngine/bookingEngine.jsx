@@ -240,7 +240,7 @@ const BookingEngine = ({ setBookingDetails }) => {
       additional_quote: [],
     };
     if (typeof self !== "undefined") {
-      localStorage.setItem("bookingDetails", JSON.stringify(booking));
+      sessionStorage.setItem("bookingDetails", JSON.stringify(booking));
     }
 
     // setTimeout(() => {
@@ -251,7 +251,7 @@ const BookingEngine = ({ setBookingDetails }) => {
 
   useEffect(() => {
     if (pathname === "/booking") {
-      const booking = JSON.parse(localStorage.getItem("bookingDetails"));
+      const booking = JSON.parse(sessionStorage.getItem("bookingDetails"));
       if (booking !== null) {
         // console.log(booking);
         const tripType = booking?.booking_details?.tripType;
@@ -269,7 +269,7 @@ const BookingEngine = ({ setBookingDetails }) => {
       }
     }
     // else {
-    //   localStorage.removeItem("bookingDetails");
+    //   sessionStorage.removeItem("bookingDetails");
     // }
   }, [pathname]);
 

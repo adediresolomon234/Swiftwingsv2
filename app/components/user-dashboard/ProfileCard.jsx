@@ -14,7 +14,7 @@ const ProfileCard = ({ subscriptionData }) => {
   // const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
-    const userDataString = localStorage.getItem("user");
+    const userDataString = sessionStorage.getItem("user");
     setUserData(userDataString ? JSON.parse(userDataString) : null);
   }, []);
 

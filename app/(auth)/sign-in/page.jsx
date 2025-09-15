@@ -147,7 +147,7 @@ const SignIn = () => {
           const userWithAuth = { ...userData, isLoggedIn: true };
 
           // Store user data securely
-          localStorage.setItem("user", JSON.stringify(userWithAuth));
+          sessionStorage.setItem("user", JSON.stringify(userWithAuth));
 
           // Show success message
           toast.success(response.data.message || "Login successful!");
@@ -159,7 +159,7 @@ const SignIn = () => {
           startTransition(() => {
             if (bookingInComplete) {
               router.push("/booking");
-              localStorage.removeItem("bookingInComplete");
+              sessionStorage.removeItem("bookingInComplete");
             } else {
               router.push("/");
             }
@@ -172,47 +172,55 @@ const SignIn = () => {
 
         // Handle different types of errors
         if (error?.response?.status === 401) {
-          const errorMessage = error.response?.data?.error || 
-                              error.response?.data?.message || 
-                              "";
-          
+          const errorMessage =
+            error.response?.data?.error || error.response?.data?.message || "";
+
           // Check if it's an email verification error (multiple possible variations)
-          if (errorMessage.includes("Please verify your email address") || 
-              errorMessage.includes("verify your email") ||
-              errorMessage.includes("email verification")) {
-            
+          if (
+            errorMessage.includes("Please verify your email address") ||
+            errorMessage.includes("verify your email") ||
+            errorMessage.includes("email verification")
+          ) {
             // Store email for verification page
-            localStorage.setItem("signupEmail", formData.email.trim());
-            
+            sessionStorage.setItem("signupEmail", formData.email.trim());
+
             // Show info message
             toast.info("Please verify your email address first");
-            
+
             // Redirect to verification page after a short delay
             setTimeout(() => {
-              router.push(`/verify-email?email=${encodeURIComponent(formData.email.trim())}`);
+              router.push(
+                `/verify-email?email=${encodeURIComponent(
+                  formData.email.trim()
+                )}`
+              );
             }, 2000);
           } else {
             toast.error("Invalid email or password");
           }
         } else if (error.response?.status === 403) {
           // Check for email verification errors in 403 responses as well
-          const errorMessage = error.response?.data?.error || 
-                              error.response?.data?.message || 
-                              "";
-          
-          if (errorMessage.includes("Please verify your email address") || 
-              errorMessage.includes("verify your email") ||
-              errorMessage.includes("email verification")) {
-            
+          const errorMessage =
+            error.response?.data?.error || error.response?.data?.message || "";
+
+          if (
+            errorMessage.includes("Please verify your email address") ||
+            errorMessage.includes("verify your email") ||
+            errorMessage.includes("email verification")
+          ) {
             // Store email for verification page
-            localStorage.setItem("signupEmail", formData.email.trim());
-            
+            sessionStorage.setItem("signupEmail", formData.email.trim());
+
             // Show info message
             toast.info("Please verify your email address first");
-            
+
             // Redirect to verification page after a short delay
             setTimeout(() => {
-              router.push(`/verify-email?email=${encodeURIComponent(formData.email.trim())}`);
+              router.push(
+                `/verify-email?email=${encodeURIComponent(
+                  formData.email.trim()
+                )}`
+              );
             }, 2000);
           } else {
             toast.error("Access denied. Please contact support.");
@@ -225,9 +233,9 @@ const SignIn = () => {
           toast.error("Network error. Please check your connection.");
         } else {
           toast.error(
-            error.response?.data?.error || 
-            error.response?.data?.message || 
-            "Login failed. Please try again."
+            error.response?.data?.error ||
+              error.response?.data?.message ||
+              "Login failed. Please try again."
           );
         }
       } finally {
@@ -253,7 +261,7 @@ const SignIn = () => {
       try {
         // Check for incomplete booking
         const hasIncompleteBooking =
-          localStorage.getItem("bookingInComplete") === "true";
+          sessionStorage.getItem("bookingInComplete") === "true";
         setBookingInComplete(hasIncompleteBooking);
       } catch (error) {
         console.error("Error checking localStorage:", error);
@@ -283,7 +291,11 @@ const SignIn = () => {
             <div className="max-w-[557px] w-full p-4 sm:p-6 overflow-y-scroll">
               {/* Header */}
               <div className="text-center mb-8">
-                <Image src={SWheader} alt="Logo" className="w-48 sm:w-60 mx-auto mb-5" />
+                <Image
+                  src={SWheader}
+                  alt="Logo"
+                  className="w-48 sm:w-60 mx-auto mb-5"
+                />
                 <h1 className="text-2xl sm:text-3xl font-semibold text-black mb-2">
                   Welcome Back
                 </h1>
@@ -375,19 +387,20 @@ const SignIn = () => {
                   )}
                 </div>
 
-            <Link
-              href={"/forgot-password"}
-              className="ml-auto italic mt-2 text-sm text-swGray800 cursor-pointer w-fit hover:underline"
-            >
-              Forgot Password?
-            </Link>
+                <Link
+                  href={"/forgot-password"}
+                  className="ml-auto italic mt-2 text-sm text-swGray800 cursor-pointer w-fit hover:underline"
+                >
+                  Forgot Password?
+                </Link>
 
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mt-3">
-              <p className="text-sm text-blue-800">
-                <strong>New user?</strong> After signing up, you&apos;ll need to verify your email address before you can log in. 
-                Check your email for the verification code.
-              </p>
-            </div>
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mt-3">
+                  <p className="text-sm text-blue-800">
+                    <strong>New user?</strong> After signing up, you&apos;ll
+                    need to verify your email address before you can log in.
+                    Check your email for the verification code.
+                  </p>
+                </div>
 
                 {/* Submit Button */}
                 <Button
@@ -408,8 +421,11 @@ const SignIn = () => {
                 </div>
                 <div className="relative flex justify-center text-sm">
                   <span className="px-2 bg-swSecondary50 text-gray-500">
-                    Don&apos;t have an account?{' '}
-                    <Link href="/sign-up" className="text-swPrimary400 hover:text-swPrimary600">
+                    Don&apos;t have an account?{" "}
+                    <Link
+                      href="/sign-up"
+                      className="text-swPrimary400 hover:text-swPrimary600"
+                    >
                       Sign up here
                     </Link>
                   </span>
