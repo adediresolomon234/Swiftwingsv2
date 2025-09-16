@@ -1,10 +1,10 @@
 "use client";
 import React, { useState } from "react";
 import { Check, X } from "lucide-react";
-import NavAndFooter from "../../components/shared/NavAndFooter";
-import SubImage from "../../../public/images/subImage.png";
+import SubImage from "../../public/images/subImage.png";
 import Head from "next/head";
 import Link from "next/link";
+import NavAndFooter from "../components/shared/NavAndFooter";
 
 export default function PricingPage() {
   const [activeTab, setActiveTab] = useState("yearly");
