@@ -63,7 +63,7 @@ const ForgotPasswordPage = () => {
         if (!res?.success) {
           toast.error(res?.error);
         } else {
-          localStorage.setItem("4gtPwdEmail", formData.email);
+          sessionStorage.setItem("4gtPwdEmail", formData.email);
           router.push("/forgetpasswordverify");
         }
       } catch (error) {

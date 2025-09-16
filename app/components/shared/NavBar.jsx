@@ -28,13 +28,13 @@ const NavBar = ({ Nav }) => {
 
   const handleSignOut = () => {
     setUser(null);
-    localStorage.removeItem("user");
+    sessionStorage.clear();
     if (pathname !== "/") router.push("/");
   };
 
   useEffect(() => {
     if (typeof self !== "undefined") {
-      const userItem = localStorage.getItem("user");
+      const userItem = sessionStorage.getItem("user");
       if (userItem) {
         try {
           const getUser = JSON.parse(userItem);
@@ -238,20 +238,28 @@ const NavBar = ({ Nav }) => {
                   )}
                 </div>
               ) : (
-                <div className="flex gap-5 items-center text-sm lg:text-base">
+                <>
+                  <div className="hidden lg:flex gap-5 items-center text-sm lg:text-base">
+                    <Link
+                      href="/sign-in"
+                      className="py-2 px-4 rounded-full hover:bg-white text-sm text-l"
+                    >
+                      Sign In
+                    </Link>
+                    <Link
+                      href="/sign-up"
+                      className="py-2 px-4 rounded-full text-xs md:text-l text-white bg-swPrimary500 hover:bg-swPrimary600 "
+                    >
+                      Sign Up
+                    </Link>
+                  </div>
                   <Link
                     href="/sign-in"
-                    className="py-2 px-4 rounded-full hover:bg-white text-sm text-l hidden lg:flex"
+                    className="py-2 px-4 rounded-full text-xs md:text-l text-white bg-swPrimary500 hover:bg-swPrimary600 block lg:hidden"
                   >
                     Sign In
                   </Link>
-                  <Link
-                    href="/sign-up"
-                    className="py-2 px-4 rounded-full text-xs md:text-l text-white bg-swPrimary500 hover:bg-swPrimary600 "
-                  >
-                    Sign Up
-                  </Link>
-                </div>
+                </>
               )}
             </div>
             <div className="flex items-center lg:order-2">

@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { Provider } from "react-redux";
 import { store } from "../redux/store";
 import { ToastContainer } from "react-toastify";
+import { usePathname, useRouter } from "next/navigation";
 
 const poppins = localFont({
   src: [
@@ -54,6 +55,8 @@ const poppins = localFont({
 });
 
 const RootLayout = ({ children }) => {
+  const pathname = usePathname();
+  const router = useRouter();
   useEffect(() => {
     // Initialize Google Tag Manager
     const gtagScript = document.createElement("script");
@@ -94,6 +97,41 @@ const RootLayout = ({ children }) => {
     );
     fbq("init", "887480903063391");
     fbq("track", "PageView");
+  }, []);
+
+  // Logout user login expiry
+  useEffect(() => {
+    const checkExpiry = () => {
+      const expiry = sessionStorage.getItem("loginExpiry");
+      if (expiry && Date.now() > Number(expiry)) {
+        sessionStorage.clear();
+        window.location.href = "/";
+      }
+    };
+
+    // Check immediately
+    checkExpiry();
+
+    // Set interval to check every 5 seconds
+    const interval = setInterval(checkExpiry, 5000);
+
+    // Also set a timeout for exact expiry if available
+    const expiry = sessionStorage.getItem("loginExpiry");
+    if (expiry) {
+      const timeout = Number(expiry) - Date.now();
+      if (timeout > 0) {
+        const timer = setTimeout(() => {
+          sessionStorage.clear();
+          window.location.href = "/sign-in";
+        }, timeout);
+        return () => {
+          clearInterval(interval);
+          clearTimeout(timer);
+        };
+      }
+    }
+
+    return () => clearInterval(interval);
   }, []);
 
   return (

@@ -14,7 +14,7 @@ const TopSectionPage = ({ pageDetails }) => {
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {
-    const userDataString = localStorage.getItem("user");
+    const userDataString = sessionStorage.getItem("user");
     const userData = userDataString ? JSON.parse(userDataString) : null;
     setUserData(userData);
   }, []);

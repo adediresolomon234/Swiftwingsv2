@@ -20,7 +20,7 @@ const PasswordVerifyPage = () => {
 
   useEffect(() => {
     if (window !== "undefined") {
-      const email = localStorage.getItem("4gtPwdEmail") ?? "";
+      const email = sessionStorage.getItem("4gtPwdEmail") ?? "";
       setUserEmail(email);
       setLoader(false);
     }
@@ -62,7 +62,7 @@ const PasswordVerifyPage = () => {
 
           {pageState === 1 && (
             <ChangePasswordComp
-            pageState={pageState}
+              pageState={pageState}
               setPageState={setPageState}
               formData={formData}
               setFormData={setFormData}

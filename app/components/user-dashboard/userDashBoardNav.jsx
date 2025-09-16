@@ -12,7 +12,7 @@ const UserDashBoardNav = ({ setNavToggle }) => {
   const router = useRouter();
 
   const handleSignOut = () => {
-    localStorage.removeItem("user");
+    sessionStorage.removeItem("user");
     router.push("/");
   };
   return (
