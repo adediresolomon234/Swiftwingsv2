@@ -148,6 +148,8 @@ const SignIn = () => {
 
           // Store user data securely
           sessionStorage.setItem("user", JSON.stringify(userWithAuth));
+          const expiry = Date.now() + 60 * 60 * 1000; // 1 hour from signin
+          sessionStorage.setItem("loginExpiry", expiry);
 
           // Show success message
           toast.success(response.data.message || "Login successful!");
