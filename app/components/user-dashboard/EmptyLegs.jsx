@@ -27,7 +27,7 @@ const EmptyLegsBookings = () => {
     const user = JSON.parse(localStorage.getItem("user"));
 
     if (user) {
-      dispatch(getEmptyLegsBooking(user?.email))
+      dispatch(getEmptyLegsBooking({ email: user?.email, page: 1 }))
         .unwrap()
         .then((res) => {
           if (res.success == true) {

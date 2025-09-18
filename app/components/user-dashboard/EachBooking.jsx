@@ -12,7 +12,10 @@ import { MdArrowForwardIos } from "react-icons/md";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { getAllBooking } from "../../../redux/slices/bookingSlice";
+import {
+  getAllBooking,
+  getBookingById,
+} from "../../../redux/slices/bookingSlice";
 
 const EachBooking = () => {
   const router = useRouter();
@@ -22,15 +25,15 @@ const EachBooking = () => {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(true);
 
-  const getAllBookings = () => {
+  console.log();
+
+  const getSingleBooking = () => {
     const user = JSON.parse(localStorage.getItem("user"));
-    dispatch(getAllBooking(user.email))
+    dispatch(getBookingById(id))
       .unwrap()
       .then((res) => {
         if (res.success == true) {
-          setData(
-            res?.data?.bookings?.find((item) => item?.booking_number === id)
-          );
+          setData(res?.data);
           setLoading(false);
         } else {
           toast.error(res.message);
@@ -40,7 +43,7 @@ const EachBooking = () => {
   };
 
   useEffect(() => {
-    getAllBookings();
+    getSingleBooking();
   }, []);
   return (
     <>
@@ -55,7 +58,7 @@ const EachBooking = () => {
                   <div className="flex gap-5 items-center justify-between w-full">
                     <div className="flex gap-5">
                       <div
-                        className="rounded-full p-2 border w-fit hover:bg-swGray50 cursor-pointer"
+                        className="rounded-full min-h-10 min-w-10 h-10 w-10 border flex items-center justify-center hover:bg-swGray50 cursor-pointer"
                         onClick={() => router.back()}
                       >
                         <SWLeftArrowIcon className="text-sm" />
@@ -70,8 +73,8 @@ const EachBooking = () => {
                           ? "bg-[#CBC419]"
                           : data?.status === "Processing"
                           ? "bg-[#196BCB]"
-                          : data?.status === "Completed"
-                          ? "bg-[#33CB19]"
+                          : data?.status === "Confirmed"
+                          ? "bg-green-600"
                           : "bg-[#CB2419]"
                       }`}
                     >

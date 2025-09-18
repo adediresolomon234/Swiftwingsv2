@@ -13,15 +13,26 @@ export const addBooking = createAsyncThunk("booking/add", async (payload) => {
 
 export const getAllBooking = createAsyncThunk(
   "booking/allBooking",
-  async ({email, page}) => {
+  async ({ email, page }) => {
     try {
-      const response = await axios.get(`${API_URL}/booking/email/${email}?page=${page}`);
+      const response = await axios.get(
+        `${API_URL}/booking/email/${email}?page=${page}`
+      );
       return response.data;
     } catch (error) {
       return error;
     }
   }
 );
+
+export const getBookingById = createAsyncThunk("single booking", async (id) => {
+  try {
+    const response = await axios.get(`${API_URL}/booking/single/${id}`);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+});
 
 export const getEmptyLegsBooking = createAsyncThunk(
   "emptylegbook/bookings/email/:email",
