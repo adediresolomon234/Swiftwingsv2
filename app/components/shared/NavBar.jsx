@@ -57,11 +57,9 @@ const NavBar = ({ Nav }) => {
           <Link
             href={hasDropDown ? "javascript:void(0)" : link}
             onClick={hasDropDown ? toggleDropdown : null}
-            className={`flex gap-2 transition-all ease-in-out duration-1000 ${
-              navBg || isMobileMenuOpen || pathname === "/booking"
-                ? "text-gray-700"
-                : "text-white"
-            }  px-4 ${pathname === link ? "font-medium" : "hover:font-medium"}`}
+            className={`flex gap-2 text-gray-700 px-4 ${
+              pathname === link ? "font-medium" : "hover:font-medium"
+            }`}
             aria-current="page"
           >
             {name}
@@ -111,6 +109,7 @@ const NavBar = ({ Nav }) => {
     { link: "/fleet-page", name: "Fleets" },
     { link: "/destinations", name: "Destination" },
     { link: "/services", name: "Services" },
+    { link: "/pricing", name: " Subscription" },
     { link: "https://swiftwingsjet.blog", name: "Blog" },
     // {
     //   link: "",
@@ -164,7 +163,6 @@ const NavBar = ({ Nav }) => {
   }, []);
 
   if (!Nav) {
-    // If Nav is false, return null to prevent rendering the navigation bar
     return null;
   }
 
@@ -180,9 +178,7 @@ const NavBar = ({ Nav }) => {
             <Image src={SWheader} alt="Logo" className="w-48 sm:w-60 " />
           </Link>
 
-          <div
-            className={`hidden lg:flex gap-3 items-center text-sm xl:text-base`}
-          >
+          <div className="hidden lg:flex gap-3 items-center text-sm xl:text-base">
             {navLinks.map((item, i) => (
               <div key={i}>
                 {renderNavLink(
@@ -239,20 +235,28 @@ const NavBar = ({ Nav }) => {
                   )}
                 </div>
               ) : (
-                <div className="flex gap-5 items-center text-sm lg:text-base">
+                <>
+                  <div className="hidden lg:flex gap-5 items-center text-sm lg:text-base">
+                    <Link
+                      href="/sign-in"
+                      className="py-2 px-4 rounded-full hover:bg-white text-sm text-l"
+                    >
+                      Sign In
+                    </Link>
+                    <Link
+                      href="/sign-up"
+                      className="py-2 px-4 rounded-full text-xs md:text-l text-white bg-swPrimary500 hover:bg-swPrimary600 "
+                    >
+                      Sign Up
+                    </Link>
+                  </div>
                   <Link
                     href="/sign-in"
-                    className="py-2 px-4 rounded-full hover:bg-white text-sm text-l hidden lg:flex"
+                    className="py-2 px-4 rounded-full text-xs md:text-l text-white bg-swPrimary500 hover:bg-swPrimary600 block lg:hidden"
                   >
                     Sign In
                   </Link>
-                  <Link
-                    href="/sign-up"
-                    className="py-2 px-4 rounded-full text-xs md:text-l text-white bg-swPrimary500 hover:bg-swPrimary600 "
-                  >
-                    Sign Up
-                  </Link>
-                </div>
+                </>
               )}
             </div>
             <div className="flex items-center lg:order-2">
@@ -277,7 +281,7 @@ const NavBar = ({ Nav }) => {
                       clip-rule="evenodd"
                     ></path>
                   ) : (
-                    <SWToggleIcon className="text-black" />
+                    <SWToggleIcon />
                   )}
                 </svg>
               </button>
