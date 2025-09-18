@@ -215,11 +215,11 @@ const AllBookings = () => {
                     <td className="whitespace-nowrap flex items-center p-5">
                       <div
                         className={`text-white text-xs rounded-full py-2 px-4 ${
-                          item?.status === "New"
+                          item?.status?.toLowerCase() === "new"
                             ? "bg-[#CBC419]"
-                            : item.status === "Processing"
+                            : item?.status?.toLowerCase() === "processing"
                             ? "bg-[#196BCB]"
-                            : item.status === "Confirmed"
+                            : item?.status?.toLowerCase() === "confirmed"
                             ? "bg-green-600"
                             : "bg-[#CB2419]"
                         }`}
@@ -262,13 +262,13 @@ const AllBookings = () => {
                   </div>
 
                   <div
-                    className={`text-white text-xs rounded-full w-fit ml-auto mb-3 py-2 px-4 ${
-                      item?.status === "New"
-                        ? "bg-[rgb(203,196,25)]"
-                        : item.status === "Processing"
+                    className={`text-white text-xs rounded-full py-2 px-4 ${
+                      item?.status?.toLowerCase() === "new"
+                        ? "bg-[#CBC419]"
+                        : item?.status?.toLowerCase() === "processing"
                         ? "bg-[#196BCB]"
-                        : item.status === "Completed"
-                        ? "bg-[#33CB19]"
+                        : item?.status?.toLowerCase() === "confirmed"
+                        ? "bg-green-600"
                         : "bg-[#CB2419]"
                     }`}
                   >
