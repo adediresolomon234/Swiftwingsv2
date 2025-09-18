@@ -45,6 +45,7 @@ import { fetchRankedAircrafts } from "../../../redux/slices/aircraftdetails";
 
 // Utils
 import { validatePassengersAgainstLowestSeats } from "../helpers/utils";
+import { GrRefresh } from "react-icons/gr";
 
 // Constants
 const INITIAL_BOOKING_STATE = {
@@ -388,10 +389,13 @@ const BookingPageInformation = () => {
         <div className="flex flex-col justify-between">
           <div>
             <p className="font-semibold text-lg">
-              {formatDateTime(departureDateTime, "h:mm a")}
+              {item?.depatureDate
+                ? formatDateTime(departureDateTime, "h:mm a")
+                : "Select Date/Time"}
             </p>
             <p className="text-sm">
-              {formatDateTime(departureDateTime, "ddd D, MMM")}
+              {item?.depatureDate &&
+                formatDateTime(departureDateTime, "ddd D, MMM")}
             </p>
           </div>
           {item?.returningDate && (
@@ -433,12 +437,16 @@ const BookingPageInformation = () => {
     );
   }, []);
 
+  const fetchAircrafts = () => {
+    dispatch(fetchRankedAircrafts("Jet"));
+  };
+
   // Initialize component
   useEffect(() => {
     const initializeComponent = async () => {
       try {
         // Fetch aircraft data
-        await dispatch(fetchRankedAircrafts("Jet"));
+        fetchAircrafts();
 
         // Get user details from localStorage
         const userDetails = localStorage.getItem("user");
@@ -548,8 +556,15 @@ const BookingPageInformation = () => {
                         <Loading />
                       </div>
                     ) : jetError ? (
-                      <div className="flex justify-center items-center h-32 text-red-500">
-                        Failed to load aircraft data
+                      <div className="flex flex-col justify-center items-center h-32 text-red-500">
+                        <p>Failed to load aircraft data</p>
+                        <button
+                          onClick={() => fetchAircrafts()}
+                          className="underline"
+                        >
+                          Retry
+                          <GrRefresh className="inline" />
+                        </button>
                       </div>
                     ) : memoizedJetData.length === 0 ? (
                       <div className="flex justify-center items-center h-32 text-gray-500">
