@@ -13,9 +13,9 @@ export const addBooking = createAsyncThunk("booking/add", async (payload) => {
 
 export const getAllBooking = createAsyncThunk(
   "booking/allBooking",
-  async (email) => {
+  async ({email, page}) => {
     try {
-      const response = await axios.get(`${API_URL}/booking/email/${email}`);
+      const response = await axios.get(`${API_URL}/booking/email/${email}?page=${page}`);
       return response.data;
     } catch (error) {
       return error;
