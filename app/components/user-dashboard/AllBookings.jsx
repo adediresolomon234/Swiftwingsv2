@@ -58,7 +58,6 @@ const AllBookings = () => {
 
   useEffect(() => {
     getAllBookings(currentPage);
-    // eslint-disable-next-line
   }, [currentPage]);
 
   useEffect(() => {
