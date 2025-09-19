@@ -3,6 +3,8 @@ import {
   SWBookingIcon,
   SwUserIcon,
   SwDeparturePlaneIcon,
+  CancelFlight,
+  SWBooking2Icon,
 } from "../components/svgs";
 
 export const navItems = [
@@ -15,18 +17,18 @@ export const navItems = [
   {
     id: 2,
     name: "Bookings",
-    icon: <SWBookingIcon className="text-xl" />,
+    icon: <SWBooking2Icon className="text-xl" />,
     state: "bookings",
   },
   {
     id: 3,
     name: "EmptyLegs",
-    icon: <SWBookingIcon className="text-xl" />,
+    icon: <CancelFlight className="text-xl" />,
     state: "emptylegs",
   },
   {
     id: 4,
-    name: "User",
+    name: "Profile",
     icon: <SwUserIcon className="text-xl" />,
     state: "profile",
   },

@@ -45,6 +45,7 @@ import { fetchRankedAircrafts } from "../../../redux/slices/aircraftdetails";
 
 // Utils
 import { validatePassengersAgainstLowestSeats } from "../helpers/utils";
+import { GrRefresh } from "react-icons/gr";
 
 // Constants
 const INITIAL_BOOKING_STATE = {
@@ -174,8 +175,11 @@ const BookingPageInformation = () => {
 
       if (!loggedInUser) {
         // setNotLoggedInModal(true);
-        localStorage.setItem("bookingInComplete", "true");
-        localStorage.setItem("bookingDetails", JSON.stringify(bookingDetails));
+        sessionStorage.setItem("bookingInComplete", "true");
+        sessionStorage.setItem(
+          "bookingDetails",
+          JSON.stringify(bookingDetails)
+        );
         toast.error("You are not logged in. Kindly login to continue");
         router.push("/sign-in");
         // handleNavigationWithRefresh("/sign-in");
@@ -186,6 +190,7 @@ const BookingPageInformation = () => {
       setLoading(true);
       delete loggedInUser.token;
       delete loggedInUser.isLoggedIn;
+      delete loggedInUser.id;
 
       // Prepare booking data
       const bookingPayload = {
@@ -207,7 +212,7 @@ const BookingPageInformation = () => {
         setAdditionalNote("");
         uncheckBoxes();
         resetBookingState();
-        localStorage.removeItem("bookingDetails");
+        sessionStorage.removeItem("bookingDetails");
         setSuccess(true);
         toast.success("Booking submitted successfully!");
       }
@@ -384,7 +389,7 @@ const BookingPageInformation = () => {
     };
 
     return (
-      <div key={index} className="flex gap-1 mt-5 justify-center">
+      <div key={index} className={`flex gap-1 mt-5 justify-center`}>
         <div className="flex flex-col justify-between">
           <div>
             <p className="font-semibold text-lg">
@@ -433,15 +438,19 @@ const BookingPageInformation = () => {
     );
   }, []);
 
+  const fetchAircrafts = () => {
+    dispatch(fetchRankedAircrafts("Jet"));
+  };
+
   // Initialize component
   useEffect(() => {
     const initializeComponent = async () => {
       try {
         // Fetch aircraft data
-        await dispatch(fetchRankedAircrafts("Jet"));
+        fetchAircrafts();
 
         // Get user details from localStorage
-        const userDetails = localStorage.getItem("user");
+        const userDetails = sessionStorage.getItem("user");
         if (userDetails) {
           const parsedUser = JSON.parse(userDetails);
           setLoggedInUser(parsedUser);
@@ -502,7 +511,11 @@ const BookingPageInformation = () => {
   return (
     <>
       <main>
-        <div className="bg-swLightBgGray z-10">
+        <div
+          className={`bg-swLightBgGray z-10 ${
+            pathname !== "/booking" ? "px-4" : ""
+          }`}
+        >
           <div className="m-5 mx-auto max-w-[90rem] z-10">
             <BookingEngine setBookingDetails={setBookingDetails} />
 
@@ -548,8 +561,15 @@ const BookingPageInformation = () => {
                         <Loading />
                       </div>
                     ) : jetError ? (
-                      <div className="flex justify-center items-center h-32 text-red-500">
-                        Failed to load aircraft data
+                      <div className="flex flex-col justify-center items-center h-32 text-red-500">
+                        <p>Failed to load aircraft data</p>
+                        <button
+                          onClick={() => fetchAircrafts()}
+                          className="underline"
+                        >
+                          Retry
+                          <GrRefresh className="inline" />
+                        </button>
                       </div>
                     ) : memoizedJetData.length === 0 ? (
                       <div className="flex justify-center items-center h-32 text-gray-500">

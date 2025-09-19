@@ -6,7 +6,7 @@ import InputField from "../../components/shared/InputField";
 import { useDispatch, useSelector } from "react-redux";
 import { SwMailIcon } from "../../components/svgs";
 import { useRouter } from "next/navigation";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import NavBar from "../../components/shared/NavBar";
 import { API_URL } from "../../../constant";
@@ -63,7 +63,7 @@ const ForgotPasswordPage = () => {
         if (!res?.success) {
           toast.error(res?.error);
         } else {
-          localStorage.setItem("4gtPwdEmail", formData.email);
+          sessionStorage.setItem("4gtPwdEmail", formData.email);
           router.push("/forgetpasswordverify");
         }
       } catch (error) {

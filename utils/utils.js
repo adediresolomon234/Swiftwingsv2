@@ -29,3 +29,10 @@ export const preventNonNumeric = (e, allowComma) => {
     e.preventDefault();
   }
 };
+
+export const getUser = () => {
+  // if (typeof window !== "undefined") {
+  const userDetails = sessionStorage.getItem("user");
+  return userDetails ? JSON.parse(userDetails) : null;
+  // }
+};

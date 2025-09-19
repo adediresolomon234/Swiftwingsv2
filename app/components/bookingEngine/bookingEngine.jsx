@@ -1,4 +1,4 @@
-import { Space_Grotesk } from "next/font/google";
+import localFont from "next/font/local";
 import { GoArrowLeft, GoArrowRight } from "react-icons/go";
 import {
   SWMinusRoundBorderIcon,
@@ -23,8 +23,35 @@ import DetailCard from "./DetailCard";
 import PassengerSelector from "./PassengerSelect";
 import ReusableSelect from "../shared/ReusableSelect";
 
-const space_grotesk = Space_Grotesk({
-  subsets: ["latin"],
+const space_grotesk = localFont({
+  src: [
+    {
+      path: "../../../public/fonts/SpaceGrotesk/SpaceGrotesk-Regular.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../../public/fonts/SpaceGrotesk/SpaceGrotesk-Bold.woff2",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "../../../public/fonts/SpaceGrotesk/SpaceGrotesk-Medium.woff2",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../../../public/fonts/SpaceGrotesk/SpaceGrotesk-Light.woff2",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "../../../public/fonts/SpaceGrotesk/SpaceGrotesk-SemiBold.woff2",
+      weight: "600",
+      style: "normal",
+    },
+  ],
+  display: "swap",
 });
 
 const BookingEngine = ({ setBookingDetails }) => {
@@ -213,7 +240,7 @@ const BookingEngine = ({ setBookingDetails }) => {
       additional_quote: [],
     };
     if (typeof self !== "undefined") {
-      localStorage.setItem("bookingDetails", JSON.stringify(booking));
+      sessionStorage.setItem("bookingDetails", JSON.stringify(booking));
     }
 
     // setTimeout(() => {
@@ -224,7 +251,7 @@ const BookingEngine = ({ setBookingDetails }) => {
 
   useEffect(() => {
     if (pathname === "/booking") {
-      const booking = JSON.parse(localStorage.getItem("bookingDetails"));
+      const booking = JSON.parse(sessionStorage.getItem("bookingDetails"));
       if (booking !== null) {
         // console.log(booking);
         const tripType = booking?.booking_details?.tripType;
@@ -242,7 +269,7 @@ const BookingEngine = ({ setBookingDetails }) => {
       }
     }
     // else {
-    //   localStorage.removeItem("bookingDetails");
+    //   sessionStorage.removeItem("bookingDetails");
     // }
   }, [pathname]);
 

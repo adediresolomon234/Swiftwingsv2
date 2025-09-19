@@ -6,26 +6,36 @@ import Image from "next/image";
 import { FaXTwitter } from "react-icons/fa6";
 import { FaInstagram, FaPhoneAlt } from "react-icons/fa";
 import { CiMail } from "react-icons/ci";
-import { Libre_Baskerville } from "next/font/google";
+import localFont from "next/font/local";
 import Link from "next/link";
-import { usePathname } from 'next/navigation';
+import { usePathname } from "next/navigation";
 
 const currentYear = new Date().getFullYear();
-const libre_baskerville = Libre_Baskerville({
-  subsets: ["latin"],
-  weight: ["400", "700"],
+const libre_baskerville = localFont({
+  src: [
+    {
+      path: "../../../public/fonts/LibreBaskerville/LibreBaskerville-Regular.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../../public/fonts/LibreBaskerville/LibreBaskerville-Bold.woff2",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  display: "swap",
 });
 
 const Footer = () => {
   const [selectedSection, setSelectedSection] = useState(null);
   const pathname = usePathname();
-  
-  const handleNavigation = (hash) => {
-    if (pathname === '/services') {
 
-      const element = document.getElementById(hash.replace('#', ''));
+  const handleNavigation = (hash) => {
+    if (pathname === "/services") {
+      const element = document.getElementById(hash.replace("#", ""));
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
       }
     } else {
       // Navigate to services page with the hash

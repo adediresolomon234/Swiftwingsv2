@@ -1,24 +1,20 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Space_Grotesk, Libre_Baskerville } from "next/font/google";
+import localFont from "next/font/local";
 import "../../../styles.css";
 import Button from "../../components/Button";
 import InputField from "../../components/shared/InputField";
 import { useDispatch, useSelector } from "react-redux";
 import { signUpUser } from "../../../redux/slices/authSlice";
 import { TbEyeClosed } from "react-icons/tb";
-import CustomSelect from "../../components/shared/CustomSelete";
 import {
   SWLogo,
-  SwGoogleColoredIcon,
   SwKeyIcon,
   SwMailIcon,
   SwOpenEyeIcon,
-  SwPlusIcon,
 } from "../../components/svgs";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import NavAndFooter from "../../components/shared/NavAndFooter";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import bgImg from "../../../public/images/nologgedInImg.png";
@@ -27,14 +23,20 @@ import Loading from "../../components/Loading";
 import PhoneNumberValidation from "../../components/shared/PhoneNumberValidation";
 import Link from "next/link";
 
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-});
-
-const libre_baskerville = Libre_Baskerville({
-  subsets: ["latin"],
-  weight: ["400", "700"],
+const libre_baskerville = localFont({
+  src: [
+    {
+      path: "../../../public/fonts/LibreBaskerville/LibreBaskerville-Regular.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../../public/fonts/LibreBaskerville/LibreBaskerville-Bold.woff2",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  display: "swap",
 });
 
 const SignUp = () => {
@@ -111,7 +113,7 @@ const SignUp = () => {
           if (res.success === true) {
             toast.success(res.message);
             // Store email in localStorage for verification page
-            localStorage.setItem("signupEmail", formData.email);
+            sessionStorage.setItem("signupEmail", formData.email);
             // Clear form
             setFormData({
               first_name: "",
@@ -122,7 +124,9 @@ const SignUp = () => {
             });
             setReenterPassword("");
             // Redirect to email verification page
-            router.push(`/verify-email?email=${encodeURIComponent(formData.email)}`);
+            router.push(
+              `/verify-email?email=${encodeURIComponent(formData.email)}`
+            );
           } else {
             toast.error(res.message || "Signup failed");
           }
@@ -190,9 +194,9 @@ const SignUp = () => {
   return (
     <main className="flex justify-center items-center z-50 bg-gray-100">
       <ToastContainer />
-      <div className="w-full bg-white h-full flex overflow-hidden relative">
-        <div className="relative flex justify-center items-center min-h-screen px-5 bg-swSecondary50 pt-3 w-full sm:w-1/2">
-          <div className="max-w-md p-4  overflow-x-hidden">
+      <div className="w-full bg-white relative">
+        <div className="absolute top-0 left-0 flex justify-center items-center h-screen overflow-y-auto px-5 bg-swSecondary50 pt-3 w-full sm:w-1/2">
+          <div className="max-w-[577px] p-4  overflow-x-hidden">
             <p className="text-center text-2xl font-semibold text-swGray800">
               Create a new account
             </p>
@@ -337,7 +341,10 @@ const SignUp = () => {
                   Terms of Service
                 </a>{" "}
                 and{" "}
-                <a href="/privacy" className="text-swPrimary500 hover:underline">
+                <a
+                  href="/privacy"
+                  className="text-swPrimary500 hover:underline"
+                >
                   Privacy Policy
                 </a>
               </p>
@@ -345,8 +352,9 @@ const SignUp = () => {
 
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-4">
               <p className="text-sm text-blue-800">
-                <strong>Note:</strong> After signing up, you&apos;ll receive a verification code via email. 
-                Please verify your email address to complete your registration.
+                <strong>Note:</strong> After signing up, you&apos;ll receive a
+                verification code via email. Please verify your email address to
+                complete your registration.
               </p>
             </div>
 
@@ -365,13 +373,16 @@ const SignUp = () => {
               />
             </div> */}
             <p className="text-swGray800 text-center">
-              Already have an account? Don&apos;t need to sign up?{' '}
-              <Link href="/sign-in" className="text-blue-600 hover:text-blue-800">
+              Already have an account? Don&apos;t need to sign up?{" "}
+              <Link
+                href="/sign-in"
+                className="text-blue-600 hover:text-blue-800"
+              >
                 Sign in here
               </Link>
             </p>
             <div className="w-full flex justify-center mt-4 font-medium">
-              <Button
+              {/* <Button
                 label={"Login"}
                 textColor={
                   "font-semibold text-swGray800 border border-swGray100 max-w-lg"
@@ -379,7 +390,7 @@ const SignUp = () => {
                 onClick={() => {
                   router.push("/sign-in");
                 }}
-              />
+              /> */}
             </div>
           </div>
           {/* {popup && ( */}
@@ -402,16 +413,18 @@ const SignUp = () => {
           </div>
           {/* )} */}
         </div>
-        <div className="hidden sm:block w-1/2 bg-cover bg-center bg-no-repeat relative">
-          <Image
-            src={bgImg} // Adjust the path according to where you placed the image
-            layout="fill"
-            objectFit="cover"
-            quality={100}
-            alt="Background Image"
-          />
-          <div className="absolute right-5 -bottom-10 text-white cursor-pointer">
-            <SWLogo className="text-[10rem]" />
+        <div className="hidden sm:block w-1/2 h-screen absolute top-0 right-0 overflow-hidden">
+          <div className="w-full h-screen bg-cover bg-center bg-no-repeat relative">
+            <Image
+              src={bgImg} // Adjust the path according to where you placed the image
+              layout="fill"
+              objectFit="cover"
+              quality={100}
+              alt="Background Image"
+            />
+            <div className="absolute right-5 -bottom-10 text-white cursor-pointer">
+              <SWLogo className="text-[10rem]" />
+            </div>
           </div>
         </div>
       </div>

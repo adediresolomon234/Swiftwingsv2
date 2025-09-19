@@ -6,17 +6,28 @@ import Destinationsection from "../../../public/images/Destinationsection.png";
 import Serviceexecllence from "../../../public/images/Serviceexecllence.png";
 import Safetyfirst from "../../../public/images/Safetyfirst.png";
 // import team from "../../public/images/team.png";
-import { Libre_Baskerville } from "next/font/google";
+import localFont from "next/font/local";
 import FooterHero from "../../components/shared/footerHero";
 import Loading from "../../components/Loading";
 import { useEffect, useState } from "react";
 import Head from "next/head";
 import { aboutUsPageKeywords } from "../../components/helpers/relatedKeywords";
-import Whatsapp from "../../components/shared/Whatsapp"
+import Whatsapp from "../../components/shared/Whatsapp";
 
-const libre_baskerville = Libre_Baskerville({
-  subsets: ["latin"],
-  weight: ["400", "700"],
+const libre_baskerville = localFont({
+  src: [
+    {
+      path: "../../../public/fonts/LibreBaskerville/LibreBaskerville-Regular.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../../public/fonts/LibreBaskerville/LibreBaskerville-Bold.woff2",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  display: "swap",
 });
 
 const AboutUs = () => {
@@ -350,7 +361,7 @@ const AboutUs = () => {
               <FooterHero />
             </div>
           </section>
-          <Whatsapp/>
+          <Whatsapp />
         </NavAndFooter>
       </main>
     </>

@@ -1,6 +1,6 @@
 "use client";
 
-import { Space_Grotesk, Libre_Baskerville } from "next/font/google";
+import localFont from "next/font/local";
 import CustomSelect from "../../components/shared/CustomSelete";
 import PhoneExt from "../../components/shared/phoneInputField";
 import InputField from "../../components/shared/InputField";
@@ -17,14 +17,51 @@ import {
 import Loading from "../../components/Loading";
 import { useEffect, useState } from "react";
 
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+const spaceGrotesk = localFont({
+  src: [
+    {
+      path: "../../../public/fonts/SpaceGrotesk/SpaceGrotesk-Light.woff2",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "../../../public/fonts/SpaceGrotesk/SpaceGrotesk-Regular.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../../public/fonts/SpaceGrotesk/SpaceGrotesk-Medium.woff2",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../../../public/fonts/SpaceGrotesk/SpaceGrotesk-SemiBold.woff2",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "../../../public/fonts/SpaceGrotesk/SpaceGrotesk-Bold.woff2",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  display: "swap",
 });
 
-const libre_baskerville = Libre_Baskerville({
-  subsets: ["latin"],
-  weight: ["400", "700"],
+const libre_baskerville = localFont({
+  src: [
+    {
+      path: "../../../public/fonts/LibreBaskerville/LibreBaskerville-Regular.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../../public/fonts/LibreBaskerville/LibreBaskerville-Bold.woff2",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  display: "swap",
 });
 
 const ProfilePage = () => {

@@ -1,3 +1,6 @@
+body {
+  font-family: var(--font-poppins), ui-sans-serif, system-ui;
+}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -78,7 +81,12 @@ fieldset.MuiOutlinedInput-notchedOutline {
 
 /* Enhanced gradients */
 .bg-gradient-hero {
-  background: linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.8) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 0, 0, 0.4) 50%,
+    rgba(0, 0, 0, 0.8) 100%
+  );
 }
 
 /* Hover effects */

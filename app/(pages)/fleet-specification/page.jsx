@@ -1,5 +1,4 @@
 "use client";
-import { Space_Grotesk } from "next/font/google";
 import Image from "next/image";
 import FleetImage234 from "../../../public/images/FleetImage234.png";
 import NavAndFooter from "../../components/shared/NavAndFooter";
@@ -9,11 +8,6 @@ import FleetSpecSlider from "../../components/shared/Fleetspec/FleetSpecSlider";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Loading from "../../components/Loading";
-
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-});
 
 const FleetSpec = () => {
   const router = useRouter();

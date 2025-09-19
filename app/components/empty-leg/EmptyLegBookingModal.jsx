@@ -133,8 +133,8 @@ function EmptyLegBookingModal({ open, onClose, leg, setBookingSuccess }) {
   };
 
   useEffect(() => {
-    const user = localStorage.getItem("user")
-      ? JSON.parse(localStorage.getItem("user"))
+    const user = sessionStorage.getItem("user")
+      ? JSON.parse(sessionStorage.getItem("user"))
       : null;
     if (open && user) {
       setFormData((prev) => ({

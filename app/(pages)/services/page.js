@@ -10,7 +10,7 @@ import MedicalEvacuation from "../../../public/images/MedicalEvacuation.png";
 import GroupFlight from "../../../public/images/GroupFlight.jpg";
 import EmptyLegs from "../../../public/images/emeptylegs.jpg";
 import HeliServices from "../../../public/images/HeliServices.jpg";
-import { Libre_Baskerville } from "next/font/google";
+import localFont from "next/font/local";
 import {
   SWTBespokeIcon,
   SWTStarBlack2Icon,
@@ -37,11 +37,22 @@ import { SwUserIcon, SwMailIcon } from "../../components/svgs";
 import SuccessModal from "../../components/shared/modals/SuccessModal";
 import CancelModal from "../../components/shared/modals/CancelModal";
 import { addEnquiry } from "../../../redux/slices/enquirySlice";
-import Whatsapp from "../../components/shared/Whatsapp"
+import Whatsapp from "../../components/shared/Whatsapp";
 
-const libre_baskerville = Libre_Baskerville({
-  subsets: ["latin"],
-  weight: ["400", "700"],
+const libre_baskerville = localFont({
+  src: [
+    {
+      path: "../../../public/fonts/LibreBaskerville/LibreBaskerville-Regular.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../../public/fonts/LibreBaskerville/LibreBaskerville-Bold.woff2",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  display: "swap",
 });
 
 const Service = () => {
@@ -136,11 +147,17 @@ const Service = () => {
           <div className="relative mx-auto max-w-screen-full px-4 py-28 sm:px-6 lg:flex lg:h-[70vh] lg:items-center lg:px-8">
             <div className="max-w-5xl mx-auto text-center">
               <h1 className="text-3xl font-bold sm:text-4xl lg:text-6xl capitalize mb-3">
-                Swift wings Sets the Standard in Aviation{" "}
+                <span
+                  className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
+                >
+                  Swift<i className="font-normal">Wings</i>
+                </span>{" "}
+                Sets the Standard in Aviation{" "}
                 <span className="text-swPrimary500">Services</span>
               </h1>
               <p className="px-2 sm:text-md lg:text-lg max-w-lg mx-auto">
-                Our services are designed to give you a first class experience in{" "}
+                Our services are designed to give you a first class experience
+                in{" "}
                 <a
                   href="https://www.swiftwingsjet.com/services"
                   className="font-bold hover:underline"
@@ -164,14 +181,14 @@ const Service = () => {
                       className={`${libre_baskerville.className} no-text-shadow font-bold`}
                     >
                       Swift<i className="font-normal">Wings</i>
-                    </span>
+                    </span>{" "}
                     provides flyers with a customized in-flight catering
-                    service. Passengers can choose from a wide selection of meals
-                    to suit their dietary needs and taste preferences.
+                    service. Passengers can choose from a wide selection of
+                    meals to suit their dietary needs and taste preferences.
                   </p>
                   <p className="sm:text-md lg:text-lg max-w-2xl">
-                    Whether you re hosting a business meeting or celebrating
-                    a special occasion, savor every moment with our exquisite
+                    Whether you re hosting a business meeting or celebrating a
+                    special occasion, savor every moment with our exquisite
                     inflight dining experience.
                   </p>
                 </div>
@@ -196,7 +213,9 @@ const Service = () => {
                   <Button
                     label={"Make Enquiries"}
                     bgColor={"bg-swPrimary500 text-white"}
-                    onClick={() => handleMakeEnquiriesClick("Inflight Catering")}
+                    onClick={() =>
+                      handleMakeEnquiriesClick("Inflight Catering")
+                    }
                   />
                 </div>
               </div>
@@ -234,17 +253,22 @@ const Service = () => {
                 </h1>
                 <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-10">
                   <p className="sm:text-md lg:text-lg max-w-2xl">
-                    Swiftwings no longer only deals with private jets. We are
-                    excited to announce our elite helicopter services that are
-                    meant to take you away to amazing hidden places and
-                    experiences in unique ways.
+                    <span
+                      className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
+                    >
+                      Swift<i className="font-normal">Wings</i>
+                    </span>{" "}
+                    no longer only deals with private jets. We are excited to
+                    announce our elite helicopter services that are meant to
+                    take you away to amazing hidden places and experiences in
+                    unique ways.
                   </p>
                   <p className="sm:text-md lg:text-lg max-w-2xl">
                     Move from the familiarity of conventional trips and discover
-                    flight liberty. In addition to providing luxurious helicopter
-                    flight services, we’ve made sure they are comfortable by
-                    operating at high speed within distant areas as well as
-                    sightseeing over mountainsides.
+                    flight liberty. In addition to providing luxurious
+                    helicopter flight services, we’ve made sure they are
+                    comfortable by operating at high speed within distant areas
+                    as well as sightseeing over mountainsides.
                   </p>
                 </div>
               </div>
@@ -268,7 +292,9 @@ const Service = () => {
                   <Button
                     label={"Make Enquiries"}
                     bgColor={"bg-swPrimary500 text-white"}
-                    onClick={() => handleMakeEnquiriesClick("Helicopter Services")}
+                    onClick={() =>
+                      handleMakeEnquiriesClick("Helicopter Services")
+                    }
                   />
                 </div>
               </div>
@@ -287,7 +313,12 @@ const Service = () => {
                   </div>
                   <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-10">
                     <p className="sm:text-md lg:text-lg max-w-2xl">
-                      Swift Wings is your trusted partner for{" "}
+                      <span
+                        className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
+                      >
+                        Swift<i className="font-normal">Wings</i>
+                      </span>{" "}
+                      is your trusted partner for{" "}
                       <a
                         href="https://www.swiftwingsjet.com/"
                         className="font-bold hover:underline"
@@ -376,18 +407,34 @@ const Service = () => {
                   <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-10">
                     <p className="sm:text-md lg:text-lg max-w-2xl">
                       Empty legs occur when our private jets need to reposition
-                      between destinations without passengers. Instead of letting
-                      these flights burn fuel empty, Swiftwings offers them to
-                      discerning travelers like you. You will enjoy the same
-                      luxurious amenities, spacious cabins, and personalized
-                      service that define every Swiftwings flight, all at a
-                      significantly reduced price.
+                      between destinations without passengers. Instead of
+                      letting these flights burn fuel empty,{" "}
+                      <span
+                        className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
+                      >
+                        Swift<i className="font-normal">Wings</i>
+                      </span>{" "}
+                      offers them to discerning travelers like you. You will
+                      enjoy the same luxurious amenities, spacious cabins, and
+                      personalized service that define every{" "}
+                      <span
+                        className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
+                      >
+                        Swift<i className="font-normal">Wings</i>
+                      </span>{" "}
+                      flight, all at a significantly reduced price.
                     </p>
                     <p className="sm:text-md lg:text-lg max-w-2xl">
                       Imagine soaring through the clouds on a private jet,
                       indulging in unmatched comfort and privacy. Now imagine
                       achieving this dream at a fraction of the usual cost.
-                      Thats the magic of Swiftwings empty leg flights.
+                      Thats the magic of{" "}
+                      <span
+                        className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
+                      >
+                        Swift<i className="font-normal">Wings</i>
+                      </span>{" "}
+                      empty leg flights.
                     </p>
                   </div>
                 </div>
@@ -411,7 +458,9 @@ const Service = () => {
                     <Button
                       label={"Make Enquiries"}
                       bgColor={"bg-swPrimary500 text-white"}
-                      onClick={() => handleMakeEnquiriesClick("Empty Leg Services")}
+                      onClick={() =>
+                        handleMakeEnquiriesClick("Empty Leg Services")
+                      }
                     />
                   </div>
                 </div>
@@ -432,14 +481,13 @@ const Service = () => {
                       <p className="sm:text-md lg:text-lg max-w-2xl">
                         Arrive in style and comfort with{" "}
                         <span
-                          className={`${libre_baskerville.className} no-text-shadow font-bold`}
+                          className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
                         >
                           Swift<i className="font-normal">Wings</i>
-                        </span>
-                        chauffeur services. Whether you need
-                        transportation to and from the airport or prefer a
-                        chauffeured car during your stay, our professional
-                        drivers are at your service.
+                        </span>{" "}
+                        chauffeur services. Whether you need transportation to
+                        and from the airport or prefer a chauffeured car during
+                        your stay, our professional drivers are at your service.
                       </p>
                       <p className="sm:text-md lg:text-lg max-w-2xl">
                         Sit back, relax, and enjoy a seamless journey from door
@@ -468,7 +516,9 @@ const Service = () => {
                     <Button
                       label={"Make Enquiries"}
                       bgColor={"bg-swPrimary500 text-white"}
-                      onClick={() => handleMakeEnquiriesClick("Chauffeur Services")}
+                      onClick={() =>
+                        handleMakeEnquiriesClick("Chauffeur Services")
+                      }
                     />
                   </div>
                 </div>
@@ -513,17 +563,28 @@ const Service = () => {
                   </div>
                   <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-10">
                     <p className="sm:text-md lg:text-lg max-w-2xl">
-                      Are you planning for training, seminar, tourism, etc., as a
-                      group or company? Swiftwings takes your entire team to
-                      their destination directly, on their schedule. Imagine no
-                      more scrambling through terminals or waiting for delayed
-                      flights.
+                      Are you planning for training, seminar, tourism, etc., as
+                      a group or company?{" "}
+                      <span
+                        className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
+                      >
+                        Swift<i className="font-normal">Wings</i>
+                      </span>{" "}
+                      takes your entire team to their destination directly, on
+                      their schedule. Imagine no more scrambling through
+                      terminals or waiting for delayed flights.
                     </p>
                     <p className="sm:text-md lg:text-lg max-w-2xl">
                       Instead, board a luxurious private jet together, use the
-                      in-flight workspace for strategic planning, or simply relax
-                      and arrive focused. Swiftwings guarantees a smooth,
-                      efficient journey that sets the stage for success.
+                      in-flight workspace for strategic planning, or simply
+                      relax and arrive focused.{" "}
+                      <span
+                        className={`${libre_baskerville.className} text-swPrimary500 no-text-shadow font-bold`}
+                      >
+                        Swift<i className="font-normal">Wings</i>
+                      </span>{" "}
+                      guarantees a smooth, efficient journey that sets the stage
+                      for success.
                     </p>
                   </div>
                 </div>
@@ -547,7 +608,9 @@ const Service = () => {
                     <Button
                       label={"Make Enquiries"}
                       bgColor={"bg-swPrimary500 text-white"}
-                      onClick={() => handleMakeEnquiriesClick("Group/Corporate Flights")}
+                      onClick={() =>
+                        handleMakeEnquiriesClick("Group/Corporate Flights")
+                      }
                     />
                   </div>
                 </div>
@@ -638,7 +701,9 @@ const Service = () => {
                 >
                   <option value="">Select a service</option>
                   <option value="Inflight Catering">Inflight Catering</option>
-                  <option value="Helicopter Services">Helicopter Services</option>
+                  <option value="Helicopter Services">
+                    Helicopter Services
+                  </option>
                   <option value="Air Ambulance">Air Ambulance</option>
                   <option value="Empty Leg Services">Empty Leg Services</option>
                   <option value="Chauffeur Services">Chauffeur Services</option>
