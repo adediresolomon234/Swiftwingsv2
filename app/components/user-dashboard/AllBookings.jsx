@@ -10,9 +10,10 @@ const AllBookings = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");
-  const [data, setData] = useState([]);
+  const [data, setData] = useState({});
   const [filterDropDown, setFilterDropDown] = useState(false);
-  const [filter, setFilter] = useState("New");
+  const [filter, setFilter] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
   const toggleButtonRef = useRef(null);
 
   const handleFilter = (status) => {
@@ -20,14 +21,14 @@ const AllBookings = () => {
     setFilterDropDown(false);
   };
 
-  const getAllBookings = () => {
-    const user = JSON.parse(sessionStorage.getItem("user"));
+  const getAllBookings = (page = 1) => {
+    const user = JSON.parse(localStorage.getItem("user"));
 
     if (user) {
-      dispatch(getAllBooking(user?.email))
+      dispatch(getAllBooking({ email: user?.email, page }))
         .unwrap()
         .then((res) => {
-          if (res.success == true) {
+          if (res.success === true) {
             setData(res?.data);
           } else {
             toast.error(res.message);
@@ -38,30 +39,26 @@ const AllBookings = () => {
   };
 
   const filteredData = data?.bookings
-    ? data?.bookings
-        .filter(
-          (item) => item?.status?.toLowerCase() === filter.toLocaleLowerCase()
-        )
-        .filter(
-          (item) =>
-            item?.booking_details?.formData[0]?.destination?.country
-              .toLowerCase()
-              .includes(search.toLocaleLowerCase()) ||
-            item?.booking_details?.formData[0]?.source?.country
-              .toLowerCase()
-              .includes(search.toLocaleLowerCase()) ||
-            item?.booking_number
-              .toLowerCase()
-              .includes(search.toLocaleLowerCase()) ||
-            item?.booking_details?.tripType
-              .toLowerCase()
-              .includes(search.toLocaleLowerCase())
-        )
-    : [];
+    ?.filter((item) =>
+      filter ? item?.status?.toLowerCase() === filter.toLowerCase() : true
+    )
+    .filter(
+      (item) =>
+        item?.booking_details?.formData[0]?.destination?.country
+          .toLowerCase()
+          .includes(search.toLowerCase()) ||
+        item?.booking_details?.formData[0]?.source?.country
+          .toLowerCase()
+          .includes(search.toLowerCase()) ||
+        item?.booking_number.toLowerCase().includes(search.toLowerCase()) ||
+        item?.booking_details?.tripType
+          .toLowerCase()
+          .includes(search.toLowerCase())
+    );
 
   useEffect(() => {
-    getAllBookings();
-  }, []);
+    getAllBookings(currentPage);
+  }, [currentPage]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -121,15 +118,21 @@ const AllBookings = () => {
                   <div className="w-full flex flex-col">
                     <div
                       className="w-full hover:bg-swPrimary400 hover:text-white rounded-md p-3 cursor-pointer flex items-center gap-3"
+                      onClick={() => handleFilter("")}
+                    >
+                      All
+                    </div>
+                    <div
+                      className="w-full hover:bg-swPrimary400 hover:text-white rounded-md p-3 cursor-pointer flex items-center gap-3"
                       onClick={() => handleFilter("New")}
                     >
                       New
                     </div>
                     <div
                       className="w-full hover:bg-swPrimary400 hover:text-white rounded-md p-3 cursor-pointer flex items-center gap-3"
-                      onClick={() => handleFilter("Completed")}
+                      onClick={() => handleFilter("Confirmed")}
                     >
-                      Completed
+                      Confirmed
                     </div>
                     <div
                       className="w-full hover:bg-swPrimary400 hover:text-white rounded-md p-3 cursor-pointer flex items-center gap-3"
@@ -212,12 +215,12 @@ const AllBookings = () => {
                     <td className="whitespace-nowrap flex items-center p-5">
                       <div
                         className={`text-white text-xs rounded-full py-2 px-4 ${
-                          item?.status === "New"
+                          item?.status?.toLowerCase() === "new"
                             ? "bg-[#CBC419]"
-                            : item.status === "Processing"
+                            : item?.status?.toLowerCase() === "processing"
                             ? "bg-[#196BCB]"
-                            : item.status === "Completed"
-                            ? "bg-[#33CB19]"
+                            : item?.status?.toLowerCase() === "confirmed"
+                            ? "bg-green-600"
                             : "bg-[#CB2419]"
                         }`}
                       >
@@ -259,13 +262,13 @@ const AllBookings = () => {
                   </div>
 
                   <div
-                    className={`text-white text-xs rounded-full w-fit ml-auto mb-3 py-2 px-4 ${
-                      item?.status === "New"
-                        ? "bg-[rgb(203,196,25)]"
-                        : item.status === "Processing"
+                    className={`text-white text-xs rounded-full py-2 px-4 ${
+                      item?.status?.toLowerCase() === "new"
+                        ? "bg-[#CBC419]"
+                        : item?.status?.toLowerCase() === "processing"
                         ? "bg-[#196BCB]"
-                        : item.status === "Completed"
-                        ? "bg-[#33CB19]"
+                        : item?.status?.toLowerCase() === "confirmed"
+                        ? "bg-green-600"
                         : "bg-[#CB2419]"
                     }`}
                   >
@@ -313,7 +316,6 @@ const AllBookings = () => {
                       <div className="max-w-28">
                         <p className="text-swGray600">
                           {dayjs(item?.created_date).format("h:mm a")}
-                          {/* {format(item?.created_date, "h:mm a")} */}
                         </p>
                         <p className="md:text-lg  font-medium">
                           {dayjs(item?.created_date).format("D MMM, YYYY")}
@@ -329,6 +331,28 @@ const AllBookings = () => {
           <div className="text-center">No bookings found</div>
         )}
       </div>
+      {/* Pagination Controls */}
+      {data?.links && (
+        <div className="flex justify-center items-center mt-6 gap-2">
+          <button
+            disabled={!data.links.prev}
+            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+            className="px-3 py-1 rounded border disabled:opacity-50"
+          >
+            Prev
+          </button>
+          <span>
+            Page {data.links.currentPage} of {data.links.totalPages}
+          </span>
+          <button
+            disabled={!data.links.next}
+            onClick={() => setCurrentPage((prev) => prev + 1)}
+            className="px-3 py-1 rounded border disabled:opacity-50"
+          >
+            Next
+          </button>
+        </div>
+      )}
     </main>
   );
 };

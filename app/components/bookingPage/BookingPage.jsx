@@ -393,10 +393,13 @@ const BookingPageInformation = () => {
         <div className="flex flex-col justify-between">
           <div>
             <p className="font-semibold text-lg">
-              {formatDateTime(departureDateTime, "h:mm a")}
+              {item?.depatureDate
+                ? formatDateTime(departureDateTime, "h:mm a")
+                : "Select Date/Time"}
             </p>
             <p className="text-sm">
-              {formatDateTime(departureDateTime, "ddd D, MMM")}
+              {item?.depatureDate &&
+                formatDateTime(departureDateTime, "ddd D, MMM")}
             </p>
           </div>
           {item?.returningDate && (

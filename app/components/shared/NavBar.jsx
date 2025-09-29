@@ -60,6 +60,9 @@ const NavBar = ({ Nav }) => {
             className={`flex gap-2 text-gray-700 px-4 ${
               pathname === link ? "font-medium" : "hover:font-medium"
             }`}
+            className={`flex gap-2 text-gray-700 px-4 ${
+              pathname === link ? "font-medium" : "hover:font-medium"
+            }`}
             aria-current="page"
           >
             {name}
@@ -163,7 +166,6 @@ const NavBar = ({ Nav }) => {
   }, []);
 
   if (!Nav) {
-    // If Nav is false, return null to prevent rendering the navigation bar
     return null;
   }
 
@@ -222,10 +224,10 @@ const NavBar = ({ Nav }) => {
                     >
                       <div className="w-full flex flex-col">
                         <Link
-                          href={"/user-dashboard?page=profile"}
+                          href={"/user-dashboard?page=book-a-jet"}
                           className="w-full hover:bg-yellow-50   rounded-md p-3 flex items-center gap-3"
                         >
-                          <SwUserIcon /> Profile
+                          <SwUserIcon /> Dashboard
                         </Link>
                         <div
                           className="w-full hover:bg-yellow-50 rounded-md p-3 cursor-pointer flex items-center gap-3"
