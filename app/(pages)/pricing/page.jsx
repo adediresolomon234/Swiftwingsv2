@@ -9,6 +9,7 @@ import Link from "next/link";
 export default function PricingPage() {
   const [activeTab, setActiveTab] = useState("yearly");
   const [showModal, setShowModal] = useState(false);
+  const [showCancelModal, setShowCancelModal] = useState(false);
 
   const pricing = {
     free: {
@@ -45,6 +46,7 @@ export default function PricingPage() {
       <NavAndFooter Nav={true}>
         <section className="py-32">
           <div className="mx-auto max-w-5xl px-6">
+            {/* ===== Page Header ===== */}
             <div className="mx-auto max-w-3xl space-y-6 text-center">
               <h2 className="text-2xl font-semibold lg:text-3xl">
                 Membership & Subscriptions
@@ -54,6 +56,8 @@ export default function PricingPage() {
                 free, or upgrade to Premium for the complete experience.
               </p>
             </div>
+
+            {/* ===== Tabs ===== */}
             <div className="tabs py-10">
               <div className="flex justify-center items-center bg-swPrimary500 rounded-full p-1.5 max-w-sm mx-auto">
                 <button
@@ -81,7 +85,10 @@ export default function PricingPage() {
                   Bill Yearly
                 </button>
               </div>
+
+              {/* ===== Pricing Cards ===== */}
               <div className="mt-20 grid gap-6 md:grid-cols-3">
+                {/* Info Card */}
                 <div
                   className="relative text-white rounded-lg shadow-lg p-6 max-w-sm h-full flex items-end"
                   style={{
@@ -103,6 +110,8 @@ export default function PricingPage() {
                     </p>
                   </div>
                 </div>
+
+                {/* Free Plan */}
                 <div className="flex flex-col p-6 max-w-sm text-start text-gray-900 bg-white rounded-lg border border-swPrimary500 shadow-lg h-full">
                   <div className="flex-1 flex flex-col justify-between">
                     <div className="space-y-4 overflow-auto">
@@ -149,13 +158,15 @@ export default function PricingPage() {
                     </div>
                   </div>
                 </div>
+
+                {/* Premium Plan */}
                 <div className="flex flex-col p-6 max-w-sm text-start text-gray-900 bg-white rounded-lg border border-swPrimary500 shadow-lg h-full">
                   <div className="flex-1 flex flex-col justify-between">
                     <div className="space-y-4 overflow-auto">
                       <div>
                         <h2 className="text-lg font-medium">Premium</h2>
                         <span className="my-3 block text-xl font-semibold">
-                          {pricing.premium[activeTab]}
+                          {planPrice}
                         </span>
                         <p className="text-xs text-gray-500">
                           The complete SwiftWing experience without limits
@@ -192,6 +203,8 @@ export default function PricingPage() {
                 </div>
               </div>
             </div>
+
+            {/* ===== Upgrade Modal ===== */}
             {showModal && (
               <div className="fixed inset-0 flex items-center justify-center z-50">
                 <div
@@ -255,13 +268,60 @@ export default function PricingPage() {
                 </div>
               </div>
             )}
-            <div className="mx-auto max-w-3xl space-y-6 text-center">
+
+            {/* ===== Cancel Modal ===== */}
+            {showCancelModal && (
+              <div className="fixed inset-0 flex items-center justify-center z-50">
+                <div
+                  className="absolute inset-0 bg-black bg-opacity-50"
+                  onClick={() => setShowCancelModal(false)}
+                />
+                <div className="relative bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl z-10">
+                  <button
+                    className="absolute top-4 right-4 flex items-center justify-center w-6 h-6 rounded-full border text-gray-900 "
+                    onClick={() => setShowCancelModal(false)}
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                  <div className="text-center space-y-4">
+                    <h2 className="text-xl font-semibold">
+                      Cancel Subscription
+                    </h2>
+                    <p className="text-sm text-gray-600">
+                      Are you sure you want to cancel your Premium subscription?
+                      You’ll lose access to all premium features immediately.
+                    </p>
+                    <div className="flex gap-3 justify-center mt-6">
+                      <button
+                        onClick={() => setShowCancelModal(false)}
+                        className="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium"
+                      >
+                        Keep Subscription
+                      </button>
+                      <button
+                        onClick={() => {
+                          console.log("Subscription cancelled!");
+                          setShowCancelModal(false);
+                        }}
+                        className="px-4 py-2 rounded-lg bg-swPrimary500 hover:bg-red-700 text-white font-medium"
+                      >
+                        Cancel Anyway
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+            <div className="mx-auto max-w-3xl space-y-6 text-center mt-12">
               <p className="text-base">
                 All members enjoy access to SwiftWingsJet. Premium unlocks the
                 full luxury experience. Billing powered by Stripe.{" "}
-                <a href="#" className="text-blue-500 underline ml-1">
+                <button
+                  onClick={() => setShowCancelModal(true)}
+                  className="text-blue-500 underline ml-1"
+                >
                   Cancel anytime.
-                </a>
+                </button>
               </p>
             </div>
           </div>

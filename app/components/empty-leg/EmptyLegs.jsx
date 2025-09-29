@@ -91,7 +91,6 @@ const EmptyLegsSlider = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-6">
-      {/* Header Section */}
       <div className="text-center mb-12">
         <h2 className="text-3xl md:text-4xl font-bold text-swPrimary700 mb-4">
           Available Empty Legs
@@ -101,8 +100,6 @@ const EmptyLegsSlider = () => {
         </p>
         <div className="w-24 h-1 bg-swPrimary500 mx-auto rounded-full"></div>
       </div>
-
-      {/* View All Link */}
       <div className="flex justify-center mb-8">
         {loading ? (
           <PuffLoader size={20} color="#5c0632" />
@@ -119,8 +116,6 @@ const EmptyLegsSlider = () => {
           </Link>
         )}
       </div>
-
-      {/* Empty Legs Grid */}
       <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {visibleLegs.map((leg, index) => (
           <div
