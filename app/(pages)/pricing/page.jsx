@@ -269,7 +269,6 @@ export default function PricingPage() {
               </div>
             )}
 
-            {/* ===== Cancel Modal ===== */}
             {showCancelModal && (
               <div className="fixed inset-0 flex items-center justify-center z-50">
                 <div

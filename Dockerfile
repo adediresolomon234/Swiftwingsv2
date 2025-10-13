@@ -1,21 +1,40 @@
-FROM node:20.18.0
+# Use official Node.js LTS as the base
+FROM node:20-alpine AS base
 
-WORKDIR /usr/src/app
+# Install dependencies only when needed
+FROM base AS deps
+WORKDIR /app
 
-COPY package*.json ./
+# Install only prod dependencies for smaller image
+COPY package.json package-lock.json* ./
+RUN npm ci --only=production
 
-RUN npm install
+# Rebuild the source code
+FROM base AS builder
+WORKDIR /app
 
+# Copy package files again for build deps
+COPY package.json package-lock.json* ./
+RUN npm ci
+
+# Copy source code
 COPY . .
 
-ARG NEXT_PUBLIC_API_URL
-ARG NEXT_PUBLIC_BASE_API_URL
-
-ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
-ENV NEXT_PUBLIC_BASE_API_URL=${NEXT_PUBLIC_BASE_API_URL}
-
+# Build Next.js app
 RUN npm run build
+
+# Production image
+FROM base AS runner
+WORKDIR /app
+
+ENV NODE_ENV=production
+
+# Copy only the built output and node_modules
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/public ./public
+COPY --from=deps /app/node_modules ./node_modules
+COPY package.json ./
 
 EXPOSE 3000
 
-CMD ["npm", "start"]
+CMD ["npm", "run", "start"]

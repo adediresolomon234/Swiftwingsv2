@@ -68,12 +68,16 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
   const { data: homeData } = useSelector((state) => state.aviPages);
+  const [error, setError] = useState(null);
+  const [isUpgrading, setIsUpgrading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [showFreeTrialPopup, setShowFreeTrialPopup] = useState(false);
 
   const sectionRef = useRef(null);
   const primaryColor = "#5c0632";
-  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
+    console.log("Setting showModal to true");
     setShowModal(true);
   }, []);
 
@@ -97,6 +101,11 @@ export default function Home() {
     }
   }, [aircrafts]);
 
+  useEffect(() => {
+    console.log("Setting loading to false");
+    setLoading(false);
+  }, []);
+
   const handleMouseEnter = (index) => {
     setHoveredIndex(index);
   };
@@ -110,18 +119,50 @@ export default function Home() {
   };
 
   const handleFreePlanClick = () => {
+    console.log("Free Plan clicked, opening free trial popup");
     setShowModal(false);
+    setShowFreeTrialPopup(true);
   };
 
-  const handlePremiumPlanClick = () => {
-    router.push("/payment-portal"); 
+  const handlePremiumPlanClick = async () => {
+    try {
+      console.log("Premium Plan clicked, initiating API call");
+      setError(null);
+      setIsUpgrading(true);
+      const response = await fetch('/api/create-checkout-session', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          plan: 'premium',
+        }),
+      });
+
+      const data = await response.json();
+      console.log("API response:", data);
+
+      if (data.success && data.data.url) {
+        console.log("Redirecting to Stripe URL:", data.data.url);
+        window.location.href = data.data.url;
+      } else {
+        throw new Error(data.message || 'Failed to initiate upgrade');
+      }
+    } catch (err) {
+      console.error('Error initiating premium upgrade:', err);
+      setError('Failed to initiate upgrade. Please try again later.');
+    } finally {
+      setIsUpgrading(false);
+    }
   };
 
-  useEffect(() => {
-    setLoading(false);
-  }, []);
+  const handleCloseFreeTrialPopup = () => {
+    console.log("Closing free trial popup");
+    setShowFreeTrialPopup(false);
+  };
 
   if (loading) {
+    console.log("Rendering Loading component");
     return <Loading />;
   }
 
@@ -138,8 +179,20 @@ export default function Home() {
         />
         <meta name="keywords" content={homePageKeywords} />
       </Head>
+      <noscript>
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[9999]">
+          <div className="bg-white rounded-2xl p-6 max-w-md w-full mx-4 text-center">
+            <h2 className="text-xl font-bold text-swPrimary500 mb-4">
+              JavaScript Required
+            </h2>
+            <p className="text-gray-700 mb-4">
+              Please enable JavaScript in your browser to use this application.
+            </p>
+          </div>
+        </div>
+      </noscript>
       <NavAndFooter Nav={true}>
-        {/* Hero Section */}
+
         <section className="relative w-full min-h-screen flex items-center justify-center">
           <div className="absolute inset-0 w-full h-full">
             {isMobile ? (
@@ -168,7 +221,6 @@ export default function Home() {
                 The World is Closer to You
               </h1>
 
-              {/* Stats Section */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 md:gap-8 justify-center text-center mb-8 max-w-4xl mx-auto">
                 <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20 hover:bg-white/20 transition-all duration-300">
                   <p className="font-bold text-2xl md:text-3xl mb-1">
@@ -205,19 +257,17 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Booking Engine */}
+            
             <div className="max-w-4xl mx-auto">
               <BookingEngine />
             </div>
           </div>
         </section>
 
-        {/* Empty Legs Section */}
         <section className="py-20 bg-white">
           <EmptyLegsSlider />
         </section>
 
-        {/* Why Choose SwiftWings Section */}
         <section className="py-20 bg-gradient-to-br from-slate-50 to-slate-100">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
@@ -312,7 +362,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Services Section */}
         <section className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
@@ -355,8 +404,6 @@ export default function Home() {
             </div>
           </div>
         </section>
-
-        {/* Fleet Showcase Section */}
         <section className="py-20 bg-gradient-to-br from-slate-50 to-slate-100">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
@@ -409,7 +456,6 @@ export default function Home() {
               )}
             </div>
 
-            {/* Fleet Grid */}
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mb-12">
               {fleet.map((item, index) => (
                 <div
@@ -422,7 +468,7 @@ export default function Home() {
                     href={`/fleet-specification/${item.id}`}
                     className="block bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-slate-200 overflow-hidden"
                   >
-                    {/* Aircraft Image */}
+
                     <div className="aspect-[4/3] relative overflow-hidden">
                       <Image
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
@@ -489,8 +535,6 @@ export default function Home() {
                           <p className="text-xs text-slate-500">Range</p>
                         </div>
                       </div>
-
-                      {/* View Details Button */}
                       <div className="flex items-center justify-between">
                         <span className="text-sm text-slate-500">
                           Click to view details
@@ -504,8 +548,6 @@ export default function Home() {
                 </div>
               ))}
             </div>
-
-            {/* Call to Action */}
             <div className="text-center">
               <div className="bg-white rounded-3xl p-8 shadow-lg border border-slate-200 max-w-2xl mx-auto text-center">
                 <h3 className="text-2xl font-bold text-slate-800 mb-4">
@@ -529,8 +571,6 @@ export default function Home() {
             </div>
           </div>
         </section>
-
-        {/* Membership Section */}
         <section className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
@@ -579,7 +619,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Clients Section */}
         <section className="py-20 bg-gradient-to-br from-slate-50 to-slate-100">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
@@ -625,14 +664,15 @@ export default function Home() {
 
         <Whatsapp />
       </NavAndFooter>
-
-      {/* Popup Modal */}
       {showModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 overflow-y-auto">
-          <div className="bg-white/50 backdrop-blur-sm rounded-2xl shadow-2xl max-w-4xl w-full mx-8 relative">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[1000] overflow-y-auto">
+          <div className="bg-white/50 backdrop-blur-sm rounded-2xl shadow-2xl max-w-4xl w-full mx-4 md:mx-8">
             <button
-              onClick={() => setShowModal(false)}
-              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 transition-colors"
+              onClick={() => {
+                console.log("Closing plan selection modal");
+                setShowModal(false);
+              }}
+              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 transition-colors z-[1001]"
             >
               <svg
                 className="w-6 h-6"
@@ -648,46 +688,57 @@ export default function Home() {
                 />
               </svg>
             </button>
-            <div className="bg-white mx-auto w-full p-8 sm:px-6 lg:px-8 rounded-2xl">
-              <div className="mb-12">
-                <h2 className="text-5xl text-center font-bold text-swPrimary500 mb-4">
-                  Choose your plan
+            <div className="bg-white mx-auto w-full p-4 sm:p-6 lg:p-8 rounded-2xl">
+              <div className="mb-8 sm:mb-12">
+                <h2 className="text-2xl sm:text-4xl text-center font-bold text-swPrimary500 mb-2 sm:mb-4">
+                  Choose Your Plan
                 </h2>
-                <p className="text-swPrimary500 text-center leading-6 mb-9">
+                <p className="text-swPrimary500 text-center leading-5 sm:leading-6 mb-4 sm:mb-9">
                   Free trial. No credit card required.
                 </p>
               </div>
-              <div className="space-y-8 lg:grid lg:grid-cols-2 sm:gap-6 xl:gap-8 lg:space-y-0 lg:items-center">
+              {error && (
+                <p className="text-red-500 text-center mb-4">{error}</p>
+              )}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-6 w-full max-w-4xl mx-auto">
                 <motion.div
                   whileHover={{ scale: 1.03 }}
                   transition={{ type: "spring", stiffness: 200 }}
                   initial={{ opacity: 0, x: -50 }}
                   animate={{ opacity: 1, x: 0 }}
-                  className="bg-gray-50 rounded-2xl shadow-lg border border-gray-200 p-6 flex flex-col transition-shadow max-w-sm"
+                  className="bg-gray-50 rounded-2xl shadow-lg border border-gray-200 p-6 flex flex-col justify-between h-full"
                   style={{ boxShadow: `0 0 20px ${primaryColor}30` }}
                 >
-                  <h3 className="text-xl font-bold">Free Plan</h3>
-                  <p className="text-gray-500 mt-1 text-sm">
-                    Experience private jet booking basics.
-                  </p>
-                  <p className="mt-4 text-3xl font-extrabold text-gray-900">
-                    $0<span className="text-base font-normal">/mo</span>
-                  </p>
-                  <ul className="mt-6 space-y-3 flex-1">
-                    {[
-                      "Basic booking access",
-                      "Up to 3 flights/month",
-                      "Email support",
-                    ].map((item, idx) => (
-                      <li key={idx} className="flex items-center text-sm">
-                        <Check className="w-4 h-4 mr-2 text-swPrimary500" />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
+                  <div>
+                    <h3 className="text-lg text-gray-700 sm:text-xl font-bold mb-2">
+                      Free Plan
+                    </h3>
+                    <p className="text-gray-700 text-xs sm:text-sm mb-4">
+                      Experience private jet booking basics.
+                    </p>
+                    <p className="text-2xl sm:text-3xl font-extrabold text-gray-500 mb-6">
+                      $0<span className="text-base font-normal">/mo</span>
+                    </p>
+                    <ul className="space-y-2 mb-6 flex-1 text-gray-700">
+                      {[
+                        "Basic booking access",
+                        "Up to 3 flights/month",
+                        "Email support",
+                      ].map((item, idx) => (
+                        <li
+                          key={idx}
+                          className="flex items-center text-gray-700 text-xs sm:text-sm"
+                        >
+                          <Check className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 text-gray-700" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                   <button
                     onClick={handleFreePlanClick}
-                    className="mt-6 bg-swPrimary500 text-white font-bold py-2 rounded-lg transition hover:bg-swPrimary600 text-sm"
+                    className="w-full bg-swPrimary500 text-white font-bold py-2 rounded-lg transition hover:bg-swPrimary600 text-xs sm:text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled={isUpgrading}
                   >
                     Get Started
                   </button>
@@ -697,39 +748,88 @@ export default function Home() {
                   transition={{ type: "spring", stiffness: 200 }}
                   initial={{ opacity: 0, x: 50 }}
                   animate={{ opacity: 1, x: 0 }}
-                  className="rounded-2xl shadow-lg p-6 flex flex-col text-white max-w-sm"
+                  className="rounded-2xl shadow-lg p-6 flex flex-col justify-between h-full"
                   style={{
                     background: `linear-gradient(135deg, ${primaryColor}, ${primaryColor}cc)`,
                     boxShadow: `0 0 20px ${primaryColor}50`,
                   }}
                 >
-                  <h3 className="text-xl font-bold">Premium Plan</h3>
-                  <p className="text-gray-100 mt-1 text-sm">
-                    Ultimate VIP travel experience.
-                  </p>
-                  <p className="mt-4 text-3xl font-extrabold">
-                    $999<span className="text-base font-normal">/mo</span>
-                  </p>
-                  <ul className="mt-6 space-y-3 flex-1">
-                    {[
-                      "Unlimited bookings",
-                      "Access to all empty legs",
-                      "24/7 concierge",
-                      "Luxury in-flight dining",
-                    ].map((item, idx) => (
-                      <li key={idx} className="flex items-center text-sm">
-                        <Check className="w-4 h-4 mr-2 text-white" />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
+                  <div>
+                    <h3 className="text-lg sm:text-xl font-bold mb-2 text-white">
+                      Premium Plan
+                    </h3>
+                    <p className="text-gray-100 text-xs sm:text-sm mb-4">
+                      Ultimate VIP travel experience.
+                    </p>
+                    <p className="text-2xl sm:text-3xl font-extrabold text-gray-100 mb-6">
+                      $999<span className="text-base font-normal">/mo</span>
+                    </p>
+                    <ul className="space-y-2 mb-6 flex-1">
+                      {[
+                        "Unlimited bookings",
+                        "Access to all empty legs",
+                        "24/7 concierge",
+                        "Luxury in-flight dining",
+                      ].map((item, idx) => (
+                        <li
+                          key={idx}
+                          className="flex items-center text-xs text-gray-100 sm:text-sm"
+                        >
+                          <Check className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 text-white" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                   <button
                     onClick={handlePremiumPlanClick}
-                    className="mt-6 bg-white text-black font-bold py-2 rounded-lg transition hover:bg-gray-100 text-sm"
+                    className="w-full bg-white text-black font-bold py-2 rounded-lg transition hover:bg-gray-100 text-xs sm:text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled={isUpgrading}
                   >
-                    Upgrade Now
+                    {isUpgrading ? 'Processing...' : 'Upgrade Now'}
                   </button>
                 </motion.div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showFreeTrialPopup && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[1000] overflow-y-auto">
+          <div className="bg-white/50 backdrop-blur-sm rounded-2xl shadow-2xl max-w-md w-full mx-4 md:mx-8">
+            <button
+              onClick={handleCloseFreeTrialPopup}
+              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 transition-colors z-[1001]"
+            >
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+            <div className="bg-white mx-auto w-full p-6 sm:p-8 rounded-2xl">
+              <div className="text-center">
+                <h2 className="text-xl sm:text-2xl font-bold text-swPrimary500 mb-4">
+                  Welcome to Your Free Trial!
+                </h2>
+                <p className="text-gray-700 text-sm sm:text-base mb-6">
+                  You are now on the Free Plan. Enjoy basic booking access with up to 3 flights per month and email support.
+                </p>
+                <button
+                  onClick={handleCloseFreeTrialPopup}
+                  className="w-full bg-swPrimary500 text-white font-bold py-2 rounded-lg transition hover:bg-swPrimary600 text-sm sm:text-base"
+                >
+                  Continue
+                </button>
               </div>
             </div>
           </div>

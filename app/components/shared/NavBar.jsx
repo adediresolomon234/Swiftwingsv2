@@ -60,9 +60,6 @@ const NavBar = ({ Nav }) => {
             className={`flex gap-2 text-gray-700 px-4 ${
               pathname === link ? "font-medium" : "hover:font-medium"
             }`}
-            className={`flex gap-2 text-gray-700 px-4 ${
-              pathname === link ? "font-medium" : "hover:font-medium"
-            }`}
             aria-current="page"
           >
             {name}

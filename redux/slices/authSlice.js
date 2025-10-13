@@ -10,7 +10,7 @@ export const signUpUser = createAsyncThunk(
       const response = await axios.post(`${API_URL}/user/add`, payload);
       return response.data;
     } catch (error) {
-      return error?.response?.data?.error;
+      return rejectWithValue(error?.response?.data?.error);
     }
   }
 );
@@ -25,7 +25,7 @@ export const verifyEmail = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      return error?.response?.data;
+      return rejectWithValue(error?.response?.data);
     }
   }
 );
@@ -40,14 +40,14 @@ export const resendVerification = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      return error?.response?.data;
+      return rejectWithValue(error?.response?.data);
     }
   }
 );
 
 export const resetPassword = createAsyncThunk(
   "auth/resetPassword",
-  async (payload) => {
+  async (payload, { rejectWithValue }) => {
     try {
       const response = await axios.post(
         `${API_URL}/user/reset-password`,
@@ -55,8 +55,7 @@ export const resetPassword = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      // console.log("errrrrr0r", error?.response?.data?.message);
-      return error?.response?.data;
+      return rejectWithValue(error?.response?.data);
     }
   }
 );
@@ -77,9 +76,7 @@ export const signInUser = createAsyncThunk(
       if (error.response.status === 401) {
         return rejectWithValue("The password you entered is incorrect.");
       }
-      // const message = error || "An error occurred during sign-in.";
-      // return rejectWithValue(message);
-      return error;
+      return rejectWithValue(error?.response?.data?.error || "An error occurred during sign-in.");
     }
   }
 );
@@ -110,10 +107,7 @@ export const createUserProfile = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      if (!error.response) {
-        throw error;
-      }
-      return rejectWithValue(error.response.data.message);
+      return rejectWithValue(error?.response?.data?.message);
     }
   }
 );
@@ -125,31 +119,53 @@ export const fetchAllUsers = createAsyncThunk(
       const response = await axios.get(`${API_URL}/user/all`);
       return response.data;
     } catch (error) {
-      if (!error.response) {
-        throw error;
-      }
-      return rejectWithValue(error.response.data.message);
+      return rejectWithValue(error?.response?.data?.message);
     }
   }
 );
 
 export const getSubscriptionData = createAsyncThunk(
-  "getSubscriptionData",
-  async (userId) => {
+  "auth/getSubscriptionData",
+  async (userId, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`${API_URL}/user/profile/${userId}`,
+      const response = await axios.get(`${API_URL}/user/profile/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${getUser().token}`,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error?.response?.data?.message ||
+          error?.response?.data?.error ||
+          "An error occurred."
+      );
+    }
+  }
+);
+
+export const startFreeTrial = createAsyncThunk(
+  "auth/startFreeTrial",
+  async (_, { getState, rejectWithValue }) => {
+    const { token, user } = getState().auth;
+    if (!token || !user) {
+      return rejectWithValue("User not authenticated.");
+    }
+    try {
+      const response = await axios.post(
+        `${API_URL}/user/start-free-trial`,
+        { userId: user.id },
         {
-          headers:{
-            Authorization: `Bearer ${getUser().token}`
-          }
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
       return response.data;
     } catch (error) {
-      const message =
+      return rejectWithValue(
         error?.response?.data?.message ||
-        error?.response?.data?.error ||
-        "An error occurred.";
+          error?.response?.data?.error ||
+          "Failed to start free trial."
+      );
     }
   }
 );
@@ -157,6 +173,7 @@ export const getSubscriptionData = createAsyncThunk(
 const initialState = {
   user: null,
   token: null,
+  subscription: null,
   users: [],
   loading: false,
   error: null,
@@ -167,71 +184,87 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     clearUserState: (state) => {
-      state.data = null;
-      state.loading = "idle";
+      state.user = null;
+      state.token = null;
+      state.subscription = null;
+      state.loading = false;
       state.error = null;
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(signUpUser.pending, (state) => {
-        state.loading = "pending";
+        state.loading = true;
         state.error = null;
       })
       .addCase(signUpUser.fulfilled, (state, action) => {
-        state.loading = "succeeded";
-        state.data = action.payload;
+        state.loading = false;
+        state.user = action.payload.user;
+        state.token = action.payload.token;
       })
       .addCase(signUpUser.rejected, (state, action) => {
-        state.loading = "failed";
+        state.loading = false;
         state.error = action.payload;
       })
       .addCase(signInUser.pending, (state) => {
-        state.loading = "pending";
+        state.loading = true;
         state.error = null;
       })
       .addCase(signInUser.fulfilled, (state, action) => {
-        state.loading = "succeeded";
-        state.data = action.payload;
+        state.loading = false;
+        state.user = action.payload.user;
+        state.token = action.payload.token;
       })
       .addCase(signInUser.rejected, (state, action) => {
-        state.loading = "failed";
+        state.loading = false;
         state.error = action.payload;
       })
       .addCase(createUserProfile.pending, (state) => {
-        state.loading = "pending";
+        state.loading = true;
         state.error = null;
       })
       .addCase(createUserProfile.fulfilled, (state, action) => {
-        state.loading = "succeeded";
-        state.data = action.payload;
+        state.loading = false;
+        state.user = { ...state.user, ...action.payload };
       })
       .addCase(createUserProfile.rejected, (state, action) => {
-        state.loading = "failed";
+        state.loading = false;
         state.error = action.payload;
       })
       .addCase(fetchAllUsers.pending, (state) => {
-        state.loading = "pending";
+        state.loading = true;
         state.error = null;
       })
       .addCase(fetchAllUsers.fulfilled, (state, action) => {
-        state.loading = "succeeded";
-        state.data = action.payload;
+        state.loading = false;
+        state.users = action.payload;
       })
       .addCase(fetchAllUsers.rejected, (state, action) => {
-        state.loading = "failed";
-        state.error = action.action.payload;
+        state.loading = false;
+        state.error = action.payload;
       })
       .addCase(getSubscriptionData.pending, (state) => {
-        state.loading = "pending";
+        state.loading = true;
         state.error = null;
       })
       .addCase(getSubscriptionData.fulfilled, (state, action) => {
-        state.loading = "succeeded";
-        state.data = action.payload;
+        state.loading = false;
+        state.subscription = action.payload.subscription;
       })
       .addCase(getSubscriptionData.rejected, (state, action) => {
-        state.loading = "failed";
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(startFreeTrial.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(startFreeTrial.fulfilled, (state, action) => {
+        state.loading = false;
+        state.subscription = action.payload.subscription || { plan: "free" };
+      })
+      .addCase(startFreeTrial.rejected, (state, action) => {
+        state.loading = false;
         state.error = action.payload;
       });
   },
