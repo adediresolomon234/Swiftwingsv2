@@ -31,6 +31,7 @@ const WhatsAppFloat = () => {
 
   return (
     <>
+      {/* WhatsApp Floating Button */}
       <div className="fixed bottom-5 right-5 z-50 flex flex-col items-center group">
         <div className="absolute right-16 mb-2 px-3 py-2 text-sm font-medium text-white bg-gray-600 rounded-lg shadow-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
           Chat with us!
@@ -53,7 +54,7 @@ const WhatsAppFloat = () => {
         </div>
       </div>
 
-     
+      {/* Modal Form */}
       {isOpen && (
         <div 
           className="fixed inset-0 bg-black bg-opacity-50 z-[60] flex items-center justify-center p-4"
@@ -103,10 +104,11 @@ const WhatsAppFloat = () => {
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#25D366]"
                 />
               </div>
+
               <Button
                 label="Proceed to WhatsApp"
-                bgColor={"bg-swPrimary500"}
-                textColor={"text-white"}
+                bgColor="bg-swPrimary500"
+                textColor="text-white"
                 onClick={redirectToWhatsApp}
                 className="w-full py-2 px-4 rounded-md transition-colors duration-300 hover:bg-[#128C7E]"
               />

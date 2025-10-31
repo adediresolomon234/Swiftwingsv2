@@ -75,7 +75,6 @@ const FleetSpec = () => {
     },
   ];
 
-  // technical specifications config
   const specifications = [
     { label: "Luggage Capacity", value: aircraftDetails?.feet },
     {
@@ -86,14 +85,14 @@ const FleetSpec = () => {
       label: "Interior Width",
       value: aircraftDetails?.features?.interior_width,
     },
-    { label: "Aircraft Type", value: "Helicopter" },
+    { label: "Aircraft Type", value: aircraftDetails?.aircraft_type },
     { label: "Aircraft Name", value: aircraftDetails?.name },
     {
       label: "Classification",
       value: aircraftDetails?.features?.classification,
     },
   ];
-
+  
   return (
     <main className="relative bg-gradient-to-br from-slate-50 to-slate-100 min-h-screen">
       <NavAndFooter Nav={true}>
