@@ -103,8 +103,6 @@ const ContactUs = () => {
             </div>
           </div>
         </div>
-
-        {/* Contact Information Section */}
         <section className="py-8">
           <div className="m-auto px-6 text-gray-600 md:px-12 xl:px-16">
             <div className="text-container">
@@ -185,8 +183,6 @@ const ContactUs = () => {
             </div>
           </div>
         </section> */}
-
-        {/* Social Media Section */}
         <section className="py-8">
           <div className="py-6">
             <div className="xl:container m-auto px-6 text-gray-600 md:px-12 xl:px-6">
@@ -273,8 +269,6 @@ const ContactUs = () => {
             </div>
           </div>
         </section>
-
-        {/* Inquiry Form Section */}
         <section className="py-2 w-full">
           <div className="px-6 text-gray-600 md:px-12 xl:px-16 w-full">
             <div className="text-container">
@@ -303,8 +297,6 @@ const ContactUs = () => {
                       startIcon={<SwMailIcon className="text-xl" />}
                     />
                   </div>
-
-                  {/* Dropdown for Services */}
                   <div className="w-full lg:w-1/2 mt-3">
                     <label
                       htmlFor="service"
@@ -338,8 +330,6 @@ const ContactUs = () => {
                       </option>
                     </select>
                   </div>
-
-                  {/* Message Field */}
                   <div className="mt-3 flex flex-col w-full lg:w-1/2">
                     <div className="w-full lg:mb-0">
                       <label
@@ -380,8 +370,6 @@ const ContactUs = () => {
             </div>
           </div>
         </section>
-
-        {/* Footer Hero Section */}
         <section className="mt-32 lg:py-20 mb-0 lg:-mb-20">
           <div className="xl:container m-auto px-6 text-gray-600 md:px-12 xl:px-16">
             <FooterHero />
@@ -389,8 +377,6 @@ const ContactUs = () => {
         </section>
         <Whatsapp />
       </NavAndFooter>
-
-      {/* Success and Failure Modals */}
       <SuccessModal
         open={success}
         onClose={setSuccess}

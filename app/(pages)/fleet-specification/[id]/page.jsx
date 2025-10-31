@@ -54,8 +54,6 @@ const FleetSpec = () => {
   if (loading) return <Loading />;
   if (!aircraftDetails)
     return <div className="p-10 text-center">No aircraft found</div>;
-
-  // quick stats config
   const stats = [
     {
       icon: <SWGlobeIcon />,
@@ -96,7 +94,6 @@ const FleetSpec = () => {
   return (
     <main className="relative bg-gradient-to-br from-slate-50 to-slate-100 min-h-screen">
       <NavAndFooter Nav={true}>
-        {/* Floating Book Button */}
         <div className="fixed bottom-8 right-8 z-50">
           <button
             onClick={handleQuickBooking}
@@ -109,8 +106,6 @@ const FleetSpec = () => {
             </div>
           </button>
         </div>
-
-        {/* Hero Section */}
         <section className="relative w-full min-h-screen flex items-center justify-center overflow-hidden">
           <div className="absolute inset-0">
             <Image
@@ -137,9 +132,7 @@ const FleetSpec = () => {
             </h1>
             <p className="text-xl md:text-lg text-gray-200 max-w-3xl mx-auto leading-relaxed">
               {aircraftDetails?.features?.classification}
-            </p>
-
-            {/* Quick Stats */}
+            </p>    
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto mt-12">
               {stats.map((stat, idx) => (
                 <div
@@ -158,8 +151,6 @@ const FleetSpec = () => {
             </div>
           </div>
         </section>
-
-        {/* Overview */}
         <section className="py-20 bg-white">
           <div className="max-w-6xl mx-auto px-6 text-center">
             <h2 className="text-4xl md:text-5xl font-medium text-swPrimary700 mb-6">
@@ -173,8 +164,6 @@ const FleetSpec = () => {
             </div>
           </div>
         </section>
-
-        {/* Specifications */}
         <section className="py-20 bg-gradient-to-br from-slate-50 to-slate-100">
           <div className="max-w-6xl mx-auto px-6 text-center">
             <h2 className="text-4xl md:text-5xl font-medium text-swPrimary700 mb-6">
@@ -195,8 +184,6 @@ const FleetSpec = () => {
             </div>
           </div>
         </section>
-
-        {/* Features */}
         {Array.isArray(aircraftDetails?.features?.list) &&
           aircraftDetails.features.list.length > 0 && (
             <section className="py-20 bg-white">
@@ -223,8 +210,6 @@ const FleetSpec = () => {
               </div>
             </section>
           )}
-
-        {/* Gallery */}
         <section className="py-20 bg-gradient-to-br from-slate-50 to-slate-100">
           <div className="max-w-7xl mx-auto px-6 text-center">
             <h2 className="text-4xl md:text-5xl font-medium text-swPrimary700 mb-6">
@@ -240,8 +225,6 @@ const FleetSpec = () => {
             </div>
           </div>
         </section>
-
-        {/* Footer Hero */}
         <section className="py-16 bg-slate-50">
           <div className="xl:container m-auto px-6 text-gray-600 md:px-12 xl:px-16">
             <FooterHero />
