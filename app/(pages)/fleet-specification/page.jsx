@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Loading from "../../components/Loading";
 
-const FleetSpec = () => {
+const FleetSpecification = () => {
   const router = useRouter();
   const id = router.query?.id;
   const [loading, setLoading] = useState(true);
@@ -210,4 +210,4 @@ const FleetSpec = () => {
   );
 };
 
-export default FleetSpec;
+export default FleetSpecification;

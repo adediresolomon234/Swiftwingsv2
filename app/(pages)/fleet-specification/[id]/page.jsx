@@ -18,7 +18,7 @@ import {
   SWTLocationIcon,
 } from "../../../components/svgs";
 
-const FleetSpec = () => {
+const FleetSpecid = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -252,4 +252,4 @@ const FleetSpec = () => {
   );
 };
 
-export default FleetSpec;
+export default FleetSpecid;
