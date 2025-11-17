@@ -288,14 +288,31 @@ const BookingPageInformation = () => {
             {/* Checkbox */}
             <input
               type="checkbox"
-              checked={
-                bookingDetails?.additional_quote?.some(
+              checked={bookingDetails?.additional_quote?.some(
+                (aircraft) => String(aircraft.id) === String(item.id)
+              ) || false}
+              disabled={
+                // Disable if the limit is reached and this item is NOT selected
+                bookingDetails?.additional_quote?.length >= 1 &&
+                !bookingDetails?.additional_quote?.some(
                   (aircraft) => String(aircraft.id) === String(item.id)
-                ) || false
+                )
               }
-              onChange={(e) => handleAircraftSelect(e, item, index)}
+              onChange={(e) => {
+                const isCurrentlySelected = bookingDetails?.additional_quote?.some(
+                  (aircraft) => String(aircraft.id) === String(item.id)
+                );
+
+                if (!isCurrentlySelected && bookingDetails?.additional_quote?.length >= 1) {
+                  toast.error("You can only select up to 1 aircraft");
+                  return;
+                }
+
+                handleAircraftSelect(e, item, index);
+              }}
               className="h-4 w-4 accent-swPrimary500 rounded border border-slate-300 hover:border-swPrimary500 transition-colors duration-200"
             />
+
 
             {/* Aircraft Info */}
             <div className="flex-1 min-w-0">
@@ -515,9 +532,8 @@ const BookingPageInformation = () => {
     <>
       <main>
         <div
-          className={`bg-swLightBgGray z-10 ${
-            pathname !== "/booking" ? "px-4" : ""
-          }`}
+          className={`bg-swLightBgGray z-10 ${pathname !== "/booking" ? "px-4" : ""
+            }`}
         >
           <div className="m-5 mx-auto max-w-[90rem] z-10">
             <BookingEngine setBookingDetails={setBookingDetails} />
